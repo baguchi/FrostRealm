@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "frostrealm:campfire_melted_fruit"
+    ]
+  },
+  "criteria": {
+    "has_frostrealm:frozen_fruit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "frostrealm:frozen_fruit"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "frostrealm:campfire_melted_fruit"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_frostrealm:frozen_fruit",
+      "has_the_recipe"
+    ]
+  ]
+}

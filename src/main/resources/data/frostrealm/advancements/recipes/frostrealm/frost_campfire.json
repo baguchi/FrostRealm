@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "frostrealm:frost_campfire"
+    ]
+  },
+  "criteria": {
+    "has_frost_crystal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "frostrealm:frost_crystal"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "frostrealm:frost_campfire"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_frost_crystal",
+      "has_the_recipe"
+    ]
+  ]
+}

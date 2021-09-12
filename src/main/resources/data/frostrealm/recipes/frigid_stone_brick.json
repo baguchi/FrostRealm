@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MM",
+    "MM"
+  ],
+  "key": {
+    "M": {
+      "item": "frostrealm:frigid_stone"
+    }
+  },
+  "result": {
+    "item": "frostrealm:frigid_stone_brick",
+    "count": 4
+  }
+}

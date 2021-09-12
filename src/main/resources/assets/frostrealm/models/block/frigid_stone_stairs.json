@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "side": "frostrealm:block/frigid_stone",
+    "bottom": "frostrealm:block/frigid_stone",
+    "top": "frostrealm:block/frigid_stone"
+  }
+}

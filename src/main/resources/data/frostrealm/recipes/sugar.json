@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "frostrealm:sugarbeet"
+    }
+  ],
+  "result": {
+    "item": "minecraft:sugar",
+    "count": 4
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "frostrealm:block/sugarbeet_stage0"
+    },
+    "age=1": {
+      "model": "frostrealm:block/sugarbeet_stage1"
+    },
+    "age=2": {
+      "model": "frostrealm:block/sugarbeet_stage2"
+    },
+    "age=3": {
+      "model": "frostrealm:block/sugarbeet_stage3"
+    }
+  }
+}

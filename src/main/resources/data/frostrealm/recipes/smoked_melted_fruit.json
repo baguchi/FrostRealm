@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "frostrealm:frozen_fruit"
+  },
+  "result": "frostrealm:melted_fruit",
+  "experience": 0.1,
+  "cookingtime": 100
+}

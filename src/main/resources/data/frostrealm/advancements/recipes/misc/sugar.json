@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "frostrealm:sugar"
+    ]
+  },
+  "criteria": {
+    "has_sugarbeet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "frostrealm:sugarbeet"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "frostrealm:sugar"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sugarbeet",
+      "has_the_recipe"
+    ]
+  ]
+}

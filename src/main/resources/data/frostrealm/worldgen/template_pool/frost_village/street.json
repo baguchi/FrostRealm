@@ -1,0 +1,42 @@
+{
+  "name": "frostrealm:frost_village/street",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 5,
+      "element": {
+        "location": "frostrealm:frost_village/road_01",
+        "processors": "frostrealm:street",
+        "projection": "terrain_matching",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "frostrealm:frost_village/road_02",
+        "processors": "frostrealm:street",
+        "projection": "terrain_matching",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "frostrealm:frost_village/road_03",
+        "processors": "frostrealm:street",
+        "projection": "terrain_matching",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "frostrealm:frost_village/corner_01",
+        "processors": "frostrealm:street",
+        "projection": "terrain_matching",
+        "element_type": "minecraft:legacy_single_pool_element"
+      }
+    }
+  ]
+}

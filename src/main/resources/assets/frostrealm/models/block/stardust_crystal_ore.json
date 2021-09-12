@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "frostrealm:block/stardust_crystal_ore"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "frostrealm:block/sugarbeet_stage1"
+  }
+}

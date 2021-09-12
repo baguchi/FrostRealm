@@ -1,0 +1,50 @@
+{
+  "music.frost_moon": {
+    "sounds": [
+      {
+        "name": "frostrealm:music/frost_moon",
+        "stream": true
+      }
+    ]
+  },
+  "music.calm_night": {
+    "sounds": [
+      {
+        "name": "frostrealm:music/calm_night",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.blizzard": {
+    "sounds": [
+      {
+        "name": "frostrealm:ambient/blizzard"
+      }
+    ],
+    "subtitle": "subtitles.ambient.blizzard"
+  },
+  "entity.gokkur.idle": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/gokkur/gokkur_idle"
+      }
+    ],
+    "subtitle": "subtitles.entity.gokkur.idle"
+  },
+  "entity.gokkur.hurt": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/gokkur/gokkur_hurt"
+      }
+    ],
+    "subtitle": "subtitles.entity.gokkur.hurt"
+  },
+  "entity.gokkur.death": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/gokkur/gokkur_death"
+      }
+    ],
+    "subtitle": "subtitles.entity.gokkur.death"
+  }
+}
