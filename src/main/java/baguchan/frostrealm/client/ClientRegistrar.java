@@ -20,6 +20,8 @@ public class ClientRegistrar {
 	}
 
 	public static void renderBlockLayer() {
+		setRenderLayer(FrostBlocks.FROST_PORTAL.get(), RenderType.translucent());
+
 		setRenderLayer(FrostBlocks.FROZEN_GRASS_BLOCK.get(), RenderType.cutoutMipped());
 
 		setRenderLayer(FrostBlocks.FROSTROOT_LEAVES.get(), RenderType.cutoutMipped());

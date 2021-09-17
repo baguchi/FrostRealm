@@ -11,12 +11,15 @@ import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderConfigur
 public class FrostSurfaceBuilders {
 	public static final SurfaceBuilderBaseConfiguration CONFIG_GRASS = new SurfaceBuilderBaseConfiguration(FrostBlocks.FROZEN_GRASS_BLOCK.get().defaultBlockState(), FrostBlocks.FROZEN_DIRT.get().defaultBlockState(), FrostBlocks.FROZEN_DIRT.get().defaultBlockState());
 	public static final SurfaceBuilderBaseConfiguration CONFIG_STONE = new SurfaceBuilderBaseConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState(), FrostBlocks.FRIGID_STONE.get().defaultBlockState(), FrostBlocks.FRIGID_STONE.get().defaultBlockState());
-	public static final SurfaceBuilderBaseConfiguration CONFIG_ICE = new SurfaceBuilderBaseConfiguration(Blocks.BLUE_ICE.defaultBlockState(), FrostBlocks.FRIGID_STONE.get().defaultBlockState(), FrostBlocks.FRIGID_STONE.get().defaultBlockState());
+	public static final SurfaceBuilderBaseConfiguration CONFIG_ICE = new SurfaceBuilderBaseConfiguration(Blocks.BLUE_ICE.defaultBlockState(), Blocks.PACKED_ICE.defaultBlockState(), FrostBlocks.FRIGID_STONE.get().defaultBlockState());
+	public static final SurfaceBuilderBaseConfiguration CONFIG_SNOW = new SurfaceBuilderBaseConfiguration(Blocks.SNOW_BLOCK.defaultBlockState(), Blocks.SNOW_BLOCK.defaultBlockState(), FrostBlocks.FROZEN_DIRT.get().defaultBlockState());
 
 
 	public static final ConfiguredSurfaceBuilder<SurfaceBuilderBaseConfiguration> GRASS = register(FrostRealm.MODID + ":frozen_grass", SurfaceBuilder.DEFAULT.configured(CONFIG_GRASS));
 	public static final ConfiguredSurfaceBuilder<SurfaceBuilderBaseConfiguration> FRIGID_STONE = register(FrostRealm.MODID + ":frigid_stone", SurfaceBuilder.DEFAULT.configured(CONFIG_STONE));
 	public static final ConfiguredSurfaceBuilder<SurfaceBuilderBaseConfiguration> ICE = register(FrostRealm.MODID + ":ice", SurfaceBuilder.DEFAULT.configured(CONFIG_ICE));
+	public static final ConfiguredSurfaceBuilder<SurfaceBuilderBaseConfiguration> SNOW = register(FrostRealm.MODID + ":snow", SurfaceBuilder.DEFAULT.configured(CONFIG_SNOW));
+
 
 	private static <SC extends SurfaceBuilderConfiguration> ConfiguredSurfaceBuilder<SC> register(String p_127301_, ConfiguredSurfaceBuilder<SC> p_127302_) {
 		return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, p_127301_, p_127302_);

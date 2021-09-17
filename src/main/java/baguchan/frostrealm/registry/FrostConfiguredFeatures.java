@@ -5,8 +5,9 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.Features;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -22,16 +23,13 @@ import net.minecraft.world.level.levelgen.placement.FrequencyWithExtraChanceDeco
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 
-import java.util.Locale;
 import java.util.OptionalInt;
 
 public class FrostConfiguredFeatures {
 	public static final RuleTest FRIGID_ORE_REPLACEABLES = new BlockMatchTest(FrostBlocks.FRIGID_STONE.get());
 
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_FROST_CRYSTAL_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.FROST_CRYSTAL_ORE.get().defaultBlockState()));
-
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_GLIMMERROCK_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.GLIMMERROCK_ORE.get().defaultBlockState()));
-
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_STARDUST_CRYSRTAL_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.STARDUST_CRYSTAL_ORE.get().defaultBlockState()));
 
 
@@ -44,6 +42,8 @@ public class FrostConfiguredFeatures {
 
 	public static final ConfiguredFeature<?, ?> FROSTROOT_FOREST = register(prefix("frostroot_forest_vegitation"), Feature.RANDOM_SELECTOR.configured(new RandomFeatureConfiguration(ImmutableList.of(FANCY_FROSTROOT.weighted(0.1F)), FROSTROOT)).decorated(Features.Decorators.HEIGHTMAP_WITH_TREE_THRESHOLD_SQUARED).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(10, 0.1F, 1))));
 	public static final ConfiguredFeature<?, ?> FROSTROOT_PLAIN = register(prefix("frostroot_plain_vegitation"), Feature.RANDOM_SELECTOR.configured(new RandomFeatureConfiguration(ImmutableList.of(FANCY_FROSTROOT.weighted(0.33333334F)), FROSTROOT)).decorated(Features.Decorators.HEIGHTMAP_WITH_TREE_THRESHOLD_SQUARED).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, 0.05F, 1))));
+
+	public static final ConfiguredFeature<?, ?> POWDER_SNOW = register(prefix("powder_snow"), (Feature.DELTA_FEATURE.configured(new DeltaFeatureConfiguration(Blocks.POWDER_SNOW.defaultBlockState(), Blocks.SNOW_BLOCK.defaultBlockState(), UniformInt.of(3, 7), UniformInt.of(0, 2))).decorated(FeatureDecorator.COUNT_MULTILAYER.configured(new CountConfiguration(15)))));
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;

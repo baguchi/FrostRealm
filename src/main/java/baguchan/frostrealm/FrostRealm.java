@@ -1,6 +1,7 @@
 package baguchan.frostrealm;
 
 
+import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.world.FrostBiomeSource;
@@ -9,6 +10,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,6 +34,9 @@ public class FrostRealm {
 
 	public static final String NETWORK_PROTOCOL = "2";
 
+	@CapabilityInject(FrostLivingCapability.class)
+	public static final Capability<FrostLivingCapability> FROST_LIVING_CAPABILITY = null;
+
 	public FrostRealm() {
 		IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
 		FrostBlocks.BLOCKS.register(modbus);
@@ -48,6 +55,7 @@ public class FrostRealm {
 	}
 
 	private void setup(FMLCommonSetupEvent event) {
+		CapabilityManager.INSTANCE.register(FrostLivingCapability.class);
 		event.enqueueWork(() -> {
 			FrostCarvers.registerConfiguredCarvers();
 			FrostConfiguredFeatures.init();

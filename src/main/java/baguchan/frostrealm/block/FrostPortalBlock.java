@@ -1,5 +1,6 @@
 package baguchan.frostrealm.block;
 
+import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.world.FrostDimensions;
 import baguchan.frostrealm.world.FrostLevelTeleporter;
@@ -69,15 +70,14 @@ public class FrostPortalBlock extends Block {
 	public void entityInside(BlockState p_196262_1_, Level p_196262_2_, BlockPos p_196262_3_, Entity p_196262_4_) {
 		super.entityInside(p_196262_1_, p_196262_2_, p_196262_3_, p_196262_4_);
 
-		/*p_196262_4_.getCapability(TofuCraftReload.TOFU_LIVING_CAPABILITY).ifPresent(handler -> {
+		p_196262_4_.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(handler -> {
 			handler.setInPortal(true);
 			int waitTime = handler.getPortalTimer();
 			if (waitTime >= 80) {
 				attemptSendPlayer(p_196262_4_, p_196262_2_);
 				handler.setPortalTimer(0);
 			}
-		});*/
-
+		});
 	}
 
 	private static ResourceKey<Level> getDestination(Entity entity) {
