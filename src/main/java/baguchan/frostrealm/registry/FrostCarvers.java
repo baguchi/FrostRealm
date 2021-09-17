@@ -17,7 +17,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class FrostCarvers {
-	public static final DeferredRegister<WorldCarver<?>> CARVERS = DeferredRegister.create(ForgeRegistries.WORLD_CARVERS, "frostrealm");
+	public static final DeferredRegister<WorldCarver<?>> CARVERS = DeferredRegister.create(ForgeRegistries.WORLD_CARVERS, FrostRealm.MODID);
 
 	public static final RegistryObject<WorldCarver<CaveCarverConfiguration>> FROSTREALM_CAVE = CARVERS.register("frostrealm_cave", () -> new FRCaveWorldCarver(CaveCarverConfiguration.CODEC));
 

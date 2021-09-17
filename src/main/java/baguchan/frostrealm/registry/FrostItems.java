@@ -1,10 +1,10 @@
 package baguchan.frostrealm.registry;
 
+import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.item.FrostCatalystItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;
@@ -13,7 +13,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class FrostItems {
-	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "frostrealm");
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, FrostRealm.MODID);
 
 	public static final RegistryObject<Item> FROST_CRYSTAL = ITEMS.register("frost_crystal", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> GLIMMERROCK = ITEMS.register("glimmerrock", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
@@ -32,7 +32,7 @@ public class FrostItems {
 	public static void register(RegistryEvent.Register<Item> registry, Item item, String id) {
 		if (item instanceof BlockItem)
 			Item.BY_BLOCK.put(((BlockItem) item).getBlock(), item);
-		item.setRegistryName(new ResourceLocation("frostrealm", id));
+		item.setRegistryName(new ResourceLocation(FrostRealm.MODID, id));
 		registry.getRegistry().register(item);
 	}
 
