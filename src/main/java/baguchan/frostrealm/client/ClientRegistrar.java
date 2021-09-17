@@ -24,6 +24,8 @@ public class ClientRegistrar {
 
 		setRenderLayer(FrostBlocks.FROZEN_GRASS_BLOCK.get(), RenderType.cutoutMipped());
 
+		setRenderLayer(FrostBlocks.POINTED_ICE.get(), RenderType.cutout());
+
 		setRenderLayer(FrostBlocks.FROSTROOT_LEAVES.get(), RenderType.cutoutMipped());
 		setRenderLayer(FrostBlocks.FROSTROOT_SAPLING.get(), RenderType.cutout());
 

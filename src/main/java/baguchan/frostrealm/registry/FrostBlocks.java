@@ -1,10 +1,7 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.block.FrostGrassBlock;
-import baguchan.frostrealm.block.FrostPortalBlock;
-import baguchan.frostrealm.block.FrostTorchBlock;
-import baguchan.frostrealm.block.WallFrostTorchBlock;
+import baguchan.frostrealm.block.*;
 import baguchan.frostrealm.world.tree.FrostrootTree;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -28,6 +25,8 @@ public class FrostBlocks {
 
 	public static final RegistryObject<Block> FROZEN_DIRT = BLOCKS.register("frozen_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
 	public static final RegistryObject<Block> FROZEN_GRASS_BLOCK = BLOCKS.register("frozen_grass_block", () -> new FrostGrassBlock(BlockBehaviour.Properties.of(Material.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)));
+	public static final RegistryObject<Block> POINTED_ICE = BLOCKS.register("pointed_ice", () -> new PointedIceBlock(BlockBehaviour.Properties.of(Material.ICE).friction(0.98F).randomTicks().strength(0.5F).dynamicShape().sound(SoundType.GLASS)));
+
 
 	public static final RegistryObject<Block> FRIGID_STONE = BLOCKS.register("frigid_stone", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
 	public static final RegistryObject<SlabBlock> FRIGID_STONE_SLAB = BLOCKS.register("frigid_stone_slab", () -> new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
@@ -62,6 +61,7 @@ public class FrostBlocks {
 	public static void registerItemBlocks(RegistryEvent.Register<Item> registry) {
 		FrostItems.register(registry, new BlockItem(FROZEN_DIRT.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FROZEN_GRASS_BLOCK.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(POINTED_ICE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE_SLAB.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE_STAIRS.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
@@ -69,6 +69,7 @@ public class FrostBlocks {
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE_BRICK_SLAB.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE_BRICK_STAIRS.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE_SMOOTH_BRICK.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
 		FrostItems.register(registry, new BlockItem(FROSTROOT_LOG.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FROSTROOT_LEAVES.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FROSTROOT_SAPLING.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
@@ -77,6 +78,7 @@ public class FrostBlocks {
 		FrostItems.register(registry, new BlockItem(FROSTROOT_PLANKS_STAIRS.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FROSTROOT_FENCE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FROSTROOT_FENCE_GATE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
 		FrostItems.register(registry, new BlockItem(FROST_CRYSTAL_ORE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(GLIMMERROCK_ORE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(STARDUST_CRYSTAL_ORE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
