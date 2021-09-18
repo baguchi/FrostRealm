@@ -1,6 +1,6 @@
 {
-  "depth": 1.75,
-  "scale": 0.3,
+  "depth": 2.5,
+  "scale": 0.6,
   "precipitation": "snow",
   "temperature_modifier": "frozen",
   "temperature": -1.0,
@@ -23,7 +23,8 @@
   "surface_builder": "frostrealm:ice",
   "carvers": {
     "air": [
-      "frostrealm:frostrealm_cave"
+      "frostrealm:frostrealm_cave",
+      "frostrealm:frostrealm_canyon"
     ],
     "liquid": []
   },
@@ -31,17 +32,20 @@
     [],
     [
     ],
-    [],
+    [
+      "frostrealm:large_ice"
+    ],
     [
     ],
     [
-      "frostrealm:powder_snow"
     ],
     [
       "frostrealm:frost_crystal_ore",
       "frostrealm:glimmerrock_ore"
     ],
-    [],
+    [
+      "frostrealm:small_ice"
+    ],
     [
     ],
     [

@@ -23,7 +23,8 @@
   "surface_builder": "frostrealm:frigid_stone",
   "carvers": {
     "air": [
-      "frostrealm:frostrealm_cave"
+      "frostrealm:frostrealm_cave",
+      "frostrealm:frostrealm_canyon"
     ],
     "liquid": []
   },

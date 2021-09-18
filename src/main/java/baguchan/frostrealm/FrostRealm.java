@@ -42,7 +42,7 @@ public class FrostRealm {
 		FrostBlocks.BLOCKS.register(modbus);
 		FrostItems.ITEMS.register(modbus);
 		FrostCarvers.CARVERS.register(modbus);
-
+		FrostFeatures.FEATURES.register(modbus);
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::lateSetup);
