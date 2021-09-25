@@ -60,12 +60,13 @@ public class FrostConfiguredFeatures {
 
 	public static final ConfiguredFeature<?, ?> FROSTROOT_CAVE = register(prefix("frostroot_cave_vegitation"), Feature.RANDOM_SELECTOR.configured(new RandomFeatureConfiguration(ImmutableList.of(FANCY_FROSTROOT.weighted(0.1F)), FROSTROOT)).decorated(FeatureDecorator.CAVE_SURFACE.configured(new CaveDecoratorConfiguration(CaveSurface.FLOOR, 12))).range(Features.Decorators.RANGE_BOTTOM_TO_60).squared().count(5));
 
-	public static final ConfiguredFeature<SimpleBlockConfiguration, ?> TUNDRA_VEGETATION = register(prefix("tundra_vegetation"), Feature.SIMPLE_BLOCK.configured(new SimpleBlockConfiguration(new WeightedStateProvider(weightedBlockStateBuilder().add(Blocks.GRASS.defaultBlockState(), 50).add(Blocks.TALL_GRASS.defaultBlockState(), 10)))));
+	public static final ConfiguredFeature<SimpleBlockConfiguration, ?> TUNDRA_VEGETATION = register(prefix("tundra_vegetation"), Feature.SIMPLE_BLOCK.configured(new SimpleBlockConfiguration(new WeightedStateProvider(weightedBlockStateBuilder().add(Blocks.GRASS.defaultBlockState(), 50).add(Blocks.TALL_GRASS.defaultBlockState(), 10).add(FrostBlocks.VIGOROSHROOM.get().defaultBlockState(), 5)))));
 	public static final ConfiguredFeature<VegetationPatchConfiguration, ?> TUNDRA_PATCH = register(prefix("tundra_patch"), Feature.VEGETATION_PATCH.configured(new VegetationPatchConfiguration(FrostTags.Blocks.TUNDRA_REPLACEABLE.getName(), new SimpleStateProvider(FrostBlocks.FROZEN_GRASS_BLOCK.get().defaultBlockState()), () -> {
 		return TUNDRA_VEGETATION;
 	}, CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F)));
 
 	public static final ConfiguredFeature<?, ?> TUNDRA_CAVES_VEGETATION = register(prefix("tundra_caves_vegetation"), TUNDRA_PATCH.decorated(FeatureDecorator.CAVE_SURFACE.configured(new CaveDecoratorConfiguration(CaveSurface.FLOOR, 12))).range(Features.Decorators.RANGE_BOTTOM_TO_60).squared().count(40));
+
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;

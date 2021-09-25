@@ -45,6 +45,11 @@ public class FrostBlocks {
 	public static final RegistryObject<FenceBlock> FROSTROOT_FENCE = BLOCKS.register("frostroot_fence", () -> new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
 	public static final RegistryObject<FenceGateBlock> FROSTROOT_FENCE_GATE = BLOCKS.register("frostroot_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
 
+	public static final RegistryObject<Block> VIGOROSHROOM = BLOCKS.register("vigoroshroom", () -> new VigoroMushroomBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().lightLevel(state -> {
+		return 10;
+	}).sound(SoundType.GRASS)));
+
+
 	public static final RegistryObject<Block> FROST_CRYSTAL_ORE = BLOCKS.register("frost_crystal_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
 	public static final RegistryObject<Block> GLIMMERROCK_ORE = BLOCKS.register("glimmerrock_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().lightLevel((state) -> {
 		return 10;
@@ -78,6 +83,8 @@ public class FrostBlocks {
 		FrostItems.register(registry, new BlockItem(FROSTROOT_PLANKS_STAIRS.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FROSTROOT_FENCE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FROSTROOT_FENCE_GATE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
+		FrostItems.register(registry, new BlockItem(VIGOROSHROOM.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 		FrostItems.register(registry, new BlockItem(FROST_CRYSTAL_ORE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(GLIMMERROCK_ORE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
