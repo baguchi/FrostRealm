@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "frostrealm:block/frost_grass"
+    "layer0": "frostrealm:block/cold_grass"
   }
 }

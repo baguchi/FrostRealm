@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "frostrealm:block/frost_grass"
+    "cross": "frostrealm:block/cold_tall_grass_top"
   }
 }

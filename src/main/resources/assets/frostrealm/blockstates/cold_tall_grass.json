@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=upper": {
+      "model": "frostrealm:block/cold_tall_grass_top"
+    },
+    "half=lower": {
+      "model": "frostrealm:block/cold_tall_grass_bottom"
+    }
+  }
+}

@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.blockplacers.SimpleBlockPlacer;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
@@ -67,6 +68,9 @@ public class FrostConfiguredFeatures {
 
 	public static final ConfiguredFeature<?, ?> TUNDRA_CAVES_VEGETATION = register(prefix("tundra_caves_vegetation"), TUNDRA_PATCH.decorated(FeatureDecorator.CAVE_SURFACE.configured(new CaveDecoratorConfiguration(CaveSurface.FLOOR, 12))).range(Features.Decorators.RANGE_BOTTOM_TO_60).squared().count(40));
 
+	public static final RandomPatchConfiguration DEFAULT_COLD_GRASS_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(FrostBlocks.COLD_GRASS.get().defaultBlockState()), SimpleBlockPlacer.INSTANCE)).tries(32).build();
+
+	public static final ConfiguredFeature<?, ?> PATCH_GRASS_PLAIN = register(prefix("patch_grass_plain"), Feature.RANDOM_PATCH.configured(DEFAULT_COLD_GRASS_CONFIG).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE).decorated(FeatureDecorator.COUNT_NOISE.configured(new NoiseDependantDecoratorConfiguration(-0.8D, 5, 10))));
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;

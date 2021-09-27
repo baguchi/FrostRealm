@@ -4,6 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.block.*;
 import baguchan.frostrealm.world.tree.FrostrootTree;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -49,6 +50,9 @@ public class FrostBlocks {
 		return 10;
 	}).sound(SoundType.GRASS)));
 
+	public static final RegistryObject<Block> COLD_GRASS = BLOCKS.register("cold_grass", () -> new ColdTallGrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
+	public static final RegistryObject<Block> COLD_TALL_GRASS = BLOCKS.register("cold_tall_grass", () -> new DoublePlantBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
+
 
 	public static final RegistryObject<Block> FROST_CRYSTAL_ORE = BLOCKS.register("frost_crystal_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
 	public static final RegistryObject<Block> GLIMMERROCK_ORE = BLOCKS.register("glimmerrock_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().lightLevel((state) -> {
@@ -85,6 +89,10 @@ public class FrostBlocks {
 		FrostItems.register(registry, new BlockItem(FROSTROOT_FENCE_GATE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 		FrostItems.register(registry, new BlockItem(VIGOROSHROOM.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
+		FrostItems.register(registry, new BlockItem(COLD_GRASS.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new DoubleHighBlockItem(COLD_TALL_GRASS.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
 
 		FrostItems.register(registry, new BlockItem(FROST_CRYSTAL_ORE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(GLIMMERROCK_ORE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));

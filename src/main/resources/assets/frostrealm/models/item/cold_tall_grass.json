@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "frostrealm:block/cold_tall_grass_top"
+  }
+}
