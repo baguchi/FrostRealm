@@ -22,20 +22,20 @@ public class BlockstateGenerator extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
-		this.cubeAll(FrostBlocks.FROZEN_DIRT.get());
+		this.simpleBlock(FrostBlocks.FROZEN_DIRT.get());
 
-		this.cubeAll(FrostBlocks.FRIGID_STONE.get());
+		this.simpleBlock(FrostBlocks.FRIGID_STONE.get());
 		this.slab(FrostBlocks.FRIGID_STONE_SLAB.get(), FrostBlocks.FRIGID_STONE.get());
 		this.stairs(FrostBlocks.FRIGID_STONE_STAIRS.get(), FrostBlocks.FRIGID_STONE.get());
-		this.cubeAll(FrostBlocks.FRIGID_STONE_BRICK.get());
-		this.cubeAll(FrostBlocks.FRIGID_STONE_SMOOTH_BRICK.get());
+		this.simpleBlock(FrostBlocks.FRIGID_STONE_BRICK.get());
+		this.simpleBlock(FrostBlocks.FRIGID_STONE_SMOOTH_BRICK.get());
 		this.slab(FrostBlocks.FRIGID_STONE_BRICK_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
 		this.stairs(FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
 
-		this.cubeAll(FrostBlocks.FROSTROOT_LOG.get());
+		this.logBlock(FrostBlocks.FROSTROOT_LOG.get());
+		this.simpleBlock(FrostBlocks.FROSTROOT_LEAVES.get());
 		this.crossBlock(FrostBlocks.FROSTROOT_SAPLING.get());
-		this.cubeAll(FrostBlocks.FROSTROOT_LEAVES.get());
-		this.cubeAll(FrostBlocks.FROSTROOT_PLANKS.get());
+		this.simpleBlock(FrostBlocks.FROSTROOT_PLANKS.get());
 		this.slab(FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_PLANKS.get());
 		this.stairs(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS.get());
 		this.fenceBlock(FrostBlocks.FROSTROOT_FENCE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
@@ -44,10 +44,10 @@ public class BlockstateGenerator extends BlockStateProvider {
 
 		this.crossBlock(FrostBlocks.COLD_GRASS.get());
 
-		this.cubeAll(FrostBlocks.FROST_CRYSTAL_ORE.get());
-		this.cubeAll(FrostBlocks.GLIMMERROCK_ORE.get());
-		this.cubeAll(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
-		this.cubeAll(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
+		this.simpleBlock(FrostBlocks.FROST_CRYSTAL_ORE.get());
+		this.simpleBlock(FrostBlocks.GLIMMERROCK_ORE.get());
+		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
+		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 	}
 
 	public void torchBlock(Block block, Block wall) {
