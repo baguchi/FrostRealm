@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SMS",
+    "SMS"
+  ],
+  "key": {
+    "M": {
+      "item": "frostrealm:frostroot_planks"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "frostrealm:frostroot_fence_gate"
+  }
+}

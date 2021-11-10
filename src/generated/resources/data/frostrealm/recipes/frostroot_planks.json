@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "frostrealm:frostroot_log"
+    }
+  ],
+  "result": {
+    "item": "frostrealm:frostroot_planks"
+  }
+}

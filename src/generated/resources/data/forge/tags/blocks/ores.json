@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "frostrealm:stardust_crystal_ore",
+    "frostrealm:glimmerrock_ore",
+    "frostrealm:frost_crystal_ore"
+  ]
+}

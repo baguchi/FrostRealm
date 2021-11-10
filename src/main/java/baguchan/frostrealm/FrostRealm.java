@@ -11,8 +11,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -34,8 +34,8 @@ public class FrostRealm {
 
 	public static final String NETWORK_PROTOCOL = "2";
 
-	@CapabilityInject(FrostLivingCapability.class)
-	public static final Capability<FrostLivingCapability> FROST_LIVING_CAPABILITY = null;
+	public static final Capability<FrostLivingCapability> FROST_LIVING_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
+	});
 
 	public FrostRealm() {
 		IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -55,7 +55,6 @@ public class FrostRealm {
 	}
 
 	private void setup(FMLCommonSetupEvent event) {
-		CapabilityManager.INSTANCE.register(FrostLivingCapability.class);
 		event.enqueueWork(() -> {
 			FrostCarvers.registerConfiguredCarvers();
 			FrostConfiguredFeatures.init();

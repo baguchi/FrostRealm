@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "frostrealm:frigid_stone",
+    "frostrealm:frigid_stone_slab",
+    "frostrealm:frigid_stone_stairs",
+    "frostrealm:frigid_stone_smooth_brick",
+    "frostrealm:frigid_stone_brick",
+    "frostrealm:frigid_stone_brick_stairs",
+    "frostrealm:frigid_stone_brick_slab",
+    "frostrealm:pointed_ice"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "frostrealm:frostroot_planks",
+    "frostrealm:frostroot_planks_stairs",
+    "frostrealm:frostroot_planks_slab",
+    "frostrealm:frostroot_fence",
+    "frostrealm:frostroot_fence_gate"
+  ]
+}
