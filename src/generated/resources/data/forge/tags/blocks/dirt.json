@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "frostrealm:frozen_dirt"
+    "frostrealm:frozen_dirt",
+    "frostrealm:frozen_grass_block"
   ]
 }

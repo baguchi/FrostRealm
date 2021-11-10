@@ -33,7 +33,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
 		tag(FrostTags.Blocks.HOT_SOURCE).addTag(BlockTags.CAMPFIRES).addTag(BlockTags.FIRE).add(Blocks.MAGMA_BLOCK);
 		tag(FrostTags.Blocks.TUNDRA_REPLACEABLE).add(FrostBlocks.FRIGID_STONE.get(), FrostBlocks.FROZEN_DIRT.get());
 
-		tag(Tags.Blocks.DIRT).add(FrostBlocks.FROZEN_DIRT.get());
+		tag(Tags.Blocks.DIRT).add(FrostBlocks.FROZEN_DIRT.get(), FrostBlocks.FROZEN_GRASS_BLOCK.get());
 		tag(Tags.Blocks.ORES).add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.FROST_CRYSTAL_ORE.get());
 	}
 }

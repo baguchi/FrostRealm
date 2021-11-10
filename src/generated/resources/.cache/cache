@@ -90,7 +90,7 @@ d8e736ee456a234d570ca09df54933f5b56ad61a assets/frostrealm/models/item/stardust_
 811d100f891853db2016b7a3b0ef6532366bcc05 assets/frostrealm/models/item/sugarbeet.json
 398ab333c5ed1ab2e61c670d792de01a28042f9e assets/frostrealm/models/item/vigoroshroom.json
 64f67b053eae8344c8aa50bf0f5d4961f828d9db assets/frostrealm/models/item/yeti_fur.json
-bed88502f4486f5372052bbb915229fdb2a51af1 data/forge/tags/blocks/dirt.json
+bfce5b4e534cdcef06123299c8e21eca7816014d data/forge/tags/blocks/dirt.json
 af50acf23b5d737f688bed743af260ca8b3fe9c6 data/forge/tags/blocks/ores.json
 374fc761ad454802cb3e7a484cfec94537b114d8 data/frostrealm/loot_tables/blocks/cold_grass.json
 374fc761ad454802cb3e7a484cfec94537b114d8 data/frostrealm/loot_tables/blocks/cold_tall_grass.json
