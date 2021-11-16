@@ -53,7 +53,7 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.dropSelf(FrostBlocks.FROSTROOT_LOG.get());
 		this.dropSelf(FrostBlocks.FROSTROOT_SAPLING.get());
 		this.add(FrostBlocks.FROSTROOT_LEAVES.get(), (p_124104_) -> {
-			return createOakLeavesDrops(p_124104_, FrostBlocks.FROSTROOT_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
+			return createFrostLeavesDrops(p_124104_, FrostBlocks.FROSTROOT_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
 		});
 		this.dropSelf(FrostBlocks.FROSTROOT_PLANKS.get());
 		this.add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), BlockLoot::createSlabItemTable);
