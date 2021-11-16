@@ -22,6 +22,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
+		this.simpleBlock(FrostBlocks.FROST_PORTAL.get());
 		this.simpleBlock(FrostBlocks.FROZEN_DIRT.get());
 
 		this.simpleBlock(FrostBlocks.FRIGID_STONE.get());
@@ -42,7 +43,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.fenceGateBlock(FrostBlocks.FROSTROOT_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
 		this.crossBlock(FrostBlocks.VIGOROSHROOM.get());
 
-		this.crossBlock(FrostBlocks.COLD_GRASS.get());
+		this.crossTintBlock(FrostBlocks.COLD_GRASS.get());
 
 		this.simpleBlock(FrostBlocks.FROST_CRYSTAL_ORE.get());
 		this.simpleBlock(FrostBlocks.GLIMMERROCK_ORE.get());
@@ -70,7 +71,15 @@ public class BlockstateGenerator extends BlockStateProvider {
 	}
 
 	public void crossBlock(Block block) {
+
 		crossBlock(block, models().cross(name(block), texture(name(block))));
+	}
+
+	public void crossTintBlock(Block block) {
+		ModelFile tint = models().singleTexture(name(block), mcLoc("block/tinted_cross"), "cross", texture(name(block)));
+
+
+		crossBlock(block, tint);
 	}
 
 	private void crossBlock(Block block, ModelFile model) {

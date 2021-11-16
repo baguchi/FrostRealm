@@ -3,9 +3,9 @@
   "textures": {
     "particle": "frostrealm:block/frozen_dirt",
     "bottom": "frostrealm:block/frozen_dirt",
-    "top": "block/grass_block_top",
+    "top": "frostrealm:block/frozen_grass_block_top",
     "side": "frostrealm:block/frozen_dirt",
-    "overlay": "block/grass_block_side_overlay"
+    "overlay": "frostrealm:block/frozen_grass_block_side_overlay"
   },
   "elements": [
     {

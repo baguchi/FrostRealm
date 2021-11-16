@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "frostrealm:frostroot_log",
     "frostrealm:frostroot_planks",
     "frostrealm:frostroot_planks_stairs",
     "frostrealm:frostroot_planks_slab",
