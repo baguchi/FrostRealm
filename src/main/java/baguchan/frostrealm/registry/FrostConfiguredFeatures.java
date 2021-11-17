@@ -66,6 +66,8 @@ public class FrostConfiguredFeatures {
 		return TUNDRA_VEGETATION;
 	}, CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F)));
 
+	public static final ConfiguredFeature<?, ?> TUNDRA_BIG_ROCK = register(prefix("tundra_big_rock"), FrostFeatures.BIG_ROCK.get().configured(new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState())).decorated(Features.Decorators.HEIGHTMAP_SQUARE).countRandom(2));
+
 	public static final ConfiguredFeature<?, ?> TUNDRA_CAVES_VEGETATION = register(prefix("tundra_caves_vegetation"), TUNDRA_PATCH.decorated(FeatureDecorator.CAVE_SURFACE.configured(new CaveDecoratorConfiguration(CaveSurface.FLOOR, 12))).range(Features.Decorators.RANGE_BOTTOM_TO_60).squared().count(40));
 
 	public static final RandomPatchConfiguration DEFAULT_COLD_GRASS_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(FrostBlocks.COLD_GRASS.get().defaultBlockState()), SimpleBlockPlacer.INSTANCE)).tries(32).build();

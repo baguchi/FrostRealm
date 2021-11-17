@@ -29,16 +29,6 @@
             "altitude": 0.0,
             "weirdness": 0.0,
             "offset": 0.0,
-            "temperature": 0.0,
-            "humidity": 0.0
-          },
-          "biome": "frostrealm:crystal_plain"
-        },
-        {
-          "parameters": {
-            "altitude": 0.0,
-            "weirdness": 0.0,
-            "offset": 0.0,
             "temperature": 0.15,
             "humidity": 0.25
           },
@@ -119,7 +109,7 @@
             "altitude": 0.0,
             "weirdness": 0.0,
             "offset": 0.0,
-            "temperature": -0.2,
+            "temperature": 0.0,
             "humidity": 0.0
           },
           "biome": "frostrealm:tundra"
