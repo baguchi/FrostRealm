@@ -139,6 +139,7 @@ d6a77f48b3e84f8406dbb992d418931f70d03afa data/frostrealm/recipes/frostroot_plank
 30f702f0f8b16a2622b3fafac3a1e68fbcb49b0c data/frostrealm/tags/blocks/base_stone_frostrealm.json
 538df28f706291dc33180766b5d383133ca6c15d data/frostrealm/tags/blocks/hot_source.json
 1cd5213b7f7a7e0e5efcb64a9140c94cac22d94a data/frostrealm/tags/blocks/tundra_replaceable.json
+c9f8490fec78888a832e4008926a1587dc6f9466 data/minecraft/tags/blocks/fence_gates.json
 e52cf1b0bf98cb65e92f87d429ed65b707c624ff data/minecraft/tags/blocks/leaves.json
 7a93e53afe7bc1a4fb08a323cad957136e34de58 data/minecraft/tags/blocks/logs_that_burn.json
 3ff6acb7fa0c4aa8e6dfb13c9ee2a9757db9fdcd data/minecraft/tags/blocks/mineable/axe.json
@@ -146,6 +147,7 @@ e52cf1b0bf98cb65e92f87d429ed65b707c624ff data/minecraft/tags/blocks/leaves.json
 6446deaf7286c34496a50720c1923a14f6f83661 data/minecraft/tags/blocks/mineable/pickaxe.json
 bfce5b4e534cdcef06123299c8e21eca7816014d data/minecraft/tags/blocks/mineable/shovel.json
 d80f85b2d62f374f793d926f9bc31c23859bc0e8 data/minecraft/tags/blocks/needs_stone_tool.json
+c2e282058f825f4ee824de3c8aaeec3cf101fb73 data/minecraft/tags/blocks/wooden_fences.json
 7a93e53afe7bc1a4fb08a323cad957136e34de58 data/minecraft/tags/items/logs_that_burn.json
 3c88b0e08f750d461c10761ebaac1442cb270a8e data/minecraft/tags/items/planks.json
 30f702f0f8b16a2622b3fafac3a1e68fbcb49b0c data/minecraft/tags/items/stone_crafting_materials.json
