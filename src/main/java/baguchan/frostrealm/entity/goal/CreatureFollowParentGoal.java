@@ -55,7 +55,7 @@ public class CreatureFollowParentGoal extends Goal {
 			return false;
 		} else {
 			double d0 = this.animal.distanceToSqr(this.parent);
-			return !(d0 < 9.0D) && !(d0 > 256.0D);
+			return !(d0 < 12.0D) && !(d0 > 256.0D);
 		}
 	}
 
