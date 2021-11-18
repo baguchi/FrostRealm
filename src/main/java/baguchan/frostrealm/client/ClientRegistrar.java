@@ -27,7 +27,7 @@ public class ClientRegistrar {
 
 	@SubscribeEvent
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerEntityRenderer(FrostEntities.YETI, YetiRenderer::new);
+		event.registerEntityRenderer(FrostEntities.YETI.get(), YetiRenderer::new);
 	}
 
 	@SubscribeEvent

@@ -11,10 +11,17 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class FrostEntities {
-	public static final EntityType<Yeti> YETI = EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).build(prefix("yeti"));
+	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, FrostRealm.MODID);
+
+
+	public static final EntityType<Yeti> YETI_TYPE = EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).build(prefix("yeti"));
+	public static final RegistryObject<EntityType<Yeti>> YETI = ENTITIES.register("yeti", () -> YETI_TYPE);
 
 	private static String prefix(String path) {
 		return FrostRealm.MODID + "." + path;
@@ -22,12 +29,11 @@ public class FrostEntities {
 
 	@SubscribeEvent
 	public static void registerEntity(RegistryEvent.Register<EntityType<?>> event) {
-		event.getRegistry().register(YETI.setRegistryName("yeti"));
-		SpawnPlacements.register(YETI, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
+		SpawnPlacements.register(YETI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
 	}
 
 	@SubscribeEvent
-	public static void registerEntity(EntityAttributeCreationEvent event) {
-		event.put(YETI, Yeti.createAttributeMap().build());
+	public static void registerEntityAttribute(EntityAttributeCreationEvent event) {
+		event.put(YETI.get(), Yeti.createAttributeMap().build());
 	}
 }

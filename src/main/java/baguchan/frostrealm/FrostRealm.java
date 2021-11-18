@@ -41,6 +41,7 @@ public class FrostRealm {
 		IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
 		FrostBlocks.BLOCKS.register(modbus);
 		FrostItems.ITEMS.register(modbus);
+		FrostEntities.ENTITIES.register(modbus);
 		FrostCarvers.CARVERS.register(modbus);
 		FrostFeatures.FEATURES.register(modbus);
 

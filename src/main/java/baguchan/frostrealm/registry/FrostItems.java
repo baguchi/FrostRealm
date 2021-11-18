@@ -7,6 +7,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -28,6 +29,8 @@ public class FrostItems {
 
 	public static final RegistryObject<Item> YETI_FUR = ITEMS.register("yeti_fur", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> FROST_TORCH = ITEMS.register("frost_torch", () -> new StandingAndWallBlockItem((Block) FrostBlocks.FROST_TORCH.get(), (Block) FrostBlocks.WALL_FROST_TORCH.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> YETI_SPAWN_EGG = ITEMS.register("yeti_spawn_egg", () -> new ForgeSpawnEggItem(() -> FrostEntities.YETI_TYPE, 0xD4D7DB, 0x403656, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
 
 	public static void register(RegistryEvent.Register<Item> registry, Item item, String id) {
 		item.setRegistryName(new ResourceLocation(FrostRealm.MODID, id));
