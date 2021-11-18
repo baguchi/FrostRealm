@@ -3,7 +3,7 @@
   "scale": 0.2,
   "precipitation": "snow",
   "temperature_modifier": "frozen",
-  "temperature": -0.5,
+  "temperature": -0.2,
   "downfall": 0.6,
   "category": "forest",
   "effects": {
@@ -43,6 +43,7 @@
       "frostrealm:frostroot_forest_vegitation"
     ],
     [
+      "minecraft:freeze_top_layer"
     ]
   ],
   "starts": [

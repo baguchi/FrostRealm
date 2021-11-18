@@ -1,9 +1,8 @@
 {
   "depth": 0.125,
   "scale": 0.1,
-  "precipitation": "snow",
-  "temperature_modifier": "frozen",
-  "temperature": -0.8,
+  "precipitation": "rain",
+  "temperature": 0.15,
   "downfall": 0.4,
   "category": "plains",
   "effects": {
@@ -44,6 +43,7 @@
       "frostrealm:patch_grass_plain"
     ],
     [
+      "minecraft:freeze_top_layer"
     ]
   ],
   "starts": [
