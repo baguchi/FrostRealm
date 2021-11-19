@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 
 public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySerializable<CompoundTag> {
 
-	public boolean isInTofuPortal = false;
+	public boolean isInFrostPortal = false;
 	public int tofuPortalTimer = 0;
 	public float prevPortalAnimTime, portalAnimTime = 0.0F;
 
@@ -28,7 +28,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 		if (entity.level.isClientSide) {
 			this.prevPortalAnimTime = this.portalAnimTime;
 			Minecraft mc = Minecraft.getInstance();
-			if (this.isInTofuPortal) {
+			if (this.isInFrostPortal) {
 				if (mc.screen != null && !mc.screen.isPauseScreen()) {
 					if (mc.screen instanceof ContainerScreen && mc.player != null) {
 						mc.player.closeContainer();
@@ -43,7 +43,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			}
 		}
 
-		if (this.isInTofuPortal) {
+		if (this.isInFrostPortal) {
 			++this.tofuPortalTimer;
 			if (entity.level.isClientSide) {
 				this.portalAnimTime += 0.0125F;
@@ -51,7 +51,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 					this.portalAnimTime = 1.0F;
 				}
 			}
-			this.isInTofuPortal = false;
+			this.isInFrostPortal = false;
 		} else {
 			if (entity.level.isClientSide) {
 				if (this.portalAnimTime > 0.0F) {
@@ -76,11 +76,11 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 	}
 
 	public boolean isInPortal() {
-		return this.isInTofuPortal;
+		return this.isInFrostPortal;
 	}
 
 	public void setInPortal(boolean inPortal) {
-		this.isInTofuPortal = inPortal;
+		this.isInFrostPortal = inPortal;
 	}
 
 	public void setPortalTimer(int timer) {
