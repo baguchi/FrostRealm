@@ -63,6 +63,8 @@ public class ClientRegistrar {
 		setRenderLayer(FrostBlocks.FROSTROOT_LEAVES.get(), RenderType.cutoutMipped());
 		setRenderLayer(FrostBlocks.FROSTROOT_SAPLING.get(), RenderType.cutout());
 
+		setRenderLayer(FrostBlocks.FROSTROOT_DOOR.get(), RenderType.cutout());
+
 		setRenderLayer(FrostBlocks.VIGOROSHROOM.get(), RenderType.cutout());
 
 		setRenderLayer(FrostBlocks.COLD_GRASS.get(), RenderType.cutout());

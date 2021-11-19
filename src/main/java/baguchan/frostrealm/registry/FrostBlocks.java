@@ -45,6 +45,7 @@ public class FrostBlocks {
 	public static final RegistryObject<StairBlock> FROSTROOT_PLANKS_STAIRS = BLOCKS.register("frostroot_planks_stairs", () -> new StairBlock(FROSTROOT_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
 	public static final RegistryObject<FenceBlock> FROSTROOT_FENCE = BLOCKS.register("frostroot_fence", () -> new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
 	public static final RegistryObject<FenceGateBlock> FROSTROOT_FENCE_GATE = BLOCKS.register("frostroot_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
+	public static final RegistryObject<DoorBlock> FROSTROOT_DOOR = BLOCKS.register("frostroot_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).noOcclusion().sound(SoundType.WOOD)));
 
 	public static final RegistryObject<Block> VIGOROSHROOM = BLOCKS.register("vigoroshroom", () -> new VigoroMushroomBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().lightLevel(state -> {
 		return 10;
@@ -65,6 +66,12 @@ public class FrostBlocks {
 
 	public static final RegistryObject<Block> FROST_TORCH = BLOCKS.register("frost_torch", () -> new FrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.TORCH)));
 	public static final RegistryObject<Block> WALL_FROST_TORCH = BLOCKS.register("wall_frost_torch", () -> new WallFrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.WALL_TORCH)));
+
+
+	public static void TFBurnables() {
+		FireBlock fireblock = (FireBlock) Blocks.FIRE;
+		fireblock.setFlammable(ROOT_BLOCK.get(), 5, 5);
+	}
 
 	@SubscribeEvent
 	public static void registerItemBlocks(RegistryEvent.Register<Item> registry) {
@@ -87,6 +94,8 @@ public class FrostBlocks {
 		FrostItems.register(registry, new BlockItem(FROSTROOT_PLANKS_STAIRS.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FROSTROOT_FENCE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FROSTROOT_FENCE_GATE.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new DoubleHighBlockItem(FROSTROOT_DOOR.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
 
 		FrostItems.register(registry, new BlockItem(VIGOROSHROOM.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 

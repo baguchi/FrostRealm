@@ -33,6 +33,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
 		tag(BlockTags.LEAVES).add(FrostBlocks.FROSTROOT_LEAVES.get());
 		tag(BlockTags.WOODEN_FENCES).add(FrostBlocks.FROSTROOT_FENCE.get());
 		tag(BlockTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE.get());
+		tag(BlockTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR.get());
 
 
 		tag(FrostTags.Blocks.BASE_STONE_FROSTREALM).add(FrostBlocks.FRIGID_STONE.get());
