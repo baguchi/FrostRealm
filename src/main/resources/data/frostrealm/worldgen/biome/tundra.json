@@ -40,7 +40,8 @@
     ],
     [],
     [
-      "frostrealm:patch_grass_plain"
+      "frostrealm:patch_grass_plain",
+      "frostrealm:tundra_caves_vegetation"
     ],
     [
       "minecraft:freeze_top_layer"
