@@ -68,9 +68,17 @@ public class FrostBlocks {
 	public static final RegistryObject<Block> WALL_FROST_TORCH = BLOCKS.register("wall_frost_torch", () -> new WallFrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.WALL_TORCH)));
 
 
-	public static void TFBurnables() {
+	public static void burnables() {
 		FireBlock fireblock = (FireBlock) Blocks.FIRE;
-		fireblock.setFlammable(ROOT_BLOCK.get(), 5, 5);
+		fireblock.setFlammable(FROSTROOT_LEAVES.get(), 60, 100);
+		fireblock.setFlammable(FROSTROOT_LOG.get(), 5, 5);
+		fireblock.setFlammable(FROSTROOT_PLANKS.get(), 5, 20);
+		fireblock.setFlammable(FROSTROOT_PLANKS_SLAB.get(), 5, 20);
+		fireblock.setFlammable(FROSTROOT_PLANKS_STAIRS.get(), 5, 20);
+		fireblock.setFlammable(FROSTROOT_FENCE.get(), 5, 20);
+		fireblock.setFlammable(FROSTROOT_FENCE_GATE.get(), 5, 20);
+		fireblock.setFlammable(COLD_GRASS.get(), 60, 100);
+		fireblock.setFlammable(COLD_TALL_GRASS.get(), 60, 100);
 	}
 
 	@SubscribeEvent

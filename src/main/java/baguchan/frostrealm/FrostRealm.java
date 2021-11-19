@@ -57,6 +57,7 @@ public class FrostRealm {
 
 	private void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
+			FrostBlocks.burnables();
 			FrostCarvers.registerConfiguredCarvers();
 			FrostConfiguredFeatures.init();
 			FrostSurfaceBuilders.init();
