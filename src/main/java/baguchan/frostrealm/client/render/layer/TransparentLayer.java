@@ -28,7 +28,7 @@ public class TransparentLayer<T extends Entity, M extends EntityModel<T>> extend
 		this.getParentModel().copyPropertiesTo(this.model);
 		this.model.prepareMobModel(p_117397_, p_117398_, p_117399_, p_117400_);
 		this.model.setupAnim(p_117397_, p_117398_, p_117399_, p_117401_, p_117402_, p_117403_);
-		VertexConsumer vertexconsumer = p_117395_.getBuffer(RenderType.entityTranslucent(this.textureLocation, false));
-		this.model.renderToBuffer(p_117394_, vertexconsumer, p_117396_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		VertexConsumer vertexconsumer = p_117395_.getBuffer(RenderType.entityCutoutNoCull(this.textureLocation, false));
+		this.model.renderToBuffer(p_117394_, vertexconsumer, p_117396_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 0.35F);
 	}
 }
