@@ -1,7 +1,9 @@
 package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.client.model.FrostWraithModel;
 import baguchan.frostrealm.client.model.YetiModel;
+import baguchan.frostrealm.client.render.FrostWraithRenderer;
 import baguchan.frostrealm.client.render.YetiRenderer;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
@@ -28,11 +30,13 @@ public class ClientRegistrar {
 	@SubscribeEvent
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(FrostEntities.YETI.get(), YetiRenderer::new);
+		event.registerEntityRenderer(FrostEntities.FROST_WRAITH.get(), FrostWraithRenderer::new);
 	}
 
 	@SubscribeEvent
 	public static void registerLayerDefinition(EntityRenderersEvent.RegisterLayerDefinitions event) {
 		event.registerLayerDefinition(ModModelLayers.YETI, YetiModel::createBodyLayer);
+		event.registerLayerDefinition(ModModelLayers.FROST_WRAITH, FrostWraithModel::createBodyLayer);
 	}
 
 	public static void renderTileEntity() {

@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiModel<T>> {
-	private static final ResourceLocation ILLAGER = new ResourceLocation(FrostRealm.MODID, "textures/entity/yeti/yeti.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/yeti/yeti.png");
 
 	public YetiRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new YetiModel<>(p_173952_.bakeLayer(ModModelLayers.YETI)), 0.75F);
@@ -24,6 +24,6 @@ public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiModel<T>> {
 
 	@Override
 	public ResourceLocation getTextureLocation(T p_110775_1_) {
-		return ILLAGER;
+		return TEXTURE;
 	}
 }
