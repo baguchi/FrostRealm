@@ -50,6 +50,11 @@ public class ClientRegistrar {
 		Minecraft.getInstance().getItemColors().register((p_92687_, p_92688_) -> {
 			BlockState blockstate = ((BlockItem) p_92687_.getItem()).getBlock().defaultBlockState();
 			return Minecraft.getInstance().getBlockColors().getColor(blockstate, (BlockAndTintGetter) null, (BlockPos) null, p_92688_);
+		}, FrostBlocks.COLD_GRASS.get());
+
+		Minecraft.getInstance().getItemColors().register((p_92687_, p_92688_) -> {
+			BlockState blockstate = ((BlockItem) p_92687_.getItem()).getBlock().defaultBlockState();
+			return Minecraft.getInstance().getBlockColors().getColor(blockstate, (BlockAndTintGetter) null, (BlockPos) null, p_92688_);
 		}, FrostBlocks.FROZEN_GRASS_BLOCK.get());
 	}
 
