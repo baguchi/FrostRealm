@@ -10,6 +10,7 @@
     }
   },
   "result": {
-    "item": "frostrealm:frostroot_door"
+    "item": "frostrealm:frostroot_door",
+    "count": 3
   }
 }

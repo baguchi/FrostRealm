@@ -26,7 +26,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 	@Override
 	protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-		ShapelessRecipeBuilder.shapeless(FrostBlocks.FROSTROOT_PLANKS.get()).requires(FrostBlocks.FROSTROOT_LOG.get())
+		ShapelessRecipeBuilder.shapeless(FrostBlocks.FROSTROOT_PLANKS.get(), 4).requires(FrostBlocks.FROSTROOT_LOG.get())
 				.unlockedBy("has_" + FrostBlocks.FROSTROOT_LOG.get().getRegistryName().getPath(), has(FrostBlocks.FROSTROOT_LOG.get())).save(consumer);
 
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_SLAB.get(), FrostBlocks.FRIGID_STONE.get());

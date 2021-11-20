@@ -182,7 +182,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	public void makeDoor(Consumer<FinishedRecipe> consumer, Block doorOut, Block blockIn) {
-		ShapedRecipeBuilder.shaped(doorOut)
+		ShapedRecipeBuilder.shaped(doorOut, 3)
 				.pattern("DD")
 				.pattern("DD")
 				.define('D', blockIn)
