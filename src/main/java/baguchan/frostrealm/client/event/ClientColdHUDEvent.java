@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.gui.ForgeIngameGui;
@@ -26,19 +27,20 @@ public class ClientColdHUDEvent {
 
 	public static void renderPortalOverlay(RenderGameOverlayEvent.Post event, Minecraft mc, Window window, Entity livingEntity) {
 		livingEntity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
-			if (cap.getPortalAnimTime() > 0.0F) {
-				float timeInPortal = cap.getPrevPortalAnimTime() + (cap.getPortalAnimTime() - cap.getPrevPortalAnimTime());
+			float timeInPortal = Mth.lerp(event.getPartialTicks(), cap.getPrevPortalAnimTime(), cap.getPortalAnimTime());
+
+			if (timeInPortal > 0.0F) {
 				if (timeInPortal < 1.0F) {
-					timeInPortal *= timeInPortal;
-					timeInPortal *= timeInPortal;
+					timeInPortal = timeInPortal * timeInPortal;
+					timeInPortal = timeInPortal * timeInPortal;
 					timeInPortal = timeInPortal * 0.8F + 0.2F;
 				}
-				RenderSystem.disableDepthTest();
-				RenderSystem.depthMask(false);
+				RenderSystem.enableTexture();
+				RenderSystem.enableBlend();
 				RenderSystem.defaultBlendFunc();
 				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, timeInPortal);
 				RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
-				RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
+				RenderSystem.setShader(GameRenderer::getPositionTexShader);
 				TextureAtlasSprite textureatlassprite = mc.getBlockRenderer().getBlockModelShaper().getParticleIcon(FrostBlocks.FROST_PORTAL.get().defaultBlockState());
 				float f = textureatlassprite.getU0();
 				float f1 = textureatlassprite.getV0();
@@ -47,13 +49,13 @@ public class ClientColdHUDEvent {
 				Tesselator tesselator = Tesselator.getInstance();
 				BufferBuilder bufferbuilder = tesselator.getBuilder();
 				bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-				bufferbuilder.vertex(0.0D, (double) window.getHeight(), -90.0D).uv(f, f3).endVertex();
-				bufferbuilder.vertex((double) window.getWidth(), (double) window.getHeight(), -90.0D).uv(f2, f3).endVertex();
-				bufferbuilder.vertex((double) window.getHeight(), 0.0D, -90.0D).uv(f2, f1).endVertex();
+				bufferbuilder.vertex(0.0D, (double) window.getGuiScaledHeight(), -90.0D).uv(f, f3).endVertex();
+				bufferbuilder.vertex((double) window.getGuiScaledWidth(), (double) window.getGuiScaledHeight(), -90.0D).uv(f2, f3).endVertex();
+				bufferbuilder.vertex((double) window.getGuiScaledWidth(), 0.0D, -90.0D).uv(f2, f1).endVertex();
 				bufferbuilder.vertex(0.0D, 0.0D, -90.0D).uv(f, f1).endVertex();
 				tesselator.end();
-				RenderSystem.depthMask(true);
-				RenderSystem.enableDepthTest();
+				RenderSystem.disableBlend();
+				RenderSystem.disableTexture();
 				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			}
 		});
@@ -97,7 +99,9 @@ public class ClientColdHUDEvent {
 		}
 		if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
 			Entity entity = mc.getCameraEntity();
+			stack.pushPose();
 			renderPortalOverlay(event, mc, mc.getWindow(), entity);
+			stack.popPose();
 		}
 	}
 }
