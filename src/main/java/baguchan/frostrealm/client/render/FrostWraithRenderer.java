@@ -18,7 +18,7 @@ public class FrostWraithRenderer<T extends FrostWraith> extends MobRenderer<T, F
 
 
 	public FrostWraithRenderer(EntityRendererProvider.Context p_173952_) {
-		super(p_173952_, new FrostWraithModel<>(p_173952_.bakeLayer(ModModelLayers.FROST_WRAITH)), 0.75F);
+		super(p_173952_, new FrostWraithModel<>(p_173952_.bakeLayer(ModModelLayers.FROST_WRAITH)), 0.5F);
 		this.addLayer(new TransparentLayer<>(this, new FrostWraithModel<>(p_173952_.bakeLayer(ModModelLayers.FROST_WRAITH)), WRAITH_LAYER));
 	}
 
