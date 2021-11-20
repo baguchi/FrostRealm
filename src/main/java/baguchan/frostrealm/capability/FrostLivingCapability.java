@@ -1,19 +1,32 @@
 package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.message.ChangedColdMessage;
+import baguchan.frostrealm.registry.FrostTags;
+import baguchan.frostrealm.world.FrostDimensions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Position;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -24,7 +37,26 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 	public int tofuPortalTimer = 0;
 	public float prevPortalAnimTime, portalAnimTime = 0.0F;
 
-	public void tick(Entity entity) {
+	protected int temperature = 20;
+	protected float temperatureSaturation = 1.0F;
+
+	private int tickTimer;
+
+	private float exhaustionLevel;
+	private int lastTemperate = 20;
+
+	private BlockPos hotSource;
+
+	public void addExhaustion(float p_75113_1_) {
+		this.exhaustionLevel = Math.min(this.exhaustionLevel + p_75113_1_, 40.0F);
+	}
+
+	public void addHot(int p_75122_1_, float p_75122_2_) {
+		this.temperature = Math.min(p_75122_1_ + this.temperature, 20);
+		this.temperatureSaturation = Math.min(this.temperatureSaturation + p_75122_1_ * p_75122_2_ * 2.0F, this.temperature);
+	}
+
+	public void tick(LivingEntity entity) {
 		if (entity.level.isClientSide) {
 			this.prevPortalAnimTime = this.portalAnimTime;
 			Minecraft mc = Minecraft.getInstance();
@@ -66,7 +98,102 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 				this.tofuPortalTimer -= 4;
 			}
 		}
+
+		if (entity.level.dimension() == FrostDimensions.frostrealm && (!EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES.contains(entity.getType()) || (entity instanceof Player && !((Player) entity).isCreative() && !((Player) entity).isSpectator()))) {
+			Difficulty difficulty = entity.level.getDifficulty();
+			this.lastTemperate = this.temperature;
+			hotSourceTick(entity);
+			float tempAffect = 1.0F;
+			if (!entity.getItemBySlot(EquipmentSlot.HEAD).isEmpty())
+				tempAffect *= 0.9F;
+			if (!entity.getItemBySlot(EquipmentSlot.CHEST).isEmpty())
+				tempAffect *= 0.75F;
+			if (!entity.getItemBySlot(EquipmentSlot.LEGS).isEmpty())
+				tempAffect *= 0.75F;
+			if (!entity.getItemBySlot(EquipmentSlot.FEET).isEmpty())
+				tempAffect *= 0.9F;
+			if (this.hotSource == null) {
+				addExhaustion(tempAffect * 0.01F);
+				if (this.exhaustionLevel > 4.0F) {
+					this.exhaustionLevel -= 4.0F;
+					if (this.temperatureSaturation > 0.0F) {
+						this.temperatureSaturation = Math.max(this.temperatureSaturation - 0.1F, 0.0F);
+					} else if (difficulty != Difficulty.PEACEFUL) {
+						this.temperature = Math.max(this.temperature - 1, 0);
+					}
+				}
+			}
+			if (EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES.contains(entity.getType())) {
+				this.temperature = Math.max(this.temperature - 1, 0);
+				this.temperatureSaturation = 0.0F;
+				entity.setTicksFrozen(entity.getTicksFrozen() + 20);
+				entity.hurt(DamageSource.FREEZE, 4.0F);
+			} else if (this.temperature <= 0) {
+				entity.setTicksFrozen(entity.getTicksFrozen() + 10);
+				this.tickTimer++;
+				if (this.tickTimer >= 80) {
+					if (entity.getHealth() > 4.0F || difficulty == Difficulty.HARD || difficulty == Difficulty.NORMAL)
+						entity.hurt(DamageSource.FREEZE, 1.0F);
+					this.tickTimer = 0;
+				}
+			} else {
+				this.tickTimer = 0;
+			}
+		} else {
+			if (entity.tickCount % 20 == 0) {
+				this.temperatureSaturation = Math.min(this.temperatureSaturation + 0.1F, 1.0F);
+				this.temperature = Math.min(this.temperature + 1, 20);
+			}
+			this.exhaustionLevel = 0.0F;
+		}
+		if (entity.tickCount % 20 == 0 && !entity.level.isClientSide()) {
+			ChangedColdMessage message = new ChangedColdMessage((Entity) entity, this.temperature, this.temperatureSaturation);
+			FrostRealm.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), message);
+		}
 	}
+
+	private void hotSourceTick(LivingEntity entity) {
+		if (this.hotSource == null || !this.hotSource.closerThan((Position) entity.blockPosition(), 3.46D) || !entity.level.getBlockState(this.hotSource).is(FrostTags.Blocks.HOT_SOURCE) || (entity.level.getBlockState(this.hotSource).getBlock() instanceof CampfireBlock && !CampfireBlock.isLitCampfire(entity.level.getBlockState(this.hotSource))))
+			this.hotSource = null;
+		if (this.hotSource == null) {
+			int heatRange = 2;
+			int entityPosX = (int) entity.getX();
+			int entityPosY = (int) entity.getY();
+			int entityPosZ = (int) entity.getZ();
+			if (entity.tickCount % 20 == 0)
+				for (int hX = entityPosX - heatRange; hX <= entityPosX + heatRange; hX++) {
+					for (int hY = entityPosY - 2; hY <= entityPosY; hY++) {
+						for (int hZ = entityPosZ - heatRange; hZ <= entityPosZ + heatRange; hZ++) {
+							if (entity.level.getBlockState(new BlockPos(hX, hY, hZ)).is(FrostTags.Blocks.HOT_SOURCE))
+								this.hotSource = new BlockPos(hX, hY, hZ);
+						}
+					}
+				}
+		}
+		if (this.hotSource != null &&
+				this.hotSource.closerThan((Position) entity.blockPosition(), 3.46D) &&
+				entity.tickCount % 20 == 0) {
+			this.temperatureSaturation = Math.min(this.temperatureSaturation + 0.1F, 1.0F);
+			this.temperature = Math.min(this.temperature + 1, 20);
+		}
+	}
+
+	public int getTemperatureLevel() {
+		return this.temperature;
+	}
+
+	public float getSaturationLevel() {
+		return this.temperatureSaturation;
+	}
+
+	public void setTemperatureLevel(int p_75114_1_) {
+		this.temperature = p_75114_1_;
+	}
+
+	public void setSaturation(float p_75119_1_) {
+		this.temperatureSaturation = p_75119_1_;
+	}
+
 
 	@OnlyIn(Dist.CLIENT)
 	private void playPortalSound(Minecraft mc) {
@@ -106,9 +233,17 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 
 	public CompoundTag serializeNBT() {
 		CompoundTag nbt = new CompoundTag();
+
+		nbt.putInt("Temperature", this.temperature);
+		nbt.putFloat("TemperatureSaturation", this.temperatureSaturation);
+		nbt.putFloat("TemperatureExhaustion", this.exhaustionLevel);
+
 		return nbt;
 	}
 
 	public void deserializeNBT(CompoundTag nbt) {
+		this.temperature = nbt.getInt("Temperature");
+		this.temperatureSaturation = nbt.getInt("TemperatureSaturation");
+		this.exhaustionLevel = nbt.getInt("TemperatureExhaustion");
 	}
 }

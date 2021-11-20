@@ -153,6 +153,7 @@ bfce5b4e534cdcef06123299c8e21eca7816014d data/minecraft/tags/blocks/mineable/sho
 d80f85b2d62f374f793d926f9bc31c23859bc0e8 data/minecraft/tags/blocks/needs_stone_tool.json
 bfaef3426f26b00e2f903ede07e68b37397c7926 data/minecraft/tags/blocks/wooden_doors.json
 c2e282058f825f4ee824de3c8aaeec3cf101fb73 data/minecraft/tags/blocks/wooden_fences.json
+b8e766f9138f85e1f1abd675561891d810d32c18 data/minecraft/tags/entity_types/freeze_immune_entity_types.json
 7a93e53afe7bc1a4fb08a323cad957136e34de58 data/minecraft/tags/items/logs_that_burn.json
 3c88b0e08f750d461c10761ebaac1442cb270a8e data/minecraft/tags/items/planks.json
 30f702f0f8b16a2622b3fafac3a1e68fbcb49b0c data/minecraft/tags/items/stone_crafting_materials.json

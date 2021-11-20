@@ -3,6 +3,7 @@ package baguchan.frostrealm;
 
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
+import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.world.FrostBiomeSource;
 import baguchan.frostrealm.world.FrostChunkGenerator;
@@ -20,6 +21,8 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fmllegacy.network.NetworkRegistry;
+import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,6 +40,12 @@ public class FrostRealm {
 	public static final Capability<FrostLivingCapability> FROST_LIVING_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
 	});
 
+	public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "net"))
+			.networkProtocolVersion(() -> NETWORK_PROTOCOL)
+			.clientAcceptedVersions(NETWORK_PROTOCOL::equals)
+			.serverAcceptedVersions(NETWORK_PROTOCOL::equals)
+			.simpleChannel();
+
 	public FrostRealm() {
 		IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
 		FrostBlocks.BLOCKS.register(modbus);
@@ -44,6 +53,8 @@ public class FrostRealm {
 		FrostEntities.ENTITIES.register(modbus);
 		FrostCarvers.CARVERS.register(modbus);
 		FrostFeatures.FEATURES.register(modbus);
+
+		this.setupMessages();
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::lateSetup);
@@ -64,6 +75,13 @@ public class FrostRealm {
 			Registry.register(Registry.CHUNK_GENERATOR, FrostRealm.prefix("chunk_generator"), FrostChunkGenerator.CODEC);
 			Registry.register(Registry.BIOME_SOURCE, FrostRealm.prefix("biome_provider"), FrostBiomeSource.CODEC);
 		});
+	}
+
+	private void setupMessages() {
+		CHANNEL.messageBuilder(ChangedColdMessage.class, 0)
+				.encoder(ChangedColdMessage::writeToPacket).decoder(ChangedColdMessage::readFromPacket)
+				.consumer(ChangedColdMessage::handle)
+				.add();
 	}
 
 	public void lateSetup(FMLLoadCompleteEvent event) {

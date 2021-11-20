@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "baguchan.frostrealm.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8",
+  "refmap": "revampedwolf.refmap.json",
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
