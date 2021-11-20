@@ -158,7 +158,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 	}
 
 	private void hotSourceTick(LivingEntity entity) {
-		if (!this.hotSource.closerThan(entity.blockPosition(), 3.46D) || !entity.level.getBlockState(this.hotSource).is(FrostTags.Blocks.HOT_SOURCE) || (entity.level.getBlockState(this.hotSource).getBlock() instanceof CampfireBlock && !CampfireBlock.isLitCampfire(entity.level.getBlockState(this.hotSource)))) {
+		if (this.hotSource != null && (!this.hotSource.closerThan(entity.blockPosition(), 3.46D) || !entity.level.getBlockState(this.hotSource).is(FrostTags.Blocks.HOT_SOURCE) || (entity.level.getBlockState(this.hotSource).getBlock() instanceof CampfireBlock && !CampfireBlock.isLitCampfire(entity.level.getBlockState(this.hotSource))))) {
 			this.hotSource = null;
 		}
 		if (this.hotSource == null) {
