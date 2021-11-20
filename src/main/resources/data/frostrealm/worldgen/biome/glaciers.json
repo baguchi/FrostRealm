@@ -56,6 +56,12 @@
   ],
   "spawners": {
     "monster": [
+      {
+        "type": "frostrealm:frost_wraith",
+        "weight": 20,
+        "minCount": 1,
+        "maxCount": 3
+      }
     ],
     "creature": [
     ],
@@ -70,5 +76,9 @@
   },
   "player_spawn_friendly": true,
   "spawn_costs": {
+    "frostrealm:frost_wraith": {
+      "energy_budget": 0.15,
+      "charge": 0.7
+    }
   }
 }

@@ -71,5 +71,9 @@
   },
   "player_spawn_friendly": true,
   "spawn_costs": {
+    "frostrealm:frost_wraith": {
+      "energy_budget": 0.15,
+      "charge": 0.7
+    }
   }
 }

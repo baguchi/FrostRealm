@@ -12,8 +12,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -105,13 +106,20 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			if (!entity.getItemBySlot(EquipmentSlot.HEAD).isEmpty())
 				tempAffect *= 0.85F;
 			if (!entity.getItemBySlot(EquipmentSlot.CHEST).isEmpty())
+				tempAffect *= 0.65F;
+			if (entity.getItemBySlot(EquipmentSlot.CHEST).is(ItemTags.FREEZE_IMMUNE_WEARABLES))
 				tempAffect *= 0.5F;
 			if (!entity.getItemBySlot(EquipmentSlot.LEGS).isEmpty())
-				tempAffect *= 0.65F;
+				tempAffect *= 0.75F;
+			if (entity.getItemBySlot(EquipmentSlot.LEGS).is(ItemTags.FREEZE_IMMUNE_WEARABLES))
+				tempAffect *= 0.55F;
 			if (!entity.getItemBySlot(EquipmentSlot.FEET).isEmpty())
-				tempAffect *= 0.85F;
+				tempAffect *= 0.8F;
+			if (entity.isInWaterOrRain())
+				tempAffect *= 2.25F;
+
 			if (this.hotSource == null) {
-				addExhaustion(tempAffect * 0.01F);
+				addExhaustion(tempAffect * 0.0085F);
 				if (this.exhaustionLevel > 4.0F) {
 					this.exhaustionLevel -= 4.0F;
 					if (this.temperatureSaturation > 0.0F) {
@@ -124,16 +132,15 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			if (EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES.contains(entity.getType())) {
 				this.temperature = Math.max(this.temperature - 1, 0);
 				this.temperatureSaturation = 0.0F;
-				entity.setTicksFrozen(entity.getTicksFrozen() + 20);
-				entity.hurt(DamageSource.FREEZE, 4.0F);
+				entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 8, 0, 200));
 			} else if (this.temperature <= 0) {
-				entity.setTicksFrozen(entity.getTicksFrozen() + 8);
-				this.tickTimer++;
+				entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 8, 0, 200));
 				/*if (this.tickTimer >= 80) {
 					if (entity.getHealth() > 4.0F || difficulty == Difficulty.HARD || difficulty == Difficulty.NORMAL)
 						entity.hurt(DamageSource.FREEZE, 1.0F);
-					this.tickTimer = 0;
+
 				}*/
+				this.tickTimer = 0;
 			} else {
 				this.tickTimer = 0;
 			}
@@ -151,8 +158,9 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 	}
 
 	private void hotSourceTick(LivingEntity entity) {
-		if (this.hotSource == null || !this.hotSource.closerThan(entity.blockPosition(), 3.46D) || !entity.level.getBlockState(this.hotSource).is(FrostTags.Blocks.HOT_SOURCE) || (entity.level.getBlockState(this.hotSource).getBlock() instanceof CampfireBlock && !CampfireBlock.isLitCampfire(entity.level.getBlockState(this.hotSource))))
+		if (!this.hotSource.closerThan(entity.blockPosition(), 3.46D) || !entity.level.getBlockState(this.hotSource).is(FrostTags.Blocks.HOT_SOURCE) || (entity.level.getBlockState(this.hotSource).getBlock() instanceof CampfireBlock && !CampfireBlock.isLitCampfire(entity.level.getBlockState(this.hotSource)))) {
 			this.hotSource = null;
+		}
 		if (this.hotSource == null) {
 			int heatRange = 2;
 			int entityPosX = (int) entity.getX();
