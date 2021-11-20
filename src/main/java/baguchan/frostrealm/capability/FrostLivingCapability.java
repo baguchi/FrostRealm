@@ -9,13 +9,11 @@ import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Position;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +32,7 @@ import javax.annotation.Nullable;
 public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySerializable<CompoundTag> {
 
 	public boolean isInFrostPortal = false;
-	public int tofuPortalTimer = 0;
+	public int portalTimer = 0;
 	public float prevPortalAnimTime, portalAnimTime = 0.0F;
 
 	protected int temperature = 20;
@@ -76,7 +74,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 		}
 
 		if (this.isInFrostPortal) {
-			++this.tofuPortalTimer;
+			++this.portalTimer;
 			if (entity.level.isClientSide) {
 				this.portalAnimTime += 0.0125F;
 				if (this.portalAnimTime > 1.0F) {
@@ -94,8 +92,8 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 					this.portalAnimTime = 0.0F;
 				}
 			}
-			if (this.tofuPortalTimer > 0) {
-				this.tofuPortalTimer -= 4;
+			if (this.portalTimer > 0) {
+				this.portalTimer -= 4;
 			}
 		}
 
@@ -105,13 +103,13 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			hotSourceTick(entity);
 			float tempAffect = 1.0F;
 			if (!entity.getItemBySlot(EquipmentSlot.HEAD).isEmpty())
-				tempAffect *= 0.9F;
+				tempAffect *= 0.85F;
 			if (!entity.getItemBySlot(EquipmentSlot.CHEST).isEmpty())
-				tempAffect *= 0.75F;
+				tempAffect *= 0.5F;
 			if (!entity.getItemBySlot(EquipmentSlot.LEGS).isEmpty())
-				tempAffect *= 0.75F;
+				tempAffect *= 0.65F;
 			if (!entity.getItemBySlot(EquipmentSlot.FEET).isEmpty())
-				tempAffect *= 0.9F;
+				tempAffect *= 0.85F;
 			if (this.hotSource == null) {
 				addExhaustion(tempAffect * 0.01F);
 				if (this.exhaustionLevel > 4.0F) {
@@ -129,13 +127,13 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 				entity.setTicksFrozen(entity.getTicksFrozen() + 20);
 				entity.hurt(DamageSource.FREEZE, 4.0F);
 			} else if (this.temperature <= 0) {
-				entity.setTicksFrozen(entity.getTicksFrozen() + 10);
+				entity.setTicksFrozen(entity.getTicksFrozen() + 8);
 				this.tickTimer++;
-				if (this.tickTimer >= 80) {
+				/*if (this.tickTimer >= 80) {
 					if (entity.getHealth() > 4.0F || difficulty == Difficulty.HARD || difficulty == Difficulty.NORMAL)
 						entity.hurt(DamageSource.FREEZE, 1.0F);
 					this.tickTimer = 0;
-				}
+				}*/
 			} else {
 				this.tickTimer = 0;
 			}
@@ -147,13 +145,13 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			this.exhaustionLevel = 0.0F;
 		}
 		if (entity.tickCount % 20 == 0 && !entity.level.isClientSide()) {
-			ChangedColdMessage message = new ChangedColdMessage((Entity) entity, this.temperature, this.temperatureSaturation);
+			ChangedColdMessage message = new ChangedColdMessage(entity, this.temperature, this.temperatureSaturation);
 			FrostRealm.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), message);
 		}
 	}
 
 	private void hotSourceTick(LivingEntity entity) {
-		if (this.hotSource == null || !this.hotSource.closerThan((Position) entity.blockPosition(), 3.46D) || !entity.level.getBlockState(this.hotSource).is(FrostTags.Blocks.HOT_SOURCE) || (entity.level.getBlockState(this.hotSource).getBlock() instanceof CampfireBlock && !CampfireBlock.isLitCampfire(entity.level.getBlockState(this.hotSource))))
+		if (this.hotSource == null || !this.hotSource.closerThan(entity.blockPosition(), 3.46D) || !entity.level.getBlockState(this.hotSource).is(FrostTags.Blocks.HOT_SOURCE) || (entity.level.getBlockState(this.hotSource).getBlock() instanceof CampfireBlock && !CampfireBlock.isLitCampfire(entity.level.getBlockState(this.hotSource))))
 			this.hotSource = null;
 		if (this.hotSource == null) {
 			int heatRange = 2;
@@ -171,7 +169,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 				}
 		}
 		if (this.hotSource != null &&
-				this.hotSource.closerThan((Position) entity.blockPosition(), 3.46D) &&
+				this.hotSource.closerThan(entity.blockPosition(), 3.46D) &&
 				entity.tickCount % 20 == 0) {
 			this.temperatureSaturation = Math.min(this.temperatureSaturation + 0.1F, 1.0F);
 			this.temperature = Math.min(this.temperature + 1, 20);
@@ -211,11 +209,11 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 	}
 
 	public void setPortalTimer(int timer) {
-		this.tofuPortalTimer = timer;
+		this.portalTimer = timer;
 	}
 
 	public int getPortalTimer() {
-		return this.tofuPortalTimer;
+		return this.portalTimer;
 	}
 
 	public float getPortalAnimTime() {

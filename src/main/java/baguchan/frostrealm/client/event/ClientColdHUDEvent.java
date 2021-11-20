@@ -1,6 +1,7 @@
 package baguchan.frostrealm.client.event;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.registry.FrostBlocks;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
@@ -10,26 +11,23 @@ import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.Random;
 
-@Mod.EventBusSubscriber(modid = FrostRealm.MODID)
 public class ClientColdHUDEvent {
 	protected final Random random = new Random();
 
 	protected int tickCount;
 
-	public static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation("frostrealm", "textures/gui/icons.png");
+	public static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation(FrostRealm.MODID, "textures/gui/icons.png");
 
 	public static void renderPortalOverlay(RenderGameOverlayEvent.Post event, Minecraft mc, Window window, Entity livingEntity) {
 		livingEntity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
 			if (cap.getPortalAnimTime() > 0.0F) {
-				float timeInPortal = cap.getPrevPortalAnimTime() + (cap.getPortalAnimTime() - cap.getPrevPortalAnimTime()) * event.getPartialTicks();
+				float timeInPortal = cap.getPrevPortalAnimTime() + (cap.getPortalAnimTime() - cap.getPrevPortalAnimTime());
 				if (timeInPortal < 1.0F) {
 					timeInPortal *= timeInPortal;
 					timeInPortal *= timeInPortal;
@@ -38,10 +36,10 @@ public class ClientColdHUDEvent {
 				RenderSystem.disableDepthTest();
 				RenderSystem.depthMask(false);
 				RenderSystem.defaultBlendFunc();
-				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, event.getPartialTicks());
+				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, timeInPortal);
 				RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
-				RenderSystem.setShader(GameRenderer::getPositionTexShader);
-				TextureAtlasSprite textureatlassprite = mc.getBlockRenderer().getBlockModelShaper().getParticleIcon(Blocks.NETHER_PORTAL.defaultBlockState());
+				RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
+				TextureAtlasSprite textureatlassprite = mc.getBlockRenderer().getBlockModelShaper().getParticleIcon(FrostBlocks.FROST_PORTAL.get().defaultBlockState());
 				float f = textureatlassprite.getU0();
 				float f1 = textureatlassprite.getV0();
 				float f2 = textureatlassprite.getU1();
@@ -67,13 +65,14 @@ public class ClientColdHUDEvent {
 		Minecraft mc = Minecraft.getInstance();
 		if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
 			Entity entity = mc.getCameraEntity();
-			int screenWidth = mc.getWindow().getWidth();
-			int screenHeight = mc.getWindow().getHeight() - ((ForgeIngameGui) mc.gui).right_height;
+			int screenWidth = mc.getWindow().getGuiScaledWidth();
+			int screenHeight = mc.getWindow().getGuiScaledHeight() - ((ForgeIngameGui) mc.gui).right_height;
 			this.random.setSeed((this.tickCount * 312871));
 			stack.pushPose();
+			RenderSystem.enableBlend();
 			entity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
-				RenderSystem.setShaderTexture(0, GUI_ICONS_LOCATION);
 				RenderSystem.setShader(GameRenderer::getPositionTexShader);
+				RenderSystem.setShaderTexture(0, GUI_ICONS_LOCATION);
 				int l = cap.getTemperatureLevel();
 				int j1 = screenWidth / 2 + 91;
 				int k1 = screenHeight;
@@ -91,6 +90,7 @@ public class ClientColdHUDEvent {
 						mc.gui.blit(stack, k8, i7, k7 + 45, 27, 9, 9);
 				}
 			});
+			RenderSystem.disableBlend();
 			((ForgeIngameGui) mc.gui).right_height += 10;
 			stack.popPose();
 			this.tickCount++;

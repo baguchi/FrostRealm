@@ -3,6 +3,7 @@ package baguchan.frostrealm;
 
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
+import baguchan.frostrealm.client.event.ClientColdHUDEvent;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.world.FrostBiomeSource;
@@ -67,6 +68,7 @@ public class FrostRealm {
 	}
 
 	private void setup(FMLCommonSetupEvent event) {
+		MinecraftForge.EVENT_BUS.register(new ClientColdHUDEvent());
 		event.enqueueWork(() -> {
 			FrostBlocks.burnables();
 			FrostCarvers.registerConfiguredCarvers();
