@@ -2,7 +2,7 @@
   "depth": 0.125,
   "scale": 0.1,
   "precipitation": "rain",
-  "temperature": 0.15,
+  "temperature": 0.25,
   "downfall": 0.4,
   "category": "plains",
   "effects": {
@@ -53,6 +53,12 @@
     "monster": [
     ],
     "creature": [
+      {
+        "type": "frostrealm:crystal_tortoise",
+        "weight": 5,
+        "minCount": 2,
+        "maxCount": 3
+      }
     ],
     "ambient": [
     ],

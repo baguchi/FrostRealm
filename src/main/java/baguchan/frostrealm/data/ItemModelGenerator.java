@@ -33,8 +33,10 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.STRAY_NECKLACE_PART.get());
 
 		this.singleTex(FrostItems.YETI_FUR.get());
-		this.egg(FrostItems.YETI_SPAWN_EGG.get());
-		this.egg(FrostItems.FROST_WRAITH_EGG.get());
+
+		this.egg(FrostItems.CRYSTAL_TORTOISE_SPAWNEGG.get());
+		this.egg(FrostItems.YETI_SPAWN_SPAWNEGG.get());
+		this.egg(FrostItems.FROST_WRAITH_SPAWNEGG.get());
 
 		this.toBlock(FrostBlocks.FROZEN_DIRT.get());
 		this.toBlock(FrostBlocks.FROZEN_GRASS_BLOCK.get());
