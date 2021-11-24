@@ -63,6 +63,8 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.add(FrostBlocks.FROSTROOT_DOOR.get(), BlockLoot::createDoorTable);
 
 		this.dropSelf(FrostBlocks.VIGOROSHROOM.get());
+		this.dropSelf(FrostBlocks.ARCTIC_POPPY.get());
+		this.dropSelf(FrostBlocks.ARCTIC_WILLOW.get());
 
 		this.registerEmpty(FrostBlocks.COLD_GRASS.get());
 		this.registerEmpty(FrostBlocks.COLD_TALL_GRASS.get());

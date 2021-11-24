@@ -58,6 +58,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.woodenFence(FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_PLANKS.get());
 		this.toBlock(FrostBlocks.FROSTROOT_FENCE_GATE.get());
 		this.itemBlockFlat(FrostBlocks.VIGOROSHROOM.get());
+		this.itemBlockFlat(FrostBlocks.ARCTIC_POPPY.get());
+		this.itemBlockFlat(FrostBlocks.ARCTIC_WILLOW.get());
 
 		this.itemBlockFlat(FrostBlocks.COLD_GRASS.get());
 		this.itemBlockFlat(FrostBlocks.COLD_TALL_GRASS.get(), "cold_tall_grass_top");

@@ -37,6 +37,7 @@ public class FrostBlocks {
 	public static final RegistryObject<StairBlock> FRIGID_STONE_BRICK_STAIRS = BLOCKS.register("frigid_stone_brick_stairs", () -> new StairBlock(FRIGID_STONE_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 	public static final RegistryObject<Block> FRIGID_STONE_SMOOTH_BRICK = BLOCKS.register("frigid_stone_smooth_brick", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 
+	//FROSTROOT
 	public static final RegistryObject<RotatedPillarBlock> FROSTROOT_LOG = BLOCKS.register("frostroot_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD)));
 	public static final RegistryObject<LeavesBlock> FROSTROOT_LEAVES = BLOCKS.register("frostroot_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).noOcclusion().sound(SoundType.GRASS)));
 	public static final RegistryObject<SaplingBlock> FROSTROOT_SAPLING = BLOCKS.register("frostroot_sapling", () -> new SaplingBlock(new FrostrootTree(), BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS)));
@@ -47,14 +48,17 @@ public class FrostBlocks {
 	public static final RegistryObject<FenceGateBlock> FROSTROOT_FENCE_GATE = BLOCKS.register("frostroot_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
 	public static final RegistryObject<DoorBlock> FROSTROOT_DOOR = BLOCKS.register("frostroot_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).noOcclusion().sound(SoundType.WOOD)));
 
+	//PLANT
 	public static final RegistryObject<Block> VIGOROSHROOM = BLOCKS.register("vigoroshroom", () -> new VigoroMushroomBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().lightLevel(state -> {
 		return 10;
 	}).sound(SoundType.GRASS)));
+	public static final RegistryObject<Block> ARCTIC_POPPY = BLOCKS.register("arctic_poppy", () -> new BushBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
+	public static final RegistryObject<Block> ARCTIC_WILLOW = BLOCKS.register("arctic_willow", () -> new BushBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
 
 	public static final RegistryObject<Block> COLD_GRASS = BLOCKS.register("cold_grass", () -> new ColdTallGrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
 	public static final RegistryObject<Block> COLD_TALL_GRASS = BLOCKS.register("cold_tall_grass", () -> new DoublePlantBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
 
-
+	//ORE
 	public static final RegistryObject<Block> FROST_CRYSTAL_ORE = BLOCKS.register("frost_crystal_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
 	public static final RegistryObject<Block> GLIMMERROCK_ORE = BLOCKS.register("glimmerrock_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().lightLevel((state) -> {
 		return 10;
@@ -106,6 +110,9 @@ public class FrostBlocks {
 
 
 		FrostItems.register(registry, new BlockItem(VIGOROSHROOM.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(ARCTIC_POPPY.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(ARCTIC_WILLOW.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
 
 		FrostItems.register(registry, new BlockItem(COLD_GRASS.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new DoubleHighBlockItem(COLD_TALL_GRASS.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));

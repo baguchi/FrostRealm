@@ -61,18 +61,21 @@ public class FrostConfiguredFeatures {
 
 	public static final ConfiguredFeature<?, ?> FROSTROOT_CAVE = register(prefix("frostroot_cave_vegitation"), Feature.RANDOM_SELECTOR.configured(new RandomFeatureConfiguration(ImmutableList.of(FANCY_FROSTROOT.weighted(0.1F)), FROSTROOT)).decorated(FeatureDecorator.CAVE_SURFACE.configured(new CaveDecoratorConfiguration(CaveSurface.FLOOR, 12))).range(Features.Decorators.RANGE_BOTTOM_TO_60).squared().count(5));
 
-	public static final ConfiguredFeature<SimpleBlockConfiguration, ?> TUNDRA_VEGETATION = register(prefix("tundra_vegetation"), Feature.SIMPLE_BLOCK.configured(new SimpleBlockConfiguration(new WeightedStateProvider(weightedBlockStateBuilder().add(Blocks.GRASS.defaultBlockState(), 50).add(Blocks.TALL_GRASS.defaultBlockState(), 10).add(FrostBlocks.VIGOROSHROOM.get().defaultBlockState(), 5)))));
-	public static final ConfiguredFeature<VegetationPatchConfiguration, ?> TUNDRA_PATCH = register(prefix("tundra_patch"), Feature.VEGETATION_PATCH.configured(new VegetationPatchConfiguration(FrostTags.Blocks.TUNDRA_REPLACEABLE.getName(), new SimpleStateProvider(FrostBlocks.FROZEN_GRASS_BLOCK.get().defaultBlockState()), () -> {
-		return TUNDRA_VEGETATION;
+	public static final ConfiguredFeature<SimpleBlockConfiguration, ?> TUNDRA_CAVE_PLANT = register(prefix("tundra_cave_plant"), Feature.SIMPLE_BLOCK.configured(new SimpleBlockConfiguration(new WeightedStateProvider(weightedBlockStateBuilder().add(Blocks.GRASS.defaultBlockState(), 50).add(Blocks.TALL_GRASS.defaultBlockState(), 10).add(FrostBlocks.VIGOROSHROOM.get().defaultBlockState(), 5)))));
+	public static final ConfiguredFeature<VegetationPatchConfiguration, ?> TUNDRA_CAVE_PATCH = register(prefix("tundra_cave_patch"), Feature.VEGETATION_PATCH.configured(new VegetationPatchConfiguration(FrostTags.Blocks.TUNDRA_REPLACEABLE.getName(), new SimpleStateProvider(FrostBlocks.FROZEN_GRASS_BLOCK.get().defaultBlockState()), () -> {
+		return TUNDRA_CAVE_PLANT;
 	}, CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5, 0.8F, UniformInt.of(4, 7), 0.3F)));
 
 	public static final ConfiguredFeature<?, ?> TUNDRA_BIG_ROCK = register(prefix("tundra_big_rock"), FrostFeatures.BIG_ROCK.get().configured(new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState())).decorated(Features.Decorators.HEIGHTMAP_SQUARE).countRandom(2));
 
-	public static final ConfiguredFeature<?, ?> TUNDRA_CAVES_VEGETATION = register(prefix("tundra_caves_vegetation"), TUNDRA_PATCH.decorated(FeatureDecorator.CAVE_SURFACE.configured(new CaveDecoratorConfiguration(CaveSurface.FLOOR, 12))).range(Features.Decorators.RANGE_BOTTOM_TO_60).squared().count(40));
+	public static final ConfiguredFeature<?, ?> TUNDRA_CAVES_VEGETATION = register(prefix("tundra_caves_vegetation"), TUNDRA_CAVE_PATCH.decorated(FeatureDecorator.CAVE_SURFACE.configured(new CaveDecoratorConfiguration(CaveSurface.FLOOR, 12))).range(Features.Decorators.RANGE_BOTTOM_TO_60).squared().count(40));
 
 	public static final RandomPatchConfiguration DEFAULT_COLD_GRASS_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(FrostBlocks.COLD_GRASS.get().defaultBlockState()), SimpleBlockPlacer.INSTANCE)).tries(32).build();
+	public static final RandomPatchConfiguration ARCTIC_FLOWER_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new WeightedStateProvider(weightedBlockStateBuilder().add(FrostBlocks.ARCTIC_POPPY.get().defaultBlockState(), 2).add(FrostBlocks.ARCTIC_WILLOW.get().defaultBlockState(), 4)), SimpleBlockPlacer.INSTANCE)).tries(32).build();
 
 	public static final ConfiguredFeature<?, ?> PATCH_GRASS_PLAIN = register(prefix("patch_grass_plain"), Feature.RANDOM_PATCH.configured(DEFAULT_COLD_GRASS_CONFIG).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE).decorated(FeatureDecorator.COUNT_NOISE.configured(new NoiseDependantDecoratorConfiguration(-0.8D, 5, 10))));
+	public static final ConfiguredFeature<?, ?> PATCH_FLOWER_TUNDRA = register(prefix("patch_flower_tundra"), Feature.RANDOM_PATCH.configured(ARCTIC_FLOWER_CONFIG).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(2));
+
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;
