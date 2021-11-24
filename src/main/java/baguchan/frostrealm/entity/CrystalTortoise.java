@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -62,6 +63,12 @@ public class CrystalTortoise extends Animal {
 	}
 
 	@Nullable
+	protected SoundEvent getAmbientSound() {
+		return !this.isInWater() && this.onGround && !this.isBaby() ? SoundEvents.TURTLE_AMBIENT_LAND : super.getAmbientSound();
+	}
+
+
+	@Nullable
 	protected SoundEvent getHurtSound(DamageSource p_30202_) {
 		return this.isBaby() ? SoundEvents.TURTLE_HURT_BABY : SoundEvents.TURTLE_HURT;
 	}
@@ -69,6 +76,10 @@ public class CrystalTortoise extends Animal {
 	@Nullable
 	protected SoundEvent getDeathSound() {
 		return this.isBaby() ? SoundEvents.TURTLE_DEATH_BABY : SoundEvents.TURTLE_DEATH;
+	}
+
+	protected SoundEvent getSwimSound() {
+		return SoundEvents.TURTLE_SWIM;
 	}
 
 	protected void playStepSound(BlockPos p_30173_, BlockState p_30174_) {
@@ -92,10 +103,24 @@ public class CrystalTortoise extends Animal {
 		return 200;
 	}
 
+	public float getScale() {
+		return this.isBaby() ? 0.3F : 1.0F;
+	}
+
 	protected PathNavigation createNavigation(Level p_30171_) {
 		return new CrystalTortoisePathNavigation(this, p_30171_);
 	}
 
+	public void travel(Vec3 p_30218_) {
+		if (this.isEffectiveAi() && this.isInWater()) {
+			this.moveRelative(0.1F, p_30218_);
+			this.move(MoverType.SELF, this.getDeltaMovement());
+			this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+		} else {
+			super.travel(p_30218_);
+		}
+
+	}
 
 	static class CrystalTortoiseMoveControl extends MoveControl {
 		private final CrystalTortoise turtle;
@@ -110,10 +135,12 @@ public class CrystalTortoise extends Animal {
 				this.turtle.setDeltaMovement(this.turtle.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
 
 				if (this.turtle.isBaby()) {
-					this.turtle.setSpeed(Math.max(this.turtle.getSpeed() / 3.0F, 0.06F));
+					this.turtle.setSpeed(Math.max(this.turtle.getSpeed() / 3.0F, 0.035F));
+				} else {
+					this.turtle.setSpeed(Math.max(this.turtle.getSpeed() / 3.0F, 0.05F));
 				}
 			} else if (this.turtle.onGround) {
-				this.turtle.setSpeed(Math.max(this.turtle.getSpeed() / 2.0F, 0.075F));
+				this.turtle.setSpeed(Math.max(this.turtle.getSpeed() / 2.0F, 0.1F));
 			}
 
 		}

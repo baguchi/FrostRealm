@@ -11,6 +11,7 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 
 public class CrystalTortoiseModel<T extends CrystalTortoise> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
@@ -53,7 +54,7 @@ public class CrystalTortoiseModel<T extends CrystalTortoise> extends EntityModel
 
 		PartDefinition legL = partdefinition.addOrReplaceChild("legL", CubeListBuilder.create().texOffs(0, 24).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-6.0F, 20.0F, -3.0F));
 
-		PartDefinition legBackL = partdefinition.addOrReplaceChild("legBackL", CubeListBuilder.create().texOffs(0, 24).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-6.0F, 20.0F, 5.6F));
+		PartDefinition legBackL = partdefinition.addOrReplaceChild("legBackL", CubeListBuilder.create().texOffs(0, 24).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-7.0F, 20.0F, 5.6F));
 
 		PartDefinition crystal = partdefinition.addOrReplaceChild("crystal", CubeListBuilder.create().texOffs(0, 32).addBox(-1.0F, -3.0F, -1.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 14.5F, -1.0F, 0.4304F, 0.3128F, -0.2346F));
 
@@ -68,7 +69,24 @@ public class CrystalTortoiseModel<T extends CrystalTortoise> extends EntityModel
 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
+		this.head.xRot = headPitch * ((float) Math.PI / 180F);
 
+		this.legR.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
+		this.legL.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount * 0.5F;
+		this.legR.zRot = 0.0F;
+		this.legL.zRot = 0.0F;
+		this.legBackR.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
+		this.legBackL.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount * 0.5F;
+		this.legBackR.zRot = 0.0F;
+		this.legBackL.zRot = 0.0F;
+
+		if (entity.isInWater()) {
+			this.legR.zRot = -((float) Math.PI / 4) - Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
+			this.legL.zRot = ((float) Math.PI / 4) + Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
+			this.legBackR.zRot = -((float) Math.PI / 4) - Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
+			this.legBackL.zRot = ((float) Math.PI / 4) + Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
+		}
 	}
 
 	@Override

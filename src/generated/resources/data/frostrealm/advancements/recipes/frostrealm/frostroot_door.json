@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "frostrealm:frostroot_door"
+    ]
+  },
+  "criteria": {
+    "has_frostroot_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "frostrealm:frostroot_planks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "frostrealm:frostroot_door"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_frostroot_planks",
+      "has_the_recipe"
+    ]
+  ]
+}
