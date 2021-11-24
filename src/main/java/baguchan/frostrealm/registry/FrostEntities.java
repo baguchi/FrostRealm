@@ -27,7 +27,7 @@ public class FrostEntities {
 
 	public static final EntityType<Yeti> YETI_TYPE = EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).build(prefix("yeti"));
 	public static final RegistryObject<EntityType<Yeti>> YETI = ENTITIES.register("yeti", () -> YETI_TYPE);
-	public static final EntityType<FrostWraith> FROST_WRAITH_TYPE = EntityType.Builder.of(FrostWraith::new, MobCategory.MONSTER).sized(0.6F, 1.85F).build(prefix("frost_wraith"));
+	public static final EntityType<FrostWraith> FROST_WRAITH_TYPE = EntityType.Builder.of(FrostWraith::new, MobCategory.MONSTER).sized(0.6F, 1.65F).build(prefix("frost_wraith"));
 	public static final RegistryObject<EntityType<FrostWraith>> FROST_WRAITH = ENTITIES.register("frost_wraith", () -> FROST_WRAITH_TYPE);
 
 
