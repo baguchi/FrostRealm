@@ -119,7 +119,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 				tempAffect *= 2.5F;
 
 			if (this.hotSource == null) {
-				addExhaustion(tempAffect * 0.0085F);
+				addExhaustion(tempAffect * 0.001F);
 				if (this.exhaustionLevel > 4.0F) {
 					this.exhaustionLevel -= 4.0F;
 					if (this.temperatureSaturation > 0.0F) {
