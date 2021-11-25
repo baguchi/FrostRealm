@@ -55,12 +55,6 @@
     "monster": [
     ],
     "creature": [
-      {
-        "type": "frostrealm:crystal_tortoise",
-        "weight": 5,
-        "minCount": 2,
-        "maxCount": 3
-      }
     ],
     "ambient": [
     ],
