@@ -1,6 +1,7 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.block.BearBerryBushBlock;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -72,7 +73,7 @@ public class FrostConfiguredFeatures {
 
 	public static final RandomPatchConfiguration DEFAULT_COLD_GRASS_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(FrostBlocks.COLD_GRASS.get().defaultBlockState()), SimpleBlockPlacer.INSTANCE)).tries(32).build();
 	public static final RandomPatchConfiguration ARCTIC_FLOWER_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new WeightedStateProvider(weightedBlockStateBuilder().add(FrostBlocks.ARCTIC_POPPY.get().defaultBlockState(), 2).add(FrostBlocks.ARCTIC_WILLOW.get().defaultBlockState(), 4)), SimpleBlockPlacer.INSTANCE)).tries(32).build();
-	public static final RandomPatchConfiguration BEARBERRY_BUSH_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(FrostBlocks.BEARBERRY_BUSH.get().defaultBlockState()), SimpleBlockPlacer.INSTANCE)).tries(32).build();
+	public static final RandomPatchConfiguration BEARBERRY_BUSH_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(FrostBlocks.BEARBERRY_BUSH.get().defaultBlockState().setValue(BearBerryBushBlock.AGE, 3)), SimpleBlockPlacer.INSTANCE)).tries(32).build();
 
 
 	public static final ConfiguredFeature<?, ?> PATCH_GRASS_PLAIN = register(prefix("patch_grass_plain"), Feature.RANDOM_PATCH.configured(DEFAULT_COLD_GRASS_CONFIG).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE).decorated(FeatureDecorator.COUNT_NOISE.configured(new NoiseDependantDecoratorConfiguration(-0.8D, 5, 10))));

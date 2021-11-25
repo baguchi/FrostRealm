@@ -83,7 +83,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 	public void bearBerryBushCrossBlock(Block block) {
 		getVariantBuilder(block).forAllStates(state -> {
 			int age = state.getValue(BearBerryBushBlock.AGE);
-			ModelFile cross_1 = models().singleTexture(name(block), mcLoc("block/cross"), "cross", texture("bearberry_bush_" + age));
+			ModelFile cross_1 = models().singleTexture("bearberry_bush_" + age, mcLoc("block/cross"), "cross", texture("bearberry_bush_" + age));
 			return ConfiguredModel.builder()
 					.modelFile(cross_1)
 					.build();
