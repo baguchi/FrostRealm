@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "frostrealm:block/bearberry_bush_3"
+  }
+}

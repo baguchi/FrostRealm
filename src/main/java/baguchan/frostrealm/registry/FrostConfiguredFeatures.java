@@ -72,10 +72,13 @@ public class FrostConfiguredFeatures {
 
 	public static final RandomPatchConfiguration DEFAULT_COLD_GRASS_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(FrostBlocks.COLD_GRASS.get().defaultBlockState()), SimpleBlockPlacer.INSTANCE)).tries(32).build();
 	public static final RandomPatchConfiguration ARCTIC_FLOWER_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new WeightedStateProvider(weightedBlockStateBuilder().add(FrostBlocks.ARCTIC_POPPY.get().defaultBlockState(), 2).add(FrostBlocks.ARCTIC_WILLOW.get().defaultBlockState(), 4)), SimpleBlockPlacer.INSTANCE)).tries(32).build();
+	public static final RandomPatchConfiguration BEARBERRY_BUSH_CONFIG = (new RandomPatchConfiguration.GrassConfigurationBuilder(new SimpleStateProvider(FrostBlocks.BEARBERRY_BUSH.get().defaultBlockState()), SimpleBlockPlacer.INSTANCE)).tries(32).build();
+
 
 	public static final ConfiguredFeature<?, ?> PATCH_GRASS_PLAIN = register(prefix("patch_grass_plain"), Feature.RANDOM_PATCH.configured(DEFAULT_COLD_GRASS_CONFIG).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE).decorated(FeatureDecorator.COUNT_NOISE.configured(new NoiseDependantDecoratorConfiguration(-0.8D, 5, 10))));
 	public static final ConfiguredFeature<?, ?> PATCH_FLOWER_TUNDRA = register(prefix("patch_flower_tundra"), Feature.RANDOM_PATCH.configured(ARCTIC_FLOWER_CONFIG).decorated(Features.Decorators.ADD_32).decorated(Features.Decorators.HEIGHTMAP_SQUARE).count(2));
 
+	public static final ConfiguredFeature<?, ?> PATCH_BEARBERRY_BUSH = register(prefix("patch_bearberry_bush"), Feature.RANDOM_PATCH.configured(BEARBERRY_BUSH_CONFIG).decorated(Features.Decorators.HEIGHTMAP_DOUBLE_SQUARE)).rarity(2);
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;

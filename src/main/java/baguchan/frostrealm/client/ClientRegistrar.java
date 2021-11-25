@@ -86,6 +86,8 @@ public class ClientRegistrar {
 		setRenderLayer(FrostBlocks.COLD_GRASS.get(), RenderType.cutout());
 		setRenderLayer(FrostBlocks.COLD_TALL_GRASS.get(), RenderType.cutout());
 
+		setRenderLayer(FrostBlocks.BEARBERRY_BUSH.get(), RenderType.cutout());
+
 		setRenderLayer(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get(), RenderType.translucent());
 
 		setRenderLayer(FrostBlocks.FROST_TORCH.get(), RenderType.cutout());

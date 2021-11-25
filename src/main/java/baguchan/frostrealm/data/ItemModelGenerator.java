@@ -28,6 +28,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.FROZEN_FRUIT.get());
 		this.singleTex(FrostItems.MELTED_FRUIT.get());
 		this.singleTex(FrostItems.SUGARBEET.get());
+		this.singleTex(FrostItems.BEARBERRY.get());
 
 		this.singleTex(FrostItems.FROST_CATALYST.get());
 		this.singleTex(FrostItems.STRAY_NECKLACE_PART.get());

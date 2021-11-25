@@ -58,6 +58,8 @@ public class FrostBlocks {
 	public static final RegistryObject<Block> COLD_GRASS = BLOCKS.register("cold_grass", () -> new ColdTallGrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
 	public static final RegistryObject<Block> COLD_TALL_GRASS = BLOCKS.register("cold_tall_grass", () -> new DoublePlantBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
 
+	public static final RegistryObject<Block> BEARBERRY_BUSH = BLOCKS.register("bearberry_bush", () -> new BearBerryBushBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
+
 	//ORE
 	public static final RegistryObject<Block> FROST_CRYSTAL_ORE = BLOCKS.register("frost_crystal_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
 	public static final RegistryObject<Block> GLIMMERROCK_ORE = BLOCKS.register("glimmerrock_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().lightLevel((state) -> {

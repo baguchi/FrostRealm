@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "frostrealm:block/bearberry_bush"
+    },
+    "age=1": {
+      "model": "frostrealm:block/bearberry_bush"
+    },
+    "age=2": {
+      "model": "frostrealm:block/bearberry_bush"
+    },
+    "age=3": {
+      "model": "frostrealm:block/bearberry_bush"
+    }
+  }
+}
