@@ -25,6 +25,8 @@ public class FrostItems {
 	public static final RegistryObject<Item> SUGARBEET = ITEMS.register("sugarbeet", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	//public static final RegistryObject<Item> SUGARBEET_SEEDS = ITEMS.register("sugarbeet_seeds", () -> new ItemNameBlockItem((Block) FrostBlocks.SUGARBEETS.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> BEARBERRY = ITEMS.register("bearberry", () -> new ItemNameBlockItem(FrostBlocks.BEARBERRY_BUSH.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> COOKED_BEARBERRY = ITEMS.register("cooked_bearberry", () -> new Item((new Item.Properties()).food(FrostFoods.COOKED_BEARBERRY).tab(FrostGroups.TAB_FROSTREALM)));
+
 
 	public static final RegistryObject<Item> FROST_CATALYST = ITEMS.register("frost_catalyst", () -> new FrostCatalystItem((new Item.Properties()).stacksTo(1).durability(64).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> STRAY_NECKLACE_PART = ITEMS.register("stray_necklace_part", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));

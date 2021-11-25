@@ -33,6 +33,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 		makeDoor(consumer, FrostBlocks.FROSTROOT_DOOR.get(), FrostBlocks.FROSTROOT_PLANKS.get());
 
 		foodCooking(FrostItems.FROZEN_FRUIT.get(), FrostItems.MELTED_FRUIT.get(), 0.1F, consumer);
+		foodCooking(FrostItems.BEARBERRY.get(), FrostItems.COOKED_BEARBERRY.get(), 0.1F, consumer);
 
 		makeFrostTorch(consumer, FrostItems.FROST_TORCH.get());
 
