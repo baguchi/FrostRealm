@@ -1,5 +1,6 @@
 package baguchan.frostrealm.entity;
 
+import baguchan.frostrealm.entity.goal.ConditionGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.BlockPos;
@@ -14,7 +15,10 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -25,6 +29,8 @@ import java.util.EnumSet;
 import java.util.Random;
 
 public class Marmot extends Animal {
+	private static final UniformInt TIME_BETWEEN_STANDS = UniformInt.of(300, 1200);
+
 	private static final EntityDataAccessor<Boolean> IS_STANDING = SynchedEntityData.defineId(Marmot.class, EntityDataSerializers.BOOLEAN);
 
 	public Marmot(EntityType<? extends Animal> p_27557_, Level p_27558_) {
@@ -34,7 +40,7 @@ public class Marmot extends Animal {
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.3F));
-		this.goalSelector.addGoal(2, new StandingGoal(this));
+		this.goalSelector.addGoal(2, new StandingGoal(this, TIME_BETWEEN_STANDS));
 		//this.goalSelector.addGoal(2, new BreedGoal(this, 0.95D));
 		//this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, FOOD_ITEMS, false));
 		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.1F));
@@ -68,37 +74,15 @@ public class Marmot extends Animal {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
 	}
 
-	public static class StandingGoal extends Goal {
+	public static class StandingGoal extends ConditionGoal {
 		public final Marmot marmot;
 		protected int cooldown;
 		protected int maxCooldown;
-		private static final UniformInt TIME_BETWEEN_STANDS = UniformInt.of(300, 1200);
 
-		public StandingGoal(Marmot marmot) {
+		public StandingGoal(Marmot marmot, UniformInt uniformInt) {
+			super(marmot, uniformInt);
 			this.marmot = marmot;
 			this.setFlags(EnumSet.of(Flag.MOVE));
-		}
-
-		@Override
-		public boolean canUse() {
-			if (this.maxCooldown <= 0) {
-				this.maxCooldown = TIME_BETWEEN_STANDS.sample(this.marmot.random);
-				return false;
-			} else {
-				if (cooldown > this.maxCooldown) {
-					this.cooldown = 0;
-					this.maxCooldown = TIME_BETWEEN_STANDS.sample(this.marmot.random);
-					return this.marmot.getTarget() == null;
-				} else {
-					++this.cooldown;
-					return false;
-				}
-			}
-		}
-
-		@Override
-		public boolean canContinueToUse() {
-			return this.marmot.random.nextInt(400) != 0;
 		}
 
 		@Override
