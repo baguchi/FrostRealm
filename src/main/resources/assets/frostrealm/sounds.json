@@ -46,5 +46,29 @@
       }
     ],
     "subtitle": "subtitles.entity.gokkur.death"
+  },
+  "entity.marmot.idle": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/marmot/marmot_idle"
+      }
+    ],
+    "subtitle": "subtitles.entity.marmot.idle"
+  },
+  "entity.marmot.hurt": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/marmot/marmot_hurt"
+      }
+    ],
+    "subtitle": "subtitles.entity.marmot.hurt"
+  },
+  "entity.marmot.death": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/marmot/marmot_death"
+      }
+    ],
+    "subtitle": "subtitles.entity.marmot.death"
   }
 }

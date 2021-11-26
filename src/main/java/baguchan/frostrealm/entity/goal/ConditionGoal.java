@@ -6,24 +6,33 @@ import net.minecraft.world.entity.ai.goal.Goal;
 
 public class ConditionGoal extends Goal {
 	protected final PathfinderMob mob;
-	protected int cooldown;
-	protected int maxCooldown;
+	protected int tick;
+	private int cooldown;
+	private int maxCooldown;
+	private int maxActiveTime;
+	private final UniformInt timeBetweenCooldown;
 	private final UniformInt timeBetween;
 
 	public ConditionGoal(PathfinderMob mob, UniformInt cooldown) {
+		this(mob, cooldown, cooldown);
+	}
+
+	public ConditionGoal(PathfinderMob mob, UniformInt cooldown, UniformInt time) {
 		this.mob = mob;
-		this.timeBetween = cooldown;
+		this.timeBetweenCooldown = cooldown;
+		this.timeBetween = time;
 	}
 
 	@Override
 	public boolean canUse() {
 		if (this.maxCooldown <= 0) {
-			this.maxCooldown = timeBetween.sample(this.mob.getRandom());
+			this.maxCooldown = timeBetweenCooldown.sample(this.mob.getRandom());
 			return false;
 		} else {
 			if (cooldown > this.maxCooldown) {
 				this.cooldown = 0;
-				this.maxCooldown = timeBetween.sample(this.mob.getRandom());
+				this.maxCooldown = timeBetweenCooldown.sample(this.mob.getRandom());
+				this.maxActiveTime = timeBetween.sample(this.mob.getRandom());
 				return this.isMatchCondition();
 			} else {
 				++this.cooldown;
@@ -32,24 +41,30 @@ public class ConditionGoal extends Goal {
 		}
 	}
 
-	private boolean isMatchCondition() {
+	public boolean isMatchCondition() {
 		return true;
 	}
 
 	@Override
 	public boolean canContinueToUse() {
-		return this.maxCooldown > this.cooldown;
+		return this.maxActiveTime > this.tick;
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		++this.tick;
 	}
 
 	@Override
 	public void start() {
 		super.start();
-		this.cooldown = 0;
+		this.tick = 0;
 	}
 
 	@Override
 	public void stop() {
 		super.stop();
-		this.cooldown = 0;
+		this.tick = 0;
 	}
 }

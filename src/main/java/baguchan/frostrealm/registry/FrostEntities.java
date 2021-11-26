@@ -25,7 +25,7 @@ public class FrostEntities {
 
 	public static final EntityType<CrystalTortoise> CRYSTAL_TORTOISE_TYPE = EntityType.Builder.of(CrystalTortoise::new, MobCategory.CREATURE).sized(0.85F, 0.85F).build(prefix("crystal_tortoise"));
 	public static final RegistryObject<EntityType<CrystalTortoise>> CRYSTAL_TORTOISE = ENTITIES.register("crystal_tortoise", () -> CRYSTAL_TORTOISE_TYPE);
-	public static final EntityType<Marmot> MARMOT_TYPE = EntityType.Builder.of(Marmot::new, MobCategory.CREATURE).sized(0.8F, 0.6F).build(prefix("marmot"));
+	public static final EntityType<Marmot> MARMOT_TYPE = EntityType.Builder.of(Marmot::new, MobCategory.CREATURE).sized(0.65F, 0.6F).build(prefix("marmot"));
 	public static final RegistryObject<EntityType<Marmot>> MARMOT = ENTITIES.register("marmot", () -> MARMOT_TYPE);
 
 

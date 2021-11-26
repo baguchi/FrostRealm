@@ -57,5 +57,8 @@
   "subtitles.ambient.blizzard": "Howling Blizzard Wind",
   "subtitles.entity.gokkur.death": "Gokkur Death",
   "subtitles.entity.gokkur.hurt": "Gokkur Hurt",
-  "subtitles.entity.gokkur.idle": "Gokkur Humming"
+  "subtitles.entity.gokkur.idle": "Gokkur Humming",
+  "subtitles.entity.marmot.death": "Marmot Death",
+  "subtitles.entity.marmot.hurt": "Marmot Hurt",
+  "subtitles.entity.marmot.idle": "Marmot Bark"
 }

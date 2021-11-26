@@ -4,6 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.ModModelLayers;
 import baguchan.frostrealm.client.model.MarmotModel;
 import baguchan.frostrealm.entity.Marmot;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -18,6 +19,13 @@ public class MarmotRenderer<T extends Marmot> extends MobRenderer<T, MarmotModel
 
 	public MarmotRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new MarmotModel<>(p_173952_.bakeLayer(ModModelLayers.MARMOT)), 0.4F);
+	}
+
+	@Override
+	protected void scale(T p_115314_, PoseStack p_115315_, float p_115316_) {
+		float size = p_115314_.getScale();
+		p_115315_.scale(size, size, size);
+		super.scale(p_115314_, p_115315_, p_115316_);
 	}
 
 	@Override
