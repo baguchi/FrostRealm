@@ -7,6 +7,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -70,6 +71,8 @@ public class Marmot extends Animal {
 	public static class StandingGoal extends Goal {
 		public final Marmot marmot;
 		protected int cooldown;
+		protected int maxCooldown;
+		private static final UniformInt TIME_BETWEEN_STANDS = UniformInt.of(300, 1200);
 
 		public StandingGoal(Marmot marmot) {
 			this.marmot = marmot;
@@ -78,12 +81,18 @@ public class Marmot extends Animal {
 
 		@Override
 		public boolean canUse() {
-			if (cooldown > 300) {
-				this.cooldown = 0;
-				return this.marmot.getTarget() == null && this.marmot.random.nextInt(5) == 0;
-			} else {
-				++this.cooldown;
+			if (this.maxCooldown <= 0) {
+				this.maxCooldown = TIME_BETWEEN_STANDS.sample(this.marmot.random);
 				return false;
+			} else {
+				if (cooldown > this.maxCooldown) {
+					this.cooldown = 0;
+					this.maxCooldown = TIME_BETWEEN_STANDS.sample(this.marmot.random);
+					return this.marmot.getTarget() == null;
+				} else {
+					++this.cooldown;
+					return false;
+				}
 			}
 		}
 

@@ -64,19 +64,30 @@ public class MarmotModel<T extends Marmot> extends EntityModel<T> {
 
 		this.body.xRot = 0.0F;
 		this.body.y = 18.0F;
+		this.body.z = 6.0F;
 
 		this.handR.y = 21.0F;
 		this.handL.y = 21.0F;
 		this.handR.z = -2.0F;
 		this.handL.z = -2.0F;
 
+		this.head.y = 17.0F;
+		this.head.z = -3.0F;
+		this.legR.z = 5.0F;
+		this.legL.z = 5.0F;
+
 		if (entity.isStanding()) {
-			this.body.xRot = (float) (Math.PI / 2F);
-			this.body.y = 15.0F;
-			this.handR.y = 27.0F;
-			this.handL.y = 27.0F;
-			this.handR.z = 1.0F;
-			this.handL.z = 1.0F;
+			this.body.xRot = (float) -(Math.PI / 2F);
+			this.body.y = 21.0F;
+			this.body.z = 3.0F;
+			this.handR.y = 14.0F;
+			this.handL.y = 14.0F;
+			this.handR.z = -1.0F;
+			this.handL.z = -1.0F;
+			this.head.y = 9.5F;
+			this.head.z = 3.0F;
+			this.legR.z = 2.0F;
+			this.legL.z = 2.0F;
 		}
 	}
 
