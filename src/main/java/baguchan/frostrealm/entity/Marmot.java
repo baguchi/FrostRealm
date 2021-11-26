@@ -67,7 +67,7 @@ public class Marmot extends Animal {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
 	}
 
-	public class StandingGoal extends Goal {
+	public static class StandingGoal extends Goal {
 		public final Marmot marmot;
 		protected int cooldown;
 
