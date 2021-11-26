@@ -3,9 +3,11 @@ package baguchan.frostrealm.client;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.model.CrystalTortoiseModel;
 import baguchan.frostrealm.client.model.FrostWraithModel;
+import baguchan.frostrealm.client.model.MarmotModel;
 import baguchan.frostrealm.client.model.YetiModel;
 import baguchan.frostrealm.client.render.CrystalTortoiseRenderer;
 import baguchan.frostrealm.client.render.FrostWraithRenderer;
+import baguchan.frostrealm.client.render.MarmotRenderer;
 import baguchan.frostrealm.client.render.YetiRenderer;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
@@ -32,6 +34,7 @@ public class ClientRegistrar {
 	@SubscribeEvent
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(FrostEntities.CRYSTAL_TORTOISE.get(), CrystalTortoiseRenderer::new);
+		event.registerEntityRenderer(FrostEntities.MARMOT.get(), MarmotRenderer::new);
 		event.registerEntityRenderer(FrostEntities.YETI.get(), YetiRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROST_WRAITH.get(), FrostWraithRenderer::new);
 	}
@@ -41,6 +44,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(ModModelLayers.CRYSTAL_TORTOISE, CrystalTortoiseModel::createBodyLayer);
 		event.registerLayerDefinition(ModModelLayers.YETI, YetiModel::createBodyLayer);
 		event.registerLayerDefinition(ModModelLayers.FROST_WRAITH, FrostWraithModel::createBodyLayer);
+		event.registerLayerDefinition(ModModelLayers.MARMOT, MarmotModel::createBodyLayer);
 	}
 
 	public static void renderTileEntity() {

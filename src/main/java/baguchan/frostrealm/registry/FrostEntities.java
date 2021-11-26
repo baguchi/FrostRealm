@@ -3,6 +3,7 @@ package baguchan.frostrealm.registry;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.entity.CrystalTortoise;
 import baguchan.frostrealm.entity.FrostWraith;
+import baguchan.frostrealm.entity.Marmot;
 import baguchan.frostrealm.entity.Yeti;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -24,6 +25,9 @@ public class FrostEntities {
 
 	public static final EntityType<CrystalTortoise> CRYSTAL_TORTOISE_TYPE = EntityType.Builder.of(CrystalTortoise::new, MobCategory.CREATURE).sized(0.85F, 0.85F).build(prefix("crystal_tortoise"));
 	public static final RegistryObject<EntityType<CrystalTortoise>> CRYSTAL_TORTOISE = ENTITIES.register("crystal_tortoise", () -> CRYSTAL_TORTOISE_TYPE);
+	public static final EntityType<Marmot> MARMOT_TYPE = EntityType.Builder.of(Marmot::new, MobCategory.CREATURE).sized(0.8F, 0.6F).build(prefix("marmot"));
+	public static final RegistryObject<EntityType<Marmot>> MARMOT = ENTITIES.register("marmot", () -> MARMOT_TYPE);
+
 
 	public static final EntityType<Yeti> YETI_TYPE = EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).build(prefix("yeti"));
 	public static final RegistryObject<EntityType<Yeti>> YETI = ENTITIES.register("yeti", () -> YETI_TYPE);
@@ -38,6 +42,7 @@ public class FrostEntities {
 	@SubscribeEvent
 	public static void registerEntity(RegistryEvent.Register<EntityType<?>> event) {
 		SpawnPlacements.register(CRYSTAL_TORTOISE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalTortoise::checkTortoiseSpawnRules);
+		SpawnPlacements.register(MARMOT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Marmot::checkMarmotSpawnRules);
 		SpawnPlacements.register(YETI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
 		SpawnPlacements.register(FROST_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
 	}
@@ -45,6 +50,7 @@ public class FrostEntities {
 	@SubscribeEvent
 	public static void registerEntityAttribute(EntityAttributeCreationEvent event) {
 		event.put(CRYSTAL_TORTOISE.get(), CrystalTortoise.createAttributes().build());
+		event.put(MARMOT.get(), Marmot.createAttributes().build());
 		event.put(YETI.get(), Yeti.createAttributeMap().build());
 		event.put(FROST_WRAITH.get(), FrostWraith.createAttributes().build());
 	}

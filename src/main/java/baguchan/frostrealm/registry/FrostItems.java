@@ -35,7 +35,8 @@ public class FrostItems {
 	public static final RegistryObject<Item> FROST_TORCH = ITEMS.register("frost_torch", () -> new StandingAndWallBlockItem((Block) FrostBlocks.FROST_TORCH.get(), (Block) FrostBlocks.WALL_FROST_TORCH.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 	public static final RegistryObject<Item> CRYSTAL_TORTOISE_SPAWNEGG = ITEMS.register("crystal_tortoise_spawn_egg", () -> new ForgeSpawnEggItem(() -> FrostEntities.CRYSTAL_TORTOISE_TYPE, 0x3E3CAE, 0x8685E0, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-	public static final RegistryObject<Item> YETI_SPAWN_SPAWNEGG = ITEMS.register("yeti_spawn_egg", () -> new ForgeSpawnEggItem(() -> FrostEntities.YETI_TYPE, 0xD4D7DB, 0x403656, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> MARMOT_SPAWNEGG = ITEMS.register("marmot_spawn_egg", () -> new ForgeSpawnEggItem(() -> FrostEntities.MARMOT_TYPE, 0xB18346, 0x9B6B2D, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> YETI_SPAWNEGG = ITEMS.register("yeti_spawn_egg", () -> new ForgeSpawnEggItem(() -> FrostEntities.YETI_TYPE, 0xD4D7DB, 0x403656, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> FROST_WRAITH_SPAWNEGG = ITEMS.register("frost_wraith_spawn_egg", () -> new ForgeSpawnEggItem(() -> FrostEntities.FROST_WRAITH_TYPE, 0x31454A, 0xA0CBD3, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 
