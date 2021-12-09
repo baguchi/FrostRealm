@@ -3,6 +3,7 @@ package baguchan.frostrealm.block;
 import baguchan.frostrealm.registry.FrostBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.BlockGetter;
@@ -14,9 +15,9 @@ import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.AbstractFlowerFeature;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.lighting.LayerLightEngine;
 
 import java.util.List;
@@ -56,21 +57,19 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 			}
 
 			if (blockstate2.isAir()) {
-				BlockState blockstate1;
+				PlacedFeature placedfeature;
 				if (p_53688_.nextInt(8) == 0) {
 					List<ConfiguredFeature<?, ?>> list = p_53687_.getBiome(blockpos1).getGenerationSettings().getFlowerFeatures();
 					if (list.isEmpty()) {
 						continue;
 					}
 
-					blockstate1 = getBlockState(p_53688_, blockpos1, list.get(0));
+					placedfeature = ((RandomPatchConfiguration)list.get(0).config()).feature().get();
 				} else {
-					blockstate1 = blockstate;
+					placedfeature = VegetationPlacements.GRASS_BONEMEAL;
 				}
 
-				if (blockstate1.canSurvive(p_53687_, blockpos1)) {
-					p_53687_.setBlock(blockpos1, blockstate1, 3);
-				}
+				placedfeature.place(p_53687_, p_53687_.getChunkSource().getGenerator(), p_53688_, blockpos1);
 			}
 		}
 
@@ -80,14 +79,14 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 		if (!canBeGrass(p_56819_, p_56820_, p_56821_)) {
 			if (!p_56820_.isAreaLoaded(p_56821_, 3))
 				return; // Forge: prevent loading unloaded chunks when checking neighbor's light and spreading
-			p_56820_.setBlockAndUpdate(p_56821_, FrostBlocks.FROZEN_DIRT.get().defaultBlockState());
+			p_56820_.setBlockAndUpdate(p_56821_, FrostBlocks.FROZEN_DIRT.defaultBlockState());
 		} else {
 			if (p_56820_.getMaxLocalRawBrightness(p_56821_.above()) >= 9) {
 				BlockState blockstate = this.defaultBlockState();
 
 				for (int i = 0; i < 4; ++i) {
 					BlockPos blockpos = p_56821_.offset(p_56822_.nextInt(3) - 1, p_56822_.nextInt(5) - 3, p_56822_.nextInt(3) - 1);
-					if (p_56820_.getBlockState(blockpos).is(FrostBlocks.FROZEN_DIRT.get()) && canPropagate(blockstate, p_56820_, blockpos)) {
+					if (p_56820_.getBlockState(blockpos).is(FrostBlocks.FROZEN_DIRT) && canPropagate(blockstate, p_56820_, blockpos)) {
 						p_56820_.setBlockAndUpdate(blockpos, blockstate.setValue(SNOWY, Boolean.valueOf(p_56820_.getBlockState(blockpos.above()).is(Blocks.SNOW))));
 					}
 				}
@@ -112,10 +111,5 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 	private static boolean canPropagate(BlockState p_56828_, LevelReader p_56829_, BlockPos p_56830_) {
 		BlockPos blockpos = p_56830_.above();
 		return canBeGrass(p_56828_, p_56829_, p_56830_) && !p_56829_.getFluidState(blockpos).is(FluidTags.WATER);
-	}
-
-	private static <U extends FeatureConfiguration> BlockState getBlockState(Random p_153318_, BlockPos p_153319_, ConfiguredFeature<U, ?> p_153320_) {
-		AbstractFlowerFeature<U> abstractflowerfeature = (AbstractFlowerFeature) p_153320_.feature;
-		return abstractflowerfeature.getRandomFlower(p_153318_, p_153319_, p_153320_.config());
 	}
 }

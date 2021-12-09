@@ -41,7 +41,7 @@ public class ClientColdHUDEvent {
 				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, timeInPortal);
 				RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
 				RenderSystem.setShader(GameRenderer::getPositionTexShader);
-				TextureAtlasSprite textureatlassprite = mc.getBlockRenderer().getBlockModelShaper().getParticleIcon(FrostBlocks.FROST_PORTAL.get().defaultBlockState());
+				TextureAtlasSprite textureatlassprite = mc.getBlockRenderer().getBlockModelShaper().getParticleIcon(FrostBlocks.FROST_PORTAL.defaultBlockState());
 				float f = textureatlassprite.getU0();
 				float f1 = textureatlassprite.getV0();
 				float f2 = textureatlassprite.getU1();

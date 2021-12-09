@@ -5,9 +5,14 @@ import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.client.event.ClientColdHUDEvent;
 import baguchan.frostrealm.message.ChangedColdMessage;
-import baguchan.frostrealm.registry.*;
-import baguchan.frostrealm.world.FrostBiomeSource;
+import baguchan.frostrealm.registry.FrostBlocks;
+import baguchan.frostrealm.registry.FrostCarvers;
+import baguchan.frostrealm.registry.FrostNoiseGeneratorSettings;
 import baguchan.frostrealm.world.FrostChunkGenerator;
+import baguchan.frostrealm.world.gen.FrostConfiguredFeatures;
+import baguchan.frostrealm.world.gen.FrostTreeFeatures;
+import baguchan.frostrealm.world.placement.FrostOrePlacements;
+import baguchan.frostrealm.world.placement.FrostPlacements;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,16 +20,13 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.*;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmllegacy.network.NetworkRegistry;
-import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -49,36 +51,26 @@ public class FrostRealm {
 
 	public FrostRealm() {
 		IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
-		FrostBlocks.BLOCKS.register(modbus);
-		FrostCarvers.CARVERS.register(modbus);
-		FrostEntities.ENTITIES.register(modbus);
-		FrostFeatures.FEATURES.register(modbus);
-		FrostItems.ITEMS.register(modbus);
-		FrostSounds.SOUNDS.register(modbus);
 
+		modbus.addListener(this::setup);
 
-		this.setupMessages();
-
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::lateSetup);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::gatherData);
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup));
 		MinecraftForge.EVENT_BUS.register(this);
+		this.setupMessages();
 	}
 
-	private void setup(FMLCommonSetupEvent event) {
-		MinecraftForge.EVENT_BUS.register(new ClientColdHUDEvent());
+	public void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			FrostBlocks.burnables();
-			FrostCarvers.registerConfiguredCarvers();
+			FrostTreeFeatures.init();
 			FrostConfiguredFeatures.init();
-			FrostSurfaceBuilders.init();
+			FrostPlacements.init();
+			FrostOrePlacements.init();
+			FrostCarvers.registerConfiguredCarvers();
+			FrostNoiseGeneratorSettings.init();
 			Registry.register(Registry.CHUNK_GENERATOR, FrostRealm.prefix("chunk_generator"), FrostChunkGenerator.CODEC);
-			Registry.register(Registry.BIOME_SOURCE, FrostRealm.prefix("biome_provider"), FrostBiomeSource.CODEC);
 		});
+		MinecraftForge.EVENT_BUS.register(new ClientColdHUDEvent());
 	}
 
 	private void setupMessages() {
@@ -88,27 +80,8 @@ public class FrostRealm {
 				.add();
 	}
 
-	public void lateSetup(FMLLoadCompleteEvent event) {
-	}
-
-	private void doClientStuff(FMLClientSetupEvent event) {
-		//MinecraftForge.EVENT_BUS.register(new ClientColdHUDEvent());
-	}
-
-	private void enqueueIMC(InterModEnqueueEvent event) {
-	}
-
-	private void processIMC(InterModProcessEvent event) {
-	}
-
-	@SubscribeEvent
-	public void onCommandRegister(RegisterCommandsEvent event) {
-	}
-
 	public static ResourceLocation prefix(String name) {
 		return new ResourceLocation(FrostRealm.MODID, name.toLowerCase(Locale.ROOT));
 	}
 
-	public void gatherData(GatherDataEvent event) {
-	}
 }

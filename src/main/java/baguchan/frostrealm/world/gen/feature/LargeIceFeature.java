@@ -155,7 +155,7 @@ public class LargeIceFeature extends Feature<LargeDripstoneConfiguration> {
 									flag = true;
 									Block block = Blocks.PACKED_ICE;
 									p_159993_.setBlock(blockpos, block.defaultBlockState(), 2);
-								} else if (flag && p_159993_.getBlockState(blockpos).is(FrostBlocks.POINTED_ICE.get())) {
+								} else if (flag && p_159993_.getBlockState(blockpos).is(FrostBlocks.POINTED_ICE)) {
 									break;
 								}
 

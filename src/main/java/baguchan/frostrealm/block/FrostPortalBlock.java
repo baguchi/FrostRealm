@@ -2,7 +2,7 @@ package baguchan.frostrealm.block;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
-import baguchan.frostrealm.world.FrostDimensions;
+import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.world.FrostLevelTeleporter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -82,7 +82,7 @@ public class FrostPortalBlock extends Block {
 
 	private static ResourceKey<Level> getDestination(Entity entity) {
 		return entity.level.dimension() == Level.OVERWORLD
-				? FrostDimensions.frostrealm : Level.OVERWORLD;
+				? FrostDimensions.FROSTREALM_LEVEL : Level.OVERWORLD;
 	}
 
 	public static void attemptSendPlayer(Entity entity, Level oldworld) {
@@ -189,7 +189,7 @@ public class FrostPortalBlock extends Block {
 
 		void placePortalBlocks() {
 			for (BlockPos portalPos : BlockPos.MutableBlockPos.betweenClosed(this.nw, this.se))
-				this.world.setBlock(portalPos, FrostBlocks.FROST_PORTAL.get().defaultBlockState(), 2);
+				this.world.setBlock(portalPos, FrostBlocks.FROST_PORTAL.defaultBlockState(), 2);
 		}
 	}
 }

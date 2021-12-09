@@ -68,29 +68,29 @@ public class Marmot extends Animal {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isStanding() ? FrostSounds.MARMOT_IDLE.get() : super.getAmbientSound();
+		return this.isStanding() ? FrostSounds.MARMOT_IDLE : super.getAmbientSound();
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getHurtSound(DamageSource p_21239_) {
-		return FrostSounds.MARMOT_HURT.get();
+		return FrostSounds.MARMOT_HURT;
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getDeathSound() {
-		return FrostSounds.MARMOT_DEATH.get();
+		return FrostSounds.MARMOT_DEATH;
 	}
 
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-		return FrostEntities.MARMOT.get().create(p_146743_);
+		return FrostEntities.MARMOT.create(p_146743_);
 	}
 
 	public static boolean checkMarmotSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
-		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
+		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

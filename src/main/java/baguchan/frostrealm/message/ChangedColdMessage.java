@@ -5,12 +5,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
 public class ChangedColdMessage {
-	private int entityId;
+	private final int entityId;
 
 	private final int temperature;
 
@@ -49,6 +49,6 @@ public class ChangedColdMessage {
 						frostLivingCapability.setSaturation(message.temperatureSaturation);
 					});
 			});
-		((NetworkEvent.Context) ctx.get()).setPacketHandled(true);
+		ctx.get().setPacketHandled(true);
 	}
 }

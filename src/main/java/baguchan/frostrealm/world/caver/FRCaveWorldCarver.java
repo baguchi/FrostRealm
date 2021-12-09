@@ -12,9 +12,9 @@ public class FRCaveWorldCarver extends CaveWorldCarver {
 	public FRCaveWorldCarver(Codec<CaveCarverConfiguration> p_159194_) {
 		super(p_159194_);
 		this.replaceableBlocks = ImmutableSet.of(FrostBlocks.FRIGID_STONE
-				.get(), FrostBlocks.FROZEN_DIRT
-				.get(), FrostBlocks.FROZEN_GRASS_BLOCK
-				.get(), Blocks.PACKED_ICE, Blocks.BLUE_ICE
+				, FrostBlocks.FROZEN_DIRT
+				, FrostBlocks.FROZEN_GRASS_BLOCK
+				, Blocks.PACKED_ICE, Blocks.BLUE_ICE
 		);
 		this.liquids = ImmutableSet.of(Fluids.WATER);
 	}

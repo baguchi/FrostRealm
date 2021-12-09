@@ -33,10 +33,10 @@ public class ClientRegistrar {
 
 	@SubscribeEvent
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerEntityRenderer(FrostEntities.CRYSTAL_TORTOISE.get(), CrystalTortoiseRenderer::new);
-		event.registerEntityRenderer(FrostEntities.MARMOT.get(), MarmotRenderer::new);
-		event.registerEntityRenderer(FrostEntities.YETI.get(), YetiRenderer::new);
-		event.registerEntityRenderer(FrostEntities.FROST_WRAITH.get(), FrostWraithRenderer::new);
+		event.registerEntityRenderer(FrostEntities.CRYSTAL_TORTOISE, CrystalTortoiseRenderer::new);
+		event.registerEntityRenderer(FrostEntities.MARMOT, MarmotRenderer::new);
+		event.registerEntityRenderer(FrostEntities.YETI, YetiRenderer::new);
+		event.registerEntityRenderer(FrostEntities.FROST_WRAITH, FrostWraithRenderer::new);
 	}
 
 	@SubscribeEvent
@@ -53,49 +53,49 @@ public class ClientRegistrar {
 	public static void renderBlockColor() {
 		Minecraft.getInstance().getBlockColors().register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
 			return p_92622_ != null && p_92623_ != null ? BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : -1;
-		}, FrostBlocks.FROZEN_GRASS_BLOCK.get());
+		}, FrostBlocks.FROZEN_GRASS_BLOCK);
 
 		Minecraft.getInstance().getBlockColors().register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
 			return p_92622_ != null && p_92623_ != null ? BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : -1;
-		}, FrostBlocks.COLD_GRASS.get());
+		}, FrostBlocks.COLD_GRASS);
 
 		Minecraft.getInstance().getItemColors().register((p_92687_, p_92688_) -> {
 			BlockState blockstate = ((BlockItem) p_92687_.getItem()).getBlock().defaultBlockState();
 			return Minecraft.getInstance().getBlockColors().getColor(blockstate, (BlockAndTintGetter) null, (BlockPos) null, p_92688_);
-		}, FrostBlocks.COLD_GRASS.get());
+		}, FrostBlocks.COLD_GRASS);
 
 		Minecraft.getInstance().getItemColors().register((p_92687_, p_92688_) -> {
 			BlockState blockstate = ((BlockItem) p_92687_.getItem()).getBlock().defaultBlockState();
 			return Minecraft.getInstance().getBlockColors().getColor(blockstate, (BlockAndTintGetter) null, (BlockPos) null, p_92688_);
-		}, FrostBlocks.FROZEN_GRASS_BLOCK.get());
+		}, FrostBlocks.FROZEN_GRASS_BLOCK);
 	}
 
 	public static void renderBlockLayer() {
-		setRenderLayer(FrostBlocks.FROST_PORTAL.get(), RenderType.translucent());
+		setRenderLayer(FrostBlocks.FROST_PORTAL, RenderType.translucent());
 
-		setRenderLayer(FrostBlocks.FROZEN_GRASS_BLOCK.get(), RenderType.cutoutMipped());
+		setRenderLayer(FrostBlocks.FROZEN_GRASS_BLOCK, RenderType.cutoutMipped());
 
-		setRenderLayer(FrostBlocks.POINTED_ICE.get(), RenderType.cutout());
+		setRenderLayer(FrostBlocks.POINTED_ICE, RenderType.cutout());
 
-		setRenderLayer(FrostBlocks.FROSTROOT_LEAVES.get(), RenderType.cutoutMipped());
-		setRenderLayer(FrostBlocks.FROSTROOT_SAPLING.get(), RenderType.cutout());
+		setRenderLayer(FrostBlocks.FROSTROOT_LEAVES, RenderType.cutoutMipped());
+		setRenderLayer(FrostBlocks.FROSTROOT_SAPLING, RenderType.cutout());
 
-		setRenderLayer(FrostBlocks.FROSTROOT_DOOR.get(), RenderType.cutout());
+		setRenderLayer(FrostBlocks.FROSTROOT_DOOR, RenderType.cutout());
 
-		setRenderLayer(FrostBlocks.VIGOROSHROOM.get(), RenderType.cutout());
-		setRenderLayer(FrostBlocks.ARCTIC_POPPY.get(), RenderType.cutout());
-		setRenderLayer(FrostBlocks.ARCTIC_WILLOW.get(), RenderType.cutout());
+		setRenderLayer(FrostBlocks.VIGOROSHROOM, RenderType.cutout());
+		setRenderLayer(FrostBlocks.ARCTIC_POPPY, RenderType.cutout());
+		setRenderLayer(FrostBlocks.ARCTIC_WILLOW, RenderType.cutout());
 
 
-		setRenderLayer(FrostBlocks.COLD_GRASS.get(), RenderType.cutout());
-		setRenderLayer(FrostBlocks.COLD_TALL_GRASS.get(), RenderType.cutout());
+		setRenderLayer(FrostBlocks.COLD_GRASS, RenderType.cutout());
+		setRenderLayer(FrostBlocks.COLD_TALL_GRASS, RenderType.cutout());
 
-		setRenderLayer(FrostBlocks.BEARBERRY_BUSH.get(), RenderType.cutout());
+		setRenderLayer(FrostBlocks.BEARBERRY_BUSH, RenderType.cutout());
 
-		setRenderLayer(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get(), RenderType.translucent());
+		setRenderLayer(FrostBlocks.STARDUST_CRYSTAL_CLUSTER, RenderType.translucent());
 
-		setRenderLayer(FrostBlocks.FROST_TORCH.get(), RenderType.cutout());
-		setRenderLayer(FrostBlocks.WALL_FROST_TORCH.get(), RenderType.cutout());
+		setRenderLayer(FrostBlocks.FROST_TORCH, RenderType.cutout());
+		setRenderLayer(FrostBlocks.WALL_FROST_TORCH, RenderType.cutout());
 	}
 
 	private static void setRenderLayer(Block block, RenderType type) {

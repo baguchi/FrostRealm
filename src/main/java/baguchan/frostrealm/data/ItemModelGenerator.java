@@ -11,7 +11,7 @@ import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 import static baguchan.frostrealm.FrostRealm.prefix;
 
@@ -22,56 +22,56 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
-		this.singleTex(FrostItems.FROST_CRYSTAL.get());
-		this.singleTex(FrostItems.GLIMMERROCK.get());
-		this.singleTex(FrostItems.STARDUST_CRYSTAL.get());
-		this.singleTex(FrostItems.FROZEN_FRUIT.get());
-		this.singleTex(FrostItems.MELTED_FRUIT.get());
-		this.singleTex(FrostItems.SUGARBEET.get());
-		this.singleTex(FrostItems.BEARBERRY.get());
-		this.singleTex(FrostItems.COOKED_BEARBERRY.get());
+		this.singleTex(FrostItems.FROST_CRYSTAL);
+		this.singleTex(FrostItems.GLIMMERROCK);
+		this.singleTex(FrostItems.STARDUST_CRYSTAL);
+		this.singleTex(FrostItems.FROZEN_FRUIT);
+		this.singleTex(FrostItems.MELTED_FRUIT);
+		this.singleTex(FrostItems.SUGARBEET);
+		this.singleTex(FrostItems.BEARBERRY);
+		this.singleTex(FrostItems.COOKED_BEARBERRY);
 
-		this.singleTex(FrostItems.FROST_CATALYST.get());
-		this.singleTex(FrostItems.STRAY_NECKLACE_PART.get());
+		this.singleTex(FrostItems.FROST_CATALYST);
+		this.singleTex(FrostItems.STRAY_NECKLACE_PART);
 
-		this.singleTex(FrostItems.YETI_FUR.get());
+		this.singleTex(FrostItems.YETI_FUR);
 
-		this.egg(FrostItems.CRYSTAL_TORTOISE_SPAWNEGG.get());
-		this.egg(FrostItems.MARMOT_SPAWNEGG.get());
-		this.egg(FrostItems.YETI_SPAWNEGG.get());
-		this.egg(FrostItems.FROST_WRAITH_SPAWNEGG.get());
+		this.egg(FrostItems.CRYSTAL_TORTOISE_SPAWNEGG);
+		this.egg(FrostItems.MARMOT_SPAWNEGG);
+		this.egg(FrostItems.YETI_SPAWNEGG);
+		this.egg(FrostItems.FROST_WRAITH_SPAWNEGG);
 
-		this.toBlock(FrostBlocks.FROZEN_DIRT.get());
-		this.toBlock(FrostBlocks.FROZEN_GRASS_BLOCK.get());
+		this.toBlock(FrostBlocks.FROZEN_DIRT);
+		this.toBlock(FrostBlocks.FROZEN_GRASS_BLOCK);
 
-		this.toBlock(FrostBlocks.FRIGID_STONE.get());
-		this.toBlock(FrostBlocks.FRIGID_STONE_SLAB.get());
-		this.toBlock(FrostBlocks.FRIGID_STONE_STAIRS.get());
-		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK.get());
-		this.toBlock(FrostBlocks.FRIGID_STONE_SMOOTH_BRICK.get());
-		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_SLAB.get());
-		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get());
+		this.toBlock(FrostBlocks.FRIGID_STONE);
+		this.toBlock(FrostBlocks.FRIGID_STONE_SLAB);
+		this.toBlock(FrostBlocks.FRIGID_STONE_STAIRS);
+		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK);
+		this.toBlock(FrostBlocks.FRIGID_STONE_SMOOTH_BRICK);
+		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_SLAB);
+		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_STAIRS);
 
-		this.toBlock(FrostBlocks.FROSTROOT_LOG.get());
-		this.itemBlockFlat(FrostBlocks.FROSTROOT_SAPLING.get());
-		this.toBlock(FrostBlocks.FROSTROOT_LEAVES.get());
-		this.toBlock(FrostBlocks.FROSTROOT_PLANKS.get());
-		this.toBlock(FrostBlocks.FROSTROOT_PLANKS_SLAB.get());
-		this.toBlock(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get());
-		this.woodenFence(FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_PLANKS.get());
-		this.toBlock(FrostBlocks.FROSTROOT_FENCE_GATE.get());
-		this.itemBlockFlat(FrostBlocks.VIGOROSHROOM.get());
-		this.itemBlockFlat(FrostBlocks.ARCTIC_POPPY.get());
-		this.itemBlockFlat(FrostBlocks.ARCTIC_WILLOW.get());
+		this.toBlock(FrostBlocks.FROSTROOT_LOG);
+		this.itemBlockFlat(FrostBlocks.FROSTROOT_SAPLING);
+		this.toBlock(FrostBlocks.FROSTROOT_LEAVES);
+		this.toBlock(FrostBlocks.FROSTROOT_PLANKS);
+		this.toBlock(FrostBlocks.FROSTROOT_PLANKS_SLAB);
+		this.toBlock(FrostBlocks.FROSTROOT_PLANKS_STAIRS);
+		this.woodenFence(FrostBlocks.FROSTROOT_FENCE, FrostBlocks.FROSTROOT_PLANKS);
+		this.toBlock(FrostBlocks.FROSTROOT_FENCE_GATE);
+		this.itemBlockFlat(FrostBlocks.VIGOROSHROOM);
+		this.itemBlockFlat(FrostBlocks.ARCTIC_POPPY);
+		this.itemBlockFlat(FrostBlocks.ARCTIC_WILLOW);
 
-		this.itemBlockFlat(FrostBlocks.COLD_GRASS.get());
-		this.itemBlockFlat(FrostBlocks.COLD_TALL_GRASS.get(), "cold_tall_grass_top");
+		this.itemBlockFlat(FrostBlocks.COLD_GRASS);
+		this.itemBlockFlat(FrostBlocks.COLD_TALL_GRASS, "cold_tall_grass_top");
 
-		this.toBlock(FrostBlocks.FROST_CRYSTAL_ORE.get());
-		this.toBlock(FrostBlocks.GLIMMERROCK_ORE.get());
-		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
-		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
-		this.itemBlockFlat(FrostBlocks.FROST_TORCH.get());
+		this.toBlock(FrostBlocks.FROST_CRYSTAL_ORE);
+		this.toBlock(FrostBlocks.GLIMMERROCK_ORE);
+		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_ORE);
+		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER);
+		this.itemBlockFlat(FrostBlocks.FROST_TORCH);
 	}
 
 	public ItemModelBuilder torchItem(Block item) {

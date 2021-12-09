@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class CrystalTortoise extends Animal {
-	public static final Ingredient FOOD_ITEMS = Ingredient.of(FrostBlocks.COLD_GRASS.get().asItem());
+	public static final Ingredient FOOD_ITEMS = Ingredient.of(FrostBlocks.COLD_GRASS.asItem());
 
 	public CrystalTortoise(EntityType<? extends Animal> p_27557_, Level p_27558_) {
 		super(p_27557_, p_27558_);
@@ -49,7 +49,7 @@ public class CrystalTortoise extends Animal {
 	}
 
 	public static boolean checkTortoiseSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
-		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
+		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -59,7 +59,7 @@ public class CrystalTortoise extends Animal {
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-		return FrostEntities.CRYSTAL_TORTOISE.get().create(p_146743_);
+		return FrostEntities.CRYSTAL_TORTOISE.create(p_146743_);
 	}
 
 	@Nullable

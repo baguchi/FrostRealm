@@ -7,7 +7,7 @@ public class FrostGroups {
 	public static final CreativeModeTab TAB_FROSTREALM = new CreativeModeTab("frostrealm") {
 		@Override
 		public ItemStack makeIcon() {
-			return FrostItems.FROST_CRYSTAL.get().getDefaultInstance();
+			return FrostItems.FROST_CRYSTAL.getDefaultInstance();
 		}
 	};
 }

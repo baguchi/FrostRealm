@@ -18,28 +18,28 @@ public class BlockTagGenerator extends BlockTagsProvider {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void addTags() {
-		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(FrostBlocks.FROZEN_DIRT.get(), FrostBlocks.FROZEN_GRASS_BLOCK.get());
-		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(FrostBlocks.FRIGID_STONE.get(), FrostBlocks.FRIGID_STONE_SLAB.get(), FrostBlocks.FRIGID_STONE_STAIRS.get()
-				, FrostBlocks.FRIGID_STONE_SMOOTH_BRICK.get(), FrostBlocks.FRIGID_STONE_BRICK.get(), FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK_SLAB.get()
-				, FrostBlocks.POINTED_ICE.get());
-		tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_PLANKS.get(), FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_FENCE_GATE.get());
+		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(FrostBlocks.FROZEN_DIRT, FrostBlocks.FROZEN_GRASS_BLOCK);
+		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(FrostBlocks.FRIGID_STONE, FrostBlocks.FRIGID_STONE_SLAB, FrostBlocks.FRIGID_STONE_STAIRS
+				, FrostBlocks.FRIGID_STONE_SMOOTH_BRICK, FrostBlocks.FRIGID_STONE_BRICK, FrostBlocks.FRIGID_STONE_BRICK_STAIRS, FrostBlocks.FRIGID_STONE_BRICK_SLAB
+				, FrostBlocks.POINTED_ICE);
+		tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG, FrostBlocks.FROSTROOT_PLANKS, FrostBlocks.FROSTROOT_PLANKS_STAIRS, FrostBlocks.FROSTROOT_PLANKS_SLAB, FrostBlocks.FROSTROOT_FENCE, FrostBlocks.FROSTROOT_FENCE_GATE);
 
-		tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTROOT_SAPLING.get());
+		tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES).add(FrostBlocks.FROSTROOT_SAPLING);
 
 		tag(BlockTags.NEEDS_STONE_TOOL)
-				.add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get());
+				.add(FrostBlocks.STARDUST_CRYSTAL_ORE, FrostBlocks.GLIMMERROCK_ORE);
 
-		tag(BlockTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.get());
-		tag(BlockTags.LEAVES).add(FrostBlocks.FROSTROOT_LEAVES.get());
-		tag(BlockTags.WOODEN_FENCES).add(FrostBlocks.FROSTROOT_FENCE.get());
-		tag(BlockTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE.get());
-		tag(BlockTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR.get());
+		tag(BlockTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG);
+		tag(BlockTags.LEAVES).add(FrostBlocks.FROSTROOT_LEAVES);
+		tag(BlockTags.WOODEN_FENCES).add(FrostBlocks.FROSTROOT_FENCE);
+		tag(BlockTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE);
+		tag(BlockTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR);
 
-		tag(FrostTags.Blocks.BASE_STONE_FROSTREALM).add(FrostBlocks.FRIGID_STONE.get());
+		tag(FrostTags.Blocks.BASE_STONE_FROSTREALM).add(FrostBlocks.FRIGID_STONE);
 		tag(FrostTags.Blocks.HOT_SOURCE).addTag(BlockTags.CAMPFIRES).addTag(BlockTags.FIRE).add(Blocks.MAGMA_BLOCK);
-		tag(FrostTags.Blocks.TUNDRA_REPLACEABLE).add(FrostBlocks.FRIGID_STONE.get(), FrostBlocks.FROZEN_DIRT.get());
+		tag(FrostTags.Blocks.TUNDRA_REPLACEABLE).add(FrostBlocks.FRIGID_STONE, FrostBlocks.FROZEN_DIRT);
 
-		tag(Tags.Blocks.DIRT).add(FrostBlocks.FROZEN_DIRT.get(), FrostBlocks.FROZEN_GRASS_BLOCK.get());
-		tag(Tags.Blocks.ORES).add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.FROST_CRYSTAL_ORE.get());
+		tag(Tags.Blocks.DIRT).add(FrostBlocks.FROZEN_DIRT, FrostBlocks.FROZEN_GRASS_BLOCK);
+		tag(Tags.Blocks.ORES).add(FrostBlocks.STARDUST_CRYSTAL_ORE, FrostBlocks.GLIMMERROCK_ORE, FrostBlocks.FROST_CRYSTAL_ORE);
 	}
 }

@@ -2,8 +2,8 @@ package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.message.ChangedColdMessage;
+import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostTags;
-import baguchan.frostrealm.world.FrostDimensions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -25,7 +25,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fmllegacy.network.PacketDistributor;
+import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -98,7 +98,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			}
 		}
 
-		if (entity.level.dimension() == FrostDimensions.frostrealm && (!EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES.contains(entity.getType()) || (entity instanceof Player && !((Player) entity).isCreative() && !((Player) entity).isSpectator()))) {
+		if (entity.level.dimension() == FrostDimensions.FROSTREALM_LEVEL && (!EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES.contains(entity.getType()) || (entity instanceof Player && !((Player) entity).isCreative() && !((Player) entity).isSpectator()))) {
 			Difficulty difficulty = entity.level.getDifficulty();
 			this.lastTemperate = this.temperature;
 			hotSourceTick(entity);

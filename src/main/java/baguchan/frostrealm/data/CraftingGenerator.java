@@ -17,32 +17,32 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 	@Override
 	protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-		ShapelessRecipeBuilder.shapeless(FrostBlocks.FROSTROOT_PLANKS.get(), 4).requires(FrostBlocks.FROSTROOT_LOG.get())
-				.unlockedBy("has_" + FrostBlocks.FROSTROOT_LOG.get().getRegistryName().getPath(), has(FrostBlocks.FROSTROOT_LOG.get())).save(consumer);
+		ShapelessRecipeBuilder.shapeless(FrostBlocks.FROSTROOT_PLANKS, 4).requires(FrostBlocks.FROSTROOT_LOG)
+				.unlockedBy("has_" + FrostBlocks.FROSTROOT_LOG.getRegistryName().getPath(), has(FrostBlocks.FROSTROOT_LOG)).save(consumer);
 
-		makeSlab(consumer, FrostBlocks.FRIGID_STONE_SLAB.get(), FrostBlocks.FRIGID_STONE.get());
-		makeStairs(consumer, FrostBlocks.FRIGID_STONE_STAIRS.get(), FrostBlocks.FRIGID_STONE.get());
+		makeSlab(consumer, FrostBlocks.FRIGID_STONE_SLAB, FrostBlocks.FRIGID_STONE);
+		makeStairs(consumer, FrostBlocks.FRIGID_STONE_STAIRS, FrostBlocks.FRIGID_STONE);
 
-		makeSlab(consumer, FrostBlocks.FRIGID_STONE_BRICK_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
-		makeStairs(consumer, FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
+		makeSlab(consumer, FrostBlocks.FRIGID_STONE_BRICK_SLAB, FrostBlocks.FRIGID_STONE_BRICK);
+		makeStairs(consumer, FrostBlocks.FRIGID_STONE_BRICK_STAIRS, FrostBlocks.FRIGID_STONE_BRICK);
 
-		makeSlab(consumer, FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_PLANKS.get());
-		makeStairs(consumer, FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS.get());
-		makeWoodFence(consumer, FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_PLANKS.get());
-		makeFenceGate(consumer, FrostBlocks.FROSTROOT_FENCE_GATE.get(), FrostBlocks.FROSTROOT_PLANKS.get());
-		makeDoor(consumer, FrostBlocks.FROSTROOT_DOOR.get(), FrostBlocks.FROSTROOT_PLANKS.get());
+		makeSlab(consumer, FrostBlocks.FROSTROOT_PLANKS_SLAB, FrostBlocks.FROSTROOT_PLANKS);
+		makeStairs(consumer, FrostBlocks.FROSTROOT_PLANKS_STAIRS, FrostBlocks.FROSTROOT_PLANKS);
+		makeWoodFence(consumer, FrostBlocks.FROSTROOT_FENCE, FrostBlocks.FROSTROOT_PLANKS);
+		makeFenceGate(consumer, FrostBlocks.FROSTROOT_FENCE_GATE, FrostBlocks.FROSTROOT_PLANKS);
+		makeDoor(consumer, FrostBlocks.FROSTROOT_DOOR, FrostBlocks.FROSTROOT_PLANKS);
 
-		foodCooking(FrostItems.FROZEN_FRUIT.get(), FrostItems.MELTED_FRUIT.get(), 0.1F, consumer);
-		foodCooking(FrostItems.BEARBERRY.get(), FrostItems.COOKED_BEARBERRY.get(), 0.1F, consumer);
+		foodCooking(FrostItems.FROZEN_FRUIT, FrostItems.MELTED_FRUIT, 0.1F, consumer);
+		foodCooking(FrostItems.BEARBERRY, FrostItems.COOKED_BEARBERRY, 0.1F, consumer);
 
-		makeFrostTorch(consumer, FrostItems.FROST_TORCH.get());
+		makeFrostTorch(consumer, FrostItems.FROST_TORCH);
 
-		ShapedRecipeBuilder.shaped(FrostItems.FROST_CATALYST.get(), 1)
+		ShapedRecipeBuilder.shaped(FrostItems.FROST_CATALYST, 1)
 				.pattern(" S ")
 				.pattern("SBS")
 				.pattern(" S ")
-				.define('S', FrostItems.STRAY_NECKLACE_PART.get())
+				.define('S', FrostItems.STRAY_NECKLACE_PART)
 				.define('B', Items.SNOWBALL)
-				.unlockedBy("has_" + FrostItems.STRAY_NECKLACE_PART.get().getRegistryName().getPath(), has(FrostItems.STRAY_NECKLACE_PART.get())).save(consumer);
+				.unlockedBy("has_" + FrostItems.STRAY_NECKLACE_PART.getRegistryName().getPath(), has(FrostItems.STRAY_NECKLACE_PART)).save(consumer);
 	}
 }

@@ -17,7 +17,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.NBTIngredient;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.lang.reflect.Constructor;
 import java.util.function.Consumer;
@@ -28,7 +28,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	protected final Ingredient itemWithNBT(RegistryObject<? extends ItemLike> item, Consumer<CompoundTag> nbtSetter) {
-		return itemWithNBT(item.get(), nbtSetter);
+		return itemWithNBT(item, nbtSetter);
 	}
 
 	protected final Ingredient itemWithNBT(ItemLike item, Consumer<CompoundTag> nbtSetter) {
@@ -193,9 +193,9 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 		ShapedRecipeBuilder.shaped(torchOut, 4)
 				.pattern("C")
 				.pattern("M")
-				.define('C', FrostItems.FROST_CRYSTAL.get())
+				.define('C', FrostItems.FROST_CRYSTAL)
 				.define('M', Tags.Items.RODS_WOODEN)
-				.unlockedBy("has_" + FrostItems.FROST_CRYSTAL.get().getRegistryName().getPath(), has(FrostItems.FROST_CRYSTAL.get())).save(consumer);
+				.unlockedBy("has_" + FrostItems.FROST_CRYSTAL.getRegistryName().getPath(), has(FrostItems.FROST_CRYSTAL)).save(consumer);
 	}
 
 
