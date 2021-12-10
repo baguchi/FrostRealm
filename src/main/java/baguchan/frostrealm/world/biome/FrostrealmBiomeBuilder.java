@@ -40,9 +40,6 @@ public class FrostrealmBiomeBuilder {
 	private final Climate.Parameter midInlandContinentalness = Climate.Parameter.span(0.03F, 0.3F);
 	private final Climate.Parameter farInlandContinentalness = Climate.Parameter.span(0.3F, 1.0F);
 
-	private final ResourceKey<Biome> OCEAN = FrostBiomes.FROZEN_OCEAN;
-	private final ResourceKey<Biome> DEEP_OCEAN = FrostBiomes.FROZEN_DEEP_OCEAN;
-
 	private final ResourceKey<Biome>[][] MIDDLE_BIOMES = new ResourceKey[][]{{FrostBiomes.TUNDRA, FrostBiomes.TUNDRA, FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST}, {FrostBiomes.TUNDRA, FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST}, {FrostBiomes.FRIGID_FOREST, FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST}, {FrostBiomes.TUNDRA, FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST}, {FrostBiomes.TUNDRA, FrostBiomes.TUNDRA, FrostBiomes.TUNDRA, FrostBiomes.TUNDRA, FrostBiomes.TUNDRA}};
 	private final ResourceKey<Biome>[][] MIDDLE_BIOMES_VARIANT = new ResourceKey[][]{{null, null, null, null, null}, {null, null, null, null, null}, {null, null, null, null, null}, {null, null, null, null, null}, {null, null, null, null, null}};
 	private final ResourceKey<Biome>[][] PLATEAU_BIOMES = new ResourceKey[][]{{FrostBiomes.TUNDRA, FrostBiomes.TUNDRA, FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST}, {FrostBiomes.GLACIERS, FrostBiomes.GLACIERS, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST}, {FrostBiomes.GLACIERS, FrostBiomes.GLACIERS, FrostBiomes.GLACIERS, FrostBiomes.GLACIERS, FrostBiomes.FRIGID_FOREST}, {FrostBiomes.GLACIERS, FrostBiomes.GLACIERS, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST}, {FrostBiomes.GLACIERS, FrostBiomes.GLACIERS, FrostBiomes.GLACIERS, FrostBiomes.FRIGID_FOREST, FrostBiomes.FRIGID_FOREST}};
@@ -68,8 +65,8 @@ public class FrostrealmBiomeBuilder {
 	private void addOffCoastBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_187196_) {
 		for(int i = 0; i < this.temperatures.length; ++i) {
 			Climate.Parameter climate$parameter = this.temperatures[i];
-			this.addSurfaceBiome(p_187196_, climate$parameter, this.FULL_RANGE, this.deepOceanContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, this.OCEAN);
-			this.addSurfaceBiome(p_187196_, climate$parameter, this.FULL_RANGE, this.oceanContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, this.DEEP_OCEAN);
+			this.addSurfaceBiome(p_187196_, climate$parameter, this.FULL_RANGE, this.deepOceanContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.FROZEN_OCEAN);
+			this.addSurfaceBiome(p_187196_, climate$parameter, this.FULL_RANGE, this.oceanContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.FROZEN_DEEP_OCEAN);
 		}
 	}
 

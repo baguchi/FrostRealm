@@ -52,10 +52,10 @@ public class FrostItems {
 		register(event, STRAY_NECKLACE_PART, "stray_necklace_part");
 		register(event, YETI_FUR, "yeti_fur");
 		register(event, FROST_TORCH, "frost_torch");
-		register(event, CRYSTAL_TORTOISE_SPAWNEGG, "crystal_tortoise_spawnegg");
-		register(event, MARMOT_SPAWNEGG, "marmot_spawnegg");
-		register(event, YETI_SPAWNEGG, "yeti_spawnegg");
-		register(event, FROST_WRAITH_SPAWNEGG, "frost_wraith_spawnegg");
+		register(event, CRYSTAL_TORTOISE_SPAWNEGG, "crystal_tortoise_spawn_egg");
+		register(event, MARMOT_SPAWNEGG, "marmot_spawn_egg");
+		register(event, YETI_SPAWNEGG, "yeti_spawn_egg");
+		register(event, FROST_WRAITH_SPAWNEGG, "frost_wraith_spawn_egg");
 	}
 
 	public static void register(RegistryEvent.Register<Item> registry, Item item, String id) {

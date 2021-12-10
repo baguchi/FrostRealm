@@ -12,7 +12,7 @@ public class FrostSurfaceRuleData {
 	private static final SurfaceRules.RuleSource AIR = makeStateRule(Blocks.AIR);
 	private static final SurfaceRules.RuleSource BEDROCK = makeStateRule(Blocks.BEDROCK);
 	private static final SurfaceRules.RuleSource FROZEN_GRASS_BLOCK = makeStateRule(FrostBlocks.FROZEN_GRASS_BLOCK);
-	private static final SurfaceRules.RuleSource STONE = makeStateRule(FrostBlocks.FRIGID_STONE);
+	private static final SurfaceRules.RuleSource FROZEN_DIRT = makeStateRule(FrostBlocks.FROZEN_DIRT);
 
 	private static SurfaceRules.RuleSource makeStateRule(Block p_194811_) {
 		return SurfaceRules.state(p_194811_.defaultBlockState());
@@ -35,12 +35,13 @@ public class FrostSurfaceRuleData {
 		SurfaceRules.ConditionSource surfacerules$conditionsource7 = SurfaceRules.waterBlockCheck(0, 0);
 		SurfaceRules.ConditionSource surfacerules$conditionsource9 = SurfaceRules.hole();
 		builder.add(SurfaceRules.sequence(SurfaceRules.ifTrue(surfacerules$conditionsource9, SurfaceRules.ifTrue(surfacerules$conditionsource7, AIR))));
-		SurfaceRules.RuleSource surfacerules$rulesource1 = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST), FROZEN_GRASS_BLOCK))));
-		SurfaceRules.RuleSource surfacerules$rulesource2 = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.TUNDRA), FROZEN_GRASS_BLOCK))));
-
+		SurfaceRules.RuleSource surfacerules$rulesource1 = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST), FROZEN_DIRT))));
+		SurfaceRules.RuleSource surfacerules$rulesource3 = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.steep(), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST), FROZEN_GRASS_BLOCK))));
+		SurfaceRules.RuleSource surfacerules$rulesource4 = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.steep(), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.TUNDRA), FROZEN_GRASS_BLOCK))));
 
 		builder.add(surfacerules$rulesource1);
-		builder.add(surfacerules$rulesource2);
+		builder.add(surfacerules$rulesource3);
+		builder.add(surfacerules$rulesource4);
 
 		return SurfaceRules.sequence(builder.build().toArray((p_198379_) -> {
 			return new SurfaceRules.RuleSource[p_198379_];

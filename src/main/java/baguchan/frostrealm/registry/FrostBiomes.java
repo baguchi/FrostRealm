@@ -1,7 +1,6 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.world.biome.FrostRealmBiomes;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -27,7 +26,7 @@ public class FrostBiomes {
 
 	@SubscribeEvent
 	public static void registerBiomes(RegistryEvent.Register<Biome> registry) {
-		registry.getRegistry().registerAll(
+		/*registry.getRegistry().registerAll(
 				FrostRealmBiomes.tundra().setRegistryName("tundra"),
 				FrostRealmBiomes.frigidForest().setRegistryName("frigid_forest"),
 				FrostRealmBiomes.stoneBasedBiome().setRegistryName("frozen_canyon"),
@@ -35,6 +34,6 @@ public class FrostBiomes {
 				FrostRealmBiomes.stoneBasedBiome().setRegistryName("hot_rock"),
 				FrostRealmBiomes.stoneBasedBiome().setRegistryName("warped_cliff"),
 				FrostRealmBiomes.stoneBasedBiome().setRegistryName("frozen_ocean"),
-				FrostRealmBiomes.stoneBasedBiome().setRegistryName("frozen_deep_ocean"));
+				FrostRealmBiomes.stoneBasedBiome().setRegistryName("frozen_deep_ocean"));*/
 	}
 }

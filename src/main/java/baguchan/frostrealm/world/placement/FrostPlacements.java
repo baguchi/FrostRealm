@@ -25,7 +25,7 @@ public class FrostPlacements {
 
 
 	public static final PlacedFeature PATCH_ARTIC_POPPY = register(prefix("patch_artic_poppy"), FrostConfiguredFeatures.ARCTIC_POPPY.placed(CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
-	public static final PlacedFeature PATCH_ARTIC_WILLOW = register(prefix("patch_artic_willow"), FrostConfiguredFeatures.ARCTIC_WILLOW.placed(NoiseThresholdCountPlacement.of(-0.8D, 5, 10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+	public static final PlacedFeature PATCH_ARTIC_WILLOW = register(prefix("patch_artic_willow"), FrostConfiguredFeatures.ARCTIC_WILLOW.placed(CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 
 
 	public static String prefix(String name) {

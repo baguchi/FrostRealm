@@ -102,12 +102,14 @@ public class FrostBlocks {
 		registry.getRegistry().register(FROSTROOT_PLANKS_SLAB.setRegistryName("frostroot_planks_slab"));
 		registry.getRegistry().register(FROSTROOT_PLANKS_STAIRS.setRegistryName("frostroot_planks_stairs"));
 		registry.getRegistry().register(FROSTROOT_FENCE.setRegistryName("frostroot_fence"));
-		registry.getRegistry().register(FROSTROOT_FENCE_GATE.setRegistryName("frostroot_fencegate"));
+		registry.getRegistry().register(FROSTROOT_FENCE_GATE.setRegistryName("frostroot_fence_gate"));
 		registry.getRegistry().register(FROSTROOT_DOOR.setRegistryName("frostroot_door"));
 
 		registry.getRegistry().register(VIGOROSHROOM.setRegistryName("vigoroshroom"));
 		registry.getRegistry().register(ARCTIC_POPPY.setRegistryName("arctic_poppy"));
 		registry.getRegistry().register(ARCTIC_WILLOW.setRegistryName("arctic_willow"));
+
+		registry.getRegistry().register(BEARBERRY_BUSH.setRegistryName("bearberry_bush"));
 
 		registry.getRegistry().register(COLD_GRASS.setRegistryName("cold_grass"));
 		registry.getRegistry().register(COLD_TALL_GRASS.setRegistryName("cold_tall_grass"));
@@ -116,6 +118,8 @@ public class FrostBlocks {
 		registry.getRegistry().register(GLIMMERROCK_ORE.setRegistryName("glimmerrock_ore"));
 		registry.getRegistry().register(STARDUST_CRYSTAL_ORE.setRegistryName("stardust_crystal_ore"));
 		registry.getRegistry().register(STARDUST_CRYSTAL_CLUSTER.setRegistryName("stardust_crystal_cluster"));
+		registry.getRegistry().register(FROST_TORCH.setRegistryName("frost_torch"));
+		registry.getRegistry().register(WALL_FROST_TORCH.setRegistryName("wall_frost_torch"));
 	}
 
 	@SubscribeEvent

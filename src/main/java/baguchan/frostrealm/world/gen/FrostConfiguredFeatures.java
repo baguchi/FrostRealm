@@ -30,12 +30,12 @@ public class FrostConfiguredFeatures {
 	public static final ConfiguredFeature<?, ?> ORE_STARDUST_CRYSTAL = register(prefix("ore_stardust_crystal"), Feature.ORE.configured(new OreConfiguration(ORE_STARDUST_CRYSRTAL_TARGET_LIST, 8)));
 
 
-	public static final ConfiguredFeature<?, ?> PATCH_TUNDRA_GRASS = register(prefix("tundra_grass"), Feature.RANDOM_PATCH.configured(grassPatch(BlockStateProvider.simple(FrostBlocks.COLD_GRASS), 32)));
+	public static final ConfiguredFeature<?, ?> PATCH_TUNDRA_GRASS = register(prefix("patch_tundra_grass"), Feature.RANDOM_PATCH.configured(grassPatch(BlockStateProvider.simple(FrostBlocks.COLD_GRASS), 32)));
 
-	public static final ConfiguredFeature<?, ?> PATCH_BEARBERRY = register(prefix("bearberry"), Feature.RANDOM_PATCH.configured(grassPatch(BlockStateProvider.simple(FrostBlocks.BEARBERRY_BUSH), 32)));
+	public static final ConfiguredFeature<?, ?> PATCH_BEARBERRY = register(prefix("patch_bearberry"), Feature.RANDOM_PATCH.configured(grassPatch(BlockStateProvider.simple(FrostBlocks.BEARBERRY_BUSH), 32)));
 
-	public static final ConfiguredFeature<?, ?> ARCTIC_POPPY = register(prefix("arctic_poppy"), Feature.FLOWER.configured(grassPatch(BlockStateProvider.simple(FrostBlocks.ARCTIC_POPPY), 32)));
-	public static final ConfiguredFeature<?, ?> ARCTIC_WILLOW = register(prefix("arctic_willow"), Feature.FLOWER.configured(grassPatch(BlockStateProvider.simple(FrostBlocks.ARCTIC_WILLOW), 32)));
+	public static final ConfiguredFeature<?, ?> ARCTIC_POPPY = register(prefix("patch_arctic_poppy"), Feature.FLOWER.configured(grassPatch(BlockStateProvider.simple(FrostBlocks.ARCTIC_POPPY), 32)));
+	public static final ConfiguredFeature<?, ?> ARCTIC_WILLOW = register(prefix("patch_arctic_willow"), Feature.FLOWER.configured(grassPatch(BlockStateProvider.simple(FrostBlocks.ARCTIC_WILLOW), 32)));
 
 	public static final ConfiguredFeature<RandomFeatureConfiguration, ?> FROSTROOT_TREE = register(prefix("frostroot_tree"), Feature.RANDOM_SELECTOR.configured(new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(FrostTreeFeatures.FROST_TREE_BIG.placed(), 0.33333334F)), FrostTreeFeatures.FROST_TREE.placed())));
 

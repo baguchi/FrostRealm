@@ -1,0 +1,103 @@
+{
+  "type": "frostrealm:frostrealm",
+  "generator": {
+    "type": "frostrealm:chunk_generator",
+    "seed": 0,
+    "settings": "frostrealm:frostrealm",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "frostrealm:frozen_deep_ocean",
+          "parameters": {
+            "temperature": [
+              -1.0,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              1.0
+            ],
+            "continentalness": [
+              -1.05,
+              -0.455
+            ],
+            "erosion": [
+              -1.0,
+              1.0
+            ],
+            "weirdness": [
+              -1.0,
+              1.0
+            ],
+            "depth": [
+              0,
+              0.2
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "frostrealm:frozen_ocean",
+          "parameters": {
+            "temperature": [
+              -1.0,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              1.0
+            ],
+            "continentalness": [
+              -0.455,
+              -0.19
+            ],
+            "erosion": [
+              -1.0,
+              1.0
+            ],
+            "weirdness": [
+              -1.0,
+              1.0
+            ],
+            "depth": [
+              0,
+              0.2
+            ],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "frostrealm:tundra",
+          "parameters": {
+            "temperature": [
+              -1.0,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              1.0
+            ],
+            "continentalness": [
+              -0.19,
+              1.0
+            ],
+            "erosion": [
+              -1.0,
+              1.0
+            ],
+            "weirdness": [
+              -1.0,
+              1.0
+            ],
+            "depth": [
+              0,
+              0.2
+            ],
+            "offset": 0
+          }
+        }
+      ]
+    }
+  }
+}

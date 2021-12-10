@@ -62,11 +62,12 @@ public class FrostRealm {
 	public void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			FrostBlocks.burnables();
+
+			FrostCarvers.registerConfiguredCarvers();
 			FrostTreeFeatures.init();
 			FrostConfiguredFeatures.init();
 			FrostPlacements.init();
 			FrostOrePlacements.init();
-			FrostCarvers.registerConfiguredCarvers();
 			FrostNoiseGeneratorSettings.init();
 			Registry.register(Registry.CHUNK_GENERATOR, FrostRealm.prefix("chunk_generator"), FrostChunkGenerator.CODEC);
 		});
