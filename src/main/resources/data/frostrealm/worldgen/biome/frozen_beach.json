@@ -1,11 +1,11 @@
 {
-  "depth": 0.8,
-  "scale": 0.8,
+  "depth": 1.5,
+  "scale": 0.6,
   "precipitation": "snow",
   "temperature_modifier": "frozen",
-  "temperature": -0.8,
-  "downfall": 0.6,
-  "category": "extreme_hills",
+  "temperature": -1.0,
+  "downfall": 0.4,
+  "category": "beach",
   "effects": {
     "sky_color": 7907327,
     "fog_color": 4630224,
@@ -20,7 +20,7 @@
       "replace_current_music": false
     }
   },
-  "surface_builder": "frostrealm:frigid_stone",
+  "surface_builder": "frostrealm:ice",
   "carvers": {
     "air": [
       "frostrealm:frostrealm_cave",
@@ -33,17 +33,20 @@
     [],
     [
     ],
-    [],
     [
     ],
-    [],
+    [
+    ],
+    [
+    ],
     [
       "frostrealm:ore_frost_crystal_upper",
       "frostrealm:ore_frost_crystal_lower",
       "frostrealm:ore_glimmerrock_lower",
       "frostrealm:ore_glimmerrock_small"
     ],
-    [],
+    [
+    ],
     [
     ],
     [

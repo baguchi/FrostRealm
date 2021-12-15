@@ -16,9 +16,11 @@ public class FrostBiomes {
 	public static final ResourceKey<Biome> FROZEN_CANYON = register("frozen_canyon");
 	public static final ResourceKey<Biome> GLACIERS = register("glaciers");
 	public static final ResourceKey<Biome> HOT_ROCK = register("hot_rock");
-	public static final ResourceKey<Biome> WARPED_CLIFF = register("warped_cliff");
+	public static final ResourceKey<Biome> STAR_DUST_PEAKS = register("star_dust_peaks");
+	public static final ResourceKey<Biome> WARPED_CLIFFS = register("warped_cliffs");
 	public static final ResourceKey<Biome> FROZEN_OCEAN = register("frozen_ocean");
 	public static final ResourceKey<Biome> FROZEN_DEEP_OCEAN = register("frozen_deep_ocean");
+	public static final ResourceKey<Biome> FROZEN_BEACH = register("frozen_beach");
 
 	private static ResourceKey<Biome> register(String p_48229_) {
 		return ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FrostRealm.MODID, p_48229_));

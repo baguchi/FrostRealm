@@ -31,17 +31,15 @@ public class FrostSurfaceRuleData {
 		if (p_198383_) {
 			builder.add(SurfaceRules.ifTrue(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)), BEDROCK));
 		}
-
+		SurfaceRules.ConditionSource surfacerules$conditionsource6 = SurfaceRules.waterBlockCheck(-1, 0);
 		SurfaceRules.ConditionSource surfacerules$conditionsource7 = SurfaceRules.waterBlockCheck(0, 0);
 		SurfaceRules.ConditionSource surfacerules$conditionsource9 = SurfaceRules.hole();
-		builder.add(SurfaceRules.sequence(SurfaceRules.ifTrue(surfacerules$conditionsource9, SurfaceRules.ifTrue(surfacerules$conditionsource7, AIR))));
-		SurfaceRules.RuleSource surfacerules$rulesource1 = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST), FROZEN_DIRT))));
-		SurfaceRules.RuleSource surfacerules$rulesource3 = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.steep(), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST), FROZEN_GRASS_BLOCK))));
-		SurfaceRules.RuleSource surfacerules$rulesource4 = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.steep(), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.TUNDRA), FROZEN_GRASS_BLOCK))));
+		//builder.add(SurfaceRules.sequence(SurfaceRules.ifTrue(surfacerules$conditionsource9, SurfaceRules.ifTrue(surfacerules$conditionsource7, AIR))));
+		SurfaceRules.RuleSource surfacerules$rulesource1 = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST), FROZEN_GRASS_BLOCK))));
+		SurfaceRules.RuleSource surfacerules$rulesource3 = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.steep(), SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST), FROZEN_DIRT))));
 
 		builder.add(surfacerules$rulesource1);
 		builder.add(surfacerules$rulesource3);
-		builder.add(surfacerules$rulesource4);
 
 		return SurfaceRules.sequence(builder.build().toArray((p_198379_) -> {
 			return new SurfaceRules.RuleSource[p_198379_];

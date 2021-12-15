@@ -51,7 +51,6 @@ public class FrostRealm {
 
 	public FrostRealm() {
 		IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
-
 		modbus.addListener(this::setup);
 
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup));
