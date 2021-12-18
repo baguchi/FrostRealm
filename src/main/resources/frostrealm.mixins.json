@@ -3,7 +3,7 @@
   "package": "baguchan.frostrealm.mixin",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
-  "refmap": "revampedwolf.refmap.json",
+  "refmap": "frostrealm.refmap.json",
   "mixins": [
     "DimensionGeneratorSettingsMixin"
   ],
