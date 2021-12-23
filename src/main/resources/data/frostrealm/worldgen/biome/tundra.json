@@ -44,7 +44,8 @@
     ],
     [],
     [
-      "frostrealm:frostroot_tree_plains",
+      "frostrealm:patch_tundra_rock",
+      "frostrealm:patch_tundra_mossy_rock",
       "frostrealm:patch_bear_berry",
       "frostrealm:patch_artic_poppy",
       "frostrealm:patch_artic_willow",

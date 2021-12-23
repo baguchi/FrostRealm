@@ -1,10 +1,7 @@
 package baguchan.frostrealm.event;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.world.placement.FrostOrePlacements;
-import baguchan.frostrealm.world.placement.FrostPlacements;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -22,7 +19,7 @@ public class BiomeLoadEvent {
 	@SubscribeEvent(priority = EventPriority.HIGH)
 	public static void loadingBiome(BiomeLoadingEvent event) {
 		BiomeGenerationSettingsBuilder generation = event.getGeneration();
-		if (event.getName().toString().contains("frostrealm:frigid_forest")) {
+		/*if (event.getName().toString().contains("frostrealm:frigid_forest")) {
 			generation.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_ARTIC_POPPY);
 		}
 
@@ -38,6 +35,6 @@ public class BiomeLoadEvent {
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FrostOrePlacements.FROST_CRYSTAL_ORE_LOWER);
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FrostOrePlacements.GLIMMER_ORE_LOWER);
 			generation.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FrostOrePlacements.GLIMMER_ORE_SMALL);
-		}
+		}*/
 	}
 }

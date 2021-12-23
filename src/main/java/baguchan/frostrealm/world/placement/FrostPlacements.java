@@ -5,6 +5,7 @@ import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.world.gen.FrostConfiguredFeatures;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Block;
@@ -27,6 +28,9 @@ public class FrostPlacements {
 	public static final PlacedFeature PATCH_ARTIC_POPPY = register(prefix("patch_artic_poppy"), FrostConfiguredFeatures.ARCTIC_POPPY.placed(CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 	public static final PlacedFeature PATCH_ARTIC_WILLOW = register(prefix("patch_artic_willow"), FrostConfiguredFeatures.ARCTIC_WILLOW.placed(CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 
+	public static final PlacedFeature PATCH_TUNDRA_ROCK = register(prefix("patch_tundra_rock"), FrostConfiguredFeatures.TUNDRA_ROCK.placed(RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+	public static final PlacedFeature PATCH_TUNDRA_MOSSY_ROCK = register(prefix("patch_tundra_mossy_rock"), FrostConfiguredFeatures.TUNDRA_ROCK.placed(RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;
@@ -38,7 +42,7 @@ public class FrostPlacements {
 	}
 
 	public static PlacedFeature register(String p_195369_, PlacedFeature p_195370_) {
-		return BuiltinRegistries.register(BuiltinRegistries.PLACED_FEATURE, p_195369_, p_195370_);
+		return Registry.register(BuiltinRegistries.PLACED_FEATURE, p_195369_, p_195370_);
 	}
 
 	private static ImmutableList.Builder<PlacementModifier> treePlacementBase(PlacementModifier p_195485_) {

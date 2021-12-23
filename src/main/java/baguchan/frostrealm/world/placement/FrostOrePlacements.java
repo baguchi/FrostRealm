@@ -2,6 +2,7 @@ package baguchan.frostrealm.world.placement;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.world.gen.FrostConfiguredFeatures;
+import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -27,7 +28,7 @@ public class FrostOrePlacements {
 	}
 
 	public static PlacedFeature register(String p_195369_, PlacedFeature p_195370_) {
-		return BuiltinRegistries.register(BuiltinRegistries.PLACED_FEATURE, p_195369_, p_195370_);
+		return Registry.register(BuiltinRegistries.PLACED_FEATURE, p_195369_, p_195370_);
 	}
 
 	private static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {

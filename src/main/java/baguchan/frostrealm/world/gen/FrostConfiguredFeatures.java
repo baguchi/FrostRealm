@@ -2,6 +2,7 @@ package baguchan.frostrealm.world.gen;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
+import baguchan.frostrealm.registry.FrostFeatures;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
@@ -36,6 +37,9 @@ public class FrostConfiguredFeatures {
 
 	public static final ConfiguredFeature<?, ?> ARCTIC_POPPY = register(prefix("patch_arctic_poppy"), Feature.FLOWER.configured(grassPatch(BlockStateProvider.simple(FrostBlocks.ARCTIC_POPPY), 32)));
 	public static final ConfiguredFeature<?, ?> ARCTIC_WILLOW = register(prefix("patch_arctic_willow"), Feature.FLOWER.configured(grassPatch(BlockStateProvider.simple(FrostBlocks.ARCTIC_WILLOW), 32)));
+
+	public static final ConfiguredFeature<BlockStateConfiguration, ?> TUNDRA_ROCK = register(prefix("tundra_rock"), FrostFeatures.BIG_ROCK.configured(new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.defaultBlockState())));
+	public static final ConfiguredFeature<BlockStateConfiguration, ?> TUNDRA_MOSSY_ROCK = register(prefix("tundra_mossy_rock"), FrostFeatures.BIG_ROCK.configured(new BlockStateConfiguration(FrostBlocks.FRIGID_STONE_MOSSY.defaultBlockState())));
 
 	public static final ConfiguredFeature<RandomFeatureConfiguration, ?> FROSTROOT_TREE = register(prefix("frostroot_tree"), Feature.RANDOM_SELECTOR.configured(new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(FrostTreeFeatures.FROST_TREE_BIG.placed(), 0.33333334F)), FrostTreeFeatures.FROST_TREE.placed())));
 
