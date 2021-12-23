@@ -7,7 +7,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.StandingAndWallBlockItem;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,8 +19,8 @@ public class FrostItems {
 	public static final Item STARDUST_CRYSTAL = new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item FROZEN_FRUIT = new Item((new Item.Properties()).food(FrostFoods.FROZEN_FRUIT).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item MELTED_FRUIT = new Item((new Item.Properties()).food(FrostFoods.MELTED_FRUIT).tab(FrostGroups.TAB_FROSTREALM));
-	public static final Item SUGARBEET = new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
-	//public static final Item SUGARBEET_SEEDS = ITEMS.register("sugarbeet_seeds", () -> new ItemNameBlockItem((Block) FrostBlocks.SUGARBEETS.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final Item SUGARBEET = new Item((new Item.Properties()).food(FrostFoods.SUGARBEET).tab(FrostGroups.TAB_FROSTREALM));
+	public static final Item SUGARBEET_SEEDS = new ItemNameBlockItem(FrostBlocks.SUGARBEET, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item BEARBERRY = new ItemNameBlockItem(FrostBlocks.BEARBERRY_BUSH, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item COOKED_BEARBERRY = new Item((new Item.Properties()).food(FrostFoods.COOKED_BEARBERRY).tab(FrostGroups.TAB_FROSTREALM));
 
@@ -30,7 +29,7 @@ public class FrostItems {
 	public static final Item STRAY_NECKLACE_PART = new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 
 	public static final Item YETI_FUR = new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
-	public static final Item FROST_TORCH = new StandingAndWallBlockItem(FrostBlocks.FROST_TORCH, (Block) FrostBlocks.WALL_FROST_TORCH, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
+	public static final Item FROST_TORCH = new StandingAndWallBlockItem(FrostBlocks.FROST_TORCH, FrostBlocks.WALL_FROST_TORCH, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 
 	public static final Item CRYSTAL_TORTOISE_SPAWNEGG = new ForgeSpawnEggItem(() -> FrostEntities.CRYSTAL_TORTOISE, 0x3E3CAE, 0x8685E0, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item MARMOT_SPAWNEGG = new ForgeSpawnEggItem(() -> FrostEntities.MARMOT, 0xB18346, 0x9B6B2D, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
@@ -45,6 +44,7 @@ public class FrostItems {
 		register(event, FROZEN_FRUIT, "frozen_fruit");
 		register(event, MELTED_FRUIT, "melted_fruit");
 		register(event, SUGARBEET, "sugarbeet");
+		register(event, SUGARBEET_SEEDS, "sugarbeet_seeds");
 		register(event, BEARBERRY, "bearberry");
 		register(event, COOKED_BEARBERRY, "cooked_bearberry");
 

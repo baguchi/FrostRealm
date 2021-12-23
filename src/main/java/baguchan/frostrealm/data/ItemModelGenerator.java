@@ -28,6 +28,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.FROZEN_FRUIT);
 		this.singleTex(FrostItems.MELTED_FRUIT);
 		this.singleTex(FrostItems.SUGARBEET);
+		this.singleTex(FrostItems.SUGARBEET_SEEDS);
 		this.singleTex(FrostItems.BEARBERRY);
 		this.singleTex(FrostItems.COOKED_BEARBERRY);
 
@@ -43,6 +44,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 		this.toBlock(FrostBlocks.FROZEN_DIRT);
 		this.toBlock(FrostBlocks.FROZEN_GRASS_BLOCK);
+
+		this.toBlock(FrostBlocks.FROZEN_FARMLAND);
 
 		this.toBlock(FrostBlocks.FRIGID_STONE);
 		this.toBlock(FrostBlocks.FRIGID_STONE_SLAB);

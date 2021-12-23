@@ -21,6 +21,8 @@ public class FrostBlocks {
 
 	public static final Block FROZEN_DIRT = new Block(BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL));
 	public static final Block FROZEN_GRASS_BLOCK = new FrostGrassBlock(BlockBehaviour.Properties.of(Material.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS));
+	public static final Block FROZEN_FARMLAND = new FrozenFarmBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().strength(0.5F).sound(SoundType.GRASS));
+
 	public static final Block POINTED_ICE = new PointedIceBlock(BlockBehaviour.Properties.of(Material.ICE).friction(0.98F).randomTicks().strength(0.5F).dynamicShape().sound(SoundType.GLASS));
 
 
@@ -54,6 +56,8 @@ public class FrostBlocks {
 	public static final Block COLD_TALL_GRASS = new DoublePlantBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noOcclusion().noCollission().sound(SoundType.GRASS));
 
 	public static final Block BEARBERRY_BUSH = new BearBerryBushBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS));
+	//CROP
+	public static final Block SUGARBEET = new SugarBeetBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS));
 
 	//ORE
 	public static final Block FROST_CRYSTAL_ORE = new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
@@ -84,8 +88,10 @@ public class FrostBlocks {
 
 	@SubscribeEvent
 	public static void registerBlock(RegistryEvent.Register<Block> registry) {
+		registry.getRegistry().register(FROST_PORTAL.setRegistryName("frostrealm_portal"));
 		registry.getRegistry().register(FROZEN_DIRT.setRegistryName("frozen_dirt"));
 		registry.getRegistry().register(FROZEN_GRASS_BLOCK.setRegistryName("frozen_grass_block"));
+		registry.getRegistry().register(FROZEN_FARMLAND.setRegistryName("frozen_farmland"));
 		registry.getRegistry().register(POINTED_ICE.setRegistryName("pointed_ice"));
 		registry.getRegistry().register(FRIGID_STONE.setRegistryName("frigid_stone"));
 		registry.getRegistry().register(FRIGID_STONE_SLAB.setRegistryName("frigid_stone_slab"));
@@ -111,6 +117,8 @@ public class FrostBlocks {
 
 		registry.getRegistry().register(BEARBERRY_BUSH.setRegistryName("bearberry_bush"));
 
+		registry.getRegistry().register(SUGARBEET.setRegistryName("sugarbeet"));
+
 		registry.getRegistry().register(COLD_GRASS.setRegistryName("cold_grass"));
 		registry.getRegistry().register(COLD_TALL_GRASS.setRegistryName("cold_tall_grass"));
 
@@ -126,6 +134,8 @@ public class FrostBlocks {
 	public static void registerItemBlocks(RegistryEvent.Register<Item> registry) {
 		FrostItems.register(registry, new BlockItem(FROZEN_DIRT, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FROZEN_GRASS_BLOCK, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(FROZEN_FARMLAND, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
 		FrostItems.register(registry, new BlockItem(POINTED_ICE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE_SLAB, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
@@ -149,7 +159,6 @@ public class FrostBlocks {
 		FrostItems.register(registry, new BlockItem(VIGOROSHROOM, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(ARCTIC_POPPY, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(ARCTIC_WILLOW, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-
 
 		FrostItems.register(registry, new BlockItem(COLD_GRASS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new DoubleHighBlockItem(COLD_TALL_GRASS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));

@@ -35,9 +35,13 @@ public class BlockTagGenerator extends BlockTagsProvider {
 		tag(BlockTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE);
 		tag(BlockTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR);
 
+		tag(BlockTags.CROPS).add(FrostBlocks.SUGARBEET);
+		tag(BlockTags.BEE_GROWABLES).add(FrostBlocks.SUGARBEET);
+
 		tag(FrostTags.Blocks.BASE_STONE_FROSTREALM).add(FrostBlocks.FRIGID_STONE);
 		tag(FrostTags.Blocks.HOT_SOURCE).addTag(BlockTags.CAMPFIRES).addTag(BlockTags.FIRE).add(Blocks.MAGMA_BLOCK);
 		tag(FrostTags.Blocks.TUNDRA_REPLACEABLE).add(FrostBlocks.FRIGID_STONE, FrostBlocks.FROZEN_DIRT);
+
 
 		tag(Tags.Blocks.DIRT).add(FrostBlocks.FROZEN_DIRT, FrostBlocks.FROZEN_GRASS_BLOCK);
 		tag(Tags.Blocks.ORES).add(FrostBlocks.STARDUST_CRYSTAL_ORE, FrostBlocks.GLIMMERROCK_ORE, FrostBlocks.FROST_CRYSTAL_ORE);

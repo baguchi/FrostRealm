@@ -8,6 +8,7 @@ import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.BeetrootBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -43,6 +44,7 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.add(FrostBlocks.FROZEN_GRASS_BLOCK, (p_124193_) -> {
 			return createSingleItemTableWithSilkTouch(p_124193_, FrostBlocks.FROZEN_DIRT);
 		});
+		this.dropOther(FrostBlocks.FROZEN_FARMLAND, FrostBlocks.FROZEN_DIRT);
 		this.dropSelf(FrostBlocks.POINTED_ICE);
 
 		this.dropSelf(FrostBlocks.FRIGID_STONE);
@@ -74,6 +76,9 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.add(FrostBlocks.BEARBERRY_BUSH, (p_124096_) -> {
 			return applyExplosionDecay(p_124096_, LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 3))).add(LootItem.lootTableItem(FrostItems.BEARBERRY)).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))).withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 2))).add(LootItem.lootTableItem(FrostItems.BEARBERRY)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))));
 		});
+		LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.SUGARBEET).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BeetrootBlock.AGE, 3));
+		this.add(FrostBlocks.SUGARBEET, createCropDrops(FrostBlocks.SUGARBEET, FrostItems.SUGARBEET, FrostItems.SUGARBEET, lootitemcondition$builder));
+
 
 		this.add(FrostBlocks.FROST_CRYSTAL_ORE, BlockLootTables::createFrostCrystalOreDrops);
 		this.add(FrostBlocks.GLIMMERROCK_ORE, BlockLootTables::createGlimmerRockOreDrops);

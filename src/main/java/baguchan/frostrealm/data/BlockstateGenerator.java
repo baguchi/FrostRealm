@@ -1,7 +1,6 @@
 package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.block.BearBerryBushBlock;
 import baguchan.frostrealm.registry.FrostBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -48,7 +47,8 @@ public class BlockstateGenerator extends BlockStateProvider {
 
 		this.crossTintBlock(FrostBlocks.COLD_GRASS);
 
-		this.bearBerryBushCrossBlock(FrostBlocks.BEARBERRY_BUSH);
+		this.ageThreeCrossBlock(FrostBlocks.BEARBERRY_BUSH);
+		this.ageThreeCrossBlock(FrostBlocks.SUGARBEET);
 
 		this.simpleBlock(FrostBlocks.FROST_CRYSTAL_ORE);
 		this.simpleBlock(FrostBlocks.GLIMMERROCK_ORE);
@@ -80,10 +80,10 @@ public class BlockstateGenerator extends BlockStateProvider {
 		crossBlock(block, models().cross(name(block), texture(name(block))));
 	}
 
-	public void bearBerryBushCrossBlock(Block block) {
+	public void ageThreeCrossBlock(Block block) {
 		getVariantBuilder(block).forAllStates(state -> {
-			int age = state.getValue(BearBerryBushBlock.AGE);
-			ModelFile cross_1 = models().singleTexture("bearberry_bush_" + age, mcLoc("block/cross"), "cross", texture("bearberry_bush_" + age));
+			int age = state.getValue(BlockStateProperties.AGE_3);
+			ModelFile cross_1 = models().singleTexture(name(block) + "_" + age, mcLoc("block/cross"), "cross", texture("bearberry_bush_" + age));
 			return ConfiguredModel.builder()
 					.modelFile(cross_1)
 					.build();
