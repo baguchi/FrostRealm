@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/template_farmland",
   "textures": {
-    "dirt": "frosrealm:block/frozen_dirt",
-    "top": "frosrealm:block/frozen_farmland_moist"
+    "dirt": "frostrealm:block/frozen_dirt",
+    "top": "frostrealm:block/frozen_farmland_moist"
   }
 }

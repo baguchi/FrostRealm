@@ -21,7 +21,7 @@ public class FrostBlocks {
 
 	public static final Block FROZEN_DIRT = new Block(BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL));
 	public static final Block FROZEN_GRASS_BLOCK = new FrostGrassBlock(BlockBehaviour.Properties.of(Material.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS));
-	public static final Block FROZEN_FARMLAND = new FrozenFarmBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().strength(0.5F).sound(SoundType.GRASS));
+	public static final Block FROZEN_FARMLAND = new FrozenFarmBlock(BlockBehaviour.Properties.of(Material.DIRT).noOcclusion().strength(0.5F).sound(SoundType.GRAVEL));
 
 	public static final Block POINTED_ICE = new PointedIceBlock(BlockBehaviour.Properties.of(Material.ICE).friction(0.98F).randomTicks().strength(0.5F).dynamicShape().sound(SoundType.GLASS));
 
@@ -57,7 +57,7 @@ public class FrostBlocks {
 
 	public static final Block BEARBERRY_BUSH = new BearBerryBushBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS));
 	//CROP
-	public static final Block SUGARBEET = new SugarBeetBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS));
+	public static final Block SUGARBEET = new SugarBeetBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.CROP));
 
 	//ORE
 	public static final Block FROST_CRYSTAL_ORE = new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));

@@ -85,7 +85,7 @@ public class ClientRegistrar {
 		setRenderLayer(FrostBlocks.VIGOROSHROOM, RenderType.cutout());
 		setRenderLayer(FrostBlocks.ARCTIC_POPPY, RenderType.cutout());
 		setRenderLayer(FrostBlocks.ARCTIC_WILLOW, RenderType.cutout());
-
+		setRenderLayer(FrostBlocks.SUGARBEET, RenderType.cutout());
 
 		setRenderLayer(FrostBlocks.COLD_GRASS, RenderType.cutout());
 		setRenderLayer(FrostBlocks.COLD_TALL_GRASS, RenderType.cutout());
