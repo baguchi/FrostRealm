@@ -55,6 +55,10 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.add(FrostBlocks.FRIGID_STONE_BRICK_SLAB, BlockLoot::createSlabItemTable);
 		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK_STAIRS);
 
+		this.dropSelf(FrostBlocks.FRIGID_STONE_MOSSY);
+		this.add(FrostBlocks.FRIGID_STONE_MOSSY_SLAB, BlockLoot::createSlabItemTable);
+		this.dropSelf(FrostBlocks.FRIGID_STONE_MOSSY_STAIRS);
+
 		this.dropSelf(FrostBlocks.FROSTROOT_LOG);
 		this.dropSelf(FrostBlocks.FROSTROOT_SAPLING);
 		this.add(FrostBlocks.FROSTROOT_LEAVES, (p_124104_) -> {

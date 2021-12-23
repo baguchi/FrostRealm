@@ -20,6 +20,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
 	protected void addTags() {
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(FrostBlocks.FROZEN_DIRT, FrostBlocks.FROZEN_GRASS_BLOCK);
 		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(FrostBlocks.FRIGID_STONE, FrostBlocks.FRIGID_STONE_SLAB, FrostBlocks.FRIGID_STONE_STAIRS
+				, FrostBlocks.FRIGID_STONE_MOSSY, FrostBlocks.FRIGID_STONE_MOSSY_SLAB, FrostBlocks.FRIGID_STONE_MOSSY_STAIRS
 				, FrostBlocks.FRIGID_STONE_SMOOTH_BRICK, FrostBlocks.FRIGID_STONE_BRICK, FrostBlocks.FRIGID_STONE_BRICK_STAIRS, FrostBlocks.FRIGID_STONE_BRICK_SLAB
 				, FrostBlocks.POINTED_ICE);
 		tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG, FrostBlocks.FROSTROOT_PLANKS, FrostBlocks.FROSTROOT_PLANKS_STAIRS, FrostBlocks.FROSTROOT_PLANKS_SLAB, FrostBlocks.FROSTROOT_FENCE, FrostBlocks.FROSTROOT_FENCE_GATE);
