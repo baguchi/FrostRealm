@@ -16,7 +16,6 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -169,8 +168,9 @@ public class Yeti extends AgeableMob implements NeutralMob {
 	public static void angerNearbyYeti(Player p_34874_, boolean p_34875_) {
 		List<Yeti> list = p_34874_.level.getEntitiesOfClass(Yeti.class, p_34874_.getBoundingBox().inflate(16.0D));
 		list.stream().filter((p_34881_) -> {
-			return !p_34875_ || BehaviorUtils.canSee(p_34881_, p_34874_);
+			return !p_34875_ || p_34881_.isAggressive();
 		}).forEach((p_34872_) -> {
+			p_34872_.setTarget(p_34874_);
 			p_34872_.setRemainingPersistentAngerTime(600);
 			p_34872_.setPersistentAngerTarget(p_34874_.getUUID());
 		});
