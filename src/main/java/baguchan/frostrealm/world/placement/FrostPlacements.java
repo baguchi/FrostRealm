@@ -28,8 +28,8 @@ public class FrostPlacements {
 	public static final PlacedFeature PATCH_ARTIC_POPPY = register(prefix("patch_artic_poppy"), FrostConfiguredFeatures.ARCTIC_POPPY.placed(CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 	public static final PlacedFeature PATCH_ARTIC_WILLOW = register(prefix("patch_artic_willow"), FrostConfiguredFeatures.ARCTIC_WILLOW.placed(CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 
-	public static final PlacedFeature PATCH_TUNDRA_ROCK = register(prefix("patch_tundra_rock"), FrostConfiguredFeatures.TUNDRA_ROCK.placed(RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
-	public static final PlacedFeature PATCH_TUNDRA_MOSSY_ROCK = register(prefix("patch_tundra_mossy_rock"), FrostConfiguredFeatures.TUNDRA_ROCK.placed(RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+	public static final PlacedFeature PATCH_TUNDRA_ROCK = register(prefix("patch_tundra_rock"), FrostConfiguredFeatures.TUNDRA_ROCK.placed(RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+	public static final PlacedFeature PATCH_TUNDRA_MOSSY_ROCK = register(prefix("patch_tundra_mossy_rock"), FrostConfiguredFeatures.TUNDRA_ROCK.placed(RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 
 
 	public static String prefix(String name) {

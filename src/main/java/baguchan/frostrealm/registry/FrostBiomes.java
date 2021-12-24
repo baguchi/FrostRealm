@@ -5,8 +5,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -24,18 +22,5 @@ public class FrostBiomes {
 
 	private static ResourceKey<Biome> register(String p_48229_) {
 		return ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FrostRealm.MODID, p_48229_));
-	}
-
-	@SubscribeEvent
-	public static void registerBiomes(RegistryEvent.Register<Biome> registry) {
-		/*registry.getRegistry().registerAll(
-				FrostRealmBiomes.tundra().setRegistryName("tundra"),
-				FrostRealmBiomes.frigidForest().setRegistryName("frigid_forest"),
-				FrostRealmBiomes.stoneBasedBiome().setRegistryName("frozen_canyon"),
-				FrostRealmBiomes.stoneBasedBiome().setRegistryName("glaciers"),
-				FrostRealmBiomes.stoneBasedBiome().setRegistryName("hot_rock"),
-				FrostRealmBiomes.stoneBasedBiome().setRegistryName("warped_cliff"),
-				FrostRealmBiomes.stoneBasedBiome().setRegistryName("frozen_ocean"),
-				FrostRealmBiomes.stoneBasedBiome().setRegistryName("frozen_deep_ocean"));*/
 	}
 }

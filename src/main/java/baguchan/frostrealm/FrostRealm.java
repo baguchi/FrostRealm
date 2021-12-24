@@ -8,6 +8,7 @@ import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostCarvers;
 import baguchan.frostrealm.registry.FrostNoiseGeneratorSettings;
+import baguchan.frostrealm.registry.FrostStructures;
 import baguchan.frostrealm.world.FrostChunkGenerator;
 import baguchan.frostrealm.world.gen.FrostConfiguredFeatures;
 import baguchan.frostrealm.world.gen.FrostTreeFeatures;
@@ -51,9 +52,13 @@ public class FrostRealm {
 
 	public FrostRealm() {
 		IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
+
+		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		modbus.addListener(this::setup);
+		forgeBus.addListener(FrostStructures::addDimensionalSpacing);
 
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup));
+		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(this);
 		this.setupMessages();
 	}

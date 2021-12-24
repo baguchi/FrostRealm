@@ -51,6 +51,7 @@
     ]
   ],
   "starts": [
+    "frostrealm:igloo"
   ],
   "spawners": {
     "monster": [
