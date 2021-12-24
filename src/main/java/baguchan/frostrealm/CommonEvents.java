@@ -45,6 +45,7 @@ public class CommonEvents {
 		if (stack.getItem() instanceof HoeItem) {
 			if (event.getWorld().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_DIRT || event.getWorld().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_GRASS_BLOCK) {
 				event.getWorld().setBlock(event.getPos(), FrostBlocks.FROZEN_FARMLAND.defaultBlockState(), 2);
+				event.getPlayer().swing(event.getHand());
 				stack.hurtAndBreak(1, event.getPlayer(), (p_147232_) -> {
 					p_147232_.broadcastBreakEvent(event.getHand());
 				});
