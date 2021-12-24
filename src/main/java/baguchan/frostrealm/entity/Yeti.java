@@ -16,6 +16,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -31,6 +32,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -42,6 +44,7 @@ public class Yeti extends AgeableMob implements NeutralMob {
 	private final SimpleContainer inventory = new SimpleContainer(5);
 	@Nullable
 	private BlockPos homeTarget;
+	private int huntTime;
 
 	public static final Predicate<? super ItemEntity> ALLOWED_ITEMS = (p_213616_0_) -> {
 		return p_213616_0_.getItem().getItem().getFoodProperties() != null && p_213616_0_.getItem().getItem() != Items.SPIDER_EYE && p_213616_0_.getItem().getItem() != Items.PUFFERFISH;
@@ -64,7 +67,7 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new Yeti.YetiHurtByTargetGoal());
-		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractFish.class, 10, true, true, (Predicate<LivingEntity>) null));
+		this.targetSelector.addGoal(3, new HuntTargetGoal(this));
 		this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
 	}
 
@@ -152,6 +155,39 @@ public class Yeti extends AgeableMob implements NeutralMob {
 				}
 			}
 		}
+	}
+
+	@Override
+	protected void customServerAiStep() {
+		super.customServerAiStep();
+
+		if (huntTime > 0) {
+			--this.huntTime;
+		}
+	}
+
+	public static void angerNearbyYeti(Player p_34874_, boolean p_34875_) {
+		List<Yeti> list = p_34874_.level.getEntitiesOfClass(Yeti.class, p_34874_.getBoundingBox().inflate(16.0D));
+		list.stream().filter((p_34881_) -> {
+			return !p_34875_ || BehaviorUtils.canSee(p_34881_, p_34874_);
+		}).forEach((p_34872_) -> {
+			p_34872_.setRemainingPersistentAngerTime(600);
+			p_34872_.setPersistentAngerTarget(p_34874_.getUUID());
+		});
+	}
+
+	public boolean isHunted() {
+		return huntTime > 0;
+	}
+
+	public void setHuntTime(int huntTime) {
+		this.huntTime = huntTime;
+	}
+
+	@Override
+	public void killed(ServerLevel p_19929_, LivingEntity p_19930_) {
+		super.killed(p_19929_, p_19930_);
+		setHuntTime(600);
 	}
 
 	public void readAdditionalSaveData(CompoundTag p_29541_) {
@@ -270,5 +306,28 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		}
 	}
 
+	static class HuntTargetGoal extends NearestAttackableTargetGoal<AbstractFish> {
+		HuntTargetGoal(Yeti p_27966_) {
+			super(p_27966_, AbstractFish.class, 10, true, false, null);
+		}
 
+		public boolean canUse() {
+			return this.canTarget() && super.canUse();
+		}
+
+		public boolean canContinueToUse() {
+			boolean flag = this.canTarget();
+			if (flag && this.mob.getTarget() != null) {
+				return super.canContinueToUse();
+			} else {
+				this.targetMob = null;
+				return false;
+			}
+		}
+
+		private boolean canTarget() {
+			Yeti yeti = (Yeti) this.mob;
+			return !yeti.isAngry() && !yeti.isBaby() && !yeti.isHunted();
+		}
+	}
 }
