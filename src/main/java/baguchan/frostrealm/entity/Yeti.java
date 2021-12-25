@@ -168,7 +168,7 @@ public class Yeti extends AgeableMob implements NeutralMob {
 	public static void angerNearbyYeti(Player p_34874_, boolean p_34875_) {
 		List<Yeti> list = p_34874_.level.getEntitiesOfClass(Yeti.class, p_34874_.getBoundingBox().inflate(16.0D));
 		list.stream().filter((p_34881_) -> {
-			return !p_34875_ || p_34881_.isAggressive();
+			return !p_34875_ || p_34881_.hasLineOfSight(p_34874_);
 		}).forEach((p_34872_) -> {
 			p_34872_.setTarget(p_34874_);
 			p_34872_.setRemainingPersistentAngerTime(600);

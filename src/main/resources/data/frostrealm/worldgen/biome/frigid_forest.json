@@ -2,7 +2,6 @@
   "depth": 0.1,
   "scale": 0.2,
   "precipitation": "snow",
-  "temperature_modifier": "frozen",
   "temperature": -0.2,
   "downfall": 0.6,
   "category": "forest",

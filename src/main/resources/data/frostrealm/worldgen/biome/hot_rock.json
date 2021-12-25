@@ -2,7 +2,6 @@
   "depth": 0.4,
   "scale": 0.25,
   "precipitation": "snow",
-  "temperature_modifier": "frozen",
   "temperature": -0.2,
   "downfall": 0.6,
   "category": "plains",

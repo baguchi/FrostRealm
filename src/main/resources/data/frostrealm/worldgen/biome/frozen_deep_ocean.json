@@ -2,7 +2,6 @@
   "depth": 1.5,
   "scale": 0.6,
   "precipitation": "snow",
-  "temperature_modifier": "frozen",
   "temperature": -1.0,
   "downfall": 0.4,
   "category": "ocean",

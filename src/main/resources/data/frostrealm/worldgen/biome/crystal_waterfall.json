@@ -2,7 +2,6 @@
   "depth": 0.8,
   "scale": 0.8,
   "precipitation": "snow",
-  "temperature_modifier": "frozen",
   "temperature": -0.75,
   "downfall": 0.6,
   "category": "extreme_hills",
