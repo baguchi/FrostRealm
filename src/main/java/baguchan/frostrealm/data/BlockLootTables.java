@@ -93,6 +93,7 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.dropSelf(FrostBlocks.FROST_TORCH);
 		this.dropOther(FrostBlocks.WALL_FROST_TORCH, FrostBlocks.FROST_TORCH);
 		this.dropSelf(FrostBlocks.FRIGID_STOVE);
+		this.dropSelf(FrostBlocks.FROSTROOT_CHEST);
 	}
 
 

@@ -9,12 +9,16 @@ import baguchan.frostrealm.client.render.CrystalTortoiseRenderer;
 import baguchan.frostrealm.client.render.FrostWraithRenderer;
 import baguchan.frostrealm.client.render.MarmotRenderer;
 import baguchan.frostrealm.client.render.YetiRenderer;
+import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
+import baguchan.frostrealm.registry.FrostBlockEntitys;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -23,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -48,6 +53,7 @@ public class ClientRegistrar {
 	}
 
 	public static void renderTileEntity() {
+		BlockEntityRenderers.register(FrostBlockEntitys.FROST_CHEST, FrostChestRenderer::new);
 	}
 
 	public static void renderBlockColor() {
@@ -106,5 +112,14 @@ public class ClientRegistrar {
 		renderTileEntity();
 		renderBlockColor();
 		renderBlockLayer();
+	}
+
+	@SubscribeEvent
+	public static void onTextureStitch(TextureStitchEvent.Pre event) {
+		if (event.getAtlas().location().equals(Sheets.CHEST_SHEET)) {
+			event.addSprite(FrostChestRenderer.CHEST_LOCATION.texture());
+			event.addSprite(FrostChestRenderer.CHEST_LOCATION_LEFT.texture());
+			event.addSprite(FrostChestRenderer.CHEST_LOCATION_RIGHT.texture());
+		}
 	}
 }

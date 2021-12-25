@@ -2,18 +2,30 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.block.*;
+import baguchan.frostrealm.blockentity.FrostChestBlockEntity;
 import baguchan.frostrealm.world.tree.FrostrootTree;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+
+import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 @EventBusSubscriber(modid = FrostRealm.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class FrostBlocks {
@@ -81,6 +93,7 @@ public class FrostBlocks {
 	public static final Block WALL_FROST_TORCH = new WallFrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.WALL_TORCH));
 
 	public static final Block FRIGID_STOVE = new FrigidStoveBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2.0F, 6.0F).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 10 : 0).requiresCorrectToolForDrops().randomTicks().sound(SoundType.NETHERITE_BLOCK));
+	public static final Block FROSTROOT_CHEST = new FrostChestBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD), () -> FrostBlockEntitys.FROST_CHEST);
 
 	public static void burnables() {
 		FireBlock fireblock = (FireBlock) Blocks.FIRE;
@@ -145,6 +158,7 @@ public class FrostBlocks {
 		registry.getRegistry().register(WALL_FROST_TORCH.setRegistryName("wall_frost_torch"));
 
 		registry.getRegistry().register(FRIGID_STOVE.setRegistryName("frigid_stove"));
+		registry.getRegistry().register(FROSTROOT_CHEST.setRegistryName("frostroot_chest"));
 	}
 
 	@SubscribeEvent
@@ -191,5 +205,32 @@ public class FrostBlocks {
 		FrostItems.register(registry, new BlockItem(STARDUST_CRYSTAL_CLUSTER, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 		FrostItems.register(registry, new BlockItem(FRIGID_STOVE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(FROSTROOT_CHEST, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)) {
+			@Override
+			public void initializeClient(@Nonnull Consumer<IItemRenderProperties> consumer) {
+				consumer.accept(new IItemRenderProperties() {
+					BlockEntityWithoutLevelRenderer myRenderer;
+
+					@Override
+					public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
+						if (Minecraft.getInstance().getEntityRenderDispatcher() != null && myRenderer == null) {
+							myRenderer = new BlockEntityWithoutLevelRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()) {
+								private FrostChestBlockEntity blockEntity;
+
+								@Override
+								public void renderByItem(@Nonnull ItemStack stack, @Nonnull ItemTransforms.TransformType transformType, @Nonnull PoseStack matrix, @Nonnull MultiBufferSource buffer, int x, int y) {
+									if (blockEntity == null) {
+										blockEntity = new FrostChestBlockEntity(BlockPos.ZERO, FrostBlocks.FROSTROOT_CHEST.defaultBlockState());
+									}
+									Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(blockEntity, matrix, buffer, x, y);
+								}
+							};
+						}
+
+						return myRenderer;
+					}
+				});
+			}
+		});
 	}
 }

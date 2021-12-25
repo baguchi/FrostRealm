@@ -49,6 +49,14 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.define('G', FrostItems.GLIMMERROCK)
 				.unlockedBy("has_" + FrostItems.GLIMMERROCK.getRegistryName().getPath(), has(FrostItems.GLIMMERROCK)).save(consumer);
 
+		ShapedRecipeBuilder.shaped(FrostBlocks.FROSTROOT_CHEST, 1)
+				.pattern("SSS")
+				.pattern("S S")
+				.pattern("SSS")
+				.define('S', FrostBlocks.FROSTROOT_PLANKS)
+				.unlockedBy("has_" + FrostBlocks.FROSTROOT_PLANKS.getRegistryName().getPath(), has(FrostBlocks.FROSTROOT_PLANKS)).save(consumer);
+
+
 		ShapedRecipeBuilder.shaped(FrostItems.FROST_CATALYST, 1)
 				.pattern(" S ")
 				.pattern("SBS")
