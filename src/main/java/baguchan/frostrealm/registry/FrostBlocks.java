@@ -80,7 +80,7 @@ public class FrostBlocks {
 	public static final Block FROST_TORCH = new FrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.TORCH));
 	public static final Block WALL_FROST_TORCH = new WallFrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.WALL_TORCH));
 
-	public static final Block FRIGID_STOVE = new FrigidStoveBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 10 : 0).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
+	public static final Block FRIGID_STOVE = new FrigidStoveBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 10 : 0).requiresCorrectToolForDrops().randomTicks().sound(SoundType.NETHERITE_BLOCK));
 
 	public static void burnables() {
 		FireBlock fireblock = (FireBlock) Blocks.FIRE;
