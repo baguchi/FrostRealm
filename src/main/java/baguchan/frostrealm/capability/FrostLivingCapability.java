@@ -1,6 +1,7 @@
 package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.client.Minecraft;
@@ -24,6 +25,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -149,10 +151,10 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			}
 			this.exhaustionLevel = 0.0F;
 		}
-		/*if (entity.tickCount % 20 == 0 && !entity.level.isClientSide()) {
+		if (entity.tickCount % 20 == 0 && !entity.level.isClientSide()) {
 			ChangedColdMessage message = new ChangedColdMessage(entity, this.temperature, this.temperatureSaturation);
 			FrostRealm.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), message);
-		}*/
+		}
 	}
 
 	private void hotSourceTick(LivingEntity entity) {
