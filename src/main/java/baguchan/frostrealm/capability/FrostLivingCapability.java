@@ -18,7 +18,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
@@ -158,7 +158,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 	}
 
 	private void hotSourceTick(LivingEntity entity) {
-		if (this.hotSource != null && (!this.hotSource.closerThan(entity.blockPosition(), 3.46D) || !entity.level.getBlockState(this.hotSource).is(FrostTags.Blocks.HOT_SOURCE) || (entity.level.getBlockState(this.hotSource).getBlock() instanceof CampfireBlock && !CampfireBlock.isLitCampfire(entity.level.getBlockState(this.hotSource))))) {
+		if (this.hotSource != null && (!this.hotSource.closerThan(entity.blockPosition(), 3.46D) || !entity.level.getBlockState(this.hotSource).is(FrostTags.Blocks.HOT_SOURCE) || (entity.level.getBlockState(this.hotSource).hasProperty(BlockStateProperties.LIT) && entity.level.getBlockState(this.hotSource).getValue(BlockStateProperties.LIT)))) {
 			this.hotSource = null;
 		}
 		if (this.hotSource == null) {

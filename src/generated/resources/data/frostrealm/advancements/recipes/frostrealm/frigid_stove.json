@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "frostrealm:frigid_stove"
+    ]
+  },
+  "criteria": {
+    "has_glimmerrock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "frostrealm:glimmerrock"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "frostrealm:frigid_stove"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_glimmerrock",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -3,6 +3,7 @@
   "values": [
     "#minecraft:campfires",
     "#minecraft:fire",
-    "minecraft:magma_block"
+    "minecraft:magma_block",
+    "frostrealm:hot_air"
   ]
 }

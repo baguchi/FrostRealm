@@ -24,7 +24,8 @@ public class BlockTagGenerator extends BlockTagsProvider {
 				, FrostBlocks.FRIGID_STONE_SMOOTH_BRICK, FrostBlocks.FRIGID_STONE_BRICK, FrostBlocks.FRIGID_STONE_BRICK_STAIRS, FrostBlocks.FRIGID_STONE_BRICK_SLAB
 				, FrostBlocks.POINTED_ICE
 				, FrostBlocks.FROST_CRYSTAL_ORE, FrostBlocks.GLIMMERROCK_ORE, FrostBlocks.STARDUST_CRYSTAL_ORE, FrostBlocks.STARDUST_CRYSTAL_CLUSTER);
-		tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG, FrostBlocks.FROSTROOT_PLANKS, FrostBlocks.FROSTROOT_PLANKS_STAIRS, FrostBlocks.FROSTROOT_PLANKS_SLAB, FrostBlocks.FROSTROOT_FENCE, FrostBlocks.FROSTROOT_FENCE_GATE);
+		tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG, FrostBlocks.FROSTROOT_PLANKS, FrostBlocks.FROSTROOT_PLANKS_STAIRS, FrostBlocks.FROSTROOT_PLANKS_SLAB, FrostBlocks.FROSTROOT_FENCE, FrostBlocks.FROSTROOT_FENCE_GATE
+				, FrostBlocks.FRIGID_STOVE);
 
 		tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES).add(FrostBlocks.FROSTROOT_SAPLING);
 
@@ -41,7 +42,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
 		tag(BlockTags.BEE_GROWABLES).add(FrostBlocks.SUGARBEET);
 
 		tag(FrostTags.Blocks.BASE_STONE_FROSTREALM).add(FrostBlocks.FRIGID_STONE);
-		tag(FrostTags.Blocks.HOT_SOURCE).addTag(BlockTags.CAMPFIRES).addTag(BlockTags.FIRE).add(Blocks.MAGMA_BLOCK);
+		tag(FrostTags.Blocks.HOT_SOURCE).addTag(BlockTags.CAMPFIRES).addTag(BlockTags.FIRE).add(Blocks.MAGMA_BLOCK).add(FrostBlocks.HOT_AIR);
 		tag(FrostTags.Blocks.TUNDRA_REPLACEABLE).add(FrostBlocks.FRIGID_STONE, FrostBlocks.FROZEN_DIRT);
 
 

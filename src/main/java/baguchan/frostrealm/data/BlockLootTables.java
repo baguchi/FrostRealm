@@ -40,6 +40,8 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 	@Override
 	protected void addTables() {
 		registerEmpty(FrostBlocks.FROST_PORTAL);
+		registerEmpty(FrostBlocks.HOT_AIR);
+
 		this.dropSelf(FrostBlocks.FROZEN_DIRT);
 		this.add(FrostBlocks.FROZEN_GRASS_BLOCK, (p_124193_) -> {
 			return createSingleItemTableWithSilkTouch(p_124193_, FrostBlocks.FROZEN_DIRT);
@@ -90,6 +92,7 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.dropSelf(FrostBlocks.STARDUST_CRYSTAL_CLUSTER);
 		this.dropSelf(FrostBlocks.FROST_TORCH);
 		this.dropOther(FrostBlocks.WALL_FROST_TORCH, FrostBlocks.FROST_TORCH);
+		this.dropSelf(FrostBlocks.FRIGID_STOVE);
 	}
 
 

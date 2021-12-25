@@ -6,6 +6,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 
 import java.util.function.Consumer;
@@ -39,6 +40,14 @@ public class CraftingGenerator extends CraftingDataHelper {
 		foodCooking(FrostItems.BEARBERRY, FrostItems.COOKED_BEARBERRY, 0.1F, consumer);
 
 		makeFrostTorch(consumer, FrostItems.FROST_TORCH);
+
+		ShapedRecipeBuilder.shaped(FrostBlocks.FRIGID_STOVE, 1)
+				.pattern("SSS")
+				.pattern("SGS")
+				.pattern("SSS")
+				.define('S', ItemTags.STONE_CRAFTING_MATERIALS)
+				.define('G', FrostItems.GLIMMERROCK)
+				.unlockedBy("has_" + FrostItems.GLIMMERROCK.getRegistryName().getPath(), has(FrostItems.GLIMMERROCK)).save(consumer);
 
 		ShapedRecipeBuilder.shaped(FrostItems.FROST_CATALYST, 1)
 				.pattern(" S ")

@@ -9,6 +9,7 @@ import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,6 +20,8 @@ public class FrostBlocks {
 	public static final FrostPortalBlock FROST_PORTAL = new FrostPortalBlock(BlockBehaviour.Properties.of(Material.PORTAL).noOcclusion().noCollission().randomTicks().lightLevel((state) -> {
 		return 11;
 	}).strength(-1.0F).sound(SoundType.GLASS));
+
+	public static final Block HOT_AIR = new HotAirBlock(BlockBehaviour.Properties.of(Material.AIR).air().noOcclusion().randomTicks().sound(SoundType.WOOL));
 
 	public static final Block FROZEN_DIRT = new Block(BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL));
 	public static final Block FROZEN_GRASS_BLOCK = new FrostGrassBlock(BlockBehaviour.Properties.of(Material.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS));
@@ -77,6 +80,7 @@ public class FrostBlocks {
 	public static final Block FROST_TORCH = new FrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.TORCH));
 	public static final Block WALL_FROST_TORCH = new WallFrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.WALL_TORCH));
 
+	public static final Block FRIGID_STOVE = new FrigidStoveBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 10 : 0).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
 
 	public static void burnables() {
 		FireBlock fireblock = (FireBlock) Blocks.FIRE;
@@ -94,6 +98,8 @@ public class FrostBlocks {
 	@SubscribeEvent
 	public static void registerBlock(RegistryEvent.Register<Block> registry) {
 		registry.getRegistry().register(FROST_PORTAL.setRegistryName("frostrealm_portal"));
+		registry.getRegistry().register(HOT_AIR.setRegistryName("hot_air"));
+
 		registry.getRegistry().register(FROZEN_DIRT.setRegistryName("frozen_dirt"));
 		registry.getRegistry().register(FROZEN_GRASS_BLOCK.setRegistryName("frozen_grass_block"));
 		registry.getRegistry().register(FROZEN_FARMLAND.setRegistryName("frozen_farmland"));
@@ -137,6 +143,8 @@ public class FrostBlocks {
 		registry.getRegistry().register(STARDUST_CRYSTAL_CLUSTER.setRegistryName("stardust_crystal_cluster"));
 		registry.getRegistry().register(FROST_TORCH.setRegistryName("frost_torch"));
 		registry.getRegistry().register(WALL_FROST_TORCH.setRegistryName("wall_frost_torch"));
+
+		registry.getRegistry().register(FRIGID_STOVE.setRegistryName("frigid_stove"));
 	}
 
 	@SubscribeEvent
@@ -181,5 +189,7 @@ public class FrostBlocks {
 		FrostItems.register(registry, new BlockItem(GLIMMERROCK_ORE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(STARDUST_CRYSTAL_ORE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(STARDUST_CRYSTAL_CLUSTER, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
+		FrostItems.register(registry, new BlockItem(FRIGID_STOVE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	}
 }
