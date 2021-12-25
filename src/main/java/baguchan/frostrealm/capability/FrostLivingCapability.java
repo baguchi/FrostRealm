@@ -116,7 +116,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			if (!entity.getItemBySlot(EquipmentSlot.FEET).isEmpty())
 				tempAffect *= 0.8F;
 			if (entity.isInWaterOrRain())
-				tempAffect *= 2.5F;
+				tempAffect *= 2.0F;
 
 			if (this.hotSource == null) {
 				addExhaustion(tempAffect * 0.001F);
