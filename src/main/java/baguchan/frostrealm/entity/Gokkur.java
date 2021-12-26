@@ -107,19 +107,30 @@ public class Gokkur extends Monster {
 		super.push(p_33636_);
 	}
 
-	protected void dealDamage(LivingEntity p_33638_) {
+	protected void dealDamage(LivingEntity livingentity) {
 		if (this.isAlive() && isRolling()) {
-			if (p_33638_.hurt(DamageSource.mobAttack(this), Mth.floor(getAttackDamage() * 2.0F * (MovementUtils.movementDamageDistanceSqr(this))))) {
-				this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-				this.doEnchantDamageEffects(this, p_33638_);
-				if (this.getTarget() != null && this.getTarget() == p_33638_ && rollingGoal != null) {
-					rollingGoal.setStopTrigger(true);
+			boolean flag = livingentity.isDamageSourceBlocked(DamageSource.mobAttack(this));
+			float f1 = (float) Mth.clamp(livingentity.getDeltaMovement().horizontalDistanceSqr() * 1.15F, 0.2F, 3.0F);
+			float f2 = flag ? 0.25F : 1.0F;
+			double d1 = this.getX() - livingentity.getX();
+			double d2 = this.getZ() - livingentity.getZ();
+			double d3 = livingentity.getX() - this.getX();
+			double d4 = livingentity.getZ() - this.getZ();
+			if (!flag) {
+				if (livingentity.hurt(DamageSource.mobAttack(this), Mth.floor(getAttackDamage() * 2.0F * (MovementUtils.movementDamageDistanceSqr(this))))) {
+					this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+					this.doEnchantDamageEffects(this, livingentity);
+					if (this.getTarget() != null && this.getTarget() == livingentity && rollingGoal != null) {
+						rollingGoal.setStopTrigger(true);
+					}
+					livingentity.knockback(f2 * f1, d1, d2);
 				}
 			} else {
 				this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 				if (rollingGoal != null) {
 					rollingGoal.setStopTrigger(true);
 				}
+				this.knockback(f1 * 2.0F, d3, d4);
 				this.setStun(true);
 			}
 		}

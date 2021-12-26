@@ -53,6 +53,18 @@
   ],
   "spawners": {
     "monster": [
+      {
+        "type": "frostrealm:frost_wraith",
+        "weight": 100,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "frostrealm:gokkur",
+        "weight": 40,
+        "minCount": 2,
+        "maxCount": 3
+      }
     ],
     "creature": [
     ],

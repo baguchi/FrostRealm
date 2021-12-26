@@ -25,7 +25,7 @@ public class StunGoal extends Goal {
 
 	@Override
 	public boolean canContinueToUse() {
-		return 200 >= this.tick;
+		return 100 >= this.tick;
 	}
 
 	@Override
