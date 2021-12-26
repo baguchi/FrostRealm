@@ -2,18 +2,15 @@ package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostSounds;
-import baguchan.utils.MovementUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
@@ -38,7 +35,15 @@ public class Gokkudillo extends Gokkur {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 3.0F).add(Attributes.MAX_HEALTH, 22.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 10.0F).add(Attributes.MOVEMENT_SPEED, 0.24D);
+		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.MAX_HEALTH, 22.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 10.0F).add(Attributes.MOVEMENT_SPEED, 0.24D);
+	}
+
+	public void onSyncedDataUpdated(EntityDataAccessor<?> p_29615_) {
+		if (IS_ROLLING.equals(p_29615_)) {
+			this.refreshDimensions();
+		}
+
+		super.onSyncedDataUpdated(p_29615_);
 	}
 
 	public void aiStep() {
@@ -68,14 +73,14 @@ public class Gokkudillo extends Gokkur {
 	protected void dealDamage(LivingEntity livingentity) {
 		if (this.isAlive() && isRolling()) {
 			boolean flag = livingentity.isDamageSourceBlocked(DamageSource.mobAttack(this));
-			float f1 = (float) Mth.clamp(livingentity.getDeltaMovement().horizontalDistanceSqr() * 1.15F, 0.2F, 3.0F);
+			float f1 = (float) Mth.clamp(livingentity.getDeltaMovement().horizontalDistanceSqr() * 1.5F, 0.2F, 3.0F);
 			float f2 = flag ? 0.25F : 1.0F;
 			double d1 = this.getX() - livingentity.getX();
 			double d2 = this.getZ() - livingentity.getZ();
 			double d3 = livingentity.getX() - this.getX();
 			double d4 = livingentity.getZ() - this.getZ();
 			if (!flag) {
-				if (livingentity.hurt(DamageSource.mobAttack(this), Mth.floor(getAttackDamage() * 2.0F * (MovementUtils.movementDamageDistanceSqr(this))))) {
+				if (livingentity.hurt(DamageSource.mobAttack(this), Mth.floor(getAttackDamage() * 1.5F))) {
 					this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 					this.doEnchantDamageEffects(this, livingentity);
 					if (this.getTarget() != null && this.getTarget() == livingentity && getRollingGoal() != null) {
@@ -88,7 +93,7 @@ public class Gokkudillo extends Gokkur {
 				if (getRollingGoal() != null) {
 					getRollingGoal().setStopTrigger(true);
 				}
-				this.knockback(f1 * 2.0F, d3, d4);
+				this.knockback(f1 * 0.8F, d3, d4);
 				if (this.random.nextFloat() < 0.25F) {
 					this.setStun(true);
 				}
@@ -136,6 +141,21 @@ public class Gokkudillo extends Gokkur {
 	@Override
 	public void addAdditionalSaveData(CompoundTag p_21484_) {
 		super.addAdditionalSaveData(p_21484_);
+	}
+
+	@Override
+	public float getScale() {
+		return this.isBaby() ? 1.0F : 1.8F;
+	}
+
+
+	@Override
+	protected float getStandingEyeHeight(Pose p_21131_, EntityDimensions p_21132_) {
+		return p_21132_.height * 0.65F;
+	}
+
+	public EntityDimensions getDimensions(Pose p_29608_) {
+		return this.isRolling() ? EntityDimensions.fixed(0.65F, 0.45F) : super.getDimensions(p_29608_);
 	}
 
 	@Override

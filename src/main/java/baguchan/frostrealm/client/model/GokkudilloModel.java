@@ -59,7 +59,8 @@ public class GokkudilloModel<T extends Gokkudillo> extends EntityModel<T> {
 		this.head2.yRot = (netHeadYaw * ((float) Math.PI / 180F)) / 2;
 		this.head2.xRot = (headPitch * ((float) Math.PI / 180F)) / 2;
 
-		this.tail.zRot = Mth.cos(ageInTicks * 0.1F) * 0.25F;
+		this.tail.yRot = Mth.cos(ageInTicks * 0.1F) * 0.25F;
+
 		this.legR.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount * 0.5F;
 		this.legL.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount * 0.5F;
 		this.legR.zRot = 0.0F;
@@ -74,6 +75,7 @@ public class GokkudilloModel<T extends Gokkudillo> extends EntityModel<T> {
 		this.legBackR.visible = !entity.isRolling();
 		this.legBackL.visible = !entity.isRolling();
 		this.head2.visible = !entity.isRolling();
+		this.tail.visible = !entity.isRolling();
 	}
 
 	@Override

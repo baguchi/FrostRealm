@@ -46,6 +46,7 @@ public class CrystalTortoise extends Animal {
 		this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, FOOD_ITEMS, false));
 		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 	}
 
 	public static boolean checkTortoiseSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {

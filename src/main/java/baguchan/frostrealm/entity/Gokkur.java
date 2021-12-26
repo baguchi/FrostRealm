@@ -38,7 +38,7 @@ public class Gokkur extends Monster {
 	private static final UniformInt TIME_BETWEEN_ROLLING = UniformInt.of(80, 160);
 	private static final UniformInt TIME_BETWEEN_ROLLING_COOLDOWN = UniformInt.of(100, 200);
 
-	private static final EntityDataAccessor<Boolean> IS_ROLLING = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.BOOLEAN);
+	protected static final EntityDataAccessor<Boolean> IS_ROLLING = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_STUN = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.BOOLEAN);
 
 
@@ -58,6 +58,8 @@ public class Gokkur extends Monster {
 		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0F, true));
 		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.1F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Gokkur.class, 8.0F));
+		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
