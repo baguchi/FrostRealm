@@ -47,7 +47,7 @@ public class ConditionGoal extends Goal {
 
 	@Override
 	public boolean canContinueToUse() {
-		return this.maxActiveTime > this.tick;
+		return this.maxActiveTime >= this.tick;
 	}
 
 	@Override

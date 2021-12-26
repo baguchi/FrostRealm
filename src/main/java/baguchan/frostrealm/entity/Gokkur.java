@@ -1,10 +1,13 @@
 package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.entity.goal.ConditionGoal;
+import baguchan.frostrealm.entity.goal.StunGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.utils.MovementUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -36,6 +39,8 @@ public class Gokkur extends Monster {
 	private static final UniformInt TIME_BETWEEN_ROLLING_COOLDOWN = UniformInt.of(100, 200);
 
 	private static final EntityDataAccessor<Boolean> IS_ROLLING = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> IS_STUN = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.BOOLEAN);
+
 
 	@javax.annotation.Nullable
 	private RollingGoal rollingGoal;
@@ -46,7 +51,9 @@ public class Gokkur extends Monster {
 
 	protected void registerGoals() {
 		rollingGoal = new RollingGoal(this, TIME_BETWEEN_ROLLING_COOLDOWN, TIME_BETWEEN_ROLLING);
-		this.goalSelector.addGoal(0, new FloatGoal(this));
+
+		this.goalSelector.addGoal(0, new StunGoal(this));
+		this.goalSelector.addGoal(1, new FloatGoal(this));
 		this.goalSelector.addGoal(2, rollingGoal);
 		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0F, true));
 		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.1F));
@@ -66,6 +73,15 @@ public class Gokkur extends Monster {
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(IS_ROLLING, false);
+		this.entityData.define(IS_STUN, false);
+	}
+
+	public void aiStep() {
+		super.aiStep();
+
+		if (this.isStun()) {
+			this.level.addParticle(ParticleTypes.CRIT, this.getRandomX(0.6D), this.getEyeY() + 0.5F, this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
+		}
 	}
 
 	@Nullable
@@ -104,6 +120,7 @@ public class Gokkur extends Monster {
 				if (rollingGoal != null) {
 					rollingGoal.setStopTrigger(true);
 				}
+				this.setStun(true);
 			}
 		}
 	}
@@ -153,6 +170,25 @@ public class Gokkur extends Monster {
 		return this.entityData.get(IS_ROLLING);
 	}
 
+	public void setStun(boolean stun) {
+		this.entityData.set(IS_STUN, stun);
+	}
+
+	public boolean isStun() {
+		return this.entityData.get(IS_STUN);
+	}
+
+	@Override
+	public void addAdditionalSaveData(CompoundTag p_21484_) {
+		super.addAdditionalSaveData(p_21484_);
+		p_21484_.putBoolean("Stun", this.isStun());
+	}
+
+	@Override
+	public void readAdditionalSaveData(CompoundTag p_21450_) {
+		super.readAdditionalSaveData(p_21450_);
+		this.setStun(p_21450_.getBoolean("Stun"));
+	}
 
 	public static class RollingGoal extends ConditionGoal {
 		protected final Gokkur gokkur;
