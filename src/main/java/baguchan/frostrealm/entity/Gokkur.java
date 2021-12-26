@@ -1,0 +1,169 @@
+package baguchan.frostrealm.entity;
+
+import baguchan.frostrealm.entity.goal.ConditionGoal;
+import baguchan.frostrealm.registry.FrostBlocks;
+import baguchan.frostrealm.registry.FrostSounds;
+import baguchan.utils.MovementUtils;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.EnumSet;
+import java.util.Random;
+
+public class Gokkur extends Monster {
+	private static final UniformInt TIME_BETWEEN_ROLLING = UniformInt.of(200, 400);
+	private static final UniformInt TIME_BETWEEN_ROLLING_COOLDOWN = UniformInt.of(100, 400);
+
+	private static final EntityDataAccessor<Boolean> IS_ROLLING = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.BOOLEAN);
+
+	public Gokkur(EntityType<? extends Monster> p_33002_, Level p_33003_) {
+		super(p_33002_, p_33003_);
+	}
+
+	protected void registerGoals() {
+		this.goalSelector.addGoal(0, new FloatGoal(this));
+		this.goalSelector.addGoal(2, new RollingGoal(this, TIME_BETWEEN_ROLLING_COOLDOWN, TIME_BETWEEN_ROLLING));
+		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0F, true));
+		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.1F));
+		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+	}
+
+	public static boolean checkGokkurSpawnRules(EntityType<? extends Monster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
+		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FRIGID_STONE) && Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
+	}
+
+	public static AttributeSupplier.Builder createAttributes() {
+		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 2.0F).add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 8.0F).add(Attributes.MOVEMENT_SPEED, 0.26D);
+	}
+
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(IS_ROLLING, false);
+	}
+
+	@Nullable
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return FrostSounds.GOKKUR_IDLE;
+	}
+
+	@Override
+	protected SoundEvent getHurtSound(DamageSource p_33034_) {
+		return FrostSounds.GOKKUR_HURT;
+	}
+
+	@Override
+	protected SoundEvent getDeathSound() {
+		return FrostSounds.GOKKUR_DEATH;
+	}
+
+	public void push(Entity p_33636_) {
+		super.push(p_33636_);
+		this.dealDamage((LivingEntity) p_33636_);
+	}
+
+	protected void dealDamage(LivingEntity p_33638_) {
+		if (this.isAlive() && isRolling()) {
+			if (p_33638_.hurt(DamageSource.mobAttack(this), Mth.floor(getAttackDamage() * 3.0F * MovementUtils.movementDistanceSqr(this)))) {
+				this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+				this.doEnchantDamageEffects(this, p_33638_);
+			}
+		}
+	}
+
+
+	protected float getAttackDamage() {
+		return (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+	}
+
+
+	@Override
+	protected float nextStep() {
+		return this.isRolling() ? super.nextStep() + 3 : super.nextStep();
+	}
+
+	@Override
+	protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+		if (!p_20136_.getMaterial().isLiquid()) {
+			BlockState blockstate = this.level.getBlockState(p_20135_.above());
+			SoundType soundtype = blockstate.is(Blocks.SNOW) ? blockstate.getSoundType(level, p_20135_, this) : p_20136_.getSoundType(level, p_20135_, this);
+			this.playSound(soundtype.getStepSound(), soundtype.getVolume() * 0.3F, soundtype.getPitch());
+		}
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		if (this.isRolling() && !this.isInWater() && !this.isSpectator() && !this.isCrouching() && !this.isInLava() && this.isAlive()) {
+			this.spawnSprintParticle();
+		}
+	}
+
+	public void setRolling(boolean standing) {
+		this.entityData.set(IS_ROLLING, standing);
+	}
+
+	public boolean isRolling() {
+		return this.entityData.get(IS_ROLLING);
+	}
+
+
+	public static class RollingGoal extends ConditionGoal {
+		public final Gokkur gokkur;
+
+		public RollingGoal(Gokkur gokkur, UniformInt uniformInt, UniformInt uniformInt2) {
+			super(gokkur, uniformInt, uniformInt2);
+			this.gokkur = gokkur;
+			this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+		}
+
+		@Override
+		public boolean isMatchCondition() {
+			return this.gokkur.getTarget() != null;
+		}
+
+		@Override
+		public boolean canContinueToUse() {
+			return this.isMatchCondition() || super.canContinueToUse();
+		}
+
+		@Override
+		public void start() {
+			super.start();
+			this.gokkur.setRolling(true);
+		}
+
+		@Override
+		public void stop() {
+			super.stop();
+			this.gokkur.setRolling(false);
+		}
+
+		@Override
+		public void tick() {
+			super.tick();
+			if (this.gokkur.getTarget() != null) {
+				this.gokkur.getNavigation().moveTo(this.gokkur.getTarget(), 1.2F);
+			}
+		}
+	}
+}
