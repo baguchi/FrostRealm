@@ -126,10 +126,14 @@ public class Gokkur extends Monster {
 
 	@Override
 	protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
-		if (!p_20136_.getMaterial().isLiquid()) {
-			BlockState blockstate = this.level.getBlockState(p_20135_.above());
-			SoundType soundtype = blockstate.is(Blocks.SNOW) ? blockstate.getSoundType(level, p_20135_, this) : p_20136_.getSoundType(level, p_20135_, this);
-			this.playSound(soundtype.getStepSound(), soundtype.getVolume() * 0.3F, soundtype.getPitch());
+		if (!this.isRolling()) {
+			super.playStepSound(p_20135_, p_20136_);
+		} else {
+			if (!p_20136_.getMaterial().isLiquid()) {
+				BlockState blockstate = this.level.getBlockState(p_20135_.above());
+				SoundType soundtype = blockstate.is(Blocks.SNOW) ? blockstate.getSoundType(level, p_20135_, this) : p_20136_.getSoundType(level, p_20135_, this);
+				this.playSound(soundtype.getStepSound(), soundtype.getVolume() * 0.5F, soundtype.getPitch());
+			}
 		}
 	}
 
