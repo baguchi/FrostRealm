@@ -44,7 +44,7 @@ public class GokkudilloRenderer<T extends Gokkudillo> extends MobRenderer<T, Gok
 			p_115318_.translate(0.0D, -(double) 0.3, 0.0D);
 			p_115318_.mulPose(Vector3f.YP.rotationDegrees((float) (-((float) p_115317_.tickCount + p_115321_) * 60.0F)));
 		} else if (p_115317_.isStun()) {
-			p_115318_.translate(0.0D, (double) (p_115317_.getBbHeight() + 0.1F), 0.0D);
+			p_115318_.translate(0.0D, (double) (p_115317_.getBbHeight()), 0.0D);
 			p_115318_.mulPose(Vector3f.XP.rotationDegrees((float) (-180F)));
 		}
 	}

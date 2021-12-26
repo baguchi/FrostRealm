@@ -20,7 +20,7 @@ mixin {
     add sourceSets.main, "frostrealm.refmap.json"
 }
 
-version = '1.18.1-0.1.1'
+version = '1.18.1-0.1.2'
 group = 'baguchan.frostrealm' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'frostrealm'
 
