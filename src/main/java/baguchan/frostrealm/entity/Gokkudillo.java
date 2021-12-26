@@ -89,7 +89,9 @@ public class Gokkudillo extends Gokkur {
 					getRollingGoal().setStopTrigger(true);
 				}
 				this.knockback(f1 * 2.0F, d3, d4);
-				this.setStun(true);
+				if (this.random.nextFloat() < 0.25F) {
+					this.setStun(true);
+				}
 			}
 		}
 	}
