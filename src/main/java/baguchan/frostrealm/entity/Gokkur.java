@@ -17,6 +17,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -30,21 +32,27 @@ import java.util.EnumSet;
 import java.util.Random;
 
 public class Gokkur extends Monster {
-	private static final UniformInt TIME_BETWEEN_ROLLING = UniformInt.of(200, 400);
-	private static final UniformInt TIME_BETWEEN_ROLLING_COOLDOWN = UniformInt.of(100, 400);
+	private static final UniformInt TIME_BETWEEN_ROLLING = UniformInt.of(80, 160);
+	private static final UniformInt TIME_BETWEEN_ROLLING_COOLDOWN = UniformInt.of(100, 200);
 
 	private static final EntityDataAccessor<Boolean> IS_ROLLING = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.BOOLEAN);
+
+	@javax.annotation.Nullable
+	private RollingGoal rollingGoal;
 
 	public Gokkur(EntityType<? extends Monster> p_33002_, Level p_33003_) {
 		super(p_33002_, p_33003_);
 	}
 
 	protected void registerGoals() {
+		rollingGoal = new RollingGoal(this, TIME_BETWEEN_ROLLING_COOLDOWN, TIME_BETWEEN_ROLLING);
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(2, new RollingGoal(this, TIME_BETWEEN_ROLLING_COOLDOWN, TIME_BETWEEN_ROLLING));
+		this.goalSelector.addGoal(2, rollingGoal);
 		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0F, true));
 		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.1F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
 	public static boolean checkGokkurSpawnRules(EntityType<? extends Monster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
@@ -52,7 +60,7 @@ public class Gokkur extends Monster {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 2.0F).add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 8.0F).add(Attributes.MOVEMENT_SPEED, 0.26D);
+		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 1.0F).add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 8.0F).add(Attributes.MOVEMENT_SPEED, 0.26D);
 	}
 
 	protected void defineSynchedData() {
@@ -77,19 +85,34 @@ public class Gokkur extends Monster {
 	}
 
 	public void push(Entity p_33636_) {
+		if (p_33636_ instanceof LivingEntity && !(p_33636_ instanceof Gokkur) && !(p_33636_ instanceof Player)) {
+			this.dealDamage((LivingEntity) p_33636_);
+		}
 		super.push(p_33636_);
-		this.dealDamage((LivingEntity) p_33636_);
 	}
 
 	protected void dealDamage(LivingEntity p_33638_) {
 		if (this.isAlive() && isRolling()) {
-			if (p_33638_.hurt(DamageSource.mobAttack(this), Mth.floor(getAttackDamage() * 3.0F * MovementUtils.movementDistanceSqr(this)))) {
+			if (p_33638_.hurt(DamageSource.mobAttack(this), Mth.floor(getAttackDamage() * 2.0F * (MovementUtils.movementDamageDistanceSqr(this))))) {
 				this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 				this.doEnchantDamageEffects(this, p_33638_);
+				if (this.getTarget() != null && this.getTarget() == p_33638_ && rollingGoal != null) {
+					rollingGoal.setStopTrigger(true);
+				}
+			} else {
+				this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+				if (rollingGoal != null) {
+					rollingGoal.setStopTrigger(true);
+				}
 			}
 		}
 	}
 
+	@Override
+	public void playerTouch(Player p_20081_) {
+		super.playerTouch(p_20081_);
+		this.dealDamage(p_20081_);
+	}
 
 	protected float getAttackDamage() {
 		return (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
@@ -128,7 +151,8 @@ public class Gokkur extends Monster {
 
 
 	public static class RollingGoal extends ConditionGoal {
-		public final Gokkur gokkur;
+		protected final Gokkur gokkur;
+		private boolean stopTrigger;
 
 		public RollingGoal(Gokkur gokkur, UniformInt uniformInt, UniformInt uniformInt2) {
 			super(gokkur, uniformInt, uniformInt2);
@@ -138,31 +162,38 @@ public class Gokkur extends Monster {
 
 		@Override
 		public boolean isMatchCondition() {
-			return this.gokkur.getTarget() != null;
+			return this.gokkur.getTarget() != null && this.gokkur.hasLineOfSight(this.gokkur.getTarget()) && !this.stopTrigger;
 		}
 
 		@Override
 		public boolean canContinueToUse() {
-			return this.isMatchCondition() || super.canContinueToUse();
+			return this.isMatchCondition() && super.canContinueToUse();
 		}
 
 		@Override
 		public void start() {
 			super.start();
 			this.gokkur.setRolling(true);
+			this.stopTrigger = false;
 		}
 
 		@Override
 		public void stop() {
 			super.stop();
 			this.gokkur.setRolling(false);
+			this.stopTrigger = false;
+		}
+
+		public void setStopTrigger(boolean stopTrigger) {
+			this.stopTrigger = stopTrigger;
 		}
 
 		@Override
 		public void tick() {
 			super.tick();
-			if (this.gokkur.getTarget() != null) {
-				this.gokkur.getNavigation().moveTo(this.gokkur.getTarget(), 1.2F);
+			LivingEntity livingentity = this.gokkur.getTarget();
+			if (livingentity != null) {
+				this.gokkur.getMoveControl().setWantedPosition(livingentity.getX(), livingentity.getY(), livingentity.getZ(), 2.5D);
 			}
 		}
 	}

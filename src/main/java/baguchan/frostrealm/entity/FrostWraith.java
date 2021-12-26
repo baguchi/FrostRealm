@@ -31,7 +31,7 @@ public class FrostWraith extends Monster {
 		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.05F, true));
 		this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 0.95D));
 		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
+		this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
