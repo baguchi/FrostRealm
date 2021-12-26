@@ -35,8 +35,8 @@ import java.util.EnumSet;
 import java.util.Random;
 
 public class Gokkur extends Monster {
-	private static final UniformInt TIME_BETWEEN_ROLLING = UniformInt.of(80, 160);
-	private static final UniformInt TIME_BETWEEN_ROLLING_COOLDOWN = UniformInt.of(100, 200);
+	private static final UniformInt TIME_BETWEEN_ROLLING = UniformInt.of(100, 160);
+	private static final UniformInt TIME_BETWEEN_ROLLING_COOLDOWN = UniformInt.of(80, 120);
 
 	protected static final EntityDataAccessor<Boolean> IS_ROLLING = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> IS_STUN = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.BOOLEAN);
@@ -55,8 +55,8 @@ public class Gokkur extends Monster {
 		this.goalSelector.addGoal(0, new StunGoal(this));
 		this.goalSelector.addGoal(1, new FloatGoal(this));
 		this.goalSelector.addGoal(2, rollingGoal);
-		this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0F, true));
-		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.1F));
+		this.goalSelector.addGoal(3, new AttackGoal(this));
+		this.goalSelector.addGoal(7, new RandomStrollGoal(this, 1.1F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Gokkur.class, 8.0F));
 		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
@@ -220,7 +220,7 @@ public class Gokkur extends Monster {
 
 		@Override
 		public boolean isMatchCondition() {
-			return this.gokkur.getTarget() != null && this.gokkur.hasLineOfSight(this.gokkur.getTarget()) && !this.stopTrigger;
+			return this.gokkur.getTarget() != null && this.gokkur.hasLineOfSight(this.gokkur.getTarget()) && !this.stopTrigger && !this.gokkur.isVehicle();
 		}
 
 		@Override
@@ -254,5 +254,27 @@ public class Gokkur extends Monster {
 				this.gokkur.getMoveControl().setWantedPosition(livingentity.getX(), livingentity.getY(), livingentity.getZ(), 2.5D);
 			}
 		}
+	}
+
+	static class AttackGoal extends MeleeAttackGoal {
+		private final Gokkur gokkur;
+
+		public AttackGoal(Gokkur p_33822_) {
+			super(p_33822_, 1.0D, true);
+			this.gokkur = p_33822_;
+		}
+
+		public boolean canUse() {
+			return super.canUse() && !this.mob.isVehicle();
+		}
+
+		public boolean canContinueToUse() {
+			if (this.gokkur.isStun()) {
+				return false;
+			} else {
+				return super.canContinueToUse();
+			}
+		}
+
 	}
 }

@@ -27,6 +27,9 @@ public class CraftingGenerator extends CraftingDataHelper {
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_MOSSY_SLAB, FrostBlocks.FRIGID_STONE_MOSSY);
 		makeStairs(consumer, FrostBlocks.FRIGID_STONE_MOSSY_STAIRS, FrostBlocks.FRIGID_STONE_MOSSY);
 
+		makeSlab(consumer, FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB, FrostBlocks.FRIGID_STONE_BRICK_MOSSY);
+		makeStairs(consumer, FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS, FrostBlocks.FRIGID_STONE_BRICK_MOSSY);
+
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_BRICK_SLAB, FrostBlocks.FRIGID_STONE_BRICK);
 		makeStairs(consumer, FrostBlocks.FRIGID_STONE_BRICK_STAIRS, FrostBlocks.FRIGID_STONE_BRICK);
 

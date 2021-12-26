@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM"
+  ],
+  "key": {
+    "M": {
+      "item": "frostrealm:frigid_stone_brick_mossy"
+    }
+  },
+  "result": {
+    "item": "frostrealm:frigid_stone_brick_mossy_slab",
+    "count": 6
+  }
+}

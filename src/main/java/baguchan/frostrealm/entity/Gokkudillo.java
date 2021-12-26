@@ -3,7 +3,6 @@ package baguchan.frostrealm.entity;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvent;
@@ -11,20 +10,29 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
+import java.util.UUID;
 
 public class Gokkudillo extends Gokkur {
+	private static final UUID ARMOR_MODIFIER_UUID = UUID.fromString("a0431f61-9dbb-d872-8a44-7e5e4204ae3e");
+	private static final UUID NO_ARMOR_MODIFIER_UUID = UUID.fromString("3748f92b-6aa9-db9d-dce8-33a6d73df14a");
+	private static final AttributeModifier ARMOR_MODIFIER = new AttributeModifier(ARMOR_MODIFIER_UUID, "Armor bonus", 10.0D, AttributeModifier.Operation.ADDITION);
+	private static final AttributeModifier NO_ARMOR_MODIFIER = new AttributeModifier(NO_ARMOR_MODIFIER_UUID, "No Armor bonus", -8.0D, AttributeModifier.Operation.ADDITION);
+
 	public Gokkudillo(EntityType<? extends Monster> p_33002_, Level p_33003_) {
 		super(p_33002_, p_33003_);
 	}
@@ -35,7 +43,7 @@ public class Gokkudillo extends Gokkur {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.MAX_HEALTH, 22.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 10.0F).add(Attributes.MOVEMENT_SPEED, 0.24D);
+		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.MAX_HEALTH, 22.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 10.0F).add(Attributes.ARMOR_TOUGHNESS, 0.1F).add(Attributes.KNOCKBACK_RESISTANCE, 0.25F).add(Attributes.MOVEMENT_SPEED, 0.24D);
 	}
 
 	public void onSyncedDataUpdated(EntityDataAccessor<?> p_29615_) {
@@ -46,12 +54,42 @@ public class Gokkudillo extends Gokkur {
 		super.onSyncedDataUpdated(p_29615_);
 	}
 
-	public void aiStep() {
-		super.aiStep();
 
-		if (this.isStun()) {
-			this.level.addParticle(ParticleTypes.CRIT, this.getRandomX(0.6D), this.getEyeY() + 0.5F, this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
+	@Override
+	public void setRolling(boolean roll) {
+		if (!this.level.isClientSide) {
+			this.getAttribute(Attributes.ARMOR).removeModifier(ARMOR_MODIFIER);
+			if (roll) {
+				this.getAttribute(Attributes.ARMOR).addPermanentModifier(ARMOR_MODIFIER);
+				this.gameEvent(GameEvent.MOB_INTERACT);
+			} else {
+				this.gameEvent(GameEvent.MOB_INTERACT);
+			}
 		}
+		super.setRolling(roll);
+	}
+
+	@Override
+	public void setStun(boolean stun) {
+		if (!this.level.isClientSide) {
+			this.getAttribute(Attributes.ARMOR).removeModifier(NO_ARMOR_MODIFIER);
+			if (stun) {
+				this.getAttribute(Attributes.ARMOR).addPermanentModifier(NO_ARMOR_MODIFIER);
+			}
+		}
+		super.setStun(stun);
+	}
+
+	@Override
+	public boolean hurt(DamageSource p_21016_, float p_21017_) {
+		if (this.isRolling()) {
+			Entity entity = p_21016_.getDirectEntity();
+			if (entity instanceof AbstractArrow) {
+				return false;
+			}
+		}
+
+		return super.hurt(p_21016_, p_21017_);
 	}
 
 	@Nullable
@@ -94,7 +132,7 @@ public class Gokkudillo extends Gokkur {
 					getRollingGoal().setStopTrigger(true);
 				}
 				this.knockback(f1 * 0.8F, d3, d4);
-				if (this.random.nextFloat() < 0.25F) {
+				if (this.random.nextFloat() < 0.5F) {
 					this.setStun(true);
 				}
 			}
