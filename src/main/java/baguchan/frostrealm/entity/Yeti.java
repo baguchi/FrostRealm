@@ -249,6 +249,7 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		if (p_29536_ == null) {
 			p_29536_ = new AgeableMob.AgeableMobGroupData(1.0F);
 		}
+		this.inventory.addItem(new ItemStack(Items.SALMON, 4));
 
 		return super.finalizeSpawn(p_29533_, p_29534_, p_29535_, p_29536_, p_29537_);
 	}

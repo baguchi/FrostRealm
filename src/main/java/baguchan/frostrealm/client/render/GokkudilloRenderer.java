@@ -2,8 +2,8 @@ package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.ModModelLayers;
-import baguchan.frostrealm.client.model.GokkurModel;
-import baguchan.frostrealm.entity.Gokkur;
+import baguchan.frostrealm.client.model.GokkudilloModel;
+import baguchan.frostrealm.entity.Gokkudillo;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,11 +13,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class GokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurModel<T>> {
-	private static final ResourceLocation GOKKUR = new ResourceLocation(FrostRealm.MODID, "textures/entity/gokkur/gokkur.png");
+public class GokkudilloRenderer<T extends Gokkudillo> extends MobRenderer<T, GokkudilloModel<T>> {
+	private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/gokkur/gokkudillo.png");
 
-	public GokkurRenderer(EntityRendererProvider.Context p_173952_) {
-		super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(ModModelLayers.GOKKUR)), 0.3F);
+	public GokkudilloRenderer(EntityRendererProvider.Context p_173952_) {
+		super(p_173952_, new GokkudilloModel<>(p_173952_.bakeLayer(ModModelLayers.GOKKUDILLO)), 0.6F);
 	}
 
 	@Override
@@ -39,6 +39,6 @@ public class GokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurModel
 
 	@Override
 	public ResourceLocation getTextureLocation(T p_110775_1_) {
-		return GOKKUR;
+		return TEXTURE;
 	}
 }

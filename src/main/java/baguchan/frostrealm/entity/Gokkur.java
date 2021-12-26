@@ -67,13 +67,18 @@ public class Gokkur extends Monster {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 1.0F).add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 8.0F).add(Attributes.MOVEMENT_SPEED, 0.26D);
+		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 1.0F).add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 4.0F).add(Attributes.MOVEMENT_SPEED, 0.26D);
 	}
 
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(IS_ROLLING, false);
 		this.entityData.define(IS_STUN, false);
+	}
+
+	@javax.annotation.Nullable
+	public RollingGoal getRollingGoal() {
+		return rollingGoal;
 	}
 
 	public void aiStep() {

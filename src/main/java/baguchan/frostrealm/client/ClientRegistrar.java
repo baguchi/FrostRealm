@@ -37,6 +37,7 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.YETI, YetiRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROST_WRAITH, FrostWraithRenderer::new);
 		event.registerEntityRenderer(FrostEntities.GOKKUR, GokkurRenderer::new);
+		event.registerEntityRenderer(FrostEntities.GOKKUDILLO, GokkudilloRenderer::new);
 	}
 
 	@SubscribeEvent
@@ -46,6 +47,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(ModModelLayers.FROST_WRAITH, FrostWraithModel::createBodyLayer);
 		event.registerLayerDefinition(ModModelLayers.MARMOT, MarmotModel::createBodyLayer);
 		event.registerLayerDefinition(ModModelLayers.GOKKUR, GokkurModel::createBodyLayer);
+		event.registerLayerDefinition(ModModelLayers.GOKKUDILLO, GokkudilloModel::createBodyLayer);
 	}
 
 	public static void renderTileEntity() {

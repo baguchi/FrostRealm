@@ -22,6 +22,7 @@ public class FrostEntities {
 	public static final EntityType<Yeti> YETI = EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).build(prefix("yeti"));
 	public static final EntityType<FrostWraith> FROST_WRAITH = EntityType.Builder.of(FrostWraith::new, MobCategory.MONSTER).sized(0.6F, 1.65F).build(prefix("frost_wraith"));
 	public static final EntityType<Gokkur> GOKKUR = EntityType.Builder.of(Gokkur::new, MobCategory.MONSTER).sized(0.6F, 0.6F).build(prefix("gokkur"));
+	public static final EntityType<Gokkudillo> GOKKUDILLO = EntityType.Builder.of(Gokkudillo::new, MobCategory.MONSTER).sized(0.85F, 0.7F).build(prefix("gokkudillo"));
 
 
 	private static String prefix(String path) {
@@ -35,12 +36,14 @@ public class FrostEntities {
 		event.getRegistry().register(YETI.setRegistryName("yeti"));
 		event.getRegistry().register(FROST_WRAITH.setRegistryName("frost_wraith"));
 		event.getRegistry().register(GOKKUR.setRegistryName("gokkur"));
+		event.getRegistry().register(GOKKUDILLO.setRegistryName("gokkudillo"));
 
 		SpawnPlacements.register(CRYSTAL_TORTOISE, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalTortoise::checkTortoiseSpawnRules);
 		SpawnPlacements.register(MARMOT, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Marmot::checkMarmotSpawnRules);
 		SpawnPlacements.register(YETI, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
 		SpawnPlacements.register(FROST_WRAITH, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
 		SpawnPlacements.register(GOKKUR, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gokkur::checkGokkurSpawnRules);
+		SpawnPlacements.register(GOKKUDILLO, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gokkudillo::checkGokkudilloSpawnRules);
 	}
 
 	@SubscribeEvent
@@ -50,5 +53,6 @@ public class FrostEntities {
 		event.put(YETI, Yeti.createAttributeMap().build());
 		event.put(FROST_WRAITH, FrostWraith.createAttributes().build());
 		event.put(GOKKUR, Gokkur.createAttributes().build());
+		event.put(GOKKUDILLO, Gokkudillo.createAttributes().build());
 	}
 }
