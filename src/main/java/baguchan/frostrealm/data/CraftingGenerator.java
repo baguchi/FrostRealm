@@ -27,8 +27,21 @@ public class CraftingGenerator extends CraftingDataHelper {
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_MOSSY_SLAB, FrostBlocks.FRIGID_STONE_MOSSY);
 		makeStairs(consumer, FrostBlocks.FRIGID_STONE_MOSSY_STAIRS, FrostBlocks.FRIGID_STONE_MOSSY);
 
+		ShapedRecipeBuilder.shaped(FrostBlocks.FRIGID_STONE_BRICK_MOSSY, 4)
+				.pattern("BB")
+				.pattern("BB")
+				.define('B', FrostBlocks.FRIGID_STONE_MOSSY)
+				.unlockedBy("has_" + FrostBlocks.FRIGID_STONE_MOSSY.getRegistryName().getPath(), has(FrostBlocks.FRIGID_STONE_MOSSY)).save(consumer);
+
+
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB, FrostBlocks.FRIGID_STONE_BRICK_MOSSY);
 		makeStairs(consumer, FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS, FrostBlocks.FRIGID_STONE_BRICK_MOSSY);
+
+		ShapedRecipeBuilder.shaped(FrostBlocks.FRIGID_STONE_BRICK, 4)
+				.pattern("BB")
+				.pattern("BB")
+				.define('B', FrostBlocks.FRIGID_STONE)
+				.unlockedBy("has_" + FrostBlocks.FRIGID_STONE.getRegistryName().getPath(), has(FrostBlocks.FRIGID_STONE)).save(consumer);
 
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_BRICK_SLAB, FrostBlocks.FRIGID_STONE_BRICK);
 		makeStairs(consumer, FrostBlocks.FRIGID_STONE_BRICK_STAIRS, FrostBlocks.FRIGID_STONE_BRICK);

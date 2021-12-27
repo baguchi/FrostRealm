@@ -53,7 +53,7 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.add(FrostBlocks.FRIGID_STONE_SLAB, BlockLoot::createSlabItemTable);
 		this.dropSelf(FrostBlocks.FRIGID_STONE_STAIRS);
 		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK);
-		this.dropSelf(FrostBlocks.FRIGID_STONE_SMOOTH_BRICK);
+		this.dropSelf(FrostBlocks.FRIGID_STONE_SMOOTH);
 		this.add(FrostBlocks.FRIGID_STONE_BRICK_SLAB, BlockLoot::createSlabItemTable);
 		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK_STAIRS);
 

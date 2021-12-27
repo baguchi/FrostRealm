@@ -48,7 +48,7 @@ public class FrostBlocks {
 	public static final Block FRIGID_STONE_BRICK = new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
 	public static final SlabBlock FRIGID_STONE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
 	public static final StairBlock FRIGID_STONE_BRICK_STAIRS = new StairBlock(FRIGID_STONE_BRICK.defaultBlockState(), BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
-	public static final Block FRIGID_STONE_SMOOTH_BRICK = new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
+	public static final Block FRIGID_STONE_SMOOTH = new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
 
 	public static final Block FRIGID_STONE_MOSSY = new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
 	public static final SlabBlock FRIGID_STONE_MOSSY_SLAB = new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
@@ -127,7 +127,7 @@ public class FrostBlocks {
 		registry.getRegistry().register(FRIGID_STONE_BRICK.setRegistryName("frigid_stone_brick"));
 		registry.getRegistry().register(FRIGID_STONE_BRICK_SLAB.setRegistryName("frigid_stone_brick_slab"));
 		registry.getRegistry().register(FRIGID_STONE_BRICK_STAIRS.setRegistryName("frigid_stone_brick_stairs"));
-		registry.getRegistry().register(FRIGID_STONE_SMOOTH_BRICK.setRegistryName("frigid_stone_smooth_brick"));
+		registry.getRegistry().register(FRIGID_STONE_SMOOTH.setRegistryName("frigid_stone_smooth"));
 
 		registry.getRegistry().register(FRIGID_STONE_MOSSY.setRegistryName("frigid_stone_mossy"));
 		registry.getRegistry().register(FRIGID_STONE_MOSSY_SLAB.setRegistryName("frigid_stone_mossy_slab"));
@@ -182,7 +182,7 @@ public class FrostBlocks {
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE_BRICK, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE_BRICK_SLAB, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE_BRICK_STAIRS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_SMOOTH_BRICK, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(FRIGID_STONE_SMOOTH, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE_MOSSY, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(FRIGID_STONE_MOSSY_SLAB, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));

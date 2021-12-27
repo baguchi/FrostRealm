@@ -29,7 +29,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.slab(FrostBlocks.FRIGID_STONE_SLAB, FrostBlocks.FRIGID_STONE);
 		this.stairs(FrostBlocks.FRIGID_STONE_STAIRS, FrostBlocks.FRIGID_STONE);
 		this.simpleBlock(FrostBlocks.FRIGID_STONE_BRICK);
-		this.simpleBlock(FrostBlocks.FRIGID_STONE_SMOOTH_BRICK);
+		this.simpleBlock(FrostBlocks.FRIGID_STONE_SMOOTH);
 		this.slab(FrostBlocks.FRIGID_STONE_BRICK_SLAB, FrostBlocks.FRIGID_STONE_BRICK);
 		this.stairs(FrostBlocks.FRIGID_STONE_BRICK_STAIRS, FrostBlocks.FRIGID_STONE_BRICK);
 

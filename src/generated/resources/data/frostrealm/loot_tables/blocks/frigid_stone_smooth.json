@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "frostrealm:frigid_stone_smooth_brick"
+          "name": "frostrealm:frigid_stone_smooth"
         }
       ],
       "conditions": [
