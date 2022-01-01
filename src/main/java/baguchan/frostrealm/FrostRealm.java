@@ -2,8 +2,10 @@ package baguchan.frostrealm;
 
 
 import baguchan.frostrealm.capability.FrostLivingCapability;
+import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.client.event.ClientColdHUDEvent;
+import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostCarvers;
@@ -44,6 +46,9 @@ public class FrostRealm {
 	public static final Capability<FrostLivingCapability> FROST_LIVING_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
 	});
 
+	public static final Capability<FrostWeatherCapability> FROST_WEATHER_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
+	});
+
 	public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "net"))
 			.networkProtocolVersion(() -> NETWORK_PROTOCOL)
 			.clientAcceptedVersions(NETWORK_PROTOCOL::equals)
@@ -82,6 +87,10 @@ public class FrostRealm {
 		CHANNEL.messageBuilder(ChangedColdMessage.class, 0)
 				.encoder(ChangedColdMessage::writeToPacket).decoder(ChangedColdMessage::readFromPacket)
 				.consumer(ChangedColdMessage::handle)
+				.add();
+		CHANNEL.messageBuilder(ChangeWeatherTimeEvent.class, 1)
+				.encoder(ChangeWeatherTimeEvent::writeToPacket).decoder(ChangeWeatherTimeEvent::readFromPacket)
+				.consumer(ChangeWeatherTimeEvent::handle)
 				.add();
 	}
 

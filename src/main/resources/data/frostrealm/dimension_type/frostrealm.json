@@ -3,6 +3,7 @@
   "logical_height": 320,
   "min_y": -64,
   "height": 320,
+  "effects": "frostrealm:renderer",
   "infiniburn": "minecraft:infiniburn_overworld",
   "ambient_light": 0.05,
   "coordinate_scale": 1.0,

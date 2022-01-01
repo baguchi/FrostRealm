@@ -8,10 +8,7 @@ import baguchan.frostrealm.registry.FrostBlockEntitys;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
@@ -110,6 +107,8 @@ public class ClientRegistrar {
 		renderTileEntity();
 		renderBlockColor();
 		renderBlockLayer();
+		FrostRealmRenderInfo renderInfo = new FrostRealmRenderInfo(128.0F, false, DimensionSpecialEffects.SkyType.NONE, false, false);
+		DimensionSpecialEffects.EFFECTS.put(FrostRealm.prefix("renderer"), renderInfo);
 	}
 
 	@SubscribeEvent
