@@ -18,7 +18,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraftforge.client.IWeatherRenderHandler;
 
 import java.util.Random;
@@ -31,10 +30,6 @@ public class FrostrealmWeatherRenderer implements IWeatherRenderHandler {
 	private final float[] rainzs = new float[1024];
 
 	private int rendererUpdateCount;
-	private BoundingBox protectedBox;
-
-	private final Random random = new Random();
-
 	public FrostrealmWeatherRenderer() {
 		for (int i = 0; i < 32; ++i) {
 			for (int j = 0; j < 32; ++j) {

@@ -12,19 +12,22 @@ public class ChangeWeatherTimeEvent {
 	private final int weatherTime;
 
 	private final int weatherTimeCooldown;
+	private final float weatherStrength;
 
-	public ChangeWeatherTimeEvent(int weatherTime, int weatherTimeCooldown) {
+	public ChangeWeatherTimeEvent(int weatherTime, int weatherTimeCooldown, float weatherStrength) {
 		this.weatherTime = weatherTime;
 		this.weatherTimeCooldown = weatherTimeCooldown;
+		this.weatherStrength = weatherStrength;
 	}
 
 	public static void writeToPacket(ChangeWeatherTimeEvent packet, FriendlyByteBuf buf) {
 		buf.writeInt(packet.weatherTime);
 		buf.writeInt(packet.weatherTimeCooldown);
+		buf.writeFloat(packet.weatherStrength);
 	}
 
 	public static ChangeWeatherTimeEvent readFromPacket(FriendlyByteBuf buf) {
-		return new ChangeWeatherTimeEvent(buf.readInt(), buf.readInt());
+		return new ChangeWeatherTimeEvent(buf.readInt(), buf.readInt(), buf.readFloat());
 	}
 
 	public static void handle(ChangeWeatherTimeEvent message, Supplier<NetworkEvent.Context> ctx) {
@@ -35,6 +38,7 @@ public class ChangeWeatherTimeEvent {
 					Minecraft.getInstance().level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY, null).ifPresent(cap -> {
 						cap.setWetherTime(message.weatherTime);
 						cap.setWeatherCooldown(message.weatherTimeCooldown);
+						cap.setWeatherLevel(message.weatherStrength);
 					});
 			});
 		ctx.get().setPacketHandled(true);

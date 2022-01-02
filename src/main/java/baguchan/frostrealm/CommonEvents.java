@@ -2,8 +2,12 @@ package baguchan.frostrealm;
 
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
+import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.registry.FrostBlocks;
+import baguchan.frostrealm.registry.FrostDimensions;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -15,9 +19,11 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.network.PacketDistributor;
 
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID)
 public class CommonEvents {
@@ -44,6 +50,38 @@ public class CommonEvents {
 		event.world.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(frostWeatherCapability -> {
 			frostWeatherCapability.tick(event.world);
 		});
+	}
+
+	@SubscribeEvent
+	public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
+		if (event.getPlayer() != null && event.getPlayer().level instanceof ServerLevel) {
+			ServerLevel world = (ServerLevel) event.getPlayer().level;
+			MinecraftServer server = world.getServer();
+			for (ServerLevel serverworld : server.getAllLevels()) {
+				if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+						ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(cap.getWeatherTime(), cap.getWeatherCooldown(), cap.getWeatherLevel(1.0F));
+						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+					});
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onDimensionChangeEvent(PlayerEvent.PlayerChangedDimensionEvent event) {
+		if (event.getPlayer() != null && event.getPlayer().level instanceof ServerLevel) {
+			ServerLevel world = (ServerLevel) event.getPlayer().level;
+			MinecraftServer server = world.getServer();
+			for (ServerLevel serverworld : server.getAllLevels()) {
+				if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+						ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(cap.getWeatherTime(), cap.getWeatherCooldown(), cap.getWeatherLevel(1.0F));
+						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+					});
+				}
+			}
+		}
 	}
 
 	@SubscribeEvent

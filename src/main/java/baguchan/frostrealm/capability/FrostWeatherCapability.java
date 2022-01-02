@@ -1,7 +1,6 @@
 package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.registry.FrostDimensions;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -11,7 +10,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -49,11 +47,6 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 				} else {
 					setWeatherCooldown(6000 + (level.random.nextInt(10) + 10) * 60);
 				}
-			}
-
-			if (level.getDayTime() % 20 == 0 && !level.isClientSide()) {
-				ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(this.weatherTime, this.weatherCooldown);
-				FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
 			}
 		}
 	}

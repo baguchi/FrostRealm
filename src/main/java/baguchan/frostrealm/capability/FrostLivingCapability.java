@@ -19,6 +19,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
@@ -117,6 +118,13 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 				tempAffect *= 0.8F;
 			if (entity.isInWaterOrRain())
 				tempAffect *= 2.0F;
+			if (this.hotSource == null) {
+				entity.level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+					if (isAffectRain(entity) && cap.isWeatherActive()) {
+						addExhaustion(0.005F * (entity.canFreeze() ? 1.0F : 0.25F));
+					}
+				});
+			}
 
 			if (this.hotSource == null) {
 				addExhaustion(tempAffect * 0.002F);
@@ -182,6 +190,11 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			this.temperatureSaturation = Math.min(this.temperatureSaturation + 0.1F, 1.0F);
 			this.temperature = Math.min(this.temperature + 1, 20);
 		}
+	}
+
+	private boolean isAffectRain(LivingEntity entity) {
+		BlockPos blockpos = entity.blockPosition();
+		return entity.level.canSeeSky(blockpos) && entity.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos).getY() <= blockpos.getY();
 	}
 
 	public int getTemperatureLevel() {
