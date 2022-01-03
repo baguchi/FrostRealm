@@ -107,7 +107,7 @@ public class ClientRegistrar {
 		renderTileEntity();
 		renderBlockColor();
 		renderBlockLayer();
-		FrostRealmRenderInfo renderInfo = new FrostRealmRenderInfo(128.0F, false, DimensionSpecialEffects.SkyType.NONE, false, false);
+		FrostRealmRenderInfo renderInfo = new FrostRealmRenderInfo(192.0F, true, DimensionSpecialEffects.SkyType.NORMAL, false, false);
 		DimensionSpecialEffects.EFFECTS.put(FrostRealm.prefix("renderer"), renderInfo);
 	}
 
