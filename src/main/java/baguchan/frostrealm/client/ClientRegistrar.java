@@ -1,6 +1,7 @@
 package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.client.event.ClientColdHUDEvent;
 import baguchan.frostrealm.client.model.*;
 import baguchan.frostrealm.client.render.*;
 import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
@@ -19,6 +20,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -106,6 +108,7 @@ public class ClientRegistrar {
 	}
 
 	public static void setup(FMLCommonSetupEvent event) {
+		MinecraftForge.EVENT_BUS.register(new ClientColdHUDEvent());
 		renderTileEntity();
 		renderBlockColor();
 		renderBlockLayer();

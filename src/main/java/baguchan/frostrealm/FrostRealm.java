@@ -4,7 +4,6 @@ package baguchan.frostrealm;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
-import baguchan.frostrealm.client.event.ClientColdHUDEvent;
 import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.FrostBlocks;
@@ -80,7 +79,7 @@ public class FrostRealm {
 			FrostNoiseGeneratorSettings.init();
 			Registry.register(Registry.CHUNK_GENERATOR, FrostRealm.prefix("chunk_generator"), FrostChunkGenerator.CODEC);
 		});
-		MinecraftForge.EVENT_BUS.register(new ClientColdHUDEvent());
+
 	}
 
 	private void setupMessages() {

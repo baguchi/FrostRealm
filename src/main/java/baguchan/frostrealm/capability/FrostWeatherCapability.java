@@ -57,22 +57,24 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 			}
 		}
 
-		if (isWeatherChanged) {
-			if (getWeatherLevel(1.0F) <= 1.0F) {
-				ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(getWeatherTime(), getWeatherCooldown(), getWeatherLevel(1.0F));
-				FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-				if (getWeatherLevel(1.0F) == 1.0F) {
-					isWeatherChanged = false;
+		if (!level.isClientSide()) {
+			if (isWeatherChanged) {
+				if (getWeatherLevel(1.0F) <= 1.0F) {
+					ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(getWeatherTime(), getWeatherCooldown(), getWeatherLevel(1.0F));
+					FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+					if (getWeatherLevel(1.0F) == 1.0F) {
+						isWeatherChanged = false;
+					}
 				}
 			}
-		}
 
-		if (isWeatherCooldownChanged) {
-			if (getWeatherLevel(1.0F) >= 0.0F) {
-				ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(getWeatherTime(), getWeatherCooldown(), getWeatherLevel(1.0F));
-				FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-				if (getWeatherLevel(1.0F) == 0.0F) {
-					isWeatherCooldownChanged = false;
+			if (isWeatherCooldownChanged) {
+				if (getWeatherLevel(1.0F) >= 0.0F) {
+					ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(getWeatherTime(), getWeatherCooldown(), getWeatherLevel(1.0F));
+					FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+					if (getWeatherLevel(1.0F) == 0.0F) {
+						isWeatherCooldownChanged = false;
+					}
 				}
 			}
 		}
