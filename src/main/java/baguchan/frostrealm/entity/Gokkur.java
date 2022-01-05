@@ -4,7 +4,7 @@ import baguchan.frostrealm.entity.goal.StunGoal;
 import baguchan.frostrealm.entity.goal.TimeConditionGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostSounds;
-import baguchan.utils.MovementUtils;
+import baguchan.frostrealm.utils.MovementUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;

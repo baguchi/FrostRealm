@@ -1,4 +1,4 @@
-package baguchan.utils;
+package baguchan.frostrealm.utils;
 
 import net.minecraft.world.entity.Entity;
 
