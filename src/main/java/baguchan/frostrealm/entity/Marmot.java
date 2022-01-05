@@ -1,6 +1,6 @@
 package baguchan.frostrealm.entity;
 
-import baguchan.frostrealm.entity.goal.ConditionGoal;
+import baguchan.frostrealm.entity.goal.TimeConditionGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostSounds;
@@ -95,7 +95,7 @@ public class Marmot extends Animal {
 		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 8.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
 	}
 
-	public static class StandingGoal extends ConditionGoal {
+	public static class StandingGoal extends TimeConditionGoal {
 		public final Marmot marmot;
 
 		public StandingGoal(Marmot marmot, UniformInt uniformInt, UniformInt uniformInt2) {

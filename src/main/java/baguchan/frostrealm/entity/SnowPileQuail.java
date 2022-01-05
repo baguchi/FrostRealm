@@ -1,6 +1,7 @@
 package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
+import baguchan.frostrealm.entity.goal.AngryGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -21,7 +22,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,7 +29,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.TurtleEggBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -38,7 +37,8 @@ import java.util.EnumSet;
 import java.util.Random;
 
 public class SnowPileQuail extends Animal {
-	private static final EntityDataAccessor<Boolean> HAS_EGG = SynchedEntityData.defineId(Turtle.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> HAS_EGG = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 
 	private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
 
@@ -52,17 +52,19 @@ public class SnowPileQuail extends Animal {
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
-		this.goalSelector.addGoal(2, new SnowPileQuailBreedGoal(this, 1.0D));
-		this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
-		this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
-		this.goalSelector.addGoal(5, new MoveToGoal(this, 10.0D, 1.1D));
-		this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(2, new AngryGoal(this));
+		this.goalSelector.addGoal(3, new SnowPileQuailBreedGoal(this, 1.0D));
+		this.goalSelector.addGoal(4, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
+		this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
+		this.goalSelector.addGoal(6, new MoveToGoal(this, 8.0D, 1.1D));
+		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
+		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 	}
 
 	protected void defineSynchedData() {
 		super.defineSynchedData();
+		this.entityData.define(ANGRY, false);
 		this.entityData.define(HAS_EGG, false);
 	}
 
@@ -122,7 +124,7 @@ public class SnowPileQuail extends Animal {
 			BlockPos blockpos = this.blockPosition();
 			if (SnowPileQuailEggBlock.onDirt(this.level, blockpos)) {
 				level.playSound((Player) null, blockpos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level.random.nextFloat() * 0.2F);
-				level.setBlock(blockpos, FrostBlocks.SNOWPILE_QUAIL_EGG.defaultBlockState().setValue(TurtleEggBlock.EGGS, Integer.valueOf(this.random.nextInt(1) + 1)), 3);
+				level.setBlock(blockpos, FrostBlocks.SNOWPILE_QUAIL_EGG.defaultBlockState().setValue(SnowPileQuailEggBlock.EGGS, Integer.valueOf(this.random.nextInt(1) + 1)), 3);
 				this.setHasEgg(false);
 				this.setHomeTarget(blockpos);
 				this.setAge(2400);
@@ -134,8 +136,16 @@ public class SnowPileQuail extends Animal {
 		return this.entityData.get(HAS_EGG);
 	}
 
-	void setHasEgg(boolean hasEgg) {
+	public void setHasEgg(boolean hasEgg) {
 		this.entityData.set(HAS_EGG, hasEgg);
+	}
+
+	public boolean isAngry() {
+		return this.entityData.get(ANGRY);
+	}
+
+	public void setAngry(boolean angry) {
+		this.entityData.set(ANGRY, angry);
 	}
 
 
@@ -173,7 +183,7 @@ public class SnowPileQuail extends Animal {
 		public boolean canUse() {
 			BlockPos blockpos = this.quail.getHomeTarget();
 
-			double distance = this.quail.level.isDay() ? this.stopDistance : this.stopDistance / 3.0F;
+			double distance = this.quail.level.isDay() ? this.stopDistance : this.stopDistance / 4.0F;
 
 			return blockpos != null && this.isTooFarAway(blockpos, distance);
 		}

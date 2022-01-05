@@ -4,7 +4,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 
-public class ConditionGoal extends Goal {
+public class TimeConditionGoal extends Goal {
 	protected final PathfinderMob mob;
 	protected int tick;
 	private int cooldown;
@@ -13,11 +13,11 @@ public class ConditionGoal extends Goal {
 	private final UniformInt timeBetweenCooldown;
 	private final UniformInt timeBetween;
 
-	public ConditionGoal(PathfinderMob mob, UniformInt cooldown) {
+	public TimeConditionGoal(PathfinderMob mob, UniformInt cooldown) {
 		this(mob, cooldown, cooldown);
 	}
 
-	public ConditionGoal(PathfinderMob mob, UniformInt cooldown, UniformInt time) {
+	public TimeConditionGoal(PathfinderMob mob, UniformInt cooldown, UniformInt time) {
 		this.mob = mob;
 		this.timeBetweenCooldown = cooldown;
 		this.timeBetween = time;

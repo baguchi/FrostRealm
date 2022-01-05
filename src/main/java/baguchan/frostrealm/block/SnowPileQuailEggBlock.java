@@ -28,6 +28,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
 public class SnowPileQuailEggBlock extends Block {
@@ -62,7 +63,9 @@ public class SnowPileQuailEggBlock extends Block {
 			if (!p_154851_.isClientSide && p_154851_.random.nextInt(p_154855_) == 0 && p_154852_.is(Blocks.TURTLE_EGG)) {
 				this.decreaseEggs(p_154851_, p_154853_, p_154852_);
 			}
-
+			if (p_154854_ instanceof LivingEntity) {
+				angerNearbyQuail((LivingEntity) p_154854_);
+			}
 		}
 	}
 
@@ -75,7 +78,22 @@ public class SnowPileQuailEggBlock extends Block {
 			p_57792_.setBlock(p_57793_, p_57794_.setValue(EGGS, Integer.valueOf(i - 1)), 2);
 			p_57792_.levelEvent(2001, p_57793_, Block.getId(p_57794_));
 		}
+	}
 
+	@Override
+	public void playerWillDestroy(Level p_49852_, BlockPos p_49853_, BlockState p_49854_, Player p_49855_) {
+		super.playerWillDestroy(p_49852_, p_49853_, p_49854_, p_49855_);
+		angerNearbyQuail(p_49855_);
+	}
+
+	public static void angerNearbyQuail(LivingEntity p_34874_) {
+		List<SnowPileQuail> list = p_34874_.level.getEntitiesOfClass(SnowPileQuail.class, p_34874_.getBoundingBox().inflate(8.0D));
+		list.stream().filter((p_34881_) -> {
+			return p_34881_.hasLineOfSight(p_34874_);
+		}).forEach((p_34872_) -> {
+			p_34872_.setTarget(p_34874_);
+			p_34872_.setAngry(true);
+		});
 	}
 
 	public void randomTick(BlockState p_57804_, ServerLevel p_57805_, BlockPos p_57806_, Random p_57807_) {

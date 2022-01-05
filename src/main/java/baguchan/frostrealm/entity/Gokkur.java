@@ -1,7 +1,7 @@
 package baguchan.frostrealm.entity;
 
-import baguchan.frostrealm.entity.goal.ConditionGoal;
 import baguchan.frostrealm.entity.goal.StunGoal;
+import baguchan.frostrealm.entity.goal.TimeConditionGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.utils.MovementUtils;
@@ -208,7 +208,7 @@ public class Gokkur extends Monster {
 		this.setStun(p_21450_.getBoolean("Stun"));
 	}
 
-	public static class RollingGoal extends ConditionGoal {
+	public static class RollingGoal extends TimeConditionGoal {
 		protected final Gokkur gokkur;
 		private boolean stopTrigger;
 
