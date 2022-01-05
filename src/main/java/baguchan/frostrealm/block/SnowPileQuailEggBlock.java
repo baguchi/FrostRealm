@@ -30,7 +30,7 @@ import net.minecraftforge.common.Tags;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class SnowPileQuailBlock extends Block {
+public class SnowPileQuailEggBlock extends Block {
 	public static final int MAX_HATCH_LEVEL = 2;
 	public static final int MIN_EGGS = 1;
 	public static final int MAX_EGGS = 3;
@@ -39,7 +39,7 @@ public class SnowPileQuailBlock extends Block {
 	public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
 	public static final IntegerProperty EGGS = IntegerProperty.create("eggs", 1, 3);
 
-	public SnowPileQuailBlock(BlockBehaviour.Properties p_57759_) {
+	public SnowPileQuailEggBlock(BlockBehaviour.Properties p_57759_) {
 		super(p_57759_);
 		this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, Integer.valueOf(0)).setValue(EGGS, Integer.valueOf(1)));
 	}
@@ -79,7 +79,7 @@ public class SnowPileQuailBlock extends Block {
 	}
 
 	public void randomTick(BlockState p_57804_, ServerLevel p_57805_, BlockPos p_57806_, Random p_57807_) {
-		if (this.shouldUpdateHatchLevel(p_57805_) && onDirt(p_57805_, p_57806_)) {
+		if (this.shouldUpdateHatchLevel(p_57805_, p_57806_) && onDirt(p_57805_, p_57806_)) {
 			int i = p_57804_.getValue(HATCH);
 			if (i < 2) {
 				p_57805_.playSound((Player) null, p_57806_, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + p_57807_.nextFloat() * 0.2F);
@@ -116,13 +116,9 @@ public class SnowPileQuailBlock extends Block {
 
 	}
 
-	private boolean shouldUpdateHatchLevel(Level p_57766_) {
+	private boolean shouldUpdateHatchLevel(Level p_57766_, BlockPos p_57816_) {
 		float f = p_57766_.getTimeOfDay(1.0F);
-		if ((double) f < 0.69D && (double) f > 0.65D) {
-			return true;
-		} else {
-			return p_57766_.random.nextInt(500) == 0;
-		}
+		return p_57766_.getBrightness(p_57816_) > 8 ? true : p_57766_.random.nextInt(5) == 0;
 	}
 
 	public void playerDestroy(Level p_57771_, Player p_57772_, BlockPos p_57773_, BlockState p_57774_, @Nullable BlockEntity p_57775_, ItemStack p_57776_) {

@@ -83,7 +83,7 @@ public class FrostBlocks {
 	//CROP
 	public static final Block SUGARBEET = new SugarBeetBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.CROP));
 	//EGG
-	public static final Block SNOWPILE_QUAIL_EGG = new SnowPileQuailBlock(BlockBehaviour.Properties.of(Material.EGG).noOcclusion().randomTicks().sound(SoundType.METAL));
+	public static final Block SNOWPILE_QUAIL_EGG = new SnowPileQuailEggBlock(BlockBehaviour.Properties.of(Material.EGG).noOcclusion().strength(0.2F, 0.25F).randomTicks().sound(SoundType.METAL));
 
 	//ORE
 	public static final Block FROST_CRYSTAL_ORE = new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(1, 2));

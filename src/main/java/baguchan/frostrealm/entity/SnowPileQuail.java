@@ -1,6 +1,6 @@
 package baguchan.frostrealm.entity;
 
-import baguchan.frostrealm.block.SnowPileQuailBlock;
+import baguchan.frostrealm.block.SnowPileQuailEggBlock;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -120,12 +120,12 @@ public class SnowPileQuail extends Animal {
 
 		if (this.isAlive() && this.hasEgg() && this.getTarget() == null) {
 			BlockPos blockpos = this.blockPosition();
-			if (SnowPileQuailBlock.onDirt(this.level, blockpos)) {
+			if (SnowPileQuailEggBlock.onDirt(this.level, blockpos)) {
 				level.playSound((Player) null, blockpos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level.random.nextFloat() * 0.2F);
-				level.setBlock(blockpos, FrostBlocks.SNOWPILE_QUAIL_EGG.defaultBlockState().setValue(TurtleEggBlock.EGGS, Integer.valueOf(this.random.nextInt(3) + 1)), 3);
+				level.setBlock(blockpos, FrostBlocks.SNOWPILE_QUAIL_EGG.defaultBlockState().setValue(TurtleEggBlock.EGGS, Integer.valueOf(this.random.nextInt(1) + 1)), 3);
 				this.setHasEgg(false);
 				this.setHomeTarget(blockpos);
-				this.setInLoveTime(1200);
+				this.setAge(2400);
 			}
 		}
 	}
