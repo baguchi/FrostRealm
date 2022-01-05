@@ -1,6 +1,7 @@
 package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.registry.FrostDimensions;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -10,6 +11,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,6 +23,9 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 
 	private float weatherLevel;
 	private float oWeatherLevel;
+
+	private boolean isWeatherChanged;
+	private boolean isWeatherCooldownChanged;
 
 	public float getWeatherLevel(float p_46723_) {
 		return Mth.lerp(p_46723_, this.oWeatherLevel, this.weatherLevel);
@@ -39,13 +44,35 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 				setWeatherLevel(getWeatherLevel(1.0F) + 0.05F);
 			} else {
 				if (isWeatherCooldownActive()) {
-					setWeatherCooldown(getWeatherTime() - 1);
+					setWeatherCooldown(getWeatherCooldown() - 1);
 					if (getWeatherCooldown() <= 0) {
-						setWetherTime(6000 + (level.random.nextInt(5) + 10) * 60);
+						setWetherTime((level.random.nextInt(5) + 5) * 60);
+						isWeatherChanged = true;
 					}
 					setWeatherLevel(getWeatherLevel(1.0F) - 0.05F);
 				} else {
-					setWeatherCooldown(6000 + (level.random.nextInt(10) + 10) * 60);
+					setWeatherCooldown((level.random.nextInt(5) + 10) * 60);
+					isWeatherCooldownChanged = true;
+				}
+			}
+		}
+
+		if (isWeatherChanged) {
+			if (getWeatherLevel(1.0F) <= 1.0F) {
+				ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(getWeatherTime(), getWeatherCooldown(), getWeatherLevel(1.0F));
+				FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+				if (getWeatherLevel(1.0F) == 1.0F) {
+					isWeatherChanged = false;
+				}
+			}
+		}
+
+		if (isWeatherCooldownChanged) {
+			if (getWeatherLevel(1.0F) >= 0.0F) {
+				ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(getWeatherTime(), getWeatherCooldown(), getWeatherLevel(1.0F));
+				FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+				if (getWeatherLevel(1.0F) == 0.0F) {
+					isWeatherCooldownChanged = false;
 				}
 			}
 		}
