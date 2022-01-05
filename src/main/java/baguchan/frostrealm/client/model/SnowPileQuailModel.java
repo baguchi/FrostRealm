@@ -51,8 +51,8 @@ public class SnowPileQuailModel<T extends SnowPileQuail> extends EntityModel<T> 
 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.head.xRot = netHeadYaw * ((float) Math.PI / 180F);
-		this.head.yRot = headPitch * ((float) Math.PI / 180F);
+		this.head.xRot = headPitch * ((float) Math.PI / 180F);
+		this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
 		this.legR.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 		this.legL.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 		this.wingR.zRot = 0.0F;
