@@ -82,6 +82,8 @@ public class FrostBlocks {
 	public static final Block BEARBERRY_BUSH = new BearBerryBushBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS));
 	//CROP
 	public static final Block SUGARBEET = new SugarBeetBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.CROP));
+	//EGG
+	public static final Block SNOWPILE_QUAIL_EGG = new SnowPileQuailBlock(BlockBehaviour.Properties.of(Material.EGG).noOcclusion().randomTicks().sound(SoundType.METAL));
 
 	//ORE
 	public static final Block FROST_CRYSTAL_ORE = new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(1, 2));
@@ -158,6 +160,8 @@ public class FrostBlocks {
 		registry.getRegistry().register(COLD_GRASS.setRegistryName("cold_grass"));
 		registry.getRegistry().register(COLD_TALL_GRASS.setRegistryName("cold_tall_grass"));
 
+		registry.getRegistry().register(SNOWPILE_QUAIL_EGG.setRegistryName("snowpile_quail_egg"));
+
 		registry.getRegistry().register(FROST_CRYSTAL_ORE.setRegistryName("frost_crystal_ore"));
 		registry.getRegistry().register(GLIMMERROCK_ORE.setRegistryName("glimmerrock_ore"));
 		registry.getRegistry().register(STARDUST_CRYSTAL_ORE.setRegistryName("stardust_crystal_ore"));
@@ -210,6 +214,8 @@ public class FrostBlocks {
 
 		FrostItems.register(registry, new BlockItem(COLD_GRASS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new DoubleHighBlockItem(COLD_TALL_GRASS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
+		FrostItems.register(registry, new BlockItem(SNOWPILE_QUAIL_EGG, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 
 		FrostItems.register(registry, new BlockItem(FROST_CRYSTAL_ORE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));

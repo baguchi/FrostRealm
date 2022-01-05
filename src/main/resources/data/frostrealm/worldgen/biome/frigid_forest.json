@@ -74,6 +74,12 @@
       }
     ],
     "creature": [
+      {
+        "type": "frostrealm:snowpile_quail",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 6
+      }
     ],
     "ambient": [
     ],

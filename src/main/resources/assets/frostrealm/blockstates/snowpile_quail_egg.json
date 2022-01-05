@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "eggs=1": {
+      "model": "frostrealm:block/snowpile_quail_egg"
+    },
+    "eggs=2": {
+      "model": "frostrealm:block/two_snowpile_quail_egg"
+    },
+    "eggs=3": {
+      "model": "frostrealm:block/three_snowpile_quail_egg"
+    }
+  }
+}
