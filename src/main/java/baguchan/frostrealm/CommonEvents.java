@@ -87,8 +87,8 @@ public class CommonEvents {
 	@SubscribeEvent
 	public static void onUpdate(LivingEvent.LivingUpdateEvent event) {
 		LivingEntity livingEntity = event.getEntityLiving();
-		livingEntity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(tofuLivingCapability -> {
-			tofuLivingCapability.tick(livingEntity);
+		livingEntity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(livingCapability -> {
+			livingCapability.tick(livingEntity);
 		});
 	}
 
