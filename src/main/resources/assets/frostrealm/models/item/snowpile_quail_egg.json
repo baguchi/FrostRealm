@@ -1,3 +1,6 @@
 {
-  "parent": "frostrealm:block/snowpile_quail_egg"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "frostrealm:item/snowpile_quail_egg"
+  }
 }
