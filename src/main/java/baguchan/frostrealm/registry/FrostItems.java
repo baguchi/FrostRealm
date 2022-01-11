@@ -24,6 +24,8 @@ public class FrostItems {
 	public static final Item BEARBERRY = new ItemNameBlockItem(FrostBlocks.BEARBERRY_BUSH, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item COOKED_BEARBERRY = new Item((new Item.Properties()).food(FrostFoods.COOKED_BEARBERRY).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item COOKED_SNOWPILE_QUAIL_EGG = new Item((new Item.Properties()).food(FrostFoods.COOKED_SNOWPILE_QUAIL_EGG).tab(FrostGroups.TAB_FROSTREALM));
+	public static final Item SNOWPILE_QUAIL_MEAT = new Item((new Item.Properties()).food(FrostFoods.SNOWPILE_QUAIL_MEAT).tab(FrostGroups.TAB_FROSTREALM));
+	public static final Item COOKED_SNOWPILE_QUAIL_MEAT = new Item((new Item.Properties()).food(FrostFoods.COOKED_SNOWPILE_QUAIL_MEAT).tab(FrostGroups.TAB_FROSTREALM));
 
 
 	public static final Item FROST_CATALYST = new FrostCatalystItem((new Item.Properties()).stacksTo(1).durability(64).tab(FrostGroups.TAB_FROSTREALM));
@@ -52,7 +54,9 @@ public class FrostItems {
 		register(event, SUGARBEET_SEEDS, "sugarbeet_seeds");
 		register(event, BEARBERRY, "bearberry");
 		register(event, COOKED_BEARBERRY, "cooked_bearberry");
-		register(event, SNOWPILE_QUAIL_SPAWNEGG, "cooked_snowpile_quail_egg");
+		register(event, COOKED_SNOWPILE_QUAIL_EGG, "cooked_snowpile_quail_egg");
+		register(event, SNOWPILE_QUAIL_MEAT, "snowpile_quail_meat");
+		register(event, COOKED_SNOWPILE_QUAIL_MEAT, "cooked_snowpile_quail_meat");
 
 		register(event, FROST_CATALYST, "frost_catalyst");
 		register(event, STRAY_NECKLACE_PART, "stray_necklace_part");
