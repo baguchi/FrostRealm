@@ -1,6 +1,7 @@
 package baguchan.frostrealm.block;
 
 import baguchan.frostrealm.entity.SnowPileQuail;
+import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -16,7 +17,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -45,14 +45,9 @@ public class SnowPileQuailEggBlock extends Block {
 		this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, Integer.valueOf(0)).setValue(EGGS, Integer.valueOf(1)));
 	}
 
-	public void stepOn(Level p_154857_, BlockPos p_154858_, BlockState p_154859_, Entity p_154860_) {
-		this.destroyEgg(p_154857_, p_154859_, p_154858_, p_154860_, 100);
-		super.stepOn(p_154857_, p_154858_, p_154859_, p_154860_);
-	}
-
 	public void fallOn(Level p_154845_, BlockState p_154846_, BlockPos p_154847_, Entity p_154848_, float p_154849_) {
 		if (!(p_154848_ instanceof Zombie)) {
-			this.destroyEgg(p_154845_, p_154846_, p_154847_, p_154848_, 3);
+			this.destroyEgg(p_154845_, p_154846_, p_154847_, p_154848_, 5);
 		}
 
 		super.fallOn(p_154845_, p_154846_, p_154847_, p_154848_, p_154849_);
@@ -60,7 +55,7 @@ public class SnowPileQuailEggBlock extends Block {
 
 	private void destroyEgg(Level p_154851_, BlockState p_154852_, BlockPos p_154853_, Entity p_154854_, int p_154855_) {
 		if (this.canDestroyEgg(p_154851_, p_154854_)) {
-			if (!p_154851_.isClientSide && p_154851_.random.nextInt(p_154855_) == 0 && p_154852_.is(Blocks.TURTLE_EGG)) {
+			if (!p_154851_.isClientSide && p_154851_.random.nextInt(p_154855_) == 0 && p_154852_.is(FrostBlocks.SNOWPILE_QUAIL_EGG)) {
 				this.decreaseEggs(p_154851_, p_154853_, p_154852_);
 			}
 			if (p_154854_ instanceof LivingEntity) {

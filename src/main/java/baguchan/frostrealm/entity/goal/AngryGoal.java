@@ -20,7 +20,7 @@ public class AngryGoal extends Goal {
 
 	@Override
 	public boolean canContinueToUse() {
-		return this.mob.isAngry() && this.mob.getTarget() != null && this.mob.hasLineOfSight(this.mob.getTarget());
+		return this.mob.isAngry() && this.mob.getTarget() != null && this.mob.hasLineOfSight(this.mob.getTarget()) && this.mob.distanceToSqr(this.mob.getTarget()) <= 32D;
 	}
 
 	@Override
