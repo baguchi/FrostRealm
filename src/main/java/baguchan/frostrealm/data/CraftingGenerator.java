@@ -54,6 +54,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 		foodCooking(FrostItems.FROZEN_FRUIT, FrostItems.MELTED_FRUIT, 0.1F, consumer);
 		foodCooking(FrostItems.BEARBERRY, FrostItems.COOKED_BEARBERRY, 0.1F, consumer);
+		foodCooking(FrostBlocks.SNOWPILE_QUAIL_EGG.asItem(), FrostItems.COOKED_SNOWPILE_QUAIL_EGG, 0.2F, consumer);
 
 		makeFrostTorch(consumer, FrostItems.FROST_TORCH);
 

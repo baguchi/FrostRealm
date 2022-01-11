@@ -9,4 +9,5 @@ public class FrostFoods {
 
 
 	public static final FoodProperties COOKED_BEARBERRY = (new FoodProperties.Builder()).nutrition(2).saturationMod(0.2F).build();
+	public static final FoodProperties COOKED_SNOWPILE_QUAIL_EGG = (new FoodProperties.Builder()).nutrition(5).saturationMod(0.42F).build();
 }
