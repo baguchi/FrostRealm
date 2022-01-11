@@ -22,5 +22,7 @@ public class ItemTagGenerator extends ItemTagsProvider {
 		tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.asItem());
 		tag(ItemTags.STONE_TOOL_MATERIALS).add(FrostBlocks.FRIGID_STONE.asItem());
 		tag(ItemTags.STONE_CRAFTING_MATERIALS).add(FrostBlocks.FRIGID_STONE.asItem());
+		tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.asItem());
+		tag(Tags.Items.EGGS).add(FrostBlocks.SNOWPILE_QUAIL_EGG.asItem());
 	}
 }

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "frostrealm:snowpile_quail_meat"
+  },
+  "result": "frostrealm:cooked_snowpile_quail_meat",
+  "experience": 0.15,
+  "cookingtime": 100
+}
