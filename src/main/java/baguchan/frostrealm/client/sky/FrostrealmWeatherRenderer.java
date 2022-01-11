@@ -217,7 +217,7 @@ public class FrostrealmWeatherRenderer implements IWeatherRenderHandler {
 								bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 							}
 
-							float f6 = -((float) (rendererUpdateCount & 511) + ticks) / 212.0F;
+							float f6 = -((float) (rendererUpdateCount & 511) + ticks) / 324.0F;
 							float f7 = (float) (random.nextDouble() + (double) f1 * 0.01D * (double) ((float) random.nextGaussian()));
 							float f8 = (float) (random.nextDouble() + (double) (f1 * (float) random.nextGaussian()) * 0.001D);
 							double d3 = (double) k1 + 0.5D - x;
