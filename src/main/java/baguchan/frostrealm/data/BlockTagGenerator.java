@@ -50,7 +50,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
 		tag(FrostTags.Blocks.TUNDRA_REPLACEABLE).add(FrostBlocks.FRIGID_STONE, FrostBlocks.FROZEN_DIRT);
 
 
-		tag(Tags.Blocks.DIRT).add(FrostBlocks.FROZEN_DIRT, FrostBlocks.FROZEN_GRASS_BLOCK);
+		tag(BlockTags.DIRT).add(FrostBlocks.FROZEN_DIRT, FrostBlocks.FROZEN_GRASS_BLOCK);
 		tag(Tags.Blocks.ORES).add(FrostBlocks.STARDUST_CRYSTAL_ORE, FrostBlocks.GLIMMERROCK_ORE, FrostBlocks.FROST_CRYSTAL_ORE);
 	}
 }

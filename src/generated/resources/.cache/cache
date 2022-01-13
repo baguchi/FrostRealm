@@ -148,7 +148,6 @@ d8e736ee456a234d570ca09df54933f5b56ad61a assets/frostrealm/models/item/stardust_
 64f67b053eae8344c8aa50bf0f5d4961f828d9db assets/frostrealm/models/item/yeti_fur.json
 98167609bf3898587f7565736a6fc24a7966cacd assets/frostrealm/models/item/yeti_spawn_egg.json
 e46a8e9ac59de9731501090d5ae261bbcee49001 data/forge/tags/blocks/chests/wooden.json
-bfce5b4e534cdcef06123299c8e21eca7816014d data/forge/tags/blocks/dirt.json
 af50acf23b5d737f688bed743af260ca8b3fe9c6 data/forge/tags/blocks/ores.json
 130cb64c97f5e11799d7fe5504c748d091ddb539 data/forge/tags/items/chests/wooden.json
 9a023b53c2dd49da27b0cef5051ad228e00c0a59 data/forge/tags/items/eggs.json
@@ -265,6 +264,7 @@ affe454fa94908b2bf18cd0283e8a586d73c990d data/frostrealm/tags/blocks/hot_source.
 1cd5213b7f7a7e0e5efcb64a9140c94cac22d94a data/frostrealm/tags/blocks/tundra_replaceable.json
 a90d33b87b4192e7e747a1d7990d0c75d2733aa0 data/minecraft/tags/blocks/bee_growables.json
 a90d33b87b4192e7e747a1d7990d0c75d2733aa0 data/minecraft/tags/blocks/crops.json
+bfce5b4e534cdcef06123299c8e21eca7816014d data/minecraft/tags/blocks/dirt.json
 c9f8490fec78888a832e4008926a1587dc6f9466 data/minecraft/tags/blocks/fence_gates.json
 e52cf1b0bf98cb65e92f87d429ed65b707c624ff data/minecraft/tags/blocks/leaves.json
 7a93e53afe7bc1a4fb08a323cad957136e34de58 data/minecraft/tags/blocks/logs_that_burn.json
