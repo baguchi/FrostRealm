@@ -38,5 +38,16 @@ public class FrostDefaultFeatures {
 
 	public static void monsters(MobSpawnSettings.Builder p_194726_) {
 		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WRAITH, 100, 4, 4));
+		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUR, 40, 2, 4));
+		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUDILLO, 5, 1, 2));
+	}
+
+	public static void tundraSpawn(MobSpawnSettings.Builder p_194726_) {
+		p_194726_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL, 10, 3, 6));
+		p_194726_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.MARMOT, 6, 2, 4));
+	}
+
+	public static void frigidForestSpawn(MobSpawnSettings.Builder p_194726_) {
+		p_194726_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL, 10, 3, 6));
 	}
 }

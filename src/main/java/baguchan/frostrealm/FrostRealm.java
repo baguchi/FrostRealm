@@ -7,15 +7,12 @@ import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.FrostBlocks;
-import baguchan.frostrealm.registry.FrostCarvers;
+import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostNoiseGeneratorSettings;
 import baguchan.frostrealm.registry.FrostStructures;
-import baguchan.frostrealm.world.FrostChunkGenerator;
-import baguchan.frostrealm.world.gen.FrostConfiguredFeatures;
 import baguchan.frostrealm.world.gen.FrostTreeFeatures;
 import baguchan.frostrealm.world.placement.FrostOrePlacements;
 import baguchan.frostrealm.world.placement.FrostPlacements;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -69,14 +66,11 @@ public class FrostRealm {
 	public void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			FrostBlocks.burnables();
-
-			FrostCarvers.registerConfiguredCarvers();
 			FrostTreeFeatures.init();
-			FrostConfiguredFeatures.init();
 			FrostPlacements.init();
 			FrostOrePlacements.init();
 			FrostNoiseGeneratorSettings.init();
-			Registry.register(Registry.CHUNK_GENERATOR, FrostRealm.prefix("chunk_generator"), FrostChunkGenerator.CODEC);
+			FrostDimensions.init();
 		});
 
 	}
