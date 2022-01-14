@@ -101,10 +101,15 @@ public abstract class WorldDataCompilerAndOps<Format> extends RegistryWriteOps<F
 		return path.resolve("data").resolve(resc.getNamespace()).resolve(key.location().getPath()).resolve(resc.getPath() + ".json");
 	}
 
+	protected Format intercept(ResourceKey<?> key, Format format) {
+		return format;
+	}
+
 	/**
 	 * VanillaCopy: IDataProvider.save
 	 */
 	private void save(ResourceKey<?> key, HashCache cache, Format dynamic, Path pathIn) throws IOException {
+		dynamic = intercept(key, dynamic);
 		String s = fileContentWriter.apply(dynamic);
 		String s1 = SHA1.hashUnencodedChars(s).toString();
 		if (!Objects.equals(cache.getHash(pathIn), s1) || !Files.exists(pathIn)) {

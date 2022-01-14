@@ -41,7 +41,7 @@ public class FrostConfiguredFeatures {
 	public static final ConfiguredFeature<BlockStateConfiguration, ?> TUNDRA_ROCK = register(prefix("tundra_rock"), FrostFeatures.BIG_ROCK.configured(new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.defaultBlockState())));
 	public static final ConfiguredFeature<BlockStateConfiguration, ?> TUNDRA_MOSSY_ROCK = register(prefix("tundra_mossy_rock"), FrostFeatures.BIG_ROCK.configured(new BlockStateConfiguration(FrostBlocks.FRIGID_STONE_MOSSY.defaultBlockState())));
 
-	public static final ConfiguredFeature<RandomFeatureConfiguration, ?> FROSTROOT_TREE = register(prefix("frostroot_tree"), Feature.RANDOM_SELECTOR.configured(new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(FrostTreeFeatures.FROST_TREE_BIG.placed(), 0.33333334F)), FrostTreeFeatures.FROST_TREE.placed())));
+	public static final ConfiguredFeature<RandomFeatureConfiguration, ?> FROSTROOT_TREE = register(prefix("frostroot_trees"), Feature.RANDOM_SELECTOR.configured(new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(FrostTreeFeatures.FROST_TREE_BIG.placed(), 0.33333334F)), FrostTreeFeatures.FROST_TREE.placed())));
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;

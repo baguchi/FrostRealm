@@ -17,7 +17,6 @@ public class FrostDimensions {
 
 	public static final ResourceKey<LevelStem> FROSTREALM_LEVELSTEM = ResourceKey.create(Registry.LEVEL_STEM_REGISTRY, new ResourceLocation(FrostRealm.MODID, "frostrealm"));
 
-
 	public static void init() {
 		Registry.register(Registry.CHUNK_GENERATOR, FrostRealm.prefix("chunk_generator"), FrostChunkGenerator.CODEC);
 	}

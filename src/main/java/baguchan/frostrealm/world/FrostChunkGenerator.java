@@ -27,7 +27,7 @@ public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
 			return p_188716_.noises;
 		}), BiomeSource.CODEC.fieldOf("biome_source").forGetter((p_188711_) -> {
 			return p_188711_.biomeSource;
-		}), Codec.LONG.fieldOf("seed").stable().orElse(SeedHolder.getSeed()).forGetter((p_188690_) -> {
+		}), Codec.LONG.fieldOf("seed").orElse(SeedHolder.getSeed()).forGetter((p_188690_) -> {
 			return p_188690_.seed;
 		}), NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter((p_188652_) -> {
 			return p_188652_.settings;

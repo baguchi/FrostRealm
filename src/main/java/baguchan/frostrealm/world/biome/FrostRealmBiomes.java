@@ -30,6 +30,8 @@ public class FrostRealmBiomes {
 		BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();
 		FrostDefaultFeatures.commonCaves(biomegenerationsettings$builder);
 		FrostDefaultFeatures.oreCommon(biomegenerationsettings$builder);
+		FrostDefaultFeatures.frigidForestCommon(biomegenerationsettings$builder);
+		FrostDefaultFeatures.snow(biomegenerationsettings$builder);
 
 		FrostDefaultFeatures.frigidForestSpawn(mobspawnsettings$builder);
 		FrostDefaultFeatures.commonSpawns(mobspawnsettings$builder);
@@ -45,6 +47,7 @@ public class FrostRealmBiomes {
 		BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();
 		FrostDefaultFeatures.commonCaves(biomegenerationsettings$builder);
 		FrostDefaultFeatures.oreCommon(biomegenerationsettings$builder);
+		FrostDefaultFeatures.snow(biomegenerationsettings$builder);
 
 		FrostDefaultFeatures.commonSpawns(mobspawnsettings$builder);
 		return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.SNOW).biomeCategory(Biome.BiomeCategory.MOUNTAIN).temperature(0.7F).downfall(0.8F).specialEffects((new BiomeSpecialEffects.Builder()).waterColor(5337276).waterFogColor(329011).fogColor(4630224).skyColor(7907327).grassColorOverride(7115607).foliageColorOverride(7115607).ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(FrostMusics.CALM_NIGHT).build()).mobSpawnSettings(mobspawnsettings$builder.build()).generationSettings(biomegenerationsettings$builder.build()).build();

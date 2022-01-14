@@ -36,6 +36,14 @@ public class FrostDefaultFeatures {
 		p_126789_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_TUNDRA_GRASS);
 	}
 
+	public static void frigidForestCommon(BiomeGenerationSettings.Builder p_126789_) {
+		p_126789_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_ARTIC_POPPY);
+	}
+
+	public static void snow(BiomeGenerationSettings.Builder p_126789_) {
+		p_126789_.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
+	}
+
 	public static void monsters(MobSpawnSettings.Builder p_194726_) {
 		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WRAITH, 100, 4, 4));
 		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUR, 40, 2, 4));

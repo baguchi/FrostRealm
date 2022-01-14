@@ -52,7 +52,6 @@ public class FrostStructures {
 		setupStructure(IGLOO, new StructureFeatureConfiguration(24, 8, 14320045), true);
 	}
 
-
 	private static <FC extends FeatureConfiguration, F extends StructureFeature<FC>> ConfiguredStructureFeature<FC, F> register(String p_127268_, ConfiguredStructureFeature<FC, F> p_127269_) {
 		return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, p_127268_, p_127269_);
 	}

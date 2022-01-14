@@ -6,10 +6,7 @@ import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.message.ChangedColdMessage;
-import baguchan.frostrealm.registry.FrostBlocks;
-import baguchan.frostrealm.registry.FrostDimensions;
-import baguchan.frostrealm.registry.FrostNoiseGeneratorSettings;
-import baguchan.frostrealm.registry.FrostStructures;
+import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.world.gen.FrostTreeFeatures;
 import baguchan.frostrealm.world.placement.FrostOrePlacements;
 import baguchan.frostrealm.world.placement.FrostPlacements;
@@ -55,6 +52,7 @@ public class FrostRealm {
 		IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+		FrostBiomes.BIOMES.register(modbus);
 		modbus.addListener(this::setup);
 		forgeBus.addListener(FrostStructures::addDimensionalSpacing);
 
@@ -72,7 +70,7 @@ public class FrostRealm {
 			FrostNoiseGeneratorSettings.init();
 			FrostDimensions.init();
 		});
-
+		FrostBiomes.addBiomeTypes();
 	}
 
 	private void setupMessages() {

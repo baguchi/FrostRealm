@@ -2,8 +2,6 @@ package baguchan.frostrealm.world.biome;
 
 import baguchan.frostrealm.registry.FrostBiomes;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.SharedConstants;
-import net.minecraft.data.worldgen.TerrainProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
@@ -52,21 +50,16 @@ public class FrostrealmBiomeBuilder {
 	}
 
 	public void addBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_187176_) {
-		if (SharedConstants.debugGenerateSquareTerrainWithoutNoise) {
-			TerrainProvider.overworld(false).addDebugBiomesToVisualizeSplinePoints(p_187176_);
-		} else {
-			this.addOffCoastBiomes(p_187176_);
-			this.addInlandBiomes(p_187176_);
-			this.addUndergroundBiomes(p_187176_);
-		}
+		this.addOffCoastBiomes(p_187176_);
+		this.addInlandBiomes(p_187176_);
+		this.addUndergroundBiomes(p_187176_);
 	}
 
 	private void addOffCoastBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_187196_) {
-		for(int i = 0; i < this.temperatures.length; ++i) {
-			Climate.Parameter climate$parameter = this.temperatures[i];
-			this.addSurfaceBiome(p_187196_, climate$parameter, this.FULL_RANGE, this.deepOceanContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.FROZEN_OCEAN);
-			this.addSurfaceBiome(p_187196_, climate$parameter, this.FULL_RANGE, this.oceanContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.FROZEN_DEEP_OCEAN);
-		}
+		this.addSurfaceBiome(p_187196_, this.FULL_RANGE, this.FULL_RANGE, this.mushroomFieldsContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.TUNDRA);
+
+		this.addSurfaceBiome(p_187196_, this.FULL_RANGE, this.FULL_RANGE, this.deepOceanContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.FROZEN_OCEAN);
+		this.addSurfaceBiome(p_187196_, this.FULL_RANGE, this.FULL_RANGE, this.oceanContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.FROZEN_DEEP_OCEAN);
 	}
 
 	private void addInlandBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_187216_) {
