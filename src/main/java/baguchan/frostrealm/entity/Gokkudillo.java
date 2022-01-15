@@ -14,7 +14,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -137,12 +136,6 @@ public class Gokkudillo extends Gokkur {
 				}
 			}
 		}
-	}
-
-	@Override
-	public void playerTouch(Player p_20081_) {
-		super.playerTouch(p_20081_);
-		this.dealDamage(p_20081_);
 	}
 
 	protected float getAttackDamage() {
