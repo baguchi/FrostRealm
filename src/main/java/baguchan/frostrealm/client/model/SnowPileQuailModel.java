@@ -3,6 +3,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.1.1
 // Paste this class into your mod and generate all required imports
 
 
+import baguchan.frostrealm.client.animation.ModelAnimator;
 import baguchan.frostrealm.entity.SnowPileQuail;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -13,6 +14,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
 public class SnowPileQuailModel<T extends SnowPileQuail> extends EntityModel<T> {
+	private final ModelAnimator modelAnimator = ModelAnimator.create();
 	private final ModelPart body;
 	private final ModelPart legR;
 	private final ModelPart legL;
@@ -49,6 +51,34 @@ public class SnowPileQuailModel<T extends SnowPileQuail> extends EntityModel<T> 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
+	public void animate(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.head.xRot = 0.0F;
+		this.head.zRot = 0.0F;
+		this.body.xRot = 0.0F;
+		modelAnimator.update(entity);
+		modelAnimator.setAnimation(SnowPileQuail.IDLE_ANIMATION);
+		modelAnimator.startKeyframe(10);
+		modelAnimator.rotate(this.body, 0.4F, 0.0F, 0.0F);
+		modelAnimator.rotate(this.legR, -0.4F, 0.0F, 0.0F);
+		modelAnimator.rotate(this.legL, -0.4F, 0.0F, 0.0F);
+		modelAnimator.rotate(this.head, -0.4F, 0.0F, 0.0F);
+		modelAnimator.endKeyframe();
+		for (int i = 0; i < 8; i++) {
+			modelAnimator.startKeyframe(5);
+			modelAnimator.rotate(this.body, 0.4F, 0.0F, 0.0F);
+			modelAnimator.rotate(this.legR, -0.4F, 0.0F, 0.0F);
+			modelAnimator.rotate(this.legL, -0.4F, 0.0F, 0.0F);
+			modelAnimator.rotate(this.head, -0.4F, 0.0F, 0.0F);
+			if (i % 2 == 0) {
+				modelAnimator.rotate(this.head, 0.0F, 0.0F, 0.4F);
+			} else {
+				modelAnimator.rotate(this.head, 0.0F, 0.0F, -0.4F);
+			}
+			modelAnimator.endKeyframe();
+		}
+		modelAnimator.resetKeyframe(10);
+	}
+
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.head.xRot = headPitch * ((float) Math.PI / 180F);
@@ -62,6 +92,8 @@ public class SnowPileQuailModel<T extends SnowPileQuail> extends EntityModel<T> 
 			this.wingR.zRot = 0.6F + 0.8F * Mth.sin(2.4F * ageInTicks);
 			this.wingL.zRot = -0.6F + -0.8F * Mth.sin(2.4F * ageInTicks);
 		}
+
+		animate(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 	}
 
 	@Override

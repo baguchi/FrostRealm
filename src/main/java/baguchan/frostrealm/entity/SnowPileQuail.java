@@ -1,5 +1,7 @@
 package baguchan.frostrealm.entity;
 
+import baguchan.frostrealm.api.animation.Animation;
+import baguchan.frostrealm.api.animation.IAnimatable;
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
 import baguchan.frostrealm.entity.goal.AngryGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
@@ -31,16 +33,24 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.Random;
 
-public class SnowPileQuail extends Animal {
+public class SnowPileQuail extends Animal implements IAnimatable {
 	private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> HAS_EGG = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 
+	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.INT);
+
+
 	private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
+
+	public static final Animation IDLE_ANIMATION = Animation.create(60);
+
+	private int animationTick;
 
 	@Nullable
 	private BlockPos homeTarget;
@@ -66,6 +76,7 @@ public class SnowPileQuail extends Animal {
 		super.defineSynchedData();
 		this.entityData.define(ANGRY, false);
 		this.entityData.define(HAS_EGG, false);
+		this.entityData.define(ANIMATION_ID, -1);
 	}
 
 	public static boolean checkQuailSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
@@ -125,12 +136,14 @@ public class SnowPileQuail extends Animal {
 			if (SnowPileQuailEggBlock.onDirt(this.level, blockpos)) {
 				level.playSound((Player) null, blockpos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level.random.nextFloat() * 0.2F);
 				level.setBlock(blockpos, FrostBlocks.SNOWPILE_QUAIL_EGG.defaultBlockState().setValue(SnowPileQuailEggBlock.EGGS, Integer.valueOf(this.random.nextInt(1) + 1)), 3);
+				this.setAnimation(IDLE_ANIMATION);
 				this.setHasEgg(false);
 				this.setHomeTarget(blockpos);
 				this.setAge(2400);
 			}
 		}
 	}
+
 
 	public boolean hasEgg() {
 		return this.entityData.get(HAS_EGG);
@@ -162,6 +175,44 @@ public class SnowPileQuail extends Animal {
 
 	@Override
 	protected void checkFallDamage(double p_20809_, boolean p_20810_, BlockState p_20811_, BlockPos p_20812_) {
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		updateAnimations(this);
+	}
+
+	@Override
+	public int getAnimationTick() {
+		return animationTick;
+	}
+
+	@Override
+	public void setAnimationTick(int tick) {
+		this.animationTick = tick;
+	}
+
+	@Override
+	public Animation getAnimation() {
+		int index = this.entityData.get(ANIMATION_ID);
+		if (index < 0) {
+			return NO_ANIMATION;
+		} else {
+			return this.getAnimations()[index];
+		}
+	}
+
+	@Override
+	public Animation[] getAnimations() {
+		return new Animation[]{
+				IDLE_ANIMATION
+		};
+	}
+
+	@Override
+	public void setAnimation(Animation animation) {
+		this.entityData.set(ANIMATION_ID, ArrayUtils.indexOf(this.getAnimations(), animation));
 	}
 
 	class MoveToGoal extends Goal {
