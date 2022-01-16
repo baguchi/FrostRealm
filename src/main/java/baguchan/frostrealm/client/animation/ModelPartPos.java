@@ -2,6 +2,7 @@ package baguchan.frostrealm.client.animation;
 
 import com.mojang.math.Vector3f;
 
+//From the citadel mod code, I remade own version
 public class ModelPartPos {
 	private Vector3f rotation = new Vector3f();
 	private Vector3f offsetRotation = new Vector3f();

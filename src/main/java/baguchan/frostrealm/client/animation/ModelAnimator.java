@@ -11,6 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.HashMap;
 
+//From the citadel mod code, I remade own version
 @OnlyIn(Dist.CLIENT)
 public class ModelAnimator {
 	private int tempTick;
