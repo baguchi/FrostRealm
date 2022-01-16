@@ -34,6 +34,8 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.CRYSTAL_TORTOISE, CrystalTortoiseRenderer::new);
 		event.registerEntityRenderer(FrostEntities.MARMOT, MarmotRenderer::new);
 		event.registerEntityRenderer(FrostEntities.SNOWPILE_QUAIL, SnowPileQuailRenderer::new);
+		event.registerEntityRenderer(FrostEntities.FROST_WOLF, FrostWolfRenderer::new);
+
 		event.registerEntityRenderer(FrostEntities.YETI, YetiRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROST_WRAITH, FrostWraithRenderer::new);
 		event.registerEntityRenderer(FrostEntities.GOKKUR, GokkurRenderer::new);
@@ -47,6 +49,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(ModModelLayers.FROST_WRAITH, FrostWraithModel::createBodyLayer);
 		event.registerLayerDefinition(ModModelLayers.MARMOT, MarmotModel::createBodyLayer);
 		event.registerLayerDefinition(ModModelLayers.SNOWPILE_QUAIL, SnowPileQuailModel::createBodyLayer);
+		event.registerLayerDefinition(ModModelLayers.FROST_WOLF, FrostWolfModel::createBodyLayer);
 		event.registerLayerDefinition(ModModelLayers.GOKKUR, GokkurModel::createBodyLayer);
 		event.registerLayerDefinition(ModModelLayers.GOKKUDILLO, GokkudilloModel::createBodyLayer);
 	}
