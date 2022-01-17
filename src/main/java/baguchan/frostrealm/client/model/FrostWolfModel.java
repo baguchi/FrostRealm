@@ -3,6 +3,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.1.2
 // Paste this class into your mod and generate all required imports
 
 
+import baguchan.frostrealm.client.animation.ModelAnimator;
 import baguchan.frostrealm.entity.FrostWolf;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.ColorableAgeableListModel;
@@ -12,6 +13,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
 public class FrostWolfModel<T extends FrostWolf> extends ColorableAgeableListModel<T> {
+	private final ModelAnimator modelAnimator = ModelAnimator.create();
 	private final ModelPart body;
 	private final ModelPart mane;
 	private final ModelPart head;
@@ -66,6 +68,7 @@ public class FrostWolfModel<T extends FrostWolf> extends ColorableAgeableListMod
 		this.head.xRot = headPitch * ((float) Math.PI / 180F);
 		this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
 		this.tail.xRot = entity.getTailAngle();
+		this.animate(entity, limbSwing, limbSwingAmount, ageInTicks);
 	}
 
 	public void prepareMobModel(T p_104132_, float p_104133_, float p_104134_, float p_104135_) {
@@ -76,15 +79,12 @@ public class FrostWolfModel<T extends FrostWolf> extends ColorableAgeableListMod
 		}
 
 		if (p_104132_.isInSittingPose()) {
-			this.body.setPos(-0.5F, 5.0F, -3.0F);
-			this.mane.setPos(0.0F, 6.5F, -3.0F);
-			this.mane.xRot = 1.2566371F;
-			this.mane.yRot = 0.0F;
-			this.body.xRot = ((float) Math.PI / 4F);
-			this.legR2.xRot = -((float) Math.PI / 2);
-			this.legL2.xRot = -((float) Math.PI / 2);
-			this.legR.xRot = ((float) Math.PI / 2);
-			this.legL.xRot = ((float) Math.PI / 2);
+			this.body.setPos(-0.5F, 17.0F, -3.0F);
+			this.mane.setPos(0.0F, 18.5F, -3.0F);
+			this.legR2.xRot = ((float) Math.PI / 2);
+			this.legL2.xRot = ((float) Math.PI / 2);
+			this.legR.xRot = -((float) Math.PI / 2);
+			this.legL.xRot = -((float) Math.PI / 2);
 		} else {
 			this.body.setPos(-0.5F, 11.0F, -3.0F);
 			this.mane.setPos(0.0F, 12.5F, -3.0F);
@@ -100,6 +100,16 @@ public class FrostWolfModel<T extends FrostWolf> extends ColorableAgeableListMod
 		this.mane.zRot = p_104132_.getBodyRollAngle(p_104135_, -0.08F);
 		this.body.zRot = p_104132_.getBodyRollAngle(p_104135_, -0.16F);
 		this.tail.zRot = p_104132_.getBodyRollAngle(p_104135_, -0.2F);
+	}
+
+	public void animate(T entity, float limbSwing, float limbSwingAmount, float ageInTicks) {
+		this.head.xRot = 0.0F;
+		modelAnimator.update(entity);
+		modelAnimator.setAnimation(FrostWolf.HOWL_ANIMATION);
+		modelAnimator.startKeyframe(4);
+		modelAnimator.rotate(this.head, -1.6F, 0.0F, 0.0F);
+		modelAnimator.endKeyframe();
+		modelAnimator.resetKeyframe(86);
 	}
 
 	@Override
