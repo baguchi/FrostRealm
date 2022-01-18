@@ -34,6 +34,9 @@
       "frostrealm:patch_tundra_grass",
       "frostrealm:patch_tundra_rock",
       "frostrealm:patch_tundra_mossy_rock"
+    ],
+    [
+      "minecraft:freeze_top_layer"
     ]
   ],
   "spawners": {

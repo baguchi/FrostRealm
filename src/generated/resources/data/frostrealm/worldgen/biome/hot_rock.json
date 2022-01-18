@@ -29,6 +29,10 @@
       "frostrealm:spring_lava",
       "frostrealm:spring_water",
       "frostrealm:spring_lava_hotrock_extra"
+    ],
+    [],
+    [
+      "minecraft:freeze_top_layer"
     ]
   ],
   "spawners": {
@@ -57,7 +61,7 @@
   "spawn_costs": {},
   "forge:registry_name": "frostrealm:hot_rock",
   "precipitation": "snow",
-  "temperature": 0.2,
+  "temperature": 0.5,
   "downfall": 0.6,
   "category": "mountain",
   "effects": {
