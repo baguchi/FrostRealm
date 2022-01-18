@@ -22,7 +22,10 @@
       "frostrealm:glimmer_ore_small"
     ],
     [],
-    [],
+    [
+      "frostrealm:spring_lava",
+      "frostrealm:spring_water"
+    ],
     [
       "frostrealm:frostroot_tree_plains",
       "frostrealm:patch_bear_berry",

@@ -23,6 +23,12 @@
       "frostrealm:glimmer_ore_lower",
       "frostrealm:glimmer_ore_small",
       "frostrealm:glimmer_ore_extra"
+    ],
+    [],
+    [
+      "frostrealm:spring_lava",
+      "frostrealm:spring_water",
+      "frostrealm:spring_lava_hotrock_extra"
     ]
   ],
   "spawners": {

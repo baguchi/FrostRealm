@@ -5,12 +5,12 @@ import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.world.gen.FrostConfiguredFeatures;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.features.NetherFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.heightproviders.VeryBiasedToBottomHeight;
 import net.minecraft.world.level.levelgen.placement.*;
 
 import java.util.List;
@@ -18,21 +18,26 @@ import java.util.List;
 import static net.minecraft.data.worldgen.placement.VegetationPlacements.TREE_THRESHOLD;
 
 public class FrostPlacements {
-	public static final PlacedFeature FROSTROOT_TREES_FOREST = register(prefix("frostroot_tree_forest"), FrostConfiguredFeatures.FROSTROOT_TREE.placed(treePlacement(PlacementUtils.countExtra(10, 0.1F, 1), FrostBlocks.FROSTROOT_SAPLING)));
-	public static final PlacedFeature FROSTROOT_TREES_PLAINS = register(prefix("frostroot_tree_plains"), FrostConfiguredFeatures.FROSTROOT_TREE.placed(treePlacement(PlacementUtils.countExtra(0, 0.01F, 1), FrostBlocks.FROSTROOT_SAPLING)));
+	public static final PlacedFeature FROSTROOT_TREES_FOREST = PlacementUtils.register(prefix("frostroot_tree_forest"), FrostConfiguredFeatures.FROSTROOT_TREE.placed(treePlacement(PlacementUtils.countExtra(10, 0.1F, 1), FrostBlocks.FROSTROOT_SAPLING)));
+	public static final PlacedFeature FROSTROOT_TREES_PLAINS = PlacementUtils.register(prefix("frostroot_tree_plains"), FrostConfiguredFeatures.FROSTROOT_TREE.placed(treePlacement(PlacementUtils.countExtra(0, 0.01F, 1), FrostBlocks.FROSTROOT_SAPLING)));
 
-	public static final PlacedFeature PATCH_TUNDRA_GRASS = register(prefix("patch_tundra_grass"), FrostConfiguredFeatures.PATCH_TUNDRA_GRASS.placed(NoiseThresholdCountPlacement.of(-0.8D, 5, 10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+	public static final PlacedFeature PATCH_TUNDRA_GRASS = PlacementUtils.register(prefix("patch_tundra_grass"), FrostConfiguredFeatures.PATCH_TUNDRA_GRASS.placed(NoiseThresholdCountPlacement.of(-0.8D, 5, 10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 
-	public static final PlacedFeature PATCH_BEAR_BERRY = register(prefix("patch_bear_berry"), FrostConfiguredFeatures.PATCH_BEARBERRY.placed(InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+	public static final PlacedFeature PATCH_BEAR_BERRY = PlacementUtils.register(prefix("patch_bear_berry"), FrostConfiguredFeatures.PATCH_BEARBERRY.placed(InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 
 
-	public static final PlacedFeature PATCH_ARTIC_POPPY = register(prefix("patch_artic_poppy"), FrostConfiguredFeatures.ARCTIC_POPPY.placed(CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
-	public static final PlacedFeature PATCH_ARTIC_WILLOW = register(prefix("patch_artic_willow"), FrostConfiguredFeatures.ARCTIC_WILLOW.placed(CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+	public static final PlacedFeature PATCH_ARTIC_POPPY = PlacementUtils.register(prefix("patch_artic_poppy"), FrostConfiguredFeatures.ARCTIC_POPPY.placed(CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+	public static final PlacedFeature PATCH_ARTIC_WILLOW = PlacementUtils.register(prefix("patch_artic_willow"), FrostConfiguredFeatures.ARCTIC_WILLOW.placed(CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 
-	public static final PlacedFeature PATCH_TUNDRA_ROCK = register(prefix("patch_tundra_rock"), FrostConfiguredFeatures.TUNDRA_ROCK.placed(RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
-	public static final PlacedFeature PATCH_TUNDRA_MOSSY_ROCK = register(prefix("patch_tundra_mossy_rock"), FrostConfiguredFeatures.TUNDRA_MOSSY_ROCK.placed(RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+	public static final PlacedFeature PATCH_TUNDRA_ROCK = PlacementUtils.register(prefix("patch_tundra_rock"), FrostConfiguredFeatures.TUNDRA_ROCK.placed(RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+	public static final PlacedFeature PATCH_TUNDRA_MOSSY_ROCK = PlacementUtils.register(prefix("patch_tundra_mossy_rock"), FrostConfiguredFeatures.TUNDRA_MOSSY_ROCK.placed(RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 
 	public static final PlacedFeature LAVA_DELTA = PlacementUtils.register(prefix("delta"), NetherFeatures.DELTA.placed(CountPlacement.of(2), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), BiomeFilter.biome()));
+
+	public static final PlacedFeature SPRING_LAVA = PlacementUtils.register(prefix("spring_lava"), FrostConfiguredFeatures.SPRING_LAVA.placed(CountPlacement.of(20), InSquarePlacement.spread(), HeightRangePlacement.of(VeryBiasedToBottomHeight.of(VerticalAnchor.bottom(), VerticalAnchor.belowTop(8), 8)), BiomeFilter.biome()));
+	public static final PlacedFeature SPRING_LAVA_HOTROCK_EXTRA = PlacementUtils.register(prefix("spring_lava_hotrock_extra"), FrostConfiguredFeatures.SPRING_LAVA.placed(CountPlacement.of(10), InSquarePlacement.spread(), HeightRangePlacement.of(VeryBiasedToBottomHeight.of(VerticalAnchor.aboveBottom(64), VerticalAnchor.top(), 8)), BiomeFilter.biome()));
+	public static final PlacedFeature SPRING_WATER = PlacementUtils.register(prefix("spring_water"), FrostConfiguredFeatures.SPRING_WATER.placed(CountPlacement.of(25), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(192)), BiomeFilter.biome()));
+
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;
@@ -41,10 +46,6 @@ public class FrostPlacements {
 
 	public static void init() {
 
-	}
-
-	public static PlacedFeature register(String p_195369_, PlacedFeature p_195370_) {
-		return Registry.register(BuiltinRegistries.PLACED_FEATURE, p_195369_, p_195370_);
 	}
 
 	private static ImmutableList.Builder<PlacementModifier> treePlacementBase(PlacementModifier p_195485_) {

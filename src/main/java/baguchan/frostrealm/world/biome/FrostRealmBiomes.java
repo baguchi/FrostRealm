@@ -13,6 +13,7 @@ public class FrostRealmBiomes {
 		BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();
 		FrostDefaultFeatures.commonCaves(biomegenerationsettings$builder);
 		FrostDefaultFeatures.oreCommon(biomegenerationsettings$builder);
+		FrostDefaultFeatures.commonSpring(biomegenerationsettings$builder);
 
 		biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.FROSTROOT_TREES_PLAINS);
 		FrostDefaultFeatures.tundraCommon(biomegenerationsettings$builder);
@@ -28,6 +29,7 @@ public class FrostRealmBiomes {
 		FrostDefaultFeatures.commonCaves(biomegenerationsettings$builder);
 		FrostDefaultFeatures.oreCommon(biomegenerationsettings$builder);
 		FrostDefaultFeatures.frigidForestCommon(biomegenerationsettings$builder);
+		FrostDefaultFeatures.commonSpring(biomegenerationsettings$builder);
 		FrostDefaultFeatures.snow(biomegenerationsettings$builder);
 
 		FrostDefaultFeatures.frigidForestSpawn(mobspawnsettings$builder);
@@ -43,6 +45,7 @@ public class FrostRealmBiomes {
 		BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();
 		FrostDefaultFeatures.commonCaves(biomegenerationsettings$builder);
 		FrostDefaultFeatures.oreCommon(biomegenerationsettings$builder);
+		FrostDefaultFeatures.commonSpring(biomegenerationsettings$builder);
 		FrostDefaultFeatures.snow(biomegenerationsettings$builder);
 
 		FrostDefaultFeatures.commonSpawns(mobspawnsettings$builder);
@@ -54,6 +57,8 @@ public class FrostRealmBiomes {
 		BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();
 		FrostDefaultFeatures.commonCaves(biomegenerationsettings$builder);
 		FrostDefaultFeatures.oreCommon(biomegenerationsettings$builder);
+		FrostDefaultFeatures.commonSpring(biomegenerationsettings$builder);
+		FrostDefaultFeatures.hotrockSpring(biomegenerationsettings$builder);
 		FrostDefaultFeatures.hotRockCommon(biomegenerationsettings$builder);
 
 		FrostDefaultFeatures.hotBiomeMonster(mobspawnsettings$builder);

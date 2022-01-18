@@ -22,6 +22,15 @@ public class FrostDefaultFeatures {
 		p_126789_.addFeature(GenerationStep.Decoration.LAKES, MiscOverworldPlacements.LAKE_LAVA_UNDERGROUND);
 	}
 
+	public static void commonSpring(BiomeGenerationSettings.Builder p_126789_) {
+		p_126789_.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, FrostPlacements.SPRING_LAVA);
+		p_126789_.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, FrostPlacements.SPRING_WATER);
+	}
+
+	public static void hotrockSpring(BiomeGenerationSettings.Builder p_126789_) {
+		p_126789_.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, FrostPlacements.SPRING_LAVA_HOTROCK_EXTRA);
+	}
+
 	public static void oreCommon(BiomeGenerationSettings.Builder p_126789_) {
 		p_126789_.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FrostOrePlacements.FROST_CRYSTAL_ORE_LOWER);
 		p_126789_.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FrostOrePlacements.FROST_CRYSTAL_ORE_UPPER);
@@ -69,5 +78,6 @@ public class FrostDefaultFeatures {
 
 	public static void frigidForestSpawn(MobSpawnSettings.Builder p_194726_) {
 		p_194726_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL, 10, 3, 6));
+		p_194726_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WOLF, 6, 3, 4));
 	}
 }
