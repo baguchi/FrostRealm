@@ -30,7 +30,6 @@ public class FrostConfiguredFeatures {
 	public static final ConfiguredFeature<?, ?> ORE_GLIMMERROCK_SMALL = register(prefix("ore_glimmerrock_small"), Feature.ORE.configured(new OreConfiguration(ORE_GLIMMERROCK_TARGET_LIST, 4)));
 	public static final ConfiguredFeature<?, ?> ORE_STARDUST_CRYSTAL = register(prefix("ore_stardust_crystal"), Feature.ORE.configured(new OreConfiguration(ORE_STARDUST_CRYSRTAL_TARGET_LIST, 8)));
 
-
 	public static final ConfiguredFeature<?, ?> PATCH_TUNDRA_GRASS = register(prefix("patch_tundra_grass"), Feature.RANDOM_PATCH.configured(grassPatch(BlockStateProvider.simple(FrostBlocks.COLD_GRASS), 32)));
 
 	public static final ConfiguredFeature<?, ?> PATCH_BEARBERRY = register(prefix("patch_bearberry"), Feature.RANDOM_PATCH.configured(grassPatch(BlockStateProvider.simple(FrostBlocks.BEARBERRY_BUSH), 32)));

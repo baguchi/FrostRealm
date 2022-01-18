@@ -38,7 +38,7 @@ public class FrostBiomeMaker {
 				FrostRealmBiomes.stoneBasedBiome()
 		);
 		biomes.put(FrostBiomes.HOT_ROCK,
-				FrostRealmBiomes.stoneBasedBiome()
+				FrostRealmBiomes.hotrockBiome()
 		);
 		biomes.put(FrostBiomes.STAR_DUST_PEAKS,
 				FrostRealmBiomes.stoneBasedBiome()

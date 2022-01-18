@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.features.NetherFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -29,8 +30,9 @@ public class FrostPlacements {
 	public static final PlacedFeature PATCH_ARTIC_WILLOW = register(prefix("patch_artic_willow"), FrostConfiguredFeatures.ARCTIC_WILLOW.placed(CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 
 	public static final PlacedFeature PATCH_TUNDRA_ROCK = register(prefix("patch_tundra_rock"), FrostConfiguredFeatures.TUNDRA_ROCK.placed(RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
-	public static final PlacedFeature PATCH_TUNDRA_MOSSY_ROCK = register(prefix("patch_tundra_mossy_rock"), FrostConfiguredFeatures.TUNDRA_ROCK.placed(RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
+	public static final PlacedFeature PATCH_TUNDRA_MOSSY_ROCK = register(prefix("patch_tundra_mossy_rock"), FrostConfiguredFeatures.TUNDRA_MOSSY_ROCK.placed(RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()));
 
+	public static final PlacedFeature LAVA_DELTA = PlacementUtils.register(prefix("delta"), NetherFeatures.DELTA.placed(CountPlacement.of(2), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, InSquarePlacement.spread(), BiomeFilter.biome()));
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;
