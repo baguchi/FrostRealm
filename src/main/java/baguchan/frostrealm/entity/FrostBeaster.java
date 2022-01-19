@@ -67,6 +67,11 @@ public class FrostBeaster extends Monster implements IAnimatable {
 		return false;
 	}
 
+	@Override
+	public void tick() {
+		super.tick();
+		updateAnimations(this);
+	}
 
 	@Override
 	public int getAnimationTick() {

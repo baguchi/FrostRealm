@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FrostBeasterRenderer<T extends FrostBeaster> extends MobRenderer<T, FrostBeasterModel<T>> {
-	private static final ResourceLocation FROST_BEASTER = new ResourceLocation(FrostRealm.MODID, "textures/entity/frost_beaster.png");
+	private static final ResourceLocation FROST_BEASTER = new ResourceLocation(FrostRealm.MODID, "textures/entity/wolfester/frost_beaster.png");
 	private static final RenderType FROST_BEASTER_EYES = RenderType.eyes(new ResourceLocation(FrostRealm.MODID, "textures/entity/wolfester/frost_beaster_eyes.png"));
 
 
