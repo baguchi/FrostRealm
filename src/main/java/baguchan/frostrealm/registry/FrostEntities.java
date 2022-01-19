@@ -24,6 +24,7 @@ public class FrostEntities {
 	public static final EntityType<FrostWraith> FROST_WRAITH = EntityType.Builder.of(FrostWraith::new, MobCategory.MONSTER).sized(0.6F, 1.65F).build(prefix("frost_wraith"));
 	public static final EntityType<Gokkur> GOKKUR = EntityType.Builder.of(Gokkur::new, MobCategory.MONSTER).sized(0.6F, 0.6F).fireImmune().build(prefix("gokkur"));
 	public static final EntityType<Gokkudillo> GOKKUDILLO = EntityType.Builder.of(Gokkudillo::new, MobCategory.MONSTER).sized(0.65F, 0.65F).fireImmune().build(prefix("gokkudillo"));
+	public static final EntityType<FrostBeaster> FROST_BEASTER = EntityType.Builder.of(FrostBeaster::new, MobCategory.MONSTER).sized(0.65F, 1.95F).build(prefix("frost_beaster"));
 
 
 	private static String prefix(String path) {
@@ -42,6 +43,8 @@ public class FrostEntities {
 		event.getRegistry().register(GOKKUR.setRegistryName("gokkur"));
 		event.getRegistry().register(GOKKUDILLO.setRegistryName("gokkudillo"));
 
+		event.getRegistry().register(FROST_BEASTER.setRegistryName("frost_beaster"));
+
 		SpawnPlacements.register(CRYSTAL_TORTOISE, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalTortoise::checkTortoiseSpawnRules);
 		SpawnPlacements.register(MARMOT, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Marmot::checkMarmotSpawnRules);
 		SpawnPlacements.register(SNOWPILE_QUAIL, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowPileQuail::checkQuailSpawnRules);
@@ -51,6 +54,7 @@ public class FrostEntities {
 		SpawnPlacements.register(FROST_WRAITH, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
 		SpawnPlacements.register(GOKKUR, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gokkur::checkGokkurSpawnRules);
 		SpawnPlacements.register(GOKKUDILLO, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gokkudillo::checkGokkudilloSpawnRules);
+		SpawnPlacements.register(FROST_BEASTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBeaster::checkFrostBeasterSpawnRules);
 	}
 
 	@SubscribeEvent
@@ -64,5 +68,6 @@ public class FrostEntities {
 		event.put(FROST_WRAITH, FrostWraith.createAttributes().build());
 		event.put(GOKKUR, Gokkur.createAttributes().build());
 		event.put(GOKKUDILLO, Gokkudillo.createAttributes().build());
+		event.put(FROST_BEASTER, FrostBeaster.createAttributes().build());
 	}
 }

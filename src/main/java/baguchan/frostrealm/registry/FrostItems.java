@@ -42,6 +42,7 @@ public class FrostItems {
 	public static final Item FROST_WRAITH_SPAWNEGG = new ForgeSpawnEggItem(() -> FrostEntities.FROST_WRAITH, 0x31454A, 0xA0CBD3, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item GOKKUR_SPAWNEGG = new ForgeSpawnEggItem(() -> FrostEntities.GOKKUR, 0x968E7A, 0xD5FCF7, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item GOKKUDILLO_SPAWNEGG = new ForgeSpawnEggItem(() -> FrostEntities.GOKKUDILLO, 0x968E7A, 0xD5FCF7, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
+	public static final Item FROST_BEASTER_SPAWNEGG = new ForgeSpawnEggItem(() -> FrostEntities.FROST_BEASTER, 0x7CA7A6, 0x973C3C, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 
 
 	@SubscribeEvent
@@ -71,6 +72,7 @@ public class FrostItems {
 		register(event, FROST_WRAITH_SPAWNEGG, "frost_wraith_spawn_egg");
 		register(event, GOKKUR_SPAWNEGG, "gokkur_spawn_egg");
 		register(event, GOKKUDILLO_SPAWNEGG, "gokkudillo_spawn_egg");
+		register(event, FROST_BEASTER_SPAWNEGG, "frost_beaster_spawn_egg");
 	}
 
 	public static void register(RegistryEvent.Register<Item> registry, Item item, String id) {

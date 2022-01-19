@@ -18,6 +18,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
@@ -54,6 +55,10 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 	public void addHot(int p_75122_1_, float p_75122_2_) {
 		this.temperature = Math.min(p_75122_1_ + this.temperature, 20);
 		this.temperatureSaturation = Math.min(this.temperatureSaturation + p_75122_1_ * p_75122_2_ * 2.0F, this.temperature);
+	}
+
+	public static LazyOptional<FrostLivingCapability> get(Level world) {
+		return world.getCapability(FrostRealm.FROST_LIVING_CAPABILITY);
 	}
 
 	public void tick(LivingEntity entity) {

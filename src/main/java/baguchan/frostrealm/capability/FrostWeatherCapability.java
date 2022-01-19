@@ -37,6 +37,11 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 		this.weatherLevel = f;
 	}
 
+
+	public static LazyOptional<FrostWeatherCapability> get(Level world) {
+		return world.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY);
+	}
+
 	public void tick(Level level) {
 		if (level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 			if (isWeatherActive()) {

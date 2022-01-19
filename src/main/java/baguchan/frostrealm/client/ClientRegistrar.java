@@ -40,6 +40,7 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.FROST_WRAITH, FrostWraithRenderer::new);
 		event.registerEntityRenderer(FrostEntities.GOKKUR, GokkurRenderer::new);
 		event.registerEntityRenderer(FrostEntities.GOKKUDILLO, GokkudilloRenderer::new);
+		event.registerEntityRenderer(FrostEntities.FROST_BEASTER, FrostBeasterRenderer::new);
 	}
 
 	@SubscribeEvent
@@ -50,6 +51,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(ModModelLayers.MARMOT, MarmotModel::createBodyLayer);
 		event.registerLayerDefinition(ModModelLayers.SNOWPILE_QUAIL, SnowPileQuailModel::createBodyLayer);
 		event.registerLayerDefinition(ModModelLayers.FROST_WOLF, FrostWolfModel::createBodyLayer);
+		event.registerLayerDefinition(ModModelLayers.WOLFESTER, WolfesterModel::createBodyLayer);
 		event.registerLayerDefinition(ModModelLayers.GOKKUR, GokkurModel::createBodyLayer);
 		event.registerLayerDefinition(ModModelLayers.GOKKUDILLO, GokkudilloModel::createBodyLayer);
 	}
