@@ -22,8 +22,8 @@ public class FrostEntities {
 
 	public static final EntityType<Yeti> YETI = EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).build(prefix("yeti"));
 	public static final EntityType<FrostWraith> FROST_WRAITH = EntityType.Builder.of(FrostWraith::new, MobCategory.MONSTER).sized(0.6F, 1.65F).build(prefix("frost_wraith"));
-	public static final EntityType<Gokkur> GOKKUR = EntityType.Builder.of(Gokkur::new, MobCategory.MONSTER).sized(0.6F, 0.6F).build(prefix("gokkur"));
-	public static final EntityType<Gokkudillo> GOKKUDILLO = EntityType.Builder.of(Gokkudillo::new, MobCategory.MONSTER).sized(0.65F, 0.65F).build(prefix("gokkudillo"));
+	public static final EntityType<Gokkur> GOKKUR = EntityType.Builder.of(Gokkur::new, MobCategory.MONSTER).sized(0.6F, 0.6F).fireImmune().build(prefix("gokkur"));
+	public static final EntityType<Gokkudillo> GOKKUDILLO = EntityType.Builder.of(Gokkudillo::new, MobCategory.MONSTER).sized(0.65F, 0.65F).fireImmune().build(prefix("gokkudillo"));
 
 
 	private static String prefix(String path) {
