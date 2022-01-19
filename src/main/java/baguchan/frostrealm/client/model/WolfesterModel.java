@@ -34,10 +34,10 @@ public class WolfesterModel<T extends FrostBeaster> extends HumanoidModel<T> imp
 		this.rightArm = root.getChild("right_arm");
 		this.leftLeg = root.getChild("left_leg");
 		this.rightLeg = root.getChild("right_leg");
-		this.leftLeg2 = root.getChild("left_leg2");
-		this.rightLeg2 = root.getChild("right_leg2");
-		this.leftLeg3 = root.getChild("left_leg3");
-		this.rightLeg3 = root.getChild("right_leg3");
+		this.leftLeg2 = this.leftLeg.getChild("left_leg2");
+		this.rightLeg2 = this.rightLeg.getChild("right_leg2");
+		this.leftLeg3 = this.leftLeg2.getChild("left_leg3");
+		this.rightLeg3 = this.leftLeg2.getChild("right_leg3");
 		this.hat = root.getChild("hat");
 	}
 
@@ -99,13 +99,14 @@ public class WolfesterModel<T extends FrostBeaster> extends HumanoidModel<T> imp
 		this.leftLeg3.xRot = 0.4363F + (Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f) / 3;
 
 		this.animate(entity, limbSwing, limbSwingAmount, ageInTicks);
+		this.hat.copyFrom(this.head);
 	}
 
 	public void animate(T entity, float limbSwing, float limbSwingAmount, float ageInTicks) {
 	}
 
 	protected Iterable<ModelPart> headParts() {
-		return ImmutableList.of(this.head);
+		return ImmutableList.of(this.head, this.hat);
 	}
 
 	protected Iterable<ModelPart> bodyParts() {

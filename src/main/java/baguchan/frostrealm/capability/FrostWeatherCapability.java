@@ -56,7 +56,7 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 					}
 					setWeatherLevel(getWeatherLevel(1.0F) - 0.05F);
 				} else {
-					setWeatherCooldown(((level.random.nextInt(5) + 5) * 60) * 20);
+					setWeatherCooldown(((level.random.nextInt(10) + 10) * 60) * 20);
 					isWeatherCooldownChanged = true;
 				}
 			}
