@@ -34,6 +34,11 @@ public class FrostBeaster extends Monster implements IAnimatable {
 		super(p_33002_, p_33003_);
 	}
 
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(ANIMATION_ID, -1);
+	}
+
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2F, true));
