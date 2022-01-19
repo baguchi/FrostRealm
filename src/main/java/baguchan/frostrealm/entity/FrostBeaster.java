@@ -24,7 +24,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.Random;
 
 public class FrostBeaster extends Monster implements IAnimatable {
-	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(FrostWolf.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(FrostBeaster.class, EntityDataSerializers.INT);
 
 	public static final Animation NOT_BEG_ANIMATION = Animation.create(100);
 
