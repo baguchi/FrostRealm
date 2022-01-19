@@ -37,7 +37,7 @@ public class WolfesterModel<T extends FrostBeaster> extends HumanoidModel<T> imp
 		this.leftLeg2 = this.leftLeg.getChild("left_leg2");
 		this.rightLeg2 = this.rightLeg.getChild("right_leg2");
 		this.leftLeg3 = this.leftLeg2.getChild("left_leg3");
-		this.rightLeg3 = this.leftLeg2.getChild("right_leg3");
+		this.rightLeg3 = this.rightLeg2.getChild("right_leg3");
 		this.hat = root.getChild("hat");
 	}
 
