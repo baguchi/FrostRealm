@@ -70,5 +70,29 @@
       }
     ],
     "subtitle": "subtitles.entity.marmot.death"
+  },
+  "entity.snowpile_quail.idle": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/snowpile_quail/snowpile_quail_idle"
+      }
+    ],
+    "subtitle": "subtitles.entity.snowpile_quail.idle"
+  },
+  "entity.snowpile_quail.hurt": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/snowpile_quail/snowpile_quail_hurt"
+      }
+    ],
+    "subtitle": "subtitles.entity.snowpile_quail.hurt"
+  },
+  "entity.snowpile_quail.death": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/snowpile_quail/snowpile_quail_death"
+      }
+    ],
+    "subtitle": "subtitles.entity.snowpile_quail.death"
   }
 }

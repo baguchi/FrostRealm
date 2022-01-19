@@ -83,5 +83,8 @@
   "subtitles.entity.gokkur.idle": "Gokkur Humming",
   "subtitles.entity.marmot.death": "Marmot Death",
   "subtitles.entity.marmot.hurt": "Marmot Hurt",
-  "subtitles.entity.marmot.idle": "Marmot Bark"
+  "subtitles.entity.marmot.idle": "Marmot Bark",
+  "subtitles.entity.snowpile_quail.idle": "Snow Pile Quail Crows",
+  "subtitles.entity.snowpile_quail.hurt": "Snow Pile Quail Hurt",
+  "subtitles.entity.snowpile_quail.death": "Snow Pile Quail Death"
 }
