@@ -40,6 +40,12 @@
         "maxCount": 4
       },
       {
+        "type": "frostrealm:frost_beaster",
+        "weight": 20,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
         "type": "frostrealm:gokkur",
         "weight": 40,
         "minCount": 2,
