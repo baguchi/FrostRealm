@@ -23,7 +23,7 @@ public class BeasterAngryGoal extends TimeConditionGoal {
 
 	@Override
 	public boolean isMatchCondition() {
-		return this.mob.getTarget() != null;
+		return this.mob.getTarget() != null && this.mob.getMainHandItem().isEmpty();
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class BeasterAngryGoal extends TimeConditionGoal {
 			double d0 = this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
 			if (this.tick >= 20) {
 				this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
-				this.mob.getNavigation().moveTo(livingentity, 1.5D);
+				this.mob.getNavigation().moveTo(livingentity, 1.8D);
 				this.checkAndPerformAttack(livingentity, d0);
 			}
 		}
@@ -65,7 +65,7 @@ public class BeasterAngryGoal extends TimeConditionGoal {
 		if (p_25558_ <= d0 && !this.attacked) {
 			this.mob.swing(InteractionHand.MAIN_HAND);
 			this.mob.setAnimation(FrostBeaster.GROWL_ATTACK_ANIMATION);
-			p_25557_.hurt(DamageSource.mobAttack(this.mob), Mth.floor((float) (this.mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.4F)));
+			p_25557_.hurt(DamageSource.mobAttack(this.mob), Mth.floor((float) (this.mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.5F)));
 			this.attacked = true;
 		}
 	}

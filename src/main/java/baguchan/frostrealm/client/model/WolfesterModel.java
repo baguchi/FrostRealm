@@ -130,6 +130,7 @@ public class WolfesterModel<T extends FrostBeaster> extends HumanoidModel<T> imp
 		return this.head;
 	}
 
+	@Override
 	public void translateToHand(HumanoidArm p_102925_, PoseStack p_102926_) {
 		this.getArm(p_102925_).translateAndRotate(p_102926_);
 	}
