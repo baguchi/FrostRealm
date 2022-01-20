@@ -33,7 +33,7 @@ public class FrostBeaster extends Monster implements IAnimatable {
 	public static final Animation GROWL_ANIMATION = Animation.create(25);
 	public static final Animation GROWL_ATTACK_ANIMATION = Animation.create(15);
 
-	private static final UniformInt TIME_BETWEEN_ANGRY = UniformInt.of(600, 1200);
+	private static final UniformInt TIME_BETWEEN_ANGRY = UniformInt.of(300, 600);
 	private static final UniformInt TIME_BETWEEN_ANGRY_COOLDOWN = UniformInt.of(100, 400);
 
 	public FrostBeaster(EntityType<? extends Monster> p_33002_, Level p_33003_) {
