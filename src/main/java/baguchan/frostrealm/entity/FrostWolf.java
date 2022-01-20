@@ -27,10 +27,9 @@ import java.util.UUID;
 
 public class FrostWolf extends Wolf implements IAnimatable {
 	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(FrostWolf.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(FrostWolf.class, EntityDataSerializers.INT);
 
 	public static final Animation HOWL_ANIMATION = Animation.create(60);
-
-	private int animationTick;
 
 	public FrostWolf(EntityType<? extends Wolf> p_30369_, Level p_30370_) {
 		super(p_30369_, p_30370_);
@@ -39,6 +38,7 @@ public class FrostWolf extends Wolf implements IAnimatable {
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(ANIMATION_ID, -1);
+		this.entityData.define(ANIMATION_TICK, 0);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -100,12 +100,12 @@ public class FrostWolf extends Wolf implements IAnimatable {
 
 	@Override
 	public int getAnimationTick() {
-		return animationTick;
+		return this.entityData.get(ANIMATION_TICK);
 	}
 
 	@Override
 	public void setAnimationTick(int tick) {
-		this.animationTick = tick;
+		this.entityData.set(ANIMATION_TICK, tick);
 	}
 
 	@Override

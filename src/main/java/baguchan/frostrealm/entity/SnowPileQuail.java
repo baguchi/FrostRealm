@@ -3,7 +3,7 @@ package baguchan.frostrealm.entity;
 import baguchan.frostrealm.api.animation.Animation;
 import baguchan.frostrealm.api.animation.IAnimatable;
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
-import baguchan.frostrealm.entity.goal.AngryGoal;
+import baguchan.frostrealm.entity.goal.QuailAngryGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostSounds;
@@ -46,14 +46,12 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 	private static final EntityDataAccessor<Boolean> HAS_EGG = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 
 	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.INT);
 
 
 	private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
 
 	public static final Animation IDLE_ANIMATION = Animation.create(60);
-
-	private int animationTick;
-
 	@Nullable
 	private BlockPos homeTarget;
 
@@ -64,7 +62,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
-		this.goalSelector.addGoal(2, new AngryGoal(this));
+		this.goalSelector.addGoal(2, new QuailAngryGoal(this));
 		this.goalSelector.addGoal(3, new SnowPileQuailBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(4, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
 		this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
@@ -79,6 +77,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 		this.entityData.define(ANGRY, false);
 		this.entityData.define(HAS_EGG, false);
 		this.entityData.define(ANIMATION_ID, -1);
+		this.entityData.define(ANIMATION_TICK, 0);
 	}
 
 	public static boolean checkQuailSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
@@ -205,12 +204,12 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 
 	@Override
 	public int getAnimationTick() {
-		return animationTick;
+		return this.entityData.get(ANIMATION_TICK);
 	}
 
 	@Override
 	public void setAnimationTick(int tick) {
-		this.animationTick = tick;
+		this.entityData.set(ANIMATION_TICK, tick);
 	}
 
 	@Override

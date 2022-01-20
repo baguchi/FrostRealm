@@ -5,10 +5,10 @@ import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
-public class AngryGoal extends Goal {
+public class QuailAngryGoal extends Goal {
 	private final SnowPileQuail mob;
 
-	public AngryGoal(SnowPileQuail snowPileQuail) {
+	public QuailAngryGoal(SnowPileQuail snowPileQuail) {
 		this.mob = snowPileQuail;
 		this.setFlags(EnumSet.of(Goal.Flag.MOVE, Flag.LOOK));
 	}

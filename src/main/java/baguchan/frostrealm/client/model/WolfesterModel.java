@@ -83,20 +83,28 @@ public class WolfesterModel<T extends FrostBeaster> extends HumanoidModel<T> imp
 
 		float f = 1.0F;
 
+		this.body.xRot = 0.0F;
+		this.body.setPos(0.0F, 1.0F, 0.0F);
+		this.head.setPos(0.0F, 1.0F, 0.0F);
+		this.rightArm.setPos(5.0F, 3.0F, 0.0F);
+		this.leftArm.setPos(-5.0F, 3.0F, 0.0F);
+		this.rightLeg.setPos(2.0F, 12.0F, 0.0F);
+		this.leftLeg.setPos(-2.0F, 12.0F, 0.0F);
+
 		this.rightArm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 2.0F * limbSwingAmount * 0.5F / f;
 		this.leftArm.xRot = Mth.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F / f;
 		this.rightArm.zRot = 0.0F;
 		this.leftArm.zRot = 0.0F;
 		this.rightLeg.xRot = 0.4363F + (Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f) / 2;
-		this.leftLeg.xRot = 0.4363F + (Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f) / 2;
+		this.leftLeg.xRot = 0.4363F + (Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount / f) / 2;
 		this.rightLeg.yRot = 0.0F;
 		this.leftLeg.yRot = 0.0F;
 		this.rightLeg.zRot = 0.0F;
 		this.leftLeg.zRot = 0.0F;
 		this.rightLeg2.xRot = -0.8727F - (Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f) / 2;
-		this.leftLeg2.xRot = -0.8727F - (Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f) / 2;
+		this.leftLeg2.xRot = -0.8727F - (Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount / f) / 2;
 		this.rightLeg3.xRot = 0.4363F + (Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f) / 3;
-		this.leftLeg3.xRot = 0.4363F + (Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f) / 3;
+		this.leftLeg3.xRot = 0.4363F + (Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount / f) / 3;
 
 		this.animate(entity, limbSwing, limbSwingAmount, ageInTicks);
 		this.hat.copyFrom(this.head);
