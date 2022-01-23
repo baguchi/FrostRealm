@@ -62,14 +62,14 @@ public class FrostDefaultFeatures {
 
 	public static void monsters(MobSpawnSettings.Builder p_194726_) {
 		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WRAITH, 100, 4, 4));
-		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_BEASTER, 20, 2, 4));
+		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_BEASTER, 10, 2, 4));
 		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUR, 40, 2, 4));
-		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUDILLO, 5, 1, 2));
+		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUDILLO, 10, 1, 2));
 	}
 
 	public static void hotBiomeMonster(MobSpawnSettings.Builder p_194726_) {
 		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUR, 40, 2, 4));
-		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUDILLO, 5, 1, 2));
+		p_194726_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUDILLO, 10, 1, 2));
 	}
 
 	public static void tundraSpawn(MobSpawnSettings.Builder p_194726_) {

@@ -41,7 +41,7 @@
       },
       {
         "type": "frostrealm:frost_beaster",
-        "weight": 20,
+        "weight": 10,
         "minCount": 2,
         "maxCount": 4
       },
@@ -53,7 +53,7 @@
       },
       {
         "type": "frostrealm:gokkudillo",
-        "weight": 5,
+        "weight": 10,
         "minCount": 1,
         "maxCount": 2
       }
