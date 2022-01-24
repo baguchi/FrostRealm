@@ -6,7 +6,10 @@ import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.message.ChangedColdMessage;
-import baguchan.frostrealm.registry.*;
+import baguchan.frostrealm.registry.FrostBiomes;
+import baguchan.frostrealm.registry.FrostBlocks;
+import baguchan.frostrealm.registry.FrostNoiseGeneratorSettings;
+import baguchan.frostrealm.registry.FrostStructures;
 import baguchan.frostrealm.world.gen.FrostTreeFeatures;
 import baguchan.frostrealm.world.placement.FrostOrePlacements;
 import baguchan.frostrealm.world.placement.FrostPlacements;
@@ -68,7 +71,6 @@ public class FrostRealm {
 			FrostPlacements.init();
 			FrostOrePlacements.init();
 			FrostNoiseGeneratorSettings.init();
-			FrostDimensions.init();
 		});
 		FrostBiomes.addBiomeTypes();
 	}

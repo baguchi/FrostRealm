@@ -3,9 +3,7 @@ package baguchan.frostrealm.data;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBiomes;
 import baguchan.frostrealm.registry.FrostCarvers;
-import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostNoiseGeneratorSettings;
-import baguchan.frostrealm.world.FrostChunkGenerator;
 import baguchan.frostrealm.world.biome.FrostBiomeMaker;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
@@ -36,7 +34,6 @@ public class FrostrealmWorldDataCompiler extends WorldDataCompilerAndOps<JsonEle
 	@Override
 	public void generate(HashCache directoryCache) {
 		FrostCarvers.registerConfigurations(this.dynamicRegistries.registryOrThrow(Registry.CONFIGURED_CARVER_REGISTRY));
-		FrostDimensions.init();
 
 		Map<ResourceLocation, Biome> biomes = this.getBiomes();
 		biomes.forEach((rl, biome) -> this.dynamicRegistries.registry(Registry.BIOME_REGISTRY).ifPresent(reg -> Registry.register(reg, rl, biome)));
@@ -65,7 +62,7 @@ public class FrostrealmWorldDataCompiler extends WorldDataCompilerAndOps<JsonEle
 		DimensionType dimensionType = this.dynamicRegistries.registry(Registry.DIMENSION_TYPE_REGISTRY).map(reg -> Registry.register(reg, new ResourceLocation(FrostRealm.MODID, "frostrealm_type"), frostType)).get();
 		NoiseGeneratorSettings worldNoiseSettings = this.dynamicRegistries.registry(BuiltinRegistries.NOISE_GENERATOR_SETTINGS.key()).map(reg -> Registry.register(reg, new ResourceLocation(FrostRealm.MODID, "frostrealm"), FrostNoiseGeneratorSettings.frostrealm())).get();
 
-		NoiseBasedChunkGenerator aetherChunkGen = new FrostChunkGenerator(RegistryAccess.builtin().registryOrThrow(Registry.NOISE_REGISTRY), FrostBiomes.FROSTREALM_BIOMESOURCE.biomeSource(RegistryAccess.builtin().registryOrThrow(Registry.BIOME_REGISTRY), true), 0L, () -> worldNoiseSettings);
+		NoiseBasedChunkGenerator aetherChunkGen = new NoiseBasedChunkGenerator(RegistryAccess.builtin().registryOrThrow(Registry.NOISE_REGISTRY), FrostBiomes.FROSTREALM_BIOMESOURCE.biomeSource(RegistryAccess.builtin().registryOrThrow(Registry.BIOME_REGISTRY), true), 0L, () -> worldNoiseSettings);
 
 		this.serialize(Registry.LEVEL_STEM_REGISTRY, new ResourceLocation(FrostRealm.MODID, "frostrealm"), new LevelStem(() -> dimensionType, aetherChunkGen), LevelStem.CODEC);
 
@@ -73,10 +70,6 @@ public class FrostrealmWorldDataCompiler extends WorldDataCompilerAndOps<JsonEle
 
 	@Override
 	protected JsonElement intercept(ResourceKey<?> key, JsonElement element) {
-		if (key == Registry.LEVEL_STEM_REGISTRY) {
-			element.getAsJsonObject().get("generator").getAsJsonObject().remove("seed");
-			element.getAsJsonObject().get("generator").getAsJsonObject().get("biome_source").getAsJsonObject().remove("seed");
-		}
 		return super.intercept(key, element);
 	}
 
