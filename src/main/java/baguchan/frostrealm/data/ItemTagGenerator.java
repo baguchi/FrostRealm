@@ -2,6 +2,7 @@ package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
+import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -24,5 +25,6 @@ public class ItemTagGenerator extends ItemTagsProvider {
 		tag(ItemTags.STONE_CRAFTING_MATERIALS).add(FrostBlocks.FRIGID_STONE.asItem());
 		tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.asItem());
 		tag(Tags.Items.EGGS).add(FrostBlocks.SNOWPILE_QUAIL_EGG.asItem());
+		tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(FrostItems.YETI_FUR_HELMET, FrostItems.YETI_FUR_CHESTPLATE, FrostItems.YETI_FUR_LEGGINGS, FrostItems.YETI_FUR_BOOTS);
 	}
 }
