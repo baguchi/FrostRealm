@@ -125,7 +125,6 @@ public class FrostBeaster extends Monster implements IAnimatable {
 	}
 
 	protected void populateDefaultEquipmentSlots(DifficultyInstance p_34286_) {
-		super.populateDefaultEquipmentSlots(p_34286_);
 		if (this.random.nextFloat() < (this.level.getDifficulty() == Difficulty.HARD ? 0.1F : 0.05F)) {
 			int i = this.random.nextInt(3);
 			if (i == 0) {
