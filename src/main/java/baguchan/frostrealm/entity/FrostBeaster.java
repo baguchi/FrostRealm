@@ -4,6 +4,7 @@ import baguchan.frostrealm.api.animation.Animation;
 import baguchan.frostrealm.api.animation.IAnimatable;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.entity.goal.BeasterAngryGoal;
+import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -125,6 +126,16 @@ public class FrostBeaster extends Monster implements IAnimatable {
 	}
 
 	protected void populateDefaultEquipmentSlots(DifficultyInstance p_34286_) {
+		if (this.random.nextFloat() < (this.level.getDifficulty() == Difficulty.HARD ? 0.1F : 0.05F) + (0.5F * p_34286_.getSpecialMultiplier())) {
+			int i = this.random.nextInt(3);
+			if (i == 0) {
+				this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(FrostItems.YETI_FUR_HELMET));
+				this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(FrostItems.YETI_FUR_CHESTPLATE));
+			} else {
+				this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(FrostItems.YETI_FUR_HELMET));
+			}
+		}
+
 		if (this.random.nextFloat() < (this.level.getDifficulty() == Difficulty.HARD ? 0.1F : 0.05F)) {
 			int i = this.random.nextInt(3);
 			if (i == 0) {

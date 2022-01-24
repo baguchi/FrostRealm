@@ -18,4 +18,8 @@ public class FrostModelLayers {
 
 	public static final ModelLayerLocation YETI_FUR_ARMOR_INNER = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "yeti_fur_armor_inner"), "yeti_fur_armor_inner");
 	public static final ModelLayerLocation YETI_FUR_ARMOR_OUTER = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "yeti_fur_armor_outer"), "yeti_fur_armor_outer");
+
+	public static final ModelLayerLocation FROST_BEASTER_INNER_ARMOR = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "frost_beaster_inner_armor"), "frost_beaster_inner_armor");
+	public static final ModelLayerLocation FROST_BEASTER_OUTER_ARMOR = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "frost_beaster_outer_armor"), "frost_beaster_outer_armor");
+
 }
