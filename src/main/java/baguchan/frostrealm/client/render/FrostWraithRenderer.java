@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.client.ModModelLayers;
+import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.FrostWraithModel;
 import baguchan.frostrealm.client.render.layer.TransparentLayer;
 import baguchan.frostrealm.entity.FrostWraith;
@@ -21,8 +21,8 @@ public class FrostWraithRenderer<T extends FrostWraith> extends MobRenderer<T, F
 
 
 	public FrostWraithRenderer(EntityRendererProvider.Context p_173952_) {
-		super(p_173952_, new FrostWraithModel<>(p_173952_.bakeLayer(ModModelLayers.FROST_WRAITH)), 0.5F);
-		this.addLayer(new TransparentLayer<>(this, new FrostWraithModel<>(p_173952_.bakeLayer(ModModelLayers.FROST_WRAITH)), WRAITH_LAYER));
+		super(p_173952_, new FrostWraithModel<>(p_173952_.bakeLayer(FrostModelLayers.FROST_WRAITH)), 0.5F);
+		this.addLayer(new TransparentLayer<>(this, new FrostWraithModel<>(p_173952_.bakeLayer(FrostModelLayers.FROST_WRAITH)), WRAITH_LAYER));
 		this.addLayer(new EyesLayer<T, FrostWraithModel<T>>(this) {
 			@Override
 			public RenderType renderType() {

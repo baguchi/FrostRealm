@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.client.ModModelLayers;
+import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.YetiModel;
 import baguchan.frostrealm.client.render.layer.YetiItemInHandLayer;
 import baguchan.frostrealm.entity.Yeti;
@@ -17,7 +17,7 @@ public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiModel<T>> {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/yeti/yeti.png");
 
 	public YetiRenderer(EntityRendererProvider.Context p_173952_) {
-		super(p_173952_, new YetiModel<>(p_173952_.bakeLayer(ModModelLayers.YETI)), 0.75F);
+		super(p_173952_, new YetiModel<>(p_173952_.bakeLayer(FrostModelLayers.YETI)), 0.75F);
 		this.addLayer(new CustomHeadLayer<>(this, p_173952_.getModelSet(), 1.0F, 1.0F, 1.0F));
 		this.addLayer(new YetiItemInHandLayer<>(this));
 	}

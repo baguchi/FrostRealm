@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.client.ModModelLayers;
+import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.MarmotModel;
 import baguchan.frostrealm.entity.Marmot;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -18,7 +18,7 @@ public class MarmotRenderer<T extends Marmot> extends MobRenderer<T, MarmotModel
 
 
 	public MarmotRenderer(EntityRendererProvider.Context p_173952_) {
-		super(p_173952_, new MarmotModel<>(p_173952_.bakeLayer(ModModelLayers.MARMOT)), 0.4F);
+		super(p_173952_, new MarmotModel<>(p_173952_.bakeLayer(FrostModelLayers.MARMOT)), 0.4F);
 	}
 
 	@Override

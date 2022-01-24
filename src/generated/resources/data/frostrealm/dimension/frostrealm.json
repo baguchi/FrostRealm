@@ -5,7 +5,8 @@
       "preset": "frostrealm:frostrealm",
       "type": "minecraft:multi_noise"
     },
+    "seed": 0,
     "settings": "frostrealm:frostrealm",
-    "type": "frostrealm:chunk_generator"
+    "type": "minecraft:noise"
   }
 }

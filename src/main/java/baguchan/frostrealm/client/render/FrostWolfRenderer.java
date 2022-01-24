@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.client.ModModelLayers;
+import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.FrostWolfModel;
 import baguchan.frostrealm.client.render.layer.FrostWolfCollarLayer;
 import baguchan.frostrealm.entity.FrostWolf;
@@ -19,7 +19,7 @@ public class FrostWolfRenderer extends MobRenderer<FrostWolf, FrostWolfModel<Fro
 
 
 	public FrostWolfRenderer(EntityRendererProvider.Context p_173952_) {
-		super(p_173952_, new FrostWolfModel<>(p_173952_.bakeLayer(ModModelLayers.FROST_WOLF)), 0.5F);
+		super(p_173952_, new FrostWolfModel<>(p_173952_.bakeLayer(FrostModelLayers.FROST_WOLF)), 0.5F);
 		this.addLayer(new FrostWolfCollarLayer(this));
 	}
 

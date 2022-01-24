@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.client.ModModelLayers;
+import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.GokkudilloModel;
 import baguchan.frostrealm.entity.Gokkudillo;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -21,7 +21,7 @@ public class GokkudilloRenderer<T extends Gokkudillo> extends MobRenderer<T, Gok
 
 
 	public GokkudilloRenderer(EntityRendererProvider.Context p_173952_) {
-		super(p_173952_, new GokkudilloModel<>(p_173952_.bakeLayer(ModModelLayers.GOKKUDILLO)), 0.6F);
+		super(p_173952_, new GokkudilloModel<>(p_173952_.bakeLayer(FrostModelLayers.GOKKUDILLO)), 0.6F);
 		this.addLayer(new EyesLayer<T, GokkudilloModel<T>>(this) {
 			@Override
 			public RenderType renderType() {

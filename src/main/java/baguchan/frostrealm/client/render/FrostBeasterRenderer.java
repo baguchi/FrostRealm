@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.client.ModModelLayers;
+import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.FrostBeasterModel;
 import baguchan.frostrealm.entity.FrostBeaster;
 import net.minecraft.client.renderer.RenderType;
@@ -20,7 +20,7 @@ public class FrostBeasterRenderer<T extends FrostBeaster> extends MobRenderer<T,
 
 
 	public FrostBeasterRenderer(EntityRendererProvider.Context p_173952_) {
-		super(p_173952_, new FrostBeasterModel<>(p_173952_.bakeLayer(ModModelLayers.WOLFESTER)), 0.5F);
+		super(p_173952_, new FrostBeasterModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFESTER)), 0.5F);
 		this.addLayer(new ItemInHandLayer<>(this));
 		this.addLayer(new EyesLayer<>(this) {
 			@Override

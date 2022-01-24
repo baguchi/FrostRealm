@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.client.ModModelLayers;
+import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.GokkurModel;
 import baguchan.frostrealm.entity.Gokkur;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -17,7 +17,7 @@ public class GokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurModel
 	private static final ResourceLocation GOKKUR = new ResourceLocation(FrostRealm.MODID, "textures/entity/gokkur/gokkur.png");
 
 	public GokkurRenderer(EntityRendererProvider.Context p_173952_) {
-		super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(ModModelLayers.GOKKUR)), 0.3F);
+		super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(FrostModelLayers.GOKKUR)), 0.3F);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import baguchan.frostrealm.registry.FrostBlockEntitys;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.BlockPos;
@@ -28,6 +29,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientRegistrar {
+	public static final CubeDeformation OUTER_ARMOR_DEFORMATION = new CubeDeformation(1.0F);
+	public static final CubeDeformation INNER_ARMOR_DEFORMATION = new CubeDeformation(0.5F);
 
 	@SubscribeEvent
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
@@ -45,15 +48,18 @@ public class ClientRegistrar {
 
 	@SubscribeEvent
 	public static void registerLayerDefinition(EntityRenderersEvent.RegisterLayerDefinitions event) {
-		event.registerLayerDefinition(ModModelLayers.CRYSTAL_TORTOISE, CrystalTortoiseModel::createBodyLayer);
-		event.registerLayerDefinition(ModModelLayers.YETI, YetiModel::createBodyLayer);
-		event.registerLayerDefinition(ModModelLayers.FROST_WRAITH, FrostWraithModel::createBodyLayer);
-		event.registerLayerDefinition(ModModelLayers.MARMOT, MarmotModel::createBodyLayer);
-		event.registerLayerDefinition(ModModelLayers.SNOWPILE_QUAIL, SnowPileQuailModel::createBodyLayer);
-		event.registerLayerDefinition(ModModelLayers.FROST_WOLF, FrostWolfModel::createBodyLayer);
-		event.registerLayerDefinition(ModModelLayers.WOLFESTER, WolfesterModel::createBodyLayer);
-		event.registerLayerDefinition(ModModelLayers.GOKKUR, GokkurModel::createBodyLayer);
-		event.registerLayerDefinition(ModModelLayers.GOKKUDILLO, GokkudilloModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.CRYSTAL_TORTOISE, CrystalTortoiseModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.YETI, YetiModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.FROST_WRAITH, FrostWraithModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.MARMOT, MarmotModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.SNOWPILE_QUAIL, SnowPileQuailModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.FROST_WOLF, FrostWolfModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.WOLFESTER, WolfesterModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.GOKKUR, GokkurModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.GOKKUDILLO, GokkudilloModel::createBodyLayer);
+
+		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
+		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_OUTER, () -> YetiFurArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION));
 	}
 
 	public static void renderTileEntity() {

@@ -2,7 +2,9 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.item.FrostCatalystItem;
+import baguchan.frostrealm.item.YetiFurArmorItem;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
@@ -34,6 +36,12 @@ public class FrostItems {
 	public static final Item YETI_FUR = new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item FROST_TORCH = new StandingAndWallBlockItem(FrostBlocks.FROST_TORCH, FrostBlocks.WALL_FROST_TORCH, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 
+	public static final Item YETI_FUR_HELMET = new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.HEAD, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
+	public static final Item YETI_FUR_CHESTPLATE = new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.CHEST, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
+	public static final Item YETI_FUR_LEGGINGS = new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.LEGS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
+	public static final Item YETI_FUR_BOOTS = new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.FEET, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
+
+
 	public static final Item CRYSTAL_TORTOISE_SPAWNEGG = new ForgeSpawnEggItem(() -> FrostEntities.CRYSTAL_TORTOISE, 0x3E3CAE, 0x8685E0, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item MARMOT_SPAWNEGG = new ForgeSpawnEggItem(() -> FrostEntities.MARMOT, 0xB18346, 0x9B6B2D, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item SNOWPILE_QUAIL_SPAWNEGG = new ForgeSpawnEggItem(() -> FrostEntities.SNOWPILE_QUAIL, 0xFFFFFF, 0xFFFFFF, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
@@ -64,6 +72,12 @@ public class FrostItems {
 		register(event, STRAY_NECKLACE_PART, "stray_necklace_part");
 		register(event, YETI_FUR, "yeti_fur");
 		register(event, FROST_TORCH, "frost_torch");
+
+		register(event, YETI_FUR_HELMET, "yeti_fur_helmet");
+		register(event, YETI_FUR_CHESTPLATE, "yeti_fur_chestplate");
+		register(event, YETI_FUR_LEGGINGS, "yeti_fur_leggings");
+		register(event, YETI_FUR_BOOTS, "yeti_fur_boots");
+
 		register(event, CRYSTAL_TORTOISE_SPAWNEGG, "crystal_tortoise_spawn_egg");
 		register(event, MARMOT_SPAWNEGG, "marmot_spawn_egg");
 		register(event, SNOWPILE_QUAIL_SPAWNEGG, "snowpile_quail_spawn_egg");

@@ -57,6 +57,11 @@ public class CraftingGenerator extends CraftingDataHelper {
 		foodCooking(FrostBlocks.SNOWPILE_QUAIL_EGG.asItem(), FrostItems.COOKED_SNOWPILE_QUAIL_EGG, 0.2F, consumer);
 		foodCooking(FrostItems.SNOWPILE_QUAIL_MEAT, FrostItems.COOKED_SNOWPILE_QUAIL_MEAT, 0.15F, consumer);
 
+		helmetItem(consumer, "yeti_fur_helmet", FrostItems.YETI_FUR_HELMET, FrostItems.YETI_FUR);
+		chestplateItem(consumer, "yeti_fur_chestplate", FrostItems.YETI_FUR_CHESTPLATE, FrostItems.YETI_FUR);
+		leggingsItem(consumer, "yeti_fur_leggings", FrostItems.YETI_FUR_LEGGINGS, FrostItems.YETI_FUR);
+		bootsItem(consumer, "yeti_fur_boots", FrostItems.YETI_FUR_BOOTS, FrostItems.YETI_FUR);
+
 		makeFrostTorch(consumer, FrostItems.FROST_TORCH);
 
 		ShapedRecipeBuilder.shaped(FrostBlocks.FRIGID_STOVE, 1)

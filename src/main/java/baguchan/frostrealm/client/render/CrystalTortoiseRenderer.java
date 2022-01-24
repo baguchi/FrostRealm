@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.client.ModModelLayers;
+import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.CrystalTortoiseModel;
 import baguchan.frostrealm.entity.CrystalTortoise;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,7 +16,7 @@ public class CrystalTortoiseRenderer<T extends CrystalTortoise> extends MobRende
 	private static final ResourceLocation CRYSTAL_TORTOISE = new ResourceLocation(FrostRealm.MODID, "textures/entity/crystal_tortoise.png");
 
 	public CrystalTortoiseRenderer(EntityRendererProvider.Context p_173952_) {
-		super(p_173952_, new CrystalTortoiseModel<>(p_173952_.bakeLayer(ModModelLayers.CRYSTAL_TORTOISE)), 0.55F);
+		super(p_173952_, new CrystalTortoiseModel<>(p_173952_.bakeLayer(FrostModelLayers.CRYSTAL_TORTOISE)), 0.55F);
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.client.ModModelLayers;
+import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.SnowPileQuailModel;
 import baguchan.frostrealm.entity.SnowPileQuail;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -16,7 +16,7 @@ public class SnowPileQuailRenderer<T extends SnowPileQuail> extends MobRenderer<
 	private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/snowpile_quail.png");
 
 	public SnowPileQuailRenderer(EntityRendererProvider.Context p_173952_) {
-		super(p_173952_, new SnowPileQuailModel<>(p_173952_.bakeLayer(ModModelLayers.SNOWPILE_QUAIL)), 0.4F);
+		super(p_173952_, new SnowPileQuailModel<>(p_173952_.bakeLayer(FrostModelLayers.SNOWPILE_QUAIL)), 0.4F);
 	}
 
 	@Override
