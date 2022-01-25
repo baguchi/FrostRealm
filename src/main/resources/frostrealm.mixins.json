@@ -5,6 +5,7 @@
   "minVersion": "0.8",
   "refmap": "frostrealm.refmap.json",
   "mixins": [
+    "MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1
