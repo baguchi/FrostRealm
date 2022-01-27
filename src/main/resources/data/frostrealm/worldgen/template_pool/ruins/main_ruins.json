@@ -1,0 +1,15 @@
+{
+  "name": "frostrealm:ruins/main_ruins",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "frostrealm:ruins/main_ruins",
+        "processors": "frostrealm:ruins_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

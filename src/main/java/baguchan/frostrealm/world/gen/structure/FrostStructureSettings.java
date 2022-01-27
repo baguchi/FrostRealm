@@ -36,6 +36,7 @@ public class FrostStructureSettings extends StructureSettings {
 
 	public static void registerStructures(BiConsumer<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>> p_194758_) {
 		register(p_194758_, FrostStructures.IGLOO_FEATURES, FrostBiomes.FRIGID_FOREST);
+		register(p_194758_, FrostStructures.RUINS_FEATURES, FrostBiomes.TUNDRA);
 	}
 
 	private static void register(BiConsumer<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>> p_194764_, ConfiguredStructureFeature<?, ?> p_194765_, ResourceKey<Biome> p_194766_) {

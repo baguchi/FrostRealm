@@ -1,21 +1,21 @@
 {
-  "name": "frostrealm:igloo/igloo",
+  "name": "frostrealm:ruins/sub_ruins",
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 3,
+      "weight": 1,
       "element": {
-        "location": "frostrealm:igloo/igloo_1",
-        "processors": "minecraft:empty",
+        "location": "frostrealm:ruins/sub/armor_storage",
+        "processors": "frostrealm:ruins_degradation",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
-        "location": "frostrealm:igloo/igloo_2",
-        "processors": "minecraft:empty",
+        "location": "frostrealm:ruins/sub/sub_ruins_01",
+        "processors": "frostrealm:ruins_degradation",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

@@ -1,5 +1,5 @@
 {
-  "name": "frostrealm:igloo/igloo_entrance",
+  "name": "frostrealm:igloo/mobs/yeti",
   "fallback": "minecraft:empty",
   "elements": [
     {

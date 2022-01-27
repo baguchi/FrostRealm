@@ -1,0 +1,42 @@
+{
+  "name": "frostrealm:ruins/bridge",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 2,
+      "element": {
+        "location": "frostrealm:ruins/bridge/bridge",
+        "processors": "frostrealm:ruins_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "frostrealm:ruins/bridge/bridge_2",
+        "processors": "frostrealm:ruins_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "frostrealm:ruins/bridge/bridge_3",
+        "processors": "frostrealm:ruins_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "frostrealm:ruins/bridge/bridge_4",
+        "processors": "frostrealm:ruins_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}
