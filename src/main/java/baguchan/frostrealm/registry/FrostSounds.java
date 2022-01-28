@@ -15,6 +15,9 @@ public class FrostSounds {
 	public static final SoundEvent GOKKUR_IDLE = register("entity.gokkur.idle");
 	public static final SoundEvent GOKKUR_HURT = register("entity.gokkur.hurt");
 	public static final SoundEvent GOKKUR_DEATH = register("entity.gokkur.death");
+	public static final SoundEvent GOKKUDILLO_IDLE = register("entity.gokkudillo.idle");
+	public static final SoundEvent GOKKUDILLO_HURT = register("entity.gokkudillo.hurt");
+	public static final SoundEvent GOKKUDILLO_DEATH = register("entity.gokkudillo.death");
 	public static final SoundEvent MARMOT_IDLE = register("entity.marmot.idle");
 	public static final SoundEvent MARMOT_HURT = register("entity.marmot.hurt");
 	public static final SoundEvent MARMOT_DEATH = register("entity.marmot.death");
@@ -30,6 +33,9 @@ public class FrostSounds {
 		registry.getRegistry().register(GOKKUR_IDLE);
 		registry.getRegistry().register(GOKKUR_HURT);
 		registry.getRegistry().register(GOKKUR_DEATH);
+		registry.getRegistry().register(GOKKUDILLO_IDLE);
+		registry.getRegistry().register(GOKKUDILLO_HURT);
+		registry.getRegistry().register(GOKKUDILLO_DEATH);
 		registry.getRegistry().register(MARMOT_IDLE);
 		registry.getRegistry().register(MARMOT_HURT);
 		registry.getRegistry().register(MARMOT_DEATH);

@@ -94,17 +94,17 @@ public class Gokkudillo extends Gokkur {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return FrostSounds.GOKKUR_IDLE;
+		return FrostSounds.GOKKUDILLO_IDLE;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource p_33034_) {
-		return FrostSounds.GOKKUR_HURT;
+		return FrostSounds.GOKKUDILLO_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return FrostSounds.GOKKUR_DEATH;
+		return FrostSounds.GOKKUDILLO_DEATH;
 	}
 
 	protected void dealDamage(LivingEntity livingentity) {
