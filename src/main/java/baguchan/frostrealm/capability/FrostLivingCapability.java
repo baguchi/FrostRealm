@@ -15,10 +15,10 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
@@ -57,8 +57,8 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 		this.temperatureSaturation = Math.min(this.temperatureSaturation + p_75122_1_ * p_75122_2_ * 2.0F, this.temperature);
 	}
 
-	public static LazyOptional<FrostLivingCapability> get(Level world) {
-		return world.getCapability(FrostRealm.FROST_LIVING_CAPABILITY);
+	public static LazyOptional<FrostLivingCapability> get(Entity entity) {
+		return entity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY);
 	}
 
 	public void tick(LivingEntity entity) {
@@ -124,7 +124,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			if (entity.isInWaterOrRain())
 				tempAffect *= 2.0F;
 			if (this.hotSource == null) {
-				entity.level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+				FrostWeatherCapability.get(entity.level).ifPresent(cap -> {
 					if (isAffectRain(entity) && cap.isWeatherActive()) {
 						addExhaustion(0.005F * (entity.canFreeze() ? 1.0F : 0.25F));
 					}
@@ -148,11 +148,6 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 				entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 8, 0, 200));
 			} else if (this.temperature <= 0) {
 				entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 8, 0, 200));
-				/*if (this.tickTimer >= 80) {
-					if (entity.getHealth() > 4.0F || difficulty == Difficulty.HARD || difficulty == Difficulty.NORMAL)
-						entity.hurt(DamageSource.FREEZE, 1.0F);
-
-				}*/
 				this.tickTimer = 0;
 			} else {
 				this.tickTimer = 0;
