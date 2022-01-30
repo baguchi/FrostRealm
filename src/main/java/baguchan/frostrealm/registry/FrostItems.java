@@ -2,6 +2,7 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.item.FrostCatalystItem;
+import baguchan.frostrealm.item.FusionCrystalDaggerItem;
 import baguchan.frostrealm.item.YetiFurArmorItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -35,6 +36,8 @@ public class FrostItems {
 
 	public static final Item YETI_FUR = new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item FROST_TORCH = new StandingAndWallBlockItem(FrostBlocks.FROST_TORCH, FrostBlocks.WALL_FROST_TORCH, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
+
+	public static final Item FUSION_CRYSTAL_DAGGER = new FusionCrystalDaggerItem((new Item.Properties()).durability(420).tab(FrostGroups.TAB_FROSTREALM));
 
 	public static final Item YETI_FUR_HELMET = new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.HEAD, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
 	public static final Item YETI_FUR_CHESTPLATE = new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.CHEST, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM));
@@ -72,6 +75,8 @@ public class FrostItems {
 		register(event, STRAY_NECKLACE_PART, "stray_necklace_part");
 		register(event, YETI_FUR, "yeti_fur");
 		register(event, FROST_TORCH, "frost_torch");
+
+		register(event, FUSION_CRYSTAL_DAGGER, "fusion_crystal_dagger");
 
 		register(event, YETI_FUR_HELMET, "yeti_fur_helmet");
 		register(event, YETI_FUR_CHESTPLATE, "yeti_fur_chestplate");

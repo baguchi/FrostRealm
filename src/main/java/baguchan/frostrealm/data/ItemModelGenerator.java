@@ -40,6 +40,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 		this.singleTex(FrostItems.YETI_FUR);
 
+		this.singleTexTool(FrostItems.FUSION_CRYSTAL_DAGGER);
+
 		this.singleTex(FrostItems.YETI_FUR_HELMET);
 		this.singleTex(FrostItems.YETI_FUR_CHESTPLATE);
 		this.singleTex(FrostItems.YETI_FUR_LEGGINGS);
