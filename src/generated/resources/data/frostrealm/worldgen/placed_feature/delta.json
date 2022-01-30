@@ -3,11 +3,7 @@
   "placement": [
     {
       "count": 8,
-      "type": "minecraft:count"
-    },
-    {
-      "heightmap": "WORLD_SURFACE_WG",
-      "type": "minecraft:heightmap"
+      "type": "minecraft:count_on_every_layer"
     },
     {
       "type": "minecraft:in_square"

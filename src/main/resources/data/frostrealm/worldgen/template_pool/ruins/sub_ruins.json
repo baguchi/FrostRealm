@@ -3,7 +3,7 @@
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "location": "frostrealm:ruins/sub/armor_storage",
         "processors": "frostrealm:ruins_degradation",
@@ -12,9 +12,27 @@
       }
     },
     {
-      "weight": 2,
+      "weight": 3,
       "element": {
         "location": "frostrealm:ruins/sub/sub_ruins_01",
+        "processors": "frostrealm:ruins_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "frostrealm:ruins/sub/sub_ruins_02",
+        "processors": "frostrealm:ruins_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "frostrealm:ruins/sub/sub_ruins_03",
         "processors": "frostrealm:ruins_degradation",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
