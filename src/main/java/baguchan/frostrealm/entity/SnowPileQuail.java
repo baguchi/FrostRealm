@@ -6,6 +6,7 @@ import baguchan.frostrealm.block.SnowPileQuailEggBlock;
 import baguchan.frostrealm.entity.goal.QuailAngryGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
+import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostSounds;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -49,7 +50,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.INT);
 
 
-	private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
+	private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS, FrostItems.SUGARBEET_SEEDS);
 
 	public static final Animation IDLE_ANIMATION = Animation.create(60);
 	@Nullable
