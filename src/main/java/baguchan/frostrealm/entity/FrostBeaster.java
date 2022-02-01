@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class FrostBeaster extends Monster implements IAnimatable {
+public class FrostBeaster extends FrozenMonster implements IAnimatable {
 	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(FrostBeaster.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(FrostBeaster.class, EntityDataSerializers.INT);
 
