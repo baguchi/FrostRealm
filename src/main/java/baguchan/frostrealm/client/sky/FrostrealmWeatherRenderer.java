@@ -186,55 +186,53 @@ public class FrostrealmWeatherRenderer implements IWeatherRenderHandler {
 					double d0 = (double) this.rainxs[l1] * 0.5D;
 					double d1 = (double) this.rainzs[l1] * 0.5D;
 					blockpos$mutableblockpos.set(k1, 0, j1);
-					Biome biome = level.getBiome(blockpos$mutableblockpos);
-					if (biome.getPrecipitation() != Biome.Precipitation.NONE) {
-						int i2 = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos$mutableblockpos).getY();
-						int j2 = j - l;
-						int k2 = j + l;
-						if (j2 < i2) {
-							j2 = i2;
-						}
 
-						if (k2 < i2) {
-							k2 = i2;
-						}
+					int i2 = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos$mutableblockpos).getY();
+					int j2 = j - l;
+					int k2 = j + l;
+					if (j2 < i2) {
+						j2 = i2;
+					}
 
-						int l2 = i2;
-						if (i2 < j) {
-							l2 = j;
-						}
+					if (k2 < i2) {
+						k2 = i2;
+					}
 
-						if (j2 != k2) {
-							Random random = new Random((long) k1 * k1 * 3121 + k1 * 45238971L ^ (long) j1 * j1 * 418711 + j1 * 13761L);
-							blockpos$mutableblockpos.set(k1, j2, j1);
-							if (i1 != 1) {
-								if (i1 >= 0) {
-									tesselator.end();
-								}
+					int l2 = i2;
+					if (i2 < j) {
+						l2 = j;
+					}
 
-								i1 = 1;
-								RenderSystem.setShaderTexture(0, SNOW_TEXTURES);
-								bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+					if (j2 != k2) {
+						Random random = new Random((long) k1 * k1 * 3121 + k1 * 45238971L ^ (long) j1 * j1 * 418711 + j1 * 13761L);
+						blockpos$mutableblockpos.set(k1, j2, j1);
+						if (i1 != 1) {
+							if (i1 >= 0) {
+								tesselator.end();
 							}
 
-							float f6 = -((float) (rendererUpdateCount & 511) + ticks) / 324.0F;
-							float f7 = (float) (random.nextDouble() + (double) f1 * 0.01D * (double) ((float) random.nextGaussian()));
-							float f8 = (float) (random.nextDouble() + (double) (f1 * (float) random.nextGaussian()) * 0.001D);
-							double d3 = (double) k1 + 0.5D - x;
-							double d5 = (double) j1 + 0.5D - z;
-							float f9 = (float) Math.sqrt(d3 * d3 + d5 * d5) / (float) l;
-							float f10 = ((1.0F - f9 * f9) * 0.3F + 0.5F) * f;
-							blockpos$mutableblockpos.set(k1, l2, j1);
-							int k3 = LevelRenderer.getLightColor(level, blockpos$mutableblockpos);
-							int l3 = k3 >> 16 & '\uffff';
-							int i4 = k3 & '\uffff';
-							int j4 = (l3 * 3 + 240) / 4;
-							int k4 = (i4 * 3 + 240) / 4;
-							bufferbuilder.vertex((double) k1 - x - d0 + 0.5D, (double) k2 - y, (double) j1 - z - d1 + 0.5D).uv(0.0F + f7, (float) j2 * 0.25F + f6 + f8).color(1.0F, 1.0F, 1.0F, f10).uv2(k4, j4).endVertex();
-							bufferbuilder.vertex((double) k1 - x + d0 + 0.5D, (double) k2 - y, (double) j1 - z + d1 + 0.5D).uv(1.0F + f7, (float) j2 * 0.25F + f6 + f8).color(1.0F, 1.0F, 1.0F, f10).uv2(k4, j4).endVertex();
-							bufferbuilder.vertex((double) k1 - x + d0 + 0.5D, (double) j2 - y, (double) j1 - z + d1 + 0.5D).uv(1.0F + f7, (float) k2 * 0.25F + f6 + f8).color(1.0F, 1.0F, 1.0F, f10).uv2(k4, j4).endVertex();
-							bufferbuilder.vertex((double) k1 - x - d0 + 0.5D, (double) j2 - y, (double) j1 - z - d1 + 0.5D).uv(0.0F + f7, (float) k2 * 0.25F + f6 + f8).color(1.0F, 1.0F, 1.0F, f10).uv2(k4, j4).endVertex();
+							i1 = 1;
+							RenderSystem.setShaderTexture(0, SNOW_TEXTURES);
+							bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 						}
+
+						float f6 = -((float) (rendererUpdateCount & 511) + ticks) / 324.0F;
+						float f7 = (float) (random.nextDouble() + (double) f1 * 0.01D * (double) ((float) random.nextGaussian()));
+						float f8 = (float) (random.nextDouble() + (double) (f1 * (float) random.nextGaussian()) * 0.001D);
+						double d3 = (double) k1 + 0.5D - x;
+						double d5 = (double) j1 + 0.5D - z;
+						float f9 = (float) Math.sqrt(d3 * d3 + d5 * d5) / (float) l;
+						float f10 = ((1.0F - f9 * f9) * 0.3F + 0.5F) * f;
+						blockpos$mutableblockpos.set(k1, l2, j1);
+						int k3 = LevelRenderer.getLightColor(level, blockpos$mutableblockpos);
+						int l3 = k3 >> 16 & '\uffff';
+						int i4 = k3 & '\uffff';
+						int j4 = (l3 * 3 + 240) / 4;
+						int k4 = (i4 * 3 + 240) / 4;
+						bufferbuilder.vertex((double) k1 - x - d0 + 0.5D, (double) k2 - y, (double) j1 - z - d1 + 0.5D).uv(0.0F + f7, (float) j2 * 0.25F + f6 + f8).color(1.0F, 1.0F, 1.0F, f10).uv2(k4, j4).endVertex();
+						bufferbuilder.vertex((double) k1 - x + d0 + 0.5D, (double) k2 - y, (double) j1 - z + d1 + 0.5D).uv(1.0F + f7, (float) j2 * 0.25F + f6 + f8).color(1.0F, 1.0F, 1.0F, f10).uv2(k4, j4).endVertex();
+						bufferbuilder.vertex((double) k1 - x + d0 + 0.5D, (double) j2 - y, (double) j1 - z + d1 + 0.5D).uv(1.0F + f7, (float) k2 * 0.25F + f6 + f8).color(1.0F, 1.0F, 1.0F, f10).uv2(k4, j4).endVertex();
+						bufferbuilder.vertex((double) k1 - x - d0 + 0.5D, (double) j2 - y, (double) j1 - z - d1 + 0.5D).uv(0.0F + f7, (float) k2 * 0.25F + f6 + f8).color(1.0F, 1.0F, 1.0F, f10).uv2(k4, j4).endVertex();
 					}
 				}
 			}
