@@ -49,6 +49,9 @@ public class FrostBiomeMaker {
 		biomes.put(FrostBiomes.WARPED_CLIFFS,
 				FrostRealmBiomes.stoneBasedBiome()
 		);
+		biomes.put(FrostBiomes.CRYSTAL_WATERFALL,
+				FrostRealmBiomes.crystalWaterFallBiome()
+		);
 
 		return biomes.build();
 	}

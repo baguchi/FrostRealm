@@ -39,6 +39,7 @@ public class FrostPlacements {
 	public static final PlacedFeature SPRING_LAVA = PlacementUtils.register(prefix("spring_lava"), FrostConfiguredFeatures.SPRING_LAVA.placed(CountPlacement.of(20), InSquarePlacement.spread(), HeightRangePlacement.of(VeryBiasedToBottomHeight.of(VerticalAnchor.bottom(), VerticalAnchor.belowTop(8), 8)), BiomeFilter.biome()));
 	public static final PlacedFeature SPRING_LAVA_HOTROCK_EXTRA = PlacementUtils.register(prefix("spring_lava_hotrock_extra"), FrostConfiguredFeatures.SPRING_LAVA.placed(CountPlacement.of(10), InSquarePlacement.spread(), HeightRangePlacement.of(VeryBiasedToBottomHeight.of(VerticalAnchor.aboveBottom(64), VerticalAnchor.top(), 8)), BiomeFilter.biome()));
 	public static final PlacedFeature SPRING_WATER = PlacementUtils.register(prefix("spring_water"), FrostConfiguredFeatures.SPRING_WATER.placed(CountPlacement.of(25), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(192)), BiomeFilter.biome()));
+	public static final PlacedFeature SPRING_WATER_EXTRA = PlacementUtils.register(prefix("spring_water_extra"), FrostConfiguredFeatures.SPRING_WATER.placed(CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(0)), BiomeFilter.biome()));
 
 
 	public static String prefix(String name) {

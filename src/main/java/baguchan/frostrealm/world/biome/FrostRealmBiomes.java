@@ -70,6 +70,20 @@ public class FrostRealmBiomes {
 		return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.SNOW).biomeCategory(Biome.BiomeCategory.MOUNTAIN).temperature(-0.5F).downfall(0.8F).specialEffects((new BiomeSpecialEffects.Builder()).waterColor(5337276).waterFogColor(329011).fogColor(4630224).skyColor(7907327).grassColorOverride(7115607).foliageColorOverride(7115607).ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(FrostMusics.CALM_NIGHT).build()).mobSpawnSettings(mobspawnsettings$builder.build()).generationSettings(biomegenerationsettings$builder.build()).build();
 	}
 
+	public static Biome crystalWaterFallBiome() {
+		MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();
+		BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();
+		FrostDefaultFeatures.commonCaves(biomegenerationsettings$builder);
+		FrostDefaultFeatures.oreCommon(biomegenerationsettings$builder);
+		FrostDefaultFeatures.commonSpring(biomegenerationsettings$builder);
+		FrostDefaultFeatures.snow(biomegenerationsettings$builder);
+
+		biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, FrostPlacements.SPRING_WATER_EXTRA);
+
+		FrostDefaultFeatures.commonSpawns(mobspawnsettings$builder);
+		return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.SNOW).biomeCategory(Biome.BiomeCategory.UNDERGROUND).temperature(-0.5F).downfall(0.8F).specialEffects((new BiomeSpecialEffects.Builder()).waterColor(5337276).waterFogColor(329011).fogColor(4630224).skyColor(7907327).grassColorOverride(7115607).foliageColorOverride(7115607).ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(FrostMusics.CALM_NIGHT).build()).mobSpawnSettings(mobspawnsettings$builder.build()).generationSettings(biomegenerationsettings$builder.build()).build();
+	}
+
 	public static Biome hotrockBiome() {
 		MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();
 		BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();

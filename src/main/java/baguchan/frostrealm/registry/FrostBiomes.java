@@ -40,6 +40,8 @@ public class FrostBiomes {
 	public static final ResourceKey<Biome> FROZEN_BEACH = register("frozen_beach");
 	public static final ResourceKey<Biome> FROST_RIVER = register("frost_river");
 
+	public static final ResourceKey<Biome> CRYSTAL_WATERFALL = register("crystal_waterfall");
+
 	private static ResourceKey<Biome> register(String p_48229_) {
 		BIOMES.register(p_48229_, () -> new Biome.BiomeBuilder()
 				.precipitation(Biome.Precipitation.NONE)

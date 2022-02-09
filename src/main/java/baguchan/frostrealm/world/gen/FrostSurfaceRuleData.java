@@ -1,5 +1,6 @@
 package baguchan.frostrealm.world.gen;
 
+import baguchan.frostrealm.registry.FrostBiomes;
 import baguchan.frostrealm.registry.FrostBlocks;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.world.level.block.Block;
@@ -35,10 +36,10 @@ public class FrostSurfaceRuleData {
 
 		SurfaceRules.RuleSource surface = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0), FROZEN_GRASS_BLOCK), FROZEN_DIRT);
 
-		builder.add(SurfaceRules.sequence(
+		builder.add(SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.FRIGID_FOREST, FrostBiomes.TUNDRA, FrostBiomes.FROZEN_JUNGLE), SurfaceRules.sequence(
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, surface),
 				SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, FROZEN_DIRT)
-		));
+		)));
 
 		return SurfaceRules.sequence(builder.build().toArray((p_198379_) -> {
 			return new SurfaceRules.RuleSource[p_198379_];
