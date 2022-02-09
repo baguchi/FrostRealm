@@ -21,6 +21,10 @@ public class CraftingGenerator extends CraftingDataHelper {
 		ShapelessRecipeBuilder.shapeless(FrostBlocks.FROSTROOT_PLANKS, 4).requires(FrostBlocks.FROSTROOT_LOG)
 				.unlockedBy("has_" + FrostBlocks.FROSTROOT_LOG.getRegistryName().getPath(), has(FrostBlocks.FROSTROOT_LOG)).save(consumer);
 
+		ShapelessRecipeBuilder.shapeless(FrostBlocks.FROZEN_PLANKS, 4).requires(FrostBlocks.FROZEN_LOG)
+				.unlockedBy("has_" + FrostBlocks.FROZEN_LOG.getRegistryName().getPath(), has(FrostBlocks.FROZEN_LOG)).save(consumer);
+
+
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_SLAB, FrostBlocks.FRIGID_STONE);
 		makeStairs(consumer, FrostBlocks.FRIGID_STONE_STAIRS, FrostBlocks.FRIGID_STONE);
 
@@ -52,6 +56,10 @@ public class CraftingGenerator extends CraftingDataHelper {
 		makeFenceGate(consumer, FrostBlocks.FROSTROOT_FENCE_GATE, FrostBlocks.FROSTROOT_PLANKS);
 		makeDoor(consumer, FrostBlocks.FROSTROOT_DOOR, FrostBlocks.FROSTROOT_PLANKS);
 
+		makeSlab(consumer, FrostBlocks.FROZEN_PLANKS_SLAB, FrostBlocks.FROZEN_PLANKS);
+		makeStairs(consumer, FrostBlocks.FROZEN_PLANKS_STAIRS, FrostBlocks.FROZEN_PLANKS);
+		makeWoodFence(consumer, FrostBlocks.FROZEN_FENCE, FrostBlocks.FROZEN_PLANKS);
+		makeFenceGate(consumer, FrostBlocks.FROZEN_FENCE_GATE, FrostBlocks.FROZEN_PLANKS);
 		foodCooking(FrostItems.FROZEN_FRUIT, FrostItems.MELTED_FRUIT, 0.1F, consumer);
 		foodCooking(FrostItems.BEARBERRY, FrostItems.COOKED_BEARBERRY, 0.1F, consumer);
 		foodCooking(FrostBlocks.SNOWPILE_QUAIL_EGG.asItem(), FrostItems.COOKED_SNOWPILE_QUAIL_EGG, 0.2F, consumer);

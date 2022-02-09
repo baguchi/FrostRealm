@@ -7,6 +7,12 @@
     "frostrealm:frostroot_planks_slab",
     "frostrealm:frostroot_fence",
     "frostrealm:frostroot_fence_gate",
+    "frostrealm:frozen_log",
+    "frostrealm:frozen_planks",
+    "frostrealm:frozen_planks_stairs",
+    "frostrealm:frozen_planks_slab",
+    "frostrealm:frozen_fence",
+    "frostrealm:frozen_fence_gate",
     "frostrealm:frostroot_chest"
   ]
 }

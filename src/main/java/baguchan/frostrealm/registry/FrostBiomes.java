@@ -30,6 +30,7 @@ public class FrostBiomes {
 	public static final ResourceKey<Biome> TUNDRA = register("tundra");
 	public static final ResourceKey<Biome> FRIGID_FOREST = register("frigid_forest");
 	public static final ResourceKey<Biome> FROZEN_CANYON = register("frozen_canyon");
+	public static final ResourceKey<Biome> FROZEN_JUNGLE = register("frozen_jungle");
 	public static final ResourceKey<Biome> GLACIERS = register("glaciers");
 	public static final ResourceKey<Biome> HOT_ROCK = register("hot_rock");
 	public static final ResourceKey<Biome> STAR_DUST_PEAKS = register("star_dust_peaks");

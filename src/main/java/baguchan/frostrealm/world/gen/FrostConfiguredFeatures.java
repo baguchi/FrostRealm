@@ -45,6 +45,8 @@ public class FrostConfiguredFeatures {
 
 
 	public static final ConfiguredFeature<RandomFeatureConfiguration, ?> FROSTROOT_TREE = FeatureUtils.register(prefix("frostroot_trees"), Feature.RANDOM_SELECTOR.configured(new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(FrostTreeFeatures.FROST_TREE_BIG.placed(), 0.33333334F)), FrostTreeFeatures.FROST_TREE.placed())));
+	public static final ConfiguredFeature<RandomFeatureConfiguration, ?> FROZEN_TREE = FeatureUtils.register(prefix("frozen_trees"), Feature.RANDOM_SELECTOR.configured(new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(FrostTreeFeatures.MEGA_FROZEN_TREE.placed(), 0.4F)), FrostTreeFeatures.FROZEN_TREE.placed())));
+
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;

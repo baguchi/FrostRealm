@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "stage=0": {
+      "model": "frostrealm:block/frozen_sapling"
+    },
+    "stage=1": {
+      "model": "frostrealm:block/frozen_sapling"
+    }
+  }
+}

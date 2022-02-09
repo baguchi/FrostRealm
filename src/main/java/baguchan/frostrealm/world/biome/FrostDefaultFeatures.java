@@ -47,6 +47,10 @@ public class FrostDefaultFeatures {
 		p_126789_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_TUNDRA_MOSSY_ROCK);
 	}
 
+	public static void jungleCommon(BiomeGenerationSettings.Builder p_126789_) {
+		p_126789_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_TUNDRA_GRASS);
+	}
+
 	public static void hotRockCommon(BiomeGenerationSettings.Builder p_126789_) {
 		p_126789_.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FrostPlacements.LAVA_DELTA);
 		p_126789_.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FrostOrePlacements.GLIMMER_ORE_EXTRA);

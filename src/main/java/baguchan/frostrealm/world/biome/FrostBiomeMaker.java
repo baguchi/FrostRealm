@@ -19,6 +19,9 @@ public class FrostBiomeMaker {
 		biomes.put(FrostBiomes.TUNDRA,
 				FrostRealmBiomes.tundra()
 		);
+		biomes.put(FrostBiomes.FROZEN_JUNGLE,
+				FrostRealmBiomes.frozenJungle()
+		);
 		biomes.put(FrostBiomes.FROZEN_CANYON,
 				FrostRealmBiomes.stoneBasedBiome()
 		);

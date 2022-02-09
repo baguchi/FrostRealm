@@ -4,6 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.block.*;
 import baguchan.frostrealm.blockentity.FrostChestBlockEntity;
 import baguchan.frostrealm.world.tree.FrostrootTree;
+import baguchan.frostrealm.world.tree.FrozenTree;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -61,13 +62,22 @@ public class FrostBlocks {
 	//FROSTROOT
 	public static final RotatedPillarBlock FROSTROOT_LOG = new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD));
 	public static final LeavesBlock FROSTROOT_LEAVES = new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).noOcclusion().sound(SoundType.GRASS));
-	public static final SaplingBlock FROSTROOT_SAPLING = new SaplingBlock(new FrostrootTree(), BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS));
+	public static final SaplingBlock FROSTROOT_SAPLING = new SaplingBlock(new FrozenTree(), BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS));
 	public static final Block FROSTROOT_PLANKS = new Block(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD));
 	public static final SlabBlock FROSTROOT_PLANKS_SLAB = new SlabBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
 	public static final StairBlock FROSTROOT_PLANKS_STAIRS = new StairBlock(FROSTROOT_PLANKS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
 	public static final FenceBlock FROSTROOT_FENCE = new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
 	public static final FenceGateBlock FROSTROOT_FENCE_GATE = new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
 	public static final DoorBlock FROSTROOT_DOOR = new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).noOcclusion().sound(SoundType.WOOD));
+	//FROZEN
+	public static final RotatedPillarBlock FROZEN_LOG = new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD));
+	public static final LeavesBlock FROZEN_LEAVES = new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).noOcclusion().sound(SoundType.GRASS));
+	public static final SaplingBlock FROZEN_SAPLING = new SaplingBlock(new FrostrootTree(), BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS));
+	public static final Block FROZEN_PLANKS = new Block(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD));
+	public static final SlabBlock FROZEN_PLANKS_SLAB = new SlabBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
+	public static final StairBlock FROZEN_PLANKS_STAIRS = new StairBlock(FROZEN_PLANKS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
+	public static final FenceBlock FROZEN_FENCE = new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
+	public static final FenceGateBlock FROZEN_FENCE_GATE = new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
 
 	//PLANT
 	public static final Block VIGOROSHROOM = new VigoroMushroomBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().lightLevel(state -> {
@@ -149,6 +159,15 @@ public class FrostBlocks {
 		registry.getRegistry().register(FROSTROOT_FENCE_GATE.setRegistryName("frostroot_fence_gate"));
 		registry.getRegistry().register(FROSTROOT_DOOR.setRegistryName("frostroot_door"));
 
+		registry.getRegistry().register(FROZEN_LOG.setRegistryName("frozen_log"));
+		registry.getRegistry().register(FROZEN_LEAVES.setRegistryName("frozen_leaves"));
+		registry.getRegistry().register(FROZEN_SAPLING.setRegistryName("frozen_sapling"));
+		registry.getRegistry().register(FROZEN_PLANKS.setRegistryName("frozen_planks"));
+		registry.getRegistry().register(FROZEN_PLANKS_SLAB.setRegistryName("frozen_planks_slab"));
+		registry.getRegistry().register(FROZEN_PLANKS_STAIRS.setRegistryName("frozen_planks_stairs"));
+		registry.getRegistry().register(FROZEN_FENCE.setRegistryName("frozen_fence"));
+		registry.getRegistry().register(FROZEN_FENCE_GATE.setRegistryName("frozen_fence_gate"));
+
 		registry.getRegistry().register(VIGOROSHROOM.setRegistryName("vigoroshroom"));
 		registry.getRegistry().register(ARCTIC_POPPY.setRegistryName("arctic_poppy"));
 		registry.getRegistry().register(ARCTIC_WILLOW.setRegistryName("arctic_willow"));
@@ -207,6 +226,14 @@ public class FrostBlocks {
 		FrostItems.register(registry, new BlockItem(FROSTROOT_FENCE_GATE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new DoubleHighBlockItem(FROSTROOT_DOOR, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
+		FrostItems.register(registry, new BlockItem(FROZEN_LOG, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(FROZEN_LEAVES, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(FROZEN_SAPLING, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(FROZEN_PLANKS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(FROZEN_PLANKS_SLAB, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(FROZEN_PLANKS_STAIRS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(FROZEN_FENCE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+		FrostItems.register(registry, new BlockItem(FROZEN_FENCE_GATE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 		FrostItems.register(registry, new BlockItem(VIGOROSHROOM, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 		FrostItems.register(registry, new BlockItem(ARCTIC_POPPY, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));

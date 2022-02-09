@@ -49,6 +49,16 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.stairs(FrostBlocks.FROSTROOT_PLANKS_STAIRS, FrostBlocks.FROSTROOT_PLANKS);
 		this.fenceBlock(FrostBlocks.FROSTROOT_FENCE, texture(name(FrostBlocks.FROSTROOT_PLANKS)));
 		this.fenceGateBlock(FrostBlocks.FROSTROOT_FENCE_GATE, texture(name(FrostBlocks.FROSTROOT_PLANKS)));
+
+		this.logBlock(FrostBlocks.FROZEN_LOG);
+		this.simpleBlock(FrostBlocks.FROZEN_LEAVES);
+		this.crossBlock(FrostBlocks.FROZEN_SAPLING);
+		this.simpleBlock(FrostBlocks.FROZEN_PLANKS);
+		this.slab(FrostBlocks.FROZEN_PLANKS_SLAB, FrostBlocks.FROZEN_PLANKS);
+		this.stairs(FrostBlocks.FROZEN_PLANKS_STAIRS, FrostBlocks.FROZEN_PLANKS);
+		this.fenceBlock(FrostBlocks.FROZEN_FENCE, texture(name(FrostBlocks.FROZEN_PLANKS)));
+		this.fenceGateBlock(FrostBlocks.FROZEN_FENCE_GATE, texture(name(FrostBlocks.FROZEN_PLANKS)));
+
 		this.crossBlock(FrostBlocks.VIGOROSHROOM);
 		this.crossBlock(FrostBlocks.ARCTIC_POPPY);
 		this.crossBlock(FrostBlocks.ARCTIC_WILLOW);

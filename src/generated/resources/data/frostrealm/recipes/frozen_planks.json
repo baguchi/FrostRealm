@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "frostrealm:frozen_log"
+    }
+  ],
+  "result": {
+    "item": "frostrealm:frozen_planks",
+    "count": 4
+  }
+}

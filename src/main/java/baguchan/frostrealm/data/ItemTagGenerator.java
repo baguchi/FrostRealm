@@ -18,8 +18,8 @@ public class ItemTagGenerator extends ItemTagsProvider {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void addTags() {
-		tag(ItemTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.asItem());
-		tag(ItemTags.PLANKS).add(FrostBlocks.FROSTROOT_PLANKS.asItem());
+		tag(ItemTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.asItem(), FrostBlocks.FROZEN_LOG.asItem());
+		tag(ItemTags.PLANKS).add(FrostBlocks.FROSTROOT_PLANKS.asItem(), FrostBlocks.FROZEN_PLANKS.asItem());
 		tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.asItem());
 		tag(ItemTags.STONE_TOOL_MATERIALS).add(FrostBlocks.FRIGID_STONE.asItem());
 		tag(ItemTags.STONE_CRAFTING_MATERIALS).add(FrostBlocks.FRIGID_STONE.asItem());

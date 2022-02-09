@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM"
+  ],
+  "key": {
+    "M": {
+      "item": "frostrealm:frozen_planks"
+    }
+  },
+  "result": {
+    "item": "frostrealm:frozen_planks_slab",
+    "count": 6
+  }
+}

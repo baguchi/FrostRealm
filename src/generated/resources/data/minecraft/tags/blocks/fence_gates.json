@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "frostrealm:frostroot_fence_gate"
+    "frostrealm:frostroot_fence_gate",
+    "frostrealm:frozen_fence_gate"
   ]
 }

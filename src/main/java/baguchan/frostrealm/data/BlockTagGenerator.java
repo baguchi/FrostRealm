@@ -27,6 +27,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
 				, FrostBlocks.FROST_CRYSTAL_ORE, FrostBlocks.GLIMMERROCK_ORE, FrostBlocks.STARDUST_CRYSTAL_ORE, FrostBlocks.STARDUST_CRYSTAL_CLUSTER
 				, FrostBlocks.FRIGID_STOVE);
 		tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG, FrostBlocks.FROSTROOT_PLANKS, FrostBlocks.FROSTROOT_PLANKS_STAIRS, FrostBlocks.FROSTROOT_PLANKS_SLAB, FrostBlocks.FROSTROOT_FENCE, FrostBlocks.FROSTROOT_FENCE_GATE
+				, FrostBlocks.FROZEN_LOG, FrostBlocks.FROZEN_PLANKS, FrostBlocks.FROZEN_PLANKS_STAIRS, FrostBlocks.FROZEN_PLANKS_SLAB, FrostBlocks.FROZEN_FENCE, FrostBlocks.FROZEN_FENCE_GATE
 				, FrostBlocks.FROSTROOT_CHEST);
 
 		tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES).add(FrostBlocks.FROSTROOT_SAPLING);
@@ -34,10 +35,10 @@ public class BlockTagGenerator extends BlockTagsProvider {
 		tag(BlockTags.NEEDS_STONE_TOOL)
 				.add(FrostBlocks.STARDUST_CRYSTAL_ORE, FrostBlocks.GLIMMERROCK_ORE);
 
-		tag(BlockTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG);
-		tag(BlockTags.LEAVES).add(FrostBlocks.FROSTROOT_LEAVES);
-		tag(BlockTags.WOODEN_FENCES).add(FrostBlocks.FROSTROOT_FENCE);
-		tag(BlockTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE);
+		tag(BlockTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG, FrostBlocks.FROZEN_LOG);
+		tag(BlockTags.LEAVES).add(FrostBlocks.FROSTROOT_LEAVES, FrostBlocks.FROZEN_LEAVES);
+		tag(BlockTags.WOODEN_FENCES).add(FrostBlocks.FROSTROOT_FENCE, FrostBlocks.FROZEN_FENCE);
+		tag(BlockTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE, FrostBlocks.FROZEN_FENCE_GATE);
 		tag(BlockTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR);
 		tag(Tags.Blocks.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST);
 

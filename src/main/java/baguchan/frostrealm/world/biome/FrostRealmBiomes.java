@@ -41,6 +41,23 @@ public class FrostRealmBiomes {
 		return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.SNOW).biomeCategory(Biome.BiomeCategory.FOREST).temperature(-0.25F).downfall(0.8F).specialEffects((new BiomeSpecialEffects.Builder()).waterColor(5337276).waterFogColor(329011).fogColor(4630224).skyColor(7907327).grassColorOverride(7115607).foliageColorOverride(7115607).ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(FrostMusics.CALM_NIGHT).build()).mobSpawnSettings(mobspawnsettings$builder.build()).generationSettings(biomegenerationsettings$builder.build()).build();
 	}
 
+	public static Biome frozenJungle() {
+		MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();
+		BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();
+		FrostDefaultFeatures.commonCaves(biomegenerationsettings$builder);
+		FrostDefaultFeatures.oreCommon(biomegenerationsettings$builder);
+		FrostDefaultFeatures.commonSpring(biomegenerationsettings$builder);
+		FrostDefaultFeatures.snow(biomegenerationsettings$builder);
+
+		//FrostDefaultFeatures.frigidForestSpawn(mobspawnsettings$builder);
+		FrostDefaultFeatures.commonSpawns(mobspawnsettings$builder);
+
+		biomegenerationsettings$builder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.FROZEN_TREES_JUNGLE);
+		FrostDefaultFeatures.jungleCommon(biomegenerationsettings$builder);
+
+		return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.SNOW).biomeCategory(Biome.BiomeCategory.JUNGLE).temperature(-0.25F).downfall(0.8F).specialEffects((new BiomeSpecialEffects.Builder()).waterColor(5337276).waterFogColor(329011).fogColor(4630224).skyColor(7907327).grassColorOverride(7115607).foliageColorOverride(7115607).ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS).backgroundMusic(FrostMusics.CALM_NIGHT).build()).mobSpawnSettings(mobspawnsettings$builder.build()).generationSettings(biomegenerationsettings$builder.build()).build();
+	}
+
 	public static Biome stoneBasedBiome() {
 		MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();
 		BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();

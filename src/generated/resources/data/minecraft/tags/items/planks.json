@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "frostrealm:frostroot_planks"
+    "frostrealm:frostroot_planks",
+    "frostrealm:frozen_planks"
   ]
 }

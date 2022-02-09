@@ -2,6 +2,7 @@ package baguchan.frostrealm.world.gen;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Block;
@@ -12,8 +13,12 @@ import net.minecraft.world.level.levelgen.feature.configurations.TreeConfigurati
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.MegaJungleFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.treedecorators.LeaveVineDecorator;
+import net.minecraft.world.level.levelgen.feature.treedecorators.TrunkVineDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.MegaJungleTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 
 import java.util.OptionalInt;
@@ -22,6 +27,9 @@ public class FrostTreeFeatures {
 
 	public static final ConfiguredFeature<TreeConfiguration, ?> FROST_TREE = register(prefix("frostroot_tree"), Feature.TREE.configured(createFrostRoot().build()));
 	public static final ConfiguredFeature<TreeConfiguration, ?> FROST_TREE_BIG = register(prefix("frostroot_tree_big"), Feature.TREE.configured(createFancyFrostRoot().build()));
+	public static final ConfiguredFeature<TreeConfiguration, ?> FROZEN_TREE = register(prefix("frozen_tree"), Feature.TREE.configured(createFrozen().build()));
+	public static final ConfiguredFeature<TreeConfiguration, ?> MEGA_FROZEN_TREE = register(prefix("mega_frozen_tree"), Feature.TREE.configured((new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROZEN_LOG), new MegaJungleTrunkPlacer(10, 2, 19), BlockStateProvider.simple(FrostBlocks.FROZEN_LEAVES), new MegaJungleFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0), 2), new TwoLayersFeatureSize(1, 1, 2))).decorators(ImmutableList.of(TrunkVineDecorator.INSTANCE, LeaveVineDecorator.INSTANCE)).dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT)).build()));
+
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;
@@ -38,6 +46,10 @@ public class FrostTreeFeatures {
 
 	private static TreeConfiguration.TreeConfigurationBuilder createFrostRoot() {
 		return createStraightBlobTree(FrostBlocks.FROSTROOT_LOG, FrostBlocks.FROSTROOT_LEAVES, 4, 2, 0, 2).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT));
+	}
+
+	private static TreeConfiguration.TreeConfigurationBuilder createFrozen() {
+		return createStraightBlobTree(FrostBlocks.FROZEN_LOG, FrostBlocks.FROZEN_LEAVES, 8, 2, 0, 2).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT));
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder createFancyFrostRoot() {

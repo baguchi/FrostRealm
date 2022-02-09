@@ -1,0 +1,18 @@
+{
+  "config": {
+    "features": [
+      {
+        "feature": {
+          "feature": "frostrealm:mega_frozen_tree",
+          "placement": []
+        },
+        "chance": 0.4
+      }
+    ],
+    "default": {
+      "feature": "frostrealm:frozen_tree",
+      "placement": []
+    }
+  },
+  "type": "minecraft:random_selector"
+}
