@@ -2,7 +2,6 @@ package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.api.animation.Animation;
 import baguchan.frostrealm.api.animation.IAnimatable;
-import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.BlockPos;
@@ -43,7 +42,6 @@ public class FrostWolf extends Wolf implements IAnimatable {
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
-		this.goalSelector.addGoal(11, new SeekShelterEvenBlizzardGoal(this, 1.2F));
 		this.targetSelector.addGoal(5, new NonTameRandomTargetGoal<>(this, Animal.class, false, FROST_PREY_SELECTOR));
 	}
 

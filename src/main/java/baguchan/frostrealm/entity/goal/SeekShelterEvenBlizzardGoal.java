@@ -7,9 +7,15 @@ import net.minecraft.world.entity.ai.goal.FleeSunGoal;
 
 public class SeekShelterEvenBlizzardGoal extends FleeSunGoal {
 	private int interval = reducedTickDelay(100);
+	private final boolean seekDays;
 
 	public SeekShelterEvenBlizzardGoal(PathfinderMob mob, double p_28777_) {
+		this(mob, p_28777_, false);
+	}
+
+	public SeekShelterEvenBlizzardGoal(PathfinderMob mob, double p_28777_, boolean seekDays) {
 		super(mob, p_28777_);
+		this.seekDays = seekDays;
 	}
 
 	public boolean canUse() {
@@ -22,7 +28,7 @@ public class SeekShelterEvenBlizzardGoal extends FleeSunGoal {
 			} else {
 				this.interval = 100;
 				BlockPos blockpos = this.mob.blockPosition();
-				return (this.mob.level.isDay() || FrostWeatherCapability.isBadWeatherActive(this.mob.level)) && this.mob.level.canSeeSky(blockpos) && this.setWantedPos();
+				return (this.seekDays && this.mob.level.isDay() || FrostWeatherCapability.isBadWeatherActive(this.mob.level)) && this.mob.level.canSeeSky(blockpos) && this.setWantedPos();
 			}
 		} else {
 			return false;

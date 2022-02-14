@@ -57,7 +57,7 @@ public class CrystalFox extends Animal {
 			return !((Wolf) p_28590_).isTame();
 		}));
 		this.goalSelector.addGoal(5, new FoxMeleeAttackGoal((double) 1.2F, true));
-		this.goalSelector.addGoal(6, new SeekShelterEvenBlizzardGoal(this, 1.25D));
+		this.goalSelector.addGoal(6, new SeekShelterEvenBlizzardGoal(this, 1.25D, true));
 
 		this.goalSelector.addGoal(8, new RandomStrollGoal(this, 1.0F));
 		this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 8.0F));

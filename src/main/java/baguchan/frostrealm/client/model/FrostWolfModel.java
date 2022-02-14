@@ -30,7 +30,7 @@ public class FrostWolfModel<T extends FrostWolf> extends ColorableAgeableListMod
 		this.tail = this.body.getChild("tail");
 		this.legL2 = this.body.getChild("legL2");
 		this.legR2 = this.body.getChild("legR2");
-		this.mane = root.getChild("mane");
+		this.mane = this.body.getChild("mane");
 		this.head = this.mane.getChild("head");
 	}
 
