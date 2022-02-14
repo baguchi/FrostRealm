@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "frostrealm:campfire_cooking_cooked_bearberry"
+      "frostrealm:campfire_cooking_bearberry_cooked"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "frostrealm:campfire_cooking_cooked_bearberry"
+        "recipe": "frostrealm:campfire_cooking_bearberry_cooked"
       }
     }
   },

@@ -66,7 +66,7 @@ public class FrostItems {
 		register(event, SUGARBEET, "sugarbeet");
 		register(event, SUGARBEET_SEEDS, "sugarbeet_seeds");
 		register(event, BEARBERRY, "bearberry");
-		register(event, COOKED_BEARBERRY, "cooked_bearberry");
+		register(event, COOKED_BEARBERRY, "bearberry_cooked");
 		register(event, COOKED_SNOWPILE_QUAIL_EGG, "cooked_snowpile_quail_egg");
 		register(event, SNOWPILE_QUAIL_MEAT, "snowpile_quail_meat");
 		register(event, COOKED_SNOWPILE_QUAIL_MEAT, "cooked_snowpile_quail_meat");

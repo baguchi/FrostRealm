@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "frostrealm:bearberry"
   },
-  "result": "frostrealm:cooked_bearberry",
+  "result": "frostrealm:bearberry_cooked",
   "experience": 0.1,
   "cookingtime": 600
 }

@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "frostrealm:smoking_cooked_bearberry"
+      "frostrealm:smelting_bearberry_cooked"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "frostrealm:smoking_cooked_bearberry"
+        "recipe": "frostrealm:smelting_bearberry_cooked"
       }
     }
   },
