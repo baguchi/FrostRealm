@@ -2,6 +2,7 @@ package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.entity.goal.TimeConditionGoal;
+import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostSounds;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -50,6 +52,11 @@ public class Marmot extends Animal {
 		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.1F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+	}
+
+	@Override
+	protected PathNavigation createNavigation(Level p_33348_) {
+		return new FrostPathNavigation(this, p_33348_);
 	}
 
 	protected void defineSynchedData() {

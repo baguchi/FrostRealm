@@ -1,6 +1,7 @@
 package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
+import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import com.google.common.collect.Lists;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
@@ -73,6 +75,12 @@ public class CrystalFox extends Animal {
 	public static AttributeSupplier.Builder createAttributes() {
 		return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double) 0.3F).add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.FOLLOW_RANGE, 32.0D).add(Attributes.ATTACK_DAMAGE, 2.0D);
 	}
+
+	@Override
+	protected PathNavigation createNavigation(Level p_33348_) {
+		return new FrostPathNavigation(this, p_33348_);
+	}
+
 
 	protected void defineSynchedData() {
 		super.defineSynchedData();

@@ -3,6 +3,7 @@ package baguchan.frostrealm.entity;
 import baguchan.frostrealm.entity.goal.CreatureFollowParentGoal;
 import baguchan.frostrealm.entity.goal.GetFoodGoal;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
+import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -70,6 +72,11 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		this.targetSelector.addGoal(1, new Yeti.YetiHurtByTargetGoal());
 		this.targetSelector.addGoal(3, new HuntTargetGoal(this));
 		this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
+	}
+
+	@Override
+	protected PathNavigation createNavigation(Level p_33348_) {
+		return new FrostPathNavigation(this, p_33348_);
 	}
 
 	public static AttributeSupplier.Builder createAttributeMap() {
