@@ -27,12 +27,12 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 	private boolean isWeatherChanged;
 	private boolean isWeatherCooldownChanged;
 
-	public float getWeatherLevel(float p_46723_) {
-		return Mth.lerp(p_46723_, this.oWeatherLevel, this.weatherLevel);
+	public float getWeatherLevel(float level) {
+		return Mth.lerp(level, this.oWeatherLevel, this.weatherLevel);
 	}
 
-	public void setWeatherLevel(float p_46735_) {
-		float f = Mth.clamp(p_46735_, 0.0F, 1.0F);
+	public void setWeatherLevel(float level) {
+		float f = Mth.clamp(level, 0.0F, 1.0F);
 		this.oWeatherLevel = f;
 		this.weatherLevel = f;
 	}

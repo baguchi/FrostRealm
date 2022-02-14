@@ -48,13 +48,13 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 
 	private BlockPos hotSource;
 
-	public void addExhaustion(float p_75113_1_) {
-		this.exhaustionLevel = Math.min(this.exhaustionLevel + p_75113_1_, 40.0F);
+	public void addExhaustion(float exhaution) {
+		this.exhaustionLevel = Math.min(this.exhaustionLevel + exhaution, 40.0F);
 	}
 
-	public void addHot(int p_75122_1_, float p_75122_2_) {
-		this.temperature = Math.min(p_75122_1_ + this.temperature, 20);
-		this.temperatureSaturation = Math.min(this.temperatureSaturation + p_75122_1_ * p_75122_2_ * 2.0F, this.temperature);
+	public void addHot(int temprature, float saturation) {
+		this.temperature = Math.min(temprature + this.temperature, 20);
+		this.temperatureSaturation = Math.min(this.temperatureSaturation + temprature * saturation * 2.0F, this.temperature);
 	}
 
 	public static LazyOptional<FrostLivingCapability> get(Entity entity) {
