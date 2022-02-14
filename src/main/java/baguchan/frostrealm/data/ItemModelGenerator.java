@@ -56,6 +56,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.egg(FrostItems.GOKKUR_SPAWNEGG);
 		this.egg(FrostItems.GOKKUDILLO_SPAWNEGG);
 		this.egg(FrostItems.FROST_BEASTER_SPAWNEGG);
+		this.egg(FrostItems.CRYSTAL_FOX_SPAWNEGG);
 
 		this.toBlock(FrostBlocks.FROZEN_DIRT);
 		this.toBlock(FrostBlocks.FROZEN_GRASS_BLOCK);

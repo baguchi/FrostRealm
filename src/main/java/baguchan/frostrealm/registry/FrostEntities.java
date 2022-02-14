@@ -19,6 +19,8 @@ public class FrostEntities {
 	public static final EntityType<Marmot> MARMOT = EntityType.Builder.of(Marmot::new, MobCategory.CREATURE).sized(0.65F, 0.6F).build(prefix("marmot"));
 	public static final EntityType<SnowPileQuail> SNOWPILE_QUAIL = EntityType.Builder.of(SnowPileQuail::new, MobCategory.CREATURE).sized(0.6F, 0.6F).build(prefix("snowpile_quail"));
 	public static final EntityType<FrostWolf> FROST_WOLF = EntityType.Builder.of(FrostWolf::new, MobCategory.CREATURE).sized(0.8F, 0.95F).build(prefix("frost_wolf"));
+	public static final EntityType<CrystalFox> CRYSTAL_FOX = EntityType.Builder.of(CrystalFox::new, MobCategory.CREATURE).sized(0.6F, 0.7F).clientTrackingRange(8).build(prefix("crystal_fox"));
+
 
 	public static final EntityType<Yeti> YETI = EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).build(prefix("yeti"));
 	public static final EntityType<FrostWraith> FROST_WRAITH = EntityType.Builder.of(FrostWraith::new, MobCategory.MONSTER).sized(0.6F, 1.65F).build(prefix("frost_wraith"));
@@ -37,6 +39,7 @@ public class FrostEntities {
 		event.getRegistry().register(MARMOT.setRegistryName("marmot"));
 		event.getRegistry().register(SNOWPILE_QUAIL.setRegistryName("snowpile_quail"));
 		event.getRegistry().register(FROST_WOLF.setRegistryName("frost_wolf"));
+		event.getRegistry().register(CRYSTAL_FOX.setRegistryName("crystal_fox"));
 
 		event.getRegistry().register(YETI.setRegistryName("yeti"));
 		event.getRegistry().register(FROST_WRAITH.setRegistryName("frost_wraith"));
@@ -49,6 +52,7 @@ public class FrostEntities {
 		SpawnPlacements.register(MARMOT, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Marmot::checkMarmotSpawnRules);
 		SpawnPlacements.register(SNOWPILE_QUAIL, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowPileQuail::checkQuailSpawnRules);
 		SpawnPlacements.register(FROST_WOLF, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostWolf::checkFrostWolfSpawnRules);
+		SpawnPlacements.register(CRYSTAL_FOX, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalFox::checkCrystalFoxSpawnRules);
 
 		SpawnPlacements.register(YETI, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
 		SpawnPlacements.register(FROST_WRAITH, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
@@ -63,6 +67,7 @@ public class FrostEntities {
 		event.put(MARMOT, Marmot.createAttributes().build());
 		event.put(SNOWPILE_QUAIL, SnowPileQuail.createAttributes().build());
 		event.put(FROST_WOLF, FrostWolf.createAttributes().build());
+		event.put(CRYSTAL_FOX, CrystalFox.createAttributes().build());
 
 		event.put(YETI, Yeti.createAttributeMap().build());
 		event.put(FROST_WRAITH, FrostWraith.createAttributes().build());

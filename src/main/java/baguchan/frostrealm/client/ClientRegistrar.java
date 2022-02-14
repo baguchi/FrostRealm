@@ -40,6 +40,7 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.MARMOT, MarmotRenderer::new);
 		event.registerEntityRenderer(FrostEntities.SNOWPILE_QUAIL, SnowPileQuailRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROST_WOLF, FrostWolfRenderer::new);
+		event.registerEntityRenderer(FrostEntities.CRYSTAL_FOX, CrystalFoxRenderer::new);
 
 		event.registerEntityRenderer(FrostEntities.YETI, YetiRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROST_WRAITH, FrostWraithRenderer::new);
@@ -63,6 +64,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.WOLFESTER, WolfesterModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.GOKKUR, GokkurModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.GOKKUDILLO, GokkudilloModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.CRYSTAL_FOX, CrystalFoxModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_OUTER, () -> YetiFurArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION));
