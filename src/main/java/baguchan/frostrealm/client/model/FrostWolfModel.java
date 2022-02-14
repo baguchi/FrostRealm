@@ -50,7 +50,7 @@ public class FrostWolfModel<T extends FrostWolf> extends ColorableAgeableListMod
 
 		PartDefinition legR2 = body.addOrReplaceChild("legR2", CubeListBuilder.create().texOffs(12, 32).addBox(-1.5F, 0.0F, -1.25F, 3.0F, 8.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.5F, 5.0F, 8.5F));
 
-		PartDefinition mane = partdefinition.addOrReplaceChild("mane", CubeListBuilder.create().texOffs(40, 0).addBox(-5.0F, -5.5F, -4.0F, 9.0F, 9.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 12.5F, -3.0F));
+		PartDefinition mane = body.addOrReplaceChild("mane", CubeListBuilder.create().texOffs(40, 0).addBox(-5.0F, -5.5F, -4.0F, 9.0F, 9.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 1.5F, 0.0F));
 
 		PartDefinition head = mane.addOrReplaceChild("head", CubeListBuilder.create().texOffs(24, 20).addBox(-2.75F, -2.5F, -4.0F, 6.0F, 6.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.75F, -1.5F, -4.0F));
 
@@ -80,14 +80,12 @@ public class FrostWolfModel<T extends FrostWolf> extends ColorableAgeableListMod
 
 		if (p_104132_.isInSittingPose()) {
 			this.body.setPos(-0.5F, 17.0F, -3.0F);
-			this.mane.setPos(0.0F, 18.5F, -3.0F);
 			this.legR2.xRot = ((float) Math.PI / 2);
 			this.legL2.xRot = ((float) Math.PI / 2);
 			this.legR.xRot = -((float) Math.PI / 2);
 			this.legL.xRot = -((float) Math.PI / 2);
 		} else {
 			this.body.setPos(-0.5F, 11.0F, -3.0F);
-			this.mane.setPos(0.0F, 12.5F, -3.0F);
 			this.body.xRot = 0.0F;
 			this.mane.xRot = this.body.xRot;
 			this.legR2.xRot = Mth.cos(p_104133_ * 0.6662F) * 1.4F * p_104134_;

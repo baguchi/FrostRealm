@@ -1,5 +1,6 @@
 package baguchan.frostrealm.entity;
 
+import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.entity.goal.TimeConditionGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
@@ -42,7 +43,8 @@ public class Marmot extends Animal {
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.3F));
-		this.goalSelector.addGoal(2, new StandingGoal(this, TIME_BETWEEN_STANDS_COOLDOWN, TIME_BETWEEN_STANDS));
+		this.goalSelector.addGoal(2, new SeekShelterEvenBlizzardGoal(this, 1.25D));
+		this.goalSelector.addGoal(3, new StandingGoal(this, TIME_BETWEEN_STANDS_COOLDOWN, TIME_BETWEEN_STANDS));
 		//this.goalSelector.addGoal(2, new BreedGoal(this, 0.95D));
 		//this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, FOOD_ITEMS, false));
 		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.1F));

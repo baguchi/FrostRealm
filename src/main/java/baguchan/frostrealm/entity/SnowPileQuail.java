@@ -4,6 +4,7 @@ import baguchan.frostrealm.api.animation.Animation;
 import baguchan.frostrealm.api.animation.IAnimatable;
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
 import baguchan.frostrealm.entity.goal.QuailAngryGoal;
+import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostItems;
@@ -63,14 +64,15 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
-		this.goalSelector.addGoal(2, new QuailAngryGoal(this));
-		this.goalSelector.addGoal(3, new SnowPileQuailBreedGoal(this, 1.0D));
-		this.goalSelector.addGoal(4, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
-		this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-		this.goalSelector.addGoal(6, new MoveToGoal(this, 8.0D, 1.1D));
-		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
-		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(2, new SeekShelterEvenBlizzardGoal(this, 1.2D));
+		this.goalSelector.addGoal(3, new QuailAngryGoal(this));
+		this.goalSelector.addGoal(4, new SnowPileQuailBreedGoal(this, 1.0D));
+		this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
+		this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
+		this.goalSelector.addGoal(7, new MoveToGoal(this, 8.0D, 1.1D));
+		this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
+		this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
 	}
 
 	protected void defineSynchedData() {

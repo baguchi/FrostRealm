@@ -2,6 +2,7 @@ package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.api.animation.Animation;
 import baguchan.frostrealm.api.animation.IAnimatable;
+import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.BlockPos;
@@ -10,12 +11,10 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.level.Level;
@@ -24,15 +23,28 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Random;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class FrostWolf extends Wolf implements IAnimatable {
 	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(FrostWolf.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(FrostWolf.class, EntityDataSerializers.INT);
 
+	public static final Predicate<LivingEntity> FROST_PREY_SELECTOR = (p_30437_) -> {
+		EntityType<?> entitytype = p_30437_.getType();
+		return entitytype == FrostEntities.SNOWPILE_QUAIL || entitytype == FrostEntities.CRYSTAL_FOX;
+	};
+
 	public static final Animation HOWL_ANIMATION = Animation.create(60);
 
 	public FrostWolf(EntityType<? extends Wolf> p_30369_, Level p_30370_) {
 		super(p_30369_, p_30370_);
+	}
+
+	@Override
+	protected void registerGoals() {
+		super.registerGoals();
+		this.goalSelector.addGoal(11, new SeekShelterEvenBlizzardGoal(this, 1.2F));
+		this.targetSelector.addGoal(5, new NonTameRandomTargetGoal<>(this, Animal.class, false, FROST_PREY_SELECTOR));
 	}
 
 	protected void defineSynchedData() {

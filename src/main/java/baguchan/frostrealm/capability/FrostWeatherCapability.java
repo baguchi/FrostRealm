@@ -42,6 +42,10 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 		return world.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY);
 	}
 
+	public static boolean isBadWeatherActive(Level world) {
+		return get(world).filter(FrostWeatherCapability::isWeatherActive).isPresent();
+	}
+
 	public void tick(Level level) {
 		if (level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 			if (isWeatherActive()) {
