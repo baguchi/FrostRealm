@@ -112,7 +112,7 @@ public class FrostWolfModel<T extends FrostWolf> extends ColorableAgeableListMod
 
 	@Override
 	protected Iterable<ModelPart> headParts() {
-		return ImmutableList.of(this.mane);
+		return ImmutableList.of();
 	}
 
 	protected Iterable<ModelPart> bodyParts() {
