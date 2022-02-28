@@ -133,6 +133,12 @@ public class CrystalFox extends Animal implements IAnimatable {
 		return FOOD_ITEMS.test(p_27600_);
 	}
 
+	@Override
+	public void tick() {
+		super.tick();
+		this.updateAnimations(this);
+	}
+
 	@Nullable
 	@Override
 	@javax.annotation.Nullable

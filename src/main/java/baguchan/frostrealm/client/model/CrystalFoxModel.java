@@ -84,7 +84,6 @@ public class CrystalFoxModel<T extends CrystalFox> extends EntityModel<T> {
 	}
 
 	public void animate(T entity, float limbSwing, float limbSwingAmount, float ageInTicks) {
-		this.head.xRot = 0.0F;
 		modelAnimator.update(entity);
 		modelAnimator.setAnimation(CrystalFox.EAT_ANIMATION);
 		modelAnimator.startKeyframe(4);

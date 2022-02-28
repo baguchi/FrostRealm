@@ -101,7 +101,6 @@ public class FrostWolfModel<T extends FrostWolf> extends ColorableAgeableListMod
 	}
 
 	public void animate(T entity, float limbSwing, float limbSwingAmount, float ageInTicks) {
-		this.head.xRot = 0.0F;
 		modelAnimator.update(entity);
 		modelAnimator.setAnimation(FrostWolf.HOWL_ANIMATION);
 		modelAnimator.startKeyframe(4);
