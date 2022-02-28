@@ -6,7 +6,7 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
 
 public class SeekShelterEvenBlizzardGoal extends FleeSunGoal {
-	private int interval = reducedTickDelay(100);
+	private int interval = reducedTickDelay(60);
 	private final boolean seekDays;
 
 	public SeekShelterEvenBlizzardGoal(PathfinderMob mob, double p_28777_) {
@@ -26,7 +26,7 @@ public class SeekShelterEvenBlizzardGoal extends FleeSunGoal {
 				--this.interval;
 				return false;
 			} else {
-				this.interval = 100;
+				this.interval = 60;
 				BlockPos blockpos = this.mob.blockPosition();
 				return (this.seekDays && this.mob.level.isDay() || FrostWeatherCapability.isBadWeatherActive(this.mob.level)) && this.mob.level.canSeeSky(blockpos) && this.setWantedPos();
 			}
