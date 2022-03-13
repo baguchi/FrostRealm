@@ -104,7 +104,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			}
 		}
 
-		if (entity.level.dimension() == FrostDimensions.FROSTREALM_LEVEL && (!EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES.contains(entity.getType()) || (entity instanceof Player && !((Player) entity).isCreative() && !((Player) entity).isSpectator()))) {
+		if (entity.level.dimension() == FrostDimensions.FROSTREALM_LEVEL && (!entity.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES) || (entity instanceof Player && !((Player) entity).isCreative() && !((Player) entity).isSpectator()))) {
 			Difficulty difficulty = entity.level.getDifficulty();
 			this.lastTemperate = this.temperature;
 			hotSourceTick(entity);
@@ -142,7 +142,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 					}
 				}
 			}
-			if (EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES.contains(entity.getType())) {
+			if (entity.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)) {
 				this.temperature = Math.max(this.temperature - 1, 0);
 				this.temperatureSaturation = 0.0F;
 				entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 8, 0, 200));

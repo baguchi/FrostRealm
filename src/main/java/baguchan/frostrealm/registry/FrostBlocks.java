@@ -12,271 +12,174 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DoubleHighBlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.client.IItemRenderProperties;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 @EventBusSubscriber(modid = FrostRealm.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class FrostBlocks {
-	public static final FrostPortalBlock FROST_PORTAL = new FrostPortalBlock(BlockBehaviour.Properties.of(Material.PORTAL).noOcclusion().noCollission().randomTicks().lightLevel((state) -> {
+	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, FrostRealm.MODID);
+
+
+	public static final RegistryObject<FrostPortalBlock> FROST_PORTAL = noItemRegister("frostrealm_portal", () -> new FrostPortalBlock(BlockBehaviour.Properties.of(Material.PORTAL).noOcclusion().noCollission().randomTicks().lightLevel((state) -> {
 		return 11;
-	}).strength(-1.0F).sound(SoundType.GLASS));
+	}).strength(-1.0F).sound(SoundType.GLASS)));
 
-	public static final Block HOT_AIR = new HotAirBlock(BlockBehaviour.Properties.of(Material.AIR).air().noOcclusion().randomTicks().sound(SoundType.WOOL));
+	public static final RegistryObject<Block> HOT_AIR = noItemRegister("hot_air", () -> new HotAirBlock(BlockBehaviour.Properties.of(Material.AIR).air().noOcclusion().randomTicks().sound(SoundType.WOOL)));
 
-	public static final Block FROZEN_DIRT = new Block(BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL));
-	public static final Block FROZEN_GRASS_BLOCK = new FrostGrassBlock(BlockBehaviour.Properties.of(Material.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS));
-	public static final Block FROZEN_FARMLAND = new FrozenFarmBlock(BlockBehaviour.Properties.of(Material.DIRT).noOcclusion().strength(0.5F).sound(SoundType.GRAVEL));
+	public static final RegistryObject<Block> FROZEN_DIRT = register("frozen_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
+	public static final RegistryObject<Block> FROZEN_GRASS_BLOCK = register("frozen_grass_block", () -> new FrostGrassBlock(BlockBehaviour.Properties.of(Material.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)));
+	public static final RegistryObject<Block> FROZEN_FARMLAND = register("frozen_farmland", () -> new FrozenFarmBlock(BlockBehaviour.Properties.of(Material.DIRT).noOcclusion().strength(0.5F).sound(SoundType.GRAVEL)));
 
-	public static final Block POINTED_ICE = new PointedIceBlock(BlockBehaviour.Properties.of(Material.ICE).friction(0.98F).randomTicks().strength(0.5F).dynamicShape().sound(SoundType.GLASS));
+	public static final RegistryObject<Block> POINTED_ICE = register("pointed_ice", () -> new PointedIceBlock(BlockBehaviour.Properties.of(Material.ICE).friction(0.98F).randomTicks().strength(0.5F).dynamicShape().sound(SoundType.GLASS)));
 
 
-	public static final Block FRIGID_STONE = new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
-	public static final SlabBlock FRIGID_STONE_SLAB = new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
-	public static final StairBlock FRIGID_STONE_STAIRS = new StairBlock(FRIGID_STONE.defaultBlockState(), BlockBehaviour.Properties.of(Material.STONE).noOcclusion().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
-	public static final Block FRIGID_STONE_BRICK = new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
-	public static final SlabBlock FRIGID_STONE_BRICK_SLAB = new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
-	public static final StairBlock FRIGID_STONE_BRICK_STAIRS = new StairBlock(FRIGID_STONE_BRICK.defaultBlockState(), BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
-	public static final Block FRIGID_STONE_SMOOTH = new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
+	public static final RegistryObject<Block> FRIGID_STONE = register("frigid_stone", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
+	public static final RegistryObject<SlabBlock> FRIGID_STONE_SLAB = register("frigid_stone_slab", () -> new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
+	public static final RegistryObject<StairBlock> FRIGID_STONE_STAIRS = register("frigid_stone_stairs", () -> new StairBlock(FRIGID_STONE.get()::defaultBlockState, BlockBehaviour.Properties.of(Material.STONE).noOcclusion().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
+	public static final RegistryObject<Block> FRIGID_STONE_BRICK = register("frigid_stone_brick", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
+	public static final RegistryObject<SlabBlock> FRIGID_STONE_BRICK_SLAB = register("frigid_stone_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
+	public static final RegistryObject<StairBlock> FRIGID_STONE_BRICK_STAIRS = register("frigid_stone_brick_stairs", () -> new StairBlock(FRIGID_STONE_BRICK.get()::defaultBlockState, BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
+	public static final RegistryObject<Block> FRIGID_STONE_SMOOTH = register("frigid_stone_smooth", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 
-	public static final Block FRIGID_STONE_MOSSY = new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
-	public static final SlabBlock FRIGID_STONE_MOSSY_SLAB = new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
-	public static final StairBlock FRIGID_STONE_MOSSY_STAIRS = new StairBlock(FRIGID_STONE_MOSSY.defaultBlockState(), BlockBehaviour.Properties.of(Material.STONE).noOcclusion().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
+	public static final RegistryObject<Block> FRIGID_STONE_MOSSY = register("frigid_stone_mossy", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
+	public static final RegistryObject<SlabBlock> FRIGID_STONE_MOSSY_SLAB = register("frigid_stone_mossy_slab", () -> new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
+	public static final RegistryObject<StairBlock> FRIGID_STONE_MOSSY_STAIRS = register("frigid_stone_mossy_stairs", () -> new StairBlock(FRIGID_STONE_MOSSY.get()::defaultBlockState, BlockBehaviour.Properties.of(Material.STONE).noOcclusion().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
 
-	public static final Block FRIGID_STONE_BRICK_MOSSY = new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
-	public static final SlabBlock FRIGID_STONE_BRICK_MOSSY_SLAB = new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
-	public static final StairBlock FRIGID_STONE_BRICK_MOSSY_STAIRS = new StairBlock(FRIGID_STONE_BRICK_MOSSY.defaultBlockState(), BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
+	public static final RegistryObject<Block> FRIGID_STONE_BRICK_MOSSY = register("frigid_stone_brick_mossy", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
+	public static final RegistryObject<SlabBlock> FRIGID_STONE_BRICK_MOSSY_SLAB = register("frigid_stone_brick_mossy_slab", () -> new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
+	public static final RegistryObject<StairBlock> FRIGID_STONE_BRICK_MOSSY_STAIRS = register("frigid_ston_brick_mossy_stairs", () -> new StairBlock(FRIGID_STONE_BRICK_MOSSY.get()::defaultBlockState, BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 
 	//FROSTROOT
-	public static final RotatedPillarBlock FROSTROOT_LOG = new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD));
-	public static final LeavesBlock FROSTROOT_LEAVES = new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).noOcclusion().sound(SoundType.GRASS));
-	public static final SaplingBlock FROSTROOT_SAPLING = new SaplingBlock(new FrozenTree(), BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS));
-	public static final Block FROSTROOT_PLANKS = new Block(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD));
-	public static final SlabBlock FROSTROOT_PLANKS_SLAB = new SlabBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
-	public static final StairBlock FROSTROOT_PLANKS_STAIRS = new StairBlock(FROSTROOT_PLANKS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
-	public static final FenceBlock FROSTROOT_FENCE = new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
-	public static final FenceGateBlock FROSTROOT_FENCE_GATE = new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
-	public static final DoorBlock FROSTROOT_DOOR = new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).noOcclusion().sound(SoundType.WOOD));
+	public static final RegistryObject<RotatedPillarBlock> FROSTROOT_LOG = register("frostroot_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD)));
+	public static final RegistryObject<LeavesBlock> FROSTROOT_LEAVES = register("frostroot_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).noOcclusion().sound(SoundType.GRASS)));
+	public static final RegistryObject<SaplingBlock> FROSTROOT_SAPLING = register("frostroot_sapling", () -> new SaplingBlock(new FrozenTree(), BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS)));
+	public static final RegistryObject<Block> FROSTROOT_PLANKS = register("frostroot_planks", () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final RegistryObject<SlabBlock> FROSTROOT_PLANKS_SLAB = register("frostroot_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
+	public static final RegistryObject<StairBlock> FROSTROOT_PLANKS_STAIRS = register("frostroot_planks_stairs", () -> new StairBlock(FROSTROOT_PLANKS.get()::defaultBlockState, BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
+	public static final RegistryObject<FenceBlock> FROSTROOT_FENCE = register("frostroot_fence", () -> new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
+	public static final RegistryObject<FenceGateBlock> FROSTROOT_FENCE_GATE = register("frostroot_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
+	public static final RegistryObject<DoorBlock> FROSTROOT_DOOR = register("frostroot_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).noOcclusion().sound(SoundType.WOOD)));
 	//FROZEN
-	public static final RotatedPillarBlock FROZEN_LOG = new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD));
-	public static final LeavesBlock FROZEN_LEAVES = new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).noOcclusion().sound(SoundType.GRASS));
-	public static final SaplingBlock FROZEN_SAPLING = new SaplingBlock(new FrostrootTree(), BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS));
-	public static final Block FROZEN_PLANKS = new Block(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD));
-	public static final SlabBlock FROZEN_PLANKS_SLAB = new SlabBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
-	public static final StairBlock FROZEN_PLANKS_STAIRS = new StairBlock(FROZEN_PLANKS.defaultBlockState(), BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
-	public static final FenceBlock FROZEN_FENCE = new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
-	public static final FenceGateBlock FROZEN_FENCE_GATE = new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD));
+	public static final RegistryObject<RotatedPillarBlock> FROZEN_LOG = register("frozen_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD)));
+	public static final RegistryObject<LeavesBlock> FROZEN_LEAVES = register("frozen_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).noOcclusion().sound(SoundType.GRASS)));
+	public static final RegistryObject<SaplingBlock> FROZEN_SAPLING = register("frozen_sapling", () -> new SaplingBlock(new FrostrootTree(), BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS)));
+	public static final RegistryObject<Block> FROZEN_PLANKS = register("frozen_planks", () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final RegistryObject<SlabBlock> FROZEN_PLANKS_SLAB = register("frozen_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
+	public static final RegistryObject<StairBlock> FROZEN_PLANKS_STAIRS = register("frozen_planks_stairs", () -> new StairBlock(FROZEN_PLANKS.get()::defaultBlockState, BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
+	public static final RegistryObject<FenceBlock> FROZEN_FENCE = register("frozen_fence", () -> new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
+	public static final RegistryObject<FenceGateBlock> FROZEN_FENCE_GATE = register("frozen_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
 
 	//PLANT
-	public static final Block VIGOROSHROOM = new VigoroMushroomBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().lightLevel(state -> {
+	public static final RegistryObject<Block> VIGOROSHROOM = register("vigoroshroom", () -> new VigoroMushroomBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().lightLevel(state -> {
 		return 10;
-	}).sound(SoundType.GRASS));
-	public static final Block ARCTIC_POPPY = new BushBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS));
-	public static final Block ARCTIC_WILLOW = new BushBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS));
+	}).sound(SoundType.GRASS)));
+	public static final RegistryObject<Block> ARCTIC_POPPY = register("arctic_poppy", () -> new BushBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
+	public static final RegistryObject<Block> ARCTIC_WILLOW = register("arctic_willow", () -> new BushBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
 
-	public static final Block COLD_GRASS = new ColdTallGrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noOcclusion().noCollission().sound(SoundType.GRASS));
-	public static final Block COLD_TALL_GRASS = new DoublePlantBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noOcclusion().noCollission().sound(SoundType.GRASS));
+	public static final RegistryObject<Block> COLD_GRASS = register("cold_grass", () -> new ColdTallGrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
+	public static final RegistryObject<Block> COLD_TALL_GRASS = register("cold_tall_grass", () -> new DoublePlantBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
 
-	public static final Block BEARBERRY_BUSH = new BearBerryBushBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS));
+	public static final RegistryObject<Block> BEARBERRY_BUSH = noItemRegister("bearberry_bush", () -> new BearBerryBushBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.GRASS)));
 	//CROP
-	public static final Block SUGARBEET = new SugarBeetBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.CROP));
+	public static final RegistryObject<Block> SUGARBEET = noItemRegister("sugarbeet", () -> new SugarBeetBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().sound(SoundType.CROP)));
 	//EGG
-	public static final Block SNOWPILE_QUAIL_EGG = new SnowPileQuailEggBlock(BlockBehaviour.Properties.of(Material.EGG).noOcclusion().strength(0.2F, 0.25F).randomTicks().sound(SoundType.METAL));
+	public static final RegistryObject<Block> SNOWPILE_QUAIL_EGG = register("snowpile_quail_egg", () -> new SnowPileQuailEggBlock(BlockBehaviour.Properties.of(Material.EGG).noOcclusion().strength(0.2F, 0.25F).randomTicks().sound(SoundType.METAL)));
 
 	//ORE
-	public static final Block FROST_CRYSTAL_ORE = new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(1, 2));
-	public static final Block GLIMMERROCK_ORE = new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().lightLevel((state) -> {
+	public static final RegistryObject<Block> FROST_CRYSTAL_ORE = register("frost_crystal_ore", () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(1, 2)));
+	public static final RegistryObject<Block> GLIMMERROCK_ORE = register("glimmerrock_ore", () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().lightLevel((state) -> {
 		return 10;
-	}).sound(SoundType.NETHERRACK), UniformInt.of(1, 3));
-	public static final Block STARDUST_CRYSTAL_ORE = new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(2, 4));
-	public static final Block STARDUST_CRYSTAL_CLUSTER = new StarDustCrystalBlock(BlockBehaviour.Properties.of(Material.GLASS).requiresCorrectToolForDrops().lightLevel((state) -> {
+	}).sound(SoundType.NETHERRACK), UniformInt.of(1, 3)));
+	public static final RegistryObject<Block> STARDUST_CRYSTAL_ORE = register("stardust_crystal_ore", () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(2, 4)));
+	public static final RegistryObject<Block> STARDUST_CRYSTAL_CLUSTER = register("stardust_crystal_cluster", () -> new StarDustCrystalBlock(BlockBehaviour.Properties.of(Material.GLASS).requiresCorrectToolForDrops().lightLevel((state) -> {
 		return 10;
-	}).strength(5.0F, 6.0F).noOcclusion().sound(SoundType.GLASS));
+	}).strength(5.0F, 6.0F).noOcclusion().sound(SoundType.GLASS)));
 
-	public static final Block FROST_TORCH = new FrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.TORCH));
-	public static final Block WALL_FROST_TORCH = new WallFrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.WALL_TORCH));
+	public static final RegistryObject<Block> FROST_TORCH = register("frost_torch", () -> new FrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.TORCH)));
+	public static final RegistryObject<Block> WALL_FROST_TORCH = noItemRegister("wall_frost_torch", () -> new WallFrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.WALL_TORCH)));
 
-	public static final Block FRIGID_STOVE = new FrigidStoveBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2.0F, 6.0F).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 10 : 0).requiresCorrectToolForDrops().randomTicks().sound(SoundType.NETHERITE_BLOCK));
-	public static final Block FROSTROOT_CHEST = new FrostChestBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD), () -> FrostBlockEntitys.FROST_CHEST);
+	public static final RegistryObject<Block> FRIGID_STOVE = register("frigid_stove", () -> new FrigidStoveBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2.0F, 6.0F).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 10 : 0).requiresCorrectToolForDrops().randomTicks().sound(SoundType.NETHERITE_BLOCK)));
+	public static final RegistryObject<Block> FROSTROOT_CHEST = register("frostroot_chest", () -> new FrostChestBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD), FrostBlockEntitys.FROST_CHEST::get));
 
 	public static void burnables() {
 		FireBlock fireblock = (FireBlock) Blocks.FIRE;
-		fireblock.setFlammable(FROSTROOT_LEAVES, 60, 100);
-		fireblock.setFlammable(FROSTROOT_LOG, 5, 5);
-		fireblock.setFlammable(FROSTROOT_PLANKS, 5, 20);
-		fireblock.setFlammable(FROSTROOT_PLANKS_SLAB, 5, 20);
-		fireblock.setFlammable(FROSTROOT_PLANKS_STAIRS, 5, 20);
-		fireblock.setFlammable(FROSTROOT_FENCE, 5, 20);
-		fireblock.setFlammable(FROSTROOT_FENCE_GATE, 5, 20);
-		fireblock.setFlammable(COLD_GRASS, 60, 100);
-		fireblock.setFlammable(COLD_TALL_GRASS, 60, 100);
+		fireblock.setFlammable(FROSTROOT_LEAVES.get(), 60, 100);
+		fireblock.setFlammable(FROSTROOT_LOG.get(), 5, 5);
+		fireblock.setFlammable(FROSTROOT_PLANKS.get(), 5, 20);
+		fireblock.setFlammable(FROSTROOT_PLANKS_SLAB.get(), 5, 20);
+		fireblock.setFlammable(FROSTROOT_PLANKS_STAIRS.get(), 5, 20);
+		fireblock.setFlammable(FROSTROOT_FENCE.get(), 5, 20);
+		fireblock.setFlammable(FROSTROOT_FENCE_GATE.get(), 5, 20);
+		fireblock.setFlammable(COLD_GRASS.get(), 60, 100);
+		fireblock.setFlammable(COLD_TALL_GRASS.get(), 60, 100);
 	}
 
-	@SubscribeEvent
-	public static void registerBlock(RegistryEvent.Register<Block> registry) {
-		registry.getRegistry().register(FROST_PORTAL.setRegistryName("frostrealm_portal"));
-		registry.getRegistry().register(HOT_AIR.setRegistryName("hot_air"));
-
-		registry.getRegistry().register(FROZEN_DIRT.setRegistryName("frozen_dirt"));
-		registry.getRegistry().register(FROZEN_GRASS_BLOCK.setRegistryName("frozen_grass_block"));
-		registry.getRegistry().register(FROZEN_FARMLAND.setRegistryName("frozen_farmland"));
-		registry.getRegistry().register(POINTED_ICE.setRegistryName("pointed_ice"));
-		registry.getRegistry().register(FRIGID_STONE.setRegistryName("frigid_stone"));
-		registry.getRegistry().register(FRIGID_STONE_SLAB.setRegistryName("frigid_stone_slab"));
-		registry.getRegistry().register(FRIGID_STONE_STAIRS.setRegistryName("frigid_stone_stairs"));
-		registry.getRegistry().register(FRIGID_STONE_BRICK.setRegistryName("frigid_stone_brick"));
-		registry.getRegistry().register(FRIGID_STONE_BRICK_SLAB.setRegistryName("frigid_stone_brick_slab"));
-		registry.getRegistry().register(FRIGID_STONE_BRICK_STAIRS.setRegistryName("frigid_stone_brick_stairs"));
-		registry.getRegistry().register(FRIGID_STONE_SMOOTH.setRegistryName("frigid_stone_smooth"));
-
-		registry.getRegistry().register(FRIGID_STONE_MOSSY.setRegistryName("frigid_stone_mossy"));
-		registry.getRegistry().register(FRIGID_STONE_MOSSY_SLAB.setRegistryName("frigid_stone_mossy_slab"));
-		registry.getRegistry().register(FRIGID_STONE_MOSSY_STAIRS.setRegistryName("frigid_stone_mossy_stairs"));
-
-		registry.getRegistry().register(FRIGID_STONE_BRICK_MOSSY.setRegistryName("frigid_stone_brick_mossy"));
-		registry.getRegistry().register(FRIGID_STONE_BRICK_MOSSY_SLAB.setRegistryName("frigid_stone_brick_mossy_slab"));
-		registry.getRegistry().register(FRIGID_STONE_BRICK_MOSSY_STAIRS.setRegistryName("frigid_stone_brick_mossy_stairs"));
-
-		registry.getRegistry().register(FROSTROOT_LOG.setRegistryName("frostroot_log"));
-		registry.getRegistry().register(FROSTROOT_LEAVES.setRegistryName("frostroot_leaves"));
-		registry.getRegistry().register(FROSTROOT_SAPLING.setRegistryName("frostroot_sapling"));
-		registry.getRegistry().register(FROSTROOT_PLANKS.setRegistryName("frostroot_planks"));
-		registry.getRegistry().register(FROSTROOT_PLANKS_SLAB.setRegistryName("frostroot_planks_slab"));
-		registry.getRegistry().register(FROSTROOT_PLANKS_STAIRS.setRegistryName("frostroot_planks_stairs"));
-		registry.getRegistry().register(FROSTROOT_FENCE.setRegistryName("frostroot_fence"));
-		registry.getRegistry().register(FROSTROOT_FENCE_GATE.setRegistryName("frostroot_fence_gate"));
-		registry.getRegistry().register(FROSTROOT_DOOR.setRegistryName("frostroot_door"));
-
-		registry.getRegistry().register(FROZEN_LOG.setRegistryName("frozen_log"));
-		registry.getRegistry().register(FROZEN_LEAVES.setRegistryName("frozen_leaves"));
-		registry.getRegistry().register(FROZEN_SAPLING.setRegistryName("frozen_sapling"));
-		registry.getRegistry().register(FROZEN_PLANKS.setRegistryName("frozen_planks"));
-		registry.getRegistry().register(FROZEN_PLANKS_SLAB.setRegistryName("frozen_planks_slab"));
-		registry.getRegistry().register(FROZEN_PLANKS_STAIRS.setRegistryName("frozen_planks_stairs"));
-		registry.getRegistry().register(FROZEN_FENCE.setRegistryName("frozen_fence"));
-		registry.getRegistry().register(FROZEN_FENCE_GATE.setRegistryName("frozen_fence_gate"));
-
-		registry.getRegistry().register(VIGOROSHROOM.setRegistryName("vigoroshroom"));
-		registry.getRegistry().register(ARCTIC_POPPY.setRegistryName("arctic_poppy"));
-		registry.getRegistry().register(ARCTIC_WILLOW.setRegistryName("arctic_willow"));
-
-		registry.getRegistry().register(BEARBERRY_BUSH.setRegistryName("bearberry_bush"));
-
-		registry.getRegistry().register(SUGARBEET.setRegistryName("sugarbeet"));
-
-		registry.getRegistry().register(COLD_GRASS.setRegistryName("cold_grass"));
-		registry.getRegistry().register(COLD_TALL_GRASS.setRegistryName("cold_tall_grass"));
-
-		registry.getRegistry().register(SNOWPILE_QUAIL_EGG.setRegistryName("snowpile_quail_egg"));
-
-		registry.getRegistry().register(FROST_CRYSTAL_ORE.setRegistryName("frost_crystal_ore"));
-		registry.getRegistry().register(GLIMMERROCK_ORE.setRegistryName("glimmerrock_ore"));
-		registry.getRegistry().register(STARDUST_CRYSTAL_ORE.setRegistryName("stardust_crystal_ore"));
-		registry.getRegistry().register(STARDUST_CRYSTAL_CLUSTER.setRegistryName("stardust_crystal_cluster"));
-		registry.getRegistry().register(FROST_TORCH.setRegistryName("frost_torch"));
-		registry.getRegistry().register(WALL_FROST_TORCH.setRegistryName("wall_frost_torch"));
-
-		registry.getRegistry().register(FRIGID_STOVE.setRegistryName("frigid_stove"));
-		registry.getRegistry().register(FROSTROOT_CHEST.setRegistryName("frostroot_chest"));
+	private static <T extends Block> RegistryObject<T> baseRegister(String name, Supplier<? extends T> block, Function<RegistryObject<T>, Supplier<? extends Item>> item) {
+		RegistryObject<T> register = BLOCKS.register(name, block);
+		FrostItems.ITEMS.register(name, item.apply(register));
+		return register;
 	}
 
-	@SubscribeEvent
-	public static void registerItemBlocks(RegistryEvent.Register<Item> registry) {
-		FrostItems.register(registry, new BlockItem(FROZEN_DIRT, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROZEN_GRASS_BLOCK, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROZEN_FARMLAND, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	private static <T extends Block> RegistryObject<T> noItemRegister(String name, Supplier<? extends T> block) {
+		RegistryObject<T> register = BLOCKS.register(name, block);
+		return register;
+	}
 
-		FrostItems.register(registry, new BlockItem(POINTED_ICE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_SLAB, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_STAIRS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_BRICK, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_BRICK_SLAB, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_BRICK_STAIRS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_SMOOTH, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	private static <B extends Block> RegistryObject<B> register(String name, Supplier<? extends Block> block) {
+		return (RegistryObject<B>) baseRegister(name, block, FrostBlocks::registerBlockItem);
+	}
 
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_MOSSY, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_MOSSY_SLAB, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_MOSSY_STAIRS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_BRICK_MOSSY, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_BRICK_MOSSY_SLAB, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FRIGID_STONE_BRICK_MOSSY_STAIRS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-
-
-		FrostItems.register(registry, new BlockItem(FROSTROOT_LOG, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROSTROOT_LEAVES, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROSTROOT_SAPLING, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROSTROOT_PLANKS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROSTROOT_PLANKS_SLAB, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROSTROOT_PLANKS_STAIRS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROSTROOT_FENCE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROSTROOT_FENCE_GATE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new DoubleHighBlockItem(FROSTROOT_DOOR, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-
-		FrostItems.register(registry, new BlockItem(FROZEN_LOG, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROZEN_LEAVES, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROZEN_SAPLING, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROZEN_PLANKS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROZEN_PLANKS_SLAB, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROZEN_PLANKS_STAIRS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROZEN_FENCE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROZEN_FENCE_GATE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-
-		FrostItems.register(registry, new BlockItem(VIGOROSHROOM, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(ARCTIC_POPPY, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(ARCTIC_WILLOW, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-
-		FrostItems.register(registry, new BlockItem(COLD_GRASS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new DoubleHighBlockItem(COLD_TALL_GRASS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-
-		FrostItems.register(registry, new BlockItem(SNOWPILE_QUAIL_EGG, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-
-
-		FrostItems.register(registry, new BlockItem(FROST_CRYSTAL_ORE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(GLIMMERROCK_ORE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(STARDUST_CRYSTAL_ORE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(STARDUST_CRYSTAL_CLUSTER, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-
-		FrostItems.register(registry, new BlockItem(FRIGID_STOVE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-		FrostItems.register(registry, new BlockItem(FROSTROOT_CHEST, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)) {
-			@Override
-			public void initializeClient(@Nonnull Consumer<IItemRenderProperties> consumer) {
-				consumer.accept(new IItemRenderProperties() {
-					BlockEntityWithoutLevelRenderer myRenderer;
-
+	private static <T extends Block> Supplier<BlockItem> registerBlockItem(final RegistryObject<T> block) {
+		return () -> {
+			if (Objects.requireNonNull(block.get()) == FROSTROOT_CHEST.get()) {
+				return new BlockItem(FROSTROOT_CHEST.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)) {
 					@Override
-					public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
-						if (Minecraft.getInstance().getEntityRenderDispatcher() != null && myRenderer == null) {
-							myRenderer = new BlockEntityWithoutLevelRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()) {
-								private FrostChestBlockEntity blockEntity;
+					public void initializeClient(@Nonnull Consumer<IItemRenderProperties> consumer) {
+						consumer.accept(new IItemRenderProperties() {
+							BlockEntityWithoutLevelRenderer myRenderer;
 
-								@Override
-								public void renderByItem(@Nonnull ItemStack stack, @Nonnull ItemTransforms.TransformType transformType, @Nonnull PoseStack matrix, @Nonnull MultiBufferSource buffer, int x, int y) {
-									if (blockEntity == null) {
-										blockEntity = new FrostChestBlockEntity(BlockPos.ZERO, FrostBlocks.FROSTROOT_CHEST.defaultBlockState());
-									}
-									Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(blockEntity, matrix, buffer, x, y);
+							@Override
+							public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
+								if (Minecraft.getInstance().getEntityRenderDispatcher() != null && myRenderer == null) {
+									myRenderer = new BlockEntityWithoutLevelRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()) {
+										private FrostChestBlockEntity blockEntity;
+
+										@Override
+										public void renderByItem(@Nonnull ItemStack stack, @Nonnull ItemTransforms.TransformType transformType, @Nonnull PoseStack matrix, @Nonnull MultiBufferSource buffer, int x, int y) {
+											if (blockEntity == null) {
+												blockEntity = new FrostChestBlockEntity(BlockPos.ZERO, FrostBlocks.FROSTROOT_CHEST.get().defaultBlockState());
+											}
+											Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(blockEntity, matrix, buffer, x, y);
+										}
+									};
 								}
-							};
-						}
 
-						return myRenderer;
+								return myRenderer;
+							}
+						});
 					}
-				});
+				};
+			} else if (Objects.requireNonNull(block.get()) instanceof DoublePlantBlock || Objects.requireNonNull(block.get()) instanceof DoorBlock) {
+				return new DoubleHighBlockItem(Objects.requireNonNull(block.get()), new Item.Properties().tab(FrostGroups.TAB_FROSTREALM));
+			} else if (Objects.requireNonNull(block.get()) == FrostBlocks.FROST_TORCH.get()) {
+				return new StandingAndWallBlockItem(FrostBlocks.FROST_TORCH.get(), FrostBlocks.WALL_FROST_TORCH.get(), new Item.Properties().tab(FrostGroups.TAB_FROSTREALM));
+			} else {
+				return new BlockItem(Objects.requireNonNull(block.get()), new Item.Properties().tab(FrostGroups.TAB_FROSTREALM));
 			}
-		});
+		};
 	}
 }

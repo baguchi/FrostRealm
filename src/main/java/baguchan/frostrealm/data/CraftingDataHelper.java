@@ -9,7 +9,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -103,7 +103,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 				.save(consumer, locEquip(name));
 	}
 
-	protected final void pickaxeItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material, Tag.Named<Item> handle) {
+	protected final void pickaxeItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material, TagKey<Item> handle) {
 		ShapedRecipeBuilder.shaped(result)
 				.pattern("###")
 				.pattern(" X ")
@@ -114,7 +114,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 				.save(consumer, locEquip(name));
 	}
 
-	protected final void swordItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material, Tag.Named<Item> handle) {
+	protected final void swordItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material, TagKey<Item> handle) {
 		ShapedRecipeBuilder.shaped(result)
 				.pattern("#")
 				.pattern("#")
@@ -125,7 +125,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 				.save(consumer, locEquip(name));
 	}
 
-	protected final void axeItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material, Tag.Named<Item> handle) {
+	protected final void axeItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material, TagKey<Item> handle) {
 		ShapedRecipeBuilder.shaped(result)
 				.pattern("##")
 				.pattern("#X")
@@ -136,7 +136,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 				.save(consumer, locEquip(name));
 	}
 
-	protected final void shovelItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material, Tag.Named<Item> handle) {
+	protected final void shovelItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material, TagKey<Item> handle) {
 		ShapedRecipeBuilder.shaped(result)
 				.pattern("#")
 				.pattern("X")
@@ -193,9 +193,9 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 		ShapedRecipeBuilder.shaped(torchOut, 4)
 				.pattern("C")
 				.pattern("M")
-				.define('C', FrostItems.FROST_CRYSTAL)
+				.define('C', FrostItems.FROST_CRYSTAL.get())
 				.define('M', Tags.Items.RODS_WOODEN)
-				.unlockedBy("has_" + FrostItems.FROST_CRYSTAL.getRegistryName().getPath(), has(FrostItems.FROST_CRYSTAL)).save(consumer);
+				.unlockedBy("has_" + FrostItems.FROST_CRYSTAL.get().getRegistryName().getPath(), has(FrostItems.FROST_CRYSTAL.get())).save(consumer);
 	}
 
 

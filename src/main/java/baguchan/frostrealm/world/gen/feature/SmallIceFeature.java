@@ -198,7 +198,7 @@ public class SmallIceFeature extends Feature<DripstoneClusterConfiguration> {
 	protected static void growPointedIce(WorldGenLevel p_159644_, BlockPos p_159645_, Direction p_159646_, int p_159647_, boolean p_159648_) {
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = p_159645_.mutable();
 		buildBaseToTipColumn(p_159646_, p_159647_, p_159648_, (p_159635_) -> {
-			if (p_159635_.is(FrostBlocks.POINTED_ICE)) {
+			if (p_159635_.is(FrostBlocks.POINTED_ICE.get())) {
 				p_159635_ = p_159635_.setValue(PointedIceBlock.WATERLOGGED, Boolean.valueOf(p_159644_.isWaterAt(blockpos$mutableblockpos)));
 			}
 
@@ -227,7 +227,7 @@ public class SmallIceFeature extends Feature<DripstoneClusterConfiguration> {
 	}
 
 	private static BlockState createPointedIce(Direction p_159657_, DripstoneThickness p_159658_) {
-		return FrostBlocks.POINTED_ICE.defaultBlockState().setValue(PointedIceBlock.TIP_DIRECTION, p_159657_).setValue(PointedIceBlock.THICKNESS, p_159658_);
+		return FrostBlocks.POINTED_ICE.get().defaultBlockState().setValue(PointedIceBlock.TIP_DIRECTION, p_159657_).setValue(PointedIceBlock.THICKNESS, p_159658_);
 	}
 
 	protected static boolean placeIceBlockIfPossible(WorldGenLevel p_159637_, BlockPos p_159638_) {

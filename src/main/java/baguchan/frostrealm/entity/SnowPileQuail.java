@@ -50,7 +50,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.INT);
 
 
-	private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS, FrostItems.SUGARBEET_SEEDS);
+	private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS, FrostItems.SUGARBEET_SEEDS.get());
 
 	public static final Animation IDLE_ANIMATION = Animation.create(60);
 	@Nullable
@@ -82,7 +82,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 	}
 
 	public static boolean checkQuailSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
-		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
+		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -155,7 +155,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 			BlockPos blockpos = this.blockPosition();
 			if (SnowPileQuailEggBlock.onDirt(this.level, blockpos)) {
 				level.playSound((Player) null, blockpos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level.random.nextFloat() * 0.2F);
-				level.setBlock(blockpos, FrostBlocks.SNOWPILE_QUAIL_EGG.defaultBlockState().setValue(SnowPileQuailEggBlock.EGGS, Integer.valueOf(this.random.nextInt(1) + 1)), 3);
+				level.setBlock(blockpos, FrostBlocks.SNOWPILE_QUAIL_EGG.get().defaultBlockState().setValue(SnowPileQuailEggBlock.EGGS, Integer.valueOf(this.random.nextInt(1) + 1)), 3);
 				this.setAnimation(IDLE_ANIMATION);
 				this.setHasEgg(false);
 				this.setHomeTarget(blockpos);
@@ -185,7 +185,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob ageableMob) {
-		return FrostEntities.SNOWPILE_QUAIL.create(level);
+		return FrostEntities.SNOWPILE_QUAIL.get().create(level);
 	}
 
 	@Override
@@ -274,7 +274,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 		}
 
 		private boolean isTooFarAway(BlockPos pos, double distance) {
-			return !pos.closerThan(this.quail.position(), distance);
+			return !pos.closerThan(this.quail.blockPosition(), distance);
 		}
 	}
 

@@ -4,25 +4,23 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.world.biome.FrostrealmBiomeBuilder;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.*;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.function.Supplier;
 
 public class FrostBiomes {
 	public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, FrostRealm.MODID);
 	public static final MultiNoiseBiomeSource.Preset FROSTREALM_BIOMESOURCE = new MultiNoiseBiomeSource.Preset(FrostRealm.prefix("frostrealm"), (p_187108_) -> {
-		ImmutableList.Builder<Pair<Climate.ParameterPoint, Supplier<Biome>>> builder = ImmutableList.builder();
-		(new FrostrealmBiomeBuilder()).addBiomes((p_187098_) -> {
-			builder.add(p_187098_.mapSecond((p_187103_) -> {
-				return () -> {
-					return p_187108_.getOrThrow(p_187103_);
-				};
-			}));
+		ImmutableList.Builder<Pair<Climate.ParameterPoint, Holder<Biome>>> builder = ImmutableList.builder();
+		(new FrostrealmBiomeBuilder()).addBiomes((p_204279_) -> {
+			builder.add(p_204279_.mapSecond(p_187108_::getOrCreateHolder));
 		});
 		return new Climate.ParameterList<>(builder.build());
 	});
@@ -43,18 +41,7 @@ public class FrostBiomes {
 	public static final ResourceKey<Biome> CRYSTAL_WATERFALL = register("crystal_waterfall");
 
 	private static ResourceKey<Biome> register(String p_48229_) {
-		BIOMES.register(p_48229_, () -> new Biome.BiomeBuilder()
-				.precipitation(Biome.Precipitation.NONE)
-				.biomeCategory(Biome.BiomeCategory.NONE)
-				//.depth(0)
-				.downfall(0)
-				//.scale(0)
-				.temperature(0)
-				.specialEffects(new BiomeSpecialEffects.Builder().fogColor(0).waterColor(0).waterFogColor(0).skyColor(0).build())
-				.generationSettings(new BiomeGenerationSettings.Builder().build())
-				.mobSpawnSettings(new MobSpawnSettings.Builder().build())
-				.temperatureAdjustment(Biome.TemperatureModifier.NONE)
-				.build());
+		BIOMES.register(p_48229_, OverworldBiomes::theVoid);
 		return ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FrostRealm.MODID, p_48229_));
 	}
 

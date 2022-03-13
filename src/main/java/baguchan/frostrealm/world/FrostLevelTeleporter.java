@@ -152,7 +152,7 @@ public class FrostLevelTeleporter implements ITeleporter {
 	}
 
 	private static boolean isPortal(BlockState state) {
-		return state.getBlock() == FrostBlocks.FROST_PORTAL;
+		return state.getBlock() == FrostBlocks.FROST_PORTAL.get();
 	}
 
 	// from the start point, builds a set of all directly adjacent non-portal blocks
@@ -366,7 +366,7 @@ public class FrostLevelTeleporter implements ITeleporter {
 	}
 
 	public static BlockPos makePortalAt(Level world, BlockPos pos) {
-		BlockState portalState = FrostBlocks.FROST_PORTAL.defaultBlockState();
+		BlockState portalState = FrostBlocks.FROST_PORTAL.get().defaultBlockState();
 		BlockState snowstate = Blocks.SNOW_BLOCK.defaultBlockState();
 		for (BlockPos basePos : BlockPos.MutableBlockPos.betweenClosed(pos.offset(-2, 0, -2), pos.offset(2, 1, 2)))
 			world.setBlock(basePos, snowstate, 2);

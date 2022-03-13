@@ -18,13 +18,13 @@ public class ItemTagGenerator extends ItemTagsProvider {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void addTags() {
-		tag(ItemTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.asItem(), FrostBlocks.FROZEN_LOG.asItem());
-		tag(ItemTags.PLANKS).add(FrostBlocks.FROSTROOT_PLANKS.asItem(), FrostBlocks.FROZEN_PLANKS.asItem());
-		tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.asItem());
-		tag(ItemTags.STONE_TOOL_MATERIALS).add(FrostBlocks.FRIGID_STONE.asItem());
-		tag(ItemTags.STONE_CRAFTING_MATERIALS).add(FrostBlocks.FRIGID_STONE.asItem());
-		tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.asItem());
-		tag(Tags.Items.EGGS).add(FrostBlocks.SNOWPILE_QUAIL_EGG.asItem());
-		tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(FrostItems.YETI_FUR_HELMET, FrostItems.YETI_FUR_CHESTPLATE, FrostItems.YETI_FUR_LEGGINGS, FrostItems.YETI_FUR_BOOTS);
+		tag(ItemTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.get().asItem(), FrostBlocks.FROZEN_LOG.get().asItem());
+		tag(ItemTags.PLANKS).add(FrostBlocks.FROSTROOT_PLANKS.get().asItem(), FrostBlocks.FROZEN_PLANKS.get().asItem());
+		tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.get().asItem());
+		tag(ItemTags.STONE_TOOL_MATERIALS).add(FrostBlocks.FRIGID_STONE.get().asItem());
+		tag(ItemTags.STONE_CRAFTING_MATERIALS).add(FrostBlocks.FRIGID_STONE.get().asItem());
+		tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.get().asItem());
+		tag(Tags.Items.EGGS).add(FrostBlocks.SNOWPILE_QUAIL_EGG.get().asItem());
+		tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(FrostItems.YETI_FUR_HELMET.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_BOOTS.get());
 	}
 }

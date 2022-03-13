@@ -65,7 +65,7 @@ public class Gokkur extends Monster {
 	}
 
 	public static boolean checkGokkurSpawnRules(EntityType<? extends Monster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
-		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FRIGID_STONE) && Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
+		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FRIGID_STONE.get()) && Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {

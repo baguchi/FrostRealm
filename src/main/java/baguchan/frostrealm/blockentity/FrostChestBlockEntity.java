@@ -12,6 +12,6 @@ public class FrostChestBlockEntity extends ChestBlockEntity {
 	}
 
 	public FrostChestBlockEntity(BlockPos p_155331_, BlockState p_155332_) {
-		super(FrostBlockEntitys.FROST_CHEST, p_155331_, p_155332_);
+		super(FrostBlockEntitys.FROST_CHEST.get(), p_155331_, p_155332_);
 	}
 }

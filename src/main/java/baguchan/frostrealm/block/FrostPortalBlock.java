@@ -189,7 +189,7 @@ public class FrostPortalBlock extends Block {
 
 		void placePortalBlocks() {
 			for (BlockPos portalPos : BlockPos.MutableBlockPos.betweenClosed(this.nw, this.se))
-				this.world.setBlock(portalPos, FrostBlocks.FROST_PORTAL.defaultBlockState(), 2);
+				this.world.setBlock(portalPos, FrostBlocks.FROST_PORTAL.get().defaultBlockState(), 2);
 		}
 	}
 }

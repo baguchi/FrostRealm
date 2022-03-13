@@ -50,7 +50,7 @@ public class FrigidStoveBlock extends Block {
 		boolean lit = state.getValue(LIT);
 
 		if (!lit) {
-			if (stack.getItem() == Items.FIRE_CHARGE || stack.getItem() == Items.COAL || stack.getItem() == Items.CHARCOAL || stack.getItem() == FrostItems.FROST_CRYSTAL) {
+			if (stack.getItem() == Items.FIRE_CHARGE || stack.getItem() == Items.COAL || stack.getItem() == Items.CHARCOAL || stack.getItem() == FrostItems.FROST_CRYSTAL.get()) {
 				level.setBlock(pos, state.setValue(LIT, Boolean.valueOf(true)).setValue(AGE, 0), 3);
 				stack.shrink(1);
 				return InteractionResult.SUCCESS;
@@ -91,7 +91,7 @@ public class FrigidStoveBlock extends Block {
 		BlockState state2 = level.getBlockState(pos.relative(direction));
 
 		if (state2.getBlock() == Blocks.AIR) {
-			level.setBlock(pos.relative(direction), FrostBlocks.HOT_AIR.defaultBlockState(), 2);
+			level.setBlock(pos.relative(direction), FrostBlocks.HOT_AIR.get().defaultBlockState(), 2);
 		}
 	}
 

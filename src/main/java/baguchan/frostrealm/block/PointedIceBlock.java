@@ -236,15 +236,19 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 	}
 
 	private static void spawnFallingStalactite(BlockState p_154098_, ServerLevel p_154099_, BlockPos p_154100_) {
-		Vec3 vec3 = Vec3.atBottomCenterOf(p_154100_);
-		FallingBlockEntity fallingblockentity = new FallingBlockEntity(p_154099_, vec3.x, vec3.y, vec3.z, p_154098_);
-		if (isTip(p_154098_, true)) {
-			int i = getStalactiteSizeFromTip(p_154099_, p_154100_, 6);
-			float f = 1.0F * (float) i;
-			fallingblockentity.setHurtsEntities(f, 40);
-		}
+		BlockPos.MutableBlockPos blockpos$mutableblockpos = p_154100_.mutable();
 
-		p_154099_.addFreshEntity(fallingblockentity);
+		for (BlockState blockstate = p_154098_; isStalactite(blockstate); blockstate = p_154099_.getBlockState(blockpos$mutableblockpos)) {
+			FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(p_154099_, blockpos$mutableblockpos, blockstate);
+			if (isTip(blockstate, true)) {
+				int i = Math.max(1 + p_154100_.getY() - blockpos$mutableblockpos.getY(), 6);
+				float f = 1.0F * (float) i;
+				fallingblockentity.setHurtsEntities(f, 40);
+				break;
+			}
+
+			blockpos$mutableblockpos.move(Direction.DOWN);
+		}
 	}
 
 	@VisibleForTesting
@@ -302,7 +306,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 	}
 
 	private static void createDripstone(LevelAccessor p_154088_, BlockPos p_154089_, Direction p_154090_, DripstoneThickness p_154091_) {
-		BlockState blockstate = FrostBlocks.POINTED_ICE.defaultBlockState().setValue(TIP_DIRECTION, p_154090_).setValue(THICKNESS, p_154091_).setValue(WATERLOGGED, Boolean.valueOf(p_154088_.getFluidState(p_154089_).getType() == Fluids.WATER));
+		BlockState blockstate = FrostBlocks.POINTED_ICE.get().defaultBlockState().setValue(TIP_DIRECTION, p_154090_).setValue(THICKNESS, p_154091_).setValue(WATERLOGGED, Boolean.valueOf(p_154088_.getFluidState(p_154089_).getType() == Fluids.WATER));
 		p_154088_.setBlock(p_154089_, blockstate, 3);
 	}
 
@@ -339,7 +343,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 		} else {
 			Direction direction = p_154131_.getValue(TIP_DIRECTION);
 			Predicate<BlockState> predicate = (p_154212_) -> {
-				return p_154212_.is(FrostBlocks.POINTED_ICE) && p_154212_.getValue(TIP_DIRECTION) == direction;
+				return p_154212_.is(FrostBlocks.POINTED_ICE.get()) && p_154212_.getValue(TIP_DIRECTION) == direction;
 			};
 			return findBlockVertical(p_154132_, p_154133_, direction.getAxisDirection(), predicate, (p_154168_) -> {
 				return isTip(p_154168_, p_154135_);
@@ -399,10 +403,10 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 	private static Optional<BlockPos> findRootBlock(Level p_154067_, BlockPos p_154068_, BlockState p_154069_, int p_154070_) {
 		Direction direction = p_154069_.getValue(TIP_DIRECTION);
 		Predicate<BlockState> predicate = (p_154165_) -> {
-			return p_154165_.is(FrostBlocks.POINTED_ICE) && p_154165_.getValue(TIP_DIRECTION) == direction;
+			return p_154165_.is(FrostBlocks.POINTED_ICE.get()) && p_154165_.getValue(TIP_DIRECTION) == direction;
 		};
 		return findBlockVertical(p_154067_, p_154068_, direction.getOpposite().getAxisDirection(), predicate, (p_154245_) -> {
-			return !p_154245_.is(FrostBlocks.POINTED_ICE);
+			return !p_154245_.is(FrostBlocks.POINTED_ICE.get());
 		}, p_154070_);
 	}
 
@@ -413,7 +417,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 	}
 
 	private static boolean isTip(BlockState p_154154_, boolean p_154155_) {
-		if (!p_154154_.is(FrostBlocks.POINTED_ICE)) {
+		if (!p_154154_.is(FrostBlocks.POINTED_ICE.get())) {
 			return false;
 		} else {
 			DripstoneThickness dripstonethickness = p_154154_.getValue(THICKNESS);
@@ -434,7 +438,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 	}
 
 	private static boolean isStalactiteStartPos(BlockState p_154204_, LevelReader p_154205_, BlockPos p_154206_) {
-		return isStalactite(p_154204_) && !p_154205_.getBlockState(p_154206_.above()).is(FrostBlocks.POINTED_ICE);
+		return isStalactite(p_154204_) && !p_154205_.getBlockState(p_154206_.above()).is(FrostBlocks.POINTED_ICE.get());
 	}
 
 	public boolean isPathfindable(BlockState p_154112_, BlockGetter p_154113_, BlockPos p_154114_, PathComputationType p_154115_) {
@@ -442,7 +446,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 	}
 
 	private static boolean isPointedDripstoneWithDirection(BlockState p_154208_, Direction p_154209_) {
-		return p_154208_.is(FrostBlocks.POINTED_ICE) && p_154208_.getValue(TIP_DIRECTION) == p_154209_;
+		return p_154208_.is(FrostBlocks.POINTED_ICE.get()) && p_154208_.getValue(TIP_DIRECTION) == p_154209_;
 	}
 
 	private static Optional<Fluid> getFluidAboveStalactite(Level p_154182_, BlockPos p_154183_, BlockState p_154184_) {
@@ -490,7 +494,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 	public void onBrokenAfterFall(Level p_154059_, BlockPos p_154060_, FallingBlockEntity p_154061_) {
 		if (!p_154061_.isSilent()) {
 
-			p_154059_.levelEvent(2001, p_154060_, Block.getId(FrostBlocks.POINTED_ICE.defaultBlockState()));
+			p_154059_.levelEvent(2001, p_154060_, Block.getId(FrostBlocks.POINTED_ICE.get().defaultBlockState()));
 		}
 	}
 }

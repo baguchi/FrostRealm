@@ -12,6 +12,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.IItemRenderProperties;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -28,12 +29,13 @@ public class YetiFurArmorItem extends ArmorItem {
 	private static final class ArmorRender implements IItemRenderProperties {
 		private static final ArmorRender INSTANCE = new ArmorRender();
 
+
+		@Nullable
 		@Override
-		@SuppressWarnings("unchecked")
-		public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A defModel) {
+		public HumanoidModel<?> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
 			EntityModelSet models = Minecraft.getInstance().getEntityModels();
 			ModelPart root = models.bakeLayer(armorSlot == EquipmentSlot.LEGS ? FrostModelLayers.YETI_FUR_ARMOR_INNER : FrostModelLayers.YETI_FUR_ARMOR_OUTER);
-			return (A) new YetiFurArmorModel<>(root);
+			return new YetiFurArmorModel<>(root);
 		}
 	}
 }

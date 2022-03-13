@@ -27,7 +27,7 @@ public class GetFoodGoal<T extends Yeti> extends Goal {
 	}
 
 	public void tick() {
-		if (this.mob.getNavigation().getTargetPos().closerThan(this.mob.position(), 1.414D)) {
+		if (this.mob.getNavigation().getTargetPos().closerThan(this.mob.blockPosition(), 1.414D)) {
 			List<ItemEntity> list = this.mob.level.getEntitiesOfClass(ItemEntity.class, this.mob.getBoundingBox().inflate(4.0D, 4.0D, 4.0D), Yeti.ALLOWED_ITEMS);
 			if (!list.isEmpty()) {
 				this.mob.pickUpItem(list.get(0));

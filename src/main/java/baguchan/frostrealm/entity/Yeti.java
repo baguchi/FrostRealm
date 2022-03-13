@@ -266,7 +266,7 @@ public class Yeti extends AgeableMob implements NeutralMob {
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-		return FrostEntities.YETI.create(p_146743_);
+		return FrostEntities.YETI.get().create(p_146743_);
 	}
 
 	@Override

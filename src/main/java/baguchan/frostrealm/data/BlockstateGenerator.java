@@ -22,56 +22,56 @@ public class BlockstateGenerator extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
-		this.simpleBlock(FrostBlocks.FROST_PORTAL);
-		this.simpleBlock(FrostBlocks.FROZEN_DIRT);
+		this.simpleBlock(FrostBlocks.FROST_PORTAL.get());
+		this.simpleBlock(FrostBlocks.FROZEN_DIRT.get());
 
-		this.simpleBlock(FrostBlocks.FRIGID_STONE);
-		this.slab(FrostBlocks.FRIGID_STONE_SLAB, FrostBlocks.FRIGID_STONE);
-		this.stairs(FrostBlocks.FRIGID_STONE_STAIRS, FrostBlocks.FRIGID_STONE);
-		this.simpleBlock(FrostBlocks.FRIGID_STONE_BRICK);
-		this.simpleBlock(FrostBlocks.FRIGID_STONE_SMOOTH);
-		this.slab(FrostBlocks.FRIGID_STONE_BRICK_SLAB, FrostBlocks.FRIGID_STONE_BRICK);
-		this.stairs(FrostBlocks.FRIGID_STONE_BRICK_STAIRS, FrostBlocks.FRIGID_STONE_BRICK);
+		this.simpleBlock(FrostBlocks.FRIGID_STONE.get());
+		this.slab(FrostBlocks.FRIGID_STONE_SLAB.get(), FrostBlocks.FRIGID_STONE.get());
+		this.stairs(FrostBlocks.FRIGID_STONE_STAIRS.get(), FrostBlocks.FRIGID_STONE.get());
+		this.simpleBlock(FrostBlocks.FRIGID_STONE_BRICK.get());
+		this.simpleBlock(FrostBlocks.FRIGID_STONE_SMOOTH.get());
+		this.slab(FrostBlocks.FRIGID_STONE_BRICK_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
+		this.stairs(FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
 
-		this.simpleBlock(FrostBlocks.FRIGID_STONE_MOSSY);
-		this.slab(FrostBlocks.FRIGID_STONE_MOSSY_SLAB, FrostBlocks.FRIGID_STONE_MOSSY);
-		this.stairs(FrostBlocks.FRIGID_STONE_MOSSY_STAIRS, FrostBlocks.FRIGID_STONE_MOSSY);
+		this.simpleBlock(FrostBlocks.FRIGID_STONE_MOSSY.get());
+		this.slab(FrostBlocks.FRIGID_STONE_MOSSY_SLAB.get(), FrostBlocks.FRIGID_STONE_MOSSY.get());
+		this.stairs(FrostBlocks.FRIGID_STONE_MOSSY_STAIRS.get(), FrostBlocks.FRIGID_STONE_MOSSY.get());
 
-		this.simpleBlock(FrostBlocks.FRIGID_STONE_BRICK_MOSSY);
-		this.slab(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB, FrostBlocks.FRIGID_STONE_BRICK_MOSSY);
-		this.stairs(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS, FrostBlocks.FRIGID_STONE_BRICK_MOSSY);
+		this.simpleBlock(FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
+		this.slab(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
+		this.stairs(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
 
-		this.logBlock(FrostBlocks.FROSTROOT_LOG);
-		this.simpleBlock(FrostBlocks.FROSTROOT_LEAVES);
-		this.crossBlock(FrostBlocks.FROSTROOT_SAPLING);
-		this.simpleBlock(FrostBlocks.FROSTROOT_PLANKS);
-		this.slab(FrostBlocks.FROSTROOT_PLANKS_SLAB, FrostBlocks.FROSTROOT_PLANKS);
-		this.stairs(FrostBlocks.FROSTROOT_PLANKS_STAIRS, FrostBlocks.FROSTROOT_PLANKS);
-		this.fenceBlock(FrostBlocks.FROSTROOT_FENCE, texture(name(FrostBlocks.FROSTROOT_PLANKS)));
-		this.fenceGateBlock(FrostBlocks.FROSTROOT_FENCE_GATE, texture(name(FrostBlocks.FROSTROOT_PLANKS)));
+		this.logBlock(FrostBlocks.FROSTROOT_LOG.get());
+		this.simpleBlock(FrostBlocks.FROSTROOT_LEAVES.get());
+		this.crossBlock(FrostBlocks.FROSTROOT_SAPLING.get());
+		this.simpleBlock(FrostBlocks.FROSTROOT_PLANKS.get());
+		this.slab(FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_PLANKS.get());
+		this.stairs(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS.get());
+		this.fenceBlock(FrostBlocks.FROSTROOT_FENCE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
+		this.fenceGateBlock(FrostBlocks.FROSTROOT_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
 
-		this.logBlock(FrostBlocks.FROZEN_LOG);
-		this.simpleBlock(FrostBlocks.FROZEN_LEAVES);
-		this.crossBlock(FrostBlocks.FROZEN_SAPLING);
-		this.simpleBlock(FrostBlocks.FROZEN_PLANKS);
-		this.slab(FrostBlocks.FROZEN_PLANKS_SLAB, FrostBlocks.FROZEN_PLANKS);
-		this.stairs(FrostBlocks.FROZEN_PLANKS_STAIRS, FrostBlocks.FROZEN_PLANKS);
-		this.fenceBlock(FrostBlocks.FROZEN_FENCE, texture(name(FrostBlocks.FROZEN_PLANKS)));
-		this.fenceGateBlock(FrostBlocks.FROZEN_FENCE_GATE, texture(name(FrostBlocks.FROZEN_PLANKS)));
+		this.logBlock(FrostBlocks.FROZEN_LOG.get());
+		this.simpleBlock(FrostBlocks.FROZEN_LEAVES.get());
+		this.crossBlock(FrostBlocks.FROZEN_SAPLING.get());
+		this.simpleBlock(FrostBlocks.FROZEN_PLANKS.get());
+		this.slab(FrostBlocks.FROZEN_PLANKS_SLAB.get(), FrostBlocks.FROZEN_PLANKS.get());
+		this.stairs(FrostBlocks.FROZEN_PLANKS_STAIRS.get(), FrostBlocks.FROZEN_PLANKS.get());
+		this.fenceBlock(FrostBlocks.FROZEN_FENCE.get(), texture(name(FrostBlocks.FROZEN_PLANKS.get())));
+		this.fenceGateBlock(FrostBlocks.FROZEN_FENCE_GATE.get(), texture(name(FrostBlocks.FROZEN_PLANKS.get())));
 
-		this.crossBlock(FrostBlocks.VIGOROSHROOM);
-		this.crossBlock(FrostBlocks.ARCTIC_POPPY);
-		this.crossBlock(FrostBlocks.ARCTIC_WILLOW);
+		this.crossBlock(FrostBlocks.VIGOROSHROOM.get());
+		this.crossBlock(FrostBlocks.ARCTIC_POPPY.get());
+		this.crossBlock(FrostBlocks.ARCTIC_WILLOW.get());
 
-		this.crossTintBlock(FrostBlocks.COLD_GRASS);
+		this.crossTintBlock(FrostBlocks.COLD_GRASS.get());
 
-		this.ageThreeCrossBlock(FrostBlocks.BEARBERRY_BUSH);
-		this.ageThreeCrossBlock(FrostBlocks.SUGARBEET);
+		this.ageThreeCrossBlock(FrostBlocks.BEARBERRY_BUSH.get());
+		this.ageThreeCrossBlock(FrostBlocks.SUGARBEET.get());
 
-		this.simpleBlock(FrostBlocks.FROST_CRYSTAL_ORE);
-		this.simpleBlock(FrostBlocks.GLIMMERROCK_ORE);
-		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_ORE);
-		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER);
+		this.simpleBlock(FrostBlocks.FROST_CRYSTAL_ORE.get());
+		this.simpleBlock(FrostBlocks.GLIMMERROCK_ORE.get());
+		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
+		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 	}
 
 	public void torchBlock(Block block, Block wall) {

@@ -101,7 +101,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.itemBlockFlat(FrostBlocks.ARCTIC_WILLOW);
 
 		this.itemBlockFlat(FrostBlocks.COLD_GRASS);
-		this.itemBlockFlat(FrostBlocks.COLD_TALL_GRASS, "cold_tall_grass_top");
+		this.itemBlockFlat(FrostBlocks.COLD_TALL_GRASS.get(), "cold_tall_grass_top");
 
 		this.toBlock(FrostBlocks.FROST_CRYSTAL_ORE);
 		this.toBlock(FrostBlocks.GLIMMERROCK_ORE);
@@ -125,8 +125,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 		return builder;
 	}
 
-	private ItemModelBuilder singleTexTool(Item item) {
-		return tool(item.getRegistryName().getPath(), prefix("item/" + item.getRegistryName().getPath()));
+	private ItemModelBuilder singleTexTool(RegistryObject<Item> item) {
+		return tool(item.get().getRegistryName().getPath(), prefix("item/" + item.get().getRegistryName().getPath()));
 	}
 
 	private ItemModelBuilder tool(String name, ResourceLocation... layers) {
@@ -137,8 +137,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 		return builder;
 	}
 
-	private ItemModelBuilder singleTex(Item item) {
-		return generated(item.getRegistryName().getPath(), prefix("item/" + item.getRegistryName().getPath()));
+	private ItemModelBuilder singleTex(RegistryObject<Item> item) {
+		return generated(item.get().getRegistryName().getPath(), prefix("item/" + item.get().getRegistryName().getPath()));
 	}
 
 	private ItemModelBuilder bowItem(String name, ResourceLocation... layers) {
@@ -162,10 +162,10 @@ public class ItemModelGenerator extends ItemModelProvider {
 				.texture("texture", "block/wood/planks_" + variant + "_0");
 	}
 
-	private void woodenFence(Block fence, Block block) {
-		getBuilder(fence.getRegistryName().getPath())
+	private void woodenFence(RegistryObject<? extends Block> fence, RegistryObject<? extends Block> block) {
+		getBuilder(fence.get().getRegistryName().getPath())
 				.parent(getExistingFile(mcLoc("block/fence_inventory")))
-				.texture("texture", "block/" + block.getRegistryName().getPath());
+				.texture("texture", "block/" + block.get().getRegistryName().getPath());
 	}
 
 	private void woodenFence(Block fence, String texture) {
@@ -174,8 +174,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 				.texture("texture", "block/" + texture);
 	}
 
-	private void toBlock(Block b) {
-		toBlockModel(b, b.getRegistryName().getPath());
+	private void toBlock(RegistryObject<? extends Block> b) {
+		toBlockModel(b.get(), b.get().getRegistryName().getPath());
 	}
 
 	private void toBlockModel(Block b, String model) {
@@ -186,8 +186,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 		withExistingParent(b.getRegistryName().getPath(), model);
 	}
 
-	public ItemModelBuilder itemBlockFlat(Block block) {
-		return itemBlockFlat(block, blockName(block));
+	public ItemModelBuilder itemBlockFlat(RegistryObject<? extends Block> block) {
+		return itemBlockFlat(block.get(), blockName(block.get()));
 	}
 
 	public ItemModelBuilder itemBlockFlat(Block block, String name) {
@@ -195,8 +195,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 				.texture("layer0", modLoc("block/" + name));
 	}
 
-	public ItemModelBuilder egg(Item item) {
-		return withExistingParent(item.getRegistryName().getPath(), mcLoc("item/template_spawn_egg"));
+	public ItemModelBuilder egg(RegistryObject<Item> item) {
+		return withExistingParent(item.get().getRegistryName().getPath(), mcLoc("item/template_spawn_egg"));
 	}
 
 	public String blockName(Block block) {

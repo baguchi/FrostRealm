@@ -30,7 +30,7 @@ public class FrostWolf extends Wolf implements IAnimatable {
 
 	public static final Predicate<LivingEntity> FROST_PREY_SELECTOR = (p_30437_) -> {
 		EntityType<?> entitytype = p_30437_.getType();
-		return entitytype == FrostEntities.SNOWPILE_QUAIL || entitytype == FrostEntities.CRYSTAL_FOX;
+		return entitytype == FrostEntities.SNOWPILE_QUAIL.get() || entitytype == FrostEntities.CRYSTAL_FOX.get();
 	};
 
 	public static final Animation HOWL_ANIMATION = Animation.create(60);
@@ -56,12 +56,12 @@ public class FrostWolf extends Wolf implements IAnimatable {
 	}
 
 	public static boolean checkFrostWolfSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
-		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
+		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
 	}
 
 	@Override
 	public FrostWolf getBreedOffspring(ServerLevel p_149088_, AgeableMob p_149089_) {
-		FrostWolf wolf = FrostEntities.FROST_WOLF.create(p_149088_);
+		FrostWolf wolf = FrostEntities.FROST_WOLF.get().create(p_149088_);
 		UUID uuid = this.getOwnerUUID();
 		if (uuid != null) {
 			wolf.setOwnerUUID(uuid);

@@ -12,9 +12,9 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 public class FrostSurfaceRuleData {
 	private static final SurfaceRules.RuleSource AIR = makeStateRule(Blocks.AIR);
 	private static final SurfaceRules.RuleSource BEDROCK = makeStateRule(Blocks.BEDROCK);
-	private static final SurfaceRules.RuleSource FROZEN_GRASS_BLOCK = makeStateRule(FrostBlocks.FROZEN_GRASS_BLOCK);
-	private static final SurfaceRules.RuleSource FROZEN_DIRT = makeStateRule(FrostBlocks.FROZEN_DIRT);
-	private static final SurfaceRules.RuleSource FRIGID_STONE = makeStateRule(FrostBlocks.FRIGID_STONE);
+	private static final SurfaceRules.RuleSource FROZEN_GRASS_BLOCK = makeStateRule(FrostBlocks.FROZEN_GRASS_BLOCK.get());
+	private static final SurfaceRules.RuleSource FROZEN_DIRT = makeStateRule(FrostBlocks.FROZEN_DIRT.get());
+	private static final SurfaceRules.RuleSource FRIGID_STONE = makeStateRule(FrostBlocks.FRIGID_STONE.get());
 
 	private static SurfaceRules.RuleSource makeStateRule(Block p_194811_) {
 		return SurfaceRules.state(p_194811_.defaultBlockState());

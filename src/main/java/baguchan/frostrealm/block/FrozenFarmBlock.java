@@ -48,7 +48,7 @@ public class FrozenFarmBlock extends Block {
 	}
 
 	public BlockState getStateForPlacement(BlockPlaceContext p_53249_) {
-		return !this.defaultBlockState().canSurvive(p_53249_.getLevel(), p_53249_.getClickedPos()) ? FrostBlocks.FROZEN_DIRT.defaultBlockState() : super.getStateForPlacement(p_53249_);
+		return !this.defaultBlockState().canSurvive(p_53249_.getLevel(), p_53249_.getClickedPos()) ? FrostBlocks.FROZEN_DIRT.get().defaultBlockState() : super.getStateForPlacement(p_53249_);
 	}
 
 	public boolean useShapeForLightOcclusion(BlockState p_53295_) {
@@ -81,7 +81,7 @@ public class FrozenFarmBlock extends Block {
 	}
 
 	public void fallOn(Level p_153227_, BlockState p_153228_, BlockPos p_153229_, Entity p_153230_, float p_153231_) {
-		if (!p_153227_.isClientSide && net.minecraftforge.common.ForgeHooks.onFarmlandTrample(p_153227_, p_153229_, FrostBlocks.FROZEN_DIRT.defaultBlockState(), p_153231_, p_153230_)) { // Forge: Move logic to Entity#canTrample
+		if (!p_153227_.isClientSide && net.minecraftforge.common.ForgeHooks.onFarmlandTrample(p_153227_, p_153229_, FrostBlocks.FROZEN_DIRT.get().defaultBlockState(), p_153231_, p_153230_)) { // Forge: Move logic to Entity#canTrample
 			turnToDirt(p_153228_, p_153227_, p_153229_);
 		}
 
@@ -89,7 +89,7 @@ public class FrozenFarmBlock extends Block {
 	}
 
 	public static void turnToDirt(BlockState p_53297_, Level p_53298_, BlockPos p_53299_) {
-		p_53298_.setBlockAndUpdate(p_53299_, pushEntitiesUp(p_53297_, FrostBlocks.FROZEN_DIRT.defaultBlockState(), p_53298_, p_53299_));
+		p_53298_.setBlockAndUpdate(p_53299_, pushEntitiesUp(p_53297_, FrostBlocks.FROZEN_DIRT.get().defaultBlockState(), p_53298_, p_53299_));
 	}
 
 

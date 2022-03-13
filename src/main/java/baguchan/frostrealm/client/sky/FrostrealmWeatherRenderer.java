@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
@@ -90,8 +91,8 @@ public class FrostrealmWeatherRenderer implements IWeatherRenderHandler {
 					double d0 = (double) this.rainxs[l1] * 0.5D;
 					double d1 = (double) this.rainzs[l1] * 0.5D;
 					blockpos$mutableblockpos.set(k1, 0, j1);
-					Biome biome = level.getBiome(blockpos$mutableblockpos);
-					if (biome.getPrecipitation() != Biome.Precipitation.NONE) {
+					Holder<Biome> biome = level.getBiome(blockpos$mutableblockpos);
+					if (biome.value().getPrecipitation() != Biome.Precipitation.NONE) {
 						int i2 = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos$mutableblockpos).getY();
 						int j2 = j - l;
 						int k2 = j + l;

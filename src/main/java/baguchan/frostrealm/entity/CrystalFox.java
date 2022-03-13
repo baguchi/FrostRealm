@@ -53,13 +53,13 @@ public class CrystalFox extends Animal implements IAnimatable {
 
 	public static final Predicate<LivingEntity> FROST_PREY_SELECTOR = (p_30437_) -> {
 		EntityType<?> entitytype = p_30437_.getType();
-		return entitytype == FrostEntities.SNOWPILE_QUAIL;
+		return entitytype == FrostEntities.SNOWPILE_QUAIL.get();
 	};
 	private static final Predicate<Entity> AVOID_PLAYERS = (p_28463_) -> {
 		return !p_28463_.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p_28463_);
 	};
 
-	public static final Ingredient FOOD_ITEMS = Ingredient.of(FrostItems.BEARBERRY.asItem());
+	public static final Ingredient FOOD_ITEMS = Ingredient.of(FrostItems.BEARBERRY.get().asItem());
 
 
 	public CrystalFox(EntityType<? extends Animal> p_27557_, Level p_27558_) {
@@ -87,7 +87,7 @@ public class CrystalFox extends Animal implements IAnimatable {
 	}
 
 	public static boolean checkCrystalFoxSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
-		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
+		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -172,7 +172,7 @@ public class CrystalFox extends Animal implements IAnimatable {
 	@Nullable
 	@Override
 	public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-		return FrostEntities.CRYSTAL_FOX.create(p_146743_);
+		return FrostEntities.CRYSTAL_FOX.get().create(p_146743_);
 	}
 
 	@Override
@@ -226,7 +226,7 @@ public class CrystalFox extends Animal implements IAnimatable {
 
 		protected boolean isValidTarget(LevelReader p_28680_, BlockPos p_28681_) {
 			BlockState blockstate = p_28680_.getBlockState(p_28681_);
-			return blockstate.is(FrostBlocks.BEARBERRY_BUSH) && blockstate.getValue(BearBerryBushBlock.AGE) > 2;
+			return blockstate.is(FrostBlocks.BEARBERRY_BUSH.get()) && blockstate.getValue(BearBerryBushBlock.AGE) > 2;
 		}
 
 		public void tick() {
@@ -246,7 +246,7 @@ public class CrystalFox extends Animal implements IAnimatable {
 		protected void onReachedTarget() {
 			if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(CrystalFox.this.level, CrystalFox.this)) {
 				BlockState blockstate = CrystalFox.this.level.getBlockState(this.blockPos);
-				if (blockstate.is(FrostBlocks.BEARBERRY_BUSH)) {
+				if (blockstate.is(FrostBlocks.BEARBERRY_BUSH.get())) {
 					this.pickBearBerry(blockstate);
 				}
 
@@ -266,7 +266,7 @@ public class CrystalFox extends Animal implements IAnimatable {
 			}
 
 			if (j > 0) {
-				Block.popResource(CrystalFox.this.level, this.blockPos, new ItemStack(FrostItems.BEARBERRY, j));
+				Block.popResource(CrystalFox.this.level, this.blockPos, new ItemStack(FrostItems.BEARBERRY.get(), j));
 			}
 
 			CrystalFox.this.playSound(SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, 1.0F, 1.0F);

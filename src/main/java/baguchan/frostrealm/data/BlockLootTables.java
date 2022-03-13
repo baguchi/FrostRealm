@@ -39,78 +39,78 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 
 	@Override
 	protected void addTables() {
-		registerEmpty(FrostBlocks.FROST_PORTAL);
-		registerEmpty(FrostBlocks.HOT_AIR);
+		registerEmpty(FrostBlocks.FROST_PORTAL.get());
+		registerEmpty(FrostBlocks.HOT_AIR.get());
 
-		this.dropSelf(FrostBlocks.FROZEN_DIRT);
-		this.add(FrostBlocks.FROZEN_GRASS_BLOCK, (p_124193_) -> {
-			return createSingleItemTableWithSilkTouch(p_124193_, FrostBlocks.FROZEN_DIRT);
+		this.dropSelf(FrostBlocks.FROZEN_DIRT.get());
+		this.add(FrostBlocks.FROZEN_GRASS_BLOCK.get(), (p_124193_) -> {
+			return createSingleItemTableWithSilkTouch(p_124193_, FrostBlocks.FROZEN_DIRT.get());
 		});
-		this.dropOther(FrostBlocks.FROZEN_FARMLAND, FrostBlocks.FROZEN_DIRT);
-		this.dropSelf(FrostBlocks.POINTED_ICE);
+		this.dropOther(FrostBlocks.FROZEN_FARMLAND.get(), FrostBlocks.FROZEN_DIRT.get());
+		this.dropSelf(FrostBlocks.POINTED_ICE.get());
 
-		this.dropSelf(FrostBlocks.FRIGID_STONE);
-		this.add(FrostBlocks.FRIGID_STONE_SLAB, BlockLoot::createSlabItemTable);
-		this.dropSelf(FrostBlocks.FRIGID_STONE_STAIRS);
-		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK);
-		this.dropSelf(FrostBlocks.FRIGID_STONE_SMOOTH);
-		this.add(FrostBlocks.FRIGID_STONE_BRICK_SLAB, BlockLoot::createSlabItemTable);
-		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK_STAIRS);
+		this.dropSelf(FrostBlocks.FRIGID_STONE.get());
+		this.add(FrostBlocks.FRIGID_STONE_SLAB.get(), BlockLoot::createSlabItemTable);
+		this.dropSelf(FrostBlocks.FRIGID_STONE_STAIRS.get());
+		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK.get());
+		this.dropSelf(FrostBlocks.FRIGID_STONE_SMOOTH.get());
+		this.add(FrostBlocks.FRIGID_STONE_BRICK_SLAB.get(), BlockLoot::createSlabItemTable);
+		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get());
 
-		this.dropSelf(FrostBlocks.FRIGID_STONE_MOSSY);
-		this.add(FrostBlocks.FRIGID_STONE_MOSSY_SLAB, BlockLoot::createSlabItemTable);
-		this.dropSelf(FrostBlocks.FRIGID_STONE_MOSSY_STAIRS);
+		this.dropSelf(FrostBlocks.FRIGID_STONE_MOSSY.get());
+		this.add(FrostBlocks.FRIGID_STONE_MOSSY_SLAB.get(), BlockLoot::createSlabItemTable);
+		this.dropSelf(FrostBlocks.FRIGID_STONE_MOSSY_STAIRS.get());
 
-		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK_MOSSY);
-		this.add(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB, BlockLoot::createSlabItemTable);
-		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS);
+		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
+		this.add(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB.get(), BlockLoot::createSlabItemTable);
+		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS.get());
 
 
-		this.dropSelf(FrostBlocks.FROSTROOT_LOG);
-		this.dropSelf(FrostBlocks.FROSTROOT_SAPLING);
-		this.add(FrostBlocks.FROSTROOT_LEAVES, (p_124104_) -> {
-			return createFrostLeavesDrops(p_124104_, FrostBlocks.FROSTROOT_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES);
+		this.dropSelf(FrostBlocks.FROSTROOT_LOG.get());
+		this.dropSelf(FrostBlocks.FROSTROOT_SAPLING.get());
+		this.add(FrostBlocks.FROSTROOT_LEAVES.get(), (p_124104_) -> {
+			return createFrostLeavesDrops(p_124104_, FrostBlocks.FROSTROOT_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
 		});
-		this.dropSelf(FrostBlocks.FROSTROOT_PLANKS);
-		this.add(FrostBlocks.FROSTROOT_PLANKS_SLAB, BlockLoot::createSlabItemTable);
-		this.dropSelf(FrostBlocks.FROSTROOT_PLANKS_STAIRS);
-		this.dropSelf(FrostBlocks.FROSTROOT_FENCE);
-		this.dropSelf(FrostBlocks.FROSTROOT_FENCE_GATE);
-		this.add(FrostBlocks.FROSTROOT_DOOR, BlockLoot::createDoorTable);
+		this.dropSelf(FrostBlocks.FROSTROOT_PLANKS.get());
+		this.add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), BlockLoot::createSlabItemTable);
+		this.dropSelf(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get());
+		this.dropSelf(FrostBlocks.FROSTROOT_FENCE.get());
+		this.dropSelf(FrostBlocks.FROSTROOT_FENCE_GATE.get());
+		this.add(FrostBlocks.FROSTROOT_DOOR.get(), BlockLoot::createDoorTable);
 
-		this.dropSelf(FrostBlocks.FROZEN_LOG);
-		this.dropSelf(FrostBlocks.FROZEN_SAPLING);
-		this.add(FrostBlocks.FROZEN_LEAVES, (p_124104_) -> {
-			return createFrostLeavesDrops(p_124104_, FrostBlocks.FROZEN_SAPLING, NORMAL_LEAVES_SAPLING_CHANCES);
+		this.dropSelf(FrostBlocks.FROZEN_LOG.get());
+		this.dropSelf(FrostBlocks.FROZEN_SAPLING.get());
+		this.add(FrostBlocks.FROZEN_LEAVES.get(), (p_124104_) -> {
+			return createFrostLeavesDrops(p_124104_, FrostBlocks.FROZEN_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
 		});
-		this.dropSelf(FrostBlocks.FROZEN_PLANKS);
-		this.add(FrostBlocks.FROZEN_PLANKS_SLAB, BlockLoot::createSlabItemTable);
-		this.dropSelf(FrostBlocks.FROZEN_PLANKS_STAIRS);
-		this.dropSelf(FrostBlocks.FROZEN_FENCE);
-		this.dropSelf(FrostBlocks.FROZEN_FENCE_GATE);
+		this.dropSelf(FrostBlocks.FROZEN_PLANKS.get());
+		this.add(FrostBlocks.FROZEN_PLANKS_SLAB.get(), BlockLoot::createSlabItemTable);
+		this.dropSelf(FrostBlocks.FROZEN_PLANKS_STAIRS.get());
+		this.dropSelf(FrostBlocks.FROZEN_FENCE.get());
+		this.dropSelf(FrostBlocks.FROZEN_FENCE_GATE.get());
 
-		this.dropSelf(FrostBlocks.VIGOROSHROOM);
-		this.dropSelf(FrostBlocks.ARCTIC_POPPY);
-		this.dropSelf(FrostBlocks.ARCTIC_WILLOW);
+		this.dropSelf(FrostBlocks.VIGOROSHROOM.get());
+		this.dropSelf(FrostBlocks.ARCTIC_POPPY.get());
+		this.dropSelf(FrostBlocks.ARCTIC_WILLOW.get());
 
-		this.registerEmpty(FrostBlocks.COLD_GRASS);
-		this.registerEmpty(FrostBlocks.COLD_TALL_GRASS);
-		this.add(FrostBlocks.BEARBERRY_BUSH, (p_124096_) -> {
-			return applyExplosionDecay(p_124096_, LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 3))).add(LootItem.lootTableItem(FrostItems.BEARBERRY)).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))).withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 2))).add(LootItem.lootTableItem(FrostItems.BEARBERRY)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))));
+		this.registerEmpty(FrostBlocks.COLD_GRASS.get());
+		this.registerEmpty(FrostBlocks.COLD_TALL_GRASS.get());
+		this.add(FrostBlocks.BEARBERRY_BUSH.get(), (p_124096_) -> {
+			return applyExplosionDecay(p_124096_, LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 3))).add(LootItem.lootTableItem(FrostItems.BEARBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))).withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 2))).add(LootItem.lootTableItem(FrostItems.BEARBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))));
 		});
-		LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.SUGARBEET).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BeetrootBlock.AGE, 3));
-		this.add(FrostBlocks.SUGARBEET, createCropDrops(FrostBlocks.SUGARBEET, FrostItems.SUGARBEET, FrostItems.SUGARBEET, lootitemcondition$builder));
+		LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.SUGARBEET.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BeetrootBlock.AGE, 3));
+		this.add(FrostBlocks.SUGARBEET.get(), createCropDrops(FrostBlocks.SUGARBEET.get(), FrostItems.SUGARBEET.get(), FrostItems.SUGARBEET.get(), lootitemcondition$builder));
 
 
-		this.add(FrostBlocks.FROST_CRYSTAL_ORE, BlockLootTables::createFrostCrystalOreDrops);
-		this.add(FrostBlocks.GLIMMERROCK_ORE, BlockLootTables::createGlimmerRockOreDrops);
-		this.add(FrostBlocks.STARDUST_CRYSTAL_ORE, BlockLootTables::createStardustCrystalOreDrops);
-		this.dropSelf(FrostBlocks.STARDUST_CRYSTAL_CLUSTER);
-		this.dropSelf(FrostBlocks.FROST_TORCH);
-		this.dropOther(FrostBlocks.WALL_FROST_TORCH, FrostBlocks.FROST_TORCH);
-		this.dropSelf(FrostBlocks.FRIGID_STOVE);
-		this.dropSelf(FrostBlocks.FROSTROOT_CHEST);
-		this.dropSelf(FrostBlocks.SNOWPILE_QUAIL_EGG);
+		this.add(FrostBlocks.FROST_CRYSTAL_ORE.get(), BlockLootTables::createFrostCrystalOreDrops);
+		this.add(FrostBlocks.GLIMMERROCK_ORE.get(), BlockLootTables::createGlimmerRockOreDrops);
+		this.add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), BlockLootTables::createStardustCrystalOreDrops);
+		this.dropSelf(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
+		this.dropSelf(FrostBlocks.FROST_TORCH.get());
+		this.dropOther(FrostBlocks.WALL_FROST_TORCH.get(), FrostBlocks.FROST_TORCH.get());
+		this.dropSelf(FrostBlocks.FRIGID_STOVE.get());
+		this.dropSelf(FrostBlocks.FROSTROOT_CHEST.get());
+		this.dropSelf(FrostBlocks.SNOWPILE_QUAIL_EGG.get());
 	}
 
 
@@ -122,19 +122,19 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 
 	protected static LootTable.Builder createFrostLeavesDrops(Block p_124264_, Block p_124265_, float... p_124266_) {
 		LootItemCondition.Builder NOT_SILK_TOUCH_OR_SHEARS = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.data.loot.BlockLoot.class, null, "HAS_NO_SHEARS_OR_SILK_TOUCH");
-		return createLeavesDrops(p_124264_, p_124265_, p_124266_).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(NOT_SILK_TOUCH_OR_SHEARS).add(applyExplosionCondition(p_124264_, LootItem.lootTableItem(FrostItems.FROZEN_FRUIT)).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
+		return createLeavesDrops(p_124264_, p_124265_, p_124266_).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(NOT_SILK_TOUCH_OR_SHEARS).add(applyExplosionCondition(p_124264_, LootItem.lootTableItem(FrostItems.FROZEN_FRUIT.get())).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
 	}
 
 	protected static LootTable.Builder createFrostCrystalOreDrops(Block p_176049_) {
-		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.FROST_CRYSTAL).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.FROST_CRYSTAL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
 	}
 
 	protected static LootTable.Builder createGlimmerRockOreDrops(Block p_176049_) {
-		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.GLIMMERROCK).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.GLIMMERROCK.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
 	}
 
 	protected static LootTable.Builder createStardustCrystalOreDrops(Block p_176049_) {
-		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.STARDUST_CRYSTAL).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.STARDUST_CRYSTAL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
 	}
 
 

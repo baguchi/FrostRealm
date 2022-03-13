@@ -55,7 +55,7 @@ public class SnowPileQuailEggBlock extends Block {
 
 	private void destroyEgg(Level p_154851_, BlockState p_154852_, BlockPos p_154853_, Entity p_154854_, int p_154855_) {
 		if (this.canDestroyEgg(p_154851_, p_154854_)) {
-			if (!p_154851_.isClientSide && p_154851_.random.nextInt(p_154855_) == 0 && p_154852_.is(FrostBlocks.SNOWPILE_QUAIL_EGG)) {
+			if (!p_154851_.isClientSide && p_154851_.random.nextInt(p_154855_) == 0 && p_154852_.is(FrostBlocks.SNOWPILE_QUAIL_EGG.get())) {
 				this.decreaseEggs(p_154851_, p_154853_, p_154852_);
 			}
 			if (p_154854_ instanceof LivingEntity) {
@@ -103,7 +103,7 @@ public class SnowPileQuailEggBlock extends Block {
 
 				for (int j = 0; j < p_57804_.getValue(EGGS); ++j) {
 					p_57805_.levelEvent(2001, p_57806_, Block.getId(p_57804_));
-					SnowPileQuail snowpileEgg = FrostEntities.SNOWPILE_QUAIL.create(p_57805_);
+					SnowPileQuail snowpileEgg = FrostEntities.SNOWPILE_QUAIL.get().create(p_57805_);
 					snowpileEgg.setAge(-24000);
 					//snowpileEgg.setHomePos(p_57806_);
 					snowpileEgg.moveTo((double) p_57806_.getX() + 0.3D + (double) j * 0.2D, (double) p_57806_.getY(), (double) p_57806_.getZ() + 0.3D, 0.0F, 0.0F);

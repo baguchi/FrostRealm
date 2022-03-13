@@ -19,6 +19,5 @@ public class DataGenerators {
 		evt.getGenerator().addProvider(new FluidTagGenerator(evt.getGenerator(), evt.getExistingFileHelper()));
 		evt.getGenerator().addProvider(new LootGenerator(evt.getGenerator()));
 		evt.getGenerator().addProvider(new CraftingGenerator(evt.getGenerator()));
-		evt.getGenerator().addProvider(new FrostrealmWorldDataCompiler(evt.getGenerator()));
 	}
 }

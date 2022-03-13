@@ -38,15 +38,15 @@ public class HotAirBlock extends AirBlock {
 		BlockState state2 = level.getBlockState(pos.above());
 
 		if (state2.getBlock() == Blocks.AIR) {
-			level.setBlock(pos.above(), FrostBlocks.HOT_AIR.defaultBlockState(), 2);
+			level.setBlock(pos.above(), FrostBlocks.HOT_AIR.get().defaultBlockState(), 2);
 			level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
-		} else if (state2.getBlock() == FrostBlocks.HOT_AIR) {
+		} else if (state2.getBlock() == FrostBlocks.HOT_AIR.get()) {
 			Direction direction = Direction.getRandom(random);
 			if (direction != Direction.UP && direction != Direction.DOWN) {
 				BlockPos blockpos = pos.above().relative(direction);
 				BlockState state3 = level.getBlockState(blockpos);
 				if (state3.getBlock() == Blocks.AIR) {
-					level.setBlock(blockpos, FrostBlocks.HOT_AIR.defaultBlockState(), 2);
+					level.setBlock(blockpos, FrostBlocks.HOT_AIR.get().defaultBlockState(), 2);
 					level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
 				}
 			}

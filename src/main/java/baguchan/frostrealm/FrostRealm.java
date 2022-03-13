@@ -6,10 +6,8 @@ import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.message.ChangedColdMessage;
-import baguchan.frostrealm.registry.FrostBiomes;
-import baguchan.frostrealm.registry.FrostBlocks;
-import baguchan.frostrealm.registry.FrostNoiseGeneratorSettings;
-import baguchan.frostrealm.registry.FrostStructures;
+import baguchan.frostrealm.registry.*;
+import baguchan.frostrealm.world.caver.FrostConfiguredWorldCarvers;
 import baguchan.frostrealm.world.gen.FrostTreeFeatures;
 import baguchan.frostrealm.world.placement.FrostOrePlacements;
 import baguchan.frostrealm.world.placement.FrostPlacements;
@@ -52,12 +50,19 @@ public class FrostRealm {
 			.simpleChannel();
 
 	public FrostRealm() {
-		IEventBus modbus = FMLJavaModLoadingContext.get().getModEventBus();
+		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-		FrostBiomes.BIOMES.register(modbus);
-		modbus.addListener(this::setup);
-		forgeBus.addListener(FrostStructures::addDimensionalSpacing);
+		FrostBiomes.BIOMES.register(modBus);
+		FrostCarvers.WORLD_CARVER.register(modBus);
+		FrostBlocks.BLOCKS.register(modBus);
+		FrostEntities.ENTITIES.register(modBus);
+
+		FrostItems.ITEMS.register(modBus);
+		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
+
+		modBus.addListener(this::setup);
+
 
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup));
 		MinecraftForge.EVENT_BUS.register(this);
@@ -71,6 +76,7 @@ public class FrostRealm {
 			FrostPlacements.init();
 			FrostOrePlacements.init();
 			FrostNoiseGeneratorSettings.init();
+			FrostConfiguredWorldCarvers.init();
 		});
 		FrostBiomes.addBiomeTypes();
 	}
@@ -88,6 +94,10 @@ public class FrostRealm {
 
 	public static ResourceLocation prefix(String name) {
 		return new ResourceLocation(FrostRealm.MODID, name.toLowerCase(Locale.ROOT));
+	}
+
+	public static String prefixOnString(String name) {
+		return FrostRealm.MODID + ":" + name.toLowerCase(Locale.ROOT);
 	}
 
 }
