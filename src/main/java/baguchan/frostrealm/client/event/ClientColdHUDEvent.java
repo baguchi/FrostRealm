@@ -49,9 +49,9 @@ public class ClientColdHUDEvent {
 				Tesselator tesselator = Tesselator.getInstance();
 				BufferBuilder bufferbuilder = tesselator.getBuilder();
 				bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-				bufferbuilder.vertex(0.0D, (double) window.getGuiScaledHeight(), -90.0D).uv(f, f3).endVertex();
-				bufferbuilder.vertex((double) window.getGuiScaledWidth(), (double) window.getGuiScaledHeight(), -90.0D).uv(f2, f3).endVertex();
-				bufferbuilder.vertex((double) window.getGuiScaledWidth(), 0.0D, -90.0D).uv(f2, f1).endVertex();
+				bufferbuilder.vertex(0.0D, window.getGuiScaledHeight(), -90.0D).uv(f, f3).endVertex();
+				bufferbuilder.vertex(window.getGuiScaledWidth(), window.getGuiScaledHeight(), -90.0D).uv(f2, f3).endVertex();
+				bufferbuilder.vertex(window.getGuiScaledWidth(), 0.0D, -90.0D).uv(f2, f1).endVertex();
 				bufferbuilder.vertex(0.0D, 0.0D, -90.0D).uv(f, f1).endVertex();
 				tesselator.end();
 				RenderSystem.disableBlend();

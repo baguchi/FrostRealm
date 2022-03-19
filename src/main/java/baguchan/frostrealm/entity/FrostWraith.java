@@ -42,7 +42,7 @@ public class FrostWraith extends FrozenMonster {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Monster.createMobAttributes().add(Attributes.MAX_HEALTH, 24.0D).add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.ARMOR, 4.0F).add(Attributes.FLYING_SPEED, (double) 0.24F).add(Attributes.MOVEMENT_SPEED, (double) 0.21F).add(Attributes.FOLLOW_RANGE, 18.0F);
+		return Monster.createMobAttributes().add(Attributes.MAX_HEALTH, 24.0D).add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.ARMOR, 4.0F).add(Attributes.FLYING_SPEED, 0.24F).add(Attributes.MOVEMENT_SPEED, 0.21F).add(Attributes.FOLLOW_RANGE, 18.0F);
 	}
 
 	public void aiStep() {

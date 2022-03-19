@@ -24,7 +24,7 @@ public enum FrostArmorMaterials implements ArmorMaterial {
 	private final float knockbackResistance;
 	private final LazyLoadedValue<Ingredient> repairIngredient;
 
-	private FrostArmorMaterials(String p_40474_, int p_40475_, int[] p_40476_, int p_40477_, SoundEvent p_40478_, float p_40479_, float p_40480_, Supplier<Ingredient> p_40481_) {
+	FrostArmorMaterials(String p_40474_, int p_40475_, int[] p_40476_, int p_40477_, SoundEvent p_40478_, float p_40479_, float p_40480_, Supplier<Ingredient> p_40481_) {
 		this.name = p_40474_;
 		this.durabilityMultiplier = p_40475_;
 		this.slotProtections = p_40476_;

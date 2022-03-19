@@ -196,7 +196,7 @@ public class FrostTerrainProvider {
 	}
 
 	@VisibleForTesting
-	protected static enum Coordinate implements StringRepresentable, ToFloatFunction<TerrainShaper.Point> {
+	protected enum Coordinate implements StringRepresentable, ToFloatFunction<TerrainShaper.Point> {
 		CONTINENTS(TerrainShaper.Point::continents, "continents"),
 		EROSION(TerrainShaper.Point::erosion, "erosion"),
 		WEIRDNESS(TerrainShaper.Point::weirdness, "weirdness"),
@@ -226,7 +226,7 @@ public class FrostTerrainProvider {
 		private final ToFloatFunction<TerrainShaper.Point> reference;
 		private final String name;
 
-		private Coordinate(ToFloatFunction<TerrainShaper.Point> p_187359_, String p_187360_) {
+		Coordinate(ToFloatFunction<TerrainShaper.Point> p_187359_, String p_187360_) {
 			this.reference = p_187359_;
 			this.name = p_187360_;
 		}

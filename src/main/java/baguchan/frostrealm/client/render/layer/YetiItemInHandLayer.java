@@ -29,7 +29,7 @@ public class YetiItemInHandLayer<T extends LivingEntity, M extends EntityModel<T
 			p_117189_.mulPose(Vector3f.XP.rotationDegrees(-90.0F));
 			p_117189_.mulPose(Vector3f.YP.rotationDegrees(180.0F));
 			boolean flag = p_117188_ == HumanoidArm.LEFT;
-			p_117189_.translate((double) ((float) (flag ? -1 : 1) / 16.0F), 0.125D, -1.45D);
+			p_117189_.translate((float) (flag ? -1 : 1) / 16.0F, 0.125D, -1.45D);
 			Minecraft.getInstance().getItemInHandRenderer().renderItem(p_117185_, p_117186_, p_117187_, flag, p_117189_, p_117190_, p_117191_);
 			p_117189_.popPose();
 		}

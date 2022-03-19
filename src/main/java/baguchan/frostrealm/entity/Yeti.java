@@ -80,7 +80,7 @@ public class Yeti extends AgeableMob implements NeutralMob {
 	}
 
 	public static AttributeSupplier.Builder createAttributeMap() {
-		return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double) 0.24F).add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.FOLLOW_RANGE, 24.0D).add(Attributes.ATTACK_DAMAGE, 6.0F);
+		return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.24F).add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.FOLLOW_RANGE, 24.0D).add(Attributes.ATTACK_DAMAGE, 6.0F);
 	}
 
 	protected void completeUsingItem() {
@@ -280,7 +280,7 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		}
 
 		protected double getAttackReachSqr(LivingEntity p_29587_) {
-			return (double) (3.0F + p_29587_.getBbWidth());
+			return 3.0F + p_29587_.getBbWidth();
 		}
 	}
 
@@ -290,7 +290,7 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		}
 
 		public boolean canUse() {
-			return !Yeti.this.isBaby() && !Yeti.this.isOnFire() ? false : super.canUse();
+			return (Yeti.this.isBaby() || Yeti.this.isOnFire()) && super.canUse();
 		}
 	}
 

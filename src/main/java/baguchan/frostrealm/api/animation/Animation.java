@@ -2,7 +2,7 @@ package baguchan.frostrealm.api.animation;
 
 //From the citadel mod code, I remade own version
 public class Animation {
-	private int duration;
+	private final int duration;
 
 	private Animation(int duration) {
 		this.duration = duration;

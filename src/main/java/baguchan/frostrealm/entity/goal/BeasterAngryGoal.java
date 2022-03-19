@@ -71,6 +71,6 @@ public class BeasterAngryGoal extends TimeConditionGoal {
 	}
 
 	protected double getAttackReachSqr(LivingEntity p_25556_) {
-		return (double) (this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + p_25556_.getBbWidth());
+		return this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + p_25556_.getBbWidth();
 	}
 }

@@ -19,7 +19,7 @@ public class GetFoodGoal<T extends Yeti> extends Goal {
 
 		List<ItemEntity> list = this.mob.level.getEntitiesOfClass(ItemEntity.class, this.mob.getBoundingBox().inflate(16.0D, 8.0D, 16.0D), Yeti.ALLOWED_ITEMS);
 		if (!list.isEmpty() && this.mob.hasLineOfSight(list.get(0))) {
-			return this.mob.getNavigation().moveTo(list.get(0), (double) 1.1F);
+			return this.mob.getNavigation().moveTo(list.get(0), 1.1F);
 		}
 
 		return false;

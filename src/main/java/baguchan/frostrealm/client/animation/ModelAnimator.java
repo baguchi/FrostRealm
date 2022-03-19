@@ -18,8 +18,8 @@ public class ModelAnimator {
 	private int prevTempTick;
 
 	private IAnimatable entity;
-	private HashMap<ModelPart, ModelPartPos> transformMap;
-	private HashMap<ModelPart, ModelPartPos> prevModelPartPosMap;
+	private final HashMap<ModelPart, ModelPartPos> transformMap;
+	private final HashMap<ModelPart, ModelPartPos> prevModelPartPosMap;
 	private Animation animation;
 	private boolean correctAnimation;
 

@@ -65,7 +65,7 @@ public class SnowPileQuailEggBlock extends Block {
 	}
 
 	private void decreaseEggs(Level p_57792_, BlockPos p_57793_, BlockState p_57794_) {
-		p_57792_.playSound((Player) null, p_57793_, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + p_57792_.random.nextFloat() * 0.2F);
+		p_57792_.playSound(null, p_57793_, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + p_57792_.random.nextFloat() * 0.2F);
 		int i = p_57794_.getValue(EGGS);
 		if (i <= 1) {
 			p_57792_.destroyBlock(p_57793_, false);
@@ -95,10 +95,10 @@ public class SnowPileQuailEggBlock extends Block {
 		if (this.shouldUpdateHatchLevel(p_57805_, p_57806_) && onDirt(p_57805_, p_57806_)) {
 			int i = p_57804_.getValue(HATCH);
 			if (i < 2) {
-				p_57805_.playSound((Player) null, p_57806_, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + p_57807_.nextFloat() * 0.2F);
+				p_57805_.playSound(null, p_57806_, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + p_57807_.nextFloat() * 0.2F);
 				p_57805_.setBlock(p_57806_, p_57804_.setValue(HATCH, Integer.valueOf(i + 1)), 2);
 			} else {
-				p_57805_.playSound((Player) null, p_57806_, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + p_57807_.nextFloat() * 0.2F);
+				p_57805_.playSound(null, p_57806_, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + p_57807_.nextFloat() * 0.2F);
 				p_57805_.removeBlock(p_57806_, false);
 
 				for (int j = 0; j < p_57804_.getValue(EGGS); ++j) {
@@ -106,7 +106,7 @@ public class SnowPileQuailEggBlock extends Block {
 					SnowPileQuail snowpileEgg = FrostEntities.SNOWPILE_QUAIL.get().create(p_57805_);
 					snowpileEgg.setAge(-24000);
 					//snowpileEgg.setHomePos(p_57806_);
-					snowpileEgg.moveTo((double) p_57806_.getX() + 0.3D + (double) j * 0.2D, (double) p_57806_.getY(), (double) p_57806_.getZ() + 0.3D, 0.0F, 0.0F);
+					snowpileEgg.moveTo((double) p_57806_.getX() + 0.3D + (double) j * 0.2D, p_57806_.getY(), (double) p_57806_.getZ() + 0.3D, 0.0F, 0.0F);
 					p_57805_.addFreshEntity(snowpileEgg);
 				}
 			}
@@ -131,7 +131,7 @@ public class SnowPileQuailEggBlock extends Block {
 
 	private boolean shouldUpdateHatchLevel(Level p_57766_, BlockPos p_57816_) {
 		float f = p_57766_.getTimeOfDay(1.0F);
-		return p_57766_.getBrightness(p_57816_) > 8 ? true : p_57766_.random.nextInt(5) == 0;
+		return p_57766_.getBrightness(p_57816_) > 8 || p_57766_.random.nextInt(5) == 0;
 	}
 
 	public void playerDestroy(Level p_57771_, Player p_57772_, BlockPos p_57773_, BlockState p_57774_, @Nullable BlockEntity p_57775_, ItemStack p_57776_) {
@@ -140,7 +140,7 @@ public class SnowPileQuailEggBlock extends Block {
 	}
 
 	public boolean canBeReplaced(BlockState p_57796_, BlockPlaceContext p_57797_) {
-		return !p_57797_.isSecondaryUseActive() && p_57797_.getItemInHand().is(this.asItem()) && p_57796_.getValue(EGGS) < 3 ? true : super.canBeReplaced(p_57796_, p_57797_);
+		return !p_57797_.isSecondaryUseActive() && p_57797_.getItemInHand().is(this.asItem()) && p_57796_.getValue(EGGS) < 3 || super.canBeReplaced(p_57796_, p_57797_);
 	}
 
 	@Nullable

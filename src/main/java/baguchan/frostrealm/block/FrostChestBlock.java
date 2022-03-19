@@ -91,7 +91,7 @@ public class FrostChestBlock extends AbstractChestBlock<FrostChestBlockEntity> i
 					if (p_51604_.hasCustomName()) {
 						return p_51604_.getDisplayName();
 					} else {
-						return (Component) (p_51605_.hasCustomName() ? p_51605_.getDisplayName() : new TranslatableComponent("container.chestDouble"));
+						return p_51605_.hasCustomName() ? p_51605_.getDisplayName() : new TranslatableComponent("container.chestDouble");
 					}
 				}
 			});
@@ -246,7 +246,7 @@ public class FrostChestBlock extends AbstractChestBlock<FrostChestBlockEntity> i
 
 	@Nullable
 	public static Container getContainer(FrostChestBlock p_51512_, BlockState p_51513_, Level p_51514_, BlockPos p_51515_, boolean p_51516_) {
-		return p_51512_.combine(p_51513_, p_51514_, p_51515_, p_51516_).<Optional<Container>>apply(CHEST_COMBINER).orElse((Container) null);
+		return p_51512_.combine(p_51513_, p_51514_, p_51515_, p_51516_).apply(CHEST_COMBINER).orElse(null);
 	}
 
 	public DoubleBlockCombiner.NeighborCombineResult<? extends FrostChestBlockEntity> combine(BlockState p_51544_, Level p_51545_, BlockPos p_51546_, boolean p_51547_) {
@@ -264,7 +264,7 @@ public class FrostChestBlock extends AbstractChestBlock<FrostChestBlockEntity> i
 
 	@Nullable
 	public MenuProvider getMenuProvider(BlockState p_51574_, Level p_51575_, BlockPos p_51576_) {
-		return this.combine(p_51574_, p_51575_, p_51576_, false).<Optional<MenuProvider>>apply(MENU_PROVIDER_COMBINER).orElse((MenuProvider) null);
+		return this.combine(p_51574_, p_51575_, p_51576_, false).apply(MENU_PROVIDER_COMBINER).orElse(null);
 	}
 
 	public static DoubleBlockCombiner.Combiner<FrostChestBlockEntity, Float2FloatFunction> opennessCombiner(final LidBlockEntity p_51518_) {
@@ -304,7 +304,7 @@ public class FrostChestBlock extends AbstractChestBlock<FrostChestBlockEntity> i
 	}
 
 	private static boolean isCatSittingOnChest(LevelAccessor p_51564_, BlockPos p_51565_) {
-		List<Cat> list = p_51564_.getEntitiesOfClass(Cat.class, new AABB((double) p_51565_.getX(), (double) (p_51565_.getY() + 1), (double) p_51565_.getZ(), (double) (p_51565_.getX() + 1), (double) (p_51565_.getY() + 2), (double) (p_51565_.getZ() + 1)));
+		List<Cat> list = p_51564_.getEntitiesOfClass(Cat.class, new AABB(p_51565_.getX(), p_51565_.getY() + 1, p_51565_.getZ(), p_51565_.getX() + 1, p_51565_.getY() + 2, p_51565_.getZ() + 1));
 		if (!list.isEmpty()) {
 			for (Cat cat : list) {
 				if (cat.isInSittingPose()) {

@@ -142,7 +142,7 @@ public class SmallIceFeature extends Feature<DripstoneClusterConfiguration> {
 			return 0;
 		} else {
 			int i = Math.abs(p_159614_) + Math.abs(p_159615_);
-			float f = (float)Mth.clampedMap((double)i, 0.0D, (double)p_159618_.maxDistanceFromCenterAffectingHeightBias, (double)p_159617_ / 2.0D, 0.0D);
+			float f = (float) Mth.clampedMap(i, 0.0D, p_159618_.maxDistanceFromCenterAffectingHeightBias, (double) p_159617_ / 2.0D, 0.0D);
 			return (int)randomBetweenBiased(p_159613_, 0.0F, (float)p_159617_, f, (float)p_159618_.heightDeviation);
 		}
 	}
@@ -184,7 +184,7 @@ public class SmallIceFeature extends Feature<DripstoneClusterConfiguration> {
 		int i = p_159577_ - Math.abs(p_159579_);
 		int j = p_159578_ - Math.abs(p_159580_);
 		int k = Math.min(i, j);
-		return (double)Mth.clampedMap((float)k, 0.0F, (float)p_159581_.maxDistanceFromEdgeAffectingChanceOfDripstoneColumn, p_159581_.chanceOfDripstoneColumnAtMaxDistanceFromCenter, 1.0F);
+		return Mth.clampedMap((float) k, 0.0F, (float) p_159581_.maxDistanceFromEdgeAffectingChanceOfDripstoneColumn, p_159581_.chanceOfDripstoneColumnAtMaxDistanceFromCenter, 1.0F);
 	}
 
 	private static float randomBetweenBiased(Random p_159607_, float p_159608_, float p_159609_, float p_159610_, float p_159611_) {

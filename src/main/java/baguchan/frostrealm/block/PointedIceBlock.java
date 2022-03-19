@@ -347,7 +347,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 			};
 			return findBlockVertical(p_154132_, p_154133_, direction.getAxisDirection(), predicate, (p_154168_) -> {
 				return isTip(p_154168_, p_154135_);
-			}, p_154134_).orElse((BlockPos) null);
+			}, p_154134_).orElse(null);
 		}
 	}
 
@@ -396,7 +396,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 		if (!blockstate.getFluidState().isEmpty()) {
 			return false;
 		} else {
-			return blockstate.isAir() ? true : isUnmergedTipWithDirection(blockstate, direction.getOpposite());
+			return blockstate.isAir() || isUnmergedTipWithDirection(blockstate, direction.getOpposite());
 		}
 	}
 

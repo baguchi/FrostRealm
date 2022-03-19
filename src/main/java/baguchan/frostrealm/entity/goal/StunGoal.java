@@ -16,11 +16,7 @@ public class StunGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		if (this.mob.isStun()) {
-			return true;
-		} else {
-			return false;
-		}
+		return this.mob.isStun();
 	}
 
 	@Override

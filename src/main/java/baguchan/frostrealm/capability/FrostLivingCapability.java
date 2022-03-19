@@ -104,7 +104,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			}
 		}
 
-		if (entity.level.dimension() == FrostDimensions.FROSTREALM_LEVEL && (!entity.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES) || (entity instanceof Player && !((Player) entity).isCreative() && !((Player) entity).isSpectator()))) {
+		if (entity.level.dimension() == FrostDimensions.FROSTREALM_LEVEL && (!entity.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES) || (entity instanceof Player && !((Player) entity).isCreative() && !entity.isSpectator()))) {
 			Difficulty difficulty = entity.level.getDifficulty();
 			this.lastTemperate = this.temperature;
 			hotSourceTick(entity);

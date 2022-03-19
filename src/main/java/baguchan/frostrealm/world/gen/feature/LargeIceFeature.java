@@ -77,7 +77,7 @@ public class LargeIceFeature extends Feature<LargeDripstoneConfiguration> {
 	}
 
 	private static LargeIceFeature.LargeDripstone makeDripstone(BlockPos p_159969_, boolean p_159970_, Random p_159971_, int p_159972_, FloatProvider p_159973_, FloatProvider p_159974_) {
-		return new LargeIceFeature.LargeDripstone(p_159969_, p_159970_, p_159972_, (double) p_159973_.sample(p_159971_), (double) p_159974_.sample(p_159971_));
+		return new LargeIceFeature.LargeDripstone(p_159969_, p_159970_, p_159972_, p_159973_.sample(p_159971_), p_159974_.sample(p_159971_));
 	}
 
 	static final class LargeDripstone {
@@ -132,7 +132,7 @@ public class LargeIceFeature extends Feature<LargeDripstoneConfiguration> {
 		}
 
 		private int getHeightAtRadius(float p_159988_) {
-			return (int) getIceHeight((double) p_159988_, (double) this.radius, this.scale, this.bluntness);
+			return (int) getIceHeight(p_159988_, this.radius, this.scale, this.bluntness);
 		}
 
 		void placeBlocks(WorldGenLevel p_159993_, Random p_159994_, LargeIceFeature.WindOffsetter p_159995_) {
@@ -220,7 +220,7 @@ public class LargeIceFeature extends Feature<LargeDripstoneConfiguration> {
 			this.originY = p_160004_;
 			float f = p_160006_.sample(p_160005_);
 			float f1 = Mth.randomBetween(p_160005_, 0.0F, (float) Math.PI);
-			this.windSpeed = new Vec3((double) (Mth.cos(f1) * f), 0.0D, (double) (Mth.sin(f1) * f));
+			this.windSpeed = new Vec3(Mth.cos(f1) * f, 0.0D, Mth.sin(f1) * f);
 		}
 
 		private WindOffsetter() {
@@ -237,7 +237,7 @@ public class LargeIceFeature extends Feature<LargeDripstoneConfiguration> {
 				return p_160009_;
 			} else {
 				int i = this.originY - p_160009_.getY();
-				Vec3 vec3 = this.windSpeed.scale((double) i);
+				Vec3 vec3 = this.windSpeed.scale(i);
 				return p_160009_.offset(vec3.x, 0.0D, vec3.z);
 			}
 		}

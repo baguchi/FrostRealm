@@ -154,7 +154,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 		if (this.isAlive() && this.hasEgg() && this.getTarget() == null) {
 			BlockPos blockpos = this.blockPosition();
 			if (SnowPileQuailEggBlock.onDirt(this.level, blockpos)) {
-				level.playSound((Player) null, blockpos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level.random.nextFloat() * 0.2F);
+				level.playSound(null, blockpos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level.random.nextFloat() * 0.2F);
 				level.setBlock(blockpos, FrostBlocks.SNOWPILE_QUAIL_EGG.get().defaultBlockState().setValue(SnowPileQuailEggBlock.EGGS, Integer.valueOf(this.random.nextInt(1) + 1)), 3);
 				this.setAnimation(IDLE_ANIMATION);
 				this.setHasEgg(false);
@@ -267,7 +267,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 					Vec3 vector3d1 = vector3d.scale(10.0D).add(this.quail.getX(), this.quail.getY(), this.quail.getZ());
 					SnowPileQuail.this.navigation.moveTo(vector3d1.x, vector3d1.y, vector3d1.z, this.speedModifier);
 				} else {
-					SnowPileQuail.this.navigation.moveTo((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), this.speedModifier);
+					SnowPileQuail.this.navigation.moveTo(blockpos.getX(), blockpos.getY(), blockpos.getZ(), this.speedModifier);
 				}
 			}
 
@@ -298,7 +298,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 
 			if (serverplayer != null) {
 				serverplayer.awardStat(Stats.ANIMALS_BRED);
-				CriteriaTriggers.BRED_ANIMALS.trigger(serverplayer, this.animal, this.partner, (AgeableMob) null);
+				CriteriaTriggers.BRED_ANIMALS.trigger(serverplayer, this.animal, this.partner, null);
 			}
 
 			this.quail.setHasEgg(true);

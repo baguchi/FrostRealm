@@ -62,7 +62,7 @@ public class BearBerryBushBlock extends BushBlock implements BonemealableBlock {
 
 	public void entityInside(BlockState p_57270_, Level p_57271_, BlockPos p_57272_, Entity p_57273_) {
 		if (p_57273_ instanceof LivingEntity && p_57273_.getType() != EntityType.FOX && p_57273_.getType() != EntityType.BEE) {
-			p_57273_.makeStuckInBlock(p_57270_, new Vec3((double) 0.8F, 0.75D, (double) 0.8F));
+			p_57273_.makeStuckInBlock(p_57270_, new Vec3(0.8F, 0.75D, 0.8F));
 		}
 	}
 
@@ -74,7 +74,7 @@ public class BearBerryBushBlock extends BushBlock implements BonemealableBlock {
 		} else if (i > 2) {
 			int j = 1 + p_57276_.random.nextInt(2);
 			popResource(p_57276_, p_57277_, new ItemStack(FrostItems.BEARBERRY.get(), j));
-			p_57276_.playSound((Player) null, p_57277_, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + p_57276_.random.nextFloat() * 0.4F);
+			p_57276_.playSound(null, p_57277_, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + p_57276_.random.nextFloat() * 0.4F);
 			p_57276_.setBlock(p_57277_, p_57275_.setValue(AGE, Integer.valueOf(1)), 2);
 			return InteractionResult.sidedSuccess(p_57276_.isClientSide);
 		} else {
