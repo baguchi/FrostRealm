@@ -34,6 +34,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.ArrayUtils;
@@ -195,6 +196,10 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 
 	@Override
 	protected void checkFallDamage(double p_20809_, boolean p_20810_, BlockState p_20811_, BlockPos p_20812_) {
+	}
+
+	public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
+		return p_27574_.getBlockState(p_27573_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) ? 10.0F : p_27574_.getBrightness(p_27573_) - 0.5F;
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.Random;
@@ -89,6 +90,10 @@ public class FrostWolf extends Wolf implements IAnimatable {
 		}
 
 		this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+	}
+
+	public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
+		return p_27574_.getBlockState(p_27573_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) ? 10.0F : p_27574_.getBrightness(p_27573_) - 0.5F;
 	}
 
 	@Override

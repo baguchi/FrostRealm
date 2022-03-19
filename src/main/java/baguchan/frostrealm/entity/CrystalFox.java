@@ -336,6 +336,9 @@ public class CrystalFox extends Animal implements IAnimatable, IForgeShearable {
 		return Mth.ceil((p_28545_ - 5.0F) * p_28546_);
 	}
 
+	public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
+		return p_27574_.getBlockState(p_27573_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) ? 10.0F : p_27574_.getBrightness(p_27573_) - 0.5F;
+	}
 
 	@Override
 	public int getAnimationTick() {
