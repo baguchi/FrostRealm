@@ -4,28 +4,36 @@ import baguchan.frostrealm.api.animation.Animation;
 import baguchan.frostrealm.api.animation.IAnimatable;
 import baguchan.frostrealm.block.BearBerryBushBlock;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
-import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostItems;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
@@ -33,7 +41,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraftforge.common.IForgeShearable;
 import org.apache.commons.lang3.ArrayUtils;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -42,11 +53,14 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class CrystalFox extends Animal implements IAnimatable {
+public class CrystalFox extends Animal implements IAnimatable, IForgeShearable {
 	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.INT);
 
 	public static final Animation EAT_ANIMATION = Animation.create(40);
+
+	private static final EntityDataAccessor<Boolean> SHEARABLE = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.BOOLEAN);
+
 
 	private static final EntityDataAccessor<Optional<UUID>> DATA_TRUSTED_ID_0 = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.OPTIONAL_UUID);
 	private static final EntityDataAccessor<Optional<UUID>> DATA_TRUSTED_ID_1 = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.OPTIONAL_UUID);
@@ -76,7 +90,7 @@ public class CrystalFox extends Animal implements IAnimatable {
 		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Wolf.class, 8.0F, 1.6D, 1.4D, (p_28590_) -> {
 			return !((Wolf) p_28590_).isTame();
 		}));
-		this.goalSelector.addGoal(5, new FoxMeleeAttackGoal((double) 1.2F, true));
+		this.goalSelector.addGoal(5, new FoxMeleeAttackGoal(1.2F, true));
 		this.goalSelector.addGoal(6, new FoxEatBerriesGoal(1.25D, 8, 4));
 		this.goalSelector.addGoal(7, new SeekShelterEvenBlizzardGoal(this, 1.25D, true));
 		this.goalSelector.addGoal(8, new RandomStrollGoal(this, 1.0F));
@@ -91,27 +105,39 @@ public class CrystalFox extends Animal implements IAnimatable {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double) 0.3F).add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.FOLLOW_RANGE, 32.0D).add(Attributes.ATTACK_DAMAGE, 2.0D);
+		return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.3F).add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.FOLLOW_RANGE, 32.0D).add(Attributes.ATTACK_DAMAGE, 2.0D);
 	}
-
-	@Override
-	protected PathNavigation createNavigation(Level p_33348_) {
-		return new FrostPathNavigation(this, p_33348_);
-	}
-
 
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(ANIMATION_ID, -1);
 		this.entityData.define(ANIMATION_TICK, 0);
+		this.entityData.define(SHEARABLE, true);
 		this.entityData.define(DATA_TRUSTED_ID_0, Optional.empty());
 		this.entityData.define(DATA_TRUSTED_ID_1, Optional.empty());
 	}
 
+	@Override
+	public boolean isShearable(@NotNull ItemStack item, Level level, BlockPos pos) {
+		return this.readyForShearing();
+	}
+
+	public boolean readyForShearing() {
+		return this.isAlive() && !this.isBaby() && isShearableWithoutConditions();
+	}
+
+	public boolean isShearableWithoutConditions() {
+		return this.entityData.get(SHEARABLE);
+	}
+
+	public void setShearable(boolean shear) {
+		this.entityData.set(SHEARABLE, shear);
+	}
+
 	List<UUID> getTrustedUUIDs() {
 		List<UUID> list = Lists.newArrayList();
-		list.add(this.entityData.get(DATA_TRUSTED_ID_0).orElse((UUID) null));
-		list.add(this.entityData.get(DATA_TRUSTED_ID_1).orElse((UUID) null));
+		list.add(this.entityData.get(DATA_TRUSTED_ID_0).orElse(null));
+		list.add(this.entityData.get(DATA_TRUSTED_ID_1).orElse(null));
 		return list;
 	}
 
@@ -137,6 +163,43 @@ public class CrystalFox extends Animal implements IAnimatable {
 	public void tick() {
 		super.tick();
 		this.updateAnimations(this);
+	}
+
+	@javax.annotation.Nonnull
+	@Override
+	public java.util.List<ItemStack> onSheared(@javax.annotation.Nullable Player player, @javax.annotation.Nonnull ItemStack item, Level world, BlockPos pos, int fortune) {
+		if (player == null || this.trusts(player.getUUID())) {
+			world.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
+			this.gameEvent(GameEvent.SHEAR, player);
+			if (!world.isClientSide) {
+				this.setShearable(false);
+				int i = 1 + this.random.nextInt(3);
+
+				java.util.List<ItemStack> items = new java.util.ArrayList<>();
+				for (int j = 0; j < i; ++j) {
+
+					items.add(new ItemStack(FrostItems.FROST_CRYSTAL.get()));
+				}
+				return items;
+			}
+		} else {
+			if (player != null) {
+				player.hurt(DamageSource.thorns(this), 2.0F);
+				player.getCooldowns().addCooldown(item.getItem(), 80);
+			}
+		}
+		return java.util.Collections.emptyList();
+	}
+
+	public boolean hurt(DamageSource p_32820_, float p_32821_) {
+		if (!p_32820_.isMagic() && p_32820_.getDirectEntity() instanceof LivingEntity) {
+			LivingEntity livingentity = (LivingEntity) p_32820_.getDirectEntity();
+			if (!p_32820_.isExplosion()) {
+				livingentity.hurt(DamageSource.thorns(this), 2.0F);
+			}
+		}
+
+		return super.hurt(p_32820_, p_32821_);
 	}
 
 	@Nullable
@@ -175,6 +238,105 @@ public class CrystalFox extends Animal implements IAnimatable {
 		return FrostEntities.CRYSTAL_FOX.get().create(p_146743_);
 	}
 
+	public InteractionResult mobInteract(Player p_30412_, InteractionHand p_30413_) {
+		ItemStack itemstack = p_30412_.getItemInHand(p_30413_);
+		Item item = itemstack.getItem();
+		if (this.trusts(p_30412_.getUUID())) {
+			if (this.isFood(itemstack) && (this.getHealth() < this.getMaxHealth() || !this.isShearableWithoutConditions())) {
+				if (!p_30412_.getAbilities().instabuild) {
+					itemstack.shrink(1);
+				}
+
+				if (!this.isShearableWithoutConditions()) {
+					if (this.random.nextInt(3) == 0) {
+						this.setShearable(true);
+					}
+					CrystalFox.this.setAnimation(CrystalFox.EAT_ANIMATION);
+
+					this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
+				}
+
+				this.playSound(SoundEvents.FOX_EAT, 1.0F, 1.0F);
+				this.heal(item.getFoodProperties() != null ? (float) item.getFoodProperties().getNutrition() : 1);
+				this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+				return InteractionResult.SUCCESS;
+			}
+		} else if (FOOD_ITEMS.test(itemstack) && this.getTarget() == null) {
+			if (!p_30412_.getAbilities().instabuild) {
+				itemstack.shrink(1);
+			}
+
+			if (this.random.nextInt(5) == 0) {
+				this.addTrustedUUID(p_30412_.getUUID());
+				this.level.broadcastEntityEvent(this, (byte) 7);
+			} else {
+				this.level.broadcastEntityEvent(this, (byte) 6);
+			}
+
+			return InteractionResult.SUCCESS;
+		}
+		return super.mobInteract(p_30412_, p_30413_);
+	}
+
+	protected void spawnTamingParticles(boolean p_21835_) {
+		ParticleOptions particleoptions = ParticleTypes.HEART;
+		if (!p_21835_) {
+			particleoptions = ParticleTypes.SMOKE;
+		}
+
+		for (int i = 0; i < 7; ++i) {
+			double d0 = this.random.nextGaussian() * 0.02D;
+			double d1 = this.random.nextGaussian() * 0.02D;
+			double d2 = this.random.nextGaussian() * 0.02D;
+			this.level.addParticle(particleoptions, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+		}
+
+	}
+
+	public void handleEntityEvent(byte p_21807_) {
+		if (p_21807_ == 7) {
+			this.spawnTamingParticles(true);
+		} else if (p_21807_ == 6) {
+			this.spawnTamingParticles(false);
+		} else {
+			super.handleEntityEvent(p_21807_);
+		}
+
+	}
+
+	@Override
+	public void readAdditionalSaveData(CompoundTag p_27576_) {
+		super.readAdditionalSaveData(p_27576_);
+		ListTag listtag = p_27576_.getList("Trusted", 11);
+
+		for (int i = 0; i < listtag.size(); ++i) {
+			this.addTrustedUUID(NbtUtils.loadUUID(listtag.get(i)));
+		}
+
+		this.setShearable(p_27576_.getBoolean("Shearable"));
+	}
+
+	@Override
+	public void addAdditionalSaveData(CompoundTag p_27587_) {
+		super.addAdditionalSaveData(p_27587_);
+		List<UUID> list = this.getTrustedUUIDs();
+		ListTag listtag = new ListTag();
+
+		for (UUID uuid : list) {
+			if (uuid != null) {
+				listtag.add(NbtUtils.createUUID(uuid));
+			}
+		}
+
+		p_27587_.put("Trusted", listtag);
+		p_27587_.putBoolean("Shearable", this.isShearableWithoutConditions());
+	}
+
+	protected int calculateFallDamage(float p_28545_, float p_28546_) {
+		return Mth.ceil((p_28545_ - 5.0F) * p_28546_);
+	}
+
+
 	@Override
 	public int getAnimationTick() {
 		return this.entityData.get(ANIMATION_TICK);
@@ -206,7 +368,6 @@ public class CrystalFox extends Animal implements IAnimatable {
 	public void setAnimation(Animation animation) {
 		this.entityData.set(ANIMATION_ID, ArrayUtils.indexOf(this.getAnimations(), animation));
 	}
-
 
 	public class FoxEatBerriesGoal extends MoveToBlockGoal {
 		private static final int WAIT_TICKS = 40;
@@ -262,6 +423,7 @@ public class CrystalFox extends Animal implements IAnimatable {
 			if (itemstack.isEmpty()) {
 				CrystalFox.this.setAnimation(CrystalFox.EAT_ANIMATION);
 				CrystalFox.this.heal(1);
+				CrystalFox.this.setShearable(true);
 				--j;
 			}
 
