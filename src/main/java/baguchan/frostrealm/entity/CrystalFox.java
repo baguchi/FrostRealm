@@ -192,10 +192,12 @@ public class CrystalFox extends Animal implements IAnimatable, IForgeShearable {
 	}
 
 	public boolean hurt(DamageSource p_32820_, float p_32821_) {
-		if (!p_32820_.isMagic() && p_32820_.getDirectEntity() instanceof LivingEntity) {
-			LivingEntity livingentity = (LivingEntity) p_32820_.getDirectEntity();
-			if (!p_32820_.isExplosion()) {
-				livingentity.hurt(DamageSource.thorns(this), 2.0F);
+		if (this.isShearableWithoutConditions()) {
+			if (!p_32820_.isMagic() && p_32820_.getDirectEntity() instanceof LivingEntity) {
+				LivingEntity livingentity = (LivingEntity) p_32820_.getDirectEntity();
+				if (!p_32820_.isExplosion()) {
+					livingentity.hurt(DamageSource.thorns(this), 2.0F);
+				}
 			}
 		}
 
