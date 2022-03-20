@@ -23,6 +23,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 	@Override
 	protected void registerModels() {
 		this.singleTex(FrostItems.FROST_CRYSTAL);
+		this.singleTex(FrostItems.WARPED_CRYSTAL);
 		this.singleTex(FrostItems.GLIMMERROCK);
 		this.singleTex(FrostItems.STARDUST_CRYSTAL);
 		this.singleTex(FrostItems.FROZEN_FRUIT);
@@ -107,6 +108,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.GLIMMERROCK_ORE);
 		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_ORE);
 		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER);
+		this.toBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK);
 		this.itemBlockFlat(FrostBlocks.FROST_TORCH);
 
 		this.toBlock(FrostBlocks.FRIGID_STOVE);

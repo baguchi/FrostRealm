@@ -106,6 +106,7 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.add(FrostBlocks.GLIMMERROCK_ORE.get(), BlockLootTables::createGlimmerRockOreDrops);
 		this.add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), BlockLootTables::createStardustCrystalOreDrops);
 		this.dropSelf(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
+		this.dropSelf(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
 		this.dropSelf(FrostBlocks.FROST_TORCH.get());
 		this.dropOther(FrostBlocks.WALL_FROST_TORCH.get(), FrostBlocks.FROST_TORCH.get());
 		this.dropSelf(FrostBlocks.FRIGID_STOVE.get());

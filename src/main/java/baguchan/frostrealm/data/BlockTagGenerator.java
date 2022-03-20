@@ -25,6 +25,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
 				, FrostBlocks.FRIGID_STONE_SMOOTH.get(), FrostBlocks.FRIGID_STONE_BRICK.get(), FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK_SLAB.get()
 				, FrostBlocks.POINTED_ICE.get()
 				, FrostBlocks.FROST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get()
+				, FrostBlocks.WARPED_CRYSTAL_BLOCK.get()
 				, FrostBlocks.FRIGID_STOVE.get());
 		tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_PLANKS.get(), FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_FENCE_GATE.get()
 				, FrostBlocks.FROZEN_LOG.get(), FrostBlocks.FROZEN_PLANKS.get(), FrostBlocks.FROZEN_PLANKS_STAIRS.get(), FrostBlocks.FROZEN_PLANKS_SLAB.get(), FrostBlocks.FROZEN_FENCE.get(), FrostBlocks.FROZEN_FENCE_GATE.get()
