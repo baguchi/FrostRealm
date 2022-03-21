@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "frostrealm:astrium_raw"
+  },
+  "result": "frostrealm:astrium_ingot",
+  "experience": 0.2,
+  "cookingtime": 100
+}

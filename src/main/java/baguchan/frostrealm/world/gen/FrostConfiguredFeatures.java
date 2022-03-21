@@ -26,12 +26,15 @@ public class FrostConfiguredFeatures {
 
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_FROST_CRYSTAL_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.FROST_CRYSTAL_ORE.get().defaultBlockState()));
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_GLIMMERROCK_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.GLIMMERROCK_ORE.get().defaultBlockState()));
+	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_ASTRIUM_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.ASTRIUM_ORE.get().defaultBlockState()));
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_STARDUST_CRYSRTAL_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.STARDUST_CRYSTAL_ORE.get().defaultBlockState()));
 
 	public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_FROST_CRYSTAL = FeatureUtils.register(prefix("ore_frost_crystal"), Feature.ORE, new OreConfiguration(ORE_FROST_CRYSTAL_TARGET_LIST, 20));
 	public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_FROST_CRYSTAL_BURIED = FeatureUtils.register(prefix("ore_frost_crystal_buried"), Feature.ORE, new OreConfiguration(ORE_FROST_CRYSTAL_TARGET_LIST, 20, 0.5F));
 	public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_GLIMMERROCK = FeatureUtils.register(prefix("ore_glimmerrock"), Feature.ORE, new OreConfiguration(ORE_GLIMMERROCK_TARGET_LIST, 10));
 	public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_GLIMMERROCK_SMALL = FeatureUtils.register(prefix("ore_glimmerrock_small"), Feature.ORE, new OreConfiguration(ORE_GLIMMERROCK_TARGET_LIST, 4));
+	public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_ASTRIUM = FeatureUtils.register(prefix("ore_astrium"), Feature.ORE, new OreConfiguration(ORE_ASTRIUM_TARGET_LIST, 12));
+	public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_ASTRIUM_SMALL = FeatureUtils.register(prefix("ore_astrium_small"), Feature.ORE, new OreConfiguration(ORE_ASTRIUM_TARGET_LIST, 4));
 	public static final Holder<ConfiguredFeature<OreConfiguration, ?>> ORE_STARDUST_CRYSTAL = FeatureUtils.register(prefix("ore_stardust_crystal"), Feature.ORE, new OreConfiguration(ORE_STARDUST_CRYSRTAL_TARGET_LIST, 8));
 
 

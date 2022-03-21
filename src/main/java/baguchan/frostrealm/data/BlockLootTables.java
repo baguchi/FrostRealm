@@ -104,6 +104,7 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 
 		this.add(FrostBlocks.FROST_CRYSTAL_ORE.get(), BlockLootTables::createFrostCrystalOreDrops);
 		this.add(FrostBlocks.GLIMMERROCK_ORE.get(), BlockLootTables::createGlimmerRockOreDrops);
+		this.add(FrostBlocks.ASTRIUM_ORE.get(), BlockLootTables::createAstriumOreDrops);
 		this.add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), BlockLootTables::createStardustCrystalOreDrops);
 		this.dropSelf(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.dropSelf(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
@@ -132,6 +133,10 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 
 	protected static LootTable.Builder createGlimmerRockOreDrops(Block p_176049_) {
 		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.GLIMMERROCK.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+	}
+
+	protected static LootTable.Builder createAstriumOreDrops(Block p_176049_) {
+		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.ASTRIUM_RAW.get()).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
 	}
 
 	protected static LootTable.Builder createStardustCrystalOreDrops(Block p_176049_) {

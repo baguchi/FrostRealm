@@ -95,5 +95,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.define('S', FrostItems.STRAY_NECKLACE_PART.get())
 				.define('B', Items.SNOWBALL)
 				.unlockedBy("has_" + FrostItems.STRAY_NECKLACE_PART.get().getRegistryName().getPath(), has(FrostItems.STRAY_NECKLACE_PART.get())).save(consumer);
+
+		smeltOre(FrostItems.ASTRIUM_RAW.get(), FrostItems.ASTRIUM_INGOT.get(), 0.2F, consumer);
 	}
 }

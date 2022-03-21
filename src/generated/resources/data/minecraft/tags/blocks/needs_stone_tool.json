@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "frostrealm:stardust_crystal_ore",
-    "frostrealm:glimmerrock_ore"
+    "frostrealm:glimmerrock_ore",
+    "frostrealm:astrium_ore"
   ]
 }

@@ -65,6 +65,16 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 		SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(material), result, xp, 600).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("campfire_cooking_" + recipeName));
 	}
 
+	protected final void smeltOre(Item material, Item result, float xp, Consumer<FinishedRecipe> consumer) {
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smelting_" + result.getRegistryName().getPath()));
+		SimpleCookingRecipeBuilder.blasting(Ingredient.of(material), result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("blasting_" + result.getRegistryName().getPath()));
+	}
+
+	protected final void smeltOre(Item material, Item result, float xp, Consumer<FinishedRecipe> consumer, String recipeName) {
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smelting_" + result.getRegistryName().getPath()));
+		SimpleCookingRecipeBuilder.blasting(Ingredient.of(material), result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("blasting_" + result.getRegistryName().getPath()));
+	}
+
 	protected final void helmetItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material) {
 		ShapedRecipeBuilder.shaped(result)
 				.pattern("###")

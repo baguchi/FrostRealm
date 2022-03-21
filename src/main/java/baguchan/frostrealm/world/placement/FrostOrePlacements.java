@@ -17,6 +17,9 @@ public class FrostOrePlacements {
 	public static final Holder<PlacedFeature> GLIMMER_ORE_SMALL = PlacementUtils.register(prefix("glimmer_ore_small"), FrostConfiguredFeatures.ORE_GLIMMERROCK_SMALL, commonOrePlacement(10, HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(48))));
 	public static final Holder<PlacedFeature> GLIMMER_ORE_EXTRA = PlacementUtils.register(prefix("glimmer_ore_extra"), FrostConfiguredFeatures.ORE_FROST_CRYSTAL_BURIED, commonOrePlacement(20, HeightRangePlacement.uniform(VerticalAnchor.absolute(32), VerticalAnchor.absolute(256))));
 
+	public static final Holder<PlacedFeature> ASTRIUM_ORE_LOWER = PlacementUtils.register(prefix("astrium_ore_lower"), FrostConfiguredFeatures.ORE_ASTRIUM, commonOrePlacement(12, HeightRangePlacement.triangle(VerticalAnchor.absolute(-44), VerticalAnchor.absolute(76))));
+	public static final Holder<PlacedFeature> ASTRIUM_ORE_UPPER = PlacementUtils.register(prefix("astrium_ore_upper"), FrostConfiguredFeatures.ORE_ASTRIUM_SMALL, commonOrePlacement(90, HeightRangePlacement.triangle(VerticalAnchor.absolute(60), VerticalAnchor.absolute(384))));
+
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;

@@ -25,6 +25,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.FROST_CRYSTAL);
 		this.singleTex(FrostItems.WARPED_CRYSTAL);
 		this.singleTex(FrostItems.GLIMMERROCK);
+		this.singleTex(FrostItems.ASTRIUM_RAW);
+		this.singleTex(FrostItems.ASTRIUM_INGOT);
 		this.singleTex(FrostItems.STARDUST_CRYSTAL);
 		this.singleTex(FrostItems.FROZEN_FRUIT);
 		this.singleTex(FrostItems.MELTED_FRUIT);
@@ -106,6 +108,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 		this.toBlock(FrostBlocks.FROST_CRYSTAL_ORE);
 		this.toBlock(FrostBlocks.GLIMMERROCK_ORE);
+		this.toBlock(FrostBlocks.ASTRIUM_ORE);
 		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_ORE);
 		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER);
 		this.toBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK);

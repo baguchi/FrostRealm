@@ -19,7 +19,9 @@
       "frostrealm:frost_crystal_ore_lower",
       "frostrealm:frost_crystal_ore_upper",
       "frostrealm:glimmer_ore_lower",
-      "frostrealm:glimmer_ore_small"
+      "frostrealm:glimmer_ore_small",
+      "frostrealm:astrium_ore_lower",
+      "frostrealm:astrium_ore_upper"
     ],
     [],
     [
