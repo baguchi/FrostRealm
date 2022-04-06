@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "frostrealm:igloo",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 12436520,
+    "spacing": 28,
+    "separation": 6
+  }
+}
