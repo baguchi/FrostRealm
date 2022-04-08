@@ -4,6 +4,8 @@ package baguchan.frostrealm;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
+import baguchan.frostrealm.command.FrostWeatherCommand;
+import baguchan.frostrealm.message.ChangeWeatherEvent;
 import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.*;
@@ -17,6 +19,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -63,7 +66,7 @@ public class FrostRealm {
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
 
 		modBus.addListener(this::setup);
-
+		MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
 
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup));
 		MinecraftForge.EVENT_BUS.register(this);
@@ -91,6 +94,10 @@ public class FrostRealm {
 				.encoder(ChangeWeatherTimeEvent::writeToPacket).decoder(ChangeWeatherTimeEvent::readFromPacket)
 				.consumer(ChangeWeatherTimeEvent::handle)
 				.add();
+		CHANNEL.messageBuilder(ChangeWeatherEvent.class, 2)
+				.encoder(ChangeWeatherEvent::writeToPacket).decoder(ChangeWeatherEvent::readFromPacket)
+				.consumer(ChangeWeatherEvent::handle)
+				.add();
 	}
 
 	public static ResourceLocation prefix(String name) {
@@ -101,4 +108,7 @@ public class FrostRealm {
 		return FrostRealm.MODID + ":" + name.toLowerCase(Locale.ROOT);
 	}
 
+	private void registerCommands(RegisterCommandsEvent evt) {
+		FrostWeatherCommand.register(evt.getDispatcher());
+	}
 }

@@ -114,5 +114,10 @@
   "subtitles.entity.marmot.idle": "Marmot Bark",
   "subtitles.entity.snowpile_quail.idle": "Snow Pile Quail Crows",
   "subtitles.entity.snowpile_quail.hurt": "Snow Pile Quail Hurt",
-  "subtitles.entity.snowpile_quail.death": "Snow Pile Quail Death"
+  "subtitles.entity.snowpile_quail.death": "Snow Pile Quail Death",
+  "commands.frostrealm.frost_weather.set": "Successfully Frost Weather set",
+  "commands.frostrealm.frost_weather.set.fail": "Failed Frost Weather set. because not match weather name.",
+  "commands.frostrealm.frost_weather.set.fail_dimension": "Failed Frost Weather set. because this dimension isn't FrostRealm.",
+  "commands.frostrealm.frost_weather.clear": "Successfully Frost Weather clear",
+  "commands.frostrealm.frost_weather.clear.fail_dimension": "Failed Frost Weather clear. because this dimension isn't FrostRealm."
 }

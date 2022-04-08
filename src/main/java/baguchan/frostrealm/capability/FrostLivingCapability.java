@@ -4,6 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostTags;
+import baguchan.frostrealm.registry.FrostWeathers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -125,7 +126,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 				tempAffect *= 2.0F;
 			if (this.hotSource == null) {
 				FrostWeatherCapability.get(entity.level).ifPresent(cap -> {
-					if (isAffectRain(entity) && cap.isWeatherActive()) {
+					if (isAffectRain(entity) && cap.isWeatherActive() && cap.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
 						addExhaustion(0.005F * (entity.canFreeze() ? 1.0F : 0.25F));
 					}
 				});

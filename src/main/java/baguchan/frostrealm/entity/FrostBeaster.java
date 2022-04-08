@@ -5,6 +5,7 @@ import baguchan.frostrealm.api.animation.IAnimatable;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.entity.goal.BeasterAngryGoal;
 import baguchan.frostrealm.registry.FrostItems;
+import baguchan.frostrealm.registry.FrostWeathers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -69,7 +70,7 @@ public class FrostBeaster extends FrozenMonster implements IAnimatable {
 
 	public static boolean checkFrostBeasterSpawnRules(EntityType<? extends Monster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
 		FrostWeatherCapability capability = FrostWeatherCapability.get(p_27579_.getLevel()).orElse(null);
-		if (capability != null && capability.isWeatherActive()) {
+		if (capability != null && capability.isWeatherActive() && capability.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
 			return Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
 		}
 		return false;

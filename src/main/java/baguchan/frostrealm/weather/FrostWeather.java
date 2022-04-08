@@ -26,6 +26,10 @@ public class FrostWeather extends ForgeRegistryEntry<FrostWeather> {
 		return properties.fogProperties.blue;
 	}
 
+	public float getDensity() {
+		return properties.fogProperties.density;
+	}
+
 	public static class Properties {
 		private final FogProperties fogProperties;
 

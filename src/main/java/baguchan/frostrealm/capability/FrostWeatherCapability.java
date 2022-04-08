@@ -4,10 +4,12 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.message.ChangeWeatherEvent;
 import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.registry.FrostDimensions;
+import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.utils.BlizzardUtils;
 import baguchan.frostrealm.weather.FrostWeather;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.Capability;
@@ -27,8 +29,8 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 	private float weatherLevel;
 	private float oWeatherLevel;
 
-	private boolean isWeatherChanged;
-	private boolean isWeatherCooldownChanged;
+	public boolean needWeatherChanged;
+	public boolean needWeatherCooldownChanged;
 	private FrostWeather frostWeather;
 
 	public float getWeatherLevel(float level) {
@@ -70,34 +72,34 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 						}
 
 						setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
-						isWeatherChanged = true;
+						needWeatherChanged = true;
 					}
 					setWeatherLevel(getWeatherLevel(1.0F) - 0.05F);
 				} else {
 					//If weather not active and cooldown not active too
 					setWeatherCooldown(((level.random.nextInt(10) + 10) * 60) * 20);
-					isWeatherCooldownChanged = true;
+					needWeatherCooldownChanged = true;
 				}
 			}
 		}
 
 		if (!level.isClientSide()) {
-			if (isWeatherChanged) {
+			if (needWeatherChanged) {
 				if (getWeatherLevel(1.0F) <= 1.0F) {
 					ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(getWeatherTime(), getWeatherCooldown(), getWeatherLevel(1.0F));
 					FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
 					if (getWeatherLevel(1.0F) == 1.0F) {
-						isWeatherChanged = false;
+						needWeatherChanged = false;
 					}
 				}
 			}
 
-			if (isWeatherCooldownChanged) {
+			if (needWeatherCooldownChanged) {
 				if (getWeatherLevel(1.0F) >= 0.0F) {
 					ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(getWeatherTime(), getWeatherCooldown(), getWeatherLevel(1.0F));
 					FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
 					if (getWeatherLevel(1.0F) == 0.0F) {
-						isWeatherCooldownChanged = false;
+						needWeatherCooldownChanged = false;
 					}
 				}
 			}
@@ -146,12 +148,20 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 
 		nbt.putInt("WeatherTime", this.weatherTime);
 		nbt.putInt("WeatherCooldown", this.weatherCooldown);
-
+		if (this.frostWeather != null) {
+			nbt.putString("FrostWeather", this.frostWeather.getRegistryName().toString());
+		}
 		return nbt;
 	}
 
 	public void deserializeNBT(CompoundTag nbt) {
 		this.weatherTime = nbt.getInt("WeatherTime");
 		this.weatherCooldown = nbt.getInt("WeatherCooldown");
+		FrostWeather frostWeather = FrostWeathers.getRegistry().get().getValue(ResourceLocation.tryParse(nbt.getString("FrostWeather")));
+		if (frostWeather != null) {
+			this.frostWeather = frostWeather;
+		} else {
+			this.frostWeather = FrostWeathers.BLIZZARD.get();
+		}
 	}
 }
