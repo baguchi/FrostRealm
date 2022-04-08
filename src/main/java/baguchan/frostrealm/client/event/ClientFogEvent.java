@@ -19,7 +19,7 @@ public class ClientFogEvent {
 		if (entity != null && entity.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 			entity.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
 				float weatherLevel = cap.getWeatherLevel(1.0F);
-				if (weatherLevel > 0F && cap.getFrostWeather() != null) {
+				if (weatherLevel > 0F && cap.getFrostWeather() != null && cap.getFrostWeather().isUseFog()) {
 					event.setNearPlaneDistance(130.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
 					event.setFarPlaneDistance(160.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
 					RenderSystem.setShaderFogStart(event.getNearPlaneDistance());
@@ -38,7 +38,7 @@ public class ClientFogEvent {
 		if (entity != null && entity.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 			entity.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
 				float weatherLevel = cap.getWeatherLevel(1.0F);
-				if (weatherLevel > 0F && cap.getFrostWeather() != null) {
+				if (weatherLevel > 0F && cap.getFrostWeather() != null && cap.getFrostWeather().isUseFog()) {
 					float fogRed = event.getRed();
 					float fogGreen = event.getGreen();
 					float fogBlue = event.getBlue();

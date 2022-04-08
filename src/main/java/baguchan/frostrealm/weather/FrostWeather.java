@@ -5,9 +5,16 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class FrostWeather extends ForgeRegistryEntry<FrostWeather> {
 	private final Properties properties;
+	private final boolean useFog;
 
 	public FrostWeather(Properties properties) {
 		this.properties = properties;
+		this.useFog = true;
+	}
+
+	public FrostWeather() {
+		this.properties = new Properties(new FogProperties(0, 0, 0, 0));
+		this.useFog = false;
 	}
 
 	public void tick(LivingEntity livingEntity) {
@@ -28,6 +35,10 @@ public class FrostWeather extends ForgeRegistryEntry<FrostWeather> {
 
 	public float getDensity() {
 		return properties.fogProperties.density;
+	}
+
+	public boolean isUseFog() {
+		return useFog;
 	}
 
 	public static class Properties {
