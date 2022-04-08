@@ -20,7 +20,7 @@ public class BlizzardUtils {
 
 	public static FrostWeather makeRandomWeather(Random random) {
 		if (random.nextFloat() < 0.35) {
-			return FrostWeathers.PURPLE_WEATHER.get();
+			return FrostWeathers.PURPLE_FOG.get();
 		} else {
 			return FrostWeathers.BLIZZARD.get();
 		}
