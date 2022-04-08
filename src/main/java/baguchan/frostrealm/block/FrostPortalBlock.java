@@ -73,7 +73,7 @@ public class FrostPortalBlock extends Block {
 		p_196262_4_.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(handler -> {
 			handler.setInPortal(true);
 			int waitTime = handler.getPortalTimer();
-			if (waitTime >= 80) {
+			if (waitTime >= 100) {
 				attemptSendPlayer(p_196262_4_, p_196262_2_);
 				handler.setPortalTimer(0);
 			}

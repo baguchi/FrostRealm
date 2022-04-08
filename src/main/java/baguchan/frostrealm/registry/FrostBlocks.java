@@ -110,6 +110,10 @@ public class FrostBlocks {
 	public static final RegistryObject<Block> STARDUST_CRYSTAL_CLUSTER = register("stardust_crystal_cluster", () -> new StarDustCrystalBlock(BlockBehaviour.Properties.of(Material.GLASS).requiresCorrectToolForDrops().lightLevel((state) -> {
 		return 10;
 	}).strength(5.0F, 6.0F).noOcclusion().sound(SoundType.DEEPSLATE)));
+	public static final RegistryObject<Block> CORRUPTED_CRYSTAL_CLUSTER = register("corrupted_crystal_cluster", () -> new Block(BlockBehaviour.Properties.of(Material.GLASS).requiresCorrectToolForDrops().lightLevel((state) -> {
+		return 10;
+	}).strength(5.0F, 6.0F).noOcclusion().sound(SoundType.DEEPSLATE)));
+
 
 	public static final RegistryObject<Block> WARPED_CRYSTAL_BLOCK = register("warped_crystal_block", () -> new Block(BlockBehaviour.Properties.of(Material.GLASS).requiresCorrectToolForDrops().lightLevel((state) -> {
 		return 12;

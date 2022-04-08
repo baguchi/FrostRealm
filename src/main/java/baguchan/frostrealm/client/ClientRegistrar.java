@@ -120,6 +120,7 @@ public class ClientRegistrar {
 		setRenderLayer(FrostBlocks.BEARBERRY_BUSH.get(), RenderType.cutout());
 
 		setRenderLayer(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get(), RenderType.translucent());
+		setRenderLayer(FrostBlocks.CORRUPTED_CRYSTAL_CLUSTER.get(), RenderType.translucent());
 		setRenderLayer(FrostBlocks.WARPED_CRYSTAL_BLOCK.get(), RenderType.translucent());
 
 		setRenderLayer(FrostBlocks.FROST_TORCH.get(), RenderType.cutout());

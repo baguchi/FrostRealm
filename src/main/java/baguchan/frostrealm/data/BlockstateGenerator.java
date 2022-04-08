@@ -73,6 +73,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.simpleBlock(FrostBlocks.ASTRIUM_ORE.get());
 		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
 		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
+		this.simpleBlock(FrostBlocks.CORRUPTED_CRYSTAL_CLUSTER.get());
 		this.simpleBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
 	}
 

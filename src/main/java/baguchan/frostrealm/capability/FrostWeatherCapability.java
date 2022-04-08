@@ -1,8 +1,11 @@
 package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.message.ChangeWeatherEvent;
 import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.registry.FrostDimensions;
+import baguchan.frostrealm.utils.BlizzardUtils;
+import baguchan.frostrealm.weather.FrostWeather;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
@@ -26,6 +29,7 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 
 	private boolean isWeatherChanged;
 	private boolean isWeatherCooldownChanged;
+	private FrostWeather frostWeather;
 
 	public float getWeatherLevel(float level) {
 		return Mth.lerp(level, this.oWeatherLevel, this.weatherLevel);
@@ -49,17 +53,28 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 	public void tick(Level level) {
 		if (level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 			if (isWeatherActive()) {
+				//If weather active
 				setWetherTime(getWeatherTime() - 1);
 				setWeatherLevel(getWeatherLevel(1.0F) + 0.05F);
 			} else {
 				if (isWeatherCooldownActive()) {
+					//If weather not active and cooldown active
 					setWeatherCooldown(getWeatherCooldown() - 1);
 					if (getWeatherCooldown() <= 0) {
+						FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.random);
+
+						setFrostWeather(frostWeather);
+						if (!level.isClientSide()) {
+							ChangeWeatherEvent message = new ChangeWeatherEvent(frostWeather);
+							FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+						}
+
 						setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
 						isWeatherChanged = true;
 					}
 					setWeatherLevel(getWeatherLevel(1.0F) - 0.05F);
 				} else {
+					//If weather not active and cooldown not active too
 					setWeatherCooldown(((level.random.nextInt(10) + 10) * 60) * 20);
 					isWeatherCooldownChanged = true;
 				}
@@ -111,6 +126,14 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 
 	public void setWeatherCooldown(int time) {
 		this.weatherCooldown = time;
+	}
+
+	public void setFrostWeather(FrostWeather frostWeather) {
+		this.frostWeather = frostWeather;
+	}
+
+	public FrostWeather getFrostWeather() {
+		return frostWeather;
 	}
 
 	@Nonnull

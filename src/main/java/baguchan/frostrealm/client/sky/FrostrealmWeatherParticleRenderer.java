@@ -3,6 +3,7 @@ package baguchan.frostrealm.client.sky;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.registry.FrostSounds;
+import baguchan.frostrealm.registry.FrostWeathers;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ParticleStatus;
@@ -22,7 +23,9 @@ public class FrostrealmWeatherParticleRenderer implements IWeatherParticleRender
 	@Override
 	public void render(int ticks, ClientLevel world, Minecraft mc, Camera activeRenderInfoIn) {
 		world.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-			this.frostWeatherRender(cap, ticks, world, mc, activeRenderInfoIn);
+			if (cap.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
+				this.frostWeatherRender(cap, ticks, world, mc, activeRenderInfoIn);
+			}
 		});
 	}
 

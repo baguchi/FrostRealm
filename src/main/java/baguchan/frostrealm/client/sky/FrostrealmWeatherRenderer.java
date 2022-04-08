@@ -2,6 +2,7 @@ package baguchan.frostrealm.client.sky;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
+import baguchan.frostrealm.registry.FrostWeathers;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -53,7 +54,9 @@ public class FrostrealmWeatherRenderer implements IWeatherRenderHandler {
 		renderNormalWeather(lightmap, world, mc, partialTicks, xIn, yIn, zIn);
 
 		world.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(frostWeatherCapability -> {
-			this.renderBrizzardWeather(frostWeatherCapability, lightmap, world, mc, partialTicks, xIn, yIn, zIn);
+			if (frostWeatherCapability.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
+				this.renderBrizzardWeather(frostWeatherCapability, lightmap, world, mc, partialTicks, xIn, yIn, zIn);
+			}
 		});
 	}
 

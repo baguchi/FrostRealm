@@ -53,6 +53,7 @@ public class FrostRealm {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+		FrostWeathers.FROST_WEATHER.register(modBus);
 		FrostBiomes.BIOMES.register(modBus);
 		FrostCarvers.WORLD_CARVER.register(modBus);
 		FrostBlocks.BLOCKS.register(modBus);
