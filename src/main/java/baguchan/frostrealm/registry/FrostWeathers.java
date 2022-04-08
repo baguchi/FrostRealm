@@ -15,7 +15,7 @@ public class FrostWeathers {
 	public static final DeferredRegister<FrostWeather> FROST_WEATHER = DeferredRegister.create(new ResourceLocation(FrostRealm.MODID, "frost_weather"), FrostRealm.MODID);
 
 
-	public static final RegistryObject<FrostWeather> BLIZZARD = FROST_WEATHER.register("blizzard", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(1.0F, 1.0F, 1.0F, 0.25F))));
+	public static final RegistryObject<FrostWeather> BLIZZARD = FROST_WEATHER.register("blizzard", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(0.9F, 0.9F, 0.9F, 0.25F))));
 	public static final RegistryObject<FrostWeather> PURPLE_FOG = FROST_WEATHER.register("purple_fog", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(0.6F, 0.0F, 0.6F, 0.385F))));
 
 	private static Supplier<IForgeRegistry<FrostWeather>> registry;

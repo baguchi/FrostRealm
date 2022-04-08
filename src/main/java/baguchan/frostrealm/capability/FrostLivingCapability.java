@@ -63,6 +63,9 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 	}
 
 	public void tick(LivingEntity entity) {
+		/*
+		 *  portal timer
+		 */
 		if (entity.level.isClientSide) {
 			this.prevPortalAnimTime = this.portalAnimTime;
 			Minecraft mc = Minecraft.getInstance();
@@ -105,6 +108,10 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			}
 		}
 
+
+		/*
+		 *  Body temperature stuff
+		 */
 		if (entity.level.dimension() == FrostDimensions.FROSTREALM_LEVEL && (!entity.getType().is(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES) || (entity instanceof Player && !((Player) entity).isCreative() && !entity.isSpectator()))) {
 			Difficulty difficulty = entity.level.getDifficulty();
 			this.lastTemperate = this.temperature;

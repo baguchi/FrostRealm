@@ -58,6 +58,7 @@ public class CommonEvents {
 		if (event.getPlayer() != null && event.getPlayer().level instanceof ServerLevel) {
 			ServerLevel world = (ServerLevel) event.getPlayer().level;
 			MinecraftServer server = world.getServer();
+			//sync weather
 			for (ServerLevel serverworld : server.getAllLevels()) {
 				if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
@@ -79,6 +80,7 @@ public class CommonEvents {
 		if (event.getPlayer() != null && event.getPlayer().level instanceof ServerLevel) {
 			ServerLevel world = (ServerLevel) event.getPlayer().level;
 			MinecraftServer server = world.getServer();
+			//sync weather
 			for (ServerLevel serverworld : server.getAllLevels()) {
 				if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
