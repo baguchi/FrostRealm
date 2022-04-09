@@ -10,8 +10,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 
 public enum FrostArmorMaterials implements ArmorMaterial {
-	YETI_FUR("frostrealm:yeti_fur", 8, new int[]{1, 2, 5, 2}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+	YETI_FUR("frostrealm:yeti_fur", 8, new int[]{1, 2, 5, 2}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.05F, 0.0F, () -> {
 		return Ingredient.of(FrostItems.YETI_FUR.get());
+	}),
+	ASTRIUM("frostrealm:astrium", 20, new int[]{2, 5, 6, 2}, 10, SoundEvents.ARMOR_EQUIP_IRON, 0.25F, 0.0F, () -> {
+		return Ingredient.of(FrostItems.ASTRIUM_INGOT.get());
 	});
 
 	private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};

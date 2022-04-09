@@ -55,6 +55,11 @@ public class FrostItems {
 	public static final RegistryObject<Item> YETI_FUR_LEGGINGS = ITEMS.register("yeti_fur_leggings", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.LEGS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> YETI_FUR_BOOTS = ITEMS.register("yeti_fur_boots", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.FEET, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
+	public static final RegistryObject<Item> ASTRIUM_HELMET = ITEMS.register("astrium_helmet", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.HEAD, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> ASTRIUM_CHESTPLATE = ITEMS.register("astrium_chestplate", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.CHEST, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> ASTRIUM_LEGGINGS = ITEMS.register("astrium_leggings", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.LEGS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> ASTRIUM_BOOTS = ITEMS.register("astrium_boots", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.FEET, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
 
 	public static final RegistryObject<Item> CRYSTAL_TORTOISE_SPAWNEGG = ITEMS.register("crystal_tortoise_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.CRYSTAL_TORTOISE, 0x3E3CAE, 0x8685E0, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> MARMOT_SPAWNEGG = ITEMS.register("marmot_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.MARMOT, 0xB18346, 0x9B6B2D, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));

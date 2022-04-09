@@ -56,6 +56,11 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.YETI_FUR_LEGGINGS);
 		this.singleTex(FrostItems.YETI_FUR_BOOTS);
 
+		this.singleTex(FrostItems.ASTRIUM_HELMET);
+		this.singleTex(FrostItems.ASTRIUM_CHESTPLATE);
+		this.singleTex(FrostItems.ASTRIUM_LEGGINGS);
+		this.singleTex(FrostItems.ASTRIUM_BOOTS);
+
 		this.egg(FrostItems.CRYSTAL_TORTOISE_SPAWNEGG);
 		this.egg(FrostItems.MARMOT_SPAWNEGG);
 		this.egg(FrostItems.SNOWPILE_QUAIL_SPAWNEGG);
