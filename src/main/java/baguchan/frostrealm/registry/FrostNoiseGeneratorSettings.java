@@ -1,6 +1,7 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.world.gen.FrostNoiseRouterData;
 import baguchan.frostrealm.world.gen.FrostSurfaceRuleData;
 import com.mojang.serialization.DataResult;
 import net.minecraft.core.Registry;
@@ -11,18 +12,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.TerrainShaper;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraft.world.level.levelgen.*;
+import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
+import net.minecraft.world.level.levelgen.NoiseSamplingSettings;
+import net.minecraft.world.level.levelgen.NoiseSettings;
+import net.minecraft.world.level.levelgen.NoiseSlider;
 
 public class FrostNoiseGeneratorSettings {
 
 
 	static final NoiseSettings FROST_NOISE_SETTINGS = create(-64, 320, new NoiseSamplingSettings(1.0D, 1.0D, 80.0D, 160.0D), new NoiseSlider(-0.078125D, 2, 8), new NoiseSlider(0.1171875D, 3, 0), 1, 2, TerrainProvider.overworld(false));
+	static final NoiseSettings NETHER_NOISE_SETTINGS = create(0, 128, new NoiseSamplingSettings(1.0D, 3.0D, 80.0D, 60.0D), new NoiseSlider(0.9375D, 3, 0), new NoiseSlider(2.5D, 4, -1), 1, 2, TerrainProvider.nether());
 
 
 	public static final ResourceKey<NoiseGeneratorSettings> FROSTREALM = ResourceKey.create(Registry.NOISE_GENERATOR_SETTINGS_REGISTRY, new ResourceLocation(FrostRealm.MODID, "frostrealm"));
 
 	public static NoiseGeneratorSettings frostrealm() {
-		return new NoiseGeneratorSettings(FROST_NOISE_SETTINGS, FrostBlocks.FRIGID_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), NoiseRouterData.overworld(FROST_NOISE_SETTINGS, false), FrostSurfaceRuleData.frostrealm(), 64, false, true, false, false);
+		return new NoiseGeneratorSettings(FROST_NOISE_SETTINGS, FrostBlocks.FRIGID_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), FrostNoiseRouterData.overworld(FROST_NOISE_SETTINGS, NETHER_NOISE_SETTINGS, false), FrostSurfaceRuleData.frostrealm(), 64, false, true, false, false);
 	}
 
 	private static DataResult<NoiseSettings> guardY(NoiseSettings p_158721_) {
