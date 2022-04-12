@@ -3,10 +3,13 @@
   "values": [
     "frostrealm:frost_wraith",
     "frostrealm:yeti",
+    "frostrealm:gokkur",
+    "frostrealm:gokkudillo",
     "frostrealm:crystal_tortoise",
     "frostrealm:marmot",
     "frostrealm:snowpile_quail",
     "frostrealm:frost_wolf",
+    "frostrealm:crystal_fox",
     "frostrealm:frost_beaster"
   ]
 }

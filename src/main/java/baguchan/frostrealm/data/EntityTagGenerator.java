@@ -15,7 +15,7 @@ public class EntityTagGenerator extends EntityTypeTagsProvider {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void addTags() {
-		tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.FROST_WRAITH.get(), FrostEntities.YETI.get(), FrostEntities.CRYSTAL_TORTOISE.get()
-				, FrostEntities.MARMOT.get(), FrostEntities.SNOWPILE_QUAIL.get(), FrostEntities.FROST_WOLF.get(), FrostEntities.FROST_BEASTER.get());
+		tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.FROST_WRAITH.get(), FrostEntities.YETI.get(), FrostEntities.GOKKUR.get(), FrostEntities.GOKKUDILLO.get(), FrostEntities.CRYSTAL_TORTOISE.get()
+				, FrostEntities.MARMOT.get(), FrostEntities.SNOWPILE_QUAIL.get(), FrostEntities.FROST_WOLF.get(), FrostEntities.CRYSTAL_FOX.get(), FrostEntities.FROST_BEASTER.get());
 	}
 }
