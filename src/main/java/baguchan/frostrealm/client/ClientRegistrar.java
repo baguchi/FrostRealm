@@ -24,9 +24,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -135,6 +137,9 @@ public class ClientRegistrar {
 	public static void setup(FMLCommonSetupEvent event) {
 		MinecraftForge.EVENT_BUS.register(new ClientColdHUDEvent());
 		MinecraftForge.EVENT_BUS.register(new ClientFogEvent());
+		IEventBus busMod = FMLJavaModLoadingContext.get().getModEventBus();
+		IEventBus busForge = MinecraftForge.EVENT_BUS;
+		FrostShaders.init(busMod);
 		renderTileEntity();
 		renderBlockColor();
 		renderBlockLayer();
