@@ -14,6 +14,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxModel<CrystalFox>> {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox.png");
+	private static final ResourceLocation SHEARED_TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sheared.png");
+
 
 	public CrystalFoxRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new CrystalFoxModel<>(p_173952_.bakeLayer(FrostModelLayers.CRYSTAL_FOX)), 0.5F);
@@ -28,6 +30,6 @@ public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxModel<
 
 	@Override
 	public ResourceLocation getTextureLocation(CrystalFox p_110775_1_) {
-		return TEXTURE;
+		return p_110775_1_.isShearableWithoutConditions() ? TEXTURE : SHEARED_TEXTURE;
 	}
 }
