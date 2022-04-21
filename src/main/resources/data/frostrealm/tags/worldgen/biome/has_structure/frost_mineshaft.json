@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "frostrealm:frigid_forest",
+    "frostrealm:tundra",
+    "frostrealm:glaciers",
+    "frostrealm:star_dust_peaks",
+    "frostrealm:frozen_canyon"
+  ]
+}

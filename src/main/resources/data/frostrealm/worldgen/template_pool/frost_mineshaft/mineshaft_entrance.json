@@ -1,0 +1,15 @@
+{
+  "name": "frostrealm:frost_mineshaft/mineshaft_entrance",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "frostrealm:frost_mineshaft/mineshaft_entrance",
+        "processors": "frostrealm:mineshaft_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

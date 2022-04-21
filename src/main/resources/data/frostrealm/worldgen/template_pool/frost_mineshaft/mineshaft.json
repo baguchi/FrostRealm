@@ -1,0 +1,60 @@
+{
+  "name": "frostrealm:frost_mineshaft/mineshaft",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 8,
+      "element": {
+        "location": "frostrealm:frost_mineshaft/mineshaft_room1",
+        "processors": "frostrealm:mineshaft_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "frostrealm:frost_mineshaft/mineshaft_room2",
+        "processors": "frostrealm:mineshaft_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "frostrealm:frost_mineshaft/mineshaft_room3",
+        "processors": "frostrealm:mineshaft_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "frostrealm:frost_mineshaft/mineshaft_room4",
+        "processors": "frostrealm:mineshaft_degradation",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "frostrealm:frost_mineshaft/mineshaft_downstair",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "frostrealm:frost_mineshaft/mineshaft_downstair2",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

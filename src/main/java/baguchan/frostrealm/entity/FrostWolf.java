@@ -106,7 +106,7 @@ public class FrostWolf extends Wolf implements IAnimatable {
 	public void aiStep() {
 		super.aiStep();
 		if (!this.isTame()) {
-			if (this.level.isNight() && this.level.canSeeSky(this.blockPosition()) && this.getAnimation() != HOWL_ANIMATION && this.random.nextInt(400) == 0) {
+			if (this.level.isNight() && this.level.canSeeSky(this.blockPosition()) && this.getAnimation() != HOWL_ANIMATION && this.random.nextInt(450) == 0) {
 				this.setAnimation(HOWL_ANIMATION);
 				this.playSound(SoundEvents.WOLF_HOWL, 3.0F, this.getVoicePitch());
 			}

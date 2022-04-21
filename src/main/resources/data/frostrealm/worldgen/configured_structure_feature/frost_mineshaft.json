@@ -1,0 +1,10 @@
+{
+  "type": "frostrealm:frost_mineshaft",
+  "biomes": "#frostrealm:has_structure/frost_mineshaft",
+  "adapt_noise": false,
+  "spawn_overrides": {},
+  "config": {
+    "start_pool": "frostrealm:frost_mineshaft/mineshaft_entrance",
+    "size": 6
+  }
+}
