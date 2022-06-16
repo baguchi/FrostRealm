@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.NetherFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
@@ -39,6 +40,9 @@ public class FrostPlacements {
 	public static final Holder<PlacedFeature> SPRING_LAVA_HOTROCK_EXTRA = PlacementUtils.register(prefix("spring_lava_hotrock_extra"), FrostConfiguredFeatures.SPRING_LAVA, CountPlacement.of(10), InSquarePlacement.spread(), HeightRangePlacement.of(VeryBiasedToBottomHeight.of(VerticalAnchor.aboveBottom(64), VerticalAnchor.top(), 8)), BiomeFilter.biome());
 	public static final Holder<PlacedFeature> SPRING_WATER = PlacementUtils.register(prefix("spring_water"), FrostConfiguredFeatures.SPRING_WATER, CountPlacement.of(25), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(192)), BiomeFilter.biome());
 	public static final Holder<PlacedFeature> SPRING_WATER_EXTRA = PlacementUtils.register(prefix("spring_water_extra"), FrostConfiguredFeatures.SPRING_WATER, CountPlacement.of(30), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(0)), BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> ICE_CLUSTER = PlacementUtils.register(prefix("ice_cluster"), FrostConfiguredFeatures.ICE_CLUSTER, CountPlacement.of(UniformInt.of(48, 96)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> LARGE_ICE = PlacementUtils.register(prefix("large_ice"), FrostConfiguredFeatures.LARGE_ICE, CountPlacement.of(UniformInt.of(10, 48)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
 
 	public static String prefix(String name) {

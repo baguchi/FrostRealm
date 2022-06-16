@@ -39,6 +39,8 @@ public class FrostBiomes {
 
 	public static final ResourceKey<Biome> CRYSTAL_WATERFALL = register("crystal_waterfall");
 
+	public static final ResourceKey<Biome> ICE_CAVE = register("ice_cave");
+
 	private static ResourceKey<Biome> register(String p_48229_) {
 		BIOMES.register(p_48229_, OverworldBiomes::theVoid);
 		return ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(FrostRealm.MODID, p_48229_));

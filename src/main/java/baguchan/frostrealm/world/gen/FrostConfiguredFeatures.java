@@ -8,6 +8,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.util.valueproviders.ClampedNormalFloat;
+import net.minecraft.util.valueproviders.UniformFloat;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -50,6 +53,10 @@ public class FrostConfiguredFeatures {
 
 	public static final Holder<ConfiguredFeature<SpringConfiguration, ?>> SPRING_LAVA = FeatureUtils.register(prefix("spring_lava_hot_rock"), Feature.SPRING, new SpringConfiguration(Fluids.LAVA.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, FrostBlocks.FRIGID_STONE.get())));
 	public static final Holder<ConfiguredFeature<SpringConfiguration, ?>> SPRING_WATER = FeatureUtils.register(prefix("spring_wate_fall"), Feature.SPRING, new SpringConfiguration(Fluids.WATER.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, FrostBlocks.FRIGID_STONE.get())));
+
+	public static final Holder<ConfiguredFeature<DripstoneClusterConfiguration, ?>> ICE_CLUSTER = FeatureUtils.register(prefix("ice_cluster"), FrostFeatures.ICE_CLUSTER.get(), new DripstoneClusterConfiguration(12, UniformInt.of(3, 6), UniformInt.of(2, 8), 1, 3, UniformInt.of(2, 4), UniformFloat.of(0.3F, 0.7F), ClampedNormalFloat.of(0.1F, 0.3F, 0.1F, 0.9F), 0.1F, 3, 8));
+	public static final Holder<ConfiguredFeature<LargeDripstoneConfiguration, ?>> LARGE_ICE = FeatureUtils.register(prefix("large_ice"), FrostFeatures.LARGE_ICE.get(), new LargeDripstoneConfiguration(30, UniformInt.of(3, 19), UniformFloat.of(0.4F, 2.0F), 0.33F, UniformFloat.of(0.3F, 0.9F), UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.6F));
+
 
 	public static final Holder<PlacedFeature> FROSTROOT_CHECKED = PlacementUtils.register(prefix("frostroot_checked"), FrostTreeFeatures.FROST_TREE, PlacementUtils.filteredByBlockSurvival(FrostBlocks.FROSTROOT_SAPLING.get()));
 
