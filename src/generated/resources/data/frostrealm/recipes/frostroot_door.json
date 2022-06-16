@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "DD",
-    "DD"
-  ],
   "key": {
     "D": {
       "item": "frostrealm:frostroot_planks"
     }
   },
+  "pattern": [
+    "DD",
+    "DD"
+  ],
   "result": {
-    "item": "frostrealm:frostroot_door",
-    "count": 3
+    "count": 3,
+    "item": "frostrealm:frostroot_door"
   }
 }

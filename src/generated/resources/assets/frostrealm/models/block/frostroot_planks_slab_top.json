@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab_top",
   "textures": {
-    "side": "frostrealm:block/frostroot_planks",
     "bottom": "frostrealm:block/frostroot_planks",
+    "side": "frostrealm:block/frostroot_planks",
     "top": "frostrealm:block/frostroot_planks"
   }
 }

@@ -1,9 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "MSM",
-    "MSM"
-  ],
   "key": {
     "M": {
       "item": "frostrealm:frostroot_planks"
@@ -12,8 +8,12 @@
       "tag": "forge:rods/wooden"
     }
   },
+  "pattern": [
+    "MSM",
+    "MSM"
+  ],
   "result": {
-    "item": "frostrealm:frostroot_fence",
-    "count": 3
+    "count": 3,
+    "item": "frostrealm:frostroot_fence"
   }
 }

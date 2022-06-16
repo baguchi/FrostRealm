@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cross",
-  "textures": {
-    "cross": "frostrealm:block/frozen_sapling"
-  }
-}

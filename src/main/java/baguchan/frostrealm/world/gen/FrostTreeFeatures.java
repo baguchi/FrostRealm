@@ -35,9 +35,6 @@ public class FrostTreeFeatures {
 		return createStraightBlobTree(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_LEAVES.get(), 4, 2, 0, 2).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder createFrozen() {
-		return createStraightBlobTree(FrostBlocks.FROZEN_LOG.get(), FrostBlocks.FROZEN_LEAVES.get(), 8, 2, 0, 2).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
-	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder createFancyFrostRoot() {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTROOT_LOG.get()), new FancyTrunkPlacer(3, 11, 0), BlockStateProvider.simple(FrostBlocks.FROSTROOT_LEAVES.get()), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));

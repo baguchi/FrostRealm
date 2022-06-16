@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "B": {
+      "item": "minecraft:snowball"
+    },
+    "S": {
+      "item": "frostrealm:stray_necklace_part"
+    }
+  },
   "pattern": [
     " S ",
     "SBS",
     " S "
   ],
-  "key": {
-    "S": {
-      "item": "frostrealm:stray_necklace_part"
-    },
-    "B": {
-      "item": "minecraft:snowball"
-    }
-  },
   "result": {
     "item": "frostrealm:frost_catalyst"
   }

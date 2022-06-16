@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "# #",
-    "# #"
-  ],
   "key": {
     "#": {
       "item": "frostrealm:yeti_fur"
     }
   },
+  "pattern": [
+    "# #",
+    "# #"
+  ],
   "result": {
     "item": "frostrealm:yeti_fur_boots"
   }

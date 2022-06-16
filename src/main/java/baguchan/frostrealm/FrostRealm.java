@@ -66,6 +66,8 @@ public class FrostRealm {
 
 		FrostItems.ITEMS.register(modBus);
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
+		FrostDimensionSettings.DIMENSION_TYPES.register(modBus);
+		FrostDimensionSettings.NOISE_GENERATORS.register(modBus);
 
 		modBus.addListener(this::setup);
 		MinecraftForge.EVENT_BUS.addListener(this::registerCommands);

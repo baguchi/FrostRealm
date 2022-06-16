@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab",
   "textures": {
-    "side": "frostrealm:block/frigid_stone_brick_mossy",
     "bottom": "frostrealm:block/frigid_stone_brick_mossy",
+    "side": "frostrealm:block/frigid_stone_brick_mossy",
     "top": "frostrealm:block/frigid_stone_brick_mossy"
   }
 }

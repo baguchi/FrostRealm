@@ -1,7 +1,5 @@
 {
-  "replace": false,
   "values": [
-    "frostrealm:frostroot_log",
-    "frostrealm:frozen_log"
+    "frostrealm:frostroot_log"
   ]
 }

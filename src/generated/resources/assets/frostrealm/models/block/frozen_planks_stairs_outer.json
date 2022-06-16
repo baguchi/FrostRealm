@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "side": "frostrealm:block/frozen_planks",
-    "bottom": "frostrealm:block/frozen_planks",
-    "top": "frostrealm:block/frozen_planks"
-  }
-}

@@ -1,0 +1,8 @@
+// 1.19	2022-06-16T22:14:16.6187944	Tags for minecraft:item
+97fe890a736695dcf1adb03aee33e8ae4d8f9ea6 data/forge/tags/items/chests/wooden.json
+2dfd7c416efc75b39fefad2be97893e938da2241 data/forge/tags/items/eggs.json
+78c6af831798d8cc5b2bac6ab103076d865ecacb data/minecraft/tags/items/freeze_immune_wearables.json
+585ba920f9126d58fbb8cb727bd27d23986b382a data/minecraft/tags/items/logs_that_burn.json
+3f2032e301aa2f6f1335f94cba750892b34f79b2 data/minecraft/tags/items/planks.json
+6069c138bf360e860ca754ef36afca9f47f2fef5 data/minecraft/tags/items/stone_crafting_materials.json
+6069c138bf360e860ca754ef36afca9f47f2fef5 data/minecraft/tags/items/stone_tool_materials.json

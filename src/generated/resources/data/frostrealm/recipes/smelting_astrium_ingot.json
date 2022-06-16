@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.2,
   "ingredient": {
     "item": "frostrealm:astrium_raw"
   },
-  "result": "frostrealm:astrium_ingot",
-  "experience": 0.2,
-  "cookingtime": 200
+  "result": "frostrealm:astrium_ingot"
 }

@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "frostrealm:block/frostroot_planks_slab_top"
-    },
     "type=bottom": {
       "model": "frostrealm:block/frostroot_planks_slab"
     },
     "type=double": {
       "model": "frostrealm:block/frostroot_planks"
+    },
+    "type=top": {
+      "model": "frostrealm:block/frostroot_planks_slab_top"
     }
   }
 }

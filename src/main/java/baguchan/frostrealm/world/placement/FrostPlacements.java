@@ -22,8 +22,6 @@ public class FrostPlacements {
 	public static final Holder<PlacedFeature> FROSTROOT_TREES_FOREST = PlacementUtils.register(prefix("frostroot_tree_forest"), FrostConfiguredFeatures.FROSTROOT_TREE, treePlacement(PlacementUtils.countExtra(10, 0.1F, 1), FrostBlocks.FROSTROOT_SAPLING.get()));
 	public static final Holder<PlacedFeature> FROSTROOT_TREES_PLAINS = PlacementUtils.register(prefix("frostroot_tree_plains"), FrostConfiguredFeatures.FROSTROOT_TREE, treePlacement(PlacementUtils.countExtra(0, 0.01F, 1), FrostBlocks.FROSTROOT_SAPLING.get()));
 
-	public static final Holder<PlacedFeature> FROZEN_TREES_JUNGLE = PlacementUtils.register(prefix("frozen_tree_jungle"), FrostConfiguredFeatures.FROZEN_TREE, treePlacement(PlacementUtils.countExtra(5, 0.1F, 1), FrostBlocks.FROZEN_SAPLING.get()));
-
 	public static final Holder<PlacedFeature> PATCH_TUNDRA_GRASS = PlacementUtils.register(prefix("patch_tundra_grass"), FrostConfiguredFeatures.PATCH_TUNDRA_GRASS, NoiseThresholdCountPlacement.of(-0.8D, 5, 10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> PATCH_BEAR_BERRY = PlacementUtils.register(prefix("patch_bear_berry"), FrostConfiguredFeatures.PATCH_BEARBERRY, InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());

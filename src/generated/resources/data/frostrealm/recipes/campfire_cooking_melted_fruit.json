@@ -1,9 +1,9 @@
 {
   "type": "minecraft:campfire_cooking",
+  "cookingtime": 600,
+  "experience": 0.1,
   "ingredient": {
     "item": "frostrealm:frozen_fruit"
   },
-  "result": "frostrealm:melted_fruit",
-  "experience": 0.1,
-  "cookingtime": 600
+  "result": "frostrealm:melted_fruit"
 }

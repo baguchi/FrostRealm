@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "M  ",
-    "MM ",
-    "MMM"
-  ],
   "key": {
     "M": {
       "item": "frostrealm:frostroot_planks"
     }
   },
+  "pattern": [
+    "M  ",
+    "MM ",
+    "MMM"
+  ],
   "result": {
-    "item": "frostrealm:frostroot_planks_stairs",
-    "count": 4
+    "count": 4,
+    "item": "frostrealm:frostroot_planks_stairs"
   }
 }

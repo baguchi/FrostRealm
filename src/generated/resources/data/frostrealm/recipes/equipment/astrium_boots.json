@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "# #",
-    "# #"
-  ],
   "key": {
     "#": {
       "item": "frostrealm:astrium_ingot"
     }
   },
+  "pattern": [
+    "# #",
+    "# #"
+  ],
   "result": {
     "item": "frostrealm:astrium_boots"
   }

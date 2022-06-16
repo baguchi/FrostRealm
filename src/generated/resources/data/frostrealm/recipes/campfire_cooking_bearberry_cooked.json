@@ -1,9 +1,9 @@
 {
   "type": "minecraft:campfire_cooking",
+  "cookingtime": 600,
+  "experience": 0.1,
   "ingredient": {
     "item": "frostrealm:bearberry"
   },
-  "result": "frostrealm:bearberry_cooked",
-  "experience": 0.1,
-  "cookingtime": 600
+  "result": "frostrealm:bearberry_cooked"
 }

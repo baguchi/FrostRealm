@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "frostrealm:block/frigid_stone_brick_mossy_slab_top"
-    },
     "type=bottom": {
       "model": "frostrealm:block/frigid_stone_brick_mossy_slab"
     },
     "type=double": {
       "model": "frostrealm:block/frigid_stone_brick_mossy"
+    },
+    "type=top": {
+      "model": "frostrealm:block/frigid_stone_brick_mossy_slab_top"
     }
   }
 }

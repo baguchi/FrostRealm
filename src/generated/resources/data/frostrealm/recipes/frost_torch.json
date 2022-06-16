@@ -1,9 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "C",
-    "M"
-  ],
   "key": {
     "C": {
       "item": "frostrealm:frost_crystal"
@@ -12,8 +8,12 @@
       "tag": "forge:rods/wooden"
     }
   },
+  "pattern": [
+    "C",
+    "M"
+  ],
   "result": {
-    "item": "frostrealm:frost_torch",
-    "count": 4
+    "count": 4,
+    "item": "frostrealm:frost_torch"
   }
 }

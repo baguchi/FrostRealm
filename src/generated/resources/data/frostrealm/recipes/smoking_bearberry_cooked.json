@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smoking",
+  "cookingtime": 100,
+  "experience": 0.1,
   "ingredient": {
     "item": "frostrealm:bearberry"
   },
-  "result": "frostrealm:bearberry_cooked",
-  "experience": 0.1,
-  "cookingtime": 100
+  "result": "frostrealm:bearberry_cooked"
 }

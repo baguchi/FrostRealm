@@ -1,9 +1,9 @@
 {
   "type": "minecraft:campfire_cooking",
+  "cookingtime": 600,
+  "experience": 0.2,
   "ingredient": {
     "item": "frostrealm:snowpile_quail_egg"
   },
-  "result": "frostrealm:cooked_snowpile_quail_egg",
-  "experience": 0.2,
-  "cookingtime": 600
+  "result": "frostrealm:cooked_snowpile_quail_egg"
 }

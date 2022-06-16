@@ -1,7 +1,5 @@
 {
-  "replace": false,
   "values": [
-    "frostrealm:frostroot_leaves",
-    "frostrealm:frozen_leaves"
+    "frostrealm:frostroot_leaves"
   ]
 }

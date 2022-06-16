@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "G": {
+      "item": "frostrealm:glimmerrock"
+    },
+    "S": {
+      "tag": "minecraft:stone_crafting_materials"
+    }
+  },
   "pattern": [
     "SSS",
     "SGS",
     "SSS"
   ],
-  "key": {
-    "S": {
-      "tag": "minecraft:stone_crafting_materials"
-    },
-    "G": {
-      "item": "frostrealm:glimmerrock"
-    }
-  },
   "result": {
     "item": "frostrealm:frigid_stove"
   }
