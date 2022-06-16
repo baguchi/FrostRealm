@@ -11,7 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseSettings;
@@ -50,7 +49,7 @@ public class FrostDimensionSettings {
 				384,
 				384, // Logical Height
 				BlockTags.INFINIBURN_OVERWORLD, //infiburn
-				BuiltinDimensionTypes.OVERWORLD_EFFECTS, // DimensionRenderInfo
+				FrostRealm.prefix("renderer"), // DimensionRenderInfo
 				0f, // Wish this could be set to -0.05 since it'll make the world truly blacked out if an area is not sky-lit (see: Dark Forests) Sadly this also messes up night vision so it gets 0
 				new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 7)
 		);

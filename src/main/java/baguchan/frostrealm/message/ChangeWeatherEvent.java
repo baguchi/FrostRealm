@@ -18,21 +18,22 @@ public class ChangeWeatherEvent {
 	}
 
 	public static void writeToPacket(ChangeWeatherEvent packet, FriendlyByteBuf buf) {
-		buf.writeRegistryIdUnsafe(FrostWeathers.getRegistry().get(), packet.weather);
+		buf.writeRegistryId(FrostWeathers.getRegistry().get(), packet.weather);
 	}
 
 	public static ChangeWeatherEvent readFromPacket(FriendlyByteBuf buf) {
-		return new ChangeWeatherEvent(buf.readRegistryIdUnsafe(FrostWeathers.getRegistry().get()));
+		return new ChangeWeatherEvent(buf.readRegistryId());
 	}
 
 	public static void handle(ChangeWeatherEvent message, Supplier<NetworkEvent.Context> ctx) {
 		NetworkEvent.Context context = ctx.get();
 		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT)
 			context.enqueueWork(() -> {
-				if (Minecraft.getInstance().level != null)
+				if (Minecraft.getInstance().level != null) {
 					Minecraft.getInstance().level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY, null).ifPresent(cap -> {
 						cap.setFrostWeather(message.weather);
 					});
+				}
 			});
 		ctx.get().setPacketHandled(true);
 	}

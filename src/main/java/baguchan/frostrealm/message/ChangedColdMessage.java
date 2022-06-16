@@ -42,7 +42,7 @@ public class ChangedColdMessage {
 		NetworkEvent.Context context = ctx.get();
 		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT)
 			context.enqueueWork(() -> {
-				Entity entity = Minecraft.getInstance().player.level.getEntity(message.entityId);
+				Entity entity = Minecraft.getInstance().level.getEntity(message.entityId);
 				if (entity != null && entity instanceof net.minecraft.world.entity.LivingEntity)
 					entity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY, null).ifPresent(frostLivingCapability -> {
 						frostLivingCapability.setTemperatureLevel(message.temperature);
