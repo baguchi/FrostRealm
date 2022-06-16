@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -21,8 +22,6 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.lighting.LayerLightEngine;
 
 import java.util.List;
-import java.util.Random;
-
 public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements BonemealableBlock {
 	public FrostGrassBlock(BlockBehaviour.Properties p_53685_) {
 		super(p_53685_);
@@ -32,19 +31,19 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 		return p_53692_.getBlockState(p_53693_.above()).isAir();
 	}
 
-	public boolean isBonemealSuccess(Level p_53697_, Random p_53698_, BlockPos p_53699_, BlockState p_53700_) {
+	public boolean isBonemealSuccess(Level p_53697_, RandomSource p_53698_, BlockPos p_53699_, BlockState p_53700_) {
 		return true;
 	}
 
-	public void performBonemeal(ServerLevel p_53687_, Random p_53688_, BlockPos p_53689_, BlockState p_53690_) {
+	public void performBonemeal(ServerLevel p_53687_, RandomSource p_53688_, BlockPos p_53689_, BlockState p_53690_) {
 		BlockPos blockpos = p_53689_.above();
 		BlockState blockstate = Blocks.GRASS.defaultBlockState();
 
 		label48:
-		for(int i = 0; i < 128; ++i) {
+		for (int i = 0; i < 128; ++i) {
 			BlockPos blockpos1 = blockpos;
 
-			for(int j = 0; j < i / 16; ++j) {
+			for (int j = 0; j < i / 16; ++j) {
 				blockpos1 = blockpos1.offset(p_53688_.nextInt(3) - 1, (p_53688_.nextInt(3) - 1) * p_53688_.nextInt(3) / 2, p_53688_.nextInt(3) - 1);
 				if (!p_53687_.getBlockState(blockpos1.below()).is(this) || p_53687_.getBlockState(blockpos1).isCollisionShapeFullBlock(p_53687_, blockpos1)) {
 					continue label48;
@@ -75,7 +74,7 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 
 	}
 
-	public void randomTick(BlockState p_56819_, ServerLevel p_56820_, BlockPos p_56821_, Random p_56822_) {
+	public void randomTick(BlockState p_56819_, ServerLevel p_56820_, BlockPos p_56821_, RandomSource p_56822_) {
 		if (!canBeGrass(p_56819_, p_56820_, p_56821_)) {
 			if (!p_56820_.isAreaLoaded(p_56821_, 3))
 				return; // Forge: prevent loading unloaded chunks when checking neighbor's light and spreading

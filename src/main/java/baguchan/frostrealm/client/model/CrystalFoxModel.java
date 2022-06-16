@@ -3,7 +3,6 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.1.5
 // Paste this class into your mod and generate all required imports
 
 
-import baguchan.frostrealm.client.animation.ModelAnimator;
 import baguchan.frostrealm.entity.CrystalFox;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -22,8 +21,6 @@ public class CrystalFoxModel<T extends CrystalFox> extends EntityModel<T> {
 	private final ModelPart leg_left_hind;
 	private final ModelPart leg_right_front;
 	private final ModelPart leg_right_hind;
-
-	private final ModelAnimator modelAnimator = ModelAnimator.create();
 
 	public CrystalFoxModel(ModelPart root) {
 		this.main = root.getChild("main");
@@ -80,26 +77,6 @@ public class CrystalFoxModel<T extends CrystalFox> extends EntityModel<T> {
 		this.leg_left_hind.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 		this.leg_right_front.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 		this.leg_left_front.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-		this.animate(entity, limbSwing, limbSwingAmount, ageInTicks);
-	}
-
-	public void animate(T entity, float limbSwing, float limbSwingAmount, float ageInTicks) {
-		modelAnimator.update(entity);
-		modelAnimator.setAnimation(CrystalFox.EAT_ANIMATION);
-		modelAnimator.startKeyframe(4);
-		modelAnimator.rotate(this.head, 0.8F, 0.0F, 0.0F);
-		modelAnimator.endKeyframe();
-		modelAnimator.startKeyframe(4);
-		modelAnimator.rotate(this.head, 0.6F, 0.0F, 0.0F);
-		modelAnimator.endKeyframe();
-		modelAnimator.startKeyframe(4);
-		modelAnimator.rotate(this.head, 0.8F, 0.0F, 0.0F);
-		modelAnimator.endKeyframe();
-		modelAnimator.startKeyframe(4);
-		modelAnimator.rotate(this.head, 0.6F, 0.0F, 0.0F);
-		modelAnimator.endKeyframe();
-		modelAnimator.setStaticKeyframe(20);
-		modelAnimator.resetKeyframe(4);
 	}
 
 	@Override

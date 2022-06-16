@@ -45,19 +45,15 @@ public class FrostConfiguredFeatures {
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> ARCTIC_POPPY = FeatureUtils.register(prefix("patch_arctic_poppy"), Feature.FLOWER, grassPatch(BlockStateProvider.simple(FrostBlocks.ARCTIC_POPPY.get()), 32));
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> ARCTIC_WILLOW = FeatureUtils.register(prefix("patch_arctic_willow"), Feature.FLOWER, grassPatch(BlockStateProvider.simple(FrostBlocks.ARCTIC_WILLOW.get()), 32));
 
-	public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> TUNDRA_ROCK = FeatureUtils.register(prefix("tundra_rock"), FrostFeatures.BIG_ROCK, new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState()));
-	public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> TUNDRA_MOSSY_ROCK = FeatureUtils.register(prefix("tundra_mossy_rock"), FrostFeatures.BIG_ROCK, new BlockStateConfiguration(FrostBlocks.FRIGID_STONE_MOSSY.get().defaultBlockState()));
+	public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> TUNDRA_ROCK = FeatureUtils.register(prefix("tundra_rock"), FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState()));
+	public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> TUNDRA_MOSSY_ROCK = FeatureUtils.register(prefix("tundra_mossy_rock"), FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE_MOSSY.get().defaultBlockState()));
 
 	public static final Holder<ConfiguredFeature<SpringConfiguration, ?>> SPRING_LAVA = FeatureUtils.register(prefix("spring_lava_hot_rock"), Feature.SPRING, new SpringConfiguration(Fluids.LAVA.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, FrostBlocks.FRIGID_STONE.get())));
 	public static final Holder<ConfiguredFeature<SpringConfiguration, ?>> SPRING_WATER = FeatureUtils.register(prefix("spring_wate_fall"), Feature.SPRING, new SpringConfiguration(Fluids.WATER.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, FrostBlocks.FRIGID_STONE.get())));
 
 	public static final Holder<PlacedFeature> FROSTROOT_CHECKED = PlacementUtils.register(prefix("frostroot_checked"), FrostTreeFeatures.FROST_TREE, PlacementUtils.filteredByBlockSurvival(FrostBlocks.FROSTROOT_SAPLING.get()));
-	public static final Holder<PlacedFeature> FROZEN_CHECKED = PlacementUtils.register(prefix("frozen_checked"), FrostTreeFeatures.FROZEN_TREE, PlacementUtils.filteredByBlockSurvival(FrostBlocks.FROZEN_SAPLING.get()));
-
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> FROSTROOT_TREE = FeatureUtils.register(prefix("frostroot_trees"), Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(FrostTreeFeatures.FROST_TREE_BIG), 0.33333334F)), FROSTROOT_CHECKED));
-	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> FROZEN_TREE = FeatureUtils.register(prefix("frozen_trees"), Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(FrostTreeFeatures.MEGA_FROZEN_TREE), 0.4F)), FROZEN_CHECKED));
-
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;

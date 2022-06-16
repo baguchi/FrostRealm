@@ -1,7 +1,5 @@
 package baguchan.frostrealm.entity;
 
-import baguchan.frostrealm.api.animation.Animation;
-import baguchan.frostrealm.api.animation.IAnimatable;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.BlockPos;
@@ -9,7 +7,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -19,13 +17,11 @@ import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.Random;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class FrostWolf extends Wolf implements IAnimatable {
+public class FrostWolf extends Wolf {
 	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(FrostWolf.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(FrostWolf.class, EntityDataSerializers.INT);
 
@@ -34,7 +30,6 @@ public class FrostWolf extends Wolf implements IAnimatable {
 		return entitytype == FrostEntities.SNOWPILE_QUAIL.get() || entitytype == FrostEntities.CRYSTAL_FOX.get();
 	};
 
-	public static final Animation HOWL_ANIMATION = Animation.create(60);
 
 	public FrostWolf(EntityType<? extends Wolf> p_30369_, Level p_30370_) {
 		super(p_30369_, p_30370_);
@@ -56,7 +51,7 @@ public class FrostWolf extends Wolf implements IAnimatable {
 		return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.3F).add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.ATTACK_DAMAGE, 3.0D);
 	}
 
-	public static boolean checkFrostWolfSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
+	public static boolean checkFrostWolfSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
 		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
 	}
 
@@ -93,55 +88,16 @@ public class FrostWolf extends Wolf implements IAnimatable {
 	}
 
 	public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
-		return p_27574_.getBlockState(p_27573_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) ? 10.0F : p_27574_.getBrightness(p_27573_) - 0.5F;
+		return p_27574_.getBlockState(p_27573_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) ? 10.0F : p_27574_.getPathfindingCostFromLightLevels(p_27573_) - 0.5F;
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		updateAnimations(this);
 	}
 
 	@Override
 	public void aiStep() {
 		super.aiStep();
-		if (!this.isTame()) {
-			if (this.level.isNight() && this.level.canSeeSky(this.blockPosition()) && this.getAnimation() != HOWL_ANIMATION && this.random.nextInt(450) == 0) {
-				this.setAnimation(HOWL_ANIMATION);
-				this.playSound(SoundEvents.WOLF_HOWL, 3.0F, this.getVoicePitch());
-			}
-		}
-	}
-
-	@Override
-	public int getAnimationTick() {
-		return this.entityData.get(ANIMATION_TICK);
-	}
-
-	@Override
-	public void setAnimationTick(int tick) {
-		this.entityData.set(ANIMATION_TICK, tick);
-	}
-
-	@Override
-	public Animation getAnimation() {
-		int index = this.entityData.get(ANIMATION_ID);
-		if (index < 0) {
-			return NO_ANIMATION;
-		} else {
-			return this.getAnimations()[index];
-		}
-	}
-
-	@Override
-	public Animation[] getAnimations() {
-		return new Animation[]{
-				HOWL_ANIMATION
-		};
-	}
-
-	@Override
-	public void setAnimation(Animation animation) {
-		this.entityData.set(ANIMATION_ID, ArrayUtils.indexOf(this.getAnimations(), animation));
 	}
 }

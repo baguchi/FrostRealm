@@ -1,7 +1,5 @@
 package baguchan.frostrealm.entity;
 
-import baguchan.frostrealm.api.animation.Animation;
-import baguchan.frostrealm.api.animation.IAnimatable;
 import baguchan.frostrealm.block.BearBerryBushBlock;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
@@ -22,6 +20,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -43,22 +42,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.IForgeShearable;
-import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class CrystalFox extends Animal implements IAnimatable, IForgeShearable {
+public class CrystalFox extends Animal implements IForgeShearable {
 	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.INT);
-
-	public static final Animation EAT_ANIMATION = Animation.create(40);
-
 	private static final EntityDataAccessor<Boolean> SHEARABLE = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.BOOLEAN);
 
 
@@ -100,7 +94,7 @@ public class CrystalFox extends Animal implements IAnimatable, IForgeShearable {
 
 	}
 
-	public static boolean checkCrystalFoxSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
+	public static boolean checkCrystalFoxSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
 		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
 	}
 
@@ -162,7 +156,6 @@ public class CrystalFox extends Animal implements IAnimatable, IForgeShearable {
 	@Override
 	public void tick() {
 		super.tick();
-		this.updateAnimations(this);
 	}
 
 	@javax.annotation.Nonnull
@@ -253,14 +246,12 @@ public class CrystalFox extends Animal implements IAnimatable, IForgeShearable {
 					if (this.random.nextInt(3) == 0) {
 						this.setShearable(true);
 					}
-					CrystalFox.this.setAnimation(CrystalFox.EAT_ANIMATION);
-
 					this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
 				}
 
 				this.playSound(SoundEvents.FOX_EAT, 1.0F, 1.0F);
 				this.heal(item.getFoodProperties() != null ? (float) item.getFoodProperties().getNutrition() : 1);
-				this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+				this.gameEvent(GameEvent.ENTITY_INTERACT, this);
 				return InteractionResult.SUCCESS;
 			}
 		} else if (FOOD_ITEMS.test(itemstack) && this.getTarget() == null) {
@@ -339,39 +330,7 @@ public class CrystalFox extends Animal implements IAnimatable, IForgeShearable {
 	}
 
 	public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
-		return p_27574_.getBlockState(p_27573_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) ? 10.0F : p_27574_.getBrightness(p_27573_) - 0.5F;
-	}
-
-	@Override
-	public int getAnimationTick() {
-		return this.entityData.get(ANIMATION_TICK);
-	}
-
-	@Override
-	public void setAnimationTick(int tick) {
-		this.entityData.set(ANIMATION_TICK, tick);
-	}
-
-	@Override
-	public Animation getAnimation() {
-		int index = this.entityData.get(ANIMATION_ID);
-		if (index < 0) {
-			return NO_ANIMATION;
-		} else {
-			return this.getAnimations()[index];
-		}
-	}
-
-	@Override
-	public Animation[] getAnimations() {
-		return new Animation[]{
-				EAT_ANIMATION
-		};
-	}
-
-	@Override
-	public void setAnimation(Animation animation) {
-		this.entityData.set(ANIMATION_ID, ArrayUtils.indexOf(this.getAnimations(), animation));
+		return p_27574_.getBlockState(p_27573_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) ? 10.0F : p_27574_.getPathfindingCostFromLightLevels(p_27573_) - 0.5F;
 	}
 
 	public class FoxEatBerriesGoal extends MoveToBlockGoal {
@@ -426,7 +385,6 @@ public class CrystalFox extends Animal implements IAnimatable, IForgeShearable {
 			int j = 1 + CrystalFox.this.level.random.nextInt(2) + (i == 3 ? 1 : 0);
 			ItemStack itemstack = CrystalFox.this.getItemBySlot(EquipmentSlot.MAINHAND);
 			if (itemstack.isEmpty()) {
-				CrystalFox.this.setAnimation(CrystalFox.EAT_ANIMATION);
 				CrystalFox.this.heal(1);
 				CrystalFox.this.setShearable(true);
 				--j;

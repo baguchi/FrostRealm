@@ -12,6 +12,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -29,7 +30,6 @@ import net.minecraft.world.level.LevelAccessor;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
-import java.util.Random;
 
 public class Marmot extends Animal {
 	private static final UniformInt TIME_BETWEEN_STANDS = UniformInt.of(300, 600);
@@ -75,19 +75,19 @@ public class Marmot extends Animal {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isStanding() ? FrostSounds.MARMOT_IDLE : super.getAmbientSound();
+		return this.isStanding() ? FrostSounds.MARMOT_IDLE.get() : super.getAmbientSound();
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getHurtSound(DamageSource p_21239_) {
-		return FrostSounds.MARMOT_HURT;
+		return FrostSounds.MARMOT_HURT.get();
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getDeathSound() {
-		return FrostSounds.MARMOT_DEATH;
+		return FrostSounds.MARMOT_DEATH.get();
 	}
 
 	@Nullable
@@ -96,7 +96,7 @@ public class Marmot extends Animal {
 		return FrostEntities.MARMOT.get().create(p_146743_);
 	}
 
-	public static boolean checkMarmotSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
+	public static boolean checkMarmotSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
 		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
 	}
 

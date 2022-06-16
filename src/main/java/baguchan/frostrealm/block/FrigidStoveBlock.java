@@ -5,6 +5,7 @@ import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -20,8 +21,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
-
-import java.util.Random;
 
 public class FrigidStoveBlock extends Block {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -68,7 +67,7 @@ public class FrigidStoveBlock extends Block {
 	}
 
 	@Override
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		super.randomTick(state, level, pos, random);
 		int i = state.getValue(AGE);
 		boolean lit = state.getValue(LIT);
@@ -86,7 +85,7 @@ public class FrigidStoveBlock extends Block {
 		}
 	}
 
-	public void setHotAir(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void setHotAir(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		Direction direction = state.getValue(FACING);
 		BlockState state2 = level.getBlockState(pos.relative(direction));
 

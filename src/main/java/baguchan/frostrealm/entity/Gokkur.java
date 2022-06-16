@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -32,7 +33,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
-import java.util.Random;
 
 public class Gokkur extends Monster {
 	private static final UniformInt TIME_BETWEEN_ROLLING = UniformInt.of(100, 160);
@@ -64,7 +64,7 @@ public class Gokkur extends Monster {
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
-	public static boolean checkGokkurSpawnRules(EntityType<? extends Monster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
+	public static boolean checkGokkurSpawnRules(EntityType<? extends Monster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
 		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FRIGID_STONE.get()) && Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
 	}
 
@@ -94,17 +94,17 @@ public class Gokkur extends Monster {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return FrostSounds.GOKKUR_IDLE;
+		return FrostSounds.GOKKUR_IDLE.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource p_33034_) {
-		return FrostSounds.GOKKUR_HURT;
+		return FrostSounds.GOKKUR_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return FrostSounds.GOKKUR_DEATH;
+		return FrostSounds.GOKKUR_DEATH.get();
 	}
 
 	public void push(Entity p_33636_) {

@@ -4,12 +4,11 @@ import baguchan.frostrealm.registry.FrostBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
-
-import java.util.Random;
 
 public class HotAirBlock extends AirBlock {
 	public HotAirBlock(Properties properties) {
@@ -17,7 +16,7 @@ public class HotAirBlock extends AirBlock {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		super.tick(state, level, pos, random);
 		if (hasNoBlocksAbove(level, pos) || !level.getFluidState(pos).isEmpty()) {
 			level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
@@ -29,12 +28,12 @@ public class HotAirBlock extends AirBlock {
 	}
 
 	@Override
-	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
+	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		super.randomTick(state, level, pos, random);
 		this.setAirMove(level, pos, random);
 	}
 
-	public void setAirMove(ServerLevel level, BlockPos pos, Random random) {
+	public void setAirMove(ServerLevel level, BlockPos pos, RandomSource random) {
 		BlockState state2 = level.getBlockState(pos.above());
 
 		if (state2.getBlock() == Blocks.AIR) {

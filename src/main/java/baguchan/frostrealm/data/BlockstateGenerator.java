@@ -12,6 +12,7 @@ import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 
@@ -49,15 +50,6 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.stairs(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS.get());
 		this.fenceBlock(FrostBlocks.FROSTROOT_FENCE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
 		this.fenceGateBlock(FrostBlocks.FROSTROOT_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
-
-		this.logBlock(FrostBlocks.FROZEN_LOG.get());
-		this.simpleBlock(FrostBlocks.FROZEN_LEAVES.get());
-		this.crossBlock(FrostBlocks.FROZEN_SAPLING.get());
-		this.simpleBlock(FrostBlocks.FROZEN_PLANKS.get());
-		this.slab(FrostBlocks.FROZEN_PLANKS_SLAB.get(), FrostBlocks.FROZEN_PLANKS.get());
-		this.stairs(FrostBlocks.FROZEN_PLANKS_STAIRS.get(), FrostBlocks.FROZEN_PLANKS.get());
-		this.fenceBlock(FrostBlocks.FROZEN_FENCE.get(), texture(name(FrostBlocks.FROZEN_PLANKS.get())));
-		this.fenceGateBlock(FrostBlocks.FROZEN_FENCE_GATE.get(), texture(name(FrostBlocks.FROZEN_PLANKS.get())));
 
 		this.crossBlock(FrostBlocks.VIGOROSHROOM.get());
 		this.crossBlock(FrostBlocks.ARCTIC_POPPY.get());
@@ -130,7 +122,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 	}
 
 	protected String name(Block block) {
-		return block.getRegistryName().getPath();
+		return ForgeRegistries.BLOCKS.getKey(block).getPath();
 	}
 
 	@Nonnull

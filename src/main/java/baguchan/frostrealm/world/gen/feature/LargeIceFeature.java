@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
@@ -21,7 +22,6 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
-import java.util.Random;
 
 public class LargeIceFeature extends Feature<LargeDripstoneConfiguration> {
 	public LargeIceFeature(Codec<LargeDripstoneConfiguration> p_159960_) {
@@ -32,7 +32,7 @@ public class LargeIceFeature extends Feature<LargeDripstoneConfiguration> {
 		WorldGenLevel worldgenlevel = p_159967_.level();
 		BlockPos blockpos = p_159967_.origin();
 		LargeDripstoneConfiguration largedripstoneconfiguration = p_159967_.config();
-		Random random = p_159967_.random();
+		RandomSource random = p_159967_.random();
 		if (!isEmptyOrWater(worldgenlevel, blockpos)) {
 			return false;
 		} else {
@@ -76,7 +76,7 @@ public class LargeIceFeature extends Feature<LargeDripstoneConfiguration> {
 		return p_159663_.is(Blocks.PACKED_ICE) || p_159663_.is(FrostTags.Blocks.BASE_STONE_FROSTREALM);
 	}
 
-	private static LargeIceFeature.LargeDripstone makeDripstone(BlockPos p_159969_, boolean p_159970_, Random p_159971_, int p_159972_, FloatProvider p_159973_, FloatProvider p_159974_) {
+	private static LargeIceFeature.LargeDripstone makeDripstone(BlockPos p_159969_, boolean p_159970_, RandomSource p_159971_, int p_159972_, FloatProvider p_159973_, FloatProvider p_159974_) {
 		return new LargeIceFeature.LargeDripstone(p_159969_, p_159970_, p_159972_, p_159973_.sample(p_159971_), p_159974_.sample(p_159971_));
 	}
 
@@ -135,7 +135,7 @@ public class LargeIceFeature extends Feature<LargeDripstoneConfiguration> {
 			return (int) getIceHeight(p_159988_, this.radius, this.scale, this.bluntness);
 		}
 
-		void placeBlocks(WorldGenLevel p_159993_, Random p_159994_, LargeIceFeature.WindOffsetter p_159995_) {
+		void placeBlocks(WorldGenLevel p_159993_, RandomSource p_159994_, LargeIceFeature.WindOffsetter p_159995_) {
 			for (int i = -this.radius; i <= this.radius; ++i) {
 				for (int j = -this.radius; j <= this.radius; ++j) {
 					float f = Mth.sqrt((float) (i * i + j * j));
@@ -216,7 +216,7 @@ public class LargeIceFeature extends Feature<LargeDripstoneConfiguration> {
 		@Nullable
 		private final Vec3 windSpeed;
 
-		WindOffsetter(int p_160004_, Random p_160005_, FloatProvider p_160006_) {
+		WindOffsetter(int p_160004_, RandomSource p_160005_, FloatProvider p_160006_) {
 			this.originY = p_160004_;
 			float f = p_160006_.sample(p_160005_);
 			float f1 = Mth.randomBetween(p_160005_, 0.0F, (float) Math.PI);

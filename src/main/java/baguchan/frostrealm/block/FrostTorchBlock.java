@@ -2,21 +2,18 @@ package baguchan.frostrealm.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.TorchBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import java.util.Random;
 
 public class FrostTorchBlock extends Block {
 	protected static final int AABB_STANDING_OFFSET = 2;
@@ -37,10 +34,10 @@ public class FrostTorchBlock extends Block {
 		return canSupportCenter(p_57500_, p_57501_.below(), Direction.UP);
 	}
 
-	public void animateTick(BlockState p_57494_, Level p_57495_, BlockPos p_57496_, Random p_57497_) {
-		double d0 = (double)p_57496_.getX() + 0.5D;
-		double d1 = (double)p_57496_.getY() + 0.7D;
-		double d2 = (double)p_57496_.getZ() + 0.5D;
+	public void animateTick(BlockState p_57494_, Level p_57495_, BlockPos p_57496_, RandomSource p_57497_) {
+		double d0 = (double) p_57496_.getX() + 0.5D;
+		double d1 = (double) p_57496_.getY() + 0.7D;
+		double d2 = (double) p_57496_.getZ() + 0.5D;
 		p_57495_.addParticle(ParticleTypes.CLOUD, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 	}
 }

@@ -8,6 +8,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Consumer;
 
@@ -19,11 +20,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 	@Override
 	protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
 		ShapelessRecipeBuilder.shapeless(FrostBlocks.FROSTROOT_PLANKS.get(), 4).requires(FrostBlocks.FROSTROOT_LOG.get())
-				.unlockedBy("has_" + FrostBlocks.FROSTROOT_LOG.get().getRegistryName().getPath(), has(FrostBlocks.FROSTROOT_LOG.get())).save(consumer);
-
-		ShapelessRecipeBuilder.shapeless(FrostBlocks.FROZEN_PLANKS.get(), 4).requires(FrostBlocks.FROZEN_LOG.get())
-				.unlockedBy("has_" + FrostBlocks.FROZEN_LOG.get().getRegistryName().getPath(), has(FrostBlocks.FROZEN_LOG.get())).save(consumer);
-
+				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FROSTROOT_LOG.get()).getPath(), has(FrostBlocks.FROSTROOT_LOG.get())).save(consumer);
 
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_SLAB.get(), FrostBlocks.FRIGID_STONE.get());
 		makeStairs(consumer, FrostBlocks.FRIGID_STONE_STAIRS.get(), FrostBlocks.FRIGID_STONE.get());
@@ -35,7 +32,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.pattern("BB")
 				.pattern("BB")
 				.define('B', FrostBlocks.FRIGID_STONE_MOSSY.get())
-				.unlockedBy("has_" + FrostBlocks.FRIGID_STONE_MOSSY.get().getRegistryName().getPath(), has(FrostBlocks.FRIGID_STONE_MOSSY.get())).save(consumer);
+				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FRIGID_STONE_MOSSY.get()).getPath(), has(FrostBlocks.FRIGID_STONE_MOSSY.get())).save(consumer);
 
 
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
@@ -45,7 +42,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.pattern("BB")
 				.pattern("BB")
 				.define('B', FrostBlocks.FRIGID_STONE.get())
-				.unlockedBy("has_" + FrostBlocks.FRIGID_STONE.get().getRegistryName().getPath(), has(FrostBlocks.FRIGID_STONE.get())).save(consumer);
+				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FRIGID_STONE.get()).getPath(), has(FrostBlocks.FRIGID_STONE.get())).save(consumer);
 
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_BRICK_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
 		makeStairs(consumer, FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
@@ -56,10 +53,6 @@ public class CraftingGenerator extends CraftingDataHelper {
 		makeFenceGate(consumer, FrostBlocks.FROSTROOT_FENCE_GATE.get(), FrostBlocks.FROSTROOT_PLANKS.get());
 		makeDoor(consumer, FrostBlocks.FROSTROOT_DOOR.get(), FrostBlocks.FROSTROOT_PLANKS.get());
 
-		makeSlab(consumer, FrostBlocks.FROZEN_PLANKS_SLAB.get(), FrostBlocks.FROZEN_PLANKS.get());
-		makeStairs(consumer, FrostBlocks.FROZEN_PLANKS_STAIRS.get(), FrostBlocks.FROZEN_PLANKS.get());
-		makeWoodFence(consumer, FrostBlocks.FROZEN_FENCE.get(), FrostBlocks.FROZEN_PLANKS.get());
-		makeFenceGate(consumer, FrostBlocks.FROZEN_FENCE_GATE.get(), FrostBlocks.FROZEN_PLANKS.get());
 		foodCooking(FrostItems.FROZEN_FRUIT.get(), FrostItems.MELTED_FRUIT.get(), 0.1F, consumer);
 		foodCooking(FrostItems.BEARBERRY.get(), FrostItems.COOKED_BEARBERRY.get(), 0.1F, consumer);
 		foodCooking(FrostBlocks.SNOWPILE_QUAIL_EGG.get().asItem(), FrostItems.COOKED_SNOWPILE_QUAIL_EGG.get(), 0.2F, consumer);
@@ -84,14 +77,14 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.pattern("SSS")
 				.define('S', ItemTags.STONE_CRAFTING_MATERIALS)
 				.define('G', FrostItems.GLIMMERROCK.get())
-				.unlockedBy("has_" + FrostItems.GLIMMERROCK.get().getRegistryName().getPath(), has(FrostItems.GLIMMERROCK.get())).save(consumer);
+				.unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(FrostItems.GLIMMERROCK.get()).getPath(), has(FrostItems.GLIMMERROCK.get())).save(consumer);
 
 		ShapedRecipeBuilder.shaped(FrostBlocks.FROSTROOT_CHEST.get(), 1)
 				.pattern("SSS")
 				.pattern("S S")
 				.pattern("SSS")
 				.define('S', FrostBlocks.FROSTROOT_PLANKS.get())
-				.unlockedBy("has_" + FrostBlocks.FROSTROOT_PLANKS.get().getRegistryName().getPath(), has(FrostBlocks.FROSTROOT_PLANKS.get())).save(consumer);
+				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FROSTROOT_PLANKS.get()).getPath(), has(FrostBlocks.FROSTROOT_PLANKS.get())).save(consumer);
 
 
 		ShapedRecipeBuilder.shaped(FrostItems.FROST_CATALYST.get(), 1)
@@ -100,7 +93,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.pattern(" S ")
 				.define('S', FrostItems.STRAY_NECKLACE_PART.get())
 				.define('B', Items.SNOWBALL)
-				.unlockedBy("has_" + FrostItems.STRAY_NECKLACE_PART.get().getRegistryName().getPath(), has(FrostItems.STRAY_NECKLACE_PART.get())).save(consumer);
+				.unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(FrostItems.STRAY_NECKLACE_PART.get()).getPath(), has(FrostItems.STRAY_NECKLACE_PART.get())).save(consumer);
 
 		smeltOre(FrostItems.ASTRIUM_RAW.get(), FrostItems.ASTRIUM_INGOT.get(), 0.2F, consumer);
 	}

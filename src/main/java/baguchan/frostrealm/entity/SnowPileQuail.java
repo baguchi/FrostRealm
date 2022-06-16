@@ -1,7 +1,5 @@
 package baguchan.frostrealm.entity;
 
-import baguchan.frostrealm.api.animation.Animation;
-import baguchan.frostrealm.api.animation.IAnimatable;
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
 import baguchan.frostrealm.entity.goal.QuailAngryGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
@@ -21,6 +19,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -37,13 +36,11 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
-import java.util.Random;
 
-public class SnowPileQuail extends Animal implements IAnimatable {
+public class SnowPileQuail extends Animal {
 	private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> HAS_EGG = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 
@@ -53,7 +50,6 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 
 	private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS, FrostItems.SUGARBEET_SEEDS.get());
 
-	public static final Animation IDLE_ANIMATION = Animation.create(60);
 	@Nullable
 	private BlockPos homeTarget;
 
@@ -82,7 +78,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 		this.entityData.define(ANIMATION_TICK, 0);
 	}
 
-	public static boolean checkQuailSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
+	public static boolean checkQuailSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
 		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
 	}
 
@@ -93,19 +89,19 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return FrostSounds.SNOWPILE_QUAIL_IDLE;
+		return FrostSounds.SNOWPILE_QUAIL_IDLE.get();
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getHurtSound(DamageSource p_21239_) {
-		return FrostSounds.SNOWPILE_QUAIL_HURT;
+		return FrostSounds.SNOWPILE_QUAIL_HURT.get();
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getDeathSound() {
-		return FrostSounds.SNOWPILE_QUAIL_DEATH;
+		return FrostSounds.SNOWPILE_QUAIL_DEATH.get();
 	}
 
 	@Override
@@ -157,7 +153,6 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 			if (SnowPileQuailEggBlock.onDirt(this.level, blockpos)) {
 				level.playSound(null, blockpos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level.random.nextFloat() * 0.2F);
 				level.setBlock(blockpos, FrostBlocks.SNOWPILE_QUAIL_EGG.get().defaultBlockState().setValue(SnowPileQuailEggBlock.EGGS, Integer.valueOf(this.random.nextInt(1) + 1)), 3);
-				this.setAnimation(IDLE_ANIMATION);
 				this.setHasEgg(false);
 				this.setHomeTarget(blockpos);
 				this.setAge(2400);
@@ -199,45 +194,12 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 	}
 
 	public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
-		return p_27574_.getBlockState(p_27573_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) ? 10.0F : p_27574_.getBrightness(p_27573_) - 0.5F;
+		return p_27574_.getBlockState(p_27573_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) ? 10.0F : p_27574_.getPathfindingCostFromLightLevels(p_27573_) - 0.5F;
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		updateAnimations(this);
-	}
-
-	@Override
-	public int getAnimationTick() {
-		return this.entityData.get(ANIMATION_TICK);
-	}
-
-	@Override
-	public void setAnimationTick(int tick) {
-		this.entityData.set(ANIMATION_TICK, tick);
-	}
-
-	@Override
-	public Animation getAnimation() {
-		int index = this.entityData.get(ANIMATION_ID);
-		if (index < 0) {
-			return NO_ANIMATION;
-		} else {
-			return this.getAnimations()[index];
-		}
-	}
-
-	@Override
-	public Animation[] getAnimations() {
-		return new Animation[]{
-				IDLE_ANIMATION
-		};
-	}
-
-	@Override
-	public void setAnimation(Animation animation) {
-		this.entityData.set(ANIMATION_ID, ArrayUtils.indexOf(this.getAnimations(), animation));
 	}
 
 	class MoveToGoal extends Goal {
@@ -309,7 +271,7 @@ public class SnowPileQuail extends Animal implements IAnimatable {
 			this.quail.setHasEgg(true);
 			this.animal.resetLove();
 			this.partner.resetLove();
-			Random random = this.animal.getRandom();
+			RandomSource random = this.animal.getRandom();
 			if (this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
 				this.level.addFreshEntity(new ExperienceOrb(this.level, this.animal.getX(), this.animal.getY(), this.animal.getZ(), random.nextInt(7) + 1));
 			}

@@ -23,7 +23,7 @@ public class FrostWeathers {
 	@SubscribeEvent
 	public static void onNewRegistry(NewRegistryEvent event) {
 		registry = event.create(new RegistryBuilder<FrostWeather>()
-				.setType(FrostWeather.class)
+				.addCallback(FrostWeather.class)
 				.setName(new ResourceLocation(FrostRealm.MODID, "frost_weather"))
 				.setDefaultKey(new ResourceLocation(FrostRealm.MODID, "blizzard")));
 	}

@@ -3,11 +3,9 @@ package baguchan.frostrealm.registry;
 import baguchan.frostrealm.item.FrostCatalystItem;
 import baguchan.frostrealm.item.FusionCrystalDaggerItem;
 import baguchan.frostrealm.item.YetiFurArmorItem;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -71,16 +69,4 @@ public class FrostItems {
 	public static final RegistryObject<Item> GOKKUDILLO_SPAWNEGG = ITEMS.register("gokkudillo_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.GOKKUDILLO, 0x968E7A, 0xD5FCF7, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> FROST_BEASTER_SPAWNEGG = ITEMS.register("frost_beaster_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.FROST_BEASTER, 0x7CA7A6, 0x973C3C, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> CRYSTAL_FOX_SPAWNEGG = ITEMS.register("crystal_fox_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.CRYSTAL_FOX, 0xF7FFFB, 0x90D3E8, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-
-	public static void register(RegistryEvent.Register<Item> registry, Item item, String id) {
-		item.setRegistryName(new ResourceLocation(MODID, id));
-		registry.getRegistry().register(item);
-	}
-
-	public static void register(RegistryEvent.Register<Item> registry, Item item) {
-		if (item instanceof BlockItem && item.getRegistryName() == null) {
-			item.setRegistryName(((BlockItem) item).getBlock().getRegistryName());
-		}
-		registry.getRegistry().register(item);
-	}
 }

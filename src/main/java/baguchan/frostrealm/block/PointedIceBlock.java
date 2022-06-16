@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -39,7 +40,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
-import java.util.Random;
 import java.util.function.Predicate;
 
 public class PointedIceBlock extends Block implements Fallable, SimpleWaterloggedBlock {
@@ -112,7 +112,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 
 	}
 
-	public void animateTick(BlockState p_154122_, Level p_154123_, BlockPos p_154124_, Random p_154125_) {
+	public void animateTick(BlockState p_154122_, Level p_154123_, BlockPos p_154124_, RandomSource p_154125_) {
 		if (canDrip(p_154122_)) {
 			float f = p_154125_.nextFloat();
 			if (!(f > 0.12F)) {
@@ -125,7 +125,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 		}
 	}
 
-	public void tick(BlockState p_154107_, ServerLevel p_154108_, BlockPos p_154109_, Random p_154110_) {
+	public void tick(BlockState p_154107_, ServerLevel p_154108_, BlockPos p_154109_, RandomSource p_154110_) {
 		if (isStalagmite(p_154107_) && !this.canSurvive(p_154107_, p_154108_, p_154109_)) {
 			p_154108_.destroyBlock(p_154109_, true);
 		} else {
@@ -133,7 +133,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 		}
 	}
 
-	public void randomTick(BlockState p_154199_, ServerLevel p_154200_, BlockPos p_154201_, Random p_154202_) {
+	public void randomTick(BlockState p_154199_, ServerLevel p_154200_, BlockPos p_154201_, RandomSource p_154202_) {
 		if (p_154202_.nextFloat() < 0.011377778F && isStalactiteStartPos(p_154199_, p_154200_, p_154201_)) {
 			growStalactiteOrStalagmiteIfPossible(p_154199_, p_154200_, p_154201_, p_154202_);
 		}
@@ -252,7 +252,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 	}
 
 	@VisibleForTesting
-	public static void growStalactiteOrStalagmiteIfPossible(BlockState p_154226_, ServerLevel p_154227_, BlockPos p_154228_, Random p_154229_) {
+	public static void growStalactiteOrStalagmiteIfPossible(BlockState p_154226_, ServerLevel p_154227_, BlockPos p_154228_, RandomSource p_154229_) {
 		BlockState blockstate = p_154227_.getBlockState(p_154228_.above(1));
 		BlockState blockstate1 = p_154227_.getBlockState(p_154228_.above(2));
 		if (canGrow(blockstate, blockstate1)) {

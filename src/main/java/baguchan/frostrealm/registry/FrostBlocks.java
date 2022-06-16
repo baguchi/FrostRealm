@@ -4,7 +4,6 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.block.*;
 import baguchan.frostrealm.blockentity.FrostChestBlockEntity;
 import baguchan.frostrealm.world.tree.FrostrootTree;
-import baguchan.frostrealm.world.tree.FrozenTree;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -73,15 +72,6 @@ public class FrostBlocks {
 	public static final RegistryObject<FenceBlock> FROSTROOT_FENCE = register("frostroot_fence", () -> new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
 	public static final RegistryObject<FenceGateBlock> FROSTROOT_FENCE_GATE = register("frostroot_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
 	public static final RegistryObject<DoorBlock> FROSTROOT_DOOR = register("frostroot_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(3.0F).noOcclusion().sound(SoundType.WOOD)));
-	//FROZEN
-	public static final RegistryObject<RotatedPillarBlock> FROZEN_LOG = register("frozen_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD)));
-	public static final RegistryObject<LeavesBlock> FROZEN_LEAVES = register("frozen_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).noOcclusion().sound(SoundType.GRASS)));
-	public static final RegistryObject<SaplingBlock> FROZEN_SAPLING = register("frozen_sapling", () -> new SaplingBlock(new FrozenTree(), BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS)));
-	public static final RegistryObject<Block> FROZEN_PLANKS = register("frozen_planks", () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
-	public static final RegistryObject<SlabBlock> FROZEN_PLANKS_SLAB = register("frozen_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
-	public static final RegistryObject<StairBlock> FROZEN_PLANKS_STAIRS = register("frozen_planks_stairs", () -> new StairBlock(FROZEN_PLANKS.get()::defaultBlockState, BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
-	public static final RegistryObject<FenceBlock> FROZEN_FENCE = register("frozen_fence", () -> new FenceBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
-	public static final RegistryObject<FenceGateBlock> FROZEN_FENCE_GATE = register("frozen_fence_gate", () -> new FenceGateBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
 
 	//PLANT
 	public static final RegistryObject<Block> VIGOROSHROOM = register("vigoroshroom", () -> new VigoroMushroomBlock(BlockBehaviour.Properties.of(Material.PLANT).noOcclusion().noCollission().lightLevel(state -> {
@@ -100,13 +90,13 @@ public class FrostBlocks {
 	public static final RegistryObject<Block> SNOWPILE_QUAIL_EGG = register("snowpile_quail_egg", () -> new SnowPileQuailEggBlock(BlockBehaviour.Properties.of(Material.EGG).noOcclusion().strength(0.2F, 0.25F).randomTicks().sound(SoundType.METAL)));
 
 	//ORE
-	public static final RegistryObject<Block> FROST_CRYSTAL_ORE = register("frost_crystal_ore", () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(1, 2)));
-	public static final RegistryObject<Block> GLIMMERROCK_ORE = register("glimmerrock_ore", () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().lightLevel((state) -> {
+	public static final RegistryObject<Block> FROST_CRYSTAL_ORE = register("frost_crystal_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(1, 2)));
+	public static final RegistryObject<Block> GLIMMERROCK_ORE = register("glimmerrock_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().lightLevel((state) -> {
 		return 10;
 	}).sound(SoundType.NETHERRACK), UniformInt.of(1, 3)));
 	public static final RegistryObject<Block> ASTRIUM_ORE = register("astrium_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
 
-	public static final RegistryObject<Block> STARDUST_CRYSTAL_ORE = register("stardust_crystal_ore", () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(2, 4)));
+	public static final RegistryObject<Block> STARDUST_CRYSTAL_ORE = register("stardust_crystal_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(2, 4)));
 	public static final RegistryObject<Block> STARDUST_CRYSTAL_CLUSTER = register("stardust_crystal_cluster", () -> new StarDustCrystalBlock(BlockBehaviour.Properties.of(Material.GLASS).requiresCorrectToolForDrops().lightLevel((state) -> {
 		return 10;
 	}).strength(5.0F, 6.0F).noOcclusion().sound(SoundType.DEEPSLATE)));

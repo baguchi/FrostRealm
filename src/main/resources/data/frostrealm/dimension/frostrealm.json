@@ -6,7 +6,7 @@
       "type": "minecraft:multi_noise"
     },
     "seed": 0,
-    "settings": "frostrealm:frostrealm",
+    "settings": "frostrealm:frostrealm_noise",
     "type": "minecraft:noise"
   }
 }

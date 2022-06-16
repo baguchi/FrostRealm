@@ -1,6 +1,5 @@
 package baguchan.frostrealm.entity.goal;
 
-import baguchan.frostrealm.api.animation.IAnimatable;
 import baguchan.frostrealm.entity.FrostBeaster;
 import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -34,18 +33,12 @@ public class BeasterAngryGoal extends TimeConditionGoal {
 	@Override
 	public void start() {
 		super.start();
-		this.mob.setAnimation(FrostBeaster.GROWL_ANIMATION);
-
 		this.attacked = false;
 	}
 
 	@Override
 	public void tick() {
 		super.tick();
-		if ((this.mob.getAnimation() == IAnimatable.NO_ANIMATION || this.mob.getAnimation() == FrostBeaster.GROWL_ANIMATION) && this.mob.getAnimationTick() >= 15) {
-			this.mob.setAnimationTick(5);
-			this.mob.setAnimation(FrostBeaster.GROWL_ANIMATION);
-		}
 
 		if (this.mob.getTarget() != null) {
 			LivingEntity livingentity = this.mob.getTarget();
@@ -64,7 +57,6 @@ public class BeasterAngryGoal extends TimeConditionGoal {
 		double d0 = this.getAttackReachSqr(p_25557_);
 		if (p_25558_ <= d0 && !this.attacked) {
 			this.mob.swing(InteractionHand.MAIN_HAND);
-			this.mob.setAnimation(FrostBeaster.GROWL_ATTACK_ANIMATION);
 			p_25557_.hurt(DamageSource.mobAttack(this.mob), Mth.floor((float) (this.mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.5F)));
 			this.attacked = true;
 		}

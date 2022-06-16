@@ -8,6 +8,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -23,7 +24,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
 import java.util.UUID;
 
 public class Gokkudillo extends Gokkur {
@@ -37,7 +37,7 @@ public class Gokkudillo extends Gokkur {
 	}
 
 
-	public static boolean checkGokkudilloSpawnRules(EntityType<? extends Monster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, Random p_27582_) {
+	public static boolean checkGokkudilloSpawnRules(EntityType<? extends Monster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
 		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FRIGID_STONE.get()) && Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
 	}
 
@@ -60,9 +60,9 @@ public class Gokkudillo extends Gokkur {
 			this.getAttribute(Attributes.ARMOR).removeModifier(ARMOR_MODIFIER);
 			if (roll) {
 				this.getAttribute(Attributes.ARMOR).addPermanentModifier(ARMOR_MODIFIER);
-				this.gameEvent(GameEvent.MOB_INTERACT);
+				this.gameEvent(GameEvent.ENTITY_INTERACT);
 			} else {
-				this.gameEvent(GameEvent.MOB_INTERACT);
+				this.gameEvent(GameEvent.ENTITY_INTERACT);
 			}
 		}
 		super.setRolling(roll);
@@ -94,17 +94,17 @@ public class Gokkudillo extends Gokkur {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return FrostSounds.GOKKUDILLO_IDLE;
+		return FrostSounds.GOKKUDILLO_IDLE.get();
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource p_33034_) {
-		return FrostSounds.GOKKUDILLO_HURT;
+		return FrostSounds.GOKKUDILLO_HURT.get();
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return FrostSounds.GOKKUDILLO_DEATH;
+		return FrostSounds.GOKKUDILLO_DEATH.get();
 	}
 
 	protected void dealDamage(LivingEntity livingentity) {

@@ -30,7 +30,7 @@ public class ClientColdHUDEvent {
 
 	public static void renderPortalOverlay(RenderGameOverlayEvent.Post event, Minecraft mc, Window window, Entity livingEntity) {
 		livingEntity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
-			float timeInPortal = Mth.lerp(event.getPartialTicks(), cap.getPrevPortalAnimTime(), cap.getPortalAnimTime());
+			float timeInPortal = Mth.lerp(event.getPartialTick(), cap.getPrevPortalAnimTime(), cap.getPortalAnimTime());
 
 			if (timeInPortal > 0.0F) {
 				if (timeInPortal < 1.0F) {
@@ -66,7 +66,7 @@ public class ClientColdHUDEvent {
 
 	@SubscribeEvent
 	public void renderHudEvent(RenderGameOverlayEvent.Post event) {
-		PoseStack stack = event.getMatrixStack();
+		PoseStack stack = event.getPoseStack();
 		Minecraft mc = Minecraft.getInstance();
 		if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
 			Entity entity = mc.getCameraEntity();

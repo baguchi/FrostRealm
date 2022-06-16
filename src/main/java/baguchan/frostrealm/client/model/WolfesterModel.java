@@ -1,6 +1,5 @@
 package baguchan.frostrealm.client.model;
 
-import baguchan.frostrealm.client.animation.ModelAnimator;
 import baguchan.frostrealm.entity.FrostBeaster;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -13,7 +12,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
 public class WolfesterModel<T extends FrostBeaster> extends HumanoidModel<T> implements ArmedModel {
-	protected final ModelAnimator modelAnimator = ModelAnimator.create();
 	protected final ModelPart head;
 	protected final ModelPart body;
 	protected final ModelPart leftArm;

@@ -2,6 +2,7 @@ package baguchan.frostrealm.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -12,7 +13,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.Random;
 
 public class VigoroMushroomBlock extends BushBlock implements BonemealableBlock {
 	protected static final float AABB_OFFSET = 3.0F;
@@ -26,7 +26,7 @@ public class VigoroMushroomBlock extends BushBlock implements BonemealableBlock 
 		return SHAPE;
 	}
 
-	public void randomTick(BlockState p_54868_, ServerLevel p_54865_, BlockPos p_54867_, Random p_54866_) {
+	public void randomTick(BlockState p_54868_, ServerLevel p_54865_, BlockPos p_54867_, RandomSource p_54866_) {
 		if (p_54866_.nextInt(25) == 0) {
 			int i = 5;
 			int j = 4;
@@ -61,11 +61,11 @@ public class VigoroMushroomBlock extends BushBlock implements BonemealableBlock 
 		return true;
 	}
 
-	public boolean isBonemealSuccess(Level p_54875_, Random p_54876_, BlockPos p_54877_, BlockState p_54878_) {
+	public boolean isBonemealSuccess(Level p_54875_, RandomSource p_54876_, BlockPos p_54877_, BlockState p_54878_) {
 		return (double) p_54876_.nextFloat() < 0.4D;
 	}
 
-	public void performBonemeal(ServerLevel p_54865_, Random p_54866_, BlockPos p_54867_, BlockState p_54868_) {
+	public void performBonemeal(ServerLevel p_54865_, RandomSource p_54866_, BlockPos p_54867_, BlockState p_54868_) {
 		int i = 3;
 
 		for (BlockPos blockpos : BlockPos.betweenClosed(p_54867_.offset(-4, -1, -4), p_54867_.offset(4, 1, 4))) {

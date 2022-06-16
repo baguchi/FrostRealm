@@ -5,6 +5,7 @@ import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.YetiModel;
 import baguchan.frostrealm.client.render.layer.YetiItemInHandLayer;
 import baguchan.frostrealm.entity.Yeti;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
@@ -18,8 +19,8 @@ public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiModel<T>> {
 
 	public YetiRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new YetiModel<>(p_173952_.bakeLayer(FrostModelLayers.YETI)), 0.75F);
-		this.addLayer(new CustomHeadLayer<>(this, p_173952_.getModelSet(), 1.0F, 1.0F, 1.0F));
-		this.addLayer(new YetiItemInHandLayer<>(this));
+		this.addLayer(new CustomHeadLayer<>(this, p_173952_.getModelSet(), 1.0F, 1.0F, 1.0F, Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer()));
+		this.addLayer(new YetiItemInHandLayer<>(this, Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer()));
 	}
 
 	@Override

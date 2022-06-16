@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ambient.Bat;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -29,7 +31,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 
 public class SnowPileQuailEggBlock extends Block {
 	public static final int MAX_HATCH_LEVEL = 2;
@@ -91,7 +92,7 @@ public class SnowPileQuailEggBlock extends Block {
 		});
 	}
 
-	public void randomTick(BlockState p_57804_, ServerLevel p_57805_, BlockPos p_57806_, Random p_57807_) {
+	public void randomTick(BlockState p_57804_, ServerLevel p_57805_, BlockPos p_57806_, RandomSource p_57807_) {
 		if (this.shouldUpdateHatchLevel(p_57805_, p_57806_) && onDirt(p_57805_, p_57806_)) {
 			int i = p_57804_.getValue(HATCH);
 			if (i < 2) {
@@ -131,7 +132,7 @@ public class SnowPileQuailEggBlock extends Block {
 
 	private boolean shouldUpdateHatchLevel(Level p_57766_, BlockPos p_57816_) {
 		float f = p_57766_.getTimeOfDay(1.0F);
-		return p_57766_.getBrightness(p_57816_) > 8 || p_57766_.random.nextInt(5) == 0;
+		return p_57766_.getBrightness(LightLayer.SKY, p_57816_) > 8 || p_57766_.random.nextInt(5) == 0;
 	}
 
 	public void playerDestroy(Level p_57771_, Player p_57772_, BlockPos p_57773_, BlockState p_57774_, @Nullable BlockEntity p_57775_, ItemStack p_57776_) {

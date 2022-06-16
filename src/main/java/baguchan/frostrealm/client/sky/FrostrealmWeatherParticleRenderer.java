@@ -36,7 +36,7 @@ public class FrostrealmWeatherParticleRenderer implements IWeatherParticleRender
 			LevelReader levelreader = mc.level;
 			BlockPos blockpos = new BlockPos(activeRenderInfoIn.getPosition());
 			BlockPos blockpos1 = null;
-			int i = (int) (100.0F * f * f) / (mc.options.particles == ParticleStatus.DECREASED ? 2 : 1);
+			int i = (int) (100.0F * f * f) / (mc.options.particles().get() == ParticleStatus.DECREASED ? 2 : 1);
 
 			for (int j = 0; j < i; ++j) {
 				int k = random.nextInt(21) - 10;
@@ -50,9 +50,9 @@ public class FrostrealmWeatherParticleRenderer implements IWeatherParticleRender
 			if (blockpos1 != null && random.nextInt(5) + 5 < this.rainSoundTime++) {
 				this.rainSoundTime = 0;
 				if (blockpos1.getY() > blockpos.getY() + 1 && levelreader.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos).getY() > Mth.floor((float) blockpos.getY())) {
-					mc.level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT, SoundSource.WEATHER, 0.5F, 0.5F, false);
+					mc.level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT.get(), SoundSource.WEATHER, 0.5F, 0.5F, false);
 				} else {
-					mc.level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT, SoundSource.WEATHER, 2.0F, 1.0F, false);
+					mc.level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT.get(), SoundSource.WEATHER, 2.0F, 1.0F, false);
 				}
 			}
 

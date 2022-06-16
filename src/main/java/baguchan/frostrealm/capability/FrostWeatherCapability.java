@@ -149,7 +149,7 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 		nbt.putInt("WeatherTime", this.weatherTime);
 		nbt.putInt("WeatherCooldown", this.weatherCooldown);
 		if (this.frostWeather != null) {
-			nbt.putString("FrostWeather", this.frostWeather.getRegistryName().toString());
+			nbt.putString("FrostWeather", FrostWeathers.getRegistry().get().getKey(this.frostWeather).toString());
 		}
 		return nbt;
 	}

@@ -194,9 +194,9 @@ public class Yeti extends AgeableMob implements NeutralMob {
 	}
 
 	@Override
-	public void killed(ServerLevel p_19929_, LivingEntity p_19930_) {
-		super.killed(p_19929_, p_19930_);
+	public boolean wasKilled(ServerLevel p_216988_, LivingEntity p_216989_) {
 		setHuntTime(600);
+		return super.wasKilled(p_216988_, p_216989_);
 	}
 
 	public void readAdditionalSaveData(CompoundTag p_29541_) {

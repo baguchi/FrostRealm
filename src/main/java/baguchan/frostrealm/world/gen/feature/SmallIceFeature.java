@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.ClampedNormalFloat;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
@@ -22,7 +23,6 @@ import net.minecraft.world.level.levelgen.feature.configurations.DripstoneCluste
 
 import java.util.Optional;
 import java.util.OptionalInt;
-import java.util.Random;
 import java.util.function.Consumer;
 
 public class SmallIceFeature extends Feature<DripstoneClusterConfiguration> {
@@ -38,7 +38,7 @@ public class SmallIceFeature extends Feature<DripstoneClusterConfiguration> {
 		WorldGenLevel worldgenlevel = p_159605_.level();
 		BlockPos blockpos = p_159605_.origin();
 		DripstoneClusterConfiguration dripstoneclusterconfiguration = p_159605_.config();
-		Random random = p_159605_.random();
+		RandomSource random = p_159605_.random();
 		if (!isEmptyOrWater(worldgenlevel, blockpos)) {
 			return false;
 		} else {
@@ -60,7 +60,7 @@ public class SmallIceFeature extends Feature<DripstoneClusterConfiguration> {
 		}
 	}
 
-	private void placeColumn(WorldGenLevel p_159594_, Random p_159595_, BlockPos p_159596_, int p_159597_, int p_159598_, float p_159599_, double p_159600_, int p_159601_, float p_159602_, DripstoneClusterConfiguration p_159603_) {
+	private void placeColumn(WorldGenLevel p_159594_, RandomSource p_159595_, BlockPos p_159596_, int p_159597_, int p_159598_, float p_159599_, double p_159600_, int p_159601_, float p_159602_, DripstoneClusterConfiguration p_159603_) {
 		Optional<Column> optional = Column.scan(p_159594_, p_159596_, p_159603_.floorToCeilingSearchRange, DripstoneUtils::isEmptyOrWater, SmallIceFeature::isIceBase);
 		if (optional.isPresent()) {
 			OptionalInt optionalint = optional.get().getCeiling();
@@ -137,13 +137,13 @@ public class SmallIceFeature extends Feature<DripstoneClusterConfiguration> {
 		}
 	}
 
-	private int getDripstoneHeight(Random p_159613_, int p_159614_, int p_159615_, float p_159616_, int p_159617_, DripstoneClusterConfiguration p_159618_) {
+	private int getDripstoneHeight(RandomSource p_159613_, int p_159614_, int p_159615_, float p_159616_, int p_159617_, DripstoneClusterConfiguration p_159618_) {
 		if (p_159613_.nextFloat() > p_159616_) {
 			return 0;
 		} else {
 			int i = Math.abs(p_159614_) + Math.abs(p_159615_);
 			float f = (float) Mth.clampedMap(i, 0.0D, p_159618_.maxDistanceFromCenterAffectingHeightBias, (double) p_159617_ / 2.0D, 0.0D);
-			return (int)randomBetweenBiased(p_159613_, 0.0F, (float)p_159617_, f, (float)p_159618_.heightDeviation);
+			return (int) randomBetweenBiased(p_159613_, 0.0F, (float) p_159617_, f, (float) p_159618_.heightDeviation);
 		}
 	}
 
@@ -187,7 +187,7 @@ public class SmallIceFeature extends Feature<DripstoneClusterConfiguration> {
 		return Mth.clampedMap((float) k, 0.0F, (float) p_159581_.maxDistanceFromEdgeAffectingChanceOfDripstoneColumn, p_159581_.chanceOfDripstoneColumnAtMaxDistanceFromCenter, 1.0F);
 	}
 
-	private static float randomBetweenBiased(Random p_159607_, float p_159608_, float p_159609_, float p_159610_, float p_159611_) {
+	private static float randomBetweenBiased(RandomSource p_159607_, float p_159608_, float p_159609_, float p_159610_, float p_159611_) {
 		return ClampedNormalFloat.sample(p_159607_, p_159610_, p_159611_, p_159608_, p_159609_);
 	}
 

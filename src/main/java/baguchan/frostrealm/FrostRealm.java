@@ -58,6 +58,8 @@ public class FrostRealm {
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		FrostWeathers.FROST_WEATHER.register(modBus);
 		FrostBiomes.BIOMES.register(modBus);
+		FrostFeatures.FEATURES.register(modBus);
+		FrostSounds.SOUND_EVENTS.register(modBus);
 		FrostCarvers.WORLD_CARVER.register(modBus);
 		FrostBlocks.BLOCKS.register(modBus);
 		FrostEntities.ENTITIES.register(modBus);
@@ -79,7 +81,6 @@ public class FrostRealm {
 			FrostTreeFeatures.init();
 			FrostPlacements.init();
 			FrostOrePlacements.init();
-			FrostNoiseGeneratorSettings.init();
 			FrostConfiguredWorldCarvers.init();
 		});
 		FrostBiomes.addBiomeTypes();

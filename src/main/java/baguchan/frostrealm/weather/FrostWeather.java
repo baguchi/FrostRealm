@@ -1,9 +1,8 @@
 package baguchan.frostrealm.weather;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class FrostWeather extends ForgeRegistryEntry<FrostWeather> {
+public class FrostWeather {
 	private final Properties properties;
 	private final boolean useFog;
 

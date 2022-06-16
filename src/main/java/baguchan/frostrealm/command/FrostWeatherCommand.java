@@ -12,7 +12,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.PacketDistributor;
 
@@ -43,7 +43,7 @@ public class FrostWeatherCommand {
 
 	private static int setClear(CommandSourceStack p_139173_, int p_139174_) {
 		if (p_139173_.getLevel().dimension() != FrostDimensions.FROSTREALM_LEVEL) {
-			p_139173_.sendFailure(new TranslatableComponent("commands.frostrealm.frost_weather.clear.fail_dimension"));
+			p_139173_.sendFailure(Component.translatable("commands.frostrealm.frost_weather.clear.fail_dimension"));
 			return p_139174_;
 		}
 		p_139173_.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
@@ -51,7 +51,7 @@ public class FrostWeatherCommand {
 			cap.setWeatherCooldown(p_139174_);
 			cap.needWeatherCooldownChanged = true;
 		});
-		p_139173_.sendSuccess(new TranslatableComponent("commands.frostrealm.frost_weather.clear"), true);
+		p_139173_.sendSuccess(Component.translatable("commands.frostrealm.frost_weather.clear"), true);
 
 		return p_139174_;
 	}
@@ -60,12 +60,12 @@ public class FrostWeatherCommand {
 		Set<ResourceLocation> names = FrostWeathers.getRegistry().get().getKeys().stream().filter(n -> n.toString().matches(filter)).collect(Collectors.toSet());
 
 		if (p_139178_.getLevel().dimension() != FrostDimensions.FROSTREALM_LEVEL) {
-			p_139178_.sendFailure(new TranslatableComponent("commands.frostrealm.frost_weather.set.fail_dimension"));
+			p_139178_.sendFailure(Component.translatable("commands.frostrealm.frost_weather.set.fail_dimension"));
 			return p_139179_;
 		}
 
 		if (names.isEmpty()) {
-			p_139178_.sendFailure(new TranslatableComponent("commands.frostrealm.frost_weather.set.fail"));
+			p_139178_.sendFailure(Component.translatable("commands.frostrealm.frost_weather.set.fail"));
 			return p_139179_;
 		}
 
@@ -73,7 +73,7 @@ public class FrostWeatherCommand {
 		if (names.size() == 1) {
 			ResourceLocation name = names.iterator().next();
 			Optional<FrostWeather> frostWeather = FrostWeathers.getRegistry().get().getValues().stream().filter(weather -> {
-				return weather.getRegistryName().equals(name);
+				return FrostWeathers.getRegistry().get().getKey(weather).equals(name);
 			}).findFirst();
 
 			if (frostWeather.isPresent()) {
@@ -87,10 +87,10 @@ public class FrostWeatherCommand {
 					cap.setWeatherCooldown(0);
 					cap.needWeatherChanged = true;
 				});
-				p_139178_.sendSuccess(new TranslatableComponent("commands.frostrealm.frost_weather.set"), true);
+				p_139178_.sendSuccess(Component.translatable("commands.frostrealm.frost_weather.set"), true);
 				return p_139179_;
 			} else {
-				p_139178_.sendFailure(new TranslatableComponent("commands.frostrealm.frost_weather.set.fail"));
+				p_139178_.sendFailure(Component.translatable("commands.frostrealm.frost_weather.set.fail"));
 				return p_139179_;
 			}
 		}

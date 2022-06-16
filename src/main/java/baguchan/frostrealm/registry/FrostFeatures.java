@@ -8,20 +8,15 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DripstoneClusterConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.LargeDripstoneConfiguration;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
-@Mod.EventBusSubscriber(modid = FrostRealm.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class FrostFeatures {
-	public static final Feature<LargeDripstoneConfiguration> LARGE_ICE = new LargeIceFeature(LargeDripstoneConfiguration.CODEC);
-	public static final Feature<DripstoneClusterConfiguration> ICE_CLUSTER = new SmallIceFeature(DripstoneClusterConfiguration.CODEC);
-	public static final Feature<BlockStateConfiguration> BIG_ROCK = new BigRockFeature(BlockStateConfiguration.CODEC);
+	public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, FrostRealm.MODID);
 
-	@SubscribeEvent
-	public static void registerFeature(RegistryEvent.Register<Feature<?>> event) {
-		event.getRegistry().register(LARGE_ICE.setRegistryName("large_ice"));
-		event.getRegistry().register(ICE_CLUSTER.setRegistryName("ice_cluster"));
-		event.getRegistry().register(BIG_ROCK.setRegistryName("big_rock"));
-	}
+
+	public static final RegistryObject<Feature<LargeDripstoneConfiguration>> LARGE_ICE = FEATURES.register("large_ice", () -> new LargeIceFeature(LargeDripstoneConfiguration.CODEC));
+	public static final RegistryObject<Feature<DripstoneClusterConfiguration>> ICE_CLUSTER = FEATURES.register("ice_cluster", () -> new SmallIceFeature(DripstoneClusterConfiguration.CODEC));
+	public static final RegistryObject<Feature<BlockStateConfiguration>> BIG_ROCK = FEATURES.register("big_rock", () -> new BigRockFeature(BlockStateConfiguration.CODEC));
 }
