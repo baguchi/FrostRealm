@@ -28,6 +28,7 @@ import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.fluids.FluidType;
 
 import javax.annotation.Nullable;
 
@@ -98,8 +99,9 @@ public class CrystalTortoise extends Animal {
 		return false;
 	}
 
-	public boolean canBreatheUnderwater() {
-		return true;
+	@Override
+	public boolean canDrownInFluidType(FluidType type) {
+		return false;
 	}
 
 	public MobType getMobType() {

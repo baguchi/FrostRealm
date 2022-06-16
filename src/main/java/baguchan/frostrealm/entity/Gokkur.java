@@ -30,6 +30,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fluids.FluidType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -178,6 +179,11 @@ public class Gokkur extends Monster {
 		if (this.isRolling() && !this.isInWater() && !this.isSpectator() && !this.isCrouching() && !this.isInLava() && this.isAlive()) {
 			this.spawnSprintParticle();
 		}
+	}
+
+	@Override
+	public boolean canDrownInFluidType(FluidType type) {
+		return false;
 	}
 
 	public void setRolling(boolean standing) {
