@@ -51,8 +51,6 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 public class CrystalFox extends Animal implements IForgeShearable {
-	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> SHEARABLE = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.BOOLEAN);
 
 
@@ -104,8 +102,6 @@ public class CrystalFox extends Animal implements IForgeShearable {
 
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(ANIMATION_ID, -1);
-		this.entityData.define(ANIMATION_TICK, 0);
 		this.entityData.define(SHEARABLE, true);
 		this.entityData.define(DATA_TRUSTED_ID_0, Optional.empty());
 		this.entityData.define(DATA_TRUSTED_ID_1, Optional.empty());

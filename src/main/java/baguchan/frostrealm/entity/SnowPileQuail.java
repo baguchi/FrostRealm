@@ -44,10 +44,6 @@ public class SnowPileQuail extends Animal {
 	private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> HAS_EGG = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 
-	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.INT);
-
-
 	private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS, FrostItems.SUGARBEET_SEEDS.get());
 
 	@Nullable
@@ -74,8 +70,6 @@ public class SnowPileQuail extends Animal {
 		super.defineSynchedData();
 		this.entityData.define(ANGRY, false);
 		this.entityData.define(HAS_EGG, false);
-		this.entityData.define(ANIMATION_ID, -1);
-		this.entityData.define(ANIMATION_TICK, 0);
 	}
 
 	public static boolean checkQuailSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {

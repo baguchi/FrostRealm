@@ -6,9 +6,6 @@ import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostWeathers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.Difficulty;
@@ -29,9 +26,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
 public class FrostBeaster extends FrozenMonster {
-	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(FrostBeaster.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(FrostBeaster.class, EntityDataSerializers.INT);
-
 
 	private static final UniformInt TIME_BETWEEN_ANGRY = UniformInt.of(300, 600);
 	private static final UniformInt TIME_BETWEEN_ANGRY_COOLDOWN = UniformInt.of(100, 400);
@@ -42,8 +36,6 @@ public class FrostBeaster extends FrozenMonster {
 
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(ANIMATION_ID, -1);
-		this.entityData.define(ANIMATION_TICK, 0);
 	}
 
 	protected void registerGoals() {

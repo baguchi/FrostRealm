@@ -3,9 +3,6 @@ package baguchan.frostrealm.entity;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.*;
@@ -22,9 +19,6 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 public class FrostWolf extends Wolf {
-	private static final EntityDataAccessor<Integer> ANIMATION_ID = SynchedEntityData.defineId(FrostWolf.class, EntityDataSerializers.INT);
-	private static final EntityDataAccessor<Integer> ANIMATION_TICK = SynchedEntityData.defineId(FrostWolf.class, EntityDataSerializers.INT);
-
 	public static final Predicate<LivingEntity> FROST_PREY_SELECTOR = (p_30437_) -> {
 		EntityType<?> entitytype = p_30437_.getType();
 		return entitytype == FrostEntities.SNOWPILE_QUAIL.get() || entitytype == FrostEntities.CRYSTAL_FOX.get();
@@ -43,8 +37,6 @@ public class FrostWolf extends Wolf {
 
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(ANIMATION_ID, -1);
-		this.entityData.define(ANIMATION_TICK, 0);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
