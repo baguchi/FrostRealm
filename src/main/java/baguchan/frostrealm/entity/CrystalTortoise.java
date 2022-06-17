@@ -141,8 +141,6 @@ public class CrystalTortoise extends Animal {
 
 		private void updateSpeed() {
 			if (this.turtle.isInWater()) {
-				this.turtle.setDeltaMovement(this.turtle.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
-
 				if (this.turtle.isBaby()) {
 					this.turtle.setSpeed(Math.max(this.turtle.getSpeed() / 3.0F, 0.035F));
 				} else {
