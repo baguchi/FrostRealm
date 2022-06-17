@@ -61,6 +61,9 @@ public class ClustWraith extends FrostWraith implements RangedAttackMob {
 
 	public static boolean checkClustWraithSpawnRules(EntityType<? extends Monster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
 		FrostWeatherCapability capability = FrostWeatherCapability.get(p_27579_.getLevel()).orElse(null);
+		if (p_27580_ == MobSpawnType.SPAWNER) {
+			return Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
+		}
 		if (capability != null && capability.isWeatherActive() && capability.getFrostWeather() == FrostWeathers.PURPLE_FOG.get()) {
 			return Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
 		}

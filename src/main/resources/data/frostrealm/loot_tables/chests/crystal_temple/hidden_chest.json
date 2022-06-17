@@ -3,41 +3,11 @@
   "pools": [
     {
       "rolls": {
-        "min": 6.0,
-        "max": 8.0,
+        "min": 8.0,
+        "max": 14.0,
         "type": "minecraft:uniform"
       },
       "entries": [
-        {
-          "type": "minecraft:item",
-          "weight": 20,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 2.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "frostrealm:glimmerrock"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 20,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "frostrealm:frost_crystal"
-        },
         {
           "type": "minecraft:item",
           "weight": 15,
@@ -46,7 +16,7 @@
               "function": "minecraft:set_count",
               "count": {
                 "min": 1.0,
-                "max": 2.0,
+                "max": 3.0,
                 "type": "minecraft:uniform"
               }
             }
@@ -66,20 +36,11 @@
               }
             }
           ],
-          "name": "frostrealm:astrium_ingot"
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 0.0,
-        "max": 4.0,
-        "type": "minecraft:uniform"
-      },
-      "entries": [
+          "name": "frostrealm:warped_crystal"
+        },
         {
           "type": "minecraft:item",
-          "weight": 20,
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -90,7 +51,7 @@
               }
             }
           ],
-          "name": "frostrealm:frozen_fruit"
+          "name": "frostrealm:glimmerrock"
         },
         {
           "type": "minecraft:item",
@@ -100,12 +61,12 @@
               "function": "minecraft:set_count",
               "count": {
                 "min": 1.0,
-                "max": 2.0,
+                "max": 3.0,
                 "type": "minecraft:uniform"
               }
             }
           ],
-          "name": "frostrealm:sugarbeet_seeds"
+          "name": "frostrealm:frost_crystal"
         },
         {
           "type": "minecraft:item",
@@ -120,17 +81,7 @@
               }
             }
           ],
-          "name": "frostrealm:frost_torch"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "frostrealm:astrium_pickaxe"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "frostrealm:astrium_helmet"
+          "name": "frostrealm:astrium_ingot"
         }
       ]
     }
