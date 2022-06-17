@@ -1,4 +1,4 @@
-// 1.19	2022-06-16T22:14:16.6138084	FrostRealm item and itemblock models
+// 1.19	2022-06-17T13:22:48.4202811	FrostRealm item and itemblock models
 02545738e71eb4576427dc9149513e586d7df12b assets/frostrealm/models/item/arctic_poppy.json
 9745a5e2fb9617ffb4425142ac03176bac701b46 assets/frostrealm/models/item/arctic_willow.json
 bff03817e8674ca7c99f798d9f7f184c20316e80 assets/frostrealm/models/item/astrium_axe.json
@@ -15,6 +15,7 @@ e51eb07d54c6c524b6e167e76d47c390af1c3863 assets/frostrealm/models/item/astrium_r
 0e4d64e8073ffa2d398f0e520b75c6e03274b71e assets/frostrealm/models/item/astrium_sword.json
 3632786f218cefaeac762010ae2f6cf9e652fe48 assets/frostrealm/models/item/bearberry.json
 e948d518c5919a0d54f9eb42d914f8e677865c23 assets/frostrealm/models/item/bearberry_cooked.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/frostrealm/models/item/clust_wraith_spawn_egg.json
 2446dcc63f020877a6a51712b67539d73c50f891 assets/frostrealm/models/item/cold_grass.json
 4e5626a00bc2c6652335f203c24cb120dc50f3fc assets/frostrealm/models/item/cold_tall_grass.json
 13e824197d9c6744c4d6ecbe4124119a27a06c19 assets/frostrealm/models/item/cooked_snowpile_quail_egg.json
