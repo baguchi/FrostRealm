@@ -57,7 +57,7 @@ public class WarpedCrystalShard extends ThrowableItemProjectile {
 	protected void onHitEntity(EntityHitResult p_37404_) {
 		super.onHitEntity(p_37404_);
 		Entity entity = p_37404_.getEntity();
-		if (entity.hurt(DamageSource.thrown(this, this.getOwner()), 2)) {
+		if (entity.hurt(DamageSource.thrown(this, this.getOwner()), 4)) {
 		} else {
 			this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
 			this.setYRot(this.getYRot() + 180.0F);
