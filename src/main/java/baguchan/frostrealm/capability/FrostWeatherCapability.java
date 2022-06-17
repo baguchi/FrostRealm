@@ -29,6 +29,8 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 	private float weatherLevel;
 	private float oWeatherLevel;
 
+	private float unstableLevel;
+
 	public boolean needWeatherChanged;
 	public boolean needWeatherCooldownChanged;
 	private FrostWeather frostWeather;
@@ -43,6 +45,14 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 		this.weatherLevel = f;
 	}
 
+
+	public void setUnstableLevel(float unstableLevel) {
+		this.unstableLevel = unstableLevel;
+	}
+
+	public float getUnstableLevel() {
+		return unstableLevel;
+	}
 
 	public static LazyOptional<FrostWeatherCapability> get(Level world) {
 		return world.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY);
@@ -63,7 +73,8 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 					//If weather not active and cooldown active
 					setWeatherCooldown(getWeatherCooldown() - 1);
 					if (getWeatherCooldown() <= 0) {
-						FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.random);
+						unstableLevel += 0.2F * level.random.nextDouble();
+						FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.random, this.unstableLevel);
 
 						setFrostWeather(frostWeather);
 						if (!level.isClientSide()) {
@@ -76,6 +87,9 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 					}
 					setWeatherLevel(getWeatherLevel(1.0F) - 0.05F);
 				} else {
+					if (frostWeather == FrostWeathers.PURPLE_FOG.get()) {
+						unstableLevel = 0;
+					}
 					//If weather not active and cooldown not active too
 					setWeatherCooldown(((level.random.nextInt(10) + 10) * 60) * 20);
 					needWeatherCooldownChanged = true;
@@ -148,6 +162,7 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 
 		nbt.putInt("WeatherTime", this.weatherTime);
 		nbt.putInt("WeatherCooldown", this.weatherCooldown);
+		nbt.putFloat("UnstableLevel", this.unstableLevel);
 		if (this.frostWeather != null) {
 			nbt.putString("FrostWeather", FrostWeathers.getRegistry().get().getKey(this.frostWeather).toString());
 		}
@@ -157,6 +172,7 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 	public void deserializeNBT(CompoundTag nbt) {
 		this.weatherTime = nbt.getInt("WeatherTime");
 		this.weatherCooldown = nbt.getInt("WeatherCooldown");
+		this.unstableLevel = nbt.getFloat("UnstableLevel");
 		FrostWeather frostWeather = FrostWeathers.getRegistry().get().getValue(ResourceLocation.tryParse(nbt.getString("FrostWeather")));
 		if (frostWeather != null) {
 			this.frostWeather = frostWeather;

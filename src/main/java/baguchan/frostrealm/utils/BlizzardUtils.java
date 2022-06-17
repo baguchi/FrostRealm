@@ -17,8 +17,8 @@ public class BlizzardUtils {
 		return entity.level.canSeeSky(blockpos) && entity.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos).getY() <= blockpos.getY();
 	}
 
-	public static FrostWeather makeRandomWeather(RandomSource random) {
-		if (random.nextFloat() < 0.35) {
+	public static FrostWeather makeRandomWeather(RandomSource random, float unstableLevel) {
+		if (random.nextFloat() < unstableLevel) {
 			return FrostWeathers.PURPLE_FOG.get();
 		} else {
 			return FrostWeathers.BLIZZARD.get();

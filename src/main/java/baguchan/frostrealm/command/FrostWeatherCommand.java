@@ -2,6 +2,7 @@ package baguchan.frostrealm.command;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.message.ChangeWeatherEvent;
+import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.weather.FrostWeather;
@@ -86,6 +87,10 @@ public class FrostWeatherCommand {
 					cap.setWetherTime(p_139179_);
 					cap.setWeatherCooldown(0);
 					cap.needWeatherChanged = true;
+
+					ChangeWeatherTimeEvent message2 = new ChangeWeatherTimeEvent(cap.getWeatherTime(), cap.getWeatherCooldown(), cap.getWeatherLevel(1.0F));
+					FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message2);
+
 				});
 				p_139178_.sendSuccess(Component.translatable("commands.frostrealm.frost_weather.set"), true);
 				return p_139179_;
