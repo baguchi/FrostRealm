@@ -24,6 +24,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import java.util.EnumSet;
 
 public class ClustWraith extends FrostWraith implements RangedAttackMob {
+	private float clientSideStandAnimationO;
+	private float clientSideStandAnimation;
+
 	public ClustWraith(EntityType<? extends FrostWraith> p_33002_, Level p_33003_) {
 		super(p_33002_, p_33003_);
 	}
@@ -40,6 +43,20 @@ public class ClustWraith extends FrostWraith implements RangedAttackMob {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Monster.createMobAttributes().add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.ATTACK_DAMAGE, 2.0F).add(Attributes.ARMOR, 2.0F).add(Attributes.FLYING_SPEED, 0.24F).add(Attributes.MOVEMENT_SPEED, 0.21F).add(Attributes.FOLLOW_RANGE, 18.0F);
+	}
+
+	public void tick() {
+		super.tick();
+		this.clientSideStandAnimationO = this.clientSideStandAnimation;
+		if (this.isAggressive()) {
+			this.clientSideStandAnimation = Mth.clamp(this.clientSideStandAnimation + 0.1F, 0.0F, 1.0F);
+		} else {
+			this.clientSideStandAnimation = Mth.clamp(this.clientSideStandAnimation - 0.1F, 0.0F, 1.0F);
+		}
+	}
+
+	public float getStandingAnimationScale(float p_29570_) {
+		return Mth.lerp(p_29570_, this.clientSideStandAnimationO, this.clientSideStandAnimation);
 	}
 
 	public static boolean checkClustWraithSpawnRules(EntityType<? extends Monster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
@@ -68,10 +85,12 @@ public class ClustWraith extends FrostWraith implements RangedAttackMob {
 
 		public void start() {
 			this.attackStep = 0;
+			this.wraith.setAggressive(true);
 		}
 
 		public void stop() {
 			this.lastSeen = 0;
+			this.wraith.setAggressive(false);
 		}
 
 		public void tick() {
@@ -129,12 +148,13 @@ public class ClustWraith extends FrostWraith implements RangedAttackMob {
 		}
 
 		private double getFollowDistance() {
-			return this.wraith.getAttributeValue(Attributes.FOLLOW_RANGE);
+			return this.wraith.getAttributeValue(Attributes.FOLLOW_RANGE) * 0.95F;
 		}
 	}
 
+	@Override
 	public void performRangedAttack(LivingEntity p_29912_, float p_29913_) {
-		this.playSound(SoundEvents.TRIDENT_THROW, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+		this.playSound(SoundEvents.TRIDENT_THROW, 2.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 
 		for (int i = 0; i < 3; i++) {
 			WarpedCrystalShard crystal = new WarpedCrystalShard(this.level, this);
@@ -142,7 +162,7 @@ public class ClustWraith extends FrostWraith implements RangedAttackMob {
 			double d2 = p_29912_.getEyeY() - this.getEyeY();
 			double d3 = p_29912_.getZ() - this.getZ();
 			float f = Mth.sqrt((float) (d1 * d1 + d3 * d3)) * 0.2F;
-			crystal.shoot(d1, d2 + f, d3, 1.4F, 0.2F + p_29913_);
+			crystal.shoot(d1 + f * (this.random.nextDouble() - this.random.nextDouble()), d2 + f * (this.random.nextDouble() - this.random.nextDouble()), d3 + f * (this.random.nextDouble() - this.random.nextDouble()), 0.8F, 0.15F);
 			this.level.addFreshEntity(crystal);
 		}
 	}

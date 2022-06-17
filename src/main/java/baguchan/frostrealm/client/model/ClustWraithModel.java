@@ -3,6 +3,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.2.5
 // Paste this class into your mod and generate all required imports
 
 
+import baguchan.frostrealm.entity.ClustWraith;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
@@ -10,9 +11,8 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 
-public class ClustWraithModel<T extends Entity> extends EntityModel<T> {
+public class ClustWraithModel<T extends ClustWraith> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructorprivate final ModelPart main;
 	private final ModelPart main;
 	private final ModelPart head;
@@ -67,12 +67,20 @@ public class ClustWraithModel<T extends Entity> extends EntityModel<T> {
 		this.leg_left_hind.xRot = Mth.clamp(0.45F - 0.45F * limbSwingAmount, 0.0F, 0.45F);
 		this.leg_left_hind.zRot = Mth.clamp(-0.45F + 0.45F * limbSwingAmount, -0.45F, 0.0F);
 
-		this.head.xRot -= (float) ((Math.PI / 6F) * limbSwingAmount);
 
 		this.leg_right_front.xRot += 0.45F * limbSwingAmount;
 		this.leg_left_front.xRot += 0.45F * limbSwingAmount;
 		this.leg_right_hind.xRot += 0.45F * limbSwingAmount;
 		this.leg_left_hind.xRot += 0.45F * limbSwingAmount;
+
+		float f = ageInTicks - (float) entity.tickCount;
+		float f1 = entity.getStandingAnimationScale(f);
+
+		this.leg_right_front.xRot -= (0.45F * limbSwingAmount * f1) + 0.9F * f1;
+		this.leg_left_front.xRot -= (0.45F * limbSwingAmount * f1) + 0.9F * f1;
+		this.leg_right_hind.xRot -= (0.45F * limbSwingAmount * f1) + 0.9F * f1;
+		this.leg_left_hind.xRot -= (0.45F * limbSwingAmount * f1) + 0.9F * f1;
+		this.head.xRot += (float) ((Math.PI / 6F) * limbSwingAmount) + ((Math.PI / 6F) * limbSwingAmount * f1);
 	}
 
 	@Override
