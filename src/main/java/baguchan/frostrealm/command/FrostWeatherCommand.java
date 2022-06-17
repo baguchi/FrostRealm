@@ -51,6 +51,9 @@ public class FrostWeatherCommand {
 			cap.setWetherTime(0);
 			cap.setWeatherCooldown(p_139174_);
 			cap.needWeatherCooldownChanged = true;
+
+			ChangeWeatherTimeEvent message2 = new ChangeWeatherTimeEvent(cap.getWeatherTime(), cap.getWeatherCooldown(), cap.getWeatherLevel(1.0F));
+			FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message2);
 		});
 		p_139173_.sendSuccess(Component.translatable("commands.frostrealm.frost_weather.clear"), true);
 
