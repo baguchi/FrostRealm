@@ -1,20 +1,26 @@
 package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.block.LockableDoorBlock;
 import baguchan.frostrealm.registry.FrostBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoorHingeSide;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 public class BlockstateGenerator extends BlockStateProvider {
 	public BlockstateGenerator(DataGenerator gen, ExistingFileHelper exFileHelper) {
@@ -67,6 +73,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.simpleBlock(FrostBlocks.CORRUPTED_CRYSTAL_CLUSTER.get());
 		this.simpleBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
+		this.lockDoorBlock(FrostBlocks.FROSTROOT_DOOR.get(), texture("frostroot_door_bottom"), texture("frostroot_door_top"));
 	}
 
 	public void torchBlock(Block block, Block wall) {
@@ -115,6 +122,89 @@ public class BlockstateGenerator extends BlockStateProvider {
 				ConfiguredModel.builder()
 						.modelFile(model)
 						.build());
+	}
+
+
+	private ResourceLocation key(Block block) {
+		return ForgeRegistries.BLOCKS.getKey(block);
+	}
+
+	public void lockDoorBlock(DoorBlock block, ResourceLocation bottom, ResourceLocation top) {
+		lockDoorBlockInternal(block, key(block).toString(), bottom, top);
+	}
+
+	public void lockDoorBlock(DoorBlock block, String name, ResourceLocation bottom, ResourceLocation top) {
+		lockDoorBlockInternal(block, name + "_door", bottom, top);
+	}
+
+	public void door(Supplier<? extends DoorBlock> block, String name) {
+		doorBlock(block.get(), texture(name + "_door_bottom"), texture(name + "_door_top"));
+	}
+
+	private ModelBuilder<?> door(String name, String model, ResourceLocation bottom, ResourceLocation top) {
+		return models().withExistingParent(name, "block/" + model)
+				.texture("bottom", bottom)
+				.texture("top", top);
+	}
+
+	private void doorBlockInternal(DoorBlock block, String baseName, ResourceLocation bottom, ResourceLocation top) {
+		ModelFile bottomLeft = door(baseName + "_bottom_left", "door_bottom_left", bottom, top);
+		ModelFile bottomLeftOpen = door(baseName + "_bottom_left_open", "door_bottom_left_open", bottom, top);
+		ModelFile bottomRight = door(baseName + "_bottom_right", "door_bottom_right", bottom, top);
+		ModelFile bottomRightOpen = door(baseName + "_bottom_right_open", "door_bottom_right_open", bottom, top);
+		ModelFile topLeft = door(baseName + "_top_left", "door_top_left", bottom, top);
+		ModelFile topLeftOpen = door(baseName + "_top_left_open", "door_top_left_open", bottom, top);
+		ModelFile topRight = door(baseName + "_top_right", "door_top_right", bottom, top);
+		ModelFile topRightOpen = door(baseName + "_top_right_open", "door_top_right_open", bottom, top);
+		doorBlock(block, bottomLeft, bottomLeftOpen, bottomRight, bottomRightOpen, topLeft, topLeftOpen, topRight, topRightOpen);
+	}
+
+	public void doorBlock(DoorBlock block, ModelFile bottomLeft, ModelFile bottomLeftOpen, ModelFile bottomRight, ModelFile bottomRightOpen, ModelFile topLeft, ModelFile topLeftOpen, ModelFile topRight, ModelFile topRightOpen) {
+		getVariantBuilder(block).forAllStatesExcept(state -> {
+			int yRot = ((int) state.getValue(DoorBlock.FACING).toYRot()) + 90;
+			boolean right = state.getValue(DoorBlock.HINGE) == DoorHingeSide.RIGHT;
+			boolean open = state.getValue(DoorBlock.OPEN);
+			if (open) {
+				yRot += 90;
+			}
+			if (right && open) {
+				yRot += 180;
+			}
+			yRot %= 360;
+			return ConfiguredModel.builder().modelFile(state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER ? (right ? (open ? bottomRightOpen : bottomRight) : (open ? bottomLeftOpen : bottomLeft)) : (right ? (open ? topRightOpen : topRight) : (open ? topLeftOpen : topLeft)))
+					.rotationY(yRot)
+					.build();
+		}, DoorBlock.POWERED, LockableDoorBlock.LOCKED);
+	}
+
+	private void lockDoorBlockInternal(DoorBlock block, String baseName, ResourceLocation bottom, ResourceLocation top) {
+		ModelFile bottomLeft = door(baseName + "_bottom_left", "door_bottom_left", bottom, top);
+		ModelFile bottomLeftOpen = door(baseName + "_bottom_left_open", "door_bottom_left_open", bottom, top);
+		ModelFile bottomRight = door(baseName + "_bottom_right", "door_bottom_right", bottom, top);
+		ModelFile bottomRightOpen = door(baseName + "_bottom_right_open", "door_bottom_right_open", bottom, top);
+		ModelFile topLeft = door(baseName + "_top_left", "door_top_left", bottom, top);
+		ModelFile topLeftOpen = door(baseName + "_top_left_open", "door_top_left_open", bottom, top);
+		ModelFile topRight = door(baseName + "_top_right", "door_top_right", bottom, top);
+		ModelFile topRightOpen = door(baseName + "_top_right_open", "door_top_right_open", bottom, top);
+		lockableDoorBlock(block, bottomLeft, bottomLeftOpen, bottomRight, bottomRightOpen, topLeft, topLeftOpen, topRight, topRightOpen);
+	}
+
+	public void lockableDoorBlock(DoorBlock block, ModelFile bottomLeft, ModelFile bottomLeftOpen, ModelFile bottomRight, ModelFile bottomRightOpen, ModelFile topLeft, ModelFile topLeftOpen, ModelFile topRight, ModelFile topRightOpen) {
+		getVariantBuilder(block).forAllStatesExcept(state -> {
+			int yRot = ((int) state.getValue(DoorBlock.FACING).toYRot()) + 90;
+			boolean right = state.getValue(DoorBlock.HINGE) == DoorHingeSide.RIGHT;
+			boolean open = state.getValue(DoorBlock.OPEN);
+			if (open) {
+				yRot += 90;
+			}
+			if (right && open) {
+				yRot += 180;
+			}
+			yRot %= 360;
+			return ConfiguredModel.builder().modelFile(state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER ? (right ? (open ? bottomRightOpen : bottomRight) : (open ? bottomLeftOpen : bottomLeft)) : (right ? (open ? topRightOpen : topRight) : (open ? topLeftOpen : topLeft)))
+					.rotationY(yRot)
+					.build();
+		}, DoorBlock.POWERED);
 	}
 
 	protected ResourceLocation texture(String name) {
