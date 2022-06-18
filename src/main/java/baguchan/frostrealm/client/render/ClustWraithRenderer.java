@@ -14,8 +14,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class ClustWraithRenderer<T extends ClustWraith> extends MobRenderer<T, ClustWraithModel<T>> {
-	private static final ResourceLocation WRAITH = new ResourceLocation(FrostRealm.MODID, "textures/entity/frost_wraith/frost_wraith.png");
-	private static final RenderType WRAITH_GLOW = RenderType.eyes(new ResourceLocation(FrostRealm.MODID, "textures/entity/frost_wraith/frost_wraith_glow.png"));
+	private static final ResourceLocation WRAITH = new ResourceLocation(FrostRealm.MODID, "textures/entity/clust_wraith/clust_wraith.png");
+	private static final RenderType WRAITH_GLOW = RenderType.eyes(new ResourceLocation(FrostRealm.MODID, "textures/entity/clust_wraith/clust_wraith_glow.png"));
 
 
 	public ClustWraithRenderer(EntityRendererProvider.Context p_173952_) {
