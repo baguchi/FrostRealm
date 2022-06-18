@@ -135,7 +135,7 @@ public class CommonEvents {
 	}
 
 	@SubscribeEvent
-	public void onBlockBreaked(BlockEvent.BreakEvent event) {
+	public static void onBlockBreaked(BlockEvent.BreakEvent event) {
 		if (event.getPlayer() instanceof ServerPlayer) {
 			LevelAccessor world = event.getPlayer().level;
 			if (world instanceof ServerLevel) {
@@ -158,7 +158,7 @@ public class CommonEvents {
 	}
 
 	@SubscribeEvent
-	public void onBlockPlaced(BlockEvent.EntityPlaceEvent event) {
+	public static void onBlockPlaced(BlockEvent.EntityPlaceEvent event) {
 		if (event.getEntity() instanceof ServerPlayer) {
 			LevelAccessor world = event.getEntity().level;
 			if (world instanceof ServerLevel) {
