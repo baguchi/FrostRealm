@@ -35,15 +35,15 @@ public class ClustWraithModel<T extends ClustWraith> extends EntityModel<T> {
 
 		PartDefinition head = main.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -13.0F, 0.0F));
 
-		PartDefinition leg_left_front = main.addOrReplaceChild("leg_left_front", CubeListBuilder.create().texOffs(78, 0).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, -12.0F, -2.0F));
+		PartDefinition leg_left_front = main.addOrReplaceChild("leg_left_front", CubeListBuilder.create().texOffs(20, 0).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, -12.0F, -2.0F));
 
-		PartDefinition leg_right_front = main.addOrReplaceChild("leg_right_front", CubeListBuilder.create().texOffs(78, 0).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, -12.0F, -2.0F));
+		PartDefinition leg_right_front = main.addOrReplaceChild("leg_right_front", CubeListBuilder.create().texOffs(20, 0).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, -12.0F, -2.0F));
 
-		PartDefinition leg_left_hind = main.addOrReplaceChild("leg_left_hind", CubeListBuilder.create().texOffs(78, 0).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, -12.0F, 2.0F));
+		PartDefinition leg_left_hind = main.addOrReplaceChild("leg_left_hind", CubeListBuilder.create().texOffs(20, 0).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, -12.0F, 2.0F));
 
-		PartDefinition leg_right_hind = main.addOrReplaceChild("leg_right_hind", CubeListBuilder.create().texOffs(78, 0).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, -12.0F, 2.0F));
+		PartDefinition leg_right_hind = main.addOrReplaceChild("leg_right_hind", CubeListBuilder.create().texOffs(20, 0).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, -12.0F, 2.0F));
 
-		return LayerDefinition.create(meshdefinition, 96, 48);
+		return LayerDefinition.create(meshdefinition, 48, 48);
 	}
 
 	@Override
