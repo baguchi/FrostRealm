@@ -1,5 +1,6 @@
 package baguchan.frostrealm;
 
+import baguchan.frostrealm.block.FrostTorchBlock;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.message.ChangeWeatherEvent;
@@ -170,7 +171,7 @@ public class CommonEvents {
 						if (!StructureUtils.isBeatenDungeons(serverLevel, structureStart.getBoundingBox())) {
 							ServerPlayer player = (ServerPlayer) event.getEntity();
 							Block placedBlock = event.getPlacedBlock().getBlock();
-							if (!player.isCreative() && !(placedBlock instanceof TorchBlock)) {
+							if (!player.isCreative() && !(placedBlock instanceof TorchBlock) && !(placedBlock instanceof FrostTorchBlock)) {
 								player.displayClientMessage(Component.translatable("frostrealm.need_defeat_boss"), true);
 								event.setCanceled(true);
 								ItemStack placedStack = new ItemStack(placedBlock);
