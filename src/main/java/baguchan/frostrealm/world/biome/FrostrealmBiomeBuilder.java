@@ -247,8 +247,6 @@ public class FrostrealmBiomeBuilder {
 
 	private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_187227_) {
 		this.addUndergroundBiome(p_187227_, Climate.Parameter.span(-1.0F, 0.25F), Climate.Parameter.span(-1.0F, 0.25F), Climate.Parameter.span(0.25F, 1.0F), this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.ICE_CAVE);
-
-		this.addUndergroundBiome(p_187227_, Climate.Parameter.span(0.0F, 0.25F), Climate.Parameter.span(0.5F, 1.0F), this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.CRYSTAL_WATERFALL);
 	}
 
 	private ResourceKey<Biome> pickMiddleBiome(int p_187164_, int p_187165_, Climate.Parameter p_187166_) {

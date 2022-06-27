@@ -74,7 +74,7 @@
   "precipitation": "snow",
   "temperature": -0.5,
   "downfall": 0.8,
-  "category": "underground",
+  "category": "mountain",
   "effects": {
     "mood_sound": {
       "sound": "minecraft:ambient.cave",

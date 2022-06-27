@@ -37,7 +37,7 @@ public class FrostBiomes {
 	public static final ResourceKey<Biome> FROZEN_BEACH = register("frozen_beach");
 	public static final ResourceKey<Biome> FROST_RIVER = register("frost_river");
 
-	public static final ResourceKey<Biome> CRYSTAL_WATERFALL = register("crystal_waterfall");
+	public static final ResourceKey<Biome> CRYSTAL_FALL = register("crystal_fall");
 
 	public static final ResourceKey<Biome> ICE_CAVE = register("ice_cave");
 
