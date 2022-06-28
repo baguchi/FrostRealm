@@ -17,7 +17,6 @@ import org.jetbrains.annotations.NotNull;
 public class FrostrealmSkyRenderer implements ISkyRenderHandler {
 	private static final ResourceLocation AURORA_LOCATION = new ResourceLocation(FrostRealm.MODID, "textures/environment/aurora.png");
 
-
 	@Override
 	public void render(int ticks, float partialTick, PoseStack poseStack, ClientLevel level, Minecraft minecraft) {
 
@@ -39,8 +38,8 @@ public class FrostrealmSkyRenderer implements ISkyRenderHandler {
 		FogRenderer.levelFogColor();
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f11);
 		Matrix4f matrix4f1 = p_109781_.last().pose();
-		float f12 = 260.0F;
-		float f13 = (float) (120.0F);
+		float f12 = 160.0F;
+		float f13 = (float) (110.0F);
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, AURORA_LOCATION);
 		bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
