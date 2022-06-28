@@ -1,7 +1,6 @@
 package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.block.LockableDoorBlock;
 import baguchan.frostrealm.registry.FrostBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -73,7 +72,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.simpleBlock(FrostBlocks.CORRUPTED_CRYSTAL_CLUSTER.get());
 		this.simpleBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
-		this.lockDoorBlock(FrostBlocks.FROSTROOT_DOOR.get(), texture("frostroot_door_bottom"), texture("frostroot_door_top"));
+		this.doorBlock(FrostBlocks.FROSTROOT_DOOR.get(), texture("frostroot_door_bottom"), texture("frostroot_door_top"));
 	}
 
 	public void torchBlock(Block block, Block wall) {
@@ -129,12 +128,8 @@ public class BlockstateGenerator extends BlockStateProvider {
 		return ForgeRegistries.BLOCKS.getKey(block);
 	}
 
-	public void lockDoorBlock(DoorBlock block, ResourceLocation bottom, ResourceLocation top) {
-		lockDoorBlockInternal(block, key(block).toString(), bottom, top);
-	}
-
-	public void lockDoorBlock(DoorBlock block, String name, ResourceLocation bottom, ResourceLocation top) {
-		lockDoorBlockInternal(block, name + "_door", bottom, top);
+	public void doorBlock(DoorBlock block, ResourceLocation bottom, ResourceLocation top) {
+		doorBlockInternal(block, key(block).toString(), bottom, top);
 	}
 
 	public void door(Supplier<? extends DoorBlock> block, String name) {
@@ -174,19 +169,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 			return ConfiguredModel.builder().modelFile(state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER ? (right ? (open ? bottomRightOpen : bottomRight) : (open ? bottomLeftOpen : bottomLeft)) : (right ? (open ? topRightOpen : topRight) : (open ? topLeftOpen : topLeft)))
 					.rotationY(yRot)
 					.build();
-		}, DoorBlock.POWERED, LockableDoorBlock.LOCKED);
-	}
-
-	private void lockDoorBlockInternal(DoorBlock block, String baseName, ResourceLocation bottom, ResourceLocation top) {
-		ModelFile bottomLeft = door(baseName + "_bottom_left", "door_bottom_left", bottom, top);
-		ModelFile bottomLeftOpen = door(baseName + "_bottom_left_open", "door_bottom_left_open", bottom, top);
-		ModelFile bottomRight = door(baseName + "_bottom_right", "door_bottom_right", bottom, top);
-		ModelFile bottomRightOpen = door(baseName + "_bottom_right_open", "door_bottom_right_open", bottom, top);
-		ModelFile topLeft = door(baseName + "_top_left", "door_top_left", bottom, top);
-		ModelFile topLeftOpen = door(baseName + "_top_left_open", "door_top_left_open", bottom, top);
-		ModelFile topRight = door(baseName + "_top_right", "door_top_right", bottom, top);
-		ModelFile topRightOpen = door(baseName + "_top_right_open", "door_top_right_open", bottom, top);
-		lockableDoorBlock(block, bottomLeft, bottomLeftOpen, bottomRight, bottomRightOpen, topLeft, topLeftOpen, topRight, topRightOpen);
+		}, DoorBlock.POWERED);
 	}
 
 	public void lockableDoorBlock(DoorBlock block, ModelFile bottomLeft, ModelFile bottomLeftOpen, ModelFile bottomRight, ModelFile bottomRightOpen, ModelFile topLeft, ModelFile topLeftOpen, ModelFile topRight, ModelFile topRightOpen) {
