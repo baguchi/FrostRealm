@@ -23,16 +23,16 @@ public class FrostDimensionSettings {
 	public static final DeferredRegister<NoiseGeneratorSettings> NOISE_GENERATORS = DeferredRegister.create(Registry.NOISE_GENERATOR_SETTINGS_REGISTRY, FrostRealm.MODID);
 	public static final DeferredRegister<DimensionType> DIMENSION_TYPES = DeferredRegister.create(Registry.DIMENSION_TYPE_REGISTRY, FrostRealm.MODID);
 
-	public static final RegistryObject<NoiseGeneratorSettings> TOFU_NOISE_GEN = NOISE_GENERATORS.register("frostrealm_noise", FrostDimensionSettings::frostrealm);
-	public static final RegistryObject<DimensionType> TOFU_DIM_TYPE = DIMENSION_TYPES.register("frostrealm_type", FrostDimensionSettings::frostDimType);
+	public static final RegistryObject<NoiseGeneratorSettings> FROST_NOISE_GEN = NOISE_GENERATORS.register("frostrealm_noise", FrostDimensionSettings::frostrealm);
+	public static final RegistryObject<DimensionType> FROST_DIM_TYPE = DIMENSION_TYPES.register("frostrealm_type", FrostDimensionSettings::frostDimType);
 
 
 	public static final ResourceLocation EFFECTS = new ResourceLocation(FrostRealm.MODID, "renderer");
 
-	static final NoiseSettings TOFU_NOISE_SETTINGS = create(-64, 384, 1, 2);
+	static final NoiseSettings FROST_NOISE_SETTINGS = create(-64, 384, 1, 2);
 
 	public static NoiseGeneratorSettings frostrealm() {
-		return new NoiseGeneratorSettings(TOFU_NOISE_SETTINGS, FrostBlocks.FRIGID_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), FrostNoiseRouterData.frostrealm(BuiltinRegistries.DENSITY_FUNCTION, false, false), FrostSurfaceRuleData.frostrealm(), (new FrostrealmBiomeBuilder()).spawnTarget(), 64, false, true, false, false);
+		return new NoiseGeneratorSettings(FROST_NOISE_SETTINGS, FrostBlocks.FRIGID_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), FrostNoiseRouterData.frostrealm(BuiltinRegistries.DENSITY_FUNCTION, false, false), FrostSurfaceRuleData.frostrealm(), (new FrostrealmBiomeBuilder()).spawnTarget(), 64, false, true, false, false);
 	}
 
 	private static DimensionType frostDimType() {
