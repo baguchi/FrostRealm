@@ -1,4 +1,4 @@
-// 1.19	2022-06-18T08:36:36.6587111	FrostRealm item and itemblock models
+// 1.19	2022-06-29T10:38:17.7968197	FrostRealm item and itemblock models
 02545738e71eb4576427dc9149513e586d7df12b assets/frostrealm/models/item/arctic_poppy.json
 9745a5e2fb9617ffb4425142ac03176bac701b46 assets/frostrealm/models/item/arctic_willow.json
 bff03817e8674ca7c99f798d9f7f184c20316e80 assets/frostrealm/models/item/astrium_axe.json
@@ -22,6 +22,7 @@ e948d518c5919a0d54f9eb42d914f8e677865c23 assets/frostrealm/models/item/bearberry
 13e824197d9c6744c4d6ecbe4124119a27a06c19 assets/frostrealm/models/item/cooked_snowpile_quail_egg.json
 d101fbe140c26ee43cfd90d3d9ef07cbb46453b0 assets/frostrealm/models/item/cooked_snowpile_quail_meat.json
 ce537e4498127631bff4fd55f6da0b26ae3925e2 assets/frostrealm/models/item/corrupted_crystal_cluster.json
+8afc140c3841b0843e2837efd8578697d12d8fcf assets/frostrealm/models/item/cryonite.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/frostrealm/models/item/crystal_fox_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/frostrealm/models/item/crystal_tortoise_spawn_egg.json
 0c7aa14fa5288a1c4f607577cc143f524156f26d assets/frostrealm/models/item/frigid_stone.json

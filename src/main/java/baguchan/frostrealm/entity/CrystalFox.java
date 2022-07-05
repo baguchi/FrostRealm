@@ -167,7 +167,7 @@ public class CrystalFox extends Animal implements IForgeShearable {
 				java.util.List<ItemStack> items = new java.util.ArrayList<>();
 				for (int j = 0; j < i; ++j) {
 
-					items.add(new ItemStack(FrostItems.FROST_CRYSTAL.get()));
+					items.add(new ItemStack(FrostItems.CRYONITE.get()));
 				}
 				return items;
 			}

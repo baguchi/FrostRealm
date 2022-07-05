@@ -24,6 +24,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 	@Override
 	protected void registerModels() {
 		this.singleTex(FrostItems.FROST_CRYSTAL);
+		this.singleTex(FrostItems.CRYONITE);
 		this.singleTex(FrostItems.WARPED_CRYSTAL);
 		this.singleTex(FrostItems.GLIMMERROCK);
 		this.singleTex(FrostItems.ASTRIUM_RAW);
