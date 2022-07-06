@@ -19,5 +19,6 @@ public class DataGenerators {
 		event.getGenerator().addProvider(event.includeServer(), new FluidTagGenerator(event.getGenerator(), event.getExistingFileHelper()));
 		event.getGenerator().addProvider(event.includeServer(), new LootGenerator(event.getGenerator()));
 		event.getGenerator().addProvider(event.includeServer(), new CraftingGenerator(event.getGenerator()));
+		event.getGenerator().addProvider(event.includeServer(), new FrostAdvancementData(event.getGenerator(), event.getExistingFileHelper()));
 	}
 }
