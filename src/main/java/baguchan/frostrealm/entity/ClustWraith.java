@@ -2,7 +2,6 @@ package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.entity.projectile.WarpedCrystalShard;
-import baguchan.frostrealm.registry.FrostWeathers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -64,10 +63,7 @@ public class ClustWraith extends FrostWraith implements RangedAttackMob {
 		if (p_27580_ == MobSpawnType.SPAWNER) {
 			return Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
 		}
-		if (capability != null && capability.isWeatherActive() && capability.getFrostWeather() == FrostWeathers.PURPLE_FOG.get()) {
-			return Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
-		}
-		return false;
+		return Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
 	}
 
 	static class AttackGoal extends Goal {
