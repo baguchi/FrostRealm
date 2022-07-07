@@ -3,16 +3,18 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.1.5
 // Paste this class into your mod and generate all required imports
 
 
+import baguchan.frostrealm.client.animation.CrystalFoxAnimations;
 import baguchan.frostrealm.entity.CrystalFox;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
+import com.mojang.math.Vector3f;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
-public class CrystalFoxModel<T extends CrystalFox> extends EntityModel<T> {
+public class CrystalFoxModel<T extends CrystalFox> extends HierarchicalModel<T> {
+	private static final Vector3f ANIMATION_VECTOR_CACHE = new Vector3f();
+
 	private final ModelPart main;
 	private final ModelPart body;
 	private final ModelPart head;
@@ -77,10 +79,11 @@ public class CrystalFoxModel<T extends CrystalFox> extends EntityModel<T> {
 		this.leg_left_hind.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 		this.leg_right_front.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 		this.leg_left_front.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.animate(entity.eatAnimationState, CrystalFoxAnimations.CRYSTAL_FOX_EATING, ageInTicks);
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		main.render(poseStack, buffer, packedLight, packedOverlay);
+	public ModelPart root() {
+		return this.main;
 	}
 }

@@ -67,6 +67,7 @@ public class CrystalFox extends Animal implements IForgeShearable {
 
 	public static final Ingredient FOOD_ITEMS = Ingredient.of(FrostItems.BEARBERRY.get().asItem());
 
+	public final AnimationState eatAnimationState = new AnimationState();
 
 	public CrystalFox(EntityType<? extends Animal> p_27557_, Level p_27558_) {
 		super(p_27557_, p_27558_);
@@ -147,11 +148,6 @@ public class CrystalFox extends Animal implements IForgeShearable {
 	@Override
 	public boolean isFood(ItemStack p_27600_) {
 		return FOOD_ITEMS.test(p_27600_);
-	}
-
-	@Override
-	public void tick() {
-		super.tick();
 	}
 
 	@javax.annotation.Nonnull
@@ -245,6 +241,7 @@ public class CrystalFox extends Animal implements IForgeShearable {
 					this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
 				}
 
+				this.level.broadcastEntityEvent(this, (byte) 5);
 				this.playSound(SoundEvents.FOX_EAT, 1.0F, 1.0F);
 				this.heal(item.getFoodProperties() != null ? (float) item.getFoodProperties().getNutrition() : 1);
 				this.gameEvent(GameEvent.ENTITY_INTERACT, this);
@@ -283,7 +280,9 @@ public class CrystalFox extends Animal implements IForgeShearable {
 	}
 
 	public void handleEntityEvent(byte p_21807_) {
-		if (p_21807_ == 7) {
+		if (p_21807_ == 5) {
+			this.eatAnimationState.start(this.tickCount);
+		} else if (p_21807_ == 7) {
 			this.spawnTamingParticles(true);
 		} else if (p_21807_ == 6) {
 			this.spawnTamingParticles(false);
@@ -389,6 +388,8 @@ public class CrystalFox extends Animal implements IForgeShearable {
 			if (j > 0) {
 				Block.popResource(CrystalFox.this.level, this.blockPos, new ItemStack(FrostItems.BEARBERRY.get(), j));
 			}
+
+			CrystalFox.this.level.broadcastEntityEvent(CrystalFox.this, (byte) 5);
 
 			CrystalFox.this.playSound(SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, 1.0F, 1.0F);
 			CrystalFox.this.level.setBlock(this.blockPos, p_148929_.setValue(BearBerryBushBlock.AGE, Integer.valueOf(1)), 2);
