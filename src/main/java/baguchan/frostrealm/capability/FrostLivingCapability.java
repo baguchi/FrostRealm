@@ -20,6 +20,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
@@ -138,27 +139,36 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 					}
 				});
 			}
+			Biome biome = entity.level.getBiome(entity.blockPosition()).value();
 
-			if (this.hotSource == null) {
-				addExhaustion(tempAffect * 0.002F);
-				if (this.exhaustionLevel > 4.0F) {
-					this.exhaustionLevel -= 4.0F;
-					if (this.temperatureSaturation > 0.0F) {
-						this.temperatureSaturation = Math.max(this.temperatureSaturation - 0.1F, 0.0F);
-					} else if (difficulty != Difficulty.PEACEFUL) {
-						this.temperature = Math.max(this.temperature - 1, 0);
+			if (biome.getModifiedClimateSettings().temperature() < 1.0F) {
+				if (this.hotSource == null) {
+					addExhaustion(tempAffect * 0.002F);
+					if (this.exhaustionLevel > 4.0F) {
+						this.exhaustionLevel -= 4.0F;
+						if (this.temperatureSaturation > 0.0F) {
+							this.temperatureSaturation = Math.max(this.temperatureSaturation - 0.1F, 0.0F);
+						} else if (difficulty != Difficulty.PEACEFUL) {
+							this.temperature = Math.max(this.temperature - 1, 0);
+						}
 					}
 				}
-			}
-			if (entity.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)) {
-				this.temperature = Math.max(this.temperature - 1, 0);
-				this.temperatureSaturation = 0.0F;
-				entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 8, 0, 200));
-			} else if (this.temperature <= 0) {
-				entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 8, 0, 200));
-				this.tickTimer = 0;
+				if (entity.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)) {
+					this.temperature = Math.max(this.temperature - 1, 0);
+					this.temperatureSaturation = 0.0F;
+					entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 8, 0, 200));
+				} else if (this.temperature <= 0) {
+					entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 8, 0, 200));
+					this.tickTimer = 0;
+				} else {
+					this.tickTimer = 0;
+				}
 			} else {
-				this.tickTimer = 0;
+				if (entity.tickCount % 80 == 0) {
+					this.temperatureSaturation = Math.min(this.temperatureSaturation + 0.05F, 1.0F);
+					this.temperature = Math.min(this.temperature + 1, 20);
+				}
+				this.exhaustionLevel = 0.0F;
 			}
 		} else {
 			if (entity.tickCount % 20 == 0) {

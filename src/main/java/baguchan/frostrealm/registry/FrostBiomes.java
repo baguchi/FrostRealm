@@ -40,6 +40,7 @@ public class FrostBiomes {
 	public static final ResourceKey<Biome> CRYSTAL_FALL = register("crystal_fall");
 
 	public static final ResourceKey<Biome> ICE_CAVE = register("ice_cave");
+	public static final ResourceKey<Biome> DEEP_UNDERGROUND = register("deep_underground");
 
 	private static ResourceKey<Biome> register(String p_48229_) {
 		BIOMES.register(p_48229_, OverworldBiomes::theVoid);

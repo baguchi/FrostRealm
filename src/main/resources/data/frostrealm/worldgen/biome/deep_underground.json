@@ -1,0 +1,88 @@
+{
+  "carvers": {
+    "air": [
+      "frostrealm:frostrealm_cave",
+      "frostrealm:frostrealm_cave_extra_underground",
+      "frostrealm:frostrealm_canyon"
+    ]
+  },
+  "features": [
+    [],
+    [
+      "minecraft:lake_lava_underground"
+    ],
+    [],
+    [],
+    [
+      "frostrealm:delta"
+    ],
+    [],
+    [
+      "frostrealm:frost_crystal_ore_lower",
+      "frostrealm:frost_crystal_ore_upper",
+      "frostrealm:glimmer_ore_lower",
+      "frostrealm:glimmer_ore_small",
+      "frostrealm:glimmer_ore_extra",
+      "frostrealm:astrium_ore_lower",
+      "frostrealm:astrium_ore_upper"
+    ],
+    [],
+    [
+      "frostrealm:spring_lava",
+      "frostrealm:spring_lava_hotrock_extra"
+    ],
+    [],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "spawners": {
+    "monster": [
+      {
+        "type": "frostrealm:gokkur",
+        "weight": 40,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
+        "type": "frostrealm:gokkudillo",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ],
+    "creature": [],
+    "ambient": [],
+    "axolotls": [],
+    "underground_water_creature": [],
+    "water_creature": [],
+    "water_ambient": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "forge:registry_name": "frostrealm:deep_underground",
+  "precipitation": "snow",
+  "temperature": 1.2,
+  "downfall": 0.2,
+  "category": "underground",
+  "effects": {
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2.0
+    },
+    "music": {
+      "sound": "frostrealm:music.calm_night",
+      "min_delay": 12000,
+      "max_delay": 24000,
+      "replace_current_music": false
+    },
+    "sky_color": 7907327,
+    "foliage_color": 7115607,
+    "grass_color": 7115607,
+    "fog_color": 4630224,
+    "water_color": 5337276,
+    "water_fog_color": 329011
+  }
+}
