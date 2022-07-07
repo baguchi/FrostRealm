@@ -246,12 +246,12 @@ public class FrostrealmBiomeBuilder {
 	}
 
 	private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_187227_) {
-		this.addUndergroundBiome(p_187227_, Climate.Parameter.span(-1.0F, 0.0F), Climate.Parameter.span(-1.0F, -0.25F), Climate.Parameter.span(0.25F, 1.0F), this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.ICE_CAVE);
 		this.addBottomBiome(p_187227_, this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.DEEP_UNDERGROUND);
+		this.addMiddleUndergroundBiome(p_187227_, Climate.Parameter.span(-1.0F, 0.0F), Climate.Parameter.span(-1.0F, -0.25F), this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.ICE_CAVE);
 	}
 
 	private void addBottomBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_220669_, Climate.Parameter p_220670_, Climate.Parameter p_220671_, Climate.Parameter p_220672_, Climate.Parameter p_220673_, Climate.Parameter p_220674_, float p_220675_, ResourceKey<Biome> p_220676_) {
-		p_220669_.accept(Pair.of(Climate.parameters(p_220670_, p_220671_, p_220672_, p_220673_, Climate.Parameter.point(1.1F), p_220674_, p_220675_), p_220676_));
+		p_220669_.accept(Pair.of(Climate.parameters(p_220670_, p_220671_, p_220672_, p_220673_, Climate.Parameter.point(1.0F), p_220674_, p_220675_), p_220676_));
 	}
 
 	private ResourceKey<Biome> pickMiddleBiome(int p_187164_, int p_187165_, Climate.Parameter p_187166_) {
@@ -317,5 +317,9 @@ public class FrostrealmBiomeBuilder {
 
 	private void addUndergroundBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_187201_, Climate.Parameter p_187202_, Climate.Parameter p_187203_, Climate.Parameter p_187204_, Climate.Parameter p_187205_, Climate.Parameter p_187206_, float p_187207_, ResourceKey<Biome> p_187208_) {
 		p_187201_.accept(Pair.of(Climate.parameters(p_187202_, p_187203_, p_187204_, p_187205_, Climate.Parameter.span(0.2F, 0.9F), p_187206_, p_187207_), p_187208_));
+	}
+
+	private void addMiddleUndergroundBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_187201_, Climate.Parameter p_187202_, Climate.Parameter p_187203_, Climate.Parameter p_187204_, Climate.Parameter p_187205_, Climate.Parameter p_187206_, float p_187207_, ResourceKey<Biome> p_187208_) {
+		p_187201_.accept(Pair.of(Climate.parameters(p_187202_, p_187203_, p_187204_, p_187205_, Climate.Parameter.span(0.2F, 0.8F), p_187206_, p_187207_), p_187208_));
 	}
 }

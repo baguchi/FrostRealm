@@ -29,7 +29,7 @@ public class FrostDimensionSettings {
 
 	public static final ResourceLocation EFFECTS = new ResourceLocation(FrostRealm.MODID, "renderer");
 
-	static final NoiseSettings FROST_NOISE_SETTINGS = create(-64, 384, 1, 2);
+	static final NoiseSettings FROST_NOISE_SETTINGS = create(-80, 384, 1, 2);
 
 	public static NoiseGeneratorSettings frostrealm() {
 		return new NoiseGeneratorSettings(FROST_NOISE_SETTINGS, FrostBlocks.FRIGID_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), FrostNoiseRouterData.frostrealm(BuiltinRegistries.DENSITY_FUNCTION, false, false), FrostSurfaceRuleData.frostrealm(), (new FrostrealmBiomeBuilder()).spawnTarget(), 64, false, true, false, false);
@@ -45,9 +45,9 @@ public class FrostDimensionSettings {
 				1.0D, //coordinate scale
 				true, //bed works
 				false, //respawn anchor works
-				-64,
-				384,
-				384, // Logical Height
+				-80,
+				400,
+				400, // Logical Height
 				BlockTags.INFINIBURN_OVERWORLD, //infiburn
 				FrostRealm.prefix("renderer"), // DimensionRenderInfo
 				0f, // Wish this could be set to -0.05 since it'll make the world truly blacked out if an area is not sky-lit (see: Dark Forests) Sadly this also messes up night vision so it gets 0
