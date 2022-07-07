@@ -18,7 +18,7 @@ public class LootEvents {
 	@SubscribeEvent
 	public static void onInjectLoot(LootTableLoadEvent event) {
 		if (STRAY_LOOT.contains(event.getName())) {
-			LootPool pool = LootPool.lootPool().add(LootTableReference.lootTableReference(new ResourceLocation(FrostRealm.MODID, "injections/stray_injections")).setWeight(1).setQuality(1)).name("tofustick_temple").build();
+			LootPool pool = LootPool.lootPool().add(LootTableReference.lootTableReference(new ResourceLocation(FrostRealm.MODID, "injections/stray_injections")).setWeight(1)).name("stray_injection").build();
 			event.getTable().addPool(pool);
 		}
 	}
