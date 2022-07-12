@@ -31,7 +31,7 @@ public class WarpedCrystalRenderer<T extends WarpedCrystalShard> extends EntityR
 		stackIn.mulPose(Vector3f.YP.rotationDegrees(-Mth.lerp(partialTicks, entityIn.yRotO, entityIn.getYRot())));
 		stackIn.mulPose(Vector3f.XP.rotationDegrees(90.0F));
 		stackIn.mulPose(Vector3f.XP.rotationDegrees(Mth.lerp(partialTicks, entityIn.xRotO, entityIn.getXRot())));
-		stackIn.mulPose(Vector3f.ZP.rotationDegrees(45.0F + 180.0F));
+		stackIn.mulPose(Vector3f.ZP.rotationDegrees(45.0F));
 		stackIn.translate(0.0F, 0.0F, -entityIn.getBbHeight() / 2);
 
 		BakedModel bakedmodel = this.itemRenderer.getModel(entityIn.getItem(), entityIn.level, (LivingEntity) null, entityIn.getId());
