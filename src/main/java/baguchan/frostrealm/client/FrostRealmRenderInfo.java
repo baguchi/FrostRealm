@@ -80,7 +80,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 			renderAurora(poseStack, frostWeatherCapability, partialTick, Minecraft.getInstance());
 		});
 
-		return super.renderSky(level, ticks, partialTick, poseStack, camera, projectionMatrix, isFoggy, setupFog);
+		return true;
 	}
 
 	private void renderAurora(PoseStack p_109781_, @NotNull FrostWeatherCapability frostWeatherCapability, float partialTick, Minecraft minecraft) {
@@ -116,7 +116,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 	@Override
 	public boolean renderClouds(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, double camX, double camY, double camZ, Matrix4f projectionMatrix) {
-		return super.renderClouds(level, ticks, partialTick, poseStack, camX, camY, camZ, projectionMatrix);
+		return true;
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 			}
 		});
 
-		return false;
+		return true;
 	}
 
 	private void renderBrizzardWeather(FrostWeatherCapability cap, LightTexture lightmap, ClientLevel world, Minecraft mc, float ticks, double x, double y, double z) {
@@ -222,33 +222,41 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 			RenderSystem.disableBlend();
 			lightmap.turnOffLightLayer();
 		}
+	}
 
-		float f2 = cap.getWeatherLevel(1.0F) / (Minecraft.useFancyGraphics() ? 1.0F : 2.0F);
-		if (!(f2 <= 0.0F)) {
-			Random random = new Random((long) ticks * 312987231L);
-			LevelReader levelreader = mc.level;
-			BlockPos blockpos = new BlockPos(x, y, z);
-			BlockPos blockpos1 = null;
-			int i = (int) (100.0F * f2 * f2) / (mc.options.particles().get() == ParticleStatus.DECREASED ? 2 : 1);
+	@Override
+	public boolean tickRain(ClientLevel level, int ticks, Camera camera) {
+		level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+			if (cap.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
+				float f2 = cap.getWeatherLevel(1.0F) / (Minecraft.useFancyGraphics() ? 1.0F : 2.0F);
+				if (!(f2 <= 0.0F)) {
+					Random random = new Random((long) ticks * 312987231L);
+					LevelReader levelreader = level;
+					BlockPos blockpos = new BlockPos(camera.getBlockPosition());
+					BlockPos blockpos1 = null;
+					int i = (int) (100.0F * f2 * f2) / (Minecraft.getInstance().options.particles().get() == ParticleStatus.DECREASED ? 2 : 1);
 
-			for (int j = 0; j < i; ++j) {
-				int k = random.nextInt(21) - 10;
-				int l = random.nextInt(21) - 10;
-				BlockPos blockpos2 = levelreader.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos.offset(k, 0, l));
-				if (blockpos2.getY() > levelreader.getMinBuildHeight() && blockpos2.getY() <= blockpos.getY() + 10 && blockpos2.getY() >= blockpos.getY() - 10) {
-					blockpos1 = blockpos2.below();
+					for (int j = 0; j < i; ++j) {
+						int k = random.nextInt(21) - 10;
+						int l = random.nextInt(21) - 10;
+						BlockPos blockpos2 = levelreader.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos.offset(k, 0, l));
+						if (blockpos2.getY() > levelreader.getMinBuildHeight() && blockpos2.getY() <= blockpos.getY() + 10 && blockpos2.getY() >= blockpos.getY() - 10) {
+							blockpos1 = blockpos2.below();
+						}
+					}
+
+					if (blockpos1 != null && random.nextInt(5) + 5 < this.rainSoundTime++) {
+						this.rainSoundTime = 0;
+						if (blockpos1.getY() > blockpos.getY() + 1 && levelreader.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos).getY() > Mth.floor((float) blockpos.getY())) {
+							level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT.get(), SoundSource.WEATHER, 0.5F, 0.5F, false);
+						} else {
+							level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT.get(), SoundSource.WEATHER, 2.0F, 1.0F, false);
+						}
+					}
 				}
 			}
+		});
 
-			if (blockpos1 != null && random.nextInt(5) + 5 < this.rainSoundTime++) {
-				this.rainSoundTime = 0;
-				if (blockpos1.getY() > blockpos.getY() + 1 && levelreader.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos).getY() > Mth.floor((float) blockpos.getY())) {
-					mc.level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT.get(), SoundSource.WEATHER, 0.5F, 0.5F, false);
-				} else {
-					mc.level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT.get(), SoundSource.WEATHER, 2.0F, 1.0F, false);
-				}
-			}
-
-		}
+		return true;
 	}
 }

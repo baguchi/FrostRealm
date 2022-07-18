@@ -45,6 +45,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -136,8 +137,13 @@ public class ClientRegistrar {
 		FrostShaders.init(busMod);
 		renderTileEntity();
 		renderBlockColor();
+
+	}
+
+	@SubscribeEvent
+	public static void registerDimensionEffect(RegisterDimensionSpecialEffectsEvent event) {
 		FrostRealmRenderInfo renderInfo = new FrostRealmRenderInfo(192.0F, true, DimensionSpecialEffects.SkyType.NORMAL, false, false);
-		DimensionSpecialEffects.EFFECTS.put(FrostRealm.prefix("renderer"), renderInfo);
+		event.register(FrostRealm.prefix("renderer"), renderInfo);
 	}
 
 	@SubscribeEvent

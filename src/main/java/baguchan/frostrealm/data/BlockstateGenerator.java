@@ -118,7 +118,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 	}
 
 	public void crossTintBlock(Block block) {
-		ModelFile tint = models().singleTexture(name(block), mcLoc("block/tinted_cross"), "cross", texture(name(block)));
+		ModelFile tint = models().singleTexture(name(block), mcLoc("block/tinted_cross"), "cross", texture(name(block))).renderType("minecraft:cutout");
 
 
 		crossBlock(block, tint);

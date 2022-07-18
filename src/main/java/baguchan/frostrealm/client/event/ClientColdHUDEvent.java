@@ -20,6 +20,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.Random;
@@ -75,11 +76,12 @@ public class ClientColdHUDEvent {
 		Entity entity = mc.getCameraEntity();
 		int screenWidth = mc.getWindow().getGuiScaledWidth();
 		int screenHeight = mc.getWindow().getGuiScaledHeight() - ((ForgeGui) mc.gui).rightHeight;
-		this.random.setSeed((this.tickCount * 312871));
-		stack.pushPose();
-		RenderSystem.enableBlend();
-		entity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
-			RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		if (event.getOverlay() == VanillaGuiOverlay.PLAYER_HEALTH.type()) {
+			this.random.setSeed((this.tickCount * 312871));
+			stack.pushPose();
+			RenderSystem.enableBlend();
+			entity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
+				RenderSystem.setShader(GameRenderer::getPositionTexShader);
 				RenderSystem.setShaderTexture(0, GUI_ICONS_LOCATION);
 				int l = cap.getTemperatureLevel();
 				int j1 = screenWidth / 2 + 91;
@@ -100,17 +102,18 @@ public class ClientColdHUDEvent {
 						mc.gui.blit(stack, k8, i7, k7 + 45, 27, 9, 9);
 					}
 				}
-		});
-		RenderSystem.disableBlend();
-		((ForgeGui) mc.gui).rightHeight += 10;
-		stack.popPose();
-		this.tickCount++;
+			});
+			RenderSystem.disableBlend();
+			((ForgeGui) mc.gui).rightHeight += 10;
+			stack.popPose();
+			this.tickCount++;
+		}
 
-
-		Entity entity2 = mc.getCameraEntity();
-		stack.pushPose();
-		renderPortalOverlay(event, mc, mc.getWindow(), entity2);
-		stack.popPose();
-
+		if (event.getOverlay() == VanillaGuiOverlay.PORTAL.type()) {
+			Entity entity2 = mc.getCameraEntity();
+			stack.pushPose();
+			renderPortalOverlay(event, mc, mc.getWindow(), entity2);
+			stack.popPose();
+		}
 	}
 }
