@@ -7,14 +7,14 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientFogEvent {
 
 	@SubscribeEvent
-	public void setFog(EntityViewRenderEvent.RenderFogEvent event) {
+	public void setFog(ViewportEvent.RenderFog event) {
 		Entity entity = event.getCamera().getEntity();
 		if (entity != null && entity.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 			entity.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
@@ -33,7 +33,7 @@ public class ClientFogEvent {
 	}
 
 	@SubscribeEvent
-	public void setFogColor(EntityViewRenderEvent.FogColors event) {
+	public void setFogColor(ViewportEvent.ComputeFogColor event) {
 		Entity entity = event.getCamera().getEntity();
 		if (entity != null && entity.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 			entity.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {

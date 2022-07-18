@@ -34,7 +34,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
@@ -60,16 +60,16 @@ public class CommonEvents {
 	}
 
 	@SubscribeEvent
-	public static void onWorldUpdate(TickEvent.WorldTickEvent event) {
-		event.world.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(frostWeatherCapability -> {
-			frostWeatherCapability.tick(event.world);
+	public static void onLevelUpdate(TickEvent.LevelTickEvent event) {
+		event.level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(frostWeatherCapability -> {
+			frostWeatherCapability.tick(event.level);
 		});
 	}
 
 	@SubscribeEvent
 	public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
-		if (event.getPlayer() != null && event.getPlayer().level instanceof ServerLevel) {
-			ServerLevel world = (ServerLevel) event.getPlayer().level;
+		if (event.getEntity() != null && event.getEntity().level instanceof ServerLevel) {
+			ServerLevel world = (ServerLevel) event.getEntity().level;
 			MinecraftServer server = world.getServer();
 			//sync weather
 			for (ServerLevel serverworld : server.getAllLevels()) {
@@ -90,8 +90,8 @@ public class CommonEvents {
 
 	@SubscribeEvent
 	public static void onDimensionChangeEvent(PlayerEvent.PlayerChangedDimensionEvent event) {
-		if (event.getPlayer() != null && event.getPlayer().level instanceof ServerLevel) {
-			ServerLevel world = (ServerLevel) event.getPlayer().level;
+		if (event.getEntity() != null && event.getEntity().level instanceof ServerLevel) {
+			ServerLevel world = (ServerLevel) event.getEntity().level;
 			MinecraftServer server = world.getServer();
 			//sync weather
 			for (ServerLevel serverworld : server.getAllLevels()) {
@@ -111,8 +111,8 @@ public class CommonEvents {
 	}
 
 	@SubscribeEvent
-	public static void onUpdate(LivingEvent.LivingUpdateEvent event) {
-		LivingEntity livingEntity = event.getEntityLiving();
+	public static void onUpdate(LivingEvent.LivingTickEvent event) {
+		LivingEntity livingEntity = event.getEntity();
 		livingEntity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(livingCapability -> {
 			livingCapability.tick(livingEntity);
 		});
@@ -123,13 +123,13 @@ public class CommonEvents {
 		ItemStack stack = event.getItemStack();
 
 		if (stack.getItem() instanceof HoeItem) {
-			if (event.getWorld().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_DIRT.get() || event.getWorld().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_GRASS_BLOCK.get()) {
-				event.getWorld().setBlock(event.getPos(), FrostBlocks.FROZEN_FARMLAND.get().defaultBlockState(), 2);
-				event.getPlayer().swing(event.getHand());
-				stack.hurtAndBreak(1, event.getPlayer(), (p_147232_) -> {
+			if (event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_DIRT.get() || event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_GRASS_BLOCK.get()) {
+				event.getLevel().setBlock(event.getPos(), FrostBlocks.FROZEN_FARMLAND.get().defaultBlockState(), 2);
+				event.getEntity().swing(event.getHand());
+				stack.hurtAndBreak(1, event.getEntity(), (p_147232_) -> {
 					p_147232_.broadcastBreakEvent(event.getHand());
 				});
-				event.getWorld().playSound(event.getPlayer(), event.getPos(), SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+				event.getLevel().playSound(event.getEntity(), event.getPos(), SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
 			}
 		}
 	}

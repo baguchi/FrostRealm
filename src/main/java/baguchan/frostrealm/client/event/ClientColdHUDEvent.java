@@ -4,7 +4,11 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
@@ -14,8 +18,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.Random;
@@ -28,7 +32,7 @@ public class ClientColdHUDEvent {
 
 	public static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation(FrostRealm.MODID, "textures/gui/icons.png");
 
-	public static void renderPortalOverlay(RenderGameOverlayEvent.Post event, Minecraft mc, Window window, Entity livingEntity) {
+	public static void renderPortalOverlay(RenderGuiOverlayEvent.Post event, Minecraft mc, Window window, Entity livingEntity) {
 		livingEntity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
 			float timeInPortal = Mth.lerp(event.getPartialTick(), cap.getPrevPortalAnimTime(), cap.getPortalAnimTime());
 
@@ -65,18 +69,17 @@ public class ClientColdHUDEvent {
 	}
 
 	@SubscribeEvent
-	public void renderHudEvent(RenderGameOverlayEvent.Post event) {
+	public void renderHudEvent(RenderGuiOverlayEvent.Post event) {
 		PoseStack stack = event.getPoseStack();
 		Minecraft mc = Minecraft.getInstance();
-		if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-			Entity entity = mc.getCameraEntity();
-			int screenWidth = mc.getWindow().getGuiScaledWidth();
-			int screenHeight = mc.getWindow().getGuiScaledHeight() - ((ForgeIngameGui) mc.gui).right_height;
-			this.random.setSeed((this.tickCount * 312871));
-			stack.pushPose();
-			RenderSystem.enableBlend();
-			entity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
-				RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		Entity entity = mc.getCameraEntity();
+		int screenWidth = mc.getWindow().getGuiScaledWidth();
+		int screenHeight = mc.getWindow().getGuiScaledHeight() - ((ForgeGui) mc.gui).rightHeight;
+		this.random.setSeed((this.tickCount * 312871));
+		stack.pushPose();
+		RenderSystem.enableBlend();
+		entity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
+			RenderSystem.setShader(GameRenderer::getPositionTexShader);
 				RenderSystem.setShaderTexture(0, GUI_ICONS_LOCATION);
 				int l = cap.getTemperatureLevel();
 				int j1 = screenWidth / 2 + 91;
@@ -85,26 +88,29 @@ public class ClientColdHUDEvent {
 					int i7 = k1;
 					int k7 = 16;
 					int i8 = 0;
-					if (cap.getSaturationLevel() <= 0.0F && this.tickCount % (l * 3 + 1) == 0)
+					if (cap.getSaturationLevel() <= 0.0F && this.tickCount % (l * 3 + 1) == 0) {
 						i7 = k1 + this.random.nextInt(3) - 1;
+					}
 					int k8 = j1 - k6 * 8 - 9;
 					mc.gui.blit(stack, k8, i7, 16 + i8 * 9, 27, 9, 9);
-					if (k6 * 2 + 1 < l)
+					if (k6 * 2 + 1 < l) {
 						mc.gui.blit(stack, k8, i7, k7 + 36, 27, 9, 9);
-					if (k6 * 2 + 1 == l)
+					}
+					if (k6 * 2 + 1 == l) {
 						mc.gui.blit(stack, k8, i7, k7 + 45, 27, 9, 9);
+					}
 				}
-			});
-			RenderSystem.disableBlend();
-			((ForgeIngameGui) mc.gui).right_height += 10;
-			stack.popPose();
-			this.tickCount++;
-		}
-		if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-			Entity entity = mc.getCameraEntity();
-			stack.pushPose();
-			renderPortalOverlay(event, mc, mc.getWindow(), entity);
-			stack.popPose();
-		}
+		});
+		RenderSystem.disableBlend();
+		((ForgeGui) mc.gui).rightHeight += 10;
+		stack.popPose();
+		this.tickCount++;
+
+
+		Entity entity2 = mc.getCameraEntity();
+		stack.pushPose();
+		renderPortalOverlay(event, mc, mc.getWindow(), entity2);
+		stack.popPose();
+
 	}
 }

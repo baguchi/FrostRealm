@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/pointed_dripstone",
+  "render_type": "cutout",
   "textures": {
     "cross": "frostrealm:block/pointed_ice_down_base"
   }

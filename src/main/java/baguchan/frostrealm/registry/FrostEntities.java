@@ -1,7 +1,17 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.entity.*;
+import baguchan.frostrealm.entity.ClustWraith;
+import baguchan.frostrealm.entity.CrystalFox;
+import baguchan.frostrealm.entity.CrystalTortoise;
+import baguchan.frostrealm.entity.FrostBeaster;
+import baguchan.frostrealm.entity.FrostWolf;
+import baguchan.frostrealm.entity.FrostWraith;
+import baguchan.frostrealm.entity.Gokkudillo;
+import baguchan.frostrealm.entity.Gokkur;
+import baguchan.frostrealm.entity.Marmot;
+import baguchan.frostrealm.entity.SnowPileQuail;
+import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.projectile.WarpedCrystalShard;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -18,7 +28,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class FrostEntities {
-	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, FrostRealm.MODID);
+	public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, FrostRealm.MODID);
 
 
 	public static final RegistryObject<EntityType<CrystalTortoise>> CRYSTAL_TORTOISE = ENTITIES.register("crystal_tortoise", () -> EntityType.Builder.of(CrystalTortoise::new, MobCategory.CREATURE).sized(0.85F, 0.85F).build(prefix("crystal_tortoise")));

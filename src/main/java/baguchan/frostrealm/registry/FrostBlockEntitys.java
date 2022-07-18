@@ -12,7 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class FrostBlockEntitys {
-	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, FrostRealm.MODID);
+	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, FrostRealm.MODID);
 
 	public static final RegistryObject<BlockEntityType<FrostChestBlockEntity>> FROST_CHEST = BLOCK_ENTITIES.register("frost_chest", () -> register("frostrealm:frost_chest", BlockEntityType.Builder.of(FrostChestBlockEntity::new, FrostBlocks.FROSTROOT_CHEST.get())));
 

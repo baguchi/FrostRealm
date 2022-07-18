@@ -1,7 +1,21 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.block.*;
+import baguchan.frostrealm.block.BearBerryBushBlock;
+import baguchan.frostrealm.block.ColdTallGrassBlock;
+import baguchan.frostrealm.block.FrigidStoveBlock;
+import baguchan.frostrealm.block.FrostChestBlock;
+import baguchan.frostrealm.block.FrostGrassBlock;
+import baguchan.frostrealm.block.FrostPortalBlock;
+import baguchan.frostrealm.block.FrostTorchBlock;
+import baguchan.frostrealm.block.FrozenFarmBlock;
+import baguchan.frostrealm.block.HotAirBlock;
+import baguchan.frostrealm.block.PointedIceBlock;
+import baguchan.frostrealm.block.SnowPileQuailEggBlock;
+import baguchan.frostrealm.block.StarDustCrystalBlock;
+import baguchan.frostrealm.block.SugarBeetBlock;
+import baguchan.frostrealm.block.VigoroMushroomBlock;
+import baguchan.frostrealm.block.WallFrostTorchBlock;
 import baguchan.frostrealm.blockentity.FrostChestBlockEntity;
 import baguchan.frostrealm.world.tree.FrostrootTree;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -11,12 +25,30 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DoubleHighBlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.DropExperienceBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.FireBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -149,12 +181,13 @@ public class FrostBlocks {
 			if (Objects.requireNonNull(block.get()) == FROSTROOT_CHEST.get()) {
 				return new BlockItem(FROSTROOT_CHEST.get(), (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)) {
 					@Override
-					public void initializeClient(@Nonnull Consumer<IItemRenderProperties> consumer) {
-						consumer.accept(new IItemRenderProperties() {
+					public void initializeClient(@Nonnull Consumer<IClientItemExtensions> consumer) {
+						consumer.accept(new IClientItemExtensions() {
 							BlockEntityWithoutLevelRenderer myRenderer;
 
+
 							@Override
-							public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
+							public BlockEntityWithoutLevelRenderer getCustomRenderer() {
 								if (Minecraft.getInstance().getEntityRenderDispatcher() != null && myRenderer == null) {
 									myRenderer = new BlockEntityWithoutLevelRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()) {
 										private FrostChestBlockEntity blockEntity;

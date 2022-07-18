@@ -3,8 +3,30 @@ package baguchan.frostrealm.client;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.event.ClientColdHUDEvent;
 import baguchan.frostrealm.client.event.ClientFogEvent;
-import baguchan.frostrealm.client.model.*;
-import baguchan.frostrealm.client.render.*;
+import baguchan.frostrealm.client.model.ClustWraithModel;
+import baguchan.frostrealm.client.model.CrystalFoxModel;
+import baguchan.frostrealm.client.model.CrystalTortoiseModel;
+import baguchan.frostrealm.client.model.FrostWolfModel;
+import baguchan.frostrealm.client.model.FrostWraithModel;
+import baguchan.frostrealm.client.model.GokkudilloModel;
+import baguchan.frostrealm.client.model.GokkurModel;
+import baguchan.frostrealm.client.model.MarmotModel;
+import baguchan.frostrealm.client.model.SnowPileQuailModel;
+import baguchan.frostrealm.client.model.WolfesterModel;
+import baguchan.frostrealm.client.model.YetiFurArmorModel;
+import baguchan.frostrealm.client.model.YetiModel;
+import baguchan.frostrealm.client.render.ClustWraithRenderer;
+import baguchan.frostrealm.client.render.CrystalFoxRenderer;
+import baguchan.frostrealm.client.render.CrystalTortoiseRenderer;
+import baguchan.frostrealm.client.render.FrostBeasterRenderer;
+import baguchan.frostrealm.client.render.FrostWolfRenderer;
+import baguchan.frostrealm.client.render.FrostWraithRenderer;
+import baguchan.frostrealm.client.render.GokkudilloRenderer;
+import baguchan.frostrealm.client.render.GokkurRenderer;
+import baguchan.frostrealm.client.render.MarmotRenderer;
+import baguchan.frostrealm.client.render.SnowPileQuailRenderer;
+import baguchan.frostrealm.client.render.WarpedCrystalRenderer;
+import baguchan.frostrealm.client.render.YetiRenderer;
 import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
 import baguchan.frostrealm.registry.FrostBlockEntitys;
 import baguchan.frostrealm.registry.FrostBlocks;
@@ -13,11 +35,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.GrassColor;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -104,39 +127,6 @@ public class ClientRegistrar {
 
 	}
 
-	public static void renderBlockLayer() {
-		setRenderLayer(FrostBlocks.FROST_PORTAL.get(), RenderType.translucent());
-
-		setRenderLayer(FrostBlocks.FROZEN_GRASS_BLOCK.get(), RenderType.cutoutMipped());
-
-		setRenderLayer(FrostBlocks.POINTED_ICE.get(), RenderType.cutout());
-
-		setRenderLayer(FrostBlocks.FROSTROOT_LEAVES.get(), RenderType.cutoutMipped());
-		setRenderLayer(FrostBlocks.FROSTROOT_SAPLING.get(), RenderType.cutout());
-
-		setRenderLayer(FrostBlocks.FROSTROOT_DOOR.get(), RenderType.cutout());
-
-		setRenderLayer(FrostBlocks.VIGOROSHROOM.get(), RenderType.cutout());
-		setRenderLayer(FrostBlocks.ARCTIC_POPPY.get(), RenderType.cutout());
-		setRenderLayer(FrostBlocks.ARCTIC_WILLOW.get(), RenderType.cutout());
-		setRenderLayer(FrostBlocks.SUGARBEET.get(), RenderType.cutout());
-
-		setRenderLayer(FrostBlocks.COLD_GRASS.get(), RenderType.cutout());
-		setRenderLayer(FrostBlocks.COLD_TALL_GRASS.get(), RenderType.cutout());
-
-		setRenderLayer(FrostBlocks.BEARBERRY_BUSH.get(), RenderType.cutout());
-
-		setRenderLayer(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get(), RenderType.translucent());
-		setRenderLayer(FrostBlocks.CORRUPTED_CRYSTAL_CLUSTER.get(), RenderType.translucent());
-		setRenderLayer(FrostBlocks.WARPED_CRYSTAL_BLOCK.get(), RenderType.translucent());
-
-		setRenderLayer(FrostBlocks.FROST_TORCH.get(), RenderType.cutout());
-		setRenderLayer(FrostBlocks.WALL_FROST_TORCH.get(), RenderType.cutout());
-	}
-
-	private static void setRenderLayer(Block block, RenderType type) {
-		ItemBlockRenderTypes.setRenderLayer(block, type::equals);
-	}
 
 	public static void setup(FMLCommonSetupEvent event) {
 		MinecraftForge.EVENT_BUS.register(new ClientColdHUDEvent());
@@ -146,7 +136,6 @@ public class ClientRegistrar {
 		FrostShaders.init(busMod);
 		renderTileEntity();
 		renderBlockColor();
-		renderBlockLayer();
 		FrostRealmRenderInfo renderInfo = new FrostRealmRenderInfo(192.0F, true, DimensionSpecialEffects.SkyType.NORMAL, false, false);
 		DimensionSpecialEffects.EFFECTS.put(FrostRealm.prefix("renderer"), renderInfo);
 	}
