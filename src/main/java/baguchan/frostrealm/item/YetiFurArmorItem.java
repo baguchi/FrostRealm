@@ -2,6 +2,7 @@ package baguchan.frostrealm.item;
 
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.YetiFurArmorModel;
+import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
@@ -26,6 +27,11 @@ public class YetiFurArmorItem extends ArmorItem {
 	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
 		super.initializeClient(consumer);
 		consumer.accept(ArmorRender.INSTANCE);
+	}
+
+	@Override
+	public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
+		return stack.is(FrostItems.YETI_FUR_BOOTS.get());
 	}
 
 	private static final class ArmorRender implements IClientItemExtensions {
