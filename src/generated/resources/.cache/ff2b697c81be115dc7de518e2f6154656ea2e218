@@ -1,4 +1,4 @@
-// 1.19	2022-06-29T10:38:17.7968197	FrostRealm item and itemblock models
+// 1.19	2022-07-19T19:20:07.498996	FrostRealm item and itemblock models
 02545738e71eb4576427dc9149513e586d7df12b assets/frostrealm/models/item/arctic_poppy.json
 9745a5e2fb9617ffb4425142ac03176bac701b46 assets/frostrealm/models/item/arctic_willow.json
 bff03817e8674ca7c99f798d9f7f184c20316e80 assets/frostrealm/models/item/astrium_axe.json
@@ -29,6 +29,7 @@ ce537e4498127631bff4fd55f6da0b26ae3925e2 assets/frostrealm/models/item/corrupted
 b818053b2173dd2a0bc4ecaaf2825b26c622bb06 assets/frostrealm/models/item/frigid_stone_brick.json
 f18f44601a4c29fdeae9b67ca3fa12b5e44f1df0 assets/frostrealm/models/item/frigid_stone_brick_mossy.json
 a534b8b4ab9a0ed0cef3e1756adc20bb69b2fed1 assets/frostrealm/models/item/frigid_stone_brick_mossy_slab.json
+d7715008c19c855537d1dcdfce1dfccefede05ab assets/frostrealm/models/item/frigid_stone_brick_mossy_stairs.json
 170bb8f53568189b6dbac126494368458c67d675 assets/frostrealm/models/item/frigid_stone_brick_slab.json
 95fcdd5f3254b3380929c855b92734e52acb46c9 assets/frostrealm/models/item/frigid_stone_brick_stairs.json
 d873013d0b54ea2ad34cd1f3accca799da3f8fd0 assets/frostrealm/models/item/frigid_stone_mossy.json
@@ -37,7 +38,6 @@ f6022b56fedc99acf300f1ef11fb3c06359ffe96 assets/frostrealm/models/item/frigid_st
 c049690e536cc54da9e937e669171391d586015a assets/frostrealm/models/item/frigid_stone_slab.json
 c4adb61d9f2ce4603d30c0d1c5449210b00897f8 assets/frostrealm/models/item/frigid_stone_smooth.json
 759ade47fcb51d9a995541ae1200b92de8e6f66a assets/frostrealm/models/item/frigid_stone_stairs.json
-14f11f3daebb49b1bf80af2172788e0c7bc6b73e assets/frostrealm/models/item/frigid_ston_brick_mossy_stairs.json
 ab1dfeffd164ccb9003848a182204659ad708f21 assets/frostrealm/models/item/frigid_stove.json
 a1d4e6bd4480c60a02b75c017431cd7374f569bc assets/frostrealm/models/item/frostroot_fence.json
 593d279575067fe182920e5f16395d0e5e40f4d0 assets/frostrealm/models/item/frostroot_fence_gate.json

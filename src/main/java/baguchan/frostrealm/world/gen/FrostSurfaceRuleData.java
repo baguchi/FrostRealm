@@ -16,6 +16,9 @@ public class FrostSurfaceRuleData {
 	private static final SurfaceRules.RuleSource FROZEN_DIRT = makeStateRule(FrostBlocks.FROZEN_DIRT.get());
 	private static final SurfaceRules.RuleSource FRIGID_STONE = makeStateRule(FrostBlocks.FRIGID_STONE.get());
 
+	private static final SurfaceRules.RuleSource POWDER_SNOW = makeStateRule(Blocks.POWDER_SNOW);
+	private static final SurfaceRules.RuleSource SNOW_BLOCK = makeStateRule(Blocks.SNOW_BLOCK);
+
 	private static SurfaceRules.RuleSource makeStateRule(Block p_194811_) {
 		return SurfaceRules.state(p_194811_.defaultBlockState());
 	}
@@ -34,6 +37,12 @@ public class FrostSurfaceRuleData {
 			builder.add(SurfaceRules.ifTrue(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)), BEDROCK));
 		}
 
+		SurfaceRules.ConditionSource surfacerules$conditionsource8 = SurfaceRules.waterBlockCheck(0, 0);
+
+		SurfaceRules.RuleSource surfacerules$rulesource5 = SurfaceRules.ifTrue(SurfaceRules.noiseCondition(Noises.POWDER_SNOW, 0.35D, 0.6D), SurfaceRules.ifTrue(surfacerules$conditionsource8, POWDER_SNOW));
+		SurfaceRules.RuleSource powderSnow = SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.GLACIERS), SurfaceRules.sequence(surfacerules$rulesource5, SurfaceRules.ifTrue(surfacerules$conditionsource8, SNOW_BLOCK))));
+
+
 		SurfaceRules.RuleSource surface = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0), FROZEN_GRASS_BLOCK), FROZEN_DIRT);
 
 		SurfaceRules.RuleSource overworldLike = SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.FRIGID_FOREST, FrostBiomes.TUNDRA), SurfaceRules.sequence(
@@ -44,6 +53,7 @@ public class FrostSurfaceRuleData {
 		SurfaceRules.RuleSource surfacerules$rulesource9 = SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), overworldLike);
 
 		builder.add(surfacerules$rulesource9);
+		builder.add(powderSnow);
 
 		return SurfaceRules.sequence(builder.build().toArray((p_198379_) -> {
 			return new SurfaceRules.RuleSource[p_198379_];

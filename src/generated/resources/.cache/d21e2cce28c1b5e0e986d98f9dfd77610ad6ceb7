@@ -1,4 +1,4 @@
-// 1.19	2022-06-16T22:14:16.617797	FrostRealm loot tables
+// 1.19	2022-07-19T19:20:07.4960041	FrostRealm loot tables
 969e7c6839aee5e14ede7e72ae25754ac34e29f1 data/frostrealm/loot_tables/blocks/arctic_poppy.json
 25126cca85b114ab2c519bd1ee15a60367cf8889 data/frostrealm/loot_tables/blocks/arctic_willow.json
 d351a7b797f932ef32c8c27a7df4a49a7716eb4c data/frostrealm/loot_tables/blocks/astrium_ore.json
@@ -10,6 +10,7 @@ ab9b33300fc764a6184d4fe055b14aa5bcd86328 data/frostrealm/loot_tables/blocks/frig
 74f83215286dda97b4ea0309bfac3ecdb43750f9 data/frostrealm/loot_tables/blocks/frigid_stone_brick.json
 c0470b9ed1d94b57a4caba361b6f62a630ee4b7e data/frostrealm/loot_tables/blocks/frigid_stone_brick_mossy.json
 27649fd7dcf569e19635b483fb4feb8bcf653c70 data/frostrealm/loot_tables/blocks/frigid_stone_brick_mossy_slab.json
+ca5049a357e9a50979adf6e723663a7c3fe3d3fb data/frostrealm/loot_tables/blocks/frigid_stone_brick_mossy_stairs.json
 e45b6faa862c6334ccc9d07308585c7e01c772eb data/frostrealm/loot_tables/blocks/frigid_stone_brick_slab.json
 a13529e202519f59a0838345d8abb93c394fb2f5 data/frostrealm/loot_tables/blocks/frigid_stone_brick_stairs.json
 c98f3dfcf8c5da67d7db29714bd218a273b47aa1 data/frostrealm/loot_tables/blocks/frigid_stone_mossy.json
@@ -18,7 +19,6 @@ c98f3dfcf8c5da67d7db29714bd218a273b47aa1 data/frostrealm/loot_tables/blocks/frig
 13f0b29f4b1f76e3269b0ad01a6222be05190dcf data/frostrealm/loot_tables/blocks/frigid_stone_slab.json
 5cbe65db88d6340696aff3d354cc8c3d904ff3aa data/frostrealm/loot_tables/blocks/frigid_stone_smooth.json
 74d1db44f0ead950b7aef9b362bc78cdf2146610 data/frostrealm/loot_tables/blocks/frigid_stone_stairs.json
-4a8ef52a4bc95040990ddbfd8d0562d70fc35a18 data/frostrealm/loot_tables/blocks/frigid_ston_brick_mossy_stairs.json
 886d5ccdc3b31f93f48515af4e70aa1f81fd04ea data/frostrealm/loot_tables/blocks/frigid_stove.json
 1d4929d7d6176f60e5ea991a577527ed251ef375 data/frostrealm/loot_tables/blocks/frostrealm_portal.json
 1c722e41a4e4ed955ce00415f1955e99c7a07de3 data/frostrealm/loot_tables/blocks/frostroot_chest.json
