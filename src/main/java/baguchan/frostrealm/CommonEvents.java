@@ -16,7 +16,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.HoeItem;
@@ -173,9 +172,6 @@ public class CommonEvents {
 							if (!player.isCreative() && !(placedBlock instanceof TorchBlock)) {
 								player.displayClientMessage(Component.translatable("frostrealm.need_defeat_boss"), true);
 								event.setCanceled(true);
-								ItemStack placedStack = new ItemStack(placedBlock);
-								InteractionHand hand = player.getMainHandItem().getItem() == placedStack.getItem() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
-								//TODO Packet
 							}
 						}
 					}
