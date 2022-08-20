@@ -3,6 +3,7 @@ package baguchan.frostrealm.client;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.event.ClientColdHUDEvent;
 import baguchan.frostrealm.client.event.ClientFogEvent;
+import baguchan.frostrealm.client.model.AurorayModel;
 import baguchan.frostrealm.client.model.ClustWraithModel;
 import baguchan.frostrealm.client.model.CrystalFoxModel;
 import baguchan.frostrealm.client.model.CrystalTortoiseModel;
@@ -15,6 +16,7 @@ import baguchan.frostrealm.client.model.SnowPileQuailModel;
 import baguchan.frostrealm.client.model.WolfesterModel;
 import baguchan.frostrealm.client.model.YetiFurArmorModel;
 import baguchan.frostrealm.client.model.YetiModel;
+import baguchan.frostrealm.client.render.AurorayRenderer;
 import baguchan.frostrealm.client.render.ClustWraithRenderer;
 import baguchan.frostrealm.client.render.CrystalFoxRenderer;
 import baguchan.frostrealm.client.render.CrystalTortoiseRenderer;
@@ -74,6 +76,7 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.GOKKUR.get(), GokkurRenderer::new);
 		event.registerEntityRenderer(FrostEntities.GOKKUDILLO.get(), GokkudilloRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROST_BEASTER.get(), FrostBeasterRenderer::new);
+		event.registerEntityRenderer(FrostEntities.AURORAY.get(), AurorayRenderer::new);
 
 		event.registerEntityRenderer(FrostEntities.WARPED_CRYSTAL.get(), WarpedCrystalRenderer::new);
 	}
@@ -92,6 +95,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.SNOWPILE_QUAIL, SnowPileQuailModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.FROST_WOLF, FrostWolfModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.WOLFESTER, WolfesterModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.AURORAY, AurorayModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.GOKKUR, GokkurModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.GOKKUDILLO, GokkudilloModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.CRYSTAL_FOX, CrystalFoxModel::createBodyLayer);

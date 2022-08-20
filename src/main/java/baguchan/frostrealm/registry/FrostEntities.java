@@ -1,6 +1,7 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.entity.Auroray;
 import baguchan.frostrealm.entity.ClustWraith;
 import baguchan.frostrealm.entity.CrystalFox;
 import baguchan.frostrealm.entity.CrystalTortoise;
@@ -45,6 +46,8 @@ public class FrostEntities {
 	public static final RegistryObject<EntityType<Gokkur>> GOKKUR = ENTITIES.register("gokkur", () -> EntityType.Builder.of(Gokkur::new, MobCategory.MONSTER).sized(0.6F, 0.6F).fireImmune().build(prefix("gokkur")));
 	public static final RegistryObject<EntityType<Gokkudillo>> GOKKUDILLO = ENTITIES.register("gokkudillo", () -> EntityType.Builder.of(Gokkudillo::new, MobCategory.MONSTER).sized(0.65F, 0.65F).fireImmune().build(prefix("gokkudillo")));
 	public static final RegistryObject<EntityType<FrostBeaster>> FROST_BEASTER = ENTITIES.register("frost_beaster", () -> EntityType.Builder.of(FrostBeaster::new, MobCategory.MONSTER).sized(0.65F, 1.95F).build(prefix("frost_beaster")));
+	public static final RegistryObject<EntityType<Auroray>> AURORAY = ENTITIES.register("auroray", () -> EntityType.Builder.of(Auroray::new, MobCategory.MONSTER).sized(2.0F, 0.6F).build(prefix("auroray")));
+
 
 	public static final RegistryObject<EntityType<WarpedCrystalShard>> WARPED_CRYSTAL = ENTITIES.register("warped_crystal", () -> EntityType.Builder.<WarpedCrystalShard>of(WarpedCrystalShard::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(prefix("warped_crystal")));
 
@@ -68,6 +71,7 @@ public class FrostEntities {
 		event.put(GOKKUR.get(), Gokkur.createAttributes().build());
 		event.put(GOKKUDILLO.get(), Gokkudillo.createAttributes().build());
 		event.put(FROST_BEASTER.get(), FrostBeaster.createAttributes().build());
+		event.put(AURORAY.get(), Auroray.createAttributes().build());
 
 		SpawnPlacements.register(CRYSTAL_TORTOISE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalTortoise::checkTortoiseSpawnRules);
 		SpawnPlacements.register(MARMOT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Marmot::checkMarmotSpawnRules);
@@ -82,5 +86,6 @@ public class FrostEntities {
 		SpawnPlacements.register(GOKKUR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gokkur::checkGokkurSpawnRules);
 		SpawnPlacements.register(GOKKUDILLO.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gokkudillo::checkGokkudilloSpawnRules);
 		SpawnPlacements.register(FROST_BEASTER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBeaster::checkFrostBeasterSpawnRules);
+		SpawnPlacements.register(AURORAY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
 	}
 }
