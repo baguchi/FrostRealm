@@ -83,6 +83,18 @@ public class BlockstateGenerator extends BlockStateProvider {
 		return models().cubeAll(name(block), blockTexture(block)).renderType("minecraft:translucent");
 	}
 
+	public void leavesTintBlock(Block block) {
+		ModelFile tint = models().singleTexture(name(block), mcLoc("minecraft:block/leaves"), "all", texture(name(block))).renderType("minecraft:cutout_mipped");
+		crossBlock(block, tint);
+	}
+
+	private void leavesBlock(Block block, ModelFile model) {
+		getVariantBuilder(block).forAllStates(state ->
+				ConfiguredModel.builder()
+						.modelFile(model)
+						.build());
+	}
+
 	public void torchBlock(Block block, Block wall) {
 		ModelFile torch = models().torch(name(block), texture(name(block)));
 		ModelFile torchwall = models().torchWall(name(wall), texture(name(block)));
