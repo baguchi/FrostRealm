@@ -34,7 +34,7 @@ public class Auroray extends Monster {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Monster.createMobAttributes().add(Attributes.MAX_HEALTH, 40.0D).add(Attributes.ATTACK_DAMAGE, 6.0F).add(Attributes.MOVEMENT_SPEED, 0.24F).add(Attributes.FOLLOW_RANGE, 40.0F);
+		return Monster.createMobAttributes().add(Attributes.MAX_HEALTH, 40.0D).add(Attributes.ATTACK_DAMAGE, 6.0F).add(Attributes.MOVEMENT_SPEED, 0.24F).add(Attributes.FOLLOW_RANGE, 20.0F);
 	}
 
 	protected void registerGoals() {
@@ -43,7 +43,7 @@ public class Auroray extends Monster {
 		this.goalSelector.addGoal(3, new RandomFlyingAndHoverGoal(this, 1.0D));
 		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
+		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
 	}
 
 	@Override

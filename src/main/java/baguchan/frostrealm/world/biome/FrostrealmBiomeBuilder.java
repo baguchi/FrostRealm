@@ -58,6 +58,8 @@ public class FrostrealmBiomeBuilder {
 	private void addOffCoastBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_187196_) {
 		this.addSurfaceBiome(p_187196_, this.FULL_RANGE, this.FULL_RANGE, this.mushroomFieldsContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.TUNDRA);
 
+		this.addSkyBiome(p_187196_, this.FULL_RANGE, this.FULL_RANGE, this.deepOceanContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.CRYSTAL_FALL);
+
 		this.addSurfaceBiome(p_187196_, this.FULL_RANGE, this.FULL_RANGE, this.deepOceanContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.FROZEN_OCEAN);
 		this.addSurfaceBiome(p_187196_, this.FULL_RANGE, this.FULL_RANGE, this.oceanContinentalness, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.FROZEN_DEEP_OCEAN);
 	}
@@ -248,6 +250,10 @@ public class FrostrealmBiomeBuilder {
 	private void addUndergroundBiomes(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_187227_) {
 		this.addBottomBiome(p_187227_, this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.DEEP_UNDERGROUND);
 		this.addMiddleUndergroundBiome(p_187227_, Climate.Parameter.span(-1.0F, 0.0F), Climate.Parameter.span(-1.0F, -0.25F), this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, 0.0F, FrostBiomes.ICE_CAVE);
+	}
+
+	private void addSkyBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_220669_, Climate.Parameter p_220670_, Climate.Parameter p_220671_, Climate.Parameter p_220672_, Climate.Parameter p_220673_, Climate.Parameter p_220674_, float p_220675_, ResourceKey<Biome> p_220676_) {
+		p_220669_.accept(Pair.of(Climate.parameters(p_220670_, p_220671_, p_220672_, p_220673_, Climate.Parameter.span(-1.0F, -0.5F), p_220674_, p_220675_), p_220676_));
 	}
 
 	private void addBottomBiome(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> p_220669_, Climate.Parameter p_220670_, Climate.Parameter p_220671_, Climate.Parameter p_220672_, Climate.Parameter p_220673_, Climate.Parameter p_220674_, float p_220675_, ResourceKey<Biome> p_220676_) {

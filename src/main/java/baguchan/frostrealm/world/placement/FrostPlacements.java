@@ -13,7 +13,16 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.heightproviders.VeryBiasedToBottomHeight;
-import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraft.world.level.levelgen.placement.BiomeFilter;
+import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
+import net.minecraft.world.level.levelgen.placement.CountOnEveryLayerPlacement;
+import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
+import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
+import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.placement.PlacementModifier;
+import net.minecraft.world.level.levelgen.placement.RarityFilter;
 
 import java.util.List;
 
@@ -33,6 +42,9 @@ public class FrostPlacements {
 
 	public static final Holder<PlacedFeature> PATCH_TUNDRA_ROCK = PlacementUtils.register(prefix("patch_tundra_rock"), FrostConfiguredFeatures.TUNDRA_ROCK, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 	public static final Holder<PlacedFeature> PATCH_TUNDRA_MOSSY_ROCK = PlacementUtils.register(prefix("patch_tundra_mossy_rock"), FrostConfiguredFeatures.TUNDRA_MOSSY_ROCK, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> WARPED_ISLAND = PlacementUtils.register(prefix("warped_island"), FrostConfiguredFeatures.WARPED_ISLAND, RarityFilter.onAverageOnceEvery(18), PlacementUtils.countExtra(1, 0.25F, 1), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(55), VerticalAnchor.top()), BiomeFilter.biome());
+
 
 	public static final Holder<PlacedFeature> LAVA_DELTA = PlacementUtils.register(prefix("delta"), NetherFeatures.DELTA, CountOnEveryLayerPlacement.of(8), InSquarePlacement.spread(), BiomeFilter.biome());
 

@@ -7,7 +7,8 @@
     ]
   },
   "features": [
-    [],
+    [
+    ],
     [
       "minecraft:lake_lava_underground"
     ],
@@ -29,7 +30,9 @@
       "frostrealm:spring_water",
       "frostrealm:spring_water_extra"
     ],
-    [],
+    [
+      "frostrealm:warped_island"
+    ],
     [
       "minecraft:freeze_top_layer"
     ]
