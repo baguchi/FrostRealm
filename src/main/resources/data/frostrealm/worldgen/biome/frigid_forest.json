@@ -39,6 +39,12 @@
   "spawners": {
     "monster": [
       {
+        "type": "frostrealm:clust_wraith",
+        "weight": 60,
+        "minCount": 2,
+        "maxCount": 4
+      },
+      {
         "type": "frostrealm:frost_wraith",
         "weight": 100,
         "minCount": 4,

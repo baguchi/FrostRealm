@@ -1,13 +1,10 @@
 package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.entity.projectile.WarpedCrystalShard;
-import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
@@ -21,7 +18,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 
 import java.util.EnumSet;
 
@@ -59,10 +55,6 @@ public class ClustWraith extends FrostWraith implements RangedAttackMob {
 
 	public float getStandingAnimationScale(float p_29570_) {
 		return Mth.lerp(p_29570_, this.clientSideStandAnimationO, this.clientSideStandAnimation);
-	}
-
-	public static boolean checkClustWraithSpawnRules(EntityType<? extends Monster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
-		return Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
 	}
 
 	static class AttackGoal extends Goal {
