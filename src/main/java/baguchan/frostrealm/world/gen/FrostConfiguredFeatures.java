@@ -58,7 +58,7 @@ public class FrostConfiguredFeatures {
 	public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> TUNDRA_ROCK = FeatureUtils.register(prefix("tundra_rock"), FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState()));
 	public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> TUNDRA_MOSSY_ROCK = FeatureUtils.register(prefix("tundra_mossy_rock"), FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE_MOSSY.get().defaultBlockState()));
 
-	public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> WARPED_ISLAND = FeatureUtils.register(prefix("warped_island"), FrostFeatures.WARPED_ISLAND.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState()));
+	public static final Holder<ConfiguredFeature<BlockStateConfiguration, ?>> BIG_WARPED_ISLAND = FeatureUtils.register(prefix("big_warped_island"), FrostFeatures.BIG_WARPED_ISLAND.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState()));
 
 
 	public static final Holder<ConfiguredFeature<SpringConfiguration, ?>> SPRING_LAVA = FeatureUtils.register(prefix("spring_lava_hot_rock"), Feature.SPRING, new SpringConfiguration(Fluids.LAVA.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, FrostBlocks.FRIGID_STONE.get())));

@@ -43,10 +43,10 @@ public class FrostPlacements {
 	public static final Holder<PlacedFeature> PATCH_TUNDRA_ROCK = PlacementUtils.register(prefix("patch_tundra_rock"), FrostConfiguredFeatures.TUNDRA_ROCK, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 	public static final Holder<PlacedFeature> PATCH_TUNDRA_MOSSY_ROCK = PlacementUtils.register(prefix("patch_tundra_mossy_rock"), FrostConfiguredFeatures.TUNDRA_MOSSY_ROCK, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> WARPED_ISLAND = PlacementUtils.register(prefix("warped_island"), FrostConfiguredFeatures.WARPED_ISLAND, RarityFilter.onAverageOnceEvery(18), PlacementUtils.countExtra(1, 0.25F, 1), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.absolute(55), VerticalAnchor.top()), BiomeFilter.biome());
+	public static final Holder<PlacedFeature> BIG_WARPED_ISLAND = PlacementUtils.register(prefix("big_warped_island"), FrostConfiguredFeatures.BIG_WARPED_ISLAND, RarityFilter.onAverageOnceEvery(25), PlacementUtils.countExtra(1, 0.25F, 1), HeightRangePlacement.uniform(VerticalAnchor.absolute(80), VerticalAnchor.top()), BiomeFilter.biome());
 
 
-	public static final Holder<PlacedFeature> LAVA_DELTA = PlacementUtils.register(prefix("delta"), NetherFeatures.DELTA, CountOnEveryLayerPlacement.of(8), InSquarePlacement.spread(), BiomeFilter.biome());
+	public static final Holder<PlacedFeature> LAVA_DELTA = PlacementUtils.register(prefix("delta"), NetherFeatures.DELTA, CountOnEveryLayerPlacement.of(8), BiomeFilter.biome());
 
 	public static final Holder<PlacedFeature> SPRING_LAVA = PlacementUtils.register(prefix("spring_lava"), FrostConfiguredFeatures.SPRING_LAVA, CountPlacement.of(20), InSquarePlacement.spread(), HeightRangePlacement.of(VeryBiasedToBottomHeight.of(VerticalAnchor.bottom(), VerticalAnchor.belowTop(8), 8)), BiomeFilter.biome());
 	public static final Holder<PlacedFeature> SPRING_LAVA_HOTROCK_EXTRA = PlacementUtils.register(prefix("spring_lava_hotrock_extra"), FrostConfiguredFeatures.SPRING_LAVA, CountPlacement.of(10), InSquarePlacement.spread(), HeightRangePlacement.of(VeryBiasedToBottomHeight.of(VerticalAnchor.aboveBottom(64), VerticalAnchor.top(), 8)), BiomeFilter.biome());
