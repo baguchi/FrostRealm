@@ -2,6 +2,7 @@ package baguchan.frostrealm.client.event;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
+import baguchan.frostrealm.registry.FrostDimensions;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -76,7 +77,7 @@ public class ClientColdHUDEvent {
 		Entity entity = mc.getCameraEntity();
 		int screenWidth = mc.getWindow().getGuiScaledWidth();
 		int screenHeight = mc.getWindow().getGuiScaledHeight() - ((ForgeGui) mc.gui).rightHeight;
-		if (event.getOverlay() == VanillaGuiOverlay.PLAYER_HEALTH.type()) {
+		if (entity != null && entity.level.dimension() == FrostDimensions.FROSTREALM_LEVEL && event.getOverlay() == VanillaGuiOverlay.PLAYER_HEALTH.type()) {
 			this.random.setSeed((this.tickCount * 312871));
 			stack.pushPose();
 			RenderSystem.enableBlend();
