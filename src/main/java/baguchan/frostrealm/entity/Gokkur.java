@@ -17,10 +17,19 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
@@ -138,7 +147,7 @@ public class Gokkur extends Monster {
 				if (rollingGoal != null) {
 					rollingGoal.setStopTrigger(true);
 				}
-				this.knockback(f1 * 2.0F, d3, d4);
+				this.knockback(f1 * 2.5F, d3, d4);
 				this.setStun(true);
 			}
 		}
@@ -231,7 +240,7 @@ public class Gokkur extends Monster {
 
 		@Override
 		public boolean canContinueToUse() {
-			return this.isMatchCondition() && super.canContinueToUse();
+			return this.gokkur.getTarget() != null && super.canContinueToUse();
 		}
 
 		@Override
