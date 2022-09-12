@@ -142,14 +142,20 @@ public class Gokkur extends Monster {
 					}
 					livingentity.knockback(f2 * f1, d1, d2);
 				}
-			} else {
-				this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-				if (rollingGoal != null) {
-					rollingGoal.setStopTrigger(true);
-				}
-				this.knockback(f1 * 2.5F, d3, d4);
-				this.setStun(true);
 			}
+		}
+	}
+
+	@Override
+	protected void blockedByShield(LivingEntity p_21246_) {
+		super.blockedByShield(p_21246_);
+		if (this.isAlive() && isRolling()) {
+			this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+			if (getRollingGoal() != null) {
+				getRollingGoal().setStopTrigger(true);
+			}
+			this.knockback(0.8F, p_21246_.getX() - this.getX(), p_21246_.getZ() - this.getZ());
+			this.setStun(true);
 		}
 	}
 

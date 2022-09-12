@@ -122,23 +122,27 @@ public class Gokkudillo extends Gokkur {
 			double d2 = this.getZ() - livingentity.getZ();
 			double d3 = livingentity.getX() - this.getX();
 			double d4 = livingentity.getZ() - this.getZ();
-			if (!flag) {
-				if (livingentity.hurt(DamageSource.mobAttack(this), Mth.floor(getAttackDamage() * 1.5F))) {
-					this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-					this.doEnchantDamageEffects(this, livingentity);
-					if (this.getTarget() != null && this.getTarget() == livingentity && getRollingGoal() != null) {
-						getRollingGoal().setStopTrigger(true);
-					}
-					livingentity.knockback(f2 * f1, d1, d2);
-				}
-			} else {
+			if (livingentity.hurt(DamageSource.mobAttack(this), Mth.floor(getAttackDamage() * 1.5F))) {
 				this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-				if (getRollingGoal() != null) {
+				this.doEnchantDamageEffects(this, livingentity);
+				if (this.getTarget() != null && this.getTarget() == livingentity && getRollingGoal() != null) {
 					getRollingGoal().setStopTrigger(true);
 				}
-				this.knockback(f1 * 0.8F, d3, d4);
-				this.setStun(true);
+				livingentity.knockback(f2 * f1, d1, d2);
 			}
+		}
+	}
+
+	@Override
+	protected void blockedByShield(LivingEntity p_21246_) {
+		super.blockedByShield(p_21246_);
+		if (this.isAlive() && isRolling()) {
+			this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+			if (getRollingGoal() != null) {
+				getRollingGoal().setStopTrigger(true);
+			}
+			this.knockback(0.8F, p_21246_.getX() - this.getX(), p_21246_.getZ() - this.getZ());
+			this.setStun(true);
 		}
 	}
 
