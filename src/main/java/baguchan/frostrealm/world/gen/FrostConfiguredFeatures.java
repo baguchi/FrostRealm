@@ -52,6 +52,9 @@ public class FrostConfiguredFeatures {
 
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_BEARBERRY = FeatureUtils.register(prefix("patch_bearberry"), Feature.RANDOM_PATCH, grassPatch(BlockStateProvider.simple(FrostBlocks.BEARBERRY_BUSH.get()), 32));
 
+	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> PATCH_VIGOROSHROOM = FeatureUtils.register(prefix("patch_vigoroshroom"), Feature.RANDOM_PATCH, grassPatch(BlockStateProvider.simple(FrostBlocks.VIGOROSHROOM.get()), 32));
+
+
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> ARCTIC_POPPY = FeatureUtils.register(prefix("patch_arctic_poppy"), Feature.FLOWER, grassPatch(BlockStateProvider.simple(FrostBlocks.ARCTIC_POPPY.get()), 32));
 	public static final Holder<ConfiguredFeature<RandomPatchConfiguration, ?>> ARCTIC_WILLOW = FeatureUtils.register(prefix("patch_arctic_willow"), Feature.FLOWER, grassPatch(BlockStateProvider.simple(FrostBlocks.ARCTIC_WILLOW.get()), 32));
 

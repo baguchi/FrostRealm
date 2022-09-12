@@ -39,11 +39,13 @@ public class FrostPlacements {
 
 	public static final Holder<PlacedFeature> PATCH_ARTIC_POPPY = PlacementUtils.register(prefix("patch_artic_poppy"), FrostConfiguredFeatures.ARCTIC_POPPY, CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 	public static final Holder<PlacedFeature> PATCH_ARTIC_WILLOW = PlacementUtils.register(prefix("patch_artic_willow"), FrostConfiguredFeatures.ARCTIC_WILLOW, CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+	public static final Holder<PlacedFeature> PATCH_VIGOROSHROOM = PlacementUtils.register(prefix("patch_vigoroshroom"), FrostConfiguredFeatures.PATCH_VIGOROSHROOM, CountPlacement.of(3), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+
 
 	public static final Holder<PlacedFeature> PATCH_TUNDRA_ROCK = PlacementUtils.register(prefix("patch_tundra_rock"), FrostConfiguredFeatures.TUNDRA_ROCK, RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 	public static final Holder<PlacedFeature> PATCH_TUNDRA_MOSSY_ROCK = PlacementUtils.register(prefix("patch_tundra_mossy_rock"), FrostConfiguredFeatures.TUNDRA_MOSSY_ROCK, RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
-	public static final Holder<PlacedFeature> BIG_WARPED_ISLAND = PlacementUtils.register(prefix("big_warped_island"), FrostConfiguredFeatures.BIG_WARPED_ISLAND, RarityFilter.onAverageOnceEvery(25), PlacementUtils.countExtra(1, 0.25F, 1), HeightRangePlacement.uniform(VerticalAnchor.absolute(80), VerticalAnchor.top()), BiomeFilter.biome());
+	public static final Holder<PlacedFeature> BIG_WARPED_ISLAND = PlacementUtils.register(prefix("big_warped_island"), FrostConfiguredFeatures.BIG_WARPED_ISLAND, RarityFilter.onAverageOnceEvery(25), InSquarePlacement.spread(), PlacementUtils.countExtra(1, 0.25F, 1), HeightRangePlacement.uniform(VerticalAnchor.absolute(80), VerticalAnchor.top()), BiomeFilter.biome());
 
 
 	public static final Holder<PlacedFeature> LAVA_DELTA = PlacementUtils.register(prefix("delta"), NetherFeatures.DELTA, CountOnEveryLayerPlacement.of(8), BiomeFilter.biome());

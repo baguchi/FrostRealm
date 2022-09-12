@@ -22,8 +22,8 @@ public class BigWarpedIslandFeature extends Feature<BlockStateConfiguration> {
 		WorldGenLevel worldgenlevel = p_159471_.level();
 		RandomSource random = p_159471_.random();
 
-		float height = 10 + random.nextInt(10);
-		float lake_edge = Math.min(15, height - random.nextInt(6) - random.nextInt(6));
+		float height = 5 + random.nextInt(10);
+		float lake_edge = Math.min(10, height - random.nextInt(6) - random.nextInt(6));
 
 		if (random.nextFloat() >= 0.15F) {
 			for (int i = 0; height > 0.5F; --i) {
