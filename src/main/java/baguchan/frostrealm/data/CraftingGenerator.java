@@ -6,7 +6,6 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -70,15 +69,6 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 
 		makeFrostTorch(consumer, FrostBlocks.FROST_TORCH.get().asItem());
-
-		ShapedRecipeBuilder.shaped(FrostBlocks.FRIGID_STOVE.get(), 1)
-				.pattern("SSS")
-				.pattern("SGS")
-				.pattern("SSS")
-				.define('S', ItemTags.STONE_CRAFTING_MATERIALS)
-				.define('G', FrostItems.GLIMMERROCK.get())
-				.unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(FrostItems.GLIMMERROCK.get()).getPath(), has(FrostItems.GLIMMERROCK.get())).save(consumer);
-
 		ShapedRecipeBuilder.shaped(FrostBlocks.FROSTROOT_CHEST.get(), 1)
 				.pattern("SSS")
 				.pattern("S S")

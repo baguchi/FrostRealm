@@ -3,10 +3,8 @@
     "#minecraft:campfires",
     "#minecraft:fire",
     "minecraft:magma_block",
-    "frostrealm:hot_air",
     "minecraft:furnace",
     "minecraft:blast_furnace",
-    "minecraft:smoker",
-    "frostrealm:frigid_stove"
+    "minecraft:smoker"
   ]
 }

@@ -3,13 +3,11 @@ package baguchan.frostrealm.registry;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.block.BearBerryBushBlock;
 import baguchan.frostrealm.block.ColdTallGrassBlock;
-import baguchan.frostrealm.block.FrigidStoveBlock;
 import baguchan.frostrealm.block.FrostChestBlock;
 import baguchan.frostrealm.block.FrostGrassBlock;
 import baguchan.frostrealm.block.FrostPortalBlock;
 import baguchan.frostrealm.block.FrostTorchBlock;
 import baguchan.frostrealm.block.FrozenFarmBlock;
-import baguchan.frostrealm.block.HotAirBlock;
 import baguchan.frostrealm.block.PointedIceBlock;
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
 import baguchan.frostrealm.block.StarDustCrystalBlock;
@@ -46,7 +44,6 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -68,8 +65,6 @@ public class FrostBlocks {
 	public static final RegistryObject<FrostPortalBlock> FROST_PORTAL = noItemRegister("frostrealm_portal", () -> new FrostPortalBlock(BlockBehaviour.Properties.of(Material.PORTAL).noOcclusion().noCollission().randomTicks().lightLevel((state) -> {
 		return 11;
 	}).strength(-1.0F).sound(SoundType.GLASS)));
-
-	public static final RegistryObject<Block> HOT_AIR = noItemRegister("hot_air", () -> new HotAirBlock(BlockBehaviour.Properties.of(Material.AIR).air().noOcclusion().randomTicks().sound(SoundType.WOOL)));
 
 	public static final RegistryObject<Block> FROZEN_DIRT = register("frozen_dirt", () -> new Block(BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL)));
 	public static final RegistryObject<Block> FROZEN_GRASS_BLOCK = register("frozen_grass_block", () -> new FrostGrassBlock(BlockBehaviour.Properties.of(Material.GRASS).randomTicks().strength(0.6F).sound(SoundType.GRASS)));
@@ -145,7 +140,6 @@ public class FrostBlocks {
 	public static final RegistryObject<Block> FROST_TORCH = register("frost_torch", () -> new FrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.TORCH)));
 	public static final RegistryObject<Block> WALL_FROST_TORCH = noItemRegister("wall_frost_torch", () -> new WallFrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.WALL_TORCH)));
 
-	public static final RegistryObject<Block> FRIGID_STOVE = register("frigid_stove", () -> new FrigidStoveBlock(BlockBehaviour.Properties.of(Material.STONE).strength(2.0F, 6.0F).lightLevel((state) -> state.getValue(BlockStateProperties.LIT) ? 10 : 0).requiresCorrectToolForDrops().randomTicks().sound(SoundType.NETHERITE_BLOCK)));
 	public static final RegistryObject<Block> FROSTROOT_CHEST = register("frostroot_chest", () -> new FrostChestBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD), FrostBlockEntitys.FROST_CHEST::get));
 
 	public static void burnables() {

@@ -40,7 +40,6 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 	@Override
 	protected void addTables() {
 		registerEmpty(FrostBlocks.FROST_PORTAL.get());
-		registerEmpty(FrostBlocks.HOT_AIR.get());
 
 		this.dropSelf(FrostBlocks.FROZEN_DIRT.get());
 		this.add(FrostBlocks.FROZEN_GRASS_BLOCK.get(), (p_124193_) -> {
@@ -100,7 +99,6 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.dropSelf(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
 		this.dropSelf(FrostBlocks.FROST_TORCH.get());
 		this.dropOther(FrostBlocks.WALL_FROST_TORCH.get(), FrostBlocks.FROST_TORCH.get());
-		this.dropSelf(FrostBlocks.FRIGID_STOVE.get());
 		this.dropSelf(FrostBlocks.FROSTROOT_CHEST.get());
 		this.dropSelf(FrostBlocks.SNOWPILE_QUAIL_EGG.get());
 	}

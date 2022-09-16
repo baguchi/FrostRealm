@@ -119,8 +119,6 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.CORRUPTED_CRYSTAL_CLUSTER);
 		this.toBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK);
 		this.itemBlockFlat(FrostBlocks.FROST_TORCH);
-
-		this.toBlock(FrostBlocks.FRIGID_STOVE);
 	}
 
 	public ItemModelBuilder torchItem(Block item) {
