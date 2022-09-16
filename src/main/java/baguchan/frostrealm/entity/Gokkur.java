@@ -133,15 +133,13 @@ public class Gokkur extends Monster {
 			double d2 = this.getZ() - livingentity.getZ();
 			double d3 = livingentity.getX() - this.getX();
 			double d4 = livingentity.getZ() - this.getZ();
-			if (!flag) {
-				if (livingentity.hurt(DamageSource.mobAttack(this), Mth.floor(getAttackDamage() * 2.0F * (MovementUtils.movementDamageDistanceSqr(this))))) {
-					this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-					this.doEnchantDamageEffects(this, livingentity);
-					if (this.getTarget() != null && this.getTarget() == livingentity && rollingGoal != null) {
-						rollingGoal.setStopTrigger(true);
-					}
-					livingentity.knockback(f2 * f1, d1, d2);
+			if (livingentity.hurt(DamageSource.mobAttack(this), Mth.floor(getAttackDamage() * 2.0F * (MovementUtils.movementDamageDistanceSqr(this))))) {
+				this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+				this.doEnchantDamageEffects(this, livingentity);
+				if (this.getTarget() != null && this.getTarget() == livingentity && rollingGoal != null) {
+					rollingGoal.setStopTrigger(true);
 				}
+				livingentity.knockback(f2 * f1, d1, d2);
 			}
 		}
 	}
