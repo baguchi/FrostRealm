@@ -6,7 +6,9 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Consumer;
@@ -75,6 +77,15 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.pattern("SSS")
 				.define('S', FrostBlocks.FROSTROOT_PLANKS.get())
 				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FROSTROOT_PLANKS.get()).getPath(), has(FrostBlocks.FROSTROOT_PLANKS.get())).save(consumer);
+
+		ShapedRecipeBuilder.shaped(FrostBlocks.FROST_CAMPFIRE.get(), 1)
+				.pattern(" S ")
+				.pattern("SFS")
+				.pattern("LLL")
+				.define('S', Tags.Items.RODS_WOODEN)
+				.define('F', FrostItems.FROST_CRYSTAL.get())
+				.define('L', ItemTags.LOGS_THAT_BURN)
+				.unlockedBy("has_item", has(ItemTags.LOGS_THAT_BURN)).save(consumer);
 
 
 		ShapedRecipeBuilder.shaped(FrostItems.FROST_CATALYST.get(), 1)

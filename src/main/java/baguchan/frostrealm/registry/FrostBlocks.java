@@ -3,6 +3,7 @@ package baguchan.frostrealm.registry;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.block.BearBerryBushBlock;
 import baguchan.frostrealm.block.ColdTallGrassBlock;
+import baguchan.frostrealm.block.FrostCampfireBlock;
 import baguchan.frostrealm.block.FrostChestBlock;
 import baguchan.frostrealm.block.FrostGrassBlock;
 import baguchan.frostrealm.block.FrostPortalBlock;
@@ -139,6 +140,8 @@ public class FrostBlocks {
 
 	public static final RegistryObject<Block> FROST_TORCH = register("frost_torch", () -> new FrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.TORCH)));
 	public static final RegistryObject<Block> WALL_FROST_TORCH = noItemRegister("wall_frost_torch", () -> new WallFrostTorchBlock(BlockBehaviour.Properties.copy(Blocks.WALL_TORCH)));
+
+	public static final RegistryObject<Block> FROST_CAMPFIRE = register("frost_campfire", () -> new FrostCampfireBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD)));
 
 	public static final RegistryObject<Block> FROSTROOT_CHEST = register("frostroot_chest", () -> new FrostChestBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD), FrostBlockEntitys.FROST_CHEST::get));
 

@@ -99,6 +99,9 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.dropSelf(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
 		this.dropSelf(FrostBlocks.FROST_TORCH.get());
 		this.dropOther(FrostBlocks.WALL_FROST_TORCH.get(), FrostBlocks.FROST_TORCH.get());
+		this.add(FrostBlocks.FROST_CAMPFIRE.get(), (p_236259_) -> {
+			return createSilkTouchDispatchTable(p_236259_, applyExplosionCondition(p_236259_, LootItem.lootTableItem(FrostItems.FROST_CRYSTAL.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))));
+		});
 		this.dropSelf(FrostBlocks.FROSTROOT_CHEST.get());
 		this.dropSelf(FrostBlocks.SNOWPILE_QUAIL_EGG.get());
 	}
