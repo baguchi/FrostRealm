@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "F": {
+      "item": "frostrealm:frost_crystal"
+    },
+    "L": {
+      "tag": "minecraft:logs_that_burn"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "pattern": [
+    " S ",
+    "SFS",
+    "LLL"
+  ],
+  "result": {
+    "item": "frostrealm:frost_campfire"
+  }
+}
