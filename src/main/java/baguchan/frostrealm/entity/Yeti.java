@@ -15,10 +15,23 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.NeutralMob;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
@@ -32,8 +45,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -66,9 +81,10 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		this.goalSelector.addGoal(3, new GetFoodGoal<>(this));
 		this.goalSelector.addGoal(4, new CreatureFollowParentGoal(this, 1.15D));
 		this.goalSelector.addGoal(5, new SeekShelterEvenBlizzardGoal(this, 1.2D));
-		this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(6, new MoveToGoal(this, 40.0D, 1.2D));
+		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
+		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new Yeti.YetiHurtByTargetGoal());
 		this.targetSelector.addGoal(3, new HuntTargetGoal(this));
 		this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
@@ -259,6 +275,9 @@ public class Yeti extends AgeableMob implements NeutralMob {
 			p_29536_ = new AgeableMob.AgeableMobGroupData(1.0F);
 		}
 		this.inventory.addItem(new ItemStack(Items.SALMON, 4));
+		if (p_29535_ == MobSpawnType.STRUCTURE) {
+			this.homeTarget = this.blockPosition();
+		}
 
 		return super.finalizeSpawn(p_29533_, p_29534_, p_29535_, p_29536_, p_29537_);
 	}
@@ -338,6 +357,47 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		private boolean canTarget() {
 			Yeti yeti = (Yeti) this.mob;
 			return !yeti.isAngry() && !yeti.isBaby() && !yeti.isHunted();
+		}
+	}
+
+	class MoveToGoal extends Goal {
+		final Yeti yeti;
+		final double stopDistance;
+		final double speedModifier;
+
+		MoveToGoal(Yeti p_i50459_2_, double p_i50459_3_, double p_i50459_5_) {
+			this.yeti = p_i50459_2_;
+			this.stopDistance = p_i50459_3_;
+			this.speedModifier = p_i50459_5_;
+			this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+		}
+
+		public void stop() {
+			Yeti.this.navigation.stop();
+		}
+
+		public boolean canUse() {
+			BlockPos blockpos = this.yeti.homeTarget;
+
+			return blockpos != null && this.isTooFarAway(blockpos, this.stopDistance);
+		}
+
+		public void tick() {
+			BlockPos blockpos = this.yeti.homeTarget;
+			if (blockpos != null && Yeti.this.navigation.isDone()) {
+				if (this.isTooFarAway(blockpos, 10.0D)) {
+					Vec3 vector3d = (new Vec3((double) blockpos.getX() - this.yeti.getX(), (double) blockpos.getY() - this.yeti.getY(), (double) blockpos.getZ() - this.yeti.getZ())).normalize();
+					Vec3 vector3d1 = vector3d.scale(10.0D).add(this.yeti.getX(), this.yeti.getY(), this.yeti.getZ());
+					Yeti.this.navigation.moveTo(vector3d1.x, vector3d1.y, vector3d1.z, this.speedModifier);
+				} else {
+					Yeti.this.navigation.moveTo((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), this.speedModifier);
+				}
+			}
+
+		}
+
+		private boolean isTooFarAway(BlockPos p_220846_1_, double p_220846_2_) {
+			return !p_220846_1_.closerThan(this.yeti.blockPosition(), p_220846_2_);
 		}
 	}
 }
