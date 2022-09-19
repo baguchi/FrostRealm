@@ -6,14 +6,18 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
@@ -52,6 +56,21 @@ public class FrostCampfireBlock extends Block implements SimpleWaterloggedBlock 
 
 	public FrostCampfireBlock(Properties p_49795_) {
 		super(p_49795_);
+	}
+
+
+	@Override
+	public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
+		if (p_60506_.getItemInHand(p_60507_).getItem() instanceof ShovelItem) {
+			dowse(p_60506_, p_60504_, p_60505_, p_60503_);
+			p_60506_.awardStat(Stats.INTERACT_WITH_CAMPFIRE);
+			p_60506_.getItemInHand(p_60507_).hurtAndBreak(1, p_60506_, (p_43122_) -> {
+				p_43122_.broadcastBreakEvent(p_60507_);
+			});
+			return InteractionResult.SUCCESS;
+		}
+
+		return super.use(p_60503_, p_60504_, p_60505_, p_60506_, p_60507_, p_60508_);
 	}
 
 	public void entityInside(BlockState p_51269_, Level p_51270_, BlockPos p_51271_, Entity p_51272_) {
