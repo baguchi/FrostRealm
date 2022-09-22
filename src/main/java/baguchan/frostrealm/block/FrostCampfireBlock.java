@@ -17,6 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -61,9 +62,17 @@ public class FrostCampfireBlock extends Block implements SimpleWaterloggedBlock 
 
 	@Override
 	public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
-		if (p_60506_.getItemInHand(p_60507_).getItem() instanceof ShovelItem) {
+		if (p_60503_.getValue(LIT) && p_60506_.getItemInHand(p_60507_).getItem() instanceof ShovelItem) {
 			dowse(p_60506_, p_60504_, p_60505_, p_60503_);
 			p_60506_.awardStat(Stats.INTERACT_WITH_CAMPFIRE);
+			p_60506_.getItemInHand(p_60507_).hurtAndBreak(1, p_60506_, (p_43122_) -> {
+				p_43122_.broadcastBreakEvent(p_60507_);
+			});
+			return InteractionResult.SUCCESS;
+		}
+
+		if (!p_60503_.getValue(LIT) && p_60506_.getItemInHand(p_60507_).getItem() instanceof FlintAndSteelItem) {
+			p_60504_.setBlock(p_60505_, p_60503_.setValue(BlockStateProperties.LIT, Boolean.valueOf(true)), 11);
 			p_60506_.getItemInHand(p_60507_).hurtAndBreak(1, p_60506_, (p_43122_) -> {
 				p_43122_.broadcastBreakEvent(p_60507_);
 			});
