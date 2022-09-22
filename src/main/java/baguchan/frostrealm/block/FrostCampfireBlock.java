@@ -64,6 +64,8 @@ public class FrostCampfireBlock extends Block implements SimpleWaterloggedBlock 
 	public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
 		if (p_60503_.getValue(LIT) && p_60506_.getItemInHand(p_60507_).getItem() instanceof ShovelItem) {
 			dowse(p_60506_, p_60504_, p_60505_, p_60503_);
+			p_60504_.setBlock(p_60505_, p_60503_.setValue(BlockStateProperties.LIT, Boolean.valueOf(false)), 11);
+
 			p_60506_.awardStat(Stats.INTERACT_WITH_CAMPFIRE);
 			p_60506_.getItemInHand(p_60507_).hurtAndBreak(1, p_60506_, (p_43122_) -> {
 				p_43122_.broadcastBreakEvent(p_60507_);

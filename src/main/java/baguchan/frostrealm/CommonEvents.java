@@ -22,6 +22,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
@@ -112,11 +113,11 @@ public class CommonEvents {
 		if (stack.getItem() instanceof HoeItem) {
 			if (event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_DIRT.get() || event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_GRASS_BLOCK.get()) {
 				event.getLevel().setBlock(event.getPos(), FrostBlocks.FROZEN_FARMLAND.get().defaultBlockState(), 2);
-				event.getEntity().swing(event.getHand());
 				stack.hurtAndBreak(1, event.getEntity(), (p_147232_) -> {
 					p_147232_.broadcastBreakEvent(event.getHand());
 				});
 				event.getLevel().playSound(event.getEntity(), event.getPos(), SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+				event.setUseItem(Event.Result.ALLOW);
 			}
 		}
 	}

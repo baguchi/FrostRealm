@@ -10,37 +10,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 15,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "frostrealm:stardust_crystal"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 15,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "frostrealm:warped_crystal"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 15,
+          "weight": 20,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -55,7 +25,22 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
+          "weight": 20,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 3.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "frostrealm:glimmerrock"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 20,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -71,6 +56,70 @@
         {
           "type": "minecraft:item",
           "weight": 10,
+          "name": "frostrealm:astrium_helmet",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 2
+              },
+              "treasure": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "frostrealm:astrium_chestplate",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 2
+              },
+              "treasure": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "frostrealm:astrium_leggings",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 2
+              },
+              "treasure": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "frostrealm:astrium_boots",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 2
+              },
+              "treasure": false
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -82,86 +131,6 @@
             }
           ],
           "name": "frostrealm:astrium_ingot"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "frostrealm:astrium_helmet",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 10,
-                "min": 5
-              },
-              "treasure": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "frostrealm:astrium_chestplate",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 10,
-                "min": 5
-              },
-              "treasure": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "frostrealm:astrium_leggings",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 10,
-                "min": 5
-              },
-              "treasure": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "frostrealm:astrium_boots",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 10,
-                "min": 5
-              },
-              "treasure": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "frostrealm:astrium_sword",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 10,
-                "min": 5
-              },
-              "treasure": false
-            }
-          ]
         }
       ]
     }

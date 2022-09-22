@@ -36,7 +36,7 @@
               }
             }
           ],
-          "name": "frostrealm:melted_fruit"
+          "name": "frostrealm:bearberry"
         },
         {
           "type": "minecraft:item",
@@ -134,7 +134,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:set_count",
