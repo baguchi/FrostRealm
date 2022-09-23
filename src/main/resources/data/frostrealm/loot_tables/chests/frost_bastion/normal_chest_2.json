@@ -25,22 +25,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 20,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "frostrealm:glimmerrock"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 20,
+          "weight": 25,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -55,7 +40,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 5,
           "name": "frostrealm:astrium_helmet",
           "functions": [
             {
@@ -71,7 +56,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 5,
           "name": "frostrealm:astrium_chestplate",
           "functions": [
             {
@@ -87,7 +72,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 5,
           "name": "frostrealm:astrium_leggings",
           "functions": [
             {
@@ -103,7 +88,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 5,
           "name": "frostrealm:astrium_boots",
           "functions": [
             {

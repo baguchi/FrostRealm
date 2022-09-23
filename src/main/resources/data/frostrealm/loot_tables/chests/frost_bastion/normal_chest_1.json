@@ -55,7 +55,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
+          "weight": 20,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -70,7 +70,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 5,
           "name": "frostrealm:yeti_fur_helmet",
           "functions": [
             {
@@ -86,7 +86,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 5,
           "name": "frostrealm:yeti_fur_chestplate",
           "functions": [
             {
@@ -102,7 +102,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 5,
           "name": "frostrealm:yeti_fur_leggings",
           "functions": [
             {
@@ -118,7 +118,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 5,
           "name": "frostrealm:yeti_fur_boots",
           "functions": [
             {

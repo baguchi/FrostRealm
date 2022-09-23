@@ -76,7 +76,7 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 					//If weather not active and cooldown active
 					setWeatherCooldown(getWeatherCooldown() - 1);
 					if (getWeatherCooldown() <= 0) {
-						unstableLevel += 0.5F * level.random.nextDouble();
+						unstableLevel += 0.25F * level.random.nextDouble();
 						FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.random, this.unstableLevel);
 
 						setFrostWeather(frostWeather);
