@@ -34,7 +34,7 @@ public class ClientColdHUDEvent {
 
 	public static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation(FrostRealm.MODID, "textures/gui/icons.png");
 
-	public static void renderPortalOverlay(RenderGuiOverlayEvent.Pre event, Minecraft mc, Window window, Entity livingEntity) {
+	public static void renderPortalOverlay(RenderGuiOverlayEvent.Post event, Minecraft mc, Window window, Entity livingEntity) {
 		livingEntity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
 			float timeInPortal = Mth.lerp(event.getPartialTick(), cap.getPrevPortalAnimTime(), cap.getPortalAnimTime());
 
@@ -71,13 +71,13 @@ public class ClientColdHUDEvent {
 	}
 
 	@SubscribeEvent
-	public void renderHudEvent(RenderGuiOverlayEvent.Pre event) {
+	public void renderHudEvent(RenderGuiOverlayEvent.Post event) {
 		PoseStack stack = event.getPoseStack();
 		Minecraft mc = Minecraft.getInstance();
 		Entity entity = mc.getCameraEntity();
 		int screenWidth = mc.getWindow().getGuiScaledWidth();
 		int screenHeight = mc.getWindow().getGuiScaledHeight() - ((ForgeGui) mc.gui).rightHeight;
-		if (entity != null && entity.level.dimension() == FrostDimensions.FROSTREALM_LEVEL && event.getOverlay() == VanillaGuiOverlay.PLAYER_HEALTH.type()) {
+		if (entity != null && entity.level.dimension() == FrostDimensions.FROSTREALM_LEVEL && event.getOverlay() == VanillaGuiOverlay.FOOD_LEVEL.type()) {
 			this.random.setSeed((this.tickCount * 312871));
 			stack.pushPose();
 			RenderSystem.enableBlend();
