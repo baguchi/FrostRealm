@@ -161,9 +161,13 @@ public class Gokkur extends Monster {
 	public void playerTouch(Player p_20081_) {
 		super.playerTouch(p_20081_);
 		this.dealDamage(p_20081_);
-		if (getRollingGoal() != null) {
+		if (getRollingGoal() != null && this.random.nextFloat() <= stopRollingPercent()) {
 			getRollingGoal().setStopTrigger(true);
 		}
+	}
+
+	protected float stopRollingPercent() {
+		return 1.0F;
 	}
 
 	protected float getAttackDamage() {

@@ -113,6 +113,10 @@ public class Gokkudillo extends Gokkur {
 		return FrostSounds.GOKKUDILLO_DEATH.get();
 	}
 
+	protected float stopRollingPercent() {
+		return 0.25F;
+	}
+
 	protected void dealDamage(LivingEntity livingentity) {
 		if (this.isAlive() && isRolling()) {
 			boolean flag = livingentity.isDamageSourceBlocked(DamageSource.mobAttack(this));
