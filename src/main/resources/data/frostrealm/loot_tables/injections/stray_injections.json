@@ -9,8 +9,8 @@
         },
         {
           "condition": "random_chance_with_looting",
-          "chance": 0.04,
-          "looting_multiplier": 0.005
+          "chance": 0.06,
+          "looting_multiplier": 0.01
         }
       ],
       "rolls": 1,
