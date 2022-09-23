@@ -3,7 +3,6 @@ package baguchan.frostrealm.client.event;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostDimensions;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -22,7 +21,7 @@ public class ClientFogEvent {
 				float weatherLevel = cap.getWeatherLevel(partialTicks);
 
 				if (weatherLevel > 0F && cap.getFrostWeather() != null && cap.getFrostWeather().isUseFog()) {
-					event.setNearPlaneDistance(130.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
+					event.setNearPlaneDistance(20.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
 					event.setFarPlaneDistance(160.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
 					RenderSystem.setShaderFogStart(event.getNearPlaneDistance());
 					RenderSystem.setShaderFogEnd(event.getFarPlaneDistance());
@@ -45,9 +44,18 @@ public class ClientFogEvent {
 					float fogGreen = event.getGreen();
 					float fogBlue = event.getBlue();
 
-					event.setRed(Mth.clamp(((weatherLevel * cap.getFrostWeather().getRed())), 0.1F, 1));
-					event.setGreen(Mth.clamp(((weatherLevel * cap.getFrostWeather().getGreen())), 0.1F, 1));
-					event.setBlue(Mth.clamp(((weatherLevel * cap.getFrostWeather().getBlue())), 0.1F, 1));
+					float red = weatherLevel * cap.getFrostWeather().getRed();
+					float green = weatherLevel * cap.getFrostWeather().getGreen();
+					float blue = weatherLevel * cap.getFrostWeather().getBlue();
+
+					float f9 = Math.min(1.0F / fogRed, Math.min(1.0F / fogGreen, 1.0F / fogBlue));
+					fogRed = fogRed * (1.0F - red) + fogRed * f9 * red;
+					fogGreen = fogGreen * (1.0F - green) + fogGreen * f9 * green;
+					fogBlue = fogBlue * (1.0F - blue) + fogBlue * f9 * blue;
+
+					event.setRed(fogRed);
+					event.setGreen(fogGreen);
+					event.setBlue(fogBlue);
 				}
 			});
 		}
