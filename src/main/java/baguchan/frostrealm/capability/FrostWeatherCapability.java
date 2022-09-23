@@ -2,11 +2,11 @@ package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.message.ChangeWeatherEvent;
-import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.utils.BlizzardUtils;
 import baguchan.frostrealm.weather.FrostWeather;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -70,7 +70,6 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 				}
 				//If weather active
 				setWetherTime(getWeatherTime() - 1);
-				setWeatherLevel(getWeatherLevel(1.0F) + 0.05F);
 			} else {
 				if (isWeatherCooldownActive()) {
 					//If weather not active and cooldown active
@@ -88,7 +87,6 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 						setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
 						needWeatherChanged = true;
 					}
-					setWeatherLevel(getWeatherLevel(1.0F) - 0.05F);
 				} else {
 
 					//If wether not active and cooldown not active too
@@ -97,32 +95,22 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 				}
 			}
 		}
+	}
 
 
-		if (needWeatherChanged) {
-			if (getWeatherLevel(1.0F) <= 1.0F) {
-				if (!level.isClientSide()) {
-					ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(getWeatherTime(), getWeatherCooldown(), getWeatherLevel(1.0F));
-					FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-					if (getWeatherLevel(1.0F) == 1.0F) {
-						needWeatherChanged = false;
-					}
-				}
+	public void clientTick(ClientLevel level) {
+		if (level.isClientSide()) {
+			if (isWeatherActive()) {
+				this.weatherLevel += 0.02F;
+
+			} else if (isWeatherCooldownActive()) {
+				this.weatherLevel -= 0.01F;
 			}
+			this.oWeatherLevel = this.weatherLevel;
+
+			this.weatherLevel = Mth.clamp(this.weatherLevel, 0.0F, 1.0F);
+			setWeatherLevel(weatherLevel);
 		}
-
-		if (needWeatherCooldownChanged) {
-				if (getWeatherLevel(1.0F) >= 0.0F) {
-					if (!level.isClientSide()) {
-						ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(getWeatherTime(), getWeatherCooldown(), getWeatherLevel(1.0F));
-						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-						if (getWeatherLevel(1.0F) == 0.0F) {
-							needWeatherCooldownChanged = false;
-						}
-					}
-				}
-			}
-
 	}
 
 	public boolean isWeatherActive() {

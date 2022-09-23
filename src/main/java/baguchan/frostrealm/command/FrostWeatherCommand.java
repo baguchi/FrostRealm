@@ -51,7 +51,7 @@ public class FrostWeatherCommand {
 			cap.setWetherTime(0);
 			cap.setWeatherCooldown(p_139174_);
 
-			ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(0, p_139174_, cap.getWeatherLevel(1.0F));
+			ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(0, p_139174_);
 			FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
 			cap.needWeatherChanged = true;
 		});
@@ -90,7 +90,7 @@ public class FrostWeatherCommand {
 					ChangeWeatherEvent message = new ChangeWeatherEvent(frostWeather.get());
 					FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
 
-					ChangeWeatherTimeEvent message2 = new ChangeWeatherTimeEvent(p_139179_, 0, cap.getWeatherLevel(1.0F));
+					ChangeWeatherTimeEvent message2 = new ChangeWeatherTimeEvent(p_139179_, 0);
 					FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message2);
 					cap.needWeatherChanged = true;
 				});

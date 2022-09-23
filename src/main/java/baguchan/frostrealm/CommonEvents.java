@@ -54,6 +54,7 @@ public class CommonEvents {
 		});
 	}
 
+
 	@SubscribeEvent
 	public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
 		if (event.getEntity() != null && event.getEntity().level instanceof ServerLevel) {
@@ -63,7 +64,7 @@ public class CommonEvents {
 			for (ServerLevel serverworld : server.getAllLevels()) {
 				if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-						ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(cap.getWeatherTime(), cap.getWeatherCooldown(), cap.getWeatherLevel(1.0F));
+						ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(cap.getWeatherTime(), cap.getWeatherCooldown());
 						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
 					});
 					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
@@ -85,7 +86,7 @@ public class CommonEvents {
 			for (ServerLevel serverworld : server.getAllLevels()) {
 				if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-						ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(cap.getWeatherTime(), cap.getWeatherCooldown(), cap.getWeatherLevel(1.0F));
+						ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(cap.getWeatherTime(), cap.getWeatherCooldown());
 						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
 					});
 					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {

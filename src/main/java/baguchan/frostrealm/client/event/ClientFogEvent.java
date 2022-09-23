@@ -18,7 +18,9 @@ public class ClientFogEvent {
 		Entity entity = event.getCamera().getEntity();
 		if (entity != null && entity.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 			entity.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-				float weatherLevel = cap.getWeatherLevel(1.0F);
+				float partialTicks = (float) event.getPartialTick();
+				float weatherLevel = cap.getWeatherLevel(partialTicks);
+
 				if (weatherLevel > 0F && cap.getFrostWeather() != null && cap.getFrostWeather().isUseFog()) {
 					event.setNearPlaneDistance(130.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
 					event.setFarPlaneDistance(160.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
