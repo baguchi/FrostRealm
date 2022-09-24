@@ -1,0 +1,8 @@
+{
+  "values": [
+    "#minecraft:freeze_immune_entity_types",
+    "frostrealm:frost_wolf",
+    "frostrealm:yeti",
+    "frostrealm:marmot"
+  ]
+}

@@ -17,6 +17,7 @@ public class FrostModelLayers {
 	public static final ModelLayerLocation AURORAY = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "auroray"), "auroray");
 
 	public static final ModelLayerLocation CRYSTAL_FOX = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "crystal_fox"), "crystal_fox");
+	public static final ModelLayerLocation SNOW_MOLE = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "snow_mole"), "snow_mole");
 
 	public static final ModelLayerLocation GOKKUR = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "gokkur"), "gokkur");
 	public static final ModelLayerLocation GOKKUDILLO = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "gokkudillo"), "gokkudillo");

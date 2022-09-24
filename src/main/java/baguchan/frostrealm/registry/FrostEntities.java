@@ -11,6 +11,7 @@ import baguchan.frostrealm.entity.FrostWraith;
 import baguchan.frostrealm.entity.Gokkudillo;
 import baguchan.frostrealm.entity.Gokkur;
 import baguchan.frostrealm.entity.Marmot;
+import baguchan.frostrealm.entity.SnowMole;
 import baguchan.frostrealm.entity.SnowPileQuail;
 import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.projectile.WarpedCrystalShard;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -37,6 +39,7 @@ public class FrostEntities {
 	public static final RegistryObject<EntityType<SnowPileQuail>> SNOWPILE_QUAIL = ENTITIES.register("snowpile_quail", () -> EntityType.Builder.of(SnowPileQuail::new, MobCategory.CREATURE).sized(0.6F, 0.6F).build(prefix("snowpile_quail")));
 	public static final RegistryObject<EntityType<FrostWolf>> FROST_WOLF = ENTITIES.register("frost_wolf", () -> EntityType.Builder.of(FrostWolf::new, MobCategory.CREATURE).sized(0.8F, 0.95F).build(prefix("frost_wolf")));
 	public static final RegistryObject<EntityType<CrystalFox>> CRYSTAL_FOX = ENTITIES.register("crystal_fox", () -> EntityType.Builder.of(CrystalFox::new, MobCategory.CREATURE).sized(0.6F, 0.7F).clientTrackingRange(8).build(prefix("crystal_fox")));
+	public static final RegistryObject<EntityType<SnowMole>> SNOW_MOLE = ENTITIES.register("snow_mole", () -> EntityType.Builder.of(SnowMole::new, MobCategory.CREATURE).sized(0.6F, 0.6F).clientTrackingRange(8).immuneTo(Blocks.POWDER_SNOW_CAULDRON).build(prefix("snow_mole")));
 
 
 	public static final RegistryObject<EntityType<Yeti>> YETI = ENTITIES.register("yeti", () -> EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).build(prefix("yeti")));
@@ -64,6 +67,7 @@ public class FrostEntities {
 		event.put(SNOWPILE_QUAIL.get(), SnowPileQuail.createAttributes().build());
 		event.put(FROST_WOLF.get(), FrostWolf.createAttributes().build());
 		event.put(CRYSTAL_FOX.get(), CrystalFox.createAttributes().build());
+		event.put(SNOW_MOLE.get(), SnowMole.createAttributes().build());
 
 		event.put(YETI.get(), Yeti.createAttributeMap().build());
 		event.put(FROST_WRAITH.get(), FrostWraith.createAttributes().build());
@@ -78,6 +82,8 @@ public class FrostEntities {
 		SpawnPlacements.register(SNOWPILE_QUAIL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowPileQuail::checkQuailSpawnRules);
 		SpawnPlacements.register(FROST_WOLF.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostWolf::checkFrostWolfSpawnRules);
 		SpawnPlacements.register(CRYSTAL_FOX.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalFox::checkCrystalFoxSpawnRules);
+		SpawnPlacements.register(SNOW_MOLE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowMole::checkSnowMoleSpawnRules);
+
 
 		SpawnPlacements.register(YETI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
 		SpawnPlacements.register(FROST_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
