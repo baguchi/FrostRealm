@@ -11,13 +11,18 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 
 public class SnowMoleModel<T extends Entity> extends HierarchicalModel<T> {
 	private final ModelPart root;
+	private final ModelPart handR;
+	private final ModelPart handL;
 
 	public SnowMoleModel(ModelPart root) {
 		this.root = root.getChild("root");
+		this.handR = this.root.getChild("handR");
+		this.handL = this.root.getChild("handL");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -41,6 +46,9 @@ public class SnowMoleModel<T extends Entity> extends HierarchicalModel<T> {
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root.xRot = headPitch * ((float) Math.PI / 180F);
 		this.root.yRot = netHeadYaw * ((float) Math.PI / 180F);
+
+		this.handR.zRot = Mth.cos(limbSwing * 0.6662F * 0.6F) * 1.25F * limbSwingAmount;
+		this.handL.zRot = Mth.cos(limbSwing * 0.6662F * 0.6F + (float) Math.PI) * 1.25F * limbSwingAmount;
 	}
 
 	@Override

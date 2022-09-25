@@ -14,24 +14,15 @@ import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import javax.annotation.Nullable;
 
 public class SnowSwimNodeEvaluator extends WalkNodeEvaluator {
-	private float oldWalkableCost;
-	private float oldWaterBorderCost;
-
 	public SnowSwimNodeEvaluator() {
 	}
 
 	public void prepare(PathNavigationRegion p_164671_, Mob p_164672_) {
 		super.prepare(p_164671_, p_164672_);
 		p_164672_.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 0.0F);
-		this.oldWalkableCost = p_164672_.getPathfindingMalus(BlockPathTypes.WALKABLE);
-		p_164672_.setPathfindingMalus(BlockPathTypes.WALKABLE, 6.0F);
-		//this.oldWaterBorderCost = p_164672_.getPathfindingMalus(BlockPathTypes.WATER_BORDER);
-		//p_164672_.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 4.0F);
 	}
 
 	public void done() {
-		this.mob.setPathfindingMalus(BlockPathTypes.WALKABLE, this.oldWalkableCost);
-		//this.mob.setPathfindingMalus(BlockPathTypes.WATER_BORDER, this.oldWaterBorderCost);
 		super.done();
 	}
 
@@ -71,15 +62,15 @@ public class SnowSwimNodeEvaluator extends WalkNodeEvaluator {
 	}
 
 	private boolean isVerticalNeighborValid(@Nullable Node p_230611_, Node p_230612_) {
-		return this.isNeighborValid(p_230611_, p_230612_) && p_230611_.type == BlockPathTypes.POWDER_SNOW;
+		return this.isNeighborValid(p_230611_, p_230612_);
 	}
 
 	protected double getFloorLevel(BlockPos p_164674_) {
-		return this.mob.isInPowderSnow ? (double) p_164674_.getY() + 0.5D : super.getFloorLevel(p_164674_);
+		return this.mob.wasInPowderSnow ? (double) p_164674_.getY() + 0.5D : super.getFloorLevel(p_164674_);
 	}
 
 	protected boolean isAmphibious() {
-		return true;
+		return false;
 	}
 
 	public BlockPathTypes getBlockPathType(BlockGetter p_164666_, int p_164667_, int p_164668_, int p_164669_) {

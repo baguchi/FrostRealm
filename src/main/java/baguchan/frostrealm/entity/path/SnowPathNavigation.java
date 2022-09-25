@@ -4,7 +4,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.pathfinder.PathFinder;
+import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
 
 public class SnowPathNavigation extends PathNavigation {
@@ -14,6 +16,9 @@ public class SnowPathNavigation extends PathNavigation {
 
 	protected PathFinder createPathFinder(int p_26598_) {
 		this.nodeEvaluator = new SnowSwimNodeEvaluator();
+		this.nodeEvaluator.setCanPassDoors(true);
+		this.nodeEvaluator.setCanOpenDoors(false);
+		this.nodeEvaluator.setCanFloat(true);
 		return new PathFinder(this.nodeEvaluator, p_26598_);
 	}
 
@@ -25,18 +30,21 @@ public class SnowPathNavigation extends PathNavigation {
 		return new Vec3(this.mob.getX(), this.mob.getY(0.5D), this.mob.getZ());
 	}
 
-	protected double getGroundY(Vec3 p_186136_) {
-		return p_186136_.y;
+	protected double getGroundY(Vec3 p_186132_) {
+		BlockPos blockpos = new BlockPos(p_186132_);
+		return this.level.getBlockState(blockpos.below()).isAir() || this.level.getBlockState(blockpos).is(Blocks.POWDER_SNOW) ? p_186132_.y : WalkNodeEvaluator.getFloorLevel(this.level, blockpos);
 	}
 
 	protected boolean canMoveDirectly(Vec3 p_186138_, Vec3 p_186139_) {
-		return this.mob.isInPowderSnow ? isClearForMovementBetween(this.mob, p_186138_, p_186139_) : false;
+		return this.mob.wasInPowderSnow ? isClearForMovementBetween(this.mob, p_186138_, p_186139_) : false;
 	}
 
 	public boolean isStableDestination(BlockPos p_26608_) {
-		return !this.level.getBlockState(p_26608_).isSolidRender(this.level, p_26608_);
+		return !this.level.getBlockState(p_26608_.below()).isAir() || this.level.getBlockState(p_26608_).is(Blocks.POWDER_SNOW);
 	}
 
-	public void setCanFloat(boolean p_26612_) {
+
+	public void setCanFloat(boolean p_26563_) {
+		this.nodeEvaluator.setCanFloat(p_26563_);
 	}
 }
