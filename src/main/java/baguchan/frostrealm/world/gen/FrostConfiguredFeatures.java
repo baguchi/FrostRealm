@@ -4,17 +4,23 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostFeatures;
 import com.google.common.collect.ImmutableList;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.Vec3i;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.ClampedNormalFloat;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockColumnConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DripstoneClusterConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.LargeDripstoneConfiguration;
@@ -74,6 +80,10 @@ public class FrostConfiguredFeatures {
 	public static final Holder<PlacedFeature> FROSTROOT_CHECKED = PlacementUtils.register(prefix("frostroot_checked"), FrostTreeFeatures.FROST_TREE, PlacementUtils.filteredByBlockSurvival(FrostBlocks.FROSTROOT_SAPLING.get()));
 
 	public static final Holder<ConfiguredFeature<RandomFeatureConfiguration, ?>> FROSTROOT_TREE = FeatureUtils.register(prefix("frostroot_trees"), Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(FrostTreeFeatures.FROST_TREE_BIG), 0.33333334F)), FROSTROOT_CHECKED));
+
+	public static final Holder<ConfiguredFeature<BlockColumnConfiguration, ?>> LOG = FeatureUtils.register(prefix("log"), Feature.BLOCK_COLUMN, new BlockColumnConfiguration(List.of(BlockColumnConfiguration.layer(ConstantInt.of(32), BlockStateProvider.simple(FrostBlocks.FROSTROOT_LOG.get()))), Direction.DOWN, BlockPredicate.not(BlockPredicate.hasSturdyFace(new Vec3i(0, 1, 0), Direction.UP)), true));
+	public static final Holder<ConfiguredFeature<BlockColumnConfiguration, ?>> CHAIN = FeatureUtils.register(prefix("chain"), Feature.BLOCK_COLUMN, new BlockColumnConfiguration(List.of(BlockColumnConfiguration.layer(ConstantInt.of(32), BlockStateProvider.simple(Blocks.CHAIN))), Direction.UP, BlockPredicate.not(BlockPredicate.hasSturdyFace(new Vec3i(0, -1, 0), Direction.DOWN)), true));
+
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;

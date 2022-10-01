@@ -5,7 +5,9 @@ import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.world.gen.FrostConfiguredFeatures;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Vec3i;
 import net.minecraft.data.worldgen.features.NetherFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -17,6 +19,7 @@ import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountOnEveryLayerPlacement;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
+import net.minecraft.world.level.levelgen.placement.EnvironmentScanPlacement;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
 import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.NoiseThresholdCountPlacement;
@@ -57,6 +60,9 @@ public class FrostPlacements {
 
 	public static final Holder<PlacedFeature> ICE_CLUSTER = PlacementUtils.register(prefix("ice_cluster"), FrostConfiguredFeatures.ICE_CLUSTER, CountPlacement.of(UniformInt.of(48, 96)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 	public static final Holder<PlacedFeature> LARGE_ICE = PlacementUtils.register(prefix("large_ice"), FrostConfiguredFeatures.LARGE_ICE, CountPlacement.of(UniformInt.of(10, 48)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+
+	public static final Holder<PlacedFeature> LOG_PLACE = PlacementUtils.register(prefix("log"), FrostConfiguredFeatures.LOG, EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.anyOf(BlockPredicate.hasSturdyFace(new Vec3i(0, 1, 0), Direction.UP), BlockPredicate.hasSturdyFace(Direction.UP)), 32));
+	public static final Holder<PlacedFeature> CHAIN_PLACE = PlacementUtils.register(prefix("chain"), FrostConfiguredFeatures.CHAIN, EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.anyOf(BlockPredicate.hasSturdyFace(new Vec3i(0, -1, 0), Direction.DOWN), BlockPredicate.hasSturdyFace(Direction.DOWN)), 32));
 
 
 	public static String prefix(String name) {
