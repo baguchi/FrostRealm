@@ -1,6 +1,8 @@
 package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.capability.FrostWeatherCapability;
+import baguchan.frostrealm.entity.movecontrol.LavaMoveControl;
+import baguchan.frostrealm.entity.path.LavaPathNavigation;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostWeathers;
 import net.minecraft.core.BlockPos;
@@ -17,13 +19,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -31,11 +33,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.level.pathfinder.PathFinder;
-import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -46,6 +46,7 @@ public class Octorolga extends Monster {
 
 	public Octorolga(EntityType<? extends Monster> p_33002_, Level p_33003_) {
 		super(p_33002_, p_33003_);
+		this.moveControl = new LavaMoveControl(this, 85, 10, 3.0F);
 		this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
 		this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
 		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
@@ -53,7 +54,7 @@ public class Octorolga extends Monster {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.MOVEMENT_SPEED, 0.15F);
+		return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 40.0D).add(Attributes.MOVEMENT_SPEED, 0.15F);
 	}
 
 	@Override
@@ -65,18 +66,38 @@ public class Octorolga extends Monster {
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
-	protected PathNavigation createNavigation(Level p_33913_) {
-		return new Octorolga.FlarockPathNavigation(this, p_33913_);
+	@Override
+	protected PathNavigation createNavigation(Level p_27480_) {
+		return new LavaPathNavigation(this, p_27480_);
 	}
 
+	@Override
+	public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
+		return p_27574_.getBlockState(p_27573_).is(Blocks.LAVA) ? 10.0F : super.getWalkTargetValue(p_27573_, p_27574_);
+	}
+
+	@Override
+	public void travel(Vec3 p_27490_) {
+		if (this.isEffectiveAi() && this.isInLava()) {
+			this.moveRelative(this.getSpeed(), p_27490_);
+			this.move(MoverType.SELF, this.getDeltaMovement());
+			this.setDeltaMovement(this.getDeltaMovement().scale(0.65D));
+		} else {
+			super.travel(p_27490_);
+		}
+	}
+
+	@Override
 	public boolean isSensitiveToWater() {
 		return true;
 	}
 
+	@Override
 	public boolean isOnFire() {
 		return false;
 	}
 
+	@Override
 	public boolean isPushedByFluid() {
 		return false;
 	}
@@ -123,10 +144,6 @@ public class Octorolga extends Monster {
 		return p_219130_.getBlockState(blockpos$mutableblockpos).isAir();
 	}
 
-	public boolean canStandOnFluid(FluidState p_204067_) {
-		return p_204067_.is(FluidTags.LAVA);
-	}
-
 	@Nullable
 	public UUID getChildId() {
 		return this.entityData.get(CHILD_UUID).orElse(null);
@@ -152,20 +169,20 @@ public class Octorolga extends Monster {
 			Entity child = getChild();
 			if (child == null) {
 				LivingEntity partParent = this;
-				int segments = 7 + getRandom().nextInt(8);
-				for (int i = 0; i < segments; i++) {
-					OctorolgaPart part = new OctorolgaPart(FrostEntities.OCTOROLGA_PART.get(), partParent, 0.9F, 180, 1);
-					part.setParent(partParent);
-					part.setBodyIndex(i);
-					if (partParent == this) {
-						this.setChildId(part.getUUID());
+				int segments = 3 + getRandom().nextInt(1);
+				for (Direction direction : Direction.Plane.HORIZONTAL) {
+					for (int i = 0; i < segments; i++) {
+						OctorolgaPart part = new OctorolgaPart(FrostEntities.OCTOROLGA_PART.get(), partParent, 1.0F / i, 180, 1);
+						part.setParent(partParent);
+						part.setBodyIndex(i);
+						if (partParent == this) {
+							this.setChildId(part.getUUID());
+						}
+						part.setInitialPartPos(this);
+						part.setDirection(direction);
+						partParent = part;
+						level.addFreshEntity(part);
 					}
-					part.setInitialPartPos(this);
-					partParent = part;
-					if (i == segments - 1) {
-						part.setTail(true);
-					}
-					level.addFreshEntity(part);
 				}
 			}
 		}
@@ -173,17 +190,12 @@ public class Octorolga extends Monster {
 
 	@Override
 	public boolean isInvulnerableTo(DamageSource source) {
-		return source == DamageSource.FALL || source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || source == DamageSource.LAVA || source.isFire() || super.isInvulnerableTo(source);
-	}
-
-	@Override
-	public boolean causeFallDamage(float p_147105_, float p_147106_, DamageSource p_147107_) {
-		return false;
+		return source == DamageSource.CRAMMING || source == DamageSource.FALLING_BLOCK || source == DamageSource.LAVA || source.isFire() || super.isInvulnerableTo(source);
 	}
 
 	@Override
 	public boolean hurt(DamageSource source, float damage) {
-		if (source.isFire() || source.isProjectile() && !source.isBypassArmor() && !source.isBypassMagic() && !source.isBypassInvul() && !source.isMagic()) {
+		if (source.isFire() || source.isProjectile() && !source.isMagic()) {
 			return false;
 		} else {
 			if (source == DamageSource.DROWN) {
@@ -197,6 +209,19 @@ public class Octorolga extends Monster {
 			}
 		}
 		return super.hurt(source, damage);
+	}
+
+	@Override
+	public float getScale() {
+		return isBaby() ? 1.0F : 2.0F;
+	}
+
+	public int getMaxSpawnClusterSize() {
+		return 1;
+	}
+
+	public boolean isMaxGroupSizeReached(int sizeIn) {
+		return false;
 	}
 
 	static class FlarockGoToLavaGoal extends MoveToBlockGoal {
@@ -248,30 +273,8 @@ public class Octorolga extends Monster {
 		public void tick() {
 			super.tick();
 			if (this.flarock.getChild() instanceof OctorolgaPart) {
-				((OctorolgaPart) this.flarock.getChild()).setOffsetPos(this.mob.blockPosition());
+				((OctorolgaPart) this.flarock.getChild()).setTargetPos(this.mob.blockPosition());
 			}
-		}
-
-
-	}
-
-	static class FlarockPathNavigation extends GroundPathNavigation {
-		FlarockPathNavigation(Octorolga p_33969_, Level p_33970_) {
-			super(p_33969_, p_33970_);
-		}
-
-		protected PathFinder createPathFinder(int p_33972_) {
-			this.nodeEvaluator = new WalkNodeEvaluator();
-			this.nodeEvaluator.setCanPassDoors(true);
-			return new PathFinder(this.nodeEvaluator, p_33972_);
-		}
-
-		protected boolean hasValidPathType(BlockPathTypes p_33974_) {
-			return p_33974_ != BlockPathTypes.LAVA && p_33974_ != BlockPathTypes.DAMAGE_FIRE && p_33974_ != BlockPathTypes.DANGER_FIRE ? super.hasValidPathType(p_33974_) : true;
-		}
-
-		public boolean isStableDestination(BlockPos p_33976_) {
-			return this.level.getBlockState(p_33976_).is(Blocks.LAVA) || super.isStableDestination(p_33976_);
 		}
 	}
 }

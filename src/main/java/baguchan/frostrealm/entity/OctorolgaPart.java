@@ -4,6 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.message.MessageHurtMultipart;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.protocol.Packet;
@@ -38,16 +39,14 @@ import java.util.UUID;
 
 public class OctorolgaPart extends LivingEntity implements IHurtableMultipart {
 
-	private static final EntityDataAccessor<Boolean> TAIL = SynchedEntityData.defineId(OctorolgaPart.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> BODYINDEX = SynchedEntityData.defineId(OctorolgaPart.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Optional<UUID>> PARENT_UUID = SynchedEntityData.defineId(OctorolgaPart.class, EntityDataSerializers.OPTIONAL_UUID);
-	private static final EntityDataAccessor<Optional<BlockPos>> OFFSET_POS = SynchedEntityData.defineId(OctorolgaPart.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
+	private static final EntityDataAccessor<Optional<BlockPos>> TARGET_POS = SynchedEntityData.defineId(OctorolgaPart.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
+	private static final EntityDataAccessor<Direction> DIRECTION = SynchedEntityData.defineId(OctorolgaPart.class, EntityDataSerializers.DIRECTION);
 
 
 	public EntityDimensions multipartSize;
-	protected float radius;
-	protected float angleYaw;
-	protected float offsetY;
+	protected float factor;
 	protected float damageMultiplier = 1;
 
 	public double prevXPart;
@@ -62,12 +61,10 @@ public class OctorolgaPart extends LivingEntity implements IHurtableMultipart {
 		multipartSize = t.getDimensions();
 	}
 
-	public OctorolgaPart(EntityType t, LivingEntity parent, float radius, float angleYaw, float offsetY) {
+	public OctorolgaPart(EntityType t, LivingEntity parent, float factor, float angleYaw, float offsetY) {
 		super(t, parent.level);
 		this.setParent(parent);
-		this.radius = radius;
-		this.angleYaw = (angleYaw + 90.0F) * ((float) Math.PI / 180.0F);
-		this.offsetY = offsetY;
+		this.factor = factor;
 	}
 
 	public MobType getMobType() {
@@ -87,13 +84,12 @@ public class OctorolgaPart extends LivingEntity implements IHurtableMultipart {
 		if (this.getParentId() != null) {
 			compound.putUUID("ParentUUID", this.getParentId());
 		}
-		compound.putBoolean("TailPart", isTail());
 		compound.putInt("BodyIndex", getBodyIndex());
-		compound.putFloat("PartAngle", angleYaw);
-		compound.putFloat("PartRadius", radius);
-		if (this.getOffsetPos() != null) {
-			compound.put("OffsetPos", NbtUtils.writeBlockPos(this.getOffsetPos()));
+		compound.putFloat("PartFactor", factor);
+		if (this.getTargetPos() != null) {
+			compound.put("TargetPos", NbtUtils.writeBlockPos(this.getTargetPos()));
 		}
+		compound.putByte("AttachFace", (byte) this.getDirection().get3DDataValue());
 	}
 
 	public void readAdditionalSaveData(CompoundTag compound) {
@@ -101,22 +97,21 @@ public class OctorolgaPart extends LivingEntity implements IHurtableMultipart {
 		if (compound.hasUUID("ParentUUID")) {
 			this.setParentId(compound.getUUID("ParentUUID"));
 		}
-		this.setTail(compound.getBoolean("TailPart"));
 		this.setBodyIndex(compound.getInt("BodyIndex"));
-		this.angleYaw = compound.getFloat("PartAngle");
-		this.radius = compound.getFloat("PartRadius");
-		if (compound.contains("OffsetPos")) {
-			this.setOffsetPos(NbtUtils.readBlockPos(compound.getCompound("OffsetPos")));
+		this.factor = compound.getFloat("PartFactor");
+		if (compound.contains("TargetPos")) {
+			this.setTargetPos(NbtUtils.readBlockPos(compound.getCompound("TargetPos")));
 		}
+		this.setDirection(Direction.from3DDataValue(compound.getByte("Direction")));
 	}
 
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(PARENT_UUID, Optional.empty());
-		this.entityData.define(TAIL, false);
 		this.entityData.define(BODYINDEX, 0);
-		this.entityData.define(OFFSET_POS, Optional.empty());
+		this.entityData.define(TARGET_POS, Optional.empty());
+		this.entityData.define(DIRECTION, Direction.NORTH);
 	}
 
 	public boolean isSensitiveToWater() {
@@ -141,17 +136,26 @@ public class OctorolgaPart extends LivingEntity implements IHurtableMultipart {
 	}
 
 	@Nullable
-	public BlockPos getOffsetPos() {
-		return this.entityData.get(OFFSET_POS).orElse(null);
+	public BlockPos getTargetPos() {
+		return this.entityData.get(TARGET_POS).orElse(null);
 	}
 
-	public void setOffsetPos(@Nullable BlockPos offset) {
-		this.entityData.set(OFFSET_POS, Optional.ofNullable(offset));
+	public void setTargetPos(@Nullable BlockPos offset) {
+		this.entityData.set(TARGET_POS, Optional.ofNullable(offset));
+	}
+
+
+	public Direction getDirection() {
+		return this.entityData.get(DIRECTION);
+	}
+
+	public void setDirection(Direction direction) {
+		this.entityData.set(DIRECTION, direction);
 	}
 
 
 	public void setInitialPartPos(Entity parent) {
-		this.setPos(parent.xo + this.radius * Math.cos(parent.getYRot() * (Math.PI / 180.0F) + this.angleYaw), parent.yo + this.offsetY, parent.zo + this.radius * Math.sin(parent.getYRot() * (Math.PI / 180.0F) + this.angleYaw));
+		this.setPos(parent.xo, parent.yo, parent.zo);
 	}
 
 	@Override
@@ -163,13 +167,47 @@ public class OctorolgaPart extends LivingEntity implements IHurtableMultipart {
 
 			if (parent != null && !level.isClientSide) {
 				this.setNoGravity(true);
+				float startYaw = this.getParent().getYRot();
+				double startX = this.getParent().getX() + getDirection().getStepX();
+				double startY = this.getParent().getY() + getDirection().getStepY();
+				double startZ = this.getParent().getZ() + getDirection().getStepZ();
 
-				if (this.getOffsetPos() == null) {
-					this.setPos(parent.xo, parent.yo + this.offsetY + 0.25F * (getBodyIndex() + 1), parent.zo);
-				} else {
-					this.movePart();
-					this.setPos(parent.xo - this.xPart, parent.yo + this.offsetY - this.yPart, parent.zo - this.zPart);
+				double endX = this.getParent().getX();
+				double endY = this.getParent().getY();
+				double endZ = this.getParent().getZ();
+				float endYaw = this.getParent().getYRot();
+				float endPitch = this.getParent().getXRot();
+
+				for (; startYaw - endYaw < -180F; endYaw -= 360F) {
 				}
+				for (; startYaw - endYaw >= 180F; endYaw += 360F) {
+				}
+				for (; 0.0F - endPitch < -180F; endPitch -= 360F) {
+				}
+				for (; 0.0F - endPitch >= 180F; endPitch += 360F) {
+				}
+
+				// translate the end position back 1 unit
+				if (endPitch > 0) {
+					// if we are looking down, don't raise the first neck position, it looks weird
+					Vec3 vector = new Vec3(0.0D, 0.0D, -1.0D).yRot((-endYaw * 3.141593F) / 180.0F);
+					endX += vector.x();
+					endY += vector.y();
+					endZ += vector.z();
+				} else {
+					// but if we are looking up, lower it or it goes through the crest
+					Vec3 vector = this.getParent().getLookAngle();
+					float dist = 1.0f;
+
+					endX -= vector.x() * dist;
+					endY -= vector.y() * dist;
+					endZ -= vector.z() * dist;
+
+				}
+
+				this.setPos(parent.xo + this.xPart + (endX + (startX - endX) * factor), parent.yo + this.yPart + (endY + (startY - endY) * factor), parent.zo + this.zPart + (endZ + (startZ - endZ) * factor));
+				this.movePart();
+
 				double d0 = parent.getX() - this.getX();
 				double d1 = parent.getY() - this.getY();
 				double d2 = parent.getZ() - this.getZ();
@@ -192,7 +230,7 @@ public class OctorolgaPart extends LivingEntity implements IHurtableMultipart {
 					this.remove(RemovalReason.DISCARDED);
 				}
 			} else if (tickCount > 20 && !level.isClientSide) {
-				tickDeath();
+				this.remove(RemovalReason.DISCARDED);
 			}
 		}
 		super.tick();
@@ -223,48 +261,48 @@ public class OctorolgaPart extends LivingEntity implements IHurtableMultipart {
 	}
 
 	private void movePart() {
-		if (getOffsetPos() != null) {
+		if (getTargetPos() != null && getParent() != null) {
 
 			this.prevXPart = this.xPart;
 			this.prevYPart = this.yPart;
 			this.prevZPart = this.zPart;
-			double d0 = this.getX() - this.getOffsetPos().getX();
-			double d1 = this.getY() - this.getOffsetPos().getY();
-			double d2 = this.getZ() - this.getOffsetPos().getZ();
+			double d0 = getParent().getX() - this.getTargetPos().getX();
+			double d1 = getParent().getY() - this.getTargetPos().getY();
+			double d2 = getParent().getZ() - this.getTargetPos().getZ();
 			double d3 = 15.0D;
-			if (d0 > 1.0D) {
-				this.xPart = this.getX() + 6.0D;
+			if (d0 > 6.0D) {
+				this.xPart = 6.0D;
 				this.prevXPart = this.xPart;
 			}
 
 			if (d2 > 6.0D) {
-				this.zPart = this.getZ() + 6.0D;
+				this.zPart = 6.0D;
 				this.prevZPart = this.zPart;
 			}
 
 			if (d1 > 6.0D) {
-				this.yPart = this.getY() + 6.0D;
+				this.yPart = 6.0D;
 				this.prevYPart = this.yPart;
 			}
 
 			if (d0 < -6.0D) {
-				this.xPart = this.getX() - 6.0D;
+				this.xPart = -6.0D;
 				this.prevXPart = this.xPart;
 			}
 
 			if (d2 < -6.0D) {
-				this.zPart = this.getZ() - 6.0D;
+				this.zPart = -6.0D;
 				this.prevZPart = this.zPart;
 			}
 
 			if (d1 < -6.0D) {
-				this.yPart = this.getY() - 6.0D;
+				this.yPart = -6.0D;
 				this.prevYPart = this.yPart;
 			}
 
-			this.xPart += d0 * 0.25D;
-			this.zPart += d2 * 0.25D;
-			this.yPart += d1 * 0.25D;
+			this.xPart += d0 * 0.15D;
+			this.zPart += d2 * 0.15D;
+			this.yPart += d1 * 0.15D;
 		}
 	}
 
@@ -322,19 +360,17 @@ public class OctorolgaPart extends LivingEntity implements IHurtableMultipart {
 		boolean flag = false;
 
 
-		if (source.isFire() || source.isProjectile() && !source.isBypassArmor() && !source.isBypassMagic() && !source.isBypassInvul() && !source.isMagic()) {
+		if (source.isFire() || source.isProjectile() && !source.isMagic()) {
 			return false;
 		} else {
-
 			if (source == DamageSource.DROWN) {
 				damage *= 3F;
-			}
-			if (source == DamageSource.FREEZE) {
-				damage *= 1.5F;
+			} else if (source == DamageSource.FREEZE) {
+				damage *= 1.25F;
 			} else if (source.isExplosion()) {
-				damage *= 1.5F;
+				damage *= 1.25F;
 			} else {
-				damage *= 0.15F;
+				damage *= 0.1F;
 			}
 		}
 
@@ -350,7 +386,7 @@ public class OctorolgaPart extends LivingEntity implements IHurtableMultipart {
 
 	@Override
 	public boolean isInvulnerableTo(DamageSource source) {
-		return source == DamageSource.FALL || source == DamageSource.IN_WALL || source == DamageSource.FALLING_BLOCK || source == DamageSource.LAVA || source.isFire() || super.isInvulnerableTo(source);
+		return source == DamageSource.IN_WALL || source == DamageSource.CRAMMING || source == DamageSource.FALLING_BLOCK || source == DamageSource.LAVA || source.isFire() || super.isInvulnerableTo(source);
 	}
 
 	@Override
@@ -368,14 +404,6 @@ public class OctorolgaPart extends LivingEntity implements IHurtableMultipart {
 
 	}
 
-	public boolean isTail() {
-		return this.entityData.get(TAIL).booleanValue();
-	}
-
-	public void setTail(boolean tail) {
-		this.entityData.set(TAIL, Boolean.valueOf(tail));
-	}
-
 	public int getBodyIndex() {
 		return this.entityData.get(BODYINDEX);
 	}
@@ -387,6 +415,10 @@ public class OctorolgaPart extends LivingEntity implements IHurtableMultipart {
 	public boolean shouldNotExist() {
 		Entity parent = getParent();
 		return !parent.isAlive();
+	}
+
+	@Override
+	public void push(Entity p_21294_) {
 	}
 
 	@Override

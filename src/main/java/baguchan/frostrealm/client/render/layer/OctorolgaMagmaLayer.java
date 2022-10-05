@@ -9,13 +9,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -34,11 +32,11 @@ public class OctorolgaMagmaLayer<T extends Octorolga, M extends OctorolgaModel<T
 	});
 	protected static final RenderStateShard.CullStateShard NO_CULL = new RenderStateShard.CullStateShard(false);
 	protected static final RenderStateShard.TexturingStateShard ENTITY_GLINT_TEXTURING = new RenderStateShard.TexturingStateShard("entity_glint_texturing", () -> {
-		setupGlintTexturing(12.0F);
+		setupGlintTexturing();
 	}, () -> {
 		RenderSystem.resetTextureMatrix();
 	});
-	protected static final RenderStateShard.ShaderStateShard RENDERTYPE_GLINT_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeGlintShader);
+	protected static final RenderStateShard.ShaderStateShard RENDERTYPE_ENERGY_SWIRL_SHADER = new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeEnergySwirlShader);
 
 
 	public OctorolgaMagmaLayer(RenderLayerParent<T, M> p_116981_) {
@@ -52,13 +50,13 @@ public class OctorolgaMagmaLayer<T extends Octorolga, M extends OctorolgaModel<T
 			M entitymodel = this.getParentModel();
 			entitymodel.prepareMobModel(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
 			this.getParentModel().copyPropertiesTo(entitymodel);
-			VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.enchantBeamSwirl());
+			VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.lavaSwirl());
 			entitymodel.rock_eye_R.visible = false;
 			entitymodel.rock_eye_L.visible = false;
 			entitymodel.rocks.visible = false;
 			entitymodel.rock_tube.visible = false;
 			entitymodel.setupAnim(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-			entitymodel.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 0.5F, 0.5F, 0.5F, 1.0F);
+			entitymodel.renderToBuffer(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 			entitymodel.rock_eye_R.visible = true;
 			entitymodel.rock_eye_L.visible = true;
 			entitymodel.rocks.visible = true;
@@ -66,17 +64,17 @@ public class OctorolgaMagmaLayer<T extends Octorolga, M extends OctorolgaModel<T
 		}
 	}
 
-	public RenderType enchantBeamSwirl() {
-		return RenderType.create("entity_magma", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_GLINT_SHADER).setTextureState(new RenderStateShard.MultiTextureStateShard.Builder().add(LOCATION, false, false).add(TheEndPortalRenderer.END_PORTAL_LOCATION, false, false).build()).setCullState(NO_CULL).setLightmapState(LIGHTMAP).setTransparencyState(ADDITIVE_TRANSPARENCY).setTexturingState(ENTITY_GLINT_TEXTURING).createCompositeState(false));
+	public RenderType lavaSwirl() {
+		return RenderType.create("entity_magma", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_ENERGY_SWIRL_SHADER).setTextureState(new RenderStateShard.TextureStateShard(LOCATION, false, false)).setCullState(NO_CULL).setLightmapState(LIGHTMAP).setTexturingState(ENTITY_GLINT_TEXTURING).createCompositeState(false));
 	}
 
-	private static void setupGlintTexturing(float p_110187_) {
-		long var1 = Util.getMillis() * 2L;
-		float var3 = (float) (var1 % 10000L) / 10000.0F;
-		float var4 = (float) (var1 % 10000L) / 10000.0F;
-		Matrix4f var5 = Matrix4f.createTranslateMatrix(var3, var4, 0.0F);
-		var5.multiply(Vector3f.ZP.rotationDegrees(10.0F));
-		var5.multiply(Matrix4f.createScaleMatrix(p_110187_, p_110187_, p_110187_));
+	private static void setupGlintTexturing() {
+		long var1 = Util.getMillis();
+		float var3 = (float) (var1 % 10000L) / 10000F;
+		float var4 = (float) (var1 % 10000L) / 10000F;
+		Matrix4f var5 = Matrix4f.createTranslateMatrix(0, var4, 0.0F);
+		//var5.multiply(Vector3f.ZP.rotationDegrees(10.0F));
+		var5.multiply(Matrix4f.createScaleMatrix(1F, 16 / 360F, 1F));
 		RenderSystem.setTextureMatrix(var5);
 	}
 }
