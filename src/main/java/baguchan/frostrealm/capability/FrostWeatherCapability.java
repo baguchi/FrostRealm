@@ -62,6 +62,12 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 		return get(world).filter(FrostWeatherCapability::isWeatherActive).isPresent();
 	}
 
+	public static boolean isPurpleFog(Level world) {
+		return get(world).filter(frostWeatherCapability -> {
+			return frostWeatherCapability.getFrostWeather() == FrostWeathers.PURPLE_FOG.get();
+		}).isPresent();
+	}
+
 	public void tick(Level level) {
 		if (level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 			if (isWeatherActive()) {

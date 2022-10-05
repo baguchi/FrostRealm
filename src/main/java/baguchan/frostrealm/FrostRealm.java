@@ -8,6 +8,7 @@ import baguchan.frostrealm.command.FrostWeatherCommand;
 import baguchan.frostrealm.message.ChangeWeatherEvent;
 import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.message.ChangedColdMessage;
+import baguchan.frostrealm.message.MessageHurtMultipart;
 import baguchan.frostrealm.registry.FrostBiomes;
 import baguchan.frostrealm.registry.FrostBlockEntitys;
 import baguchan.frostrealm.registry.FrostBlocks;
@@ -23,6 +24,7 @@ import baguchan.frostrealm.world.gen.FrostTreeFeatures;
 import baguchan.frostrealm.world.placement.FrostOrePlacements;
 import baguchan.frostrealm.world.placement.FrostPlacements;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
@@ -34,8 +36,10 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -97,6 +101,16 @@ public class FrostRealm {
 		FrostBiomes.addBiomeTypes();
 	}
 
+	public static <MSG> void sendMSGToAll(MSG message) {
+		for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
+			sendNonLocal(message, player);
+		}
+	}
+
+	public static <MSG> void sendNonLocal(MSG msg, ServerPlayer player) {
+		CHANNEL.sendTo(msg, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+	}
+
 	private void setupMessages() {
 		CHANNEL.messageBuilder(ChangedColdMessage.class, 0)
 				.encoder(ChangedColdMessage::writeToPacket).decoder(ChangedColdMessage::readFromPacket)
@@ -109,6 +123,10 @@ public class FrostRealm {
 		CHANNEL.messageBuilder(ChangeWeatherEvent.class, 2)
 				.encoder(ChangeWeatherEvent::writeToPacket).decoder(ChangeWeatherEvent::readFromPacket)
 				.consumerMainThread(ChangeWeatherEvent::handle)
+				.add();
+		CHANNEL.messageBuilder(MessageHurtMultipart.class, 4)
+				.encoder(MessageHurtMultipart::write).decoder(MessageHurtMultipart::read)
+				.consumerMainThread(MessageHurtMultipart::handle)
 				.add();
 	}
 

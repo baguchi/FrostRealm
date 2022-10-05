@@ -12,6 +12,7 @@ import baguchan.frostrealm.client.model.FrostWraithModel;
 import baguchan.frostrealm.client.model.GokkudilloModel;
 import baguchan.frostrealm.client.model.GokkurModel;
 import baguchan.frostrealm.client.model.MarmotModel;
+import baguchan.frostrealm.client.model.OctorolgaModel;
 import baguchan.frostrealm.client.model.SnowMoleModel;
 import baguchan.frostrealm.client.model.SnowPileQuailModel;
 import baguchan.frostrealm.client.model.WolfesterModel;
@@ -27,6 +28,8 @@ import baguchan.frostrealm.client.render.FrostWraithRenderer;
 import baguchan.frostrealm.client.render.GokkudilloRenderer;
 import baguchan.frostrealm.client.render.GokkurRenderer;
 import baguchan.frostrealm.client.render.MarmotRenderer;
+import baguchan.frostrealm.client.render.OctoRolgaPartRenderer;
+import baguchan.frostrealm.client.render.OctoRolgaRenderer;
 import baguchan.frostrealm.client.render.SnowMoleRenderer;
 import baguchan.frostrealm.client.render.SnowPileQuailRenderer;
 import baguchan.frostrealm.client.render.WarpedCrystalRenderer;
@@ -80,6 +83,8 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.GOKKUDILLO.get(), GokkudilloRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROST_BEASTER.get(), FrostBeasterRenderer::new);
 		event.registerEntityRenderer(FrostEntities.AURORAY.get(), AurorayRenderer::new);
+		event.registerEntityRenderer(FrostEntities.OCTOROLGA.get(), OctoRolgaRenderer::new);
+		event.registerEntityRenderer(FrostEntities.OCTOROLGA_PART.get(), OctoRolgaPartRenderer::new);
 
 		event.registerEntityRenderer(FrostEntities.WARPED_CRYSTAL.get(), WarpedCrystalRenderer::new);
 	}
@@ -103,6 +108,8 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.GOKKUDILLO, GokkudilloModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.CRYSTAL_FOX, CrystalFoxModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.SNOW_MOLE, SnowMoleModel::createBodyLayer);
+
+		event.registerLayerDefinition(FrostModelLayers.OCTOROLGA, OctorolgaModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_OUTER, () -> YetiFurArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION));

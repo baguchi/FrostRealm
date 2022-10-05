@@ -1,5 +1,5 @@
 {
-  "name": "frostrealm:test",
+  "name": "frostrealm:log",
   "fallback": "minecraft:empty",
   "elements": [
     {
@@ -7,7 +7,7 @@
       "element": {
         "element_type": "minecraft:feature_pool_element",
         "projection": "rigid",
-        "feature": "frostrealm:chain"
+        "feature": "frostrealm:log"
       }
     }
   ]
