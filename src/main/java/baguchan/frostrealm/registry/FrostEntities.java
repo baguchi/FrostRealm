@@ -53,7 +53,7 @@ public class FrostEntities {
 	public static final RegistryObject<EntityType<FrostBeaster>> FROST_BEASTER = ENTITIES.register("frost_beaster", () -> EntityType.Builder.of(FrostBeaster::new, MobCategory.MONSTER).sized(0.65F, 1.95F).build(prefix("frost_beaster")));
 	public static final RegistryObject<EntityType<Auroray>> AURORAY = ENTITIES.register("auroray", () -> EntityType.Builder.of(Auroray::new, MobCategory.MONSTER).sized(2.0F, 0.6F).build(prefix("auroray")));
 
-	public static final RegistryObject<EntityType<Octorolga>> OCTOROLGA = ENTITIES.register("octorolga", () -> EntityType.Builder.of(Octorolga::new, MobCategory.MONSTER).sized(1.0F, 1.0F).fireImmune().build(prefix("octorolga")));
+	public static final RegistryObject<EntityType<Octorolga>> OCTOROLGA = ENTITIES.register("octorolga", () -> EntityType.Builder.of(Octorolga::new, MobCategory.MONSTER).sized(1.1F, 1.1F).fireImmune().build(prefix("octorolga")));
 	public static final RegistryObject<EntityType<OctorolgaPart>> OCTOROLGA_PART = ENTITIES.register("octorolga_part", () -> EntityType.Builder.<OctorolgaPart>of(OctorolgaPart::new, MobCategory.MONSTER).sized(1F, 1F).fireImmune().build(prefix("octorolga_part")));
 
 	public static final RegistryObject<EntityType<WarpedCrystalShard>> WARPED_CRYSTAL = ENTITIES.register("warped_crystal", () -> EntityType.Builder.<WarpedCrystalShard>of(WarpedCrystalShard::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(prefix("warped_crystal")));

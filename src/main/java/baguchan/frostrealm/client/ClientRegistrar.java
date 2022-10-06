@@ -13,6 +13,7 @@ import baguchan.frostrealm.client.model.GokkudilloModel;
 import baguchan.frostrealm.client.model.GokkurModel;
 import baguchan.frostrealm.client.model.MarmotModel;
 import baguchan.frostrealm.client.model.OctorolgaModel;
+import baguchan.frostrealm.client.model.OctorolgaPartModel;
 import baguchan.frostrealm.client.model.SnowMoleModel;
 import baguchan.frostrealm.client.model.SnowPileQuailModel;
 import baguchan.frostrealm.client.model.WolfesterModel;
@@ -110,6 +111,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.SNOW_MOLE, SnowMoleModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.OCTOROLGA, OctorolgaModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.OCTOROLGA_PART, OctorolgaPartModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_OUTER, () -> YetiFurArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION));

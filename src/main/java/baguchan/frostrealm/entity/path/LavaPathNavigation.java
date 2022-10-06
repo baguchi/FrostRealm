@@ -36,7 +36,7 @@ public class LavaPathNavigation extends PathNavigation {
 	}
 
 	protected boolean canMoveDirectly(Vec3 p_186138_, Vec3 p_186139_) {
-		return this.mob.wasInPowderSnow ? isClearForMovementBetween(this.mob, p_186138_, p_186139_) : false;
+		return this.mob.isInLava() ? isClearForMovementBetween(this.mob, p_186138_, p_186139_) : false;
 	}
 
 	public boolean isStableDestination(BlockPos p_26608_) {

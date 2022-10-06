@@ -22,6 +22,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
@@ -44,9 +45,12 @@ import java.util.UUID;
 public class Octorolga extends Monster {
 	private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(Octorolga.class, EntityDataSerializers.OPTIONAL_UUID);
 
+	private boolean isGeneratedPart;
+
 	public Octorolga(EntityType<? extends Monster> p_33002_, Level p_33003_) {
 		super(p_33002_, p_33003_);
-		this.moveControl = new LavaMoveControl(this, 85, 10, 3.0F);
+		this.moveControl = new LavaMoveControl(this, 85, 10, 1.25F);
+		this.lookControl = new SmoothSwimmingLookControl(this, 10);
 		this.setPathfindingMalus(BlockPathTypes.WATER, -1.0F);
 		this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
 		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
@@ -54,16 +58,16 @@ public class Octorolga extends Monster {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 40.0D).add(Attributes.MOVEMENT_SPEED, 0.15F);
+		return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 50.0D).add(Attributes.MOVEMENT_SPEED, 0.16F).add(Attributes.FOLLOW_RANGE, 24.0D);
 	}
 
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
-		this.goalSelector.addGoal(1, new Octorolga.FlarockAttackGoal(this, 0.4D));
-		this.goalSelector.addGoal(4, new Octorolga.FlarockGoToLavaGoal(this, 1.0D));
+		this.goalSelector.addGoal(1, new Octorolga.OctolgaAttackGoal(this, 1.0D));
+		this.goalSelector.addGoal(4, new Octorolga.OctolgaGoToLavaGoal(this, 1.0D));
 		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, false));
 	}
 
 	@Override
@@ -81,7 +85,7 @@ public class Octorolga extends Monster {
 		if (this.isEffectiveAi() && this.isInLava()) {
 			this.moveRelative(this.getSpeed(), p_27490_);
 			this.move(MoverType.SELF, this.getDeltaMovement());
-			this.setDeltaMovement(this.getDeltaMovement().scale(0.65D));
+			this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
 		} else {
 			super.travel(p_27490_);
 		}
@@ -115,6 +119,7 @@ public class Octorolga extends Monster {
 		if (this.getChildId() != null) {
 			compound.putUUID("ChildUUID", this.getChildId());
 		}
+		compound.putBoolean("GeneratedPart", this.isGeneratedPart);
 	}
 
 	public void readAdditionalSaveData(CompoundTag compound) {
@@ -122,6 +127,7 @@ public class Octorolga extends Monster {
 		if (compound.hasUUID("ChildUUID")) {
 			this.setChildId(compound.getUUID("ChildUUID"));
 		}
+		this.isGeneratedPart = compound.getBoolean("GeneratedPart");
 	}
 
 	@Override
@@ -167,21 +173,27 @@ public class Octorolga extends Monster {
 		boolean ground = !this.isInLava() && !this.isInWater() && this.isOnGround();
 		if (!level.isClientSide) {
 			Entity child = getChild();
-			if (child == null) {
+			if (child == null && !isGeneratedPart) {
 				LivingEntity partParent = this;
-				int segments = 3 + getRandom().nextInt(1);
-				for (Direction direction : Direction.Plane.HORIZONTAL) {
+				int segments = 3 + getRandom().nextInt(3);
+				for (Direction direction : new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST}) {
 					for (int i = 0; i < segments; i++) {
-						OctorolgaPart part = new OctorolgaPart(FrostEntities.OCTOROLGA_PART.get(), partParent, 1.0F / i, 180, 1);
-						part.setParent(partParent);
-						part.setBodyIndex(i);
+						OctorolgaPart part = new OctorolgaPart(FrostEntities.OCTOROLGA_PART.get(), partParent);
+						//switch parent when segment's number is 0
+						if (i != 0) {
+							part.setParent(partParent);
+						} else {
+							part.setParent(this);
+						}
+						part.setBodyIndex(i + 1);
 						if (partParent == this) {
 							this.setChildId(part.getUUID());
 						}
-						part.setInitialPartPos(this);
+						part.setPos(this.getX(), this.getY(), this.getZ());
 						part.setDirection(direction);
 						partParent = part;
 						level.addFreshEntity(part);
+						isGeneratedPart = true;
 					}
 				}
 			}
@@ -190,7 +202,7 @@ public class Octorolga extends Monster {
 
 	@Override
 	public boolean isInvulnerableTo(DamageSource source) {
-		return source == DamageSource.CRAMMING || source == DamageSource.FALLING_BLOCK || source == DamageSource.LAVA || source.isFire() || super.isInvulnerableTo(source);
+		return source == DamageSource.IN_WALL || source == DamageSource.CRAMMING || source == DamageSource.FALLING_BLOCK || source == DamageSource.LAVA || source.isFire() || super.isInvulnerableTo(source);
 	}
 
 	@Override
@@ -224,12 +236,12 @@ public class Octorolga extends Monster {
 		return false;
 	}
 
-	static class FlarockGoToLavaGoal extends MoveToBlockGoal {
-		private final Octorolga flarock;
+	static class OctolgaGoToLavaGoal extends MoveToBlockGoal {
+		private final Octorolga octorolga;
 
-		FlarockGoToLavaGoal(Octorolga p_33955_, double p_33956_) {
+		OctolgaGoToLavaGoal(Octorolga p_33955_, double p_33956_) {
 			super(p_33955_, p_33956_, 8, 2);
-			this.flarock = p_33955_;
+			this.octorolga = p_33955_;
 		}
 
 		public BlockPos getMoveToTarget() {
@@ -237,11 +249,11 @@ public class Octorolga extends Monster {
 		}
 
 		public boolean canContinueToUse() {
-			return !this.flarock.isInLava() && this.isValidTarget(this.flarock.level, this.blockPos);
+			return !this.octorolga.isInLava() && this.isValidTarget(this.octorolga.level, this.blockPos);
 		}
 
 		public boolean canUse() {
-			return !this.flarock.isInLava() && super.canUse();
+			return !this.octorolga.isInLava() && super.canUse();
 		}
 
 		public boolean shouldRecalculatePath() {
@@ -253,28 +265,17 @@ public class Octorolga extends Monster {
 		}
 	}
 
-	static class FlarockAttackGoal extends MeleeAttackGoal {
-		private final Octorolga flarock;
+	static class OctolgaAttackGoal extends MeleeAttackGoal {
+		private final Octorolga octorolga;
 
-		FlarockAttackGoal(Octorolga p_33955_, double p_33956_) {
+		OctolgaAttackGoal(Octorolga p_33955_, double p_33956_) {
 			super(p_33955_, p_33956_, false);
-			this.flarock = p_33955_;
-		}
-
-		public boolean canContinueToUse() {
-			return !this.flarock.isInLava();
-		}
-
-		public boolean canUse() {
-			return !this.flarock.isInLava() && super.canUse();
+			this.octorolga = p_33955_;
 		}
 
 		@Override
 		public void tick() {
 			super.tick();
-			if (this.flarock.getChild() instanceof OctorolgaPart) {
-				((OctorolgaPart) this.flarock.getChild()).setTargetPos(this.mob.blockPosition());
-			}
 		}
 	}
 }

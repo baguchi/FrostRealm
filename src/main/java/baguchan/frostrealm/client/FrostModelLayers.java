@@ -23,6 +23,7 @@ public class FrostModelLayers {
 	public static final ModelLayerLocation GOKKUDILLO = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "gokkudillo"), "gokkudillo");
 
 	public static final ModelLayerLocation OCTOROLGA = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "octorolga"), "octorolga");
+	public static final ModelLayerLocation OCTOROLGA_PART = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "octorolga_part"), "octorolga_part");
 
 
 	public static final ModelLayerLocation YETI_FUR_ARMOR_INNER = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "yeti_fur_armor_inner"), "yeti_fur_armor_inner");
