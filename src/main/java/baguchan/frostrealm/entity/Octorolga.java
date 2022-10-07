@@ -1,6 +1,7 @@
 package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.capability.FrostWeatherCapability;
+import baguchan.frostrealm.entity.goal.RandomSnowSwimGoal;
 import baguchan.frostrealm.entity.movecontrol.LavaMoveControl;
 import baguchan.frostrealm.entity.path.LavaPathNavigation;
 import baguchan.frostrealm.registry.FrostEntities;
@@ -55,10 +56,11 @@ public class Octorolga extends Monster {
 		this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
 		this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
 		this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
+		this.maxUpStep = 1.0F;
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 50.0D).add(Attributes.MOVEMENT_SPEED, 0.16F).add(Attributes.FOLLOW_RANGE, 24.0D);
+		return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 40.0D).add(Attributes.MOVEMENT_SPEED, 0.16F).add(Attributes.FOLLOW_RANGE, 24.0D);
 	}
 
 	@Override
@@ -66,6 +68,7 @@ public class Octorolga extends Monster {
 		super.registerGoals();
 		this.goalSelector.addGoal(1, new Octorolga.OctolgaAttackGoal(this, 1.0D));
 		this.goalSelector.addGoal(4, new Octorolga.OctolgaGoToLavaGoal(this, 1.0D));
+		this.goalSelector.addGoal(5, new RandomSnowSwimGoal(this, 1.0F, 10));
 		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, false));
 	}
@@ -138,16 +141,12 @@ public class Octorolga extends Monster {
 
 	public static boolean checkSpawnRules(EntityType<Octorolga> p_219129_, ServerLevelAccessor p_219130_, MobSpawnType p_219131_, BlockPos p_219132_, RandomSource p_219133_) {
 		FrostWeatherCapability capability = FrostWeatherCapability.get(p_219130_.getLevel()).orElse(null);
-		if (p_219131_ != MobSpawnType.SPAWNER || capability == null || capability.isWeatherActive() && capability.getFrostWeather() == FrostWeathers.PURPLE_FOG.get()) {
-			return false;
+		if (p_219131_ == MobSpawnType.SPAWNER || capability.isWeatherActive() && capability.getFrostWeather() == FrostWeathers.PURPLE_FOG.get()) {
+
+			return p_219130_.getFluidState(p_219132_).is(FluidTags.LAVA) && p_219130_.getFluidState(p_219132_.above()).is(FluidTags.LAVA);
 		}
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = p_219132_.mutable();
 
-		do {
-			blockpos$mutableblockpos.move(Direction.UP);
-		} while (p_219130_.getFluidState(blockpos$mutableblockpos).is(FluidTags.LAVA));
-
-		return p_219130_.getBlockState(blockpos$mutableblockpos).isAir();
+		return true;
 	}
 
 	@Nullable
@@ -217,7 +216,7 @@ public class Octorolga extends Monster {
 			} else if (source.isExplosion()) {
 				damage *= 1.25F;
 			} else {
-				damage *= 0.1F;
+				damage *= 0.5F;
 			}
 		}
 		return super.hurt(source, damage);

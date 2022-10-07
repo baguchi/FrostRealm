@@ -46,13 +46,13 @@
       },
       {
         "type": "frostrealm:gokkudillo",
-        "weight": 10,
+        "weight": 15,
         "minCount": 1,
         "maxCount": 2
       },
       {
         "type": "frostrealm:octorolga",
-        "weight": 5,
+        "weight": 25,
         "minCount": 1,
         "maxCount": 2
       }

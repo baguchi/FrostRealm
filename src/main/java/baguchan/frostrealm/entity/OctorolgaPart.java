@@ -212,27 +212,11 @@ public class OctorolgaPart extends Mob implements IHurtableMultipart {
 	}
 
 	protected void tickDeath() {
-		this.setNoGravity(false);
 		++this.deathTime;
 		if (this.deathTime == 20 && !this.level.isClientSide()) {
 			this.level.broadcastEntityEvent(this, (byte) 60);
 			this.remove(RemovalReason.DISCARDED);
 		}
-
-
-		Vec3 vec3 = this.getDeltaMovement();
-		double d5 = vec3.x;
-		double d6 = vec3.y;
-		double d1 = vec3.z;
-
-		if (!this.onGround) {
-			this.setDeltaMovement(d5, d6 - 0.01F, d1);
-		}
-		double d7 = this.getX() + d5;
-		double d2 = this.getY() + d6;
-		double d3 = this.getZ() + d1;
-
-		this.setPos(d7, d2, d3);
 	}
 
 	private void movePart() {
@@ -317,14 +301,15 @@ public class OctorolgaPart extends Mob implements IHurtableMultipart {
 	}
 
 	public void pushEntities() {
-		List<Entity> entities = this.level.getEntities(this, this.getBoundingBox().expandTowards(0.20000000298023224D, 0.0D, 0.20000000298023224D));
-		Entity parent = this.getParent();
-		if (parent != null && parent instanceof LivingEntity && this.isAlive()) {
-			entities.stream().filter(entity -> entity != parent && !(entity instanceof OctorolgaPart) && !entity.fireImmune()).forEach(entity -> {
-				entity.setSecondsOnFire(10);
-				entity.hurt(DamageSource.mobAttack((LivingEntity) parent), 6.0F);
-			});
-
+		if (this.isAlive()) {
+			List<Entity> entities = this.level.getEntities(this, this.getBoundingBox().expandTowards(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+			Entity parent = this.getParent();
+			if (parent != null && parent instanceof LivingEntity) {
+				entities.stream().filter(entity -> entity != parent && !(entity instanceof OctorolgaPart) && !entity.fireImmune()).forEach(entity -> {
+					entity.setSecondsOnFire(10);
+					entity.hurt(DamageSource.mobAttack((LivingEntity) parent).setIsFire(), 6.0F);
+				});
+			}
 		}
 	}
 
@@ -357,11 +342,11 @@ public class OctorolgaPart extends Mob implements IHurtableMultipart {
 			if (source == DamageSource.DROWN) {
 				damage *= 3F;
 			} else if (source == DamageSource.FREEZE) {
-				damage *= 1.25F;
+				damage *= 1.5F;
 			} else if (source.isExplosion()) {
-				damage *= 1.25F;
+				damage *= 1.5F;
 			} else {
-				damage *= 0.1F;
+				damage *= 0.65F;
 			}
 		}
 
