@@ -175,7 +175,7 @@ public class Octorolga extends Monster {
 			if (child == null && !isGeneratedPart) {
 				LivingEntity partParent = this;
 				int segments = 4 + getRandom().nextInt(3);
-				for (Direction direction : new Direction[]{Direction.EAST, Direction.SOUTH, Direction.WEST}) {
+				for (Direction direction : new Direction[]{Direction.EAST, Direction.NORTH, Direction.WEST}) {
 					for (int i = 0; i < segments; i++) {
 						OctorolgaPart part = new OctorolgaPart(FrostEntities.OCTOROLGA_PART.get(), partParent);
 						//switch parent when segment's number is 0

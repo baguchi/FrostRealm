@@ -69,6 +69,13 @@ public class CraftingGenerator extends CraftingDataHelper {
 		leggingsItem(consumer, "astrium_leggings", FrostItems.ASTRIUM_LEGGINGS.get(), FrostItems.ASTRIUM_INGOT.get());
 		bootsItem(consumer, "astrium_boots", FrostItems.ASTRIUM_BOOTS.get(), FrostItems.ASTRIUM_INGOT.get());
 
+		swordItem(consumer, "astrium_sword", FrostItems.ASTRIUM_SWORD.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+		axeItem(consumer, "astrium_axe", FrostItems.ASTRIUM_AXE.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+		pickaxeItem(consumer, "astrium_pickaxe", FrostItems.ASTRIUM_PICKAXE.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+		shovelItem(consumer, "astrium_shovel", FrostItems.ASTRIUM_SHOVEL.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+
+		swordItem(consumer, "rolga_sword", FrostItems.ROLGA_SWORD.get(), FrostItems.ROLGA_CRYSTAL.get(), Tags.Items.RODS_WOODEN);
+
 
 		makeFrostTorch(consumer, FrostBlocks.FROST_TORCH.get().asItem());
 		ShapedRecipeBuilder.shaped(FrostBlocks.FROSTROOT_CHEST.get(), 1)

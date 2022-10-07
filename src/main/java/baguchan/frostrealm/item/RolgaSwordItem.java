@@ -29,7 +29,7 @@ public class RolgaSwordItem extends SwordItem {
 
 	public float getDestroySpeed(ItemStack p_43288_, BlockState p_43289_) {
 		if (p_43289_.is(Blocks.COBWEB) || p_43289_.is(BlockTags.ICE)) {
-			return 15.0F;
+			return 16.0F;
 		} else {
 			Material material = p_43289_.getMaterial();
 			return material != Material.PLANT && material != Material.REPLACEABLE_PLANT && !p_43289_.is(BlockTags.LEAVES) && material != Material.VEGETABLE ? 1.0F : 1.5F;
