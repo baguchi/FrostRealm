@@ -24,6 +24,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 	@Override
 	protected void registerModels() {
 		this.singleTex(FrostItems.FROST_CRYSTAL);
+		this.singleTex(FrostItems.ROLGA_CRYSTAL);
+		this.singleTex(FrostItems.ROLGA_SHARD);
 		this.singleTex(FrostItems.CRYONITE);
 		this.singleTex(FrostItems.WARPED_CRYSTAL);
 		this.singleTex(FrostItems.GLIMMERROCK);
@@ -46,7 +48,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.YETI_FUR);
 
 		this.singleTexTool(FrostItems.FUSION_CRYSTAL_DAGGER);
-
+		this.singleTexTool(FrostItems.ROLGA_SWORD);
 		this.singleTexTool(FrostItems.ASTRIUM_SWORD);
 		this.singleTexTool(FrostItems.ASTRIUM_AXE);
 		this.singleTexTool(FrostItems.ASTRIUM_PICKAXE);
@@ -75,7 +77,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.egg(FrostItems.FROST_BEASTER_SPAWNEGG);
 		this.egg(FrostItems.CRYSTAL_FOX_SPAWNEGG);
 		this.egg(FrostItems.SNOW_MOLE_SPAWNEGG);
-		this.egg(FrostItems.FLAROCK_SPAWNEGG);
+		this.egg(FrostItems.OCTOROLGA_SPAWN_EGG);
 
 		this.toBlock(FrostBlocks.FROZEN_DIRT);
 		this.toBlock(FrostBlocks.FROZEN_GRASS_BLOCK);

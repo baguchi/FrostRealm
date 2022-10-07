@@ -87,6 +87,14 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.define('L', ItemTags.LOGS_THAT_BURN)
 				.unlockedBy("has_item", has(ItemTags.LOGS_THAT_BURN)).save(consumer);
 
+		ShapedRecipeBuilder.shaped(FrostItems.ROLGA_CRYSTAL.get(), 1)
+				.pattern("CCC")
+				.pattern("CFC")
+				.pattern("CCC")
+				.define('F', FrostItems.FROST_CRYSTAL.get())
+				.define('C', FrostItems.ROLGA_SHARD.get())
+				.unlockedBy("has_item", has(FrostItems.ROLGA_SHARD.get())).save(consumer);
+
 
 		ShapedRecipeBuilder.shaped(FrostItems.FROST_CATALYST.get(), 1)
 				.pattern(" S ")

@@ -44,7 +44,7 @@ public class OctorolgaPart extends Mob implements IHurtableMultipart {
 
 
 	public EntityDimensions multipartSize;
-	protected float damageMultiplier = 1;
+	protected float damageMultiplier = 0.25F;
 
 	public double prevXPart;
 	public double prevYPart;
@@ -162,9 +162,8 @@ public class OctorolgaPart extends Mob implements IHurtableMultipart {
 		refreshDimensions();
 
 		if (parent != null && !level.isClientSide) {
-			if (this.isAlive()) {
-				this.setNoGravity(true);
-			}
+			this.setNoGravity(true);
+
 			Vec3 vec3 = new Vec3(this.getDirection().getStepX(), this.getDirection().getStepY(), this.getDirection().getStepZ()); // -53 = 3.3125
 			vec3 = vec3.yRot((-(this.getParent().getYRot()) * Mth.PI) / 180.0F);
 
@@ -181,7 +180,7 @@ public class OctorolgaPart extends Mob implements IHurtableMultipart {
 				idleY -= 0.2F;
 			}
 			this.movePart();
-			this.setPos(parent.xo + this.xPart + (startX * 0.4F), parent.yo + this.yPart + (idleY + (startY * 0.4F)), parent.zo + this.zPart + (startZ * 0.4F));
+			this.setPos(parent.xo + this.xPart + (startX * 0.45F), parent.yo + this.yPart + (idleY + (startY * 0.45F)), parent.zo + this.zPart + (startZ * 0.45F));
 
 			double d0 = parent.getX() - this.getX();
 			double d1 = parent.getY() - this.getY();
@@ -200,10 +199,14 @@ public class OctorolgaPart extends Mob implements IHurtableMultipart {
 					this.deathTime = ((LivingEntity) parent).deathTime;
 				}
 			}
+
+
 			this.pushEntities();
 			if (parent.isRemoved() && !level.isClientSide) {
 				this.remove(RemovalReason.DISCARDED);
 			}
+
+
 		} else if (tickCount > 20 && !level.isClientSide) {
 			this.remove(RemovalReason.DISCARDED);
 		}
@@ -255,9 +258,13 @@ public class OctorolgaPart extends Mob implements IHurtableMultipart {
 				this.prevYPart = this.yPart;
 			}
 
-			this.xPart += d0 * 0.25F * 0.005F;
-			this.zPart += d2 * 0.25F * 0.005F;
-			this.yPart += d1 * 0.25F * 0.005F;
+			this.xPart += d0 * 0.25F * 0.0025F;
+			this.zPart += d2 * 0.25F * 0.0025F;
+			this.yPart += d1 * 0.25F * 0.0025F;
+		} else {
+			this.xPart *= 0.85F;
+			this.zPart *= 0.85F;
+			this.yPart *= 0.85F;
 		}
 		if (getParent() != null && getParent() instanceof Mob && ((Mob) getParent()).getTarget() != null) {
 			//set target pos and setting pos for next child 's target pos
@@ -302,12 +309,12 @@ public class OctorolgaPart extends Mob implements IHurtableMultipart {
 
 	public void pushEntities() {
 		if (this.isAlive()) {
-			List<Entity> entities = this.level.getEntities(this, this.getBoundingBox().expandTowards(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+			List<Entity> entities = this.level.getEntities(this, this.getBoundingBox().expandTowards(0.1D, 0.1D, 0.1D));
 			Entity parent = this.getParent();
 			if (parent != null && parent instanceof LivingEntity) {
 				entities.stream().filter(entity -> entity != parent && !(entity instanceof OctorolgaPart) && !entity.fireImmune()).forEach(entity -> {
 					entity.setSecondsOnFire(10);
-					entity.hurt(DamageSource.mobAttack((LivingEntity) parent).setIsFire(), 6.0F);
+					entity.hurt(DamageSource.mobAttack((LivingEntity) parent).setIsFire(), 4.0F);
 				});
 			}
 		}
@@ -352,7 +359,7 @@ public class OctorolgaPart extends Mob implements IHurtableMultipart {
 
 		if (prev) {
 
-			if (!this.level.isClientSide() && parent.hurt(source, damage * 0.25F)) {
+			if (!this.level.isClientSide()) {
 				FrostRealm.sendMSGToAll(new MessageHurtMultipart(this.getId(), parent.getId(), damage * this.damageMultiplier));
 			}
 			flag = super.hurt(source, damage);

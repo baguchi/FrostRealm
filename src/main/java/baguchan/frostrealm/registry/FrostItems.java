@@ -2,6 +2,7 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.item.FrostCatalystItem;
 import baguchan.frostrealm.item.FusionCrystalDaggerItem;
+import baguchan.frostrealm.item.RolgaSwordItem;
 import baguchan.frostrealm.item.YetiFurArmorItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
@@ -25,6 +26,10 @@ public class FrostItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
 	public static final RegistryObject<Item> FROST_CRYSTAL = ITEMS.register("frost_crystal", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
+	public static final RegistryObject<Item> ROLGA_CRYSTAL = ITEMS.register("rolga_crystal", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM).fireResistant()));
+	public static final RegistryObject<Item> ROLGA_SHARD = ITEMS.register("rolga_shard", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM).fireResistant()));
+
 	public static final RegistryObject<Item> CRYONITE = ITEMS.register("cryonite", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 	public static final RegistryObject<Item> WARPED_CRYSTAL = ITEMS.register("warped_crystal", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
@@ -49,6 +54,8 @@ public class FrostItems {
 	public static final RegistryObject<Item> YETI_FUR = ITEMS.register("yeti_fur", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 	public static final RegistryObject<Item> FUSION_CRYSTAL_DAGGER = ITEMS.register("fusion_crystal_dagger", () -> new FusionCrystalDaggerItem((new Item.Properties()).durability(420).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> ROLGA_SWORD = ITEMS.register("rolga_sword", () -> new RolgaSwordItem(FrostItemTier.ROLGA, 3, -2.35F, (new Item.Properties()).fireResistant().tab(FrostGroups.TAB_FROSTREALM)));
+
 
 	public static final RegistryObject<Item> ASTRIUM_SWORD = ITEMS.register("astrium_sword", () -> new SwordItem(FrostItemTier.ASTRIUM, 3, -2.3F, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> ASTRIUM_AXE = ITEMS.register("astrium_axe", () -> new AxeItem(FrostItemTier.ASTRIUM, 5.5F, -3.0F, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
@@ -81,6 +88,6 @@ public class FrostItems {
 	public static final RegistryObject<Item> FROST_BEASTER_SPAWNEGG = ITEMS.register("frost_beaster_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.FROST_BEASTER, 0x7CA7A6, 0x973C3C, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> CRYSTAL_FOX_SPAWNEGG = ITEMS.register("crystal_fox_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.CRYSTAL_FOX, 0xF7FFFB, 0x90D3E8, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> SNOW_MOLE_SPAWNEGG = ITEMS.register("snow_mole_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.SNOW_MOLE, 0xE4E5E6, 0xB6A7A7, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
-	public static final RegistryObject<Item> FLAROCK_SPAWNEGG = ITEMS.register("octorolga_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.OCTOROLGA, 0x968E7A, 0x968E7A, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> OCTOROLGA_SPAWN_EGG = ITEMS.register("octorolga_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.OCTOROLGA, 0x968E7A, 0x968E7A, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 }

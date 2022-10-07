@@ -60,7 +60,7 @@ public class Octorolga extends Monster {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 40.0D).add(Attributes.MOVEMENT_SPEED, 0.16F).add(Attributes.FOLLOW_RANGE, 24.0D);
+		return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 40.0D).add(Attributes.MOVEMENT_SPEED, 0.16F).add(Attributes.FOLLOW_RANGE, 24.0D).add(Attributes.ATTACK_DAMAGE, 5.0D);
 	}
 
 	@Override
@@ -146,7 +146,7 @@ public class Octorolga extends Monster {
 			return p_219130_.getFluidState(p_219132_).is(FluidTags.LAVA) && p_219130_.getFluidState(p_219132_.above()).is(FluidTags.LAVA);
 		}
 
-		return true;
+		return false;
 	}
 
 	@Nullable
