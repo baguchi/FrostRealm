@@ -23,6 +23,7 @@ import baguchan.frostrealm.client.render.AurorayRenderer;
 import baguchan.frostrealm.client.render.ClustWraithRenderer;
 import baguchan.frostrealm.client.render.CrystalFoxRenderer;
 import baguchan.frostrealm.client.render.CrystalTortoiseRenderer;
+import baguchan.frostrealm.client.render.FlyingIceRenderer;
 import baguchan.frostrealm.client.render.FrostBeasterRenderer;
 import baguchan.frostrealm.client.render.FrostWolfRenderer;
 import baguchan.frostrealm.client.render.FrostWraithRenderer;
@@ -86,6 +87,7 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.AURORAY.get(), AurorayRenderer::new);
 		event.registerEntityRenderer(FrostEntities.OCTOROLGA.get(), OctoRolgaRenderer::new);
 		event.registerEntityRenderer(FrostEntities.OCTOROLGA_PART.get(), OctoRolgaPartRenderer::new);
+		event.registerEntityRenderer(FrostEntities.FLYING_ICE_ENTITY.get(), FlyingIceRenderer::new);
 
 		event.registerEntityRenderer(FrostEntities.WARPED_CRYSTAL.get(), WarpedCrystalRenderer::new);
 	}
