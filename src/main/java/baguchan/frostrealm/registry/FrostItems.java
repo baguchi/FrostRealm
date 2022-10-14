@@ -90,4 +90,6 @@ public class FrostItems {
 	public static final RegistryObject<Item> SNOW_MOLE_SPAWNEGG = ITEMS.register("snow_mole_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.SNOW_MOLE, 0xE4E5E6, 0xB6A7A7, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> OCTOROLGA_SPAWN_EGG = ITEMS.register("octorolga_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.OCTOROLGA, 0x968E7A, 0x968E7A, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
+	public static final RegistryObject<Item> PURIFIED_STRAY_SPAWN_EGG = ITEMS.register("purified_stray_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.PURIFIED_STRAY, 6387319, 0xD15EBE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
 }

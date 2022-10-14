@@ -13,6 +13,7 @@ import baguchan.frostrealm.entity.Gokkur;
 import baguchan.frostrealm.entity.Marmot;
 import baguchan.frostrealm.entity.Octorolga;
 import baguchan.frostrealm.entity.OctorolgaPart;
+import baguchan.frostrealm.entity.PurifiedStray;
 import baguchan.frostrealm.entity.SnowMole;
 import baguchan.frostrealm.entity.SnowPileQuail;
 import baguchan.frostrealm.entity.Yeti;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -56,6 +58,7 @@ public class FrostEntities {
 	public static final RegistryObject<EntityType<Octorolga>> OCTOROLGA = ENTITIES.register("octorolga", () -> EntityType.Builder.of(Octorolga::new, MobCategory.MONSTER).sized(1.1F, 1.1F).fireImmune().build(prefix("octorolga")));
 	public static final RegistryObject<EntityType<OctorolgaPart>> OCTOROLGA_PART = ENTITIES.register("octorolga_part", () -> EntityType.Builder.<OctorolgaPart>of(OctorolgaPart::new, MobCategory.MONSTER).sized(1F, 1F).fireImmune().build(prefix("octorolga_part")));
 
+	public static final RegistryObject<EntityType<PurifiedStray>> PURIFIED_STRAY = ENTITIES.register("purified_stray", () -> EntityType.Builder.of(PurifiedStray::new, MobCategory.MONSTER).sized(0.6F, 1.99F).build(prefix("purified_stray")));
 	public static final RegistryObject<EntityType<WarpedCrystalShard>> WARPED_CRYSTAL = ENTITIES.register("warped_crystal", () -> EntityType.Builder.<WarpedCrystalShard>of(WarpedCrystalShard::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(prefix("warped_crystal")));
 
 
@@ -83,6 +86,8 @@ public class FrostEntities {
 		event.put(OCTOROLGA.get(), Octorolga.createAttributes().build());
 		event.put(OCTOROLGA_PART.get(), OctorolgaPart.createAttributes().build());
 
+		event.put(PURIFIED_STRAY.get(), Stray.createAttributes().build());
+
 		SpawnPlacements.register(CRYSTAL_TORTOISE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalTortoise::checkTortoiseSpawnRules);
 		SpawnPlacements.register(MARMOT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Marmot::checkMarmotSpawnRules);
 		SpawnPlacements.register(SNOWPILE_QUAIL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowPileQuail::checkQuailSpawnRules);
@@ -100,5 +105,6 @@ public class FrostEntities {
 		SpawnPlacements.register(FROST_BEASTER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBeaster::checkFrostBeasterSpawnRules);
 		SpawnPlacements.register(AURORAY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
 		SpawnPlacements.register(OCTOROLGA.get(), SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Octorolga::checkSpawnRules);
+		SpawnPlacements.register(PURIFIED_STRAY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
 	}
 }
