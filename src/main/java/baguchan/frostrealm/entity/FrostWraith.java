@@ -50,11 +50,6 @@ public class FrostWraith extends FrozenMonster {
 	}
 
 	public void aiStep() {
-		boolean flag = this.isSunBurnTick();
-
-		if (flag) {
-			this.setSecondsOnFire(8);
-		}
 
 		super.aiStep();
 		this.calculateFlapping();

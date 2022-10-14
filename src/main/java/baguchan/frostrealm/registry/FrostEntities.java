@@ -5,7 +5,6 @@ import baguchan.frostrealm.entity.Auroray;
 import baguchan.frostrealm.entity.ClustWraith;
 import baguchan.frostrealm.entity.CrystalFox;
 import baguchan.frostrealm.entity.CrystalTortoise;
-import baguchan.frostrealm.entity.FlyingIceEntity;
 import baguchan.frostrealm.entity.FrostBeaster;
 import baguchan.frostrealm.entity.FrostWolf;
 import baguchan.frostrealm.entity.FrostWraith;
@@ -56,7 +55,6 @@ public class FrostEntities {
 
 	public static final RegistryObject<EntityType<Octorolga>> OCTOROLGA = ENTITIES.register("octorolga", () -> EntityType.Builder.of(Octorolga::new, MobCategory.MONSTER).sized(1.1F, 1.1F).fireImmune().build(prefix("octorolga")));
 	public static final RegistryObject<EntityType<OctorolgaPart>> OCTOROLGA_PART = ENTITIES.register("octorolga_part", () -> EntityType.Builder.<OctorolgaPart>of(OctorolgaPart::new, MobCategory.MONSTER).sized(1F, 1F).fireImmune().build(prefix("octorolga_part")));
-	public static final RegistryObject<EntityType<FlyingIceEntity>> FLYING_ICE_ENTITY = ENTITIES.register("flying_ice_entity", () -> EntityType.Builder.of(FlyingIceEntity::new, MobCategory.CREATURE).sized(1F, 1F).build(prefix("flying_ice_entity")));
 
 	public static final RegistryObject<EntityType<WarpedCrystalShard>> WARPED_CRYSTAL = ENTITIES.register("warped_crystal", () -> EntityType.Builder.<WarpedCrystalShard>of(WarpedCrystalShard::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(prefix("warped_crystal")));
 
@@ -84,7 +82,6 @@ public class FrostEntities {
 		event.put(AURORAY.get(), Auroray.createAttributes().build());
 		event.put(OCTOROLGA.get(), Octorolga.createAttributes().build());
 		event.put(OCTOROLGA_PART.get(), OctorolgaPart.createAttributes().build());
-		event.put(FLYING_ICE_ENTITY.get(), Mob.createMobAttributes().build());
 
 		SpawnPlacements.register(CRYSTAL_TORTOISE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalTortoise::checkTortoiseSpawnRules);
 		SpawnPlacements.register(MARMOT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Marmot::checkMarmotSpawnRules);
