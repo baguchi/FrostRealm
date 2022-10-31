@@ -133,6 +133,9 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		}
 
 		super.aiStep();
+		if (!this.level.isClientSide) {
+			this.updatePersistentAnger((ServerLevel) this.level, true);
+		}
 	}
 
 
