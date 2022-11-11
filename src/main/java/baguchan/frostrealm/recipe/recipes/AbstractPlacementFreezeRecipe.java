@@ -42,14 +42,12 @@ public abstract class AbstractPlacementFreezeRecipe<T, S extends Predicate<T>> i
 	}
 
 	public boolean matches(Level level, BlockPos pos, T object) {
-		if (this.bypassBlock.isEmpty() || !this.bypassBlock.test(level.getBlockState(pos))) {
-			if (this.ignoreBiomeKey != null) {
-				return !level.getBiome(pos).is(this.ignoreBiomeKey) && this.getIngredient().test(object);
-			} else if (this.ignoreBiomeTag != null) {
-				return !level.getBiome(pos).is(this.ignoreBiomeTag) && this.getIngredient().test(object);
-			} else {
-				return this.getIngredient().test(object);
-			}
+		if (this.ignoreBiomeKey != null) {
+			return level.getBiome(pos).is(this.ignoreBiomeKey);
+		} else if (this.ignoreBiomeTag != null) {
+			return level.getBiome(pos).is(this.ignoreBiomeTag);
+		} else if (this.bypassBlock.isEmpty() || !this.bypassBlock.test(level.getBlockState(pos))) {
+			return this.getIngredient().test(object);
 		}
 		return false;
 	}

@@ -26,7 +26,7 @@ public abstract class PlacementFreezeBuilder implements RecipeBuilder {
 	private final TagKey<Biome> biomeTag;
 	private final RecipeSerializer<?> serializer;
 
-	public PlacementFreezeBuilder(BlockStateIngredient bypassBlock, @Nullable BlockPropertyPair result, @Nullable ResourceKey<Biome> biomeKey, @Nullable TagKey<Biome> biomeTag, RecipeSerializer<?> serializer) {
+	public PlacementFreezeBuilder(BlockStateIngredient bypassBlock, BlockPropertyPair result, ResourceKey<Biome> biomeKey, @Nullable TagKey<Biome> biomeTag, RecipeSerializer<?> serializer) {
 		this.bypassBlock = bypassBlock;
 		this.result = result;
 		this.biomeKey = biomeKey;
@@ -81,7 +81,7 @@ public abstract class PlacementFreezeBuilder implements RecipeBuilder {
 		private final BlockStateIngredient bypassBlock;
 		private final RecipeSerializer<?> serializer;
 
-		public Result(ResourceLocation id, @Nullable ResourceKey<Biome> biomeKey, @Nullable TagKey<Biome> biomeTag, @Nullable BlockPropertyPair result, BlockStateIngredient bypassBlock, RecipeSerializer<?> serializer) {
+		public Result(ResourceLocation id, @Nullable ResourceKey<Biome> biomeKey, @Nullable TagKey<Biome> biomeTag, BlockPropertyPair result, BlockStateIngredient bypassBlock, RecipeSerializer<?> serializer) {
 			this.id = id;
 			this.biomeKey = biomeKey;
 			this.biomeTag = biomeTag;
@@ -95,8 +95,12 @@ public abstract class PlacementFreezeBuilder implements RecipeBuilder {
 			BlockStateRecipeUtil.biomeKeyToJson(json, this.biomeKey);
 			BlockStateRecipeUtil.biomeTagToJson(json, this.biomeTag);
 
-			if (this.result != null) {
-				json.add("result", BlockStateIngredient.of(this.result.block()).toJson());
+			if (result != null) {
+				if (this.result.properties().isEmpty()) {
+					json.add("result", BlockStateIngredient.of(this.result.block()).toJson());
+				} else {
+					json.add("result", BlockStateIngredient.of(this.result).toJson());
+				}
 			}
 			if (!this.bypassBlock.isEmpty()) {
 				json.add("bypass", this.bypassBlock.toJson());

@@ -5,6 +5,9 @@
     "block": "minecraft:campfire"
   },
   "result": {
-    "block": "minecraft:campfire"
+    "block": "minecraft:campfire",
+    "properties": {
+      "lit": "false"
+    }
   }
 }

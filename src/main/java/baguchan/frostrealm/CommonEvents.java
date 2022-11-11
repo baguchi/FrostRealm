@@ -131,9 +131,9 @@ public class CommonEvents {
 	public static void onNeighborNotified(BlockEvent.NeighborNotifyEvent event) {
 		LevelAccessor levelAccessor = event.getLevel();
 		BlockPos blockPos = event.getPos();
-		if (levelAccessor instanceof Level) {
-			if (((Level) levelAccessor).dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-				RecipeUtils.isBlockPlacementFreeze((Level) levelAccessor, blockPos, event.getState());
+		if (levelAccessor instanceof Level level) {
+			if (level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+				RecipeUtils.blockPlacementFreeze(level, blockPos, event.getState());
 			}
 		}
 	}
@@ -142,9 +142,9 @@ public class CommonEvents {
 	public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
 		LevelAccessor levelAccessor = event.getLevel();
 		BlockPos blockPos = event.getPos();
-		if (levelAccessor instanceof Level) {
-			if (((Level) levelAccessor).dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-				RecipeUtils.isBlockPlacementFreeze((Level) levelAccessor, blockPos, event.getState());
+		if (levelAccessor instanceof Level level) {
+			if (level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+				RecipeUtils.blockPlacementFreeze(level, blockPos, event.getState());
 			}
 		}
 	}
