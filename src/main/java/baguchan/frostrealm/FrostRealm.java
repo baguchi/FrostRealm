@@ -17,6 +17,8 @@ import baguchan.frostrealm.registry.FrostDimensionSettings;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostFeatures;
 import baguchan.frostrealm.registry.FrostItems;
+import baguchan.frostrealm.registry.FrostRecipeSerializers;
+import baguchan.frostrealm.registry.FrostRecipeTypes;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.world.caver.FrostConfiguredWorldCarvers;
@@ -81,6 +83,8 @@ public class FrostRealm {
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
 		FrostDimensionSettings.DIMENSION_TYPES.register(modBus);
 		FrostDimensionSettings.NOISE_GENERATORS.register(modBus);
+		FrostRecipeTypes.RECIPE_TYPES.register(modBus);
+		FrostRecipeSerializers.RECIPE_SERIALIZERS.register(modBus);
 
 		modBus.addListener(this::setup);
 		MinecraftForge.EVENT_BUS.addListener(this::registerCommands);

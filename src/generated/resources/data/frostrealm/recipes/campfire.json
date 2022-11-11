@@ -1,0 +1,10 @@
+{
+  "type": "frostrealm:block_placement_freeze",
+  "biome": "frostrealm:deep_underground",
+  "ingredient": {
+    "block": "minecraft:campfire"
+  },
+  "result": {
+    "block": "minecraft:campfire"
+  }
+}

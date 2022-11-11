@@ -6,6 +6,8 @@ import baguchan.frostrealm.message.ChangeWeatherEvent;
 import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostDimensions;
+import baguchan.frostrealm.utils.RecipeUtils;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -16,12 +18,14 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -119,6 +123,28 @@ public class CommonEvents {
 				});
 				event.getLevel().playSound(event.getEntity(), event.getPos(), SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
 				event.setUseItem(Event.Result.ALLOW);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onNeighborNotified(BlockEvent.NeighborNotifyEvent event) {
+		LevelAccessor levelAccessor = event.getLevel();
+		BlockPos blockPos = event.getPos();
+		if (levelAccessor instanceof Level) {
+			if (((Level) levelAccessor).dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+				RecipeUtils.isBlockPlacementFreeze((Level) levelAccessor, blockPos, event.getState());
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
+		LevelAccessor levelAccessor = event.getLevel();
+		BlockPos blockPos = event.getPos();
+		if (levelAccessor instanceof Level) {
+			if (((Level) levelAccessor).dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+				RecipeUtils.isBlockPlacementFreeze((Level) levelAccessor, blockPos, event.getState());
 			}
 		}
 	}

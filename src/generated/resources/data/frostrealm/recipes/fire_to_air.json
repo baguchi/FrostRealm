@@ -1,0 +1,11 @@
+{
+  "type": "frostrealm:block_placement_freeze",
+  "biome": "frostrealm:deep_underground",
+  "bypass": {
+    "tag": "minecraft:infiniburn_overworld"
+  },
+  "ingredient": {
+    "block": "minecraft:fire"
+  },
+  "result": []
+}
