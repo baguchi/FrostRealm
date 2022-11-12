@@ -13,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,7 +45,7 @@ public class YetiFurArmorItem extends ArmorItem {
 			ModelPart root = models.bakeLayer(equipmentSlot == EquipmentSlot.LEGS ? FrostModelLayers.YETI_FUR_ARMOR_INNER : FrostModelLayers.YETI_FUR_ARMOR_OUTER);
 
 			YetiFurArmorModel<?> model2 = new YetiFurArmorModel<>(root);
-			this.setPartVisibility(model2, equipmentSlot);
+			ForgeHooksClient.copyModelProperties(original, model2);
 			return model2;
 		}
 
