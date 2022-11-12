@@ -52,6 +52,7 @@ public class FrostItems {
 	public static final RegistryObject<Item> STRAY_NECKLACE_PART = ITEMS.register("stray_necklace_part", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 	public static final RegistryObject<Item> YETI_FUR = ITEMS.register("yeti_fur", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> KOLOSSUS_FUR = ITEMS.register("kolossus_fur", () -> new Item((new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 	public static final RegistryObject<Item> FUSION_CRYSTAL_DAGGER = ITEMS.register("fusion_crystal_dagger", () -> new FusionCrystalDaggerItem((new Item.Properties()).durability(420).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> ROLGA_SWORD = ITEMS.register("rolga_sword", () -> new RolgaSwordItem(FrostItemTier.ROLGA, 3, -2.35F, (new Item.Properties()).fireResistant().tab(FrostGroups.TAB_FROSTREALM)));
@@ -68,6 +69,12 @@ public class FrostItems {
 	public static final RegistryObject<Item> YETI_FUR_CHESTPLATE = ITEMS.register("yeti_fur_chestplate", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.CHEST, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> YETI_FUR_LEGGINGS = ITEMS.register("yeti_fur_leggings", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.LEGS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> YETI_FUR_BOOTS = ITEMS.register("yeti_fur_boots", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.FEET, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
+	public static final RegistryObject<Item> KOLOSSUS_FUR_HELMET = ITEMS.register("kolossus_fur_helmet", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, EquipmentSlot.HEAD, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> KOLOSSUS_FUR_CHESTPLATE = ITEMS.register("kolossus_fur_chestplate", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, EquipmentSlot.CHEST, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> KOLOSSUS_FUR_LEGGINGS = ITEMS.register("kolossus_fur_leggings", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, EquipmentSlot.LEGS, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+	public static final RegistryObject<Item> KOLOSSUS_FUR_BOOTS = ITEMS.register("kolossus_fur_boots", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, EquipmentSlot.FEET, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
 
 	public static final RegistryObject<Item> ASTRIUM_HELMET = ITEMS.register("astrium_helmet", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.HEAD, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> ASTRIUM_CHESTPLATE = ITEMS.register("astrium_chestplate", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.CHEST, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
@@ -89,5 +96,7 @@ public class FrostItems {
 	public static final RegistryObject<Item> CRYSTAL_FOX_SPAWNEGG = ITEMS.register("crystal_fox_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.CRYSTAL_FOX, 0xF7FFFB, 0x90D3E8, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> SNOW_MOLE_SPAWNEGG = ITEMS.register("snow_mole_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.SNOW_MOLE, 0xE4E5E6, 0xB6A7A7, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 	public static final RegistryObject<Item> PURIFIED_STRAY_SPAWN_EGG = ITEMS.register("purified_stray_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.PURIFIED_STRAY, 6387319, 0xD15EBE, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
+
+	public static final RegistryObject<Item> KOLOSSUS_SPAWN_EGG = ITEMS.register("kolossus_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.KOLOSSUS, 0x031822, 0x488FB0, (new Item.Properties()).tab(FrostGroups.TAB_FROSTREALM)));
 
 }

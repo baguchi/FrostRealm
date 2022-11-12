@@ -46,6 +46,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.STRAY_NECKLACE_PART);
 
 		this.singleTex(FrostItems.YETI_FUR);
+		this.singleTex(FrostItems.KOLOSSUS_FUR);
 
 		this.singleTexTool(FrostItems.FUSION_CRYSTAL_DAGGER);
 		this.singleTexTool(FrostItems.ROLGA_SWORD);
@@ -59,6 +60,11 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.YETI_FUR_CHESTPLATE);
 		this.singleTex(FrostItems.YETI_FUR_LEGGINGS);
 		this.singleTex(FrostItems.YETI_FUR_BOOTS);
+
+		this.singleTex(FrostItems.KOLOSSUS_FUR_HELMET);
+		this.singleTex(FrostItems.KOLOSSUS_FUR_CHESTPLATE);
+		this.singleTex(FrostItems.KOLOSSUS_FUR_LEGGINGS);
+		this.singleTex(FrostItems.KOLOSSUS_FUR_BOOTS);
 
 		this.singleTex(FrostItems.ASTRIUM_HELMET);
 		this.singleTex(FrostItems.ASTRIUM_CHESTPLATE);
@@ -78,6 +84,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.egg(FrostItems.CRYSTAL_FOX_SPAWNEGG);
 		this.egg(FrostItems.SNOW_MOLE_SPAWNEGG);
 		this.egg(FrostItems.PURIFIED_STRAY_SPAWN_EGG);
+		this.egg(FrostItems.KOLOSSUS_SPAWN_EGG);
 
 		this.toBlock(FrostBlocks.FROZEN_DIRT);
 		this.toBlock(FrostBlocks.FROZEN_GRASS_BLOCK);

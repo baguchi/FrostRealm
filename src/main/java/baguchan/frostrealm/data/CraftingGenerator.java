@@ -1,27 +1,16 @@
 package baguchan.frostrealm.data;
 
-import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.data.recipe.BlockFreezeBuilder;
-import baguchan.frostrealm.recipe.BlockPropertyPair;
-import baguchan.frostrealm.recipe.BlockStateIngredient;
-import baguchan.frostrealm.registry.FrostBiomes;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
-import baguchan.frostrealm.registry.FrostRecipeSerializers;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class CraftingGenerator extends CraftingDataHelper {
@@ -75,6 +64,12 @@ public class CraftingGenerator extends CraftingDataHelper {
 		leggingsItem(consumer, "yeti_fur_leggings", FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR.get());
 		bootsItem(consumer, "yeti_fur_boots", FrostItems.YETI_FUR_BOOTS.get(), FrostItems.YETI_FUR.get());
 
+		helmetItem(consumer, "kolossus_fur_helmet", FrostItems.KOLOSSUS_FUR_HELMET.get(), FrostItems.KOLOSSUS_FUR.get());
+		chestplateItem(consumer, "kolossus_fur_chestplate", FrostItems.KOLOSSUS_FUR_CHESTPLATE.get(), FrostItems.KOLOSSUS_FUR.get());
+		leggingsItem(consumer, "kolossus_fur_leggings", FrostItems.KOLOSSUS_FUR_LEGGINGS.get(), FrostItems.KOLOSSUS_FUR.get());
+		bootsItem(consumer, "kolossus_fur_boots", FrostItems.KOLOSSUS_FUR_BOOTS.get(), FrostItems.KOLOSSUS_FUR.get());
+
+
 		helmetItem(consumer, "astrium_helmet", FrostItems.ASTRIUM_HELMET.get(), FrostItems.ASTRIUM_INGOT.get());
 		chestplateItem(consumer, "astrium_chestplate", FrostItems.ASTRIUM_CHESTPLATE.get(), FrostItems.ASTRIUM_INGOT.get());
 		leggingsItem(consumer, "astrium_leggings", FrostItems.ASTRIUM_LEGGINGS.get(), FrostItems.ASTRIUM_INGOT.get());
@@ -121,10 +116,6 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.define('S', FrostItems.STRAY_NECKLACE_PART.get())
 				.define('B', Items.SNOWBALL)
 				.unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(FrostItems.STRAY_NECKLACE_PART.get()).getPath(), has(FrostItems.STRAY_NECKLACE_PART.get())).save(consumer);
-
-		BlockFreezeBuilder.recipe(BlockStateIngredient.of(Blocks.FIRE), BlockStateIngredient.of(BlockTags.INFINIBURN_OVERWORLD), BlockPropertyPair.of(Blocks.AIR, Map.of()), FrostBiomes.DEEP_UNDERGROUND, FrostRecipeSerializers.BLOCK_PLACEMENT_FREEZE.get()).save(consumer, new ResourceLocation(FrostRealm.MODID, "fire_to_air"));
-		BlockFreezeBuilder.recipe(BlockStateIngredient.of(Blocks.CAMPFIRE), BlockStateIngredient.of(), BlockPropertyPair.of(Blocks.CAMPFIRE, Map.of(CampfireBlock.LIT, false)), FrostBiomes.DEEP_UNDERGROUND, FrostRecipeSerializers.BLOCK_PLACEMENT_FREEZE.get()).save(consumer, new ResourceLocation(FrostRealm.MODID, "campfire"));
-
 
 		smeltOre(FrostItems.ASTRIUM_RAW.get(), FrostItems.ASTRIUM_INGOT.get(), 0.2F, consumer);
 	}

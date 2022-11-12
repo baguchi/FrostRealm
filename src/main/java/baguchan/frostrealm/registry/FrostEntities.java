@@ -10,6 +10,7 @@ import baguchan.frostrealm.entity.FrostWolf;
 import baguchan.frostrealm.entity.FrostWraith;
 import baguchan.frostrealm.entity.Gokkudillo;
 import baguchan.frostrealm.entity.Gokkur;
+import baguchan.frostrealm.entity.Kolossus;
 import baguchan.frostrealm.entity.Marmot;
 import baguchan.frostrealm.entity.PurifiedStray;
 import baguchan.frostrealm.entity.SnowMole;
@@ -42,7 +43,7 @@ public class FrostEntities {
 	public static final RegistryObject<EntityType<FrostWolf>> FROST_WOLF = ENTITIES.register("frost_wolf", () -> EntityType.Builder.of(FrostWolf::new, MobCategory.CREATURE).sized(0.8F, 0.95F).build(prefix("frost_wolf")));
 	public static final RegistryObject<EntityType<CrystalFox>> CRYSTAL_FOX = ENTITIES.register("crystal_fox", () -> EntityType.Builder.of(CrystalFox::new, MobCategory.CREATURE).sized(0.6F, 0.7F).clientTrackingRange(8).build(prefix("crystal_fox")));
 	public static final RegistryObject<EntityType<SnowMole>> SNOW_MOLE = ENTITIES.register("snow_mole", () -> EntityType.Builder.of(SnowMole::new, MobCategory.CREATURE).sized(0.6F, 0.6F).clientTrackingRange(8).immuneTo(Blocks.POWDER_SNOW_CAULDRON).build(prefix("snow_mole")));
-
+	public static final RegistryObject<EntityType<Kolossus>> KOLOSSUS = ENTITIES.register("kolossus", () -> EntityType.Builder.of(Kolossus::new, MobCategory.CREATURE).sized(2.2F, 2.7F).clientTrackingRange(10).build(prefix("kolossus")));
 
 	public static final RegistryObject<EntityType<Yeti>> YETI = ENTITIES.register("yeti", () -> EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).build(prefix("yeti")));
 	public static final RegistryObject<EntityType<FrostWraith>> FROST_WRAITH = ENTITIES.register("frost_wraith", () -> EntityType.Builder.of(FrostWraith::new, MobCategory.MONSTER).sized(0.6F, 2.1F).build(prefix("frost_wraith")));
@@ -69,6 +70,7 @@ public class FrostEntities {
 		event.put(FROST_WOLF.get(), FrostWolf.createAttributes().build());
 		event.put(CRYSTAL_FOX.get(), CrystalFox.createAttributes().build());
 		event.put(SNOW_MOLE.get(), SnowMole.createAttributes().build());
+		event.put(KOLOSSUS.get(), Kolossus.createAttributes().build());
 
 		event.put(YETI.get(), Yeti.createAttributeMap().build());
 		event.put(FROST_WRAITH.get(), FrostWraith.createAttributes().build());
