@@ -13,7 +13,7 @@ public enum FrostArmorMaterials implements ArmorMaterial {
 	YETI_FUR("frostrealm:yeti_fur", 10, new int[]{2, 3, 5, 2}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.05F, 0.0F, () -> {
 		return Ingredient.of(FrostItems.YETI_FUR.get());
 	}),
-	KOLOSSUS_FUR("frostrealm:kolosuss_fur", 15, new int[]{2, 4, 6, 2}, 13, SoundEvents.ARMOR_EQUIP_LEATHER, 0.1F, 0.0F, () -> {
+	KOLOSSUS_FUR("frostrealm:kolossus_fur", 15, new int[]{2, 4, 6, 2}, 13, SoundEvents.ARMOR_EQUIP_LEATHER, 0.1F, 0.0F, () -> {
 		return Ingredient.of(FrostItems.KOLOSSUS_FUR.get());
 	}),
 	ASTRIUM("frostrealm:astrium", 20, new int[]{2, 5, 6, 2}, 11, SoundEvents.ARMOR_EQUIP_IRON, 0.25F, 0.0F, () -> {

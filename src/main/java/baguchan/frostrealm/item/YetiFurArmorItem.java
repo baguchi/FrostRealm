@@ -42,7 +42,35 @@ public class YetiFurArmorItem extends ArmorItem {
 		public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 			EntityModelSet models = Minecraft.getInstance().getEntityModels();
 			ModelPart root = models.bakeLayer(equipmentSlot == EquipmentSlot.LEGS ? FrostModelLayers.YETI_FUR_ARMOR_INNER : FrostModelLayers.YETI_FUR_ARMOR_OUTER);
-			return new YetiFurArmorModel<>(root);
+
+			YetiFurArmorModel<?> model2 = new YetiFurArmorModel<>(root);
+			this.setPartVisibility(model2, equipmentSlot);
+			return model2;
 		}
+
+		protected void setPartVisibility(HumanoidModel p_117126_, EquipmentSlot p_117127_) {
+			p_117126_.setAllVisible(false);
+			switch (p_117127_) {
+				case HEAD:
+					p_117126_.head.visible = true;
+					p_117126_.hat.visible = true;
+					break;
+				case CHEST:
+					p_117126_.body.visible = true;
+					p_117126_.rightArm.visible = true;
+					p_117126_.leftArm.visible = true;
+					break;
+				case LEGS:
+					p_117126_.body.visible = true;
+					p_117126_.rightLeg.visible = true;
+					p_117126_.leftLeg.visible = true;
+					break;
+				case FEET:
+					p_117126_.rightLeg.visible = true;
+					p_117126_.leftLeg.visible = true;
+			}
+
+		}
+
 	}
 }
