@@ -17,11 +17,13 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Map;
 
 public class BlockPlacementFreezeRecipe extends AbstractPlacementFreezeRecipe<BlockState, BlockStateIngredient> {
 	public BlockPlacementFreezeRecipe(ResourceLocation id, @Nullable ResourceKey<Biome> biomeKey, @Nullable TagKey<Biome> biomeTag, BlockPropertyPair result, BlockStateIngredient bypassBlock, BlockStateIngredient ingredient) {
@@ -29,9 +31,9 @@ public class BlockPlacementFreezeRecipe extends AbstractPlacementFreezeRecipe<Bl
 	}
 
 	public boolean freezeBlock(Level level, BlockPos pos, BlockState state) {
-		if (!this.matches(level, pos.below(), state)) {
+		if (this.matches(level, pos.below(), state) && !this.isIgnoreBiome(level, pos, state)) {
 			level.levelEvent(1501, pos, 0);
-			level.setBlock(pos, this.getResultState(state), 3);
+			level.setBlock(pos, this.getResultState(state), 11);
 			return true;
 		}
 		return false;
@@ -60,7 +62,7 @@ public class BlockPlacementFreezeRecipe extends AbstractPlacementFreezeRecipe<Bl
 				JsonObject resultObject = serializedRecipe.getAsJsonObject("result");
 				result = BlockStateRecipeUtil.pairFromJson(resultObject);
 			} else {
-				throw new JsonSyntaxException("Expected result to be object");
+				result = BlockPropertyPair.of(Blocks.AIR, Map.of());
 			}
 
 			BlockStateIngredient bypassBlock = BlockStateIngredient.EMPTY;

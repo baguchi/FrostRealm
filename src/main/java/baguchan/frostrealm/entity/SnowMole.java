@@ -67,7 +67,7 @@ public class SnowMole extends Animal {
 	}
 
 	public static boolean checkSnowMoleSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
-		return p_27579_.getBlockState(p_27581_.below()).is(Blocks.SNOW_BLOCK) && p_27579_.getBlockState(p_27581_).isAir() || p_27579_.getBlockState(p_27581_.below()).is(Blocks.SNOW_BLOCK);
+		return p_27579_.getBlockState(p_27581_.below()).is(Blocks.SNOW_BLOCK) && p_27579_.getBlockState(p_27581_).isAir();
 	}
 
 	public boolean checkSpawnObstruction(LevelReader p_30348_) {
