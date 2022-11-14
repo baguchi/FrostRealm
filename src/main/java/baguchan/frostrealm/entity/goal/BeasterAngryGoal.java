@@ -1,20 +1,18 @@
 package baguchan.frostrealm.entity.goal;
 
-import baguchan.frostrealm.entity.FrostBeaster;
-import net.minecraft.util.Mth;
+import baguchan.frostrealm.entity.IChargeMob;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.PathfinderMob;
 
 import java.util.EnumSet;
 
-public class BeasterAngryGoal extends TimeConditionGoal {
-	private final FrostBeaster mob;
+public class BeasterAngryGoal<T extends PathfinderMob & IChargeMob> extends TimeConditionGoal {
+	private final T mob;
 	private boolean attacked;
 
-	public BeasterAngryGoal(FrostBeaster frostBeaster, UniformInt cooldown, UniformInt time) {
+	public BeasterAngryGoal(T frostBeaster, UniformInt cooldown, UniformInt time) {
 		super(frostBeaster, cooldown, time);
 		this.mob = frostBeaster;
 		this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
@@ -34,6 +32,7 @@ public class BeasterAngryGoal extends TimeConditionGoal {
 	public void start() {
 		super.start();
 		this.attacked = false;
+		this.mob.onCharge();
 	}
 
 	@Override
@@ -57,7 +56,7 @@ public class BeasterAngryGoal extends TimeConditionGoal {
 		double d0 = this.getAttackReachSqr(p_25557_);
 		if (p_25558_ <= d0 && !this.attacked) {
 			this.mob.swing(InteractionHand.MAIN_HAND);
-			p_25557_.hurt(DamageSource.mobAttack(this.mob), Mth.floor((float) (this.mob.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.5F)));
+			this.mob.onChargeDamage(p_25557_);
 			this.attacked = true;
 		}
 	}

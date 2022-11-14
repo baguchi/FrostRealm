@@ -3,6 +3,8 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.4.3
 // Paste this class into your mod and generate all required imports
 
 
+import baguchan.frostrealm.client.animation.KolossusAnimations;
+import baguchan.frostrealm.entity.Kolossus;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -12,9 +14,8 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 
-public class KolossusModel<T extends Entity> extends HierarchicalModel<T> {
+public class KolossusModel<T extends Kolossus> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	private final ModelPart root;
 
@@ -64,12 +65,15 @@ public class KolossusModel<T extends Entity> extends HierarchicalModel<T> {
 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.head.xRot = headPitch * ((float) Math.PI / 180F);
 		this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
 		this.leg_back_R.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
 		this.leg_back_L.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 		this.leg_R.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
 		this.leg_L.xRot = Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.animate(entity.attackAnimationState, KolossusAnimations.ATTACK, ageInTicks);
+		this.animate(entity.chargeAnimationState, KolossusAnimations.CHARGE, ageInTicks);
 	}
 
 	@Override

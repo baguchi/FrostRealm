@@ -6,15 +6,26 @@ import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostWeathers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
@@ -25,7 +36,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-public class FrostBeaster extends FrozenMonster {
+public class FrostBeaster extends FrozenMonster implements IChargeMob {
 
 	private static final UniformInt TIME_BETWEEN_ANGRY = UniformInt.of(300, 600);
 	private static final UniformInt TIME_BETWEEN_ANGRY_COOLDOWN = UniformInt.of(100, 400);
@@ -40,7 +51,7 @@ public class FrostBeaster extends FrozenMonster {
 
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(1, new BeasterAngryGoal(this, TIME_BETWEEN_ANGRY_COOLDOWN, TIME_BETWEEN_ANGRY));
+		this.goalSelector.addGoal(1, new BeasterAngryGoal<>(this, TIME_BETWEEN_ANGRY_COOLDOWN, TIME_BETWEEN_ANGRY));
 		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.1F, true));
 		this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.85D));
 		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -106,5 +117,15 @@ public class FrostBeaster extends FrozenMonster {
 			}
 		}
 
+	}
+
+	@Override
+	public void onCharge() {
+
+	}
+
+	@Override
+	public void onChargeDamage(LivingEntity damageEntity) {
+		damageEntity.hurt(DamageSource.mobAttack(this), Mth.floor((float) (this.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.5F)));
 	}
 }
