@@ -44,8 +44,8 @@ public class Kolossus extends Animal implements IChargeMob, NeutralMob {
 	public final AnimationState chargeAnimationState = new AnimationState();
 	public final AnimationState attackAnimationState = new AnimationState();
 
-	private static final UniformInt TIME_BETWEEN_ANGRY = UniformInt.of(200, 400);
-	private static final UniformInt TIME_BETWEEN_ANGRY_COOLDOWN = UniformInt.of(100, 300);
+	private static final UniformInt TIME_BETWEEN_CHARGE = UniformInt.of(200, 400);
+	private static final UniformInt TIME_BETWEEN_CHARGE_COOLDOWN = UniformInt.of(100, 200);
 
 	private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
 
@@ -75,7 +75,7 @@ public class Kolossus extends Animal implements IChargeMob, NeutralMob {
 
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(1, new BeasterAngryGoal<>(this, TIME_BETWEEN_ANGRY_COOLDOWN, TIME_BETWEEN_ANGRY));
+		this.goalSelector.addGoal(1, new BeasterAngryGoal<>(this, TIME_BETWEEN_CHARGE_COOLDOWN, TIME_BETWEEN_CHARGE));
 		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.35F, true));
 		this.goalSelector.addGoal(3, new BreedGoal(this, 0.95D));
 		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.85F));
@@ -105,14 +105,13 @@ public class Kolossus extends Animal implements IChargeMob, NeutralMob {
 
 	@Override
 	public void onCharge() {
-		this.level.broadcastEntityEvent(this, (byte) 16);
+		this.level.broadcastEntityEvent(this, (byte) 61);
 	}
 
 	@Override
 	public void onChargeDamage(LivingEntity damageEntity) {
 		this.level.broadcastEntityEvent(this, (byte) 4);
 		damageEntity.hurt(DamageSource.mobAttack(this), Mth.floor((float) (this.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.5F)));
-
 	}
 
 	public void readAdditionalSaveData(CompoundTag p_29541_) {
