@@ -10,11 +10,13 @@ import java.util.EnumSet;
 
 public class BeasterAngryGoal<T extends PathfinderMob & IChargeMob> extends TimeConditionGoal {
 	private final T mob;
+	private double speed;
 	private boolean attacked;
 
-	public BeasterAngryGoal(T frostBeaster, UniformInt cooldown, UniformInt time) {
+	public BeasterAngryGoal(T frostBeaster, UniformInt cooldown, UniformInt time, double speed) {
 		super(frostBeaster, cooldown, time);
 		this.mob = frostBeaster;
+		this.speed = speed;
 		this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
 	}
 
@@ -31,6 +33,7 @@ public class BeasterAngryGoal<T extends PathfinderMob & IChargeMob> extends Time
 	@Override
 	public void start() {
 		super.start();
+		this.mob.getNavigation().stop();
 		this.attacked = false;
 		this.mob.onCharge();
 	}
@@ -44,7 +47,7 @@ public class BeasterAngryGoal<T extends PathfinderMob & IChargeMob> extends Time
 			double d0 = this.mob.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
 			if (this.tick >= 20) {
 				this.mob.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
-				this.mob.getNavigation().moveTo(livingentity, 1.8D);
+				this.mob.getNavigation().moveTo(livingentity, this.speed);
 				this.checkAndPerformAttack(livingentity, d0);
 			}
 		}

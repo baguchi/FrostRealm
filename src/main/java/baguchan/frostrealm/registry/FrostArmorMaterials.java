@@ -10,10 +10,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 
 public enum FrostArmorMaterials implements ArmorMaterial {
-	YETI_FUR("frostrealm:yeti_fur", 10, new int[]{2, 3, 5, 2}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.2F, 0.0F, () -> {
+	YETI_FUR("frostrealm:yeti_fur", 15, new int[]{2, 3, 5, 2}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.2F, 0.0F, () -> {
 		return Ingredient.of(FrostItems.YETI_FUR.get());
 	}),
-	KOLOSSUS_FUR("frostrealm:kolossus_fur", 15, new int[]{2, 4, 6, 2}, 13, SoundEvents.ARMOR_EQUIP_LEATHER, 0.5F, 0.0F, () -> {
+	KOLOSSUS_FUR("frostrealm:kolossus_fur", 18, new int[]{2, 4, 6, 2}, 13, SoundEvents.ARMOR_EQUIP_LEATHER, 0.5F, 0.0F, () -> {
 		return Ingredient.of(FrostItems.KOLOSSUS_FUR.get());
 	}),
 	ASTRIUM("frostrealm:astrium", 20, new int[]{2, 5, 6, 2}, 11, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.0F, () -> {

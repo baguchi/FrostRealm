@@ -22,7 +22,6 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -45,7 +44,7 @@ public class Kolossus extends Animal implements IChargeMob, NeutralMob {
 	public final AnimationState attackAnimationState = new AnimationState();
 
 	private static final UniformInt TIME_BETWEEN_CHARGE = UniformInt.of(200, 400);
-	private static final UniformInt TIME_BETWEEN_CHARGE_COOLDOWN = UniformInt.of(100, 200);
+	private static final UniformInt TIME_BETWEEN_CHARGE_COOLDOWN = UniformInt.of(200, 400);
 
 	private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
 
@@ -75,10 +74,9 @@ public class Kolossus extends Animal implements IChargeMob, NeutralMob {
 
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(1, new BeasterAngryGoal<>(this, TIME_BETWEEN_CHARGE_COOLDOWN, TIME_BETWEEN_CHARGE));
-		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.35F, true));
-		this.goalSelector.addGoal(3, new BreedGoal(this, 0.95D));
-		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.85F));
+		this.goalSelector.addGoal(1, new BeasterAngryGoal<>(this, TIME_BETWEEN_CHARGE_COOLDOWN, TIME_BETWEEN_CHARGE, 1.8F));
+		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2F, true));
+		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.825F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new KolossusHurtByTargetGoal().setAlertOthers());
@@ -89,7 +87,7 @@ public class Kolossus extends Animal implements IChargeMob, NeutralMob {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 80.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 4.0F).add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.ATTACK_DAMAGE, 15.0F).add(Attributes.ATTACK_KNOCKBACK, 1.65F);
+		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 80.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 4.0F).add(Attributes.MOVEMENT_SPEED, 0.26D).add(Attributes.ATTACK_DAMAGE, 15.0F).add(Attributes.ATTACK_KNOCKBACK, 1.65F);
 	}
 
 	@Override
