@@ -14,6 +14,7 @@ import baguchan.frostrealm.registry.FrostBlockEntitys;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostCarvers;
 import baguchan.frostrealm.registry.FrostDimensionSettings;
+import baguchan.frostrealm.registry.FrostEffects;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostFeatures;
 import baguchan.frostrealm.registry.FrostItems;
@@ -78,6 +79,8 @@ public class FrostRealm {
 		FrostEntities.ENTITIES.register(modBus);
 
 		FrostItems.ITEMS.register(modBus);
+		FrostEffects.MOB_EFFECTS.register(modBus);
+		FrostEffects.POTION.register(modBus);
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
 		FrostDimensionSettings.DIMENSION_TYPES.register(modBus);
 		FrostDimensionSettings.NOISE_GENERATORS.register(modBus);

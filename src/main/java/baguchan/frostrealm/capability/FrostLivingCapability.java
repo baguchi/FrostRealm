@@ -3,6 +3,7 @@ package baguchan.frostrealm.capability;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.FrostDimensions;
+import baguchan.frostrealm.registry.FrostEffects;
 import baguchan.frostrealm.registry.FrostTags;
 import baguchan.frostrealm.registry.FrostWeathers;
 import net.minecraft.client.Minecraft;
@@ -113,7 +114,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 		/*
 		 *  Body temperature stuff
 		 */
-		if (entity.level.dimension() == FrostDimensions.FROSTREALM_LEVEL && (!entity.getType().is(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE) || (entity instanceof Player && !((Player) entity).isCreative() && !entity.isSpectator()))) {
+		if (entity.level.dimension() == FrostDimensions.FROSTREALM_LEVEL && (!entity.getType().is(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE) || (entity instanceof Player && !((Player) entity).isCreative() && !entity.isSpectator())) && !entity.hasEffect(FrostEffects.COLD_RESISTANCE.get())) {
 			Difficulty difficulty = entity.level.getDifficulty();
 			this.lastTemperate = this.temperature;
 			hotSourceTick(entity);
