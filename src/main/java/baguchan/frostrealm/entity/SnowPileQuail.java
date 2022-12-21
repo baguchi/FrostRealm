@@ -21,10 +21,24 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -151,6 +165,10 @@ public class SnowPileQuail extends Animal {
 				this.setHomeTarget(blockpos);
 				this.setAge(2400);
 			}
+		}
+
+		if (this.homeTarget != null && !this.level.getBlockState(this.homeTarget).is(FrostBlocks.SNOWPILE_QUAIL_EGG.get())) {
+			this.setHomeTarget(null);
 		}
 	}
 

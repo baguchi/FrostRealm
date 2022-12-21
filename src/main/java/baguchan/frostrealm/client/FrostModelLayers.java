@@ -20,6 +20,7 @@ public class FrostModelLayers {
 	public static final ModelLayerLocation SNOW_MOLE = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "snow_mole"), "snow_mole");
 
 	public static final ModelLayerLocation KOLOSSUS = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "kolossus"), "kolossus");
+	public static final ModelLayerLocation WARPED_ICE = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "warped_ice"), "warped_ice");
 
 
 	public static final ModelLayerLocation GOKKUR = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "gokkur"), "gokkur");

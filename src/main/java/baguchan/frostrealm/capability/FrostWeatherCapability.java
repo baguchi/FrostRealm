@@ -31,9 +31,7 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 
 	private float unstableLevel;
 
-	public boolean needWeatherChanged;
-	public boolean needWeatherCooldownChanged;
-	private FrostWeather frostWeather;
+	private FrostWeather frostWeather = FrostWeathers.BLIZZARD.get();
 
 	public float getWeatherLevel(float level) {
 		return Mth.lerp(level, this.oWeatherLevel, this.weatherLevel);
@@ -91,13 +89,11 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 						}
 
 						setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
-						needWeatherChanged = true;
 					}
 				} else {
 
 					//If wether not active and cooldown not active too
 					setWeatherCooldown(((level.random.nextInt(20) + 10) * 60) * 20);
-					needWeatherCooldownChanged = true;
 				}
 			}
 		}

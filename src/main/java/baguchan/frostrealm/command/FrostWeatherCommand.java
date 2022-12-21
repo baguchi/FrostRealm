@@ -53,7 +53,6 @@ public class FrostWeatherCommand {
 
 			ChangeWeatherTimeEvent message = new ChangeWeatherTimeEvent(0, p_139174_);
 			FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-			cap.needWeatherChanged = true;
 		});
 		p_139173_.sendSuccess(Component.translatable("commands.frostrealm.frost_weather.clear"), true);
 
@@ -92,7 +91,6 @@ public class FrostWeatherCommand {
 
 					ChangeWeatherTimeEvent message2 = new ChangeWeatherTimeEvent(p_139179_, 0);
 					FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message2);
-					cap.needWeatherChanged = true;
 				});
 				p_139178_.sendSuccess(Component.translatable("commands.frostrealm.frost_weather.set"), true);
 				return p_139179_;

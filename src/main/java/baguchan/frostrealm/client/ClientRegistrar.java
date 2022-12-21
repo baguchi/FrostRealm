@@ -15,6 +15,7 @@ import baguchan.frostrealm.client.model.KolossusModel;
 import baguchan.frostrealm.client.model.MarmotModel;
 import baguchan.frostrealm.client.model.SnowMoleModel;
 import baguchan.frostrealm.client.model.SnowPileQuailModel;
+import baguchan.frostrealm.client.model.WarpedIceModel;
 import baguchan.frostrealm.client.model.WolfesterModel;
 import baguchan.frostrealm.client.model.YetiFurArmorModel;
 import baguchan.frostrealm.client.model.YetiModel;
@@ -110,6 +111,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.CRYSTAL_FOX, CrystalFoxModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.SNOW_MOLE, SnowMoleModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.KOLOSSUS, KolossusModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.WARPED_ICE, WarpedIceModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_OUTER, () -> YetiFurArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION));

@@ -15,7 +15,7 @@ public class ClientFogEvent {
 	@SubscribeEvent
 	public void setFog(ViewportEvent.RenderFog event) {
 		Entity entity = event.getCamera().getEntity();
-		if (entity != null && entity.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+		if (entity.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 			entity.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
 				float partialTicks = (float) event.getPartialTick();
 				float weatherLevel = cap.getWeatherLevel(partialTicks);
@@ -36,9 +36,10 @@ public class ClientFogEvent {
 	@SubscribeEvent
 	public void setFogColor(ViewportEvent.ComputeFogColor event) {
 		Entity entity = event.getCamera().getEntity();
-		if (entity != null && entity.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+		if (entity.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 			entity.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-				float weatherLevel = cap.getWeatherLevel(1.0F);
+				float partialTicks = (float) event.getPartialTick();
+				float weatherLevel = cap.getWeatherLevel(partialTicks);
 				if (weatherLevel > 0F && cap.getFrostWeather() != null && cap.getFrostWeather().isUseFog()) {
 					float fogRed = event.getRed();
 					float fogGreen = event.getGreen();
