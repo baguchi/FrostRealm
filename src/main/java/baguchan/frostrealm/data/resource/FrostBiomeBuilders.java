@@ -115,12 +115,12 @@ public class FrostBiomeBuilders {
 				-1.2F,
 				0.6F,
 				new BiomeSpecialEffects.Builder()
-						.fogColor(0x93_93_bc)
-						.skyColor(0xc0_c0_ff)
+						.fogColor(4630224)
+						.skyColor(7907327)
 						.waterColor(0x3f_76_e4)
 						.waterFogColor(0x05_05_33)
-						.grassColorOverride(0xb1_ff_cb)
-						.foliageColorOverride(0xb1_ff_cb)
+						.grassColorOverride(7115607)
+						.foliageColorOverride(7115607)
 						.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
 						.backgroundMusic(new Music(soundEvent.getHolder().orElseThrow(), 12000, 24000, true))
 						.build(),
