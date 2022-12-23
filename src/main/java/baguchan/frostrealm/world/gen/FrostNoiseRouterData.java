@@ -1,8 +1,7 @@
 package baguchan.frostrealm.world.gen;
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.DensityFunction;
@@ -50,15 +49,15 @@ public class FrostNoiseRouterData {
 
 
 	private static ResourceKey<DensityFunction> createKey(String p_209537_) {
-		return ResourceKey.create(Registry.DENSITY_FUNCTION_REGISTRY, new ResourceLocation(p_209537_));
+		return ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation(p_209537_));
 	}
 
-	private static DensityFunction underground(Registry<DensityFunction> p_224472_, DensityFunction p_224473_) {
+	private static DensityFunction underground(HolderGetter<DensityFunction> p_224472_, HolderGetter<NormalNoise.NoiseParameters> p_256236_, DensityFunction p_224473_) {
 		DensityFunction densityfunction = getFunction(p_224472_, SPAGHETTI_2D);
 		DensityFunction densityfunction1 = getFunction(p_224472_, SPAGHETTI_ROUGHNESS_FUNCTION);
-		DensityFunction densityfunction2 = DensityFunctions.noise(getNoise(Noises.CAVE_LAYER), 4.0D, 12D);
+		DensityFunction densityfunction2 = DensityFunctions.noise(p_256236_.getOrThrow(Noises.CAVE_LAYER), 4.0D, 12D);
 		DensityFunction densityfunction3 = DensityFunctions.mul(DensityFunctions.constant(4.0D), densityfunction2.square());
-		DensityFunction densityfunction4 = DensityFunctions.noise(getNoise(Noises.CAVE_CHEESE), 0.6666666666666666D);
+		DensityFunction densityfunction4 = DensityFunctions.noise(p_256236_.getOrThrow(Noises.CAVE_CHEESE), 0.6666666666666666D);
 		DensityFunction densityfunction5 = DensityFunctions.add(DensityFunctions.add(DensityFunctions.constant(0.12D), densityfunction4).clamp(-1.0D, 1.0D), DensityFunctions.add(DensityFunctions.constant(1.5D), DensityFunctions.mul(DensityFunctions.constant(-0.64D), p_224473_)).clamp(0.0D, 0.5D));
 		DensityFunction densityfunction6 = DensityFunctions.add(densityfunction3, densityfunction5);
 		DensityFunction densityfunction7 = DensityFunctions.min(DensityFunctions.min(densityfunction6, getFunction(p_224472_, ENTRANCES)), DensityFunctions.add(densityfunction, densityfunction1));
@@ -72,21 +71,21 @@ public class FrostNoiseRouterData {
 		return DensityFunctions.mul(DensityFunctions.interpolated(densityfunction), DensityFunctions.constant(0.64D)).squeeze();
 	}
 
-	public static NoiseRouter frostrealm(Registry<DensityFunction> p_224486_, boolean p_224487_, boolean p_224488_) {
-		DensityFunction densityfunction = DensityFunctions.noise(getNoise(Noises.AQUIFER_BARRIER), 0.5D);
-		DensityFunction densityfunction1 = DensityFunctions.noise(getNoise(Noises.AQUIFER_FLUID_LEVEL_FLOODEDNESS), 0.67D);
-		DensityFunction densityfunction2 = DensityFunctions.noise(getNoise(Noises.AQUIFER_FLUID_LEVEL_SPREAD), 0.7142857142857143D);
-		DensityFunction densityfunction3 = DensityFunctions.noise(getNoise(Noises.AQUIFER_LAVA));
+	public static NoiseRouter frostrealm(HolderGetter<DensityFunction> p_224486_, HolderGetter<NormalNoise.NoiseParameters> p_256236_, boolean p_224487_, boolean p_224488_) {
+		DensityFunction densityfunction = DensityFunctions.noise(p_256236_.getOrThrow(Noises.AQUIFER_BARRIER), 0.5D);
+		DensityFunction densityfunction1 = DensityFunctions.noise(p_256236_.getOrThrow(Noises.AQUIFER_FLUID_LEVEL_FLOODEDNESS), 0.67D);
+		DensityFunction densityfunction2 = DensityFunctions.noise(p_256236_.getOrThrow(Noises.AQUIFER_FLUID_LEVEL_SPREAD), 0.7142857142857143D);
+		DensityFunction densityfunction3 = DensityFunctions.noise(p_256236_.getOrThrow(Noises.AQUIFER_LAVA));
 		DensityFunction densityfunction4 = getFunction(p_224486_, SHIFT_X);
 		DensityFunction densityfunction5 = getFunction(p_224486_, SHIFT_Z);
-		DensityFunction densityfunction6 = DensityFunctions.shiftedNoise2d(densityfunction4, densityfunction5, 0.25D, getNoise(p_224487_ ? Noises.TEMPERATURE_LARGE : Noises.TEMPERATURE));
-		DensityFunction densityfunction7 = DensityFunctions.shiftedNoise2d(densityfunction4, densityfunction5, 0.25D, getNoise(p_224487_ ? Noises.VEGETATION_LARGE : Noises.VEGETATION));
+		DensityFunction densityfunction6 = DensityFunctions.shiftedNoise2d(densityfunction4, densityfunction5, 0.25D, p_256236_.getOrThrow(p_224487_ ? Noises.TEMPERATURE_LARGE : Noises.TEMPERATURE));
+		DensityFunction densityfunction7 = DensityFunctions.shiftedNoise2d(densityfunction4, densityfunction5, 0.25D, p_256236_.getOrThrow(p_224487_ ? Noises.VEGETATION_LARGE : Noises.VEGETATION));
 		DensityFunction densityfunction8 = getFunction(p_224486_, p_224487_ ? FACTOR_LARGE : FACTOR);
 		DensityFunction densityfunction9 = getFunction(p_224486_, p_224487_ ? DEPTH_LARGE : DEPTH);
 		DensityFunction densityfunction10 = noiseGradientDensity(DensityFunctions.cache2d(densityfunction8), densityfunction9);
 		DensityFunction densityfunction11 = getFunction(p_224486_, p_224487_ ? SLOPED_CHEESE_LARGE : (p_224488_ ? SLOPED_CHEESE_AMPLIFIED : SLOPED_CHEESE));
 		DensityFunction densityfunction12 = DensityFunctions.min(densityfunction11, DensityFunctions.mul(DensityFunctions.constant(5.0D), getFunction(p_224486_, ENTRANCES)));
-		DensityFunction densityfunction13 = DensityFunctions.rangeChoice(densityfunction11, -1000000.0D, 1.5625D, densityfunction12, underground(p_224486_, densityfunction11));
+		DensityFunction densityfunction13 = DensityFunctions.rangeChoice(densityfunction11, -1000000.0D, 1.5625D, densityfunction12, underground(p_224486_, p_256236_, densityfunction11));
 		DensityFunction densityfunction14 = DensityFunctions.min(postProcess(slideOverworld(p_224488_, densityfunction13)), getFunction(p_224486_, NOODLE));
 		DensityFunction densityfunction15 = getFunction(p_224486_, Y);
 		return new NoiseRouter(densityfunction, densityfunction1, densityfunction2, densityfunction3, densityfunction6, densityfunction7, getFunction(p_224486_, p_224487_ ? CONTINENTS_LARGE : CONTINENTS), getFunction(p_224486_, p_224487_ ? EROSION_LARGE : EROSION), densityfunction9, getFunction(p_224486_, RIDGES), slideOverworld(p_224488_, DensityFunctions.add(densityfunction10, DensityFunctions.constant(-0.703125D)).clamp(-80.0D, 64.0D)), densityfunction14, DensityFunctions.constant(0.0F), DensityFunctions.constant(0.0F), DensityFunctions.constant(0.0F));
@@ -112,11 +111,8 @@ public class FrostNoiseRouterData {
 		return DensityFunctions.lerp(densityfunction2, p_224452_, $$9);
 	}
 
-	private static Holder<NormalNoise.NoiseParameters> getNoise(ResourceKey<NormalNoise.NoiseParameters> p_209543_) {
-		return BuiltinRegistries.NOISE.getHolderOrThrow(p_209543_);
-	}
 
-	private static DensityFunction getFunction(Registry<DensityFunction> p_224465_, ResourceKey<DensityFunction> p_224466_) {
-		return new DensityFunctions.HolderHolder(p_224465_.getHolderOrThrow(p_224466_));
+	private static DensityFunction getFunction(HolderGetter<DensityFunction> p_224465_, ResourceKey<DensityFunction> p_224466_) {
+		return new DensityFunctions.HolderHolder(p_224465_.getOrThrow(p_224466_));
 	}
 }

@@ -5,7 +5,7 @@ import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.GokkurModel;
 import baguchan.frostrealm.entity.Gokkur;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -32,7 +32,7 @@ public class GokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurModel
 		super.setupRotations(p_115317_, p_115318_, p_115319_, p_115320_, p_115321_);
 		if (p_115317_.isRolling()) {
 			p_115318_.translate(0.0D, (double) p_115317_.getBbHeight() / 2, 0.0D);
-			p_115318_.mulPose(Vector3f.XP.rotationDegrees((float) (-((float) p_115317_.tickCount + p_115321_) * 40.0F + (20.0F * p_115317_.getDeltaMovement().horizontalDistanceSqr()))));
+			p_115318_.mulPose(Axis.XP.rotationDegrees((float) (-((float) p_115317_.tickCount + p_115321_) * 40.0F + (20.0F * p_115317_.getDeltaMovement().horizontalDistanceSqr()))));
 			p_115318_.translate(0.0D, -(double) p_115317_.getBbHeight() / 2, 0.0D);
 		}
 	}

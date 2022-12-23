@@ -2,8 +2,9 @@ package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostItems;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
@@ -24,7 +25,7 @@ import java.lang.reflect.Constructor;
 import java.util.function.Consumer;
 
 public abstract class CraftingDataHelper extends RecipeProvider {
-	public CraftingDataHelper(DataGenerator generator) {
+	public CraftingDataHelper(PackOutput generator) {
 		super(generator);
 	}
 
@@ -55,29 +56,29 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	protected final void foodCooking(Item material, Item result, float xp, Consumer<FinishedRecipe> consumer) {
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smelting_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
-		SimpleCookingRecipeBuilder.smoking(Ingredient.of(material), result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smoking_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
-		SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(material), result, xp, 600).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("campfire_cooking_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), RecipeCategory.FOOD, result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smelting_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
+		SimpleCookingRecipeBuilder.smoking(Ingredient.of(material), RecipeCategory.FOOD, result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smoking_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
+		SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(material), RecipeCategory.FOOD, result, xp, 600).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("campfire_cooking_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
 	}
 
 	protected final void foodCooking(Item material, Item result, float xp, Consumer<FinishedRecipe> consumer, String recipeName) {
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smelting_" + recipeName));
-		SimpleCookingRecipeBuilder.smoking(Ingredient.of(material), result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smoking_" + recipeName));
-		SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(material), result, xp, 600).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("campfire_cooking_" + recipeName));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), RecipeCategory.FOOD, result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smelting_" + recipeName));
+		SimpleCookingRecipeBuilder.smoking(Ingredient.of(material), RecipeCategory.FOOD, result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smoking_" + recipeName));
+		SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(material), RecipeCategory.FOOD, result, xp, 600).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("campfire_cooking_" + recipeName));
 	}
 
 	protected final void smeltOre(Item material, Item result, float xp, Consumer<FinishedRecipe> consumer) {
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smelting_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
-		SimpleCookingRecipeBuilder.blasting(Ingredient.of(material), result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("blasting_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), RecipeCategory.MISC, result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smelting_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
+		SimpleCookingRecipeBuilder.blasting(Ingredient.of(material), RecipeCategory.MISC, result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("blasting_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
 	}
 
 	protected final void smeltOre(Item material, Item result, float xp, Consumer<FinishedRecipe> consumer, String recipeName) {
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smelting_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
-		SimpleCookingRecipeBuilder.blasting(Ingredient.of(material), result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("blasting_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), RecipeCategory.MISC, result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("smelting_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
+		SimpleCookingRecipeBuilder.blasting(Ingredient.of(material), RecipeCategory.MISC, result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, FrostRealm.prefix("blasting_" + ForgeRegistries.ITEMS.getKey(result).getPath()));
 	}
 
 	protected final void helmetItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material) {
-		ShapedRecipeBuilder.shaped(result)
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, result)
 				.pattern("###")
 				.pattern("# #")
 				.define('#', material)
@@ -86,7 +87,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	protected final void chestplateItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material) {
-		ShapedRecipeBuilder.shaped(result)
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, result)
 				.pattern("# #")
 				.pattern("###")
 				.pattern("###")
@@ -96,7 +97,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	protected final void leggingsItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material) {
-		ShapedRecipeBuilder.shaped(result)
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, result)
 				.pattern("###")
 				.pattern("# #")
 				.pattern("# #")
@@ -106,7 +107,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	protected final void bootsItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material) {
-		ShapedRecipeBuilder.shaped(result)
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, result)
 				.pattern("# #")
 				.pattern("# #")
 				.define('#', material)
@@ -115,7 +116,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	protected final void pickaxeItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material, TagKey<Item> handle) {
-		ShapedRecipeBuilder.shaped(result)
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
 				.pattern("###")
 				.pattern(" X ")
 				.pattern(" X ")
@@ -126,7 +127,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	protected final void swordItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material, TagKey<Item> handle) {
-		ShapedRecipeBuilder.shaped(result)
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, result)
 				.pattern("#")
 				.pattern("#")
 				.pattern("X")
@@ -137,7 +138,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	protected final void axeItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material, TagKey<Item> handle) {
-		ShapedRecipeBuilder.shaped(result)
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
 				.pattern("##")
 				.pattern("#X")
 				.pattern(" X")
@@ -148,7 +149,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	protected final void shovelItem(Consumer<FinishedRecipe> consumer, String name, Item result, Item material, TagKey<Item> handle) {
-		ShapedRecipeBuilder.shaped(result)
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
 				.pattern("#")
 				.pattern("X")
 				.pattern("X")
@@ -159,7 +160,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	public void makeStairs(Consumer<FinishedRecipe> consumer, Block stairsOut, Block blockIn) {
-		ShapedRecipeBuilder.shaped(stairsOut, 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, stairsOut, 4)
 				.pattern("M  ")
 				.pattern("MM ")
 				.pattern("MMM")
@@ -168,14 +169,14 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	public void makeSlab(Consumer<FinishedRecipe> consumer, Block slabOut, Block blockIn) {
-		ShapedRecipeBuilder.shaped(slabOut, 6)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, slabOut, 6)
 				.pattern("MMM")
 				.define('M', blockIn)
 				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn).getPath(), has(blockIn)).save(consumer);
 	}
 
 	public void makeWoodFence(Consumer<FinishedRecipe> consumer, Block fenceOut, Block blockIn) {
-		ShapedRecipeBuilder.shaped(fenceOut, 3)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, fenceOut, 3)
 				.pattern("MSM")
 				.pattern("MSM")
 				.define('M', blockIn)
@@ -184,7 +185,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	public void makeFenceGate(Consumer<FinishedRecipe> consumer, Block fenceOut, Block blockIn) {
-		ShapedRecipeBuilder.shaped(fenceOut)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, fenceOut)
 				.pattern("SMS")
 				.pattern("SMS")
 				.define('M', blockIn)
@@ -193,7 +194,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	public void makeDoor(Consumer<FinishedRecipe> consumer, Block doorOut, Block blockIn) {
-		ShapedRecipeBuilder.shaped(doorOut, 3)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, doorOut, 3)
 				.pattern("DD")
 				.pattern("DD")
 				.define('D', blockIn)
@@ -201,7 +202,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 	}
 
 	public void makeFrostTorch(Consumer<FinishedRecipe> consumer, Item torchOut) {
-		ShapedRecipeBuilder.shaped(torchOut, 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, torchOut, 4)
 				.pattern("C")
 				.pattern("M")
 				.define('C', FrostItems.FROST_CRYSTAL.get())

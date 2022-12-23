@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:block_column",
+  "config": {
+    "allowed_placement": {
+      "type": "minecraft:not",
+      "predicate": {
+        "type": "minecraft:has_sturdy_face",
+        "direction": "down",
+        "offset": [
+          0,
+          -1,
+          0
+        ]
+      }
+    },
+    "direction": "up",
+    "layers": [
+      {
+        "height": 32,
+        "provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "minecraft:chain",
+            "Properties": {
+              "axis": "y",
+              "waterlogged": "false"
+            }
+          }
+        }
+      }
+    ],
+    "prioritize_tip": true
+  }
+}

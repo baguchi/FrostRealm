@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.render.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
@@ -27,8 +27,8 @@ public class YetiItemInHandLayer<T extends LivingEntity, M extends EntityModel<T
 		if (!p_117186_.isEmpty()) {
 			p_117189_.pushPose();
 			this.getParentModel().translateToHand(p_117188_, p_117189_);
-			p_117189_.mulPose(Vector3f.XP.rotationDegrees(-90.0F));
-			p_117189_.mulPose(Vector3f.YP.rotationDegrees(180.0F));
+			p_117189_.mulPose(Axis.XP.rotationDegrees(-90.0F));
+			p_117189_.mulPose(Axis.YP.rotationDegrees(180.0F));
 			boolean flag = p_117188_ == HumanoidArm.LEFT;
 			p_117189_.translate((float) (flag ? -1 : 1) / 16.0F, 0.125D, -1.45D);
 			Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(p_117185_, p_117186_, p_117187_, flag, p_117189_, p_117190_, p_117191_);

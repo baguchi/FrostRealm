@@ -1,0 +1,8 @@
+{
+  "type": "frostrealm:big_warped_island",
+  "config": {
+    "state": {
+      "Name": "frostrealm:frigid_stone"
+    }
+  }
+}

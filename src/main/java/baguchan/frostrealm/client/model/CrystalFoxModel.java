@@ -5,7 +5,6 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.1.5
 
 import baguchan.frostrealm.client.animation.CrystalFoxAnimations;
 import baguchan.frostrealm.entity.CrystalFox;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -17,8 +16,6 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
 public class CrystalFoxModel<T extends CrystalFox> extends HierarchicalModel<T> {
-	private static final Vector3f ANIMATION_VECTOR_CACHE = new Vector3f();
-
 	private final ModelPart main;
 	private final ModelPart body;
 	private final ModelPart head;

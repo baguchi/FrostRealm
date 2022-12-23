@@ -2,7 +2,7 @@ package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DoorBlock;
@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 public class BlockstateGenerator extends BlockStateProvider {
-	public BlockstateGenerator(DataGenerator gen, ExistingFileHelper exFileHelper) {
+	public BlockstateGenerator(PackOutput gen, ExistingFileHelper exFileHelper) {
 		super(gen, FrostRealm.MODID, exFileHelper);
 	}
 

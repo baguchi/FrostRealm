@@ -5,7 +5,7 @@ import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.GokkudilloModel;
 import baguchan.frostrealm.entity.Gokkudillo;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -42,10 +42,10 @@ public class GokkudilloRenderer<T extends Gokkudillo> extends MobRenderer<T, Gok
 		super.setupRotations(p_115317_, p_115318_, p_115319_, p_115320_, p_115321_);
 		if (p_115317_.isRolling()) {
 			p_115318_.translate(0.0D, -(double) 0.3, 0.0D);
-			p_115318_.mulPose(Vector3f.YP.rotationDegrees(-((float) p_115317_.tickCount + p_115321_) * 60.0F));
+			p_115318_.mulPose(Axis.YP.rotationDegrees(-((float) p_115317_.tickCount + p_115321_) * 60.0F));
 		} else if (p_115317_.isStun()) {
 			p_115318_.translate(0.0D, p_115317_.getBbHeight(), 0.0D);
-			p_115318_.mulPose(Vector3f.XP.rotationDegrees(-180F));
+			p_115318_.mulPose(Axis.XP.rotationDegrees(-180F));
 		}
 	}
 

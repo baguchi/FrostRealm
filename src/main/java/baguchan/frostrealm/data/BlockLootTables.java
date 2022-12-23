@@ -4,7 +4,9 @@ import baguchan.frostrealm.block.BearBerryBushBlock;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
@@ -25,11 +27,18 @@ import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import java.util.HashSet;
 import java.util.Set;
 
-public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
+public class BlockLootTables extends BlockLootSubProvider {
 	private final Set<Block> knownBlocks = new HashSet<>();
 	// [VanillaCopy] super
 	private static final float[] NORMAL_LEAVES_SAPLING_CHANCES = new float[]{0.05F, 0.0625F, 0.083333336F, 0.1F};
 	private static final float[] RARE_SAPLING_DROP_RATES = new float[]{0.025F, 0.027777778F, 0.03125F, 0.041666668F, 0.1F};
+
+	private static final Set<Item> EXPLOSION_RESISTANT = Set.of();
+
+
+	protected BlockLootTables() {
+		super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags());
+	}
 
 	@Override
 	protected void add(Block block, LootTable.Builder builder) {
@@ -38,7 +47,7 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 	}
 
 	@Override
-	protected void addTables() {
+	protected void generate() {
 		registerEmpty(FrostBlocks.FROST_PORTAL.get());
 
 		this.dropSelf(FrostBlocks.FROZEN_DIRT.get());
@@ -49,19 +58,19 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.dropSelf(FrostBlocks.POINTED_ICE.get());
 
 		this.dropSelf(FrostBlocks.FRIGID_STONE.get());
-		this.add(FrostBlocks.FRIGID_STONE_SLAB.get(), BlockLoot::createSlabItemTable);
+		this.add(FrostBlocks.FRIGID_STONE_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(FrostBlocks.FRIGID_STONE_STAIRS.get());
 		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK.get());
 		this.dropSelf(FrostBlocks.FRIGID_STONE_SMOOTH.get());
-		this.add(FrostBlocks.FRIGID_STONE_BRICK_SLAB.get(), BlockLoot::createSlabItemTable);
+		this.add(FrostBlocks.FRIGID_STONE_BRICK_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get());
 
 		this.dropSelf(FrostBlocks.FRIGID_STONE_MOSSY.get());
-		this.add(FrostBlocks.FRIGID_STONE_MOSSY_SLAB.get(), BlockLoot::createSlabItemTable);
+		this.add(FrostBlocks.FRIGID_STONE_MOSSY_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(FrostBlocks.FRIGID_STONE_MOSSY_STAIRS.get());
 
 		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
-		this.add(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB.get(), BlockLoot::createSlabItemTable);
+		this.add(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS.get());
 
 
@@ -71,11 +80,11 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 			return createFrostLeavesDrops(p_124104_, FrostBlocks.FROSTROOT_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
 		});
 		this.dropSelf(FrostBlocks.FROSTROOT_PLANKS.get());
-		this.add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), BlockLoot::createSlabItemTable);
+		this.add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get());
 		this.dropSelf(FrostBlocks.FROSTROOT_FENCE.get());
 		this.dropSelf(FrostBlocks.FROSTROOT_FENCE_GATE.get());
-		this.add(FrostBlocks.FROSTROOT_DOOR.get(), BlockLoot::createDoorTable);
+		this.add(FrostBlocks.FROSTROOT_DOOR.get(), this::createDoorTable);
 
 		this.dropSelf(FrostBlocks.VIGOROSHROOM.get());
 		this.dropSelf(FrostBlocks.ARCTIC_POPPY.get());
@@ -90,10 +99,10 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.add(FrostBlocks.SUGARBEET.get(), createCropDrops(FrostBlocks.SUGARBEET.get(), FrostItems.SUGARBEET.get(), FrostItems.SUGARBEET.get(), lootitemcondition$builder));
 
 
-		this.add(FrostBlocks.FROST_CRYSTAL_ORE.get(), BlockLootTables::createFrostCrystalOreDrops);
-		this.add(FrostBlocks.GLIMMERROCK_ORE.get(), BlockLootTables::createGlimmerRockOreDrops);
-		this.add(FrostBlocks.ASTRIUM_ORE.get(), BlockLootTables::createAstriumOreDrops);
-		this.add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), BlockLootTables::createStardustCrystalOreDrops);
+		this.add(FrostBlocks.FROST_CRYSTAL_ORE.get(), this::createFrostCrystalOreDrops);
+		this.add(FrostBlocks.GLIMMERROCK_ORE.get(), this::createGlimmerRockOreDrops);
+		this.add(FrostBlocks.ASTRIUM_ORE.get(), this::createAstriumOreDrops);
+		this.add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), this::createStardustCrystalOreDrops);
 		this.dropSelf(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.dropSelf(FrostBlocks.CORRUPTED_CRYSTAL_CLUSTER.get());
 		this.dropSelf(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
@@ -106,31 +115,35 @@ public class BlockLootTables extends net.minecraft.data.loot.BlockLoot {
 		this.dropSelf(FrostBlocks.SNOWPILE_QUAIL_EGG.get());
 	}
 
+	private void registerSlab(Block b) {
+		add(b, createSlabItemTable(b));
+	}
+
 
 	// [VanillaCopy] super.droppingWithChancesAndSticks, but non-silk touch parameter can be an item instead of a block
-	private static LootTable.Builder silkAndStick(Block block, ItemLike nonSilk, float... nonSilkFortune) {
-		LootItemCondition.Builder NOT_SILK_TOUCH_OR_SHEARS = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.data.loot.BlockLoot.class, null, "HAS_NO_SHEARS_OR_SILK_TOUCH");
+	private LootTable.Builder silkAndStick(Block block, ItemLike nonSilk, float... nonSilkFortune) {
+		LootItemCondition.Builder NOT_SILK_TOUCH_OR_SHEARS = ObfuscationReflectionHelper.getPrivateValue(BlockLootSubProvider.class, null, "HAS_NO_SHEARS_OR_SILK_TOUCH");
 		return createSilkTouchOrShearsDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(nonSilk.asItem())).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, nonSilkFortune))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).when(NOT_SILK_TOUCH_OR_SHEARS).add(applyExplosionDecay(block, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F))));
 	}
 
-	protected static LootTable.Builder createFrostLeavesDrops(Block p_124264_, Block p_124265_, float... p_124266_) {
-		LootItemCondition.Builder NOT_SILK_TOUCH_OR_SHEARS = ObfuscationReflectionHelper.getPrivateValue(net.minecraft.data.loot.BlockLoot.class, null, "HAS_NO_SHEARS_OR_SILK_TOUCH");
+	protected LootTable.Builder createFrostLeavesDrops(Block p_124264_, Block p_124265_, float... p_124266_) {
+		LootItemCondition.Builder NOT_SILK_TOUCH_OR_SHEARS = ObfuscationReflectionHelper.getPrivateValue(BlockLootSubProvider.class, null, "HAS_NO_SHEARS_OR_SILK_TOUCH");
 		return createLeavesDrops(p_124264_, p_124265_, p_124266_).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(NOT_SILK_TOUCH_OR_SHEARS).add(applyExplosionCondition(p_124264_, LootItem.lootTableItem(FrostItems.FROZEN_FRUIT.get())).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
 	}
 
-	protected static LootTable.Builder createFrostCrystalOreDrops(Block p_176049_) {
-		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.FROST_CRYSTAL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
+	protected LootTable.Builder createFrostCrystalOreDrops(Block p_176049_) {
+		return createSilkTouchDispatchTable(p_176049_, applyExplosionCondition(p_176049_, LootItem.lootTableItem(FrostItems.FROST_CRYSTAL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
 	}
 
-	protected static LootTable.Builder createGlimmerRockOreDrops(Block p_176049_) {
+	protected LootTable.Builder createGlimmerRockOreDrops(Block p_176049_) {
 		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.GLIMMERROCK.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
 	}
 
-	protected static LootTable.Builder createAstriumOreDrops(Block p_176049_) {
+	protected LootTable.Builder createAstriumOreDrops(Block p_176049_) {
 		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.ASTRIUM_RAW.get()).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
 	}
 
-	protected static LootTable.Builder createStardustCrystalOreDrops(Block p_176049_) {
+	protected LootTable.Builder createStardustCrystalOreDrops(Block p_176049_) {
 		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.STARDUST_CRYSTAL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
 	}
 

@@ -2,8 +2,10 @@ package baguchan.frostrealm.world.gen;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
-import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -20,10 +22,20 @@ import java.util.OptionalInt;
 
 public class FrostTreeFeatures {
 
-	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> FROST_TREE = FeatureUtils.register(prefix("frostroot_tree"), Feature.TREE, createFrostRoot().build());
-	public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> FROST_TREE_BIG = FeatureUtils.register(prefix("frostroot_tree_big"), Feature.TREE, createFancyFrostRoot().build());
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FROST_TREE = registerKey("frostroot_tree");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FROST_TREE_BIG = registerKey("frostroot_tree_big");
+
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;
+	}
+
+	public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
+		return ResourceKey.create(Registries.CONFIGURED_FEATURE, FrostRealm.prefix(name));
+	}
+
+	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+		FeatureUtils.register(context, FROST_TREE, Feature.TREE, createFrostRoot().build());
+		FeatureUtils.register(context, FROST_TREE_BIG, Feature.TREE, createFancyFrostRoot().build());
 	}
 
 

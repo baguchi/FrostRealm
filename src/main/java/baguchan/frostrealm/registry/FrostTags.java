@@ -1,7 +1,7 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
@@ -24,7 +24,7 @@ public class FrostTags {
 		public static final TagKey<EntityType<?>> COLD_WEATHER_IMMUNE = tag("cold_weather_immune");
 
 		private static TagKey<EntityType<?>> tag(String p_203849_) {
-			return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(FrostRealm.MODID, p_203849_));
+			return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(FrostRealm.MODID, p_203849_));
 		}
 	}
 }

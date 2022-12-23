@@ -4,39 +4,24 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostItems;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.ChangeDimensionTrigger;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.advancements.AdvancementProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ForgeAdvancementProvider;
 
-import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public class FrostAdvancementData extends AdvancementProvider {
-	public final List<Consumer<Consumer<Advancement>>> advancements = ImmutableList.of(new FrostAdvancements());
-
-	public FrostAdvancementData(DataGenerator generatorIn, ExistingFileHelper existingFileHelper) {
-		super(generatorIn, existingFileHelper);
-	}
-
-	@Nonnull
-	@Override
-	public String getName() {
-		return "Frostrealm Advancements";
-	}
-
-	@Override
-	protected void registerAdvancements(Consumer<Advancement> consumer, ExistingFileHelper fileHelper) {
-		for (Consumer<Consumer<Advancement>> consumer1 : this.advancements) {
-			consumer1.accept(consumer);
-		}
+public class FrostAdvancementData extends ForgeAdvancementProvider {
+	public FrostAdvancementData(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ExistingFileHelper existingFileHelper) {
+		super(output, registries, existingFileHelper, List.of());
 	}
 
 	public static class FrostAdvancements implements Consumer<Consumer<Advancement>> {

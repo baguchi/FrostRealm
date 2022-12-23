@@ -70,7 +70,6 @@ public class CommonEvents {
 					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
 						ChangeWeatherEvent message = new ChangeWeatherEvent(cap.getFrostWeather());
 						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-						cap.needWeatherChanged = true;
 					});
 				}
 			}
@@ -92,7 +91,6 @@ public class CommonEvents {
 					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
 						ChangeWeatherEvent message = new ChangeWeatherEvent(cap.getFrostWeather());
 						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-						cap.needWeatherChanged = true;
 					});
 				}
 			}

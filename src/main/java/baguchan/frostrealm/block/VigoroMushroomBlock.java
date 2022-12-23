@@ -5,6 +5,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
@@ -57,14 +58,17 @@ public class VigoroMushroomBlock extends BushBlock implements BonemealableBlock 
 
 	}
 
-	public boolean isValidBonemealTarget(BlockGetter p_54870_, BlockPos p_54871_, BlockState p_54872_, boolean p_54873_) {
+	@Override
+	public boolean isValidBonemealTarget(LevelReader p_54870_, BlockPos p_54871_, BlockState p_54872_, boolean p_54873_) {
 		return true;
 	}
 
+	@Override
 	public boolean isBonemealSuccess(Level p_54875_, RandomSource p_54876_, BlockPos p_54877_, BlockState p_54878_) {
 		return (double) p_54876_.nextFloat() < 0.4D;
 	}
 
+	@Override
 	public void performBonemeal(ServerLevel p_54865_, RandomSource p_54866_, BlockPos p_54867_, BlockState p_54868_) {
 		int i = 3;
 

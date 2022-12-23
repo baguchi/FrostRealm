@@ -28,7 +28,7 @@ public class FrostShaders {
 	public static void init(IEventBus bus) {
 		bus.addListener((Consumer<RegisterShadersEvent>) event -> {
 			try {
-				event.registerShader(new BindableShaderInstance(event.getResourceManager(), new ResourceLocation(FrostRealm.MODID, "energy_like_entity"), DefaultVertexFormat.
+				event.registerShader(new BindableShaderInstance(event.getResourceProvider(), new ResourceLocation(FrostRealm.MODID, "energy_like_entity"), DefaultVertexFormat.
 						NEW_ENTITY), shader -> ENERGY_LIKE_ENTITY = (BindableShaderInstance) shader);
 			} catch (IOException e) {
 				e.printStackTrace();

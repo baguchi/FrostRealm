@@ -45,7 +45,6 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.GrassColor;
@@ -54,7 +53,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -161,14 +159,5 @@ public class ClientRegistrar {
 	public static void registerDimensionEffect(RegisterDimensionSpecialEffectsEvent event) {
 		FrostRealmRenderInfo renderInfo = new FrostRealmRenderInfo(192.0F, true, DimensionSpecialEffects.SkyType.NORMAL, false, false);
 		event.register(FrostRealm.prefix("renderer"), renderInfo);
-	}
-
-	@SubscribeEvent
-	public static void onTextureStitch(TextureStitchEvent.Pre event) {
-		if (event.getAtlas().location().equals(Sheets.CHEST_SHEET)) {
-			event.addSprite(FrostChestRenderer.CHEST_LOCATION.texture());
-			event.addSprite(FrostChestRenderer.CHEST_LOCATION_LEFT.texture());
-			event.addSprite(FrostChestRenderer.CHEST_LOCATION_RIGHT.texture());
-		}
 	}
 }

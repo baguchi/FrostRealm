@@ -16,6 +16,7 @@ public class SugarBeetBlock extends BeetrootBlock implements BonemealableBlock {
 		super(properties);
 	}
 
+	@Override
 	protected boolean mayPlaceOn(BlockState p_52302_, BlockGetter p_52303_, BlockPos p_52304_) {
 		return p_52302_.is(Blocks.FARMLAND) || p_52302_.is(FrostBlocks.FROZEN_FARMLAND.get());
 	}

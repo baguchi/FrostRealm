@@ -26,7 +26,11 @@ import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.DripstoneThickness;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -203,7 +207,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 	}
 
 	public DamageSource getFallDamageSource() {
-		return DamageSource.FALLING_STALACTITE;
+		return DamageSource.STALAGMITE;
 	}
 
 	public Predicate<Entity> getHurtsEntitySelector() {

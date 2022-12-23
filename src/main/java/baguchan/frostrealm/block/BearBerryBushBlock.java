@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
@@ -85,14 +86,17 @@ public class BearBerryBushBlock extends BushBlock implements BonemealableBlock {
 		p_57282_.add(AGE);
 	}
 
-	public boolean isValidBonemealTarget(BlockGetter p_57260_, BlockPos p_57261_, BlockState p_57262_, boolean p_57263_) {
+	@Override
+	public boolean isValidBonemealTarget(LevelReader p_57260_, BlockPos p_57261_, BlockState p_57262_, boolean p_57263_) {
 		return p_57262_.getValue(AGE) < 3;
 	}
 
+	@Override
 	public boolean isBonemealSuccess(Level p_57265_, RandomSource p_57266_, BlockPos p_57267_, BlockState p_57268_) {
 		return true;
 	}
 
+	@Override
 	public void performBonemeal(ServerLevel p_57251_, RandomSource p_57252_, BlockPos p_57253_, BlockState p_57254_) {
 		int i = Math.min(3, p_57254_.getValue(AGE) + 1);
 		p_57251_.setBlock(p_57253_, p_57254_.setValue(AGE, Integer.valueOf(i)), 2);

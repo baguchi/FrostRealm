@@ -12,18 +12,13 @@ import baguchan.frostrealm.message.MessageHurtMultipart;
 import baguchan.frostrealm.registry.FrostBiomes;
 import baguchan.frostrealm.registry.FrostBlockEntitys;
 import baguchan.frostrealm.registry.FrostBlocks;
-import baguchan.frostrealm.registry.FrostCarvers;
-import baguchan.frostrealm.registry.FrostDimensionSettings;
 import baguchan.frostrealm.registry.FrostEffects;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostFeatures;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.registry.FrostWeathers;
-import baguchan.frostrealm.world.caver.FrostConfiguredWorldCarvers;
 import baguchan.frostrealm.world.gen.FrostTreeFeatures;
-import baguchan.frostrealm.world.placement.FrostOrePlacements;
-import baguchan.frostrealm.world.placement.FrostPlacements;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -71,10 +66,8 @@ public class FrostRealm {
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		FrostWeathers.FROST_WEATHER.register(modBus);
-		FrostBiomes.BIOMES.register(modBus);
 		FrostFeatures.FEATURES.register(modBus);
 		FrostSounds.SOUND_EVENTS.register(modBus);
-		FrostCarvers.WORLD_CARVER.register(modBus);
 		FrostBlocks.BLOCKS.register(modBus);
 		FrostEntities.ENTITIES.register(modBus);
 
@@ -82,8 +75,6 @@ public class FrostRealm {
 		FrostEffects.MOB_EFFECTS.register(modBus);
 		FrostEffects.POTION.register(modBus);
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
-		FrostDimensionSettings.DIMENSION_TYPES.register(modBus);
-		FrostDimensionSettings.NOISE_GENERATORS.register(modBus);
 		modBus.addListener(this::setup);
 		MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
 
@@ -96,9 +87,6 @@ public class FrostRealm {
 		event.enqueueWork(() -> {
 			FrostBlocks.burnables();
 			FrostTreeFeatures.init();
-			FrostPlacements.init();
-			FrostOrePlacements.init();
-			FrostConfiguredWorldCarvers.init();
 		});
 		FrostBiomes.addBiomeTypes();
 	}

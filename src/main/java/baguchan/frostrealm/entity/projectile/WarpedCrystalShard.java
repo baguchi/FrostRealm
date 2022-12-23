@@ -5,7 +5,6 @@ import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -15,7 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraftforge.network.NetworkHooks;
 
 public class WarpedCrystalShard extends ThrowableItemProjectile {
 	public WarpedCrystalShard(EntityType<? extends WarpedCrystalShard> p_37391_, Level p_37392_) {
@@ -73,10 +71,5 @@ public class WarpedCrystalShard extends ThrowableItemProjectile {
 			this.discard();
 		}
 
-	}
-
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

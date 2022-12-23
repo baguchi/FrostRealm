@@ -3,7 +3,7 @@ package baguchan.frostrealm.data;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -17,7 +17,7 @@ import net.minecraftforge.registries.RegistryObject;
 import static baguchan.frostrealm.FrostRealm.prefix;
 
 public class ItemModelGenerator extends ItemModelProvider {
-	public ItemModelGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper) {
+	public ItemModelGenerator(PackOutput generator, ExistingFileHelper existingFileHelper) {
 		super(generator, FrostRealm.MODID, existingFileHelper);
 	}
 

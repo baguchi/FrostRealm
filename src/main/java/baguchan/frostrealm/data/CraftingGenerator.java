@@ -2,8 +2,9 @@ package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.ItemTags;
@@ -14,13 +15,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.function.Consumer;
 
 public class CraftingGenerator extends CraftingDataHelper {
-	public CraftingGenerator(DataGenerator generator) {
+	public CraftingGenerator(PackOutput generator) {
 		super(generator);
 	}
 
 	@Override
-	protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-		ShapelessRecipeBuilder.shapeless(FrostBlocks.FROSTROOT_PLANKS.get(), 4).requires(FrostBlocks.FROSTROOT_LOG.get())
+	protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_PLANKS.get(), 4).requires(FrostBlocks.FROSTROOT_LOG.get())
 				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FROSTROOT_LOG.get()).getPath(), has(FrostBlocks.FROSTROOT_LOG.get())).save(consumer);
 
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_SLAB.get(), FrostBlocks.FRIGID_STONE.get());
@@ -29,7 +30,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_MOSSY_SLAB.get(), FrostBlocks.FRIGID_STONE_MOSSY.get());
 		makeStairs(consumer, FrostBlocks.FRIGID_STONE_MOSSY_STAIRS.get(), FrostBlocks.FRIGID_STONE_MOSSY.get());
 
-		ShapedRecipeBuilder.shaped(FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get(), 4)
 				.pattern("BB")
 				.pattern("BB")
 				.define('B', FrostBlocks.FRIGID_STONE_MOSSY.get())
@@ -39,7 +40,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
 		makeStairs(consumer, FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
 
-		ShapedRecipeBuilder.shaped(FrostBlocks.FRIGID_STONE_BRICK.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FRIGID_STONE_BRICK.get(), 4)
 				.pattern("BB")
 				.pattern("BB")
 				.define('B', FrostBlocks.FRIGID_STONE.get())
@@ -84,14 +85,14 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 
 		makeFrostTorch(consumer, FrostBlocks.FROST_TORCH.get().asItem());
-		ShapedRecipeBuilder.shaped(FrostBlocks.FROSTROOT_CHEST.get(), 1)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_CHEST.get(), 1)
 				.pattern("SSS")
 				.pattern("S S")
 				.pattern("SSS")
 				.define('S', FrostBlocks.FROSTROOT_PLANKS.get())
 				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FROSTROOT_PLANKS.get()).getPath(), has(FrostBlocks.FROSTROOT_PLANKS.get())).save(consumer);
 
-		ShapedRecipeBuilder.shaped(FrostBlocks.FROST_CAMPFIRE.get(), 1)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROST_CAMPFIRE.get(), 1)
 				.pattern(" S ")
 				.pattern("SFS")
 				.pattern("LLL")
@@ -100,7 +101,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.define('L', ItemTags.LOGS_THAT_BURN)
 				.unlockedBy("has_item", has(ItemTags.LOGS_THAT_BURN)).save(consumer);
 
-		ShapedRecipeBuilder.shaped(FrostItems.ROLGA_CRYSTAL.get(), 1)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, FrostItems.ROLGA_CRYSTAL.get(), 1)
 				.pattern("CCC")
 				.pattern("CFC")
 				.pattern("CCC")
@@ -109,7 +110,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.unlockedBy("has_item", has(FrostItems.ROLGA_SHARD.get())).save(consumer);
 
 
-		ShapedRecipeBuilder.shaped(FrostItems.FROST_CATALYST.get(), 1)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, FrostItems.FROST_CATALYST.get(), 1)
 				.pattern(" S ")
 				.pattern("SBS")
 				.pattern(" S ")

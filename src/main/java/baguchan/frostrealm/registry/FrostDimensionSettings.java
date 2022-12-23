@@ -5,8 +5,9 @@ import baguchan.frostrealm.world.biome.FrostrealmBiomeBuilder;
 import baguchan.frostrealm.world.gen.FrostNoiseRouterData;
 import baguchan.frostrealm.world.gen.FrostSurfaceRuleData;
 import com.mojang.serialization.DataResult;
-import net.minecraft.core.Registry;
-import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -14,25 +15,26 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseSettings;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.OptionalLong;
 
 public class FrostDimensionSettings {
-	public static final DeferredRegister<NoiseGeneratorSettings> NOISE_GENERATORS = DeferredRegister.create(Registry.NOISE_GENERATOR_SETTINGS_REGISTRY, FrostRealm.MODID);
-	public static final DeferredRegister<DimensionType> DIMENSION_TYPES = DeferredRegister.create(Registry.DIMENSION_TYPE_REGISTRY, FrostRealm.MODID);
-
-	public static final RegistryObject<NoiseGeneratorSettings> FROST_NOISE_GEN = NOISE_GENERATORS.register("frostrealm_noise", FrostDimensionSettings::frostrealm);
-	public static final RegistryObject<DimensionType> FROST_DIM_TYPE = DIMENSION_TYPES.register("frostrealm_type", FrostDimensionSettings::frostDimType);
-
-
 	public static final ResourceLocation EFFECTS = new ResourceLocation(FrostRealm.MODID, "renderer");
 
 	static final NoiseSettings FROST_NOISE_SETTINGS = create(-80, 384, 1, 2);
 
-	public static NoiseGeneratorSettings frostrealm() {
-		return new NoiseGeneratorSettings(FROST_NOISE_SETTINGS, FrostBlocks.FRIGID_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), FrostNoiseRouterData.frostrealm(BuiltinRegistries.DENSITY_FUNCTION, false, false), FrostSurfaceRuleData.frostrealm(), (new FrostrealmBiomeBuilder()).spawnTarget(), 64, false, true, false, false);
+	public static final ResourceKey<NoiseGeneratorSettings> FROSTREALM_NOISE = ResourceKey.create(Registries.NOISE_SETTINGS, new ResourceLocation(FrostRealm.MODID, "frostrealm_noise"));
+
+	public static NoiseGeneratorSettings frostrealmNoise(BootstapContext<NoiseGeneratorSettings> p_256365_) {
+		return new NoiseGeneratorSettings(FROST_NOISE_SETTINGS, FrostBlocks.FRIGID_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), FrostNoiseRouterData.frostrealm(p_256365_.lookup(Registries.DENSITY_FUNCTION), p_256365_.lookup(Registries.NOISE), false, false), FrostSurfaceRuleData.frostrealm(), (new FrostrealmBiomeBuilder()).spawnTarget(), 64, false, true, false, false);
+	}
+
+	public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> p_256365_) {
+		p_256365_.register(FROSTREALM_NOISE, frostrealmNoise(p_256365_));
+	}
+
+	public static void bootstrapDimensionType(BootstapContext<DimensionType> p_256376_) {
+		p_256376_.register(FrostDimensions.FROSTREALM_TYPE, frostDimType());
 	}
 
 	private static DimensionType frostDimType() {
