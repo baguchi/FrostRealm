@@ -33,6 +33,6 @@ public class DataGenerators {
 
 		event.getGenerator().addProvider(event.includeServer(), new CraftingGenerator(packOutput));
 		event.getGenerator().addProvider(event.includeServer(), new WorldGenerator(packOutput));
-		//event.getGenerator().addProvider(event.includeServer(), WorldGenerator.createLevelStem(packOutput, existingFileHelper));
+		event.getGenerator().addProvider(event.includeServer(), WorldGenerator.createLevelStem(packOutput, existingFileHelper));
 	}
 }

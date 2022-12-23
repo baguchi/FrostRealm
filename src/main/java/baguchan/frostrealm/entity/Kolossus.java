@@ -74,9 +74,9 @@ public class Kolossus extends Animal implements IChargeMob, NeutralMob {
 
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(1, new BeasterAngryGoal<>(this, TIME_BETWEEN_CHARGE_COOLDOWN, TIME_BETWEEN_CHARGE, 1.8F));
-		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2F, true));
-		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.825F));
+		this.goalSelector.addGoal(1, new BeasterAngryGoal<>(this, TIME_BETWEEN_CHARGE_COOLDOWN, TIME_BETWEEN_CHARGE, 1.65F));
+		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.1F, true));
+		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.8F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new KolossusHurtByTargetGoal().setAlertOthers());

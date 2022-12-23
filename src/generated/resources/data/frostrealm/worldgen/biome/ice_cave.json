@@ -1,0 +1,92 @@
+{
+  "carvers": {
+    "air": [
+      "frostrealm:frostrealm_cave",
+      "frostrealm:frostrealm_cave_extra_underground",
+      "frostrealm:frostrealm_canyon"
+    ]
+  },
+  "downfall": 0.6,
+  "effects": {
+    "fog_color": 9671612,
+    "foliage_color": 11665355,
+    "grass_color": 11665355,
+    "music": {
+      "max_delay": 24000,
+      "min_delay": 12000,
+      "replace_current_music": true,
+      "sound": "frostrealm:music.frost_moon"
+    },
+    "sky_color": 12632319,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "frostrealm:astrium_ore_upper",
+      "frostrealm:astrium_ore_lower",
+      "frostrealm:frost_crystal_ore_lower",
+      "frostrealm:frost_crystal_ore_upper",
+      "frostrealm:glimmer_ore_lower",
+      "frostrealm:glimmer_ore_extra",
+      "frostrealm:glimmer_ore_small"
+    ],
+    [
+      "frostrealm:ice_cluster",
+      "frostrealm:large_ice"
+    ],
+    [
+      "frostrealm:spring_water"
+    ]
+  ],
+  "precipitation": "none",
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [
+      {
+        "type": "frostrealm:frost_wraith",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 100
+      },
+      {
+        "type": "frostrealm:clust_wraith",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 80
+      },
+      {
+        "type": "frostrealm:frost_beaster",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 30
+      },
+      {
+        "type": "frostrealm:gokkur",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 20
+      },
+      {
+        "type": "frostrealm:gokkudillo",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 10
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": -1.2
+}

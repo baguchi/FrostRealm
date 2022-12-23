@@ -40,8 +40,10 @@ public class WorldGenerator extends DatapackBuiltinEntriesProvider {
 			.add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrapConfiguredFeature)
 			.add(Registries.PLACED_FEATURE, ModConfiguredFeatures::bootstrapPlacedFeature)
 			.add(Registries.CONFIGURED_CARVER, FrostConfiguredWorldCarvers::bootstrap)
-			.add(Registries.NOISE_SETTINGS, FrostDimensionSettings::frostrealmNoise)
-			.add(Registries.DIMENSION_TYPE, FrostDimensionSettings::bootstrapDimensionType);
+			.add(Registries.NOISE_SETTINGS, FrostDimensionSettings::bootstrapNoise)
+			.add(Registries.DIMENSION_TYPE, FrostDimensionSettings::bootstrapDimensionType)
+			.add(Registries.BIOME, FrostBiomes::bootstrap);
+	;
 
 
 	public WorldGenerator(PackOutput output) {

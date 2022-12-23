@@ -1,16 +1,21 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.data.resource.FrostBiomeBuilders;
 import baguchan.frostrealm.world.biome.FrostrealmBiomeBuilder;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
+import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class FrostBiomes {
 	public static final MultiNoiseBiomeSource.Preset FROSTREALM_BIOMESOURCE = new MultiNoiseBiomeSource.Preset(FrostRealm.prefix("frostrealm"), (p_187108_) -> {
@@ -37,6 +42,25 @@ public class FrostBiomes {
 
 	public static final ResourceKey<Biome> ICE_CAVE = register("ice_cave");
 	public static final ResourceKey<Biome> DEEP_UNDERGROUND = register("deep_underground");
+
+	public static void bootstrap(BootstapContext<Biome> context) {
+		HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
+		HolderGetter<ConfiguredWorldCarver<?>> vanillaConfiguredCarvers = context.lookup(Registries.CONFIGURED_CARVER);
+		context.register(TUNDRA, FrostBiomeBuilders.tundraBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(FRIGID_FOREST, FrostBiomeBuilders.forestBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(FROZEN_CANYON, FrostBiomeBuilders.mountainBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(GLACIERS, FrostBiomeBuilders.mountainBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(HOT_ROCK, FrostBiomeBuilders.hotrockBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(STAR_DUST_PEAKS, FrostBiomeBuilders.mountainBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(WARPED_CLIFFS, FrostBiomeBuilders.mountainBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(FROZEN_OCEAN, FrostBiomeBuilders.oceanBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(FROZEN_DEEP_OCEAN, FrostBiomeBuilders.oceanBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(FROZEN_BEACH, FrostBiomeBuilders.beachBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(FROST_RIVER, FrostBiomeBuilders.riverBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(CRYSTAL_FALL, FrostBiomeBuilders.waterFallBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(ICE_CAVE, FrostBiomeBuilders.iceBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(DEEP_UNDERGROUND, FrostBiomeBuilders.undergroundBiome(placedFeatures, vanillaConfiguredCarvers));
+	}
 
 	private static ResourceKey<Biome> register(String p_48229_) {
 		return ResourceKey.create(Registries.BIOME, new ResourceLocation(FrostRealm.MODID, p_48229_));

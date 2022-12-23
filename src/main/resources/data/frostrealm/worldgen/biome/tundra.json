@@ -77,13 +77,13 @@
     "creature": [
       {
         "type": "frostrealm:snowpile_quail",
-        "weight": 10,
+        "weight": 20,
         "minCount": 3,
         "maxCount": 6
       },
       {
         "type": "frostrealm:marmot",
-        "weight": 6,
+        "weight": 15,
         "minCount": 2,
         "maxCount": 4
       },
