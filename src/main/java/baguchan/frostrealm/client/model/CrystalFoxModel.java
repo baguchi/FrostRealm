@@ -18,7 +18,7 @@ import net.minecraft.util.Mth;
 public class CrystalFoxModel<T extends CrystalFox> extends HierarchicalModel<T> {
 	private final ModelPart main;
 	private final ModelPart body;
-	private final ModelPart head;
+	public final ModelPart head;
 	private final ModelPart tail;
 	private final ModelPart leg_left_front;
 	private final ModelPart leg_left_hind;

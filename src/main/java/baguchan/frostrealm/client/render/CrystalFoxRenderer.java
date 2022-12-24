@@ -3,6 +3,7 @@ package baguchan.frostrealm.client.render;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.CrystalFoxModel;
+import baguchan.frostrealm.client.render.layer.CrystalFoxHeldItemLayer;
 import baguchan.frostrealm.entity.CrystalFox;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -43,6 +44,7 @@ public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxModel<
 				return FOX_EYES_GLOW;
 			}
 		});
+		this.addLayer(new CrystalFoxHeldItemLayer(this, p_173952_.getItemInHandRenderer()));
 	}
 
 	@Override
