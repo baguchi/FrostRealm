@@ -1,11 +1,11 @@
 package baguchan.frostrealm.block;
 
 import baguchan.frostrealm.registry.FrostBlocks;
+import baguchan.frostrealm.world.placement.FrostPlacements;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
@@ -44,7 +44,7 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 	public void performBonemeal(ServerLevel p_221270_, RandomSource p_221271_, BlockPos p_221272_, BlockState p_221273_) {
 		BlockPos blockpos = p_221272_.above();
 		BlockState blockstate = FrostBlocks.COLD_GRASS.get().defaultBlockState();
-		Optional<Holder.Reference<PlacedFeature>> optional = p_221270_.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(VegetationPlacements.GRASS_BONEMEAL);
+		Optional<Holder.Reference<PlacedFeature>> optional = p_221270_.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(FrostPlacements.PATCH_TUNDRA_GRASS_BONEMEAL);
 
 		label49:
 		for (int i = 0; i < 128; ++i) {
@@ -58,9 +58,9 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 			}
 
 			BlockState blockstate1 = p_221270_.getBlockState(blockpos1);
-		/*	if (blockstate1.is(blockstate.getBlock()) && p_221271_.nextInt(10) == 0) {
+			if (blockstate1.is(blockstate.getBlock()) && p_221271_.nextInt(10) == 0) {
 				((BonemealableBlock) blockstate.getBlock()).performBonemeal(p_221270_, p_221271_, blockpos1, blockstate1);
-			}*/
+			}
 
 			if (blockstate1.isAir()) {
 				Holder<PlacedFeature> holder;
