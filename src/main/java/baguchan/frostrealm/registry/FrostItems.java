@@ -1,23 +1,31 @@
 package baguchan.frostrealm.registry;
 
+import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.item.FrostCatalystItem;
 import baguchan.frostrealm.item.FusionCrystalDaggerItem;
 import baguchan.frostrealm.item.RolgaSwordItem;
 import baguchan.frostrealm.item.YetiFurArmorItem;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.stream.Stream;
 
 import static baguchan.frostrealm.FrostRealm.MODID;
 
@@ -99,4 +107,112 @@ public class FrostItems {
 
 	public static final RegistryObject<Item> KOLOSSUS_SPAWN_EGG = ITEMS.register("kolossus_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.KOLOSSUS, 0x031822, 0x488FB0, (new Item.Properties())));
 
+	@SubscribeEvent
+	public static void registerCreativeModeTabs(CreativeModeTabEvent.Register event) {
+		event.registerCreativeModeTab(new ResourceLocation(FrostRealm.MODID, "item")
+				, (builder) -> {
+					FrostCreativeModeTab.FROSTREALM_ITEM = builder.icon(() -> {
+						return new ItemStack(FrostItems.FROST_CATALYST.get());
+					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".item" + ".main_tab")).displayItems((features, output, hasPermissions) ->
+							output.acceptAll(Stream.of(
+											FROST_CRYSTAL,
+											CRYONITE,
+											WARPED_CRYSTAL,
+											GLIMMERROCK,
+											ASTRIUM_RAW,
+											ASTRIUM_INGOT,
+											STARDUST_CRYSTAL,
+											FROZEN_FRUIT,
+											MELTED_FRUIT,
+											SUGARBEET,
+											SUGARBEET_SEEDS,
+											BEARBERRY,
+											COOKED_BEARBERRY,
+											COOKED_SNOWPILE_QUAIL_EGG,
+											SNOWPILE_QUAIL_MEAT,
+											COOKED_SNOWPILE_QUAIL_MEAT,
+											FROST_CATALYST,
+											STRAY_NECKLACE_PART,
+											YETI_FUR,
+											KOLOSSUS_FUR,
+											FUSION_CRYSTAL_DAGGER,
+											ASTRIUM_SWORD,
+											ASTRIUM_AXE,
+											ASTRIUM_PICKAXE,
+											ASTRIUM_SHOVEL,
+											ASTRIUM_HOE,
+											ASTRIUM_HELMET,
+											ASTRIUM_CHESTPLATE,
+											ASTRIUM_LEGGINGS,
+											ASTRIUM_BOOTS,
+											YETI_FUR_HELMET,
+											YETI_FUR_CHESTPLATE,
+											YETI_FUR_LEGGINGS,
+											YETI_FUR_BOOTS,
+											KOLOSSUS_FUR_HELMET,
+											KOLOSSUS_FUR_CHESTPLATE,
+											KOLOSSUS_FUR_LEGGINGS,
+											KOLOSSUS_FUR_BOOTS,
+											CRYSTAL_TORTOISE_SPAWNEGG,
+											MARMOT_SPAWNEGG,
+											SNOWPILE_QUAIL_SPAWNEGG,
+											FROST_WOLF_SPAWNEGG,
+											YETI_SPAWNEGG,
+											FROST_WRAITH_SPAWNEGG,
+											CLUST_WRAITH_SPAWNEGG,
+											GOKKUR_SPAWNEGG,
+											GOKKUDILLO_SPAWNEGG,
+											FROST_BEASTER_SPAWNEGG,
+											CRYSTAL_FOX_SPAWNEGG,
+											SNOW_MOLE_SPAWNEGG,
+											PURIFIED_STRAY_SPAWN_EGG,
+											KOLOSSUS_SPAWN_EGG)
+									.map(item -> item.get().getDefaultInstance())
+									.toList())).build();
+				});
+		event.registerCreativeModeTab(new ResourceLocation(FrostRealm.MODID, "block")
+				, (builder) -> {
+					FrostCreativeModeTab.FROSTREALM_BLOCK = builder.icon(() -> {
+						return new ItemStack(FrostItems.FROST_CATALYST.get());
+					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".block" + ".main_tab")).displayItems((features, output, hasPermissions) ->
+							output.acceptAll(Stream.of(
+											FrostBlocks.FROZEN_DIRT,
+											FrostBlocks.FROZEN_GRASS_BLOCK,
+											FrostBlocks.FROZEN_FARMLAND,
+											FrostBlocks.POINTED_ICE,
+											FrostBlocks.FRIGID_STONE,
+											FrostBlocks.FRIGID_STONE_BRICK,
+											FrostBlocks.FRIGID_STONE_BRICK_SLAB,
+											FrostBlocks.FRIGID_STONE_BRICK_STAIRS,
+											FrostBlocks.FRIGID_STONE_BRICK_MOSSY,
+											FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB,
+											FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS,
+											FrostBlocks.FROSTROOT_LOG,
+											FrostBlocks.FROSTROOT_LEAVES,
+											FrostBlocks.FROSTROOT_SAPLING,
+											FrostBlocks.FROSTROOT_PLANKS,
+											FrostBlocks.FROSTROOT_PLANKS_SLAB,
+											FrostBlocks.FROSTROOT_PLANKS_STAIRS,
+											FrostBlocks.FROSTROOT_FENCE,
+											FrostBlocks.FROSTROOT_FENCE_GATE,
+											FrostBlocks.FROSTROOT_DOOR,
+											FrostBlocks.FROSTROOT_CHEST,
+											FrostBlocks.VIGOROSHROOM,
+											FrostBlocks.ARCTIC_POPPY,
+											FrostBlocks.ARCTIC_WILLOW,
+											FrostBlocks.COLD_GRASS,
+											FrostBlocks.COLD_TALL_GRASS,
+											FrostBlocks.SNOWPILE_QUAIL_EGG,
+											FrostBlocks.FROST_CRYSTAL_ORE,
+											FrostBlocks.GLIMMERROCK_ORE,
+											FrostBlocks.ASTRIUM_ORE,
+											FrostBlocks.STARDUST_CRYSTAL_ORE,
+											FrostBlocks.STARDUST_CRYSTAL_CLUSTER,
+											FrostBlocks.WARPED_CRYSTAL_BLOCK,
+											FrostBlocks.FROST_TORCH,
+											FrostBlocks.FROST_CAMPFIRE)
+									.map(block -> block.get().asItem().getDefaultInstance())
+									.toList())).build();
+				});
+	}
 }
