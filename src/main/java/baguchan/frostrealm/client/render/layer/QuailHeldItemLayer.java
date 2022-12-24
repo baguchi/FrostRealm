@@ -13,8 +13,8 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
-public class QuailHeldItemLayer extends RenderLayer<SnowPileQuail, SnowPileQuailModel<SnowPileQuail>> {
-	public QuailHeldItemLayer(RenderLayerParent<SnowPileQuail, SnowPileQuailModel<SnowPileQuail>> p_116994_) {
+public class QuailHeldItemLayer<T extends SnowPileQuail> extends RenderLayer<T, SnowPileQuailModel<T>> {
+	public QuailHeldItemLayer(RenderLayerParent<T, SnowPileQuailModel<T>> p_116994_) {
 		super(p_116994_);
 	}
 
@@ -29,9 +29,8 @@ public class QuailHeldItemLayer extends RenderLayer<SnowPileQuail, SnowPileQuail
 				p_117007_.translate(0.0D, 0.65D, 0.0D);
 			}
 
-			p_117007_.translate((double) (((HeadedModel) this.getParentModel()).getHead().x / 16.0F), (double) (((HeadedModel) this.getParentModel()).getHead().y / 16.0F), (double) (((HeadedModel) this.getParentModel()).getHead().z / 16.0F));
-			p_117007_.mulPose(Axis.YP.rotationDegrees(p_117015_));
-			p_117007_.mulPose(Axis.XP.rotationDegrees(p_117016_));
+			this.getParentModel().body.translateAndRotate(p_117007_);
+			this.getParentModel().getHead().translateAndRotate(p_117007_);
 			p_117007_.translate(0.059D, 0.15D, -0.42D);
 			p_117007_.mulPose(Axis.XP.rotationDegrees(90.0F));
 

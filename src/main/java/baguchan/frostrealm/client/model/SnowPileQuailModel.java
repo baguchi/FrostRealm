@@ -18,7 +18,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
 public class SnowPileQuailModel<T extends SnowPileQuail> extends EntityModel<T> implements HeadedModel {
-	private final ModelPart body;
+	public final ModelPart body;
 	private final ModelPart legR;
 	private final ModelPart legL;
 	private final ModelPart head;

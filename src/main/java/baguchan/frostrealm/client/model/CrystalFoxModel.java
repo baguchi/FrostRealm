@@ -16,8 +16,8 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 
 public class CrystalFoxModel<T extends CrystalFox> extends HierarchicalModel<T> {
-	private final ModelPart main;
-	private final ModelPart body;
+	public final ModelPart main;
+	public final ModelPart body;
 	public final ModelPart head;
 	private final ModelPart tail;
 	private final ModelPart leg_left_front;

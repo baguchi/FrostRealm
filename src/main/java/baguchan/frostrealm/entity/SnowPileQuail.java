@@ -71,6 +71,7 @@ public class SnowPileQuail extends Animal {
 
 	public SnowPileQuail(EntityType<? extends Animal> p_27557_, Level p_27558_) {
 		super(p_27557_, p_27558_);
+		this.setCanPickUpLoot(true);
 	}
 
 	protected void registerGoals() {
@@ -124,8 +125,6 @@ public class SnowPileQuail extends Animal {
 		}
 
 		this.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
-
-
 	}
 
 	@Nullable

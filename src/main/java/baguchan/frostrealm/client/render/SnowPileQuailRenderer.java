@@ -3,6 +3,7 @@ package baguchan.frostrealm.client.render;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.SnowPileQuailModel;
+import baguchan.frostrealm.client.render.layer.QuailHeldItemLayer;
 import baguchan.frostrealm.entity.SnowPileQuail;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -17,6 +18,7 @@ public class SnowPileQuailRenderer<T extends SnowPileQuail> extends MobRenderer<
 
 	public SnowPileQuailRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new SnowPileQuailModel<>(p_173952_.bakeLayer(FrostModelLayers.SNOWPILE_QUAIL)), 0.4F);
+		this.addLayer(new QuailHeldItemLayer<>(this));
 	}
 
 	@Override
