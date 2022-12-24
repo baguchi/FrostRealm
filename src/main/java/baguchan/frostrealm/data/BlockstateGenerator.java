@@ -65,14 +65,26 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.ageThreeCrossBlock(FrostBlocks.BEARBERRY_BUSH.get());
 		this.ageThreeCrossBlock(FrostBlocks.SUGARBEET.get());
 
-		this.simpleBlock(FrostBlocks.FROST_CRYSTAL_ORE.get());
-		this.simpleBlock(FrostBlocks.GLIMMERROCK_ORE.get());
+		this.glowBlock(FrostBlocks.FROST_CRYSTAL_ORE.get());
+		this.glowBlock(FrostBlocks.GLIMMERROCK_ORE.get());
 		this.simpleBlock(FrostBlocks.ASTRIUM_ORE.get());
 		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
 		this.translucentBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.translucentBlock(FrostBlocks.CORRUPTED_CRYSTAL_CLUSTER.get());
 		this.translucentBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
 		this.doorBlock(FrostBlocks.FROSTROOT_DOOR.get(), texture("frostroot_door_bottom"), texture("frostroot_door_top"));
+	}
+
+	public void glowBlock(Block block) {
+		ModelFile glow_column = models().withExistingParent(name(block), FrostRealm.prefix("block/glow_cube"))
+				.texture("cube", blockTexture(block))
+				.texture("glow", suffix(blockTexture(block), "_glow")).renderType("minecraft:cutout");
+		simpleBlock(block,
+				glow_column);
+	}
+
+	private ResourceLocation suffix(ResourceLocation rl, String suffix) {
+		return new ResourceLocation(rl.getNamespace(), rl.getPath() + suffix);
 	}
 
 	public void translucentBlock(Block block) {

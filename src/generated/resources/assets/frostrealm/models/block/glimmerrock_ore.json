@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "frostrealm:block/glow_cube",
+  "render_type": "minecraft:cutout",
   "textures": {
-    "all": "frostrealm:block/glimmerrock_ore"
+    "cube": "frostrealm:block/glimmerrock_ore",
+    "glow": "frostrealm:block/glimmerrock_ore_glow"
   }
 }
