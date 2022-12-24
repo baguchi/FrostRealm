@@ -30,6 +30,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
@@ -40,6 +41,7 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -70,6 +72,11 @@ public class SnowPileQuail extends Animal {
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, CrystalFox.class, 8.0F, 1.45D, 1.4D));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Wolf.class, 8.0F, 1.45D, 1.4D, (p_28590_) -> {
+			return !((Wolf) p_28590_).isTame();
+		}));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Kolossus.class, 16.0F, 1.45D, 1.4D));
 		this.goalSelector.addGoal(3, new QuailAngryGoal(this));
 		this.goalSelector.addGoal(4, new SnowPileQuailBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));

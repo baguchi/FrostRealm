@@ -43,7 +43,7 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 	@Override
 	public void performBonemeal(ServerLevel p_221270_, RandomSource p_221271_, BlockPos p_221272_, BlockState p_221273_) {
 		BlockPos blockpos = p_221272_.above();
-		BlockState blockstate = Blocks.GRASS.defaultBlockState();
+		BlockState blockstate = FrostBlocks.COLD_GRASS.get().defaultBlockState();
 		Optional<Holder.Reference<PlacedFeature>> optional = p_221270_.registryAccess().registryOrThrow(Registries.PLACED_FEATURE).getHolder(VegetationPlacements.GRASS_BONEMEAL);
 
 		label49:
@@ -58,9 +58,9 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 			}
 
 			BlockState blockstate1 = p_221270_.getBlockState(blockpos1);
-			if (blockstate1.is(blockstate.getBlock()) && p_221271_.nextInt(10) == 0) {
+		/*	if (blockstate1.is(blockstate.getBlock()) && p_221271_.nextInt(10) == 0) {
 				((BonemealableBlock) blockstate.getBlock()).performBonemeal(p_221270_, p_221271_, blockpos1, blockstate1);
-			}
+			}*/
 
 			if (blockstate1.isAir()) {
 				Holder<PlacedFeature> holder;
