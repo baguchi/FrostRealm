@@ -1,6 +1,7 @@
 package baguchan.frostrealm.world.gen;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.block.BearBerryBushBlock;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostFeatures;
 import com.google.common.collect.ImmutableList;
@@ -105,7 +106,7 @@ public class FrostConfiguredFeatures {
 
 		FeatureUtils.register(context, PATCH_TUNDRA_GRASS, Feature.RANDOM_PATCH, grassPatch(BlockStateProvider.simple(FrostBlocks.COLD_GRASS.get()), 32));
 
-		FeatureUtils.register(context, PATCH_BEARBERRY, Feature.RANDOM_PATCH, grassPatch(BlockStateProvider.simple(FrostBlocks.BEARBERRY_BUSH.get()), 32));
+		FeatureUtils.register(context, PATCH_BEARBERRY, Feature.RANDOM_PATCH, grassPatch(BlockStateProvider.simple(FrostBlocks.BEARBERRY_BUSH.get().defaultBlockState().setValue(BearBerryBushBlock.AGE, 3)), 32));
 
 		FeatureUtils.register(context, PATCH_VIGOROSHROOM, Feature.RANDOM_PATCH, grassPatch(BlockStateProvider.simple(FrostBlocks.VIGOROSHROOM.get()), 32));
 

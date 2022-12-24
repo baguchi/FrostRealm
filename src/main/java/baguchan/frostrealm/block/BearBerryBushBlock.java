@@ -54,7 +54,7 @@ public class BearBerryBushBlock extends BushBlock implements BonemealableBlock {
 
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		int i = state.getValue(AGE);
-		if (i < 3 && level.getRawBrightness(pos.above(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt(5) == 0)) {
+		if (i < 3 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt(5) == 0)) {
 			level.setBlock(pos, state.setValue(AGE, Integer.valueOf(i + 1)), 2);
 			net.minecraftforge.common.ForgeHooks.onCropsGrowPost(level, pos, state);
 		}
