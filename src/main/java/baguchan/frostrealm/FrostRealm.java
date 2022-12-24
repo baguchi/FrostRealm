@@ -80,13 +80,13 @@ public class FrostRealm {
 
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup));
 		MinecraftForge.EVENT_BUS.register(this);
-		this.setupMessages();
 	}
 
 	public void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			FrostBlocks.burnables();
 			FrostTreeFeatures.init();
+			this.setupMessages();
 		});
 		FrostBiomes.addBiomeTypes();
 	}
