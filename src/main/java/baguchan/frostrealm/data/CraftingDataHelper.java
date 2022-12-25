@@ -8,6 +8,7 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.UpgradeRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -210,6 +211,9 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 				.unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(FrostItems.FROST_CRYSTAL.get()).getPath(), has(FrostItems.FROST_CRYSTAL.get())).save(consumer);
 	}
 
+	protected static void cryoniteSmithing(Consumer<FinishedRecipe> p_251614_, Item p_250046_, RecipeCategory p_248986_, Item p_250389_) {
+		UpgradeRecipeBuilder.smithing(Ingredient.of(p_250046_), Ingredient.of(FrostItems.CRYONITE.get()), p_248986_, p_250389_).unlocks("has_cryonite_ingot", has(FrostItems.CRYONITE.get())).save(p_251614_, getItemName(p_250389_) + "_smithing");
+	}
 
 	protected final ResourceLocation locEquip(String name) {
 		return FrostRealm.prefix("equipment/" + name);

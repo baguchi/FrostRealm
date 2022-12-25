@@ -68,6 +68,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 		this.singleTex(FrostItems.ASTRIUM_HELMET);
 		this.singleTex(FrostItems.ASTRIUM_CHESTPLATE);
+		this.singleTex(FrostItems.ASTRIUM_WITH_CRYONITE_CHESTPLATE);
 		this.singleTex(FrostItems.ASTRIUM_LEGGINGS);
 		this.singleTex(FrostItems.ASTRIUM_BOOTS);
 

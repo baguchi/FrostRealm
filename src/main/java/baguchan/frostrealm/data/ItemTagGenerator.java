@@ -30,6 +30,7 @@ public class ItemTagGenerator extends ItemTagsProvider {
 		tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.get().asItem());
 		tag(Tags.Items.EGGS).add(FrostBlocks.SNOWPILE_QUAIL_EGG.get().asItem());
 		tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(FrostItems.YETI_FUR_HELMET.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_BOOTS.get())
-				.add(FrostItems.KOLOSSUS_FUR_HELMET.get(), FrostItems.KOLOSSUS_FUR_CHESTPLATE.get(), FrostItems.KOLOSSUS_FUR_LEGGINGS.get(), FrostItems.KOLOSSUS_FUR_BOOTS.get());
+				.add(FrostItems.KOLOSSUS_FUR_HELMET.get(), FrostItems.KOLOSSUS_FUR_CHESTPLATE.get(), FrostItems.KOLOSSUS_FUR_LEGGINGS.get(), FrostItems.KOLOSSUS_FUR_BOOTS.get())
+				.add(FrostItems.ASTRIUM_WITH_CRYONITE_CHESTPLATE.get());
 	}
 }

@@ -183,6 +183,11 @@ public class CrystalFox extends Animal implements IForgeShearable {
 						this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
 					}
 
+					if (itemstack1.is(FrostItems.BEARBERRY.get())) {
+						itemstack1.shrink(1);
+						this.setShearable(true);
+					}
+
 					this.ticksSinceEaten = 0;
 				} else if (this.ticksSinceEaten > 560 && this.random.nextFloat() < 0.1F) {
 					this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
@@ -239,7 +244,7 @@ public class CrystalFox extends Animal implements IForgeShearable {
 	public boolean canHoldItem(ItemStack p_28578_) {
 		Item item = p_28578_.getItem();
 		ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-		return itemstack.isEmpty() || this.ticksSinceEaten > 0 && (item.isEdible() || item == FrostItems.BEARBERRY.get()) && !itemstack.getItem().isEdible();
+		return itemstack.isEmpty() || this.ticksSinceEaten > 0 && (item.isEdible() || item == FrostItems.BEARBERRY.get() && item != p_28578_.getItem()) && !itemstack.getItem().isEdible();
 	}
 
 	private boolean canEat(ItemStack p_28598_) {
@@ -334,12 +339,16 @@ public class CrystalFox extends Animal implements IForgeShearable {
 				if (!p_30412_.getAbilities().instabuild) {
 					itemstack.shrink(1);
 				}
+				if (!this.level.isClientSide()) {
+					if (!this.isShearableWithoutConditions()) {
+						if (this.random.nextInt(3) == 0) {
 
-				if (!this.isShearableWithoutConditions()) {
-					if (this.random.nextInt(3) == 0) {
-						this.setShearable(true);
+							this.setShearable(true);
+
+						}
+						this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
+						return InteractionResult.SUCCESS;
 					}
-					this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
 				}
 
 				this.level.broadcastEntityEvent(this, (byte) 5);

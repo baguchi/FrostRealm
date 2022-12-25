@@ -86,6 +86,8 @@ public class FrostItems {
 
 	public static final RegistryObject<Item> ASTRIUM_HELMET = ITEMS.register("astrium_helmet", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.HEAD, (new Item.Properties())));
 	public static final RegistryObject<Item> ASTRIUM_CHESTPLATE = ITEMS.register("astrium_chestplate", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.CHEST, (new Item.Properties())));
+	public static final RegistryObject<Item> ASTRIUM_WITH_CRYONITE_CHESTPLATE = ITEMS.register("astrium_with_cryonite_chestplate", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM_WITH_CRYONITE, EquipmentSlot.CHEST, (new Item.Properties())));
+
 	public static final RegistryObject<Item> ASTRIUM_LEGGINGS = ITEMS.register("astrium_leggings", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.LEGS, (new Item.Properties())));
 	public static final RegistryObject<Item> ASTRIUM_BOOTS = ITEMS.register("astrium_boots", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.FEET, (new Item.Properties())));
 
@@ -143,6 +145,7 @@ public class FrostItems {
 											ASTRIUM_HOE,
 											ASTRIUM_HELMET,
 											ASTRIUM_CHESTPLATE,
+											ASTRIUM_WITH_CRYONITE_CHESTPLATE,
 											ASTRIUM_LEGGINGS,
 											ASTRIUM_BOOTS,
 											YETI_FUR_HELMET,

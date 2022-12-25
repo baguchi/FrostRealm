@@ -18,6 +18,9 @@ public enum FrostArmorMaterials implements ArmorMaterial {
 	}),
 	ASTRIUM("frostrealm:astrium", 20, new int[]{2, 5, 6, 2}, 11, SoundEvents.ARMOR_EQUIP_IRON, 0.5F, 0.0F, () -> {
 		return Ingredient.of(FrostItems.ASTRIUM_INGOT.get());
+	}),
+	ASTRIUM_WITH_CRYONITE("frostrealm:astrium_with_cryonite", 20, new int[]{2, 5, 6, 2}, 11, SoundEvents.ARMOR_EQUIP_IRON, 0.5F, 0.0F, () -> {
+		return Ingredient.of(FrostItems.ASTRIUM_INGOT.get());
 	});
 
 	private static final int[] HEALTH_PER_SLOT = new int[]{13, 15, 16, 11};
