@@ -47,6 +47,7 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -84,6 +85,8 @@ public class CrystalFox extends Animal implements IForgeShearable {
 	public static final Ingredient FOOD_ITEMS = Ingredient.of(FrostItems.BEARBERRY.get().asItem());
 
 	public final AnimationState eatAnimationState = new AnimationState();
+
+	private int ticksSinceEaten;
 
 	public CrystalFox(EntityType<? extends Animal> p_27557_, Level p_27558_) {
 		super(p_27557_, p_27558_);
@@ -168,6 +171,81 @@ public class CrystalFox extends Animal implements IForgeShearable {
 		return FOOD_ITEMS.test(p_27600_);
 	}
 
+	public void aiStep() {
+		if (!this.level.isClientSide && this.isAlive() && this.isEffectiveAi()) {
+			++this.ticksSinceEaten;
+			ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+			if (this.canEat(itemstack)) {
+				if (this.ticksSinceEaten > 600) {
+					ItemStack itemstack1 = itemstack.finishUsingItem(this.level, this);
+					this.heal(2);
+					if (!itemstack1.isEmpty()) {
+						this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
+					}
+
+					this.ticksSinceEaten = 0;
+				} else if (this.ticksSinceEaten > 560 && this.random.nextFloat() < 0.1F) {
+					this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+					this.level.broadcastEntityEvent(this, (byte) 45);
+				}
+			}
+
+			LivingEntity livingentity = this.getTarget();
+		}
+
+		if (this.isSleeping() || this.isImmobile()) {
+			this.jumping = false;
+			this.xxa = 0.0F;
+			this.zza = 0.0F;
+		}
+
+		super.aiStep();
+	}
+
+	protected void pickUpItem(ItemEntity p_28514_) {
+		ItemStack itemstack = p_28514_.getItem();
+		if (this.canHoldItem(itemstack)) {
+			int i = itemstack.getCount();
+			if (i > 1) {
+				this.dropItemStack(itemstack.split(i - 1));
+			}
+
+			this.spitOutItem(this.getItemBySlot(EquipmentSlot.MAINHAND));
+			this.onItemPickup(p_28514_);
+			this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
+			this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
+			this.take(p_28514_, itemstack.getCount());
+			p_28514_.discard();
+			this.ticksSinceEaten = 0;
+		}
+
+	}
+
+	private void spitOutItem(ItemStack p_28602_) {
+		if (!p_28602_.isEmpty() && !this.level.isClientSide) {
+			ItemEntity itementity = new ItemEntity(this.level, this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, p_28602_);
+			itementity.setPickUpDelay(40);
+			itementity.setThrower(this.getUUID());
+			this.playSound(SoundEvents.FOX_SPIT, 1.0F, 1.0F);
+			this.level.addFreshEntity(itementity);
+		}
+	}
+
+	private void dropItemStack(ItemStack p_28606_) {
+		ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), p_28606_);
+		this.level.addFreshEntity(itementity);
+	}
+
+	public boolean canHoldItem(ItemStack p_28578_) {
+		Item item = p_28578_.getItem();
+		ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+		return itemstack.isEmpty() || this.ticksSinceEaten > 0 && (item.isEdible() || item == FrostItems.BEARBERRY.get()) && !itemstack.getItem().isEdible();
+	}
+
+	private boolean canEat(ItemStack p_28598_) {
+		return (p_28598_.getItem().isEdible() || p_28598_.is(FrostItems.BEARBERRY.get())) && this.getTarget() == null && this.onGround && !this.isSleeping();
+	}
+
 	@javax.annotation.Nonnull
 	@Override
 	public java.util.List<ItemStack> onSheared(@javax.annotation.Nullable Player player, @javax.annotation.Nonnull ItemStack item, Level world, BlockPos pos, int fortune) {
@@ -235,6 +313,11 @@ public class CrystalFox extends Animal implements IForgeShearable {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return SoundEvents.FOX_DEATH;
+	}
+
+	@Override
+	public SoundEvent getEatingSound(ItemStack p_21202_) {
+		return SoundEvents.FOX_EAT;
 	}
 
 	@Nullable

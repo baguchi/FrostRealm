@@ -45,7 +45,9 @@ import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -68,6 +70,8 @@ public class SnowPileQuail extends Animal {
 
 	@Nullable
 	private BlockPos homeTarget;
+
+	private int ticksSinceEaten;
 
 	public SnowPileQuail(EntityType<? extends Animal> p_27557_, Level p_27558_) {
 		super(p_27557_, p_27558_);
@@ -112,19 +116,19 @@ public class SnowPileQuail extends Animal {
 		return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
 	}
 
+	@Override
 	protected void populateDefaultEquipmentSlots(RandomSource p_218171_, DifficultyInstance p_218172_) {
-
 		float f = p_218171_.nextFloat();
 		ItemStack itemstack;
-		if (f < 0.6F) {
-			itemstack = new ItemStack(FrostItems.FROZEN_FRUIT.get());
-		} else if (f < 0.8F) {
-			itemstack = new ItemStack(FrostItems.YETI_FUR.get());
-		} else {
-			itemstack = new ItemStack(Items.STICK);
-		}
+		if (f < 0.5F) {
+			if (f < 0.8F) {
+				itemstack = new ItemStack(FrostItems.YETI_FUR.get());
+			} else {
+				itemstack = new ItemStack(Items.STICK);
+			}
 
-		this.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
+			this.setItemSlot(EquipmentSlot.MAINHAND, itemstack);
+		}
 	}
 
 	@Nullable
@@ -143,6 +147,100 @@ public class SnowPileQuail extends Animal {
 	@Override
 	protected SoundEvent getDeathSound() {
 		return FrostSounds.SNOWPILE_QUAIL_DEATH.get();
+	}
+
+	@Override
+	public void aiStep() {
+		if (!this.level.isClientSide && this.isAlive() && this.isEffectiveAi()) {
+			++this.ticksSinceEaten;
+			ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+			if (this.canEat(itemstack)) {
+				if (this.ticksSinceEaten > 600) {
+					ItemStack itemstack1 = itemstack.finishUsingItem(this.level, this);
+					this.heal(2);
+					if (!itemstack1.isEmpty()) {
+						this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
+					}
+
+					this.ticksSinceEaten = 0;
+				} else if (this.ticksSinceEaten > 560 && this.random.nextFloat() < 0.1F) {
+					this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+					this.level.broadcastEntityEvent(this, (byte) 45);
+				}
+			}
+		}
+
+		if (this.isSleeping() || this.isImmobile()) {
+			this.jumping = false;
+			this.xxa = 0.0F;
+			this.zza = 0.0F;
+		}
+
+		super.aiStep();
+
+		Vec3 vec3 = this.getDeltaMovement();
+		if (!this.onGround && vec3.y < 0.0D) {
+			this.setDeltaMovement(vec3.multiply(1.0D, 0.6D, 1.0D));
+		}
+
+		if (this.isAlive() && this.hasEgg() && this.getTarget() == null) {
+			BlockPos blockpos = this.blockPosition();
+			if (SnowPileQuailEggBlock.onDirt(this.level, blockpos)) {
+				level.playSound(null, blockpos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level.random.nextFloat() * 0.2F);
+				level.setBlock(blockpos, FrostBlocks.SNOWPILE_QUAIL_EGG.get().defaultBlockState().setValue(SnowPileQuailEggBlock.EGGS, Integer.valueOf(this.random.nextInt(1) + 1)), 3);
+				this.setHasEgg(false);
+				this.setHomeTarget(blockpos);
+				this.setAge(2400);
+			}
+		}
+
+		if (this.homeTarget != null && !this.level.getBlockState(this.homeTarget).is(FrostBlocks.SNOWPILE_QUAIL_EGG.get())) {
+			this.setHomeTarget(null);
+		}
+	}
+
+	protected void pickUpItem(ItemEntity p_28514_) {
+		ItemStack itemstack = p_28514_.getItem();
+		if (this.canHoldItem(itemstack)) {
+			int i = itemstack.getCount();
+			if (i > 1) {
+				this.dropItemStack(itemstack.split(i - 1));
+			}
+
+			this.spitOutItem(this.getItemBySlot(EquipmentSlot.MAINHAND));
+			this.onItemPickup(p_28514_);
+			this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
+			this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
+			this.take(p_28514_, itemstack.getCount());
+			p_28514_.discard();
+			this.ticksSinceEaten = 0;
+		}
+
+	}
+
+	private void spitOutItem(ItemStack p_28602_) {
+		if (!p_28602_.isEmpty() && !this.level.isClientSide) {
+			ItemEntity itementity = new ItemEntity(this.level, this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, p_28602_);
+			itementity.setPickUpDelay(40);
+			itementity.setThrower(this.getUUID());
+			this.playSound(SoundEvents.FOX_SPIT, 1.0F, 1.0F);
+			this.level.addFreshEntity(itementity);
+		}
+	}
+
+	private void dropItemStack(ItemStack p_28606_) {
+		ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), p_28606_);
+		this.level.addFreshEntity(itementity);
+	}
+
+	public boolean canHoldItem(ItemStack p_28578_) {
+		Item item = p_28578_.getItem();
+		ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+		return itemstack.isEmpty() || this.ticksSinceEaten > 0 && item.isEdible() && !item.getFoodProperties().isMeat() && !itemstack.getItem().isEdible();
+	}
+
+	private boolean canEat(ItemStack p_28598_) {
+		return p_28598_.getItem().isEdible() && !p_28598_.getItem().getFoodProperties().isMeat() && this.getTarget() == null && this.onGround && !this.isSleeping();
 	}
 
 	@Override
@@ -181,30 +279,6 @@ public class SnowPileQuail extends Animal {
 	private BlockPos getHomeTarget() {
 		return this.homeTarget;
 	}
-
-	public void aiStep() {
-		super.aiStep();
-		Vec3 vec3 = this.getDeltaMovement();
-		if (!this.onGround && vec3.y < 0.0D) {
-			this.setDeltaMovement(vec3.multiply(1.0D, 0.6D, 1.0D));
-		}
-
-		if (this.isAlive() && this.hasEgg() && this.getTarget() == null) {
-			BlockPos blockpos = this.blockPosition();
-			if (SnowPileQuailEggBlock.onDirt(this.level, blockpos)) {
-				level.playSound(null, blockpos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level.random.nextFloat() * 0.2F);
-				level.setBlock(blockpos, FrostBlocks.SNOWPILE_QUAIL_EGG.get().defaultBlockState().setValue(SnowPileQuailEggBlock.EGGS, Integer.valueOf(this.random.nextInt(1) + 1)), 3);
-				this.setHasEgg(false);
-				this.setHomeTarget(blockpos);
-				this.setAge(2400);
-			}
-		}
-
-		if (this.homeTarget != null && !this.level.getBlockState(this.homeTarget).is(FrostBlocks.SNOWPILE_QUAIL_EGG.get())) {
-			this.setHomeTarget(null);
-		}
-	}
-
 
 	public boolean hasEgg() {
 		return this.entityData.get(HAS_EGG);
