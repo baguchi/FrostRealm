@@ -93,7 +93,7 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 				} else {
 
 					//If wether not active and cooldown not active too
-					setWeatherCooldown(((level.random.nextInt(20) + 10) * 60) * 20);
+					setWeatherCooldown(((level.random.nextInt(5) + 10) * 60) * 20);
 				}
 			}
 		}
