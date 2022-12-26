@@ -244,7 +244,7 @@ public class CrystalFox extends Animal implements IForgeShearable {
 	public boolean canHoldItem(ItemStack p_28578_) {
 		Item item = p_28578_.getItem();
 		ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-		return itemstack.isEmpty() || this.ticksSinceEaten > 0 && (item.isEdible() || item == FrostItems.BEARBERRY.get() && item != p_28578_.getItem()) && !itemstack.getItem().isEdible();
+		return itemstack.isEmpty() || this.ticksSinceEaten > 0 && (item.isEdible() || item == FrostItems.BEARBERRY.get()) && !itemstack.getItem().isEdible() && !itemstack.is(FrostItems.BEARBERRY.get());
 	}
 
 	private boolean canEat(ItemStack p_28598_) {
