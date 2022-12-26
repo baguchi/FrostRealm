@@ -213,7 +213,8 @@ public class FrostItems {
 											FrostBlocks.STARDUST_CRYSTAL_CLUSTER,
 											FrostBlocks.WARPED_CRYSTAL_BLOCK,
 											FrostBlocks.FROST_TORCH,
-											FrostBlocks.FROST_CAMPFIRE)
+											FrostBlocks.FROST_CAMPFIRE,
+											FrostBlocks.CRYSTAL_SMITHING_TABLE)
 									.map(block -> block.get().asItem().getDefaultInstance())
 									.toList())).build();
 				});

@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:astrium_with_cryonite_chestplate_smithing"
+        "recipe": "minecraft:astrium_with_cryonite_chestplate_crystal_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:astrium_with_cryonite_chestplate_smithing"
+      "minecraft:astrium_with_cryonite_chestplate_crystal_smithing"
     ]
   }
 }

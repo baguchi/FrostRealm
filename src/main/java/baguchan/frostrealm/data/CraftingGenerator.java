@@ -119,6 +119,16 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.define('B', Items.SNOWBALL)
 				.unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(FrostItems.STRAY_NECKLACE_PART.get()).getPath(), has(FrostItems.STRAY_NECKLACE_PART.get())).save(consumer);
 
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, FrostBlocks.CRYSTAL_SMITHING_TABLE.get(), 1)
+				.pattern("SS")
+				.pattern("WA")
+				.pattern("WW")
+				.define('S', FrostBlocks.FRIGID_STONE_SMOOTH.get())
+				.define('W', ItemTags.PLANKS)
+				.define('A', FrostItems.ASTRIUM_INGOT.get())
+				.unlockedBy("has_item", has(FrostItems.ASTRIUM_INGOT.get())).save(consumer);
+
+
 		smeltOre(FrostItems.ASTRIUM_RAW.get(), FrostItems.ASTRIUM_INGOT.get(), 0.2F, consumer);
 	}
 }

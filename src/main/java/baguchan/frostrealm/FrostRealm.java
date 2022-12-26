@@ -16,6 +16,8 @@ import baguchan.frostrealm.registry.FrostEffects;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostFeatures;
 import baguchan.frostrealm.registry.FrostItems;
+import baguchan.frostrealm.registry.FrostMenuTypes;
+import baguchan.frostrealm.registry.FrostRecipes;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.world.gen.FrostTreeFeatures;
@@ -68,12 +70,14 @@ public class FrostRealm {
 		FrostWeathers.FROST_WEATHER.register(modBus);
 		FrostFeatures.FEATURES.register(modBus);
 		FrostSounds.SOUND_EVENTS.register(modBus);
+		FrostMenuTypes.MENU_TYPES.register(modBus);
 		FrostBlocks.BLOCKS.register(modBus);
 		FrostEntities.ENTITIES.register(modBus);
 
 		FrostItems.ITEMS.register(modBus);
 		FrostEffects.MOB_EFFECTS.register(modBus);
 		FrostEffects.POTION.register(modBus);
+		FrostRecipes.RECIPE_SERIALIZERS.register(modBus);
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
 		modBus.addListener(this::setup);
 		MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
