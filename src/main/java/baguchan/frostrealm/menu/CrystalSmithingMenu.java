@@ -1,8 +1,10 @@
 package baguchan.frostrealm.menu;
 
+import baguchan.frostrealm.recipe.CrystalSmithingRecipe;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostMenuTypes;
+import baguchan.frostrealm.registry.FrostRecipes;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -12,8 +14,6 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.UpgradeRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -34,8 +34,8 @@ public class CrystalSmithingMenu extends AbstractContainerMenu {
 
 	private final Level level;
 	@Nullable
-	private UpgradeRecipe selectedRecipe;
-	private final List<UpgradeRecipe> recipes;
+	private CrystalSmithingRecipe selectedRecipe;
+	private final List<CrystalSmithingRecipe> recipes;
 
 	public CrystalSmithingMenu(int p_40245_, Inventory p_40246_) {
 		this(p_40245_, p_40246_, ContainerLevelAccess.NULL);
@@ -70,7 +70,7 @@ public class CrystalSmithingMenu extends AbstractContainerMenu {
 
 
 		this.level = p_40249_.player.level;
-		this.recipes = this.level.getRecipeManager().getAllRecipesFor(RecipeType.SMITHING);
+		this.recipes = this.level.getRecipeManager().getAllRecipesFor(FrostRecipes.RECIPETYPE_CRYSTAL_SMITHING);
 	}
 
 	public void slotsChanged(Container p_39778_) {
@@ -166,11 +166,11 @@ public class CrystalSmithingMenu extends AbstractContainerMenu {
 
 	public void createResult() {
 		if (this.inputSlots.getItem(2).is(FrostItems.FROST_CRYSTAL.get())) {
-			List<UpgradeRecipe> list = this.level.getRecipeManager().getRecipesFor(RecipeType.SMITHING, this.inputSlots, this.level);
+			List<CrystalSmithingRecipe> list = this.level.getRecipeManager().getRecipesFor(FrostRecipes.RECIPETYPE_CRYSTAL_SMITHING, this.inputSlots, this.level);
 			if (list.isEmpty()) {
 				this.resultSlots.setItem(0, ItemStack.EMPTY);
 			} else {
-				UpgradeRecipe upgraderecipe = list.get(0);
+				CrystalSmithingRecipe upgraderecipe = list.get(0);
 				ItemStack itemstack = upgraderecipe.assemble(this.inputSlots);
 				if (itemstack.isItemEnabled(this.level.enabledFeatures())) {
 					this.selectedRecipe = upgraderecipe;

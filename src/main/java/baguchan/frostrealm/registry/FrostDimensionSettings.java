@@ -39,7 +39,7 @@ public class FrostDimensionSettings {
 
 	private static DimensionType frostDimType() {
 		return new DimensionType(
-				OptionalLong.of(18000),
+				OptionalLong.empty(),
 				true, //skylight
 				false, //ceiling
 				false, //ultrawarm
