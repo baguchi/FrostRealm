@@ -8,7 +8,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.DoublePlantBlock;
@@ -45,7 +44,7 @@ public class ColdTallGrassBlock extends BushBlock implements BonemealableBlock, 
 
 	@Override
 	public void performBonemeal(ServerLevel p_220874_, RandomSource p_220875_, BlockPos p_220876_, BlockState p_220877_) {
-		DoublePlantBlock doubleplantblock = (DoublePlantBlock) (p_220877_.is(Blocks.FERN) ? Blocks.LARGE_FERN : FrostBlocks.COLD_TALL_GRASS);
+		DoublePlantBlock doubleplantblock = (DoublePlantBlock) FrostBlocks.COLD_TALL_GRASS.get();
 		if (doubleplantblock.defaultBlockState().canSurvive(p_220874_, p_220876_) && p_220874_.isEmptyBlock(p_220876_.above())) {
 			DoublePlantBlock.placeAt(p_220874_, doubleplantblock.defaultBlockState(), p_220876_, 2);
 		}
