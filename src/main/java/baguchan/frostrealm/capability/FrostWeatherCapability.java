@@ -2,6 +2,7 @@ package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.message.ChangeWeatherEvent;
+import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.utils.BlizzardUtils;
@@ -73,33 +74,39 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 	}
 
 	public void tick(Level level) {
-		if (level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-			if (isWeatherActive()) {
-				if (frostWeather == FrostWeathers.PURPLE_FOG.get()) {
-					unstableLevel = 0;
-				}
-				//If weather active
-				setWetherTime(getWeatherTime() - 1);
-			} else {
-				if (isWeatherCooldownActive()) {
-					//If weather not active and cooldown active
-					setWeatherCooldown(getWeatherCooldown() - 1);
-					if (getWeatherCooldown() <= 0) {
-						unstableLevel += 0.25F * level.random.nextDouble();
-						FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.random, this.unstableLevel);
+		if (!level.isClientSide()) {
+			if (level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+				if (isWeatherActive()) {
+					if (frostWeather == FrostWeathers.PURPLE_FOG.get()) {
+						unstableLevel = 0;
+					}
+					//If weather active
+					setWetherTime(getWeatherTime() - 1);
+				} else {
+					if (isWeatherCooldownActive()) {
+						//If weather not active and cooldown active
+						setWeatherCooldown(getWeatherCooldown() - 1);
+						if (getWeatherCooldown() <= 0) {
+							unstableLevel += 0.25F * level.random.nextDouble();
+							FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.random, this.unstableLevel);
 
-						setFrostWeather(frostWeather);
-						if (!level.isClientSide()) {
+							setFrostWeather(frostWeather);
 							ChangeWeatherEvent message = new ChangeWeatherEvent(frostWeather);
 							FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+
+							setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
+
+							ChangeWeatherTimeEvent message2 = new ChangeWeatherTimeEvent(weatherTime, weatherCooldown);
+							FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message2);
 						}
+					} else {
 
-						setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
+						//If wether not active and cooldown not active too
+						setWeatherCooldown(((level.random.nextInt(5) + 10) * 60) * 20);
+
+						ChangeWeatherTimeEvent message2 = new ChangeWeatherTimeEvent(weatherTime, weatherCooldown);
+						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message2);
 					}
-				} else {
-
-					//If wether not active and cooldown not active too
-					setWeatherCooldown(((level.random.nextInt(5) + 10) * 60) * 20);
 				}
 			}
 		}
