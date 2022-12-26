@@ -146,7 +146,7 @@ public class CommonEvents {
 	}
 
 	@SubscribeEvent
-	public void onPreServerTick(TickEvent.LevelTickEvent event) {
+	public static void onPreServerTick(TickEvent.LevelTickEvent event) {
 		if (event.level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 			if (event.level instanceof ServerLevel serverLevel) {
 				event.level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {

@@ -20,7 +20,7 @@ public class FrostBiomeBuilders {
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
 		FrostBiomeDefaultFeatures.addUnderGroundFeature(builder);
 		FrostBiomeDefaultFeatures.underGroundMonsterSpawns(builder1);
-		return makeDefaultBiome(builder, builder1);
+		return makeDefaultHotBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
 	}
 
 	public static Biome iceBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
@@ -45,7 +45,7 @@ public class FrostBiomeBuilders {
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
 		FrostBiomeDefaultFeatures.addHotRockFeatures(builder);
 		FrostBiomeDefaultFeatures.mountainMonsterSpawns(builder1);
-		return makeDefaultBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
+		return makeDefaultHotBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
 	}
 
 	public static Biome beachBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
@@ -113,6 +113,29 @@ public class FrostBiomeBuilders {
 		return fullDefinition(
 				Biome.Precipitation.NONE,
 				-1.2F,
+				0.6F,
+				new BiomeSpecialEffects.Builder()
+						.fogColor(4630224)
+						.skyColor(7907327)
+						.waterColor(0x3f_76_e4)
+						.waterFogColor(0x05_05_33)
+						.grassColorOverride(7115607)
+						.foliageColorOverride(7115607)
+						.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
+						.backgroundMusic(new Music(soundEvent.getHolder().orElseThrow(), 12000, 24000, true))
+						.build(),
+				mobSpawnSetting.build(),
+				builder.build(),
+				Biome.TemperatureModifier.NONE
+		);
+	}
+
+	public static Biome makeDefaultHotBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting, RegistryObject<SoundEvent> soundEvent) {
+		FrostBiomeDefaultFeatures.addDefaultCarvers(builder);
+		FrostBiomeDefaultFeatures.addDefaultOres(builder);
+		return fullDefinition(
+				Biome.Precipitation.NONE,
+				1.2F,
 				0.6F,
 				new BiomeSpecialEffects.Builder()
 						.fogColor(4630224)

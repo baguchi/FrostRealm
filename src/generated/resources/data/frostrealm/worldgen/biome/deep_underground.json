@@ -15,7 +15,7 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": true,
-      "sound": "frostrealm:music.frost_moon"
+      "sound": "frostrealm:music.calm_night"
     },
     "sky_color": 7907327,
     "water_color": 4159204,
@@ -69,5 +69,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": -1.2
+  "temperature": 1.2
 }
