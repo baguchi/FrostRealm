@@ -1,5 +1,6 @@
 {
-  "parent": "minecraft:block/cross",
+  "parent": "minecraft:block/tinted_cross",
+  "render_type": "minecraft:cutout",
   "textures": {
     "cross": "frostrealm:block/cold_tall_grass_bottom"
   }
