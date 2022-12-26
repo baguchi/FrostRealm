@@ -29,6 +29,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.JsonCodecProvider;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 public class WorldGenerator extends DatapackBuiltinEntriesProvider {
 
@@ -46,8 +48,8 @@ public class WorldGenerator extends DatapackBuiltinEntriesProvider {
 	;
 
 
-	public WorldGenerator(PackOutput output) {
-		super(output, WorldGenerator::createLookup);
+	public WorldGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+		super(output, registries.thenApply(r -> createLookup()), Set.of(FrostRealm.MODID));
 	}
 
 	public static HolderLookup.Provider createLookup() {
