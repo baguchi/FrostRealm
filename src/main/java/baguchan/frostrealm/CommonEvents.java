@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
@@ -153,41 +154,54 @@ public class CommonEvents {
 					if (cap.isWeatherActive() && cap.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
 						ChunkMap chunkManager = serverLevel.getChunkSource().chunkMap;
 
-						chunkManager.getChunks().forEach(chunkHolder -> {
-							Optional<LevelChunk> optionalChunk = chunkHolder.getEntityTickingChunkFuture().getNow(ChunkHolder.UNLOADED_LEVEL_CHUNK).left();
-							if (optionalChunk.isPresent()) {
-								ChunkPos chunkPos = optionalChunk.get().getPos();
-								if (!chunkManager.getPlayersCloseForSpawning(chunkPos).isEmpty()) {
-									BlockPos pos = serverLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, serverLevel.getBlockRandomPos(chunkPos.getMinBlockX(), 0, chunkPos.getMinBlockZ(), 15));
-									BlockPos posDown = pos.below();
+						if (event.level.random.nextInt(8) == 0) {
+							chunkManager.getChunks().forEach(chunkHolder -> {
+								Optional<LevelChunk> optionalChunk = chunkHolder.getEntityTickingChunkFuture().getNow(ChunkHolder.UNLOADED_LEVEL_CHUNK).left();
+								if (optionalChunk.isPresent()) {
+									ChunkPos chunkPos = optionalChunk.get().getPos();
+									if (!chunkManager.getPlayersCloseForSpawning(chunkPos).isEmpty()) {
+										BlockPos pos = serverLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, serverLevel.getBlockRandomPos(chunkPos.getMinBlockX(), 0, chunkPos.getMinBlockZ(), 15));
+										BlockPos posDown = pos.below();
 
-									if (serverLevel.isAreaLoaded(posDown, 1)) {
-										BlockState snowState = serverLevel.getBlockState(pos);
-										if (snowState.getBlock() == Blocks.SNOW.defaultBlockState().getBlock()) {
-											int layers = snowState.getValue(SnowLayerBlock.LAYERS);
-											if (layers < 3) {
-												serverLevel.setBlockAndUpdate(pos, snowState.setValue(SnowLayerBlock.LAYERS, ++layers));
+										if (serverLevel.isAreaLoaded(posDown, 1)) {
+											BlockState snowState = serverLevel.getBlockState(pos);
+											BlockState snowStateBelow = serverLevel.getBlockState(pos.below());
+											if (snowState.getBlock() == Blocks.FIRE) {
+												serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+											} else if (snowStateBelow.hasProperty(BlockStateProperties.LIT) && snowStateBelow.getValue(BlockStateProperties.LIT)) {
+												makeParticles(serverLevel, pos.below());
+												serverLevel.setBlockAndUpdate(pos.below(), snowStateBelow.setValue(BlockStateProperties.LIT, false));
+											} else if (snowState.getBlock() == Blocks.SNOW.defaultBlockState().getBlock()) {
+												int layers = snowState.getValue(SnowLayerBlock.LAYERS);
+												if (layers < 3) {
+													serverLevel.setBlockAndUpdate(pos, snowState.setValue(SnowLayerBlock.LAYERS, ++layers));
+												}
+											} else if (canPlaceSnowLayer(serverLevel, pos)) {
+												serverLevel.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
 											}
-										} else if (canPlaceSnowLayer(serverLevel, pos)) {
-											serverLevel.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
 										}
 									}
 								}
-							}
-						});
+							});
+						}
 					}
 				});
 			}
 		}
 	}
 
+	public static void makeParticles(Level p_51252_, BlockPos p_51253_) {
+		p_51252_.levelEvent(1501, p_51253_, 0);
+	}
+
 	public static boolean canPlaceSnowLayer(ServerLevel world, BlockPos pos) {
 		BlockState state = world.getBlockState(pos);
 		BlockState stateDown = world.getBlockState(pos.below());
 		return world.isEmptyBlock(pos.above())
-				&& state.getMaterial().isReplaceable()
+				&& world.isEmptyBlock(pos)
 				&& Block.canSupportRigidBlock(world, pos.below())
 				&& !(stateDown.getBlock() instanceof SnowLayerBlock)
-				&& !(state.getBlock() instanceof SnowLayerBlock);
+				&& !(state.getBlock() instanceof SnowLayerBlock)
+				&& Blocks.SNOW.defaultBlockState().canSurvive(world, pos);
 	}
 }

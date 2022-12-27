@@ -224,12 +224,12 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 		return this.temperatureSaturation;
 	}
 
-	public void setTemperatureLevel(int p_75114_1_) {
-		this.temperature = p_75114_1_;
+	public void setTemperatureLevel(int temperature) {
+		this.temperature = temperature;
 	}
 
-	public void setSaturation(float p_75119_1_) {
-		this.temperatureSaturation = p_75119_1_;
+	public void setSaturation(float saturation) {
+		this.temperatureSaturation = saturation;
 	}
 
 

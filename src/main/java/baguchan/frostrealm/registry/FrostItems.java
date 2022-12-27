@@ -3,6 +3,7 @@ package baguchan.frostrealm.registry;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.item.FrostCatalystItem;
 import baguchan.frostrealm.item.FusionCrystalDaggerItem;
+import baguchan.frostrealm.item.GlimmerRockItem;
 import baguchan.frostrealm.item.RolgaSwordItem;
 import baguchan.frostrealm.item.YetiFurArmorItem;
 import net.minecraft.network.chat.Component;
@@ -41,7 +42,7 @@ public class FrostItems {
 	public static final RegistryObject<Item> CRYONITE = ITEMS.register("cryonite", () -> new Item((new Item.Properties())));
 
 	public static final RegistryObject<Item> WARPED_CRYSTAL = ITEMS.register("warped_crystal", () -> new Item((new Item.Properties())));
-	public static final RegistryObject<Item> GLIMMERROCK = ITEMS.register("glimmerrock", () -> new Item((new Item.Properties())));
+	public static final RegistryObject<Item> GLIMMERROCK = ITEMS.register("glimmerrock", () -> new GlimmerRockItem((new Item.Properties())));
 	public static final RegistryObject<Item> ASTRIUM_RAW = ITEMS.register("astrium_raw", () -> new Item((new Item.Properties())));
 	public static final RegistryObject<Item> ASTRIUM_INGOT = ITEMS.register("astrium_ingot", () -> new Item((new Item.Properties())));
 	public static final RegistryObject<Item> STARDUST_CRYSTAL = ITEMS.register("stardust_crystal", () -> new Item((new Item.Properties())));

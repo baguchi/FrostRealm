@@ -156,6 +156,7 @@ public class ClientRegistrar {
 		IEventBus busMod = FMLJavaModLoadingContext.get().getModEventBus();
 		IEventBus busForge = MinecraftForge.EVENT_BUS;
 		FrostShaders.init(busMod);
+		FrostArmPoses.init();
 		renderTileEntity();
 		renderBlockColor();
 
