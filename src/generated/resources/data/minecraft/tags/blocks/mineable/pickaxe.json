@@ -20,6 +20,7 @@
     "frostrealm:stardust_crystal_ore",
     "frostrealm:stardust_crystal_cluster",
     "frostrealm:corrupted_crystal_cluster",
-    "frostrealm:warped_crystal_block"
+    "frostrealm:warped_crystal_block",
+    "frostrealm:aurora_infuser"
   ]
 }

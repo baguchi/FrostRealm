@@ -36,6 +36,7 @@ import baguchan.frostrealm.client.render.SnowPileQuailRenderer;
 import baguchan.frostrealm.client.render.WarpedCrystalRenderer;
 import baguchan.frostrealm.client.render.YetiRenderer;
 import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
+import baguchan.frostrealm.client.screen.AuroraInfuserScreen;
 import baguchan.frostrealm.client.screen.CrystalSmithingScreen;
 import baguchan.frostrealm.registry.FrostBlockEntitys;
 import baguchan.frostrealm.registry.FrostBlocks;
@@ -165,6 +166,7 @@ public class ClientRegistrar {
 		renderBlockColor();
 
 		MenuScreens.register(FrostMenuTypes.CRYSTAL_SMITHING.get(), CrystalSmithingScreen::new);
+		MenuScreens.register(FrostMenuTypes.AURORA_INFUSER.get(), AuroraInfuserScreen::new);
 	}
 
 	@SubscribeEvent

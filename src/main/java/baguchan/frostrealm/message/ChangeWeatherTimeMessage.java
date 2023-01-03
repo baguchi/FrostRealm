@@ -8,26 +8,26 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class ChangeWeatherTimeEvent {
+public class ChangeWeatherTimeMessage {
 	private final int weatherTime;
 
 	private final int weatherTimeCooldown;
 
-	public ChangeWeatherTimeEvent(int weatherTime, int weatherTimeCooldown) {
+	public ChangeWeatherTimeMessage(int weatherTime, int weatherTimeCooldown) {
 		this.weatherTime = weatherTime;
 		this.weatherTimeCooldown = weatherTimeCooldown;
 	}
 
-	public static void writeToPacket(ChangeWeatherTimeEvent packet, FriendlyByteBuf buf) {
+	public static void writeToPacket(ChangeWeatherTimeMessage packet, FriendlyByteBuf buf) {
 		buf.writeInt(packet.weatherTime);
 		buf.writeInt(packet.weatherTimeCooldown);
 	}
 
-	public static ChangeWeatherTimeEvent readFromPacket(FriendlyByteBuf buf) {
-		return new ChangeWeatherTimeEvent(buf.readInt(), buf.readInt());
+	public static ChangeWeatherTimeMessage readFromPacket(FriendlyByteBuf buf) {
+		return new ChangeWeatherTimeMessage(buf.readInt(), buf.readInt());
 	}
 
-	public static void handle(ChangeWeatherTimeEvent message, Supplier<NetworkEvent.Context> ctx) {
+	public static void handle(ChangeWeatherTimeMessage message, Supplier<NetworkEvent.Context> ctx) {
 		NetworkEvent.Context context = ctx.get();
 		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT)
 			context.enqueueWork(() -> {

@@ -191,6 +191,7 @@ public class FrostItems {
 											FrostBlocks.FRIGID_STONE_BRICK_MOSSY,
 											FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB,
 											FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS,
+											FrostBlocks.FRIGID_STONE_SMOOTH,
 											FrostBlocks.FROSTROOT_LOG,
 											FrostBlocks.FROSTROOT_LEAVES,
 											FrostBlocks.FROSTROOT_SAPLING,
@@ -215,7 +216,8 @@ public class FrostItems {
 											FrostBlocks.WARPED_CRYSTAL_BLOCK,
 											FrostBlocks.FROST_TORCH,
 											FrostBlocks.FROST_CAMPFIRE,
-											FrostBlocks.CRYSTAL_SMITHING_TABLE)
+											FrostBlocks.CRYSTAL_SMITHING_TABLE,
+											FrostBlocks.AURORA_INFUSER)
 									.map(block -> block.get().asItem().getDefaultInstance())
 									.toList())).build();
 				});

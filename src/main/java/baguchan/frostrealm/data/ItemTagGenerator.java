@@ -3,6 +3,7 @@ package baguchan.frostrealm.data;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
+import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -32,5 +33,6 @@ public class ItemTagGenerator extends ItemTagsProvider {
 		tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(FrostItems.YETI_FUR_HELMET.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_BOOTS.get())
 				.add(FrostItems.KOLOSSUS_FUR_HELMET.get(), FrostItems.KOLOSSUS_FUR_CHESTPLATE.get(), FrostItems.KOLOSSUS_FUR_LEGGINGS.get(), FrostItems.KOLOSSUS_FUR_BOOTS.get())
 				.add(FrostItems.ASTRIUM_WITH_CRYONITE_CHESTPLATE.get());
+		tag(FrostTags.Items.AURORA_FUELS).add(FrostItems.STARDUST_CRYSTAL.get());
 	}
 }

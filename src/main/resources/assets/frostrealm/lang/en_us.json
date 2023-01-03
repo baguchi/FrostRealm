@@ -131,9 +131,20 @@
   "advancement.frostrealm.hot_source": "Small but Hot topic",
   "advancement.frostrealm.hot_source.desc": "Obtain the Glimmerrock",
   "container.frostrealm.crystal_smithing": "Crystal Smithing",
+  "container.frostrealm.aurora_infuser": "Aurora Infuser",
   "commands.frostrealm.frost_weather.set": "Successfully Frost Weather set",
   "commands.frostrealm.frost_weather.set.fail": "Failed Frost Weather set. because not match weather name.",
   "commands.frostrealm.frost_weather.set.fail_dimension": "Failed Frost Weather set. because this dimension isn't FrostRealm.",
   "commands.frostrealm.frost_weather.clear": "Successfully Frost Weather clear",
-  "commands.frostrealm.frost_weather.clear.fail_dimension": "Failed Frost Weather clear. because this dimension isn't FrostRealm."
+  "commands.frostrealm.frost_weather.clear.fail_dimension": "Failed Frost Weather clear. because this dimension isn't FrostRealm.",
+  "container.frostrealm.aurora_infuser.stardust_crystal.one": "1 StarDust Crystal",
+  "container.frostrealm.aurora_infuser.stardust_crystal.many": "%s StarDust Crystal",
+  "container.frostrealm.aurora_infuser.level.requirement_aurora": "Aurora Level Requirement: %s Percent",
+  "container.frostrealm.aurora_infuser.clue": "%s . . . ?",
+  "container.frostrealm.aurora_infuser.limitedEnchantability": "Insufficient conditions or insufficient power",
+  "aurora_power.frostrealm.when_aurora_infusion": "When Aurora Infusion",
+  "aurora_power.frostrealm.aurora_health": "Aurora Health",
+  "aurora_power.frostrealm.aurora_protection": "Aurora Protection",
+  "aurora_power.frostrealm.aurora_shaper": "Aurora Shaper",
+  "aurora_power.frostrealm.light_slasher": "Light Slasher"
 }

@@ -5,10 +5,13 @@ import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.command.FrostWeatherCommand;
-import baguchan.frostrealm.message.ChangeWeatherEvent;
-import baguchan.frostrealm.message.ChangeWeatherTimeEvent;
+import baguchan.frostrealm.message.AuroraLevelMessage;
+import baguchan.frostrealm.message.AuroraPowerMessage;
+import baguchan.frostrealm.message.ChangeWeatherMessage;
+import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.message.MessageHurtMultipart;
+import baguchan.frostrealm.registry.AuroraPowers;
 import baguchan.frostrealm.registry.FrostBiomes;
 import baguchan.frostrealm.registry.FrostBlockEntitys;
 import baguchan.frostrealm.registry.FrostBlocks;
@@ -73,7 +76,7 @@ public class FrostRealm {
 		FrostMenuTypes.MENU_TYPES.register(modBus);
 		FrostBlocks.BLOCKS.register(modBus);
 		FrostEntities.ENTITIES.register(modBus);
-
+		AuroraPowers.AURORA_POWER.register(modBus);
 		FrostItems.ITEMS.register(modBus);
 		FrostEffects.MOB_EFFECTS.register(modBus);
 		FrostEffects.POTION.register(modBus);
@@ -110,17 +113,25 @@ public class FrostRealm {
 				.encoder(ChangedColdMessage::writeToPacket).decoder(ChangedColdMessage::readFromPacket)
 				.consumerMainThread(ChangedColdMessage::handle)
 				.add();
-		CHANNEL.messageBuilder(ChangeWeatherTimeEvent.class, 1)
-				.encoder(ChangeWeatherTimeEvent::writeToPacket).decoder(ChangeWeatherTimeEvent::readFromPacket)
-				.consumerMainThread(ChangeWeatherTimeEvent::handle)
+		CHANNEL.messageBuilder(ChangeWeatherTimeMessage.class, 1)
+				.encoder(ChangeWeatherTimeMessage::writeToPacket).decoder(ChangeWeatherTimeMessage::readFromPacket)
+				.consumerMainThread(ChangeWeatherTimeMessage::handle)
 				.add();
-		CHANNEL.messageBuilder(ChangeWeatherEvent.class, 2)
-				.encoder(ChangeWeatherEvent::writeToPacket).decoder(ChangeWeatherEvent::readFromPacket)
-				.consumerMainThread(ChangeWeatherEvent::handle)
+		CHANNEL.messageBuilder(ChangeWeatherMessage.class, 2)
+				.encoder(ChangeWeatherMessage::writeToPacket).decoder(ChangeWeatherMessage::readFromPacket)
+				.consumerMainThread(ChangeWeatherMessage::handle)
 				.add();
 		CHANNEL.messageBuilder(MessageHurtMultipart.class, 4)
 				.encoder(MessageHurtMultipart::write).decoder(MessageHurtMultipart::read)
 				.consumerMainThread(MessageHurtMultipart::handle)
+				.add();
+		CHANNEL.messageBuilder(AuroraLevelMessage.class, 5)
+				.encoder(AuroraLevelMessage::writeToPacket).decoder(AuroraLevelMessage::readFromPacket)
+				.consumerMainThread(AuroraLevelMessage::handle)
+				.add();
+		CHANNEL.messageBuilder(AuroraPowerMessage.class, 6)
+				.encoder(AuroraPowerMessage::writeToPacket).decoder(AuroraPowerMessage::readFromPacket)
+				.consumerMainThread(AuroraPowerMessage::handle)
 				.add();
 	}
 

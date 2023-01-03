@@ -1,6 +1,7 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.block.AuroraInfuserBlock;
 import baguchan.frostrealm.block.BearBerryBushBlock;
 import baguchan.frostrealm.block.ColdTallGrassBlock;
 import baguchan.frostrealm.block.CrystalSmithingTable;
@@ -149,6 +150,7 @@ public class FrostBlocks {
 
 	public static final RegistryObject<Block> FROSTROOT_CHEST = register("frostroot_chest", () -> new FrostChestBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD), FrostBlockEntitys.FROST_CHEST::get));
 	public static final RegistryObject<Block> CRYSTAL_SMITHING_TABLE = register("crystal_smithing_table", () -> new CrystalSmithingTable(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+	public static final RegistryObject<Block> AURORA_INFUSER = register("aurora_infuser", () -> new AuroraInfuserBlock(BlockBehaviour.Properties.of(Material.METAL).requiresCorrectToolForDrops().strength(2.0F, 3.0F).sound(SoundType.METAL)));
 
 	private static ToIntFunction<BlockState> litBlockEmission(int p_50760_) {
 		return (p_50763_) -> {

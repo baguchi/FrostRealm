@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public class FrostTags {
@@ -17,6 +18,14 @@ public class FrostTags {
 
 		private static TagKey<Block> tag(String name) {
 			return BlockTags.create(new ResourceLocation(FrostRealm.MODID, name));
+		}
+	}
+
+	public static class Items {
+		public static final TagKey<Item> AURORA_FUELS = tag("aurora_fuels");
+
+		private static TagKey<Item> tag(String p_203849_) {
+			return TagKey.create(Registries.ITEM, new ResourceLocation(FrostRealm.MODID, p_203849_));
 		}
 	}
 
