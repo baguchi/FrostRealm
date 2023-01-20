@@ -108,7 +108,7 @@ public class CommonEvents {
 	}
 
 	@SubscribeEvent
-	public static void onAuroraToolTip(ItemTooltipEvent event) {
+	public static void onToolTip(ItemTooltipEvent event) {
 		List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
 
 		AuroraPowerUtils.getAuroraPowers(event.getItemStack()).forEach((auroraPower, integer) -> {

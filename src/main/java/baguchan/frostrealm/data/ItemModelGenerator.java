@@ -72,20 +72,17 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.ASTRIUM_LEGGINGS);
 		this.singleTex(FrostItems.ASTRIUM_BOOTS);
 
-		this.egg(FrostItems.CRYSTAL_TORTOISE_SPAWNEGG);
 		this.egg(FrostItems.MARMOT_SPAWNEGG);
 		this.egg(FrostItems.SNOWPILE_QUAIL_SPAWNEGG);
 		this.egg(FrostItems.FROST_WOLF_SPAWNEGG);
 		this.egg(FrostItems.YETI_SPAWNEGG);
 		this.egg(FrostItems.FROST_WRAITH_SPAWNEGG);
 		this.egg(FrostItems.CLUST_WRAITH_SPAWNEGG);
-		this.egg(FrostItems.GOKKUR_SPAWNEGG);
 		this.egg(FrostItems.GOKKUDILLO_SPAWNEGG);
 		this.egg(FrostItems.FROST_BEASTER_SPAWNEGG);
 		this.egg(FrostItems.CRYSTAL_FOX_SPAWNEGG);
 		this.egg(FrostItems.SNOW_MOLE_SPAWNEGG);
 		this.egg(FrostItems.PURIFIED_STRAY_SPAWN_EGG);
-		this.egg(FrostItems.KOLOSSUS_SPAWN_EGG);
 
 		this.toBlock(FrostBlocks.FROZEN_DIRT);
 		this.toBlock(FrostBlocks.FROZEN_GRASS_BLOCK);
@@ -132,7 +129,6 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK);
 		this.itemBlockFlat(FrostBlocks.FROST_TORCH);
 		this.toBlock(FrostBlocks.CRYSTAL_SMITHING_TABLE);
-		this.toBlock(FrostBlocks.AURORA_INFUSER);
 	}
 
 	public ItemModelBuilder torchItem(Block item) {

@@ -85,7 +85,6 @@ public class SnowPileQuail extends Animal {
 		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Wolf.class, 8.0F, 1.45D, 1.4D, (p_28590_) -> {
 			return !((Wolf) p_28590_).isTame();
 		}));
-		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Kolossus.class, 16.0F, 1.45D, 1.4D));
 		this.goalSelector.addGoal(3, new QuailAngryGoal(this));
 		this.goalSelector.addGoal(4, new SnowPileQuailBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));

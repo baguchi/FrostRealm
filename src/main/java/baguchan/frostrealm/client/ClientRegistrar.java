@@ -6,12 +6,9 @@ import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.AurorayModel;
 import baguchan.frostrealm.client.model.ClustWraithModel;
 import baguchan.frostrealm.client.model.CrystalFoxModel;
-import baguchan.frostrealm.client.model.CrystalTortoiseModel;
 import baguchan.frostrealm.client.model.FrostWolfModel;
 import baguchan.frostrealm.client.model.FrostWraithModel;
 import baguchan.frostrealm.client.model.GokkudilloModel;
-import baguchan.frostrealm.client.model.GokkurModel;
-import baguchan.frostrealm.client.model.KolossusModel;
 import baguchan.frostrealm.client.model.MarmotModel;
 import baguchan.frostrealm.client.model.SnowMoleModel;
 import baguchan.frostrealm.client.model.SnowPileQuailModel;
@@ -22,13 +19,10 @@ import baguchan.frostrealm.client.model.YetiModel;
 import baguchan.frostrealm.client.render.AurorayRenderer;
 import baguchan.frostrealm.client.render.ClustWraithRenderer;
 import baguchan.frostrealm.client.render.CrystalFoxRenderer;
-import baguchan.frostrealm.client.render.CrystalTortoiseRenderer;
 import baguchan.frostrealm.client.render.FrostBeasterRenderer;
 import baguchan.frostrealm.client.render.FrostWolfRenderer;
 import baguchan.frostrealm.client.render.FrostWraithRenderer;
 import baguchan.frostrealm.client.render.GokkudilloRenderer;
-import baguchan.frostrealm.client.render.GokkurRenderer;
-import baguchan.frostrealm.client.render.KolossusRenderer;
 import baguchan.frostrealm.client.render.MarmotRenderer;
 import baguchan.frostrealm.client.render.PurifiedStrayRenderer;
 import baguchan.frostrealm.client.render.SnowMoleRenderer;
@@ -36,7 +30,6 @@ import baguchan.frostrealm.client.render.SnowPileQuailRenderer;
 import baguchan.frostrealm.client.render.WarpedCrystalRenderer;
 import baguchan.frostrealm.client.render.YetiRenderer;
 import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
-import baguchan.frostrealm.client.screen.AuroraInfuserScreen;
 import baguchan.frostrealm.client.screen.CrystalSmithingScreen;
 import baguchan.frostrealm.registry.FrostBlockEntitys;
 import baguchan.frostrealm.registry.FrostBlocks;
@@ -72,18 +65,15 @@ public class ClientRegistrar {
 
 	@SubscribeEvent
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerEntityRenderer(FrostEntities.CRYSTAL_TORTOISE.get(), CrystalTortoiseRenderer::new);
 		event.registerEntityRenderer(FrostEntities.MARMOT.get(), MarmotRenderer::new);
 		event.registerEntityRenderer(FrostEntities.SNOWPILE_QUAIL.get(), SnowPileQuailRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROST_WOLF.get(), FrostWolfRenderer::new);
 		event.registerEntityRenderer(FrostEntities.CRYSTAL_FOX.get(), CrystalFoxRenderer::new);
 		event.registerEntityRenderer(FrostEntities.SNOW_MOLE.get(), SnowMoleRenderer::new);
-		event.registerEntityRenderer(FrostEntities.KOLOSSUS.get(), KolossusRenderer::new);
 
 		event.registerEntityRenderer(FrostEntities.YETI.get(), YetiRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROST_WRAITH.get(), FrostWraithRenderer::new);
 		event.registerEntityRenderer(FrostEntities.CLUST_WRAITH.get(), ClustWraithRenderer::new);
-		event.registerEntityRenderer(FrostEntities.GOKKUR.get(), GokkurRenderer::new);
 		event.registerEntityRenderer(FrostEntities.GOKKUDILLO.get(), GokkudilloRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROST_BEASTER.get(), FrostBeasterRenderer::new);
 		event.registerEntityRenderer(FrostEntities.AURORAY.get(), AurorayRenderer::new);
@@ -98,8 +88,6 @@ public class ClientRegistrar {
 		LayerDefinition layerdefinition1 = LayerDefinition.create(HumanoidModel.createMesh(OUTER_ARMOR_DEFORMATION, 0.0F), 64, 32);
 		LayerDefinition layerdefinition3 = LayerDefinition.create(HumanoidModel.createMesh(INNER_ARMOR_DEFORMATION, 0.0F), 64, 32);
 
-
-		event.registerLayerDefinition(FrostModelLayers.CRYSTAL_TORTOISE, CrystalTortoiseModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.YETI, YetiModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.FROST_WRAITH, FrostWraithModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.CLUST_WRAITH, ClustWraithModel::createBodyLayer);
@@ -108,11 +96,9 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.FROST_WOLF, FrostWolfModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.WOLFESTER, WolfesterModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.AURORAY, AurorayModel::createBodyLayer);
-		event.registerLayerDefinition(FrostModelLayers.GOKKUR, GokkurModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.GOKKUDILLO, GokkudilloModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.CRYSTAL_FOX, CrystalFoxModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.SNOW_MOLE, SnowMoleModel::createBodyLayer);
-		event.registerLayerDefinition(FrostModelLayers.KOLOSSUS, KolossusModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.WARPED_ICE, WarpedIceModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
@@ -166,7 +152,6 @@ public class ClientRegistrar {
 		renderBlockColor();
 
 		MenuScreens.register(FrostMenuTypes.CRYSTAL_SMITHING.get(), CrystalSmithingScreen::new);
-		MenuScreens.register(FrostMenuTypes.AURORA_INFUSER.get(), AuroraInfuserScreen::new);
 	}
 
 	@SubscribeEvent

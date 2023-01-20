@@ -93,7 +93,6 @@ public class FrostItems {
 	public static final RegistryObject<Item> ASTRIUM_BOOTS = ITEMS.register("astrium_boots", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.FEET, (new Item.Properties())));
 
 
-	public static final RegistryObject<Item> CRYSTAL_TORTOISE_SPAWNEGG = ITEMS.register("crystal_tortoise_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.CRYSTAL_TORTOISE, 0x3E3CAE, 0x8685E0, (new Item.Properties())));
 	public static final RegistryObject<Item> MARMOT_SPAWNEGG = ITEMS.register("marmot_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.MARMOT, 0xB18346, 0x9B6B2D, (new Item.Properties())));
 	public static final RegistryObject<Item> SNOWPILE_QUAIL_SPAWNEGG = ITEMS.register("snowpile_quail_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.SNOWPILE_QUAIL, 0xFFFFFF, 0xFFFFFF, (new Item.Properties())));
 	public static final RegistryObject<Item> FROST_WOLF_SPAWNEGG = ITEMS.register("frost_wolf_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.FROST_WOLF, 0xFFFFFF, 0xFFFFFF, (new Item.Properties())));
@@ -101,14 +100,11 @@ public class FrostItems {
 	public static final RegistryObject<Item> FROST_WRAITH_SPAWNEGG = ITEMS.register("frost_wraith_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.FROST_WRAITH, 0x895D7B, 0xD15EBE, (new Item.Properties())));
 	public static final RegistryObject<Item> CLUST_WRAITH_SPAWNEGG = ITEMS.register("clust_wraith_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.CLUST_WRAITH, 0x895D7B, 0xD15EBE, (new Item.Properties())));
 
-	public static final RegistryObject<Item> GOKKUR_SPAWNEGG = ITEMS.register("gokkur_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.GOKKUR, 0x968E7A, 0xD5FCF7, (new Item.Properties())));
 	public static final RegistryObject<Item> GOKKUDILLO_SPAWNEGG = ITEMS.register("gokkudillo_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.GOKKUDILLO, 0x968E7A, 0xD5FCF7, (new Item.Properties())));
 	public static final RegistryObject<Item> FROST_BEASTER_SPAWNEGG = ITEMS.register("frost_beaster_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.FROST_BEASTER, 0x7CA7A6, 0x973C3C, (new Item.Properties())));
 	public static final RegistryObject<Item> CRYSTAL_FOX_SPAWNEGG = ITEMS.register("crystal_fox_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.CRYSTAL_FOX, 0xF7FFFB, 0x90D3E8, (new Item.Properties())));
 	public static final RegistryObject<Item> SNOW_MOLE_SPAWNEGG = ITEMS.register("snow_mole_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.SNOW_MOLE, 0xE4E5E6, 0xB6A7A7, (new Item.Properties())));
 	public static final RegistryObject<Item> PURIFIED_STRAY_SPAWN_EGG = ITEMS.register("purified_stray_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.PURIFIED_STRAY, 6387319, 0xD15EBE, (new Item.Properties())));
-
-	public static final RegistryObject<Item> KOLOSSUS_SPAWN_EGG = ITEMS.register("kolossus_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.KOLOSSUS, 0x031822, 0x488FB0, (new Item.Properties())));
 
 	@SubscribeEvent
 	public static void registerCreativeModeTabs(CreativeModeTabEvent.Register event) {
@@ -157,20 +153,17 @@ public class FrostItems {
 											KOLOSSUS_FUR_CHESTPLATE,
 											KOLOSSUS_FUR_LEGGINGS,
 											KOLOSSUS_FUR_BOOTS,
-											CRYSTAL_TORTOISE_SPAWNEGG,
 											MARMOT_SPAWNEGG,
 											SNOWPILE_QUAIL_SPAWNEGG,
 											FROST_WOLF_SPAWNEGG,
 											YETI_SPAWNEGG,
 											FROST_WRAITH_SPAWNEGG,
 											CLUST_WRAITH_SPAWNEGG,
-											GOKKUR_SPAWNEGG,
 											GOKKUDILLO_SPAWNEGG,
 											FROST_BEASTER_SPAWNEGG,
 											CRYSTAL_FOX_SPAWNEGG,
 											SNOW_MOLE_SPAWNEGG,
-											PURIFIED_STRAY_SPAWN_EGG,
-											KOLOSSUS_SPAWN_EGG)
+											PURIFIED_STRAY_SPAWN_EGG)
 									.map(item -> item.get().getDefaultInstance())
 									.toList())).build();
 				});
@@ -216,8 +209,7 @@ public class FrostItems {
 											FrostBlocks.WARPED_CRYSTAL_BLOCK,
 											FrostBlocks.FROST_TORCH,
 											FrostBlocks.FROST_CAMPFIRE,
-											FrostBlocks.CRYSTAL_SMITHING_TABLE,
-											FrostBlocks.AURORA_INFUSER)
+											FrostBlocks.CRYSTAL_SMITHING_TABLE)
 									.map(block -> block.get().asItem().getDefaultInstance())
 									.toList())).build();
 				});

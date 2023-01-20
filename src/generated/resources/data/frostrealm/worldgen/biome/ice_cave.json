@@ -72,12 +72,6 @@
         "weight": 30
       },
       {
-        "type": "frostrealm:gokkur",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 20
-      },
-      {
         "type": "frostrealm:gokkudillo",
         "maxCount": 1,
         "minCount": 1,

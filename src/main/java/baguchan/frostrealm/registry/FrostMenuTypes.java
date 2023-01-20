@@ -1,7 +1,6 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.menu.AuroraInfuserMenu;
 import baguchan.frostrealm.menu.CrystalSmithingMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -13,5 +12,4 @@ public class FrostMenuTypes {
 
 
 	public static final RegistryObject<MenuType<CrystalSmithingMenu>> CRYSTAL_SMITHING = MENU_TYPES.register("crystal_smithing", () -> new MenuType<>(CrystalSmithingMenu::new));
-	public static final RegistryObject<MenuType<AuroraInfuserMenu>> AURORA_INFUSER = MENU_TYPES.register("aurora_infuser", () -> new MenuType<>(AuroraInfuserMenu::new));
 }

@@ -127,14 +127,6 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.define('W', ItemTags.PLANKS)
 				.define('A', FrostItems.ASTRIUM_INGOT.get())
 				.unlockedBy("has_item", has(FrostItems.ASTRIUM_INGOT.get())).save(consumer);
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, FrostBlocks.AURORA_INFUSER.get(), 1)
-				.pattern("ASA")
-				.pattern("TST")
-				.pattern("TTT")
-				.define('T', FrostBlocks.FRIGID_STONE_SMOOTH.get())
-				.define('S', FrostItems.STARDUST_CRYSTAL.get())
-				.define('A', FrostItems.ASTRIUM_INGOT.get())
-				.unlockedBy("has_item", has(FrostItems.STARDUST_CRYSTAL.get())).save(consumer);
 
 
 		smeltOre(FrostItems.ASTRIUM_RAW.get(), FrostItems.ASTRIUM_INGOT.get(), 0.2F, consumer);

@@ -103,7 +103,6 @@ public class CrystalFox extends Animal implements IForgeShearable {
 		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Wolf.class, 8.0F, 1.6D, 1.4D, (p_28590_) -> {
 			return !((Wolf) p_28590_).isTame();
 		}));
-		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Kolossus.class, 16.0F, 1.6D, 1.4D));
 		this.goalSelector.addGoal(5, new FoxMeleeAttackGoal(1.2F, true));
 		this.goalSelector.addGoal(6, new FoxEatBerriesGoal(1.25D, 8, 4));
 		this.goalSelector.addGoal(7, new SeekShelterEvenBlizzardGoal(this, 1.25D, true));
