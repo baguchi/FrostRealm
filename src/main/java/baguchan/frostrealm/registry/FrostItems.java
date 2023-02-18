@@ -1,23 +1,11 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.item.FrostCatalystItem;
-import baguchan.frostrealm.item.FusionCrystalDaggerItem;
-import baguchan.frostrealm.item.GlimmerRockItem;
-import baguchan.frostrealm.item.RolgaSwordItem;
-import baguchan.frostrealm.item.YetiFurArmorItem;
+import baguchan.frostrealm.item.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.ShovelItem;
-import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

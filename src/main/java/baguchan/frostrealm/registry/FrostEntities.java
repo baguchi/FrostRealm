@@ -1,19 +1,7 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.entity.Auroray;
-import baguchan.frostrealm.entity.ClustWraith;
-import baguchan.frostrealm.entity.CrystalFox;
-import baguchan.frostrealm.entity.FrostBeaster;
-import baguchan.frostrealm.entity.FrostWolf;
-import baguchan.frostrealm.entity.FrostWraith;
-import baguchan.frostrealm.entity.Gokkudillo;
-import baguchan.frostrealm.entity.Marmot;
-import baguchan.frostrealm.entity.PurifiedStray;
-import baguchan.frostrealm.entity.SnowMole;
-import baguchan.frostrealm.entity.SnowPileQuail;
-import baguchan.frostrealm.entity.WarpedIceSoul;
-import baguchan.frostrealm.entity.Yeti;
+import baguchan.frostrealm.entity.*;
 import baguchan.frostrealm.entity.projectile.WarpedCrystalShard;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
