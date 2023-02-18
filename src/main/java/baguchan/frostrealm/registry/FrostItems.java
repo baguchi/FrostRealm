@@ -175,6 +175,7 @@ public class FrostItems {
 							output.acceptAll(Stream.of(
 											FrostBlocks.FROZEN_DIRT,
 											FrostBlocks.FROZEN_GRASS_BLOCK,
+											FrostBlocks.ETERNITY_GRASS_BLOCK,
 											FrostBlocks.FROZEN_FARMLAND,
 											FrostBlocks.POINTED_ICE,
 											FrostBlocks.FRIGID_STONE,
