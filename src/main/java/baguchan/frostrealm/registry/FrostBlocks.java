@@ -14,6 +14,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -68,7 +69,7 @@ public class FrostBlocks {
 
 	//FROSTROOT
 	public static final RegistryObject<RotatedPillarBlock> FROSTROOT_LOG = register("frostroot_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F).sound(SoundType.WOOD)));
-	public static final RegistryObject<LeavesBlock> FROSTROOT_LEAVES = register("frostroot_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).noOcclusion().sound(SoundType.GRASS)));
+	public static final RegistryObject<LeavesBlock> FROSTROOT_LEAVES = register("frostroot_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of(Material.LEAVES).strength(0.2F).noOcclusion().isSuffocating(FrostBlocks::never).sound(SoundType.GRASS)));
 	public static final RegistryObject<SaplingBlock> FROSTROOT_SAPLING = register("frostroot_sapling", () -> new SaplingBlock(new FrostrootTree(), BlockBehaviour.Properties.of(Material.PLANT).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS)));
 	public static final RegistryObject<Block> FROSTROOT_PLANKS = register("frostroot_planks", () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 	public static final RegistryObject<SlabBlock> FROSTROOT_PLANKS_SLAB = register("frostroot_planks_slab", () -> new SlabBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
@@ -99,10 +100,7 @@ public class FrostBlocks {
 	public static final RegistryObject<Block> ASTRIUM_ORE = register("astrium_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
 
 	public static final RegistryObject<Block> STARDUST_CRYSTAL_ORE = register("stardust_crystal_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(2, 4)));
-	public static final RegistryObject<Block> STARDUST_CRYSTAL_CLUSTER = register("stardust_crystal_cluster", () -> new StarDustCrystalBlock(BlockBehaviour.Properties.of(Material.GLASS).requiresCorrectToolForDrops().lightLevel((state) -> {
-		return 10;
-	}).strength(5.0F, 6.0F).noOcclusion().sound(SoundType.DEEPSLATE)));
-	public static final RegistryObject<Block> CORRUPTED_CRYSTAL_CLUSTER = register("corrupted_crystal_cluster", () -> new Block(BlockBehaviour.Properties.of(Material.GLASS).requiresCorrectToolForDrops().lightLevel((state) -> {
+	public static final RegistryObject<Block> STARDUST_CRYSTAL_CLUSTER = register("stardust_crystal_cluster", () -> new StarDustCrystalBlock(BlockBehaviour.Properties.of(Material.GLASS).isSuffocating(FrostBlocks::never).requiresCorrectToolForDrops().lightLevel((state) -> {
 		return 10;
 	}).strength(5.0F, 6.0F).noOcclusion().sound(SoundType.DEEPSLATE)));
 
@@ -119,10 +117,19 @@ public class FrostBlocks {
 
 	public static final RegistryObject<Block> FROSTROOT_CHEST = register("frostroot_chest", () -> new FrostChestBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD), FrostBlockEntitys.FROST_CHEST::get));
 	public static final RegistryObject<Block> CRYSTAL_SMITHING_TABLE = register("crystal_smithing_table", () -> new CrystalSmithingTable(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
+
 	private static ToIntFunction<BlockState> litBlockEmission(int p_50760_) {
 		return (p_50763_) -> {
 			return p_50763_.getValue(BlockStateProperties.LIT) ? p_50760_ : 0;
 		};
+	}
+
+	private static boolean always(BlockState p_50775_, BlockGetter p_50776_, BlockPos p_50777_) {
+		return true;
+	}
+
+	private static boolean never(BlockState p_50806_, BlockGetter p_50807_, BlockPos p_50808_) {
+		return false;
 	}
 
 	public static void burnables() {

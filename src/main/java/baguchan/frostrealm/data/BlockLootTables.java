@@ -107,7 +107,6 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.add(FrostBlocks.ASTRIUM_ORE.get(), this::createAstriumOreDrops);
 		this.add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), this::createStardustCrystalOreDrops);
 		this.dropSelf(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
-		this.dropSelf(FrostBlocks.CORRUPTED_CRYSTAL_CLUSTER.get());
 		this.dropSelf(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
 		this.dropSelf(FrostBlocks.FROST_TORCH.get());
 		this.dropOther(FrostBlocks.WALL_FROST_TORCH.get(), FrostBlocks.FROST_TORCH.get());

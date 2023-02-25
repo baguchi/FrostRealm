@@ -126,7 +126,6 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.ASTRIUM_ORE);
 		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_ORE);
 		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER);
-		this.toBlock(FrostBlocks.CORRUPTED_CRYSTAL_CLUSTER);
 		this.toBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK);
 		this.itemBlockFlat(FrostBlocks.FROST_TORCH);
 		this.toBlock(FrostBlocks.CRYSTAL_SMITHING_TABLE);

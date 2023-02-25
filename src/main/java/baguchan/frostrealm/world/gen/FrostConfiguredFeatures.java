@@ -58,6 +58,7 @@ public class FrostConfiguredFeatures {
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TUNDRA_ROCK = registerKey("tundra_rock");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TUNDRA_MOSSY_ROCK = registerKey("tundra_mossy_rock");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> STAR_DUST_CLUSTER = registerKey("star_dust_cluster");
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_WARPED_ISLAND = registerKey("big_warped_island");
 
@@ -104,6 +105,8 @@ public class FrostConfiguredFeatures {
 
 		FeatureUtils.register(context, TUNDRA_ROCK, FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState()));
 		FeatureUtils.register(context, TUNDRA_MOSSY_ROCK, FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE_MOSSY.get().defaultBlockState()));
+		FeatureUtils.register(context, STAR_DUST_CLUSTER, FrostFeatures.SHAPE_CRYSTAL.get(), new BlockStateConfiguration(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get().defaultBlockState()));
+
 
 		FeatureUtils.register(context, BIG_WARPED_ISLAND, FrostFeatures.BIG_WARPED_ISLAND.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState()));
 

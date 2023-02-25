@@ -98,10 +98,10 @@ public class ClientRegistrar {
 			return Minecraft.getInstance().getBlockColors().getColor(blockstate, null, null, p_92688_);
 		}, FrostBlocks.FROZEN_GRASS_BLOCK.get());
 		Minecraft.getInstance().getBlockColors().register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
-			return p_92622_ != null && p_92623_ != null ? BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : GrassColor.get(0.5D, 1.0D);
+			return p_92622_ != null && p_92623_ != null ? p_92622_.getBlockState(p_92623_.below()).is(FrostBlocks.ETERNITY_GRASS_BLOCK.get()) ? 0x43F095 : BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : GrassColor.get(0.5D, 1.0D);
 		}, FrostBlocks.COLD_GRASS.get());
 		Minecraft.getInstance().getBlockColors().register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
-			return p_92622_ != null && p_92623_ != null ? BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : GrassColor.get(0.5D, 1.0D);
+            return p_92622_ != null && p_92623_ != null ? p_92622_.getBlockState(p_92623_.below()).is(FrostBlocks.ETERNITY_GRASS_BLOCK.get()) ? 0x43F095 : BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : GrassColor.get(0.5D, 1.0D);
 		}, FrostBlocks.COLD_TALL_GRASS.get());
 
 		Minecraft.getInstance().getItemColors().register((p_92687_, p_92688_) -> {

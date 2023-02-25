@@ -41,7 +41,7 @@ public class BigRockFeature extends Feature<BlockStateConfiguration> {
 			float f = (float) (i2 + i + i2) * 0.35F + 0.5F;
 			for (BlockPos blockpos1 : BlockPos.betweenClosed(blockpos.offset(-i2, -i, -i2), blockpos.offset(i2, i, i2))) {
 				if (blockpos1.distSqr(blockpos) <= (double) (f * f)) {
-					worldgenlevel.setBlock(blockpos1.below(i3), blockstateconfiguration.state, 4);
+					worldgenlevel.setBlock(blockpos1.below(i3), blockstateconfiguration.state, 2);
 				}
 
 			}
