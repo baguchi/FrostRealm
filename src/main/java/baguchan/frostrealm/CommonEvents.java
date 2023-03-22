@@ -7,6 +7,7 @@ import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostDimensions;
+import baguchan.frostrealm.registry.FrostTags;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.world.FrostLevelData;
 import net.minecraft.core.BlockPos;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -173,19 +175,23 @@ public class CommonEvents {
 										BlockPos posDown = pos.below();
 
 										if (serverLevel.isAreaLoaded(posDown, 1)) {
-											BlockState snowState = serverLevel.getBlockState(pos);
-											BlockState snowStateBelow = serverLevel.getBlockState(pos.below());
-											if (snowState.getBlock() == Blocks.FIRE) {
-												serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-											} else if (snowStateBelow.hasProperty(BlockStateProperties.LIT) && snowStateBelow.getValue(BlockStateProperties.LIT)) {
-												makeParticles(serverLevel, pos.below());
-												serverLevel.setBlockAndUpdate(pos.below(), snowStateBelow.setValue(BlockStateProperties.LIT, false));
-											} else if (snowState.getBlock() == Blocks.SNOW.defaultBlockState().getBlock()) {
-												int layers = snowState.getValue(SnowLayerBlock.LAYERS);
-												if (layers < 3) {
-													serverLevel.setBlockAndUpdate(pos, snowState.setValue(SnowLayerBlock.LAYERS, ++layers));
-												}
-											} else if (canPlaceSnowLayer(serverLevel, pos)) {
+                                            BlockState snowState = serverLevel.getBlockState(pos);
+                                            BlockState snowStateBelow = serverLevel.getBlockState(pos.below());
+                                            if (snowState.getBlock() instanceof CropBlock) {
+                                                if (!snowState.is(FrostTags.Blocks.NON_FREEZE_CROP)) {
+                                                    serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                                                }
+                                            } else if (snowState.getBlock() == Blocks.FIRE) {
+                                                serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                                            } else if (snowStateBelow.hasProperty(BlockStateProperties.LIT) && snowStateBelow.getValue(BlockStateProperties.LIT)) {
+                                                makeParticles(serverLevel, pos.below());
+                                                serverLevel.setBlockAndUpdate(pos.below(), snowStateBelow.setValue(BlockStateProperties.LIT, false));
+                                            } else if (snowState.getBlock() == Blocks.SNOW.defaultBlockState().getBlock()) {
+                                                int layers = snowState.getValue(SnowLayerBlock.LAYERS);
+                                                if (layers < 3) {
+                                                    serverLevel.setBlockAndUpdate(pos, snowState.setValue(SnowLayerBlock.LAYERS, ++layers));
+                                                }
+                                            } else if (canPlaceSnowLayer(serverLevel, pos)) {
 												serverLevel.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
 											}
 										}

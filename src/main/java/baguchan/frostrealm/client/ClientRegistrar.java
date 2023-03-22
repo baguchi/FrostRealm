@@ -54,8 +54,6 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.FROST_BEASTER.get(), FrostBeasterRenderer::new);
 		event.registerEntityRenderer(FrostEntities.AURORAY.get(), AurorayRenderer::new);
 
-		event.registerEntityRenderer(FrostEntities.PURIFIED_STRAY.get(), PurifiedStrayRenderer::new);
-
 		event.registerEntityRenderer(FrostEntities.WARPED_CRYSTAL.get(), WarpedCrystalRenderer::new);
 	}
 

@@ -8,7 +8,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Stray;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -34,8 +33,6 @@ public class FrostEntities {
 	public static final RegistryObject<EntityType<Gokkudillo>> GOKKUDILLO = ENTITIES.register("gokkudillo", () -> EntityType.Builder.of(Gokkudillo::new, MobCategory.MONSTER).sized(0.65F, 0.65F).fireImmune().build(prefix("gokkudillo")));
 	public static final RegistryObject<EntityType<FrostBeaster>> FROST_BEASTER = ENTITIES.register("frost_beaster", () -> EntityType.Builder.of(FrostBeaster::new, MobCategory.MONSTER).sized(0.65F, 1.95F).build(prefix("frost_beaster")));
 	public static final RegistryObject<EntityType<Auroray>> AURORAY = ENTITIES.register("auroray", () -> EntityType.Builder.of(Auroray::new, MobCategory.MONSTER).sized(2.0F, 0.6F).build(prefix("auroray")));
-	public static final RegistryObject<EntityType<PurifiedStray>> PURIFIED_STRAY = ENTITIES.register("purified_stray", () -> EntityType.Builder.of(PurifiedStray::new, MobCategory.MONSTER).sized(0.6F, 1.99F).build(prefix("purified_stray")));
-	public static final RegistryObject<EntityType<WarpedIceSoul>> WARPED_ICE_SOUL = ENTITIES.register("warped_ice_soul", () -> EntityType.Builder.of(WarpedIceSoul::new, MobCategory.CREATURE).sized(0.6F, 1.1F).build(prefix("warped_ice_soul")));
 
 	public static final RegistryObject<EntityType<WarpedCrystalShard>> WARPED_CRYSTAL = ENTITIES.register("warped_crystal", () -> EntityType.Builder.<WarpedCrystalShard>of(WarpedCrystalShard::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(prefix("warped_crystal")));
 
@@ -59,8 +56,6 @@ public class FrostEntities {
 		event.put(FROST_BEASTER.get(), FrostBeaster.createAttributes().build());
 		event.put(AURORAY.get(), Auroray.createAttributes().build());
 
-		event.put(PURIFIED_STRAY.get(), Stray.createAttributes().build());
-		event.put(WARPED_ICE_SOUL.get(), WarpedIceSoul.createAttributes().build());
 
 		SpawnPlacements.register(MARMOT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Marmot::checkMarmotSpawnRules);
 
@@ -77,7 +72,5 @@ public class FrostEntities {
 		SpawnPlacements.register(GOKKUDILLO.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gokkudillo::checkGokkudilloSpawnRules);
 		SpawnPlacements.register(FROST_BEASTER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBeaster::checkFrostBeasterSpawnRules);
 		SpawnPlacements.register(AURORAY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-		SpawnPlacements.register(PURIFIED_STRAY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-		SpawnPlacements.register(WARPED_ICE_SOUL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
 	}
 }

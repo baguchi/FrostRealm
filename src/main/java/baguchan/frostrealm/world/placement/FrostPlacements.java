@@ -102,7 +102,7 @@ public class FrostPlacements {
 
 		PlacementUtils.register(context, ICE_CLUSTER, configuredFeature.getOrThrow(FrostConfiguredFeatures.ICE_CLUSTER), CountPlacement.of(UniformInt.of(48, 96)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 		PlacementUtils.register(context, LARGE_ICE, configuredFeature.getOrThrow(FrostConfiguredFeatures.LARGE_ICE), CountPlacement.of(UniformInt.of(10, 48)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
-		PlacementUtils.register(context, STARDUST_CRUSTER, configuredFeature.getOrThrow(FrostConfiguredFeatures.STAR_DUST_CLUSTER), CountPlacement.of(UniformInt.of(1, 3)), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+        PlacementUtils.register(context, STARDUST_CRUSTER, configuredFeature.getOrThrow(FrostConfiguredFeatures.STAR_DUST_CLUSTER), RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
 		PlacementUtils.register(context, LOG_PLACE, configuredFeature.getOrThrow(FrostConfiguredFeatures.LOG), EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.anyOf(BlockPredicate.hasSturdyFace(new Vec3i(0, 1, 0), Direction.UP), BlockPredicate.hasSturdyFace(Direction.UP)), 32));
 		PlacementUtils.register(context, CHAIN_PLACE, configuredFeature.getOrThrow(FrostConfiguredFeatures.CHAIN), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.anyOf(BlockPredicate.hasSturdyFace(new Vec3i(0, -1, 0), Direction.DOWN), BlockPredicate.hasSturdyFace(Direction.DOWN)), 32));
