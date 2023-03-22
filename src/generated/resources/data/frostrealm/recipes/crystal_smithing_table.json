@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "frostrealm:crystal_smithing_table"
-  }
+  },
+  "show_notification": true
 }

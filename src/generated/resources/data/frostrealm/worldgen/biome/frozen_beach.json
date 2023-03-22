@@ -43,7 +43,7 @@
       "frostrealm:spring_lava"
     ]
   ],
-  "precipitation": "none",
+  "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
     "ambient": [],

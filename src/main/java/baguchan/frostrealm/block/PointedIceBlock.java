@@ -104,8 +104,8 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 
 	public void fallOn(Level p_154047_, BlockState p_154048_, BlockPos p_154049_, Entity p_154050_, float p_154051_) {
 		if (p_154048_.getValue(TIP_DIRECTION) == Direction.UP && p_154048_.getValue(THICKNESS) == DripstoneThickness.TIP) {
-			p_154050_.causeFallDamage(p_154051_ + 2.0F, 2.0F, DamageSource.STALAGMITE);
-			p_154047_.destroyBlock(p_154049_, false);
+			p_154050_.causeFallDamage(p_154051_ + 2.0F, 2.0F, p_154047_.damageSources().stalagmite());
+            p_154047_.destroyBlock(p_154049_, false);
 		} else {
 			super.fallOn(p_154047_, p_154048_, p_154049_, p_154050_, p_154051_);
 		}
@@ -192,28 +192,29 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 
 	public boolean isCollisionShapeFullBlock(BlockState p_181235_, BlockGetter p_181236_, BlockPos p_181237_) {
 		return false;
-	}
+    }
 
-	public BlockBehaviour.OffsetType getOffsetType() {
-		return BlockBehaviour.OffsetType.XZ;
-	}
+    public BlockBehaviour.OffsetType getOffsetType() {
+        return BlockBehaviour.OffsetType.XZ;
+    }
 
-	public float getMaxHorizontalOffset() {
-		return 0.125F;
-	}
+    public float getMaxHorizontalOffset() {
+        return 0.125F;
+    }
 
-	public DamageSource getFallDamageSource() {
-		return DamageSource.STALAGMITE;
-	}
+    @Override
+    public DamageSource getFallDamageSource(Entity p_253907_) {
+        return p_253907_.damageSources().stalagmite();
+    }
 
-	public Predicate<Entity> getHurtsEntitySelector() {
-		return EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE);
-	}
+    public Predicate<Entity> getHurtsEntitySelector() {
+        return EntitySelector.NO_CREATIVE_OR_SPECTATOR.and(EntitySelector.LIVING_ENTITY_STILL_ALIVE);
+    }
 
-	private void scheduleStalactiteFallTicks(BlockState p_154127_, LevelAccessor p_154128_, BlockPos p_154129_) {
-		BlockPos blockpos = findTip(p_154127_, p_154128_, p_154129_, Integer.MAX_VALUE, true);
-		if (blockpos != null) {
-			BlockPos.MutableBlockPos blockpos$mutableblockpos = blockpos.mutable();
+    private void scheduleStalactiteFallTicks(BlockState p_154127_, LevelAccessor p_154128_, BlockPos p_154129_) {
+        BlockPos blockpos = findTip(p_154127_, p_154128_, p_154129_, Integer.MAX_VALUE, true);
+        if (blockpos != null) {
+            BlockPos.MutableBlockPos blockpos$mutableblockpos = blockpos.mutable();
 
 			while (isStalactite(p_154128_.getBlockState(blockpos$mutableblockpos))) {
 				p_154128_.scheduleTick(blockpos$mutableblockpos, this, 2);

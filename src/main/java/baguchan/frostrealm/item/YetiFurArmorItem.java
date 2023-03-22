@@ -20,9 +20,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Consumer;
 
 public class YetiFurArmorItem extends ArmorItem {
-	public YetiFurArmorItem(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
-		super(p_40386_, p_40387_, p_40388_);
-	}
+	public YetiFurArmorItem(ArmorMaterial p_40386_, Type p_40387_, Properties p_40388_) {
+        super(p_40386_, p_40387_, p_40388_);
+    }
 
 	@Override
 	public void initializeClient(Consumer<IClientItemExtensions> consumer) {

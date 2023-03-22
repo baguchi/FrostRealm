@@ -3,6 +3,7 @@ package baguchan.frostrealm.recipe;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostRecipes;
 import com.google.gson.JsonObject;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -21,44 +22,50 @@ public class CrystalSmithingRecipe implements Recipe<Container> {
 	private final ResourceLocation id;
 
 	public CrystalSmithingRecipe(ResourceLocation p_44523_, Ingredient p_44524_, Ingredient p_44525_, ItemStack p_44526_) {
-		this.id = p_44523_;
-		this.base = p_44524_;
-		this.addition = p_44525_;
-		this.result = p_44526_;
-	}
+        this.id = p_44523_;
+        this.base = p_44524_;
+        this.addition = p_44525_;
+        this.result = p_44526_;
+    }
 
-	public boolean matches(Container p_44533_, Level p_44534_) {
-		return this.base.test(p_44533_.getItem(0)) && this.addition.test(p_44533_.getItem(1));
-	}
+    public boolean matches(Container p_44533_, Level p_44534_) {
+        return this.base.test(p_44533_.getItem(0)) && this.addition.test(p_44533_.getItem(1));
+    }
 
-	public ItemStack assemble(Container p_44531_) {
-		ItemStack itemstack = this.result.copy();
-		CompoundTag compoundtag = p_44531_.getItem(0).getTag();
-		if (compoundtag != null) {
-			itemstack.setTag(compoundtag.copy());
-		}
+    @Override
+    public ItemStack assemble(Container p_44001_, RegistryAccess p_267165_) {
+        ItemStack itemstack = this.result.copy();
+        CompoundTag compoundtag = p_44001_.getItem(0).getTag();
+        if (compoundtag != null) {
+            itemstack.setTag(compoundtag.copy());
+        }
 
-		CompoundTag compoundtag2 = p_44531_.getItem(1).getTag();
-		if (compoundtag2 != null) {
-			itemstack.setTag(compoundtag2.copy());
-		}
+        CompoundTag compoundtag2 = p_44001_.getItem(1).getTag();
+        if (compoundtag2 != null) {
+            itemstack.setTag(compoundtag2.copy());
+        }
 
-		return itemstack;
-	}
+        return itemstack;
+    }
 
-	public boolean canCraftInDimensions(int p_44528_, int p_44529_) {
-		return p_44528_ * p_44529_ >= 2;
-	}
+    public boolean canCraftInDimensions(int p_44528_, int p_44529_) {
+        return p_44528_ * p_44529_ >= 2;
+    }
 
-	public ItemStack getResultItem() {
-		return this.result;
-	}
+    @Override
+    public ItemStack getResultItem(RegistryAccess p_267052_) {
+        return null;
+    }
 
-	public boolean isAdditionIngredient(ItemStack p_44536_) {
-		return this.addition.test(p_44536_);
-	}
+    public ItemStack getResultItem() {
+        return this.result;
+    }
 
-	public ItemStack getToastSymbol() {
+    public boolean isAdditionIngredient(ItemStack p_44536_) {
+        return this.addition.test(p_44536_);
+    }
+
+    public ItemStack getToastSymbol() {
 		return new ItemStack(FrostBlocks.CRYSTAL_SMITHING_TABLE.get());
 	}
 

@@ -8,8 +8,10 @@ import baguchan.frostrealm.command.FrostWeatherCommand;
 import baguchan.frostrealm.message.*;
 import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.world.gen.FrostTreeFeatures;
+import com.google.common.collect.Maps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
@@ -29,6 +31,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Locale;
+import java.util.Map;
 
 @Mod("frostrealm")
 public class FrostRealm {
@@ -60,7 +63,6 @@ public class FrostRealm {
 		FrostMenuTypes.MENU_TYPES.register(modBus);
 		FrostBlocks.BLOCKS.register(modBus);
 		FrostEntities.ENTITIES.register(modBus);
-		AuroraPowers.AURORA_POWER.register(modBus);
 		FrostItems.ITEMS.register(modBus);
 		FrostEffects.MOB_EFFECTS.register(modBus);
 		FrostEffects.POTION.register(modBus);
@@ -78,8 +80,14 @@ public class FrostRealm {
 			FrostBlocks.burnables();
 			FrostTreeFeatures.init();
 			this.setupMessages();
+			FrostBiomes.addBiomeTypes();
+
+			Map<ResourceLocation, MultiNoiseBiomeSourceParameterList.Preset> map = Maps.newHashMap();
+			map.putAll(Map.copyOf(MultiNoiseBiomeSourceParameterList.Preset.BY_NAME));
+			map.put(new ResourceLocation(FrostRealm.MODID, "frostrealm"), FrostBiomeSources.FROSTREALM_PRESET);
+			MultiNoiseBiomeSourceParameterList.Preset.BY_NAME = map;
+
 		});
-		FrostBiomes.addBiomeTypes();
 	}
 
 	public static <MSG> void sendMSGToAll(MSG message) {
@@ -105,15 +113,11 @@ public class FrostRealm {
 				.encoder(ChangeWeatherMessage::writeToPacket).decoder(ChangeWeatherMessage::readFromPacket)
 				.consumerMainThread(ChangeWeatherMessage::handle)
 				.add();
-		CHANNEL.messageBuilder(MessageHurtMultipart.class, 4)
-				.encoder(MessageHurtMultipart::write).decoder(MessageHurtMultipart::read)
-				.consumerMainThread(MessageHurtMultipart::handle)
-				.add();
-		CHANNEL.messageBuilder(AuroraLevelMessage.class, 5)
+		CHANNEL.messageBuilder(AuroraLevelMessage.class, 4)
 				.encoder(AuroraLevelMessage::writeToPacket).decoder(AuroraLevelMessage::readFromPacket)
 				.consumerMainThread(AuroraLevelMessage::handle)
 				.add();
-		CHANNEL.messageBuilder(AuroraPowerMessage.class, 6)
+		CHANNEL.messageBuilder(AuroraPowerMessage.class, 5)
 				.encoder(AuroraPowerMessage::writeToPacket).decoder(AuroraPowerMessage::readFromPacket)
 				.consumerMainThread(AuroraPowerMessage::handle)
 				.add();

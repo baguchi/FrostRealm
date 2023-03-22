@@ -15,8 +15,8 @@ public class PurifiedStrayRenderer<T extends PurifiedStray> extends HumanoidMobR
 
 	public PurifiedStrayRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new PurifiedStrayModel<>(p_173952_.bakeLayer(ModelLayers.STRAY)), 0.5F);
-		this.addLayer(new HumanoidArmorLayer<>(this, new PurifiedStrayModel<>(p_173952_.bakeLayer(ModelLayers.STRAY_INNER_ARMOR)), new PurifiedStrayModel<>(p_173952_.bakeLayer(ModelLayers.STRAY_OUTER_ARMOR))));
-		this.addLayer(new PurifiedStrayClothingLayer<>(this, p_173952_.getModelSet()));
+        this.addLayer(new HumanoidArmorLayer<>(this, new PurifiedStrayModel<>(p_173952_.bakeLayer(ModelLayers.STRAY_INNER_ARMOR)), new PurifiedStrayModel<>(p_173952_.bakeLayer(ModelLayers.STRAY_OUTER_ARMOR)), p_173952_.getModelManager()));
+        this.addLayer(new PurifiedStrayClothingLayer<>(this, p_173952_.getModelSet()));
 	}
 
 	@Override

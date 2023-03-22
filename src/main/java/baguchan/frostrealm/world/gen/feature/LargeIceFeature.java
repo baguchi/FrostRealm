@@ -238,7 +238,7 @@ public class LargeIceFeature extends Feature<LargeDripstoneConfiguration> {
 			} else {
 				int i = this.originY - p_160009_.getY();
 				Vec3 vec3 = this.windSpeed.scale(i);
-				return p_160009_.offset(vec3.x, 0.0D, vec3.z);
+				return p_160009_.offset(Mth.floor(vec3.x), 0, Mth.floor(vec3.z));
 			}
 		}
 	}

@@ -6,10 +6,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 public class CrystalFoxHeldItemLayer extends RenderLayer<CrystalFox, CrystalFoxModel<CrystalFox>> {
@@ -50,7 +50,7 @@ public class CrystalFoxHeldItemLayer extends RenderLayer<CrystalFox, CrystalFoxM
 		}
 
 		ItemStack itemstack = p_117010_.getItemBySlot(EquipmentSlot.MAINHAND);
-		this.itemInHandRenderer.renderItem(p_117010_, itemstack, ItemTransforms.TransformType.GROUND, false, p_117007_, p_117008_, p_117009_);
+		this.itemInHandRenderer.renderItem(p_117010_, itemstack, ItemDisplayContext.GROUND, false, p_117007_, p_117008_, p_117009_);
 		p_117007_.popPose();
 	}
 }

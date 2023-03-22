@@ -42,7 +42,7 @@
       "frostrealm:spring_water"
     ]
   ],
-  "precipitation": "none",
+  "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
     "ambient": [],

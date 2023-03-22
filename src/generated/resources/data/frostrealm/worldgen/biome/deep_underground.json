@@ -44,7 +44,7 @@
       "frostrealm:spring_lava_hotrock_extra"
     ]
   ],
-  "precipitation": "none",
+  "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
     "ambient": [],

@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "frostrealm:astrium_boots"
-  }
+  },
+  "show_notification": true
 }

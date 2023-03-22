@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "frostrealm:kolossus_fur_helmet"
-  }
+  },
+  "show_notification": true
 }

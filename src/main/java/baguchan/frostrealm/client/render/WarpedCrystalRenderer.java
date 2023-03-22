@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -15,6 +14,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 
 public class WarpedCrystalRenderer<T extends WarpedCrystalShard> extends EntityRenderer<T> {
 	private ItemRenderer itemRenderer;
@@ -37,8 +37,8 @@ public class WarpedCrystalRenderer<T extends WarpedCrystalShard> extends EntityR
 
 		BakedModel bakedmodel = this.itemRenderer.getModel(entityIn.getItem(), entityIn.level, (LivingEntity) null, entityIn.getId());
 
-		this.itemRenderer.render(entityIn.getItem(), ItemTransforms.TransformType.GROUND, false, stackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, bakedmodel);
-		stackIn.popPose();
+        this.itemRenderer.render(entityIn.getItem(), ItemDisplayContext.GROUND, false, stackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, bakedmodel);
+        stackIn.popPose();
 		super.render(entityIn, entityYaw, partialTicks, stackIn, bufferIn, packedLightIn);
 	}
 

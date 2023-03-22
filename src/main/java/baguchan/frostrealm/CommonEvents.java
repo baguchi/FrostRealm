@@ -8,13 +8,8 @@ import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostWeathers;
-import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import baguchan.frostrealm.world.FrostLevelData;
-import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ChunkHolder;
@@ -24,8 +19,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
@@ -41,7 +34,6 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.LevelEvent;
@@ -50,8 +42,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID)
@@ -106,49 +96,6 @@ public class CommonEvents {
 			}
 		}
 	}
-
-	@SubscribeEvent
-	public static void onToolTip(ItemTooltipEvent event) {
-		List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
-
-		AuroraPowerUtils.getAuroraPowers(event.getItemStack()).forEach((auroraPower, integer) -> {
-
-			event.getToolTip().add(AuroraPowerUtils.auroraPowerNameWithLevel(auroraPower, integer));
-
-			Map<Attribute, AttributeModifier> map = auroraPower.getAttributeModifierMap();
-			if (!map.isEmpty()) {
-
-				for (Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
-					AttributeModifier attributemodifier = entry.getValue();
-					AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), auroraPower.getAttributeModifierAmount(integer, attributemodifier), attributemodifier.getOperation());
-					list1.add(new Pair<>(entry.getKey(), attributemodifier1));
-				}
-			}
-		});
-
-		if (!list1.isEmpty()) {
-			event.getToolTip().add((Component.translatable("aurora_power.frostrealm.when_aurora_infusion")).withStyle(ChatFormatting.DARK_PURPLE));
-
-			for (Pair<Attribute, AttributeModifier> pair : list1) {
-				AttributeModifier attributemodifier2 = pair.getSecond();
-				double d0 = attributemodifier2.getAmount();
-				double d1;
-				if (attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
-					d1 = attributemodifier2.getAmount();
-				} else {
-					d1 = attributemodifier2.getAmount() * 100.0D;
-				}
-
-				if (d0 > 0.0D) {
-					event.getToolTip().add((Component.translatable("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
-				} else if (d0 < 0.0D) {
-					d1 = d1 * -1.0D;
-					event.getToolTip().add((Component.translatable("attribute.modifier.take." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.RED));
-				}
-			}
-		}
-	}
-
 
 	@SubscribeEvent
 	public static void onDimensionChangeEvent(PlayerEvent.PlayerChangedDimensionEvent event) {

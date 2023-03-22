@@ -19,11 +19,13 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -253,8 +255,8 @@ public class CrystalFox extends Animal implements IForgeShearable {
 			}
 		} else {
 			if (player != null) {
-				player.hurt(DamageSource.thorns(this), 2.0F);
-				player.getCooldowns().addCooldown(item.getItem(), 80);
+                player.hurt(this.damageSources().thorns(this), 2.0F);
+                player.getCooldowns().addCooldown(item.getItem(), 80);
 			}
 		}
 		return java.util.Collections.emptyList();
@@ -262,12 +264,12 @@ public class CrystalFox extends Animal implements IForgeShearable {
 
 	public boolean hurt(DamageSource p_32820_, float p_32821_) {
 		if (this.isShearableWithoutConditions()) {
-			if (!p_32820_.isMagic() && p_32820_.getDirectEntity() instanceof LivingEntity) {
-				LivingEntity livingentity = (LivingEntity) p_32820_.getDirectEntity();
-				if (!p_32820_.isExplosion()) {
-					livingentity.hurt(DamageSource.thorns(this), 2.0F);
-				}
-			}
+            if (!p_32820_.is(DamageTypes.MAGIC) && p_32820_.getDirectEntity() instanceof LivingEntity) {
+                LivingEntity livingentity = (LivingEntity) p_32820_.getDirectEntity();
+                if (!p_32820_.is(DamageTypeTags.IS_EXPLOSION)) {
+                    livingentity.hurt(this.damageSources().thorns(this), 2.0F);
+                }
+            }
 		}
 
 		return super.hurt(p_32820_, p_32821_);

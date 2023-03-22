@@ -19,5 +19,6 @@
   ],
   "result": {
     "item": "frostrealm:frost_campfire"
-  }
+  },
+  "show_notification": true
 }

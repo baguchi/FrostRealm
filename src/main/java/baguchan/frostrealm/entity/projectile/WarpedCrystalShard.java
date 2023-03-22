@@ -6,7 +6,6 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -56,15 +55,15 @@ public class WarpedCrystalShard extends ThrowableItemProjectile {
 	protected void onHitEntity(EntityHitResult p_37404_) {
 		super.onHitEntity(p_37404_);
 		Entity entity = p_37404_.getEntity();
-		if (entity.hurt(DamageSource.thrown(this, this.getOwner()), 3)) {
-			this.level.broadcastEntityEvent(this, (byte) 3);
-			this.playSound(SoundEvents.GLASS_BREAK, 1.0F, 1.25F);
-			this.discard();
-		} else {
-			this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
-			this.setYRot(this.getYRot() + 180.0F);
-			this.yRotO += 180.0F;
-		}
+		if (entity.hurt(this.damageSources().thrown(this, this.getOwner()), 3)) {
+            this.level.broadcastEntityEvent(this, (byte) 3);
+            this.playSound(SoundEvents.GLASS_BREAK, 1.0F, 1.25F);
+            this.discard();
+        } else {
+            this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
+            this.setYRot(this.getYRot() + 180.0F);
+            this.yRotO += 180.0F;
+        }
 	}
 
 	@Override

@@ -15,5 +15,6 @@
   ],
   "result": {
     "item": "frostrealm:frostroot_fence_gate"
-  }
+  },
+  "show_notification": true
 }

@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "frostrealm:rolga_crystal"
-  }
+  },
+  "show_notification": true
 }

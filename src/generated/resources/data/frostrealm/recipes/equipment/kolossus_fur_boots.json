@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "frostrealm:kolossus_fur_boots"
-  }
+  },
+  "show_notification": true
 }

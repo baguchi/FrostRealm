@@ -171,7 +171,7 @@ public class CrystalSmithingMenu extends AbstractContainerMenu {
 				this.resultSlots.setItem(0, ItemStack.EMPTY);
 			} else {
 				CrystalSmithingRecipe upgraderecipe = list.get(0);
-				ItemStack itemstack = upgraderecipe.assemble(this.inputSlots);
+                ItemStack itemstack = upgraderecipe.assemble(this.inputSlots, this.level.registryAccess());
 				if (itemstack.isItemEnabled(this.level.enabledFeatures())) {
 					this.selectedRecipe = upgraderecipe;
 					this.resultSlots.setRecipeUsed(upgraderecipe);

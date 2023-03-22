@@ -4,7 +4,6 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.world.biome.FrostrealmBiomeBuilder;
 import baguchan.frostrealm.world.gen.FrostNoiseRouterData;
 import baguchan.frostrealm.world.gen.FrostSurfaceRuleData;
-import com.mojang.serialization.DataResult;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
@@ -57,21 +56,8 @@ public class FrostDimensionSettings {
 		);
 	}
 
-	private static DataResult<NoiseSettings> guardY(NoiseSettings p_158721_) {
-		if (p_158721_.minY() + p_158721_.height() > DimensionType.MAX_Y + 1) {
-			return DataResult.error("min_y + height cannot be higher than: " + (DimensionType.MAX_Y + 1));
-		} else if (p_158721_.height() % 16 != 0) {
-			return DataResult.error("height has to be a multiple of 16");
-		} else {
-			return p_158721_.minY() % 16 != 0 ? DataResult.error("min_y has to be a multiple of 16") : DataResult.success(p_158721_);
-		}
-	}
-
 	public static NoiseSettings create(int p_224526_, int p_224527_, int p_224528_, int p_224529_) {
 		NoiseSettings noisesettings = new NoiseSettings(p_224526_, p_224527_, p_224528_, p_224529_);
-		guardY(noisesettings).error().ifPresent((p_158719_) -> {
-			throw new IllegalStateException(p_158719_.message());
-		});
 		return noisesettings;
 	}
 

@@ -52,7 +52,7 @@
       "frostrealm:patch_tundra_grass"
     ]
   ],
-  "precipitation": "none",
+  "has_precipitation": true,
   "spawn_costs": {},
   "spawners": {
     "ambient": [],

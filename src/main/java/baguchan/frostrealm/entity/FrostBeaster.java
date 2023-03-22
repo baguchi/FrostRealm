@@ -12,7 +12,6 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -117,6 +116,6 @@ public class FrostBeaster extends FrozenMonster implements IChargeMob {
 
 	@Override
 	public void onChargeDamage(LivingEntity damageEntity) {
-		damageEntity.hurt(DamageSource.mobAttack(this), Mth.floor((float) (this.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.5F)));
+		damageEntity.hurt(this.damageSources().mobAttack(this), Mth.floor((float) (this.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.5F)));
 	}
 }

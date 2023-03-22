@@ -13,5 +13,6 @@
   ],
   "result": {
     "item": "frostrealm:kolossus_fur_chestplate"
-  }
+  },
+  "show_notification": true
 }

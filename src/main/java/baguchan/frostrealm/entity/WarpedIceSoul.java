@@ -73,7 +73,7 @@ public class WarpedIceSoul extends FrozenMonster {
 			}
 		}
 
-		this.calculateEntityAnimation(this, false);
+		this.calculateEntityAnimation(false);
 	}
 
 	@Nullable

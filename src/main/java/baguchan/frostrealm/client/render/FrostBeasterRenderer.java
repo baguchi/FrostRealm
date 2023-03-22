@@ -24,8 +24,8 @@ public class FrostBeasterRenderer<T extends FrostBeaster> extends MobRenderer<T,
 
 	public FrostBeasterRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new FrostBeasterModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFESTER)), 0.5F);
-		this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel(p_173952_.bakeLayer(FrostModelLayers.FROST_BEASTER_INNER_ARMOR)), new HumanoidModel(p_173952_.bakeLayer(FrostModelLayers.FROST_BEASTER_OUTER_ARMOR))));
-		this.addLayer(new ItemInHandLayer<>(this, Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer()));
+        this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel(p_173952_.bakeLayer(FrostModelLayers.FROST_BEASTER_INNER_ARMOR)), new HumanoidModel(p_173952_.bakeLayer(FrostModelLayers.FROST_BEASTER_OUTER_ARMOR)), p_173952_.getModelManager()));
+        this.addLayer(new ItemInHandLayer<>(this, Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer()));
 		this.addLayer(new EyesLayer<>(this) {
 			@Override
 			public RenderType renderType() {

@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "frostrealm:yeti_fur_helmet"
-  }
+  },
+  "show_notification": true
 }

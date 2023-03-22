@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "frostrealm:astrium_helmet"
-  }
+  },
+  "show_notification": true
 }

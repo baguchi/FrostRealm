@@ -73,7 +73,6 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 		helmetItem(consumer, "astrium_helmet", FrostItems.ASTRIUM_HELMET.get(), FrostItems.ASTRIUM_INGOT.get());
 		chestplateItem(consumer, "astrium_chestplate", FrostItems.ASTRIUM_CHESTPLATE.get(), FrostItems.ASTRIUM_INGOT.get());
-		cryoniteSmithing(consumer, FrostItems.ASTRIUM_CHESTPLATE.get(), RecipeCategory.COMBAT, FrostItems.ASTRIUM_WITH_CRYONITE_CHESTPLATE.get());
 		leggingsItem(consumer, "astrium_leggings", FrostItems.ASTRIUM_LEGGINGS.get(), FrostItems.ASTRIUM_INGOT.get());
 		bootsItem(consumer, "astrium_boots", FrostItems.ASTRIUM_BOOTS.get(), FrostItems.ASTRIUM_INGOT.get());
 

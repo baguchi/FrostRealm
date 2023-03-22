@@ -1,5 +1,6 @@
 package baguchan.frostrealm.entity;
 
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -13,10 +14,10 @@ public abstract class FrozenMonster extends Monster {
 
 	@Override
 	public boolean hurt(DamageSource p_21016_, float p_21017_) {
-		if (p_21016_.isFire()) {
-			float f = 2.0F;
-			p_21017_ = Mth.clamp(p_21017_ * 1.25F + 1.0F, 0.0F, this.getMaxHealth());
-		}
+        if (p_21016_.is(DamageTypeTags.IS_FIRE)) {
+            float f = 2.0F;
+            p_21017_ = Mth.clamp(p_21017_ * 1.25F + 1.0F, 0.0F, this.getMaxHealth());
+        }
 
 		return super.hurt(p_21016_, p_21017_);
 	}

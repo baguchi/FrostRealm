@@ -3,6 +3,7 @@ package baguchan.frostrealm.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -66,10 +67,24 @@ public class FrostWraith extends FrozenMonster {
 
 	@Override
 	public void travel(Vec3 p_21280_) {
-		this.flyingSpeed = this.getSpeed() * 0.21600002F;
-		super.travel(p_21280_);
-		this.flyingSpeed = 0.02F;
-	}
+        if (this.isControlledByLocalInstance()) {
+            if (this.isInWater()) {
+                this.moveRelative(0.02F, p_21280_);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale((double) 0.8F));
+            } else if (this.isInLava()) {
+                this.moveRelative(0.02F, p_21280_);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
+            } else {
+                this.moveRelative(this.getSpeed() * 0.21F, p_21280_);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale((double) 0.91F));
+            }
+        }
+
+        this.calculateEntityAnimation(false);
+    }
 
 	public boolean causeFallDamage(float p_148989_, float p_148990_, DamageSource p_148991_) {
 		return false;

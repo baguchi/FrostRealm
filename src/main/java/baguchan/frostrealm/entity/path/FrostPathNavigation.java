@@ -17,9 +17,9 @@ public class FrostPathNavigation extends GroundPathNavigation {
 	protected void trimPath() {
 		super.trimPath();
 
-		if (FrostWeatherCapability.isBadWeatherActive(this.level) && BlizzardUtils.isAffectWeather(this.mob, new BlockPos(this.mob.getX(), this.mob.getY() + 0.5D, this.mob.getZ()))) {
-			return;
-		}
+		if (FrostWeatherCapability.isBadWeatherActive(this.level) && BlizzardUtils.isAffectWeather(this.mob, BlockPos.containing(this.mob.getX(), this.mob.getY() + 0.5D, this.mob.getZ()))) {
+            return;
+        }
 
 		for (int i = 0; i < this.path.getNodeCount(); ++i) {
 			Node node = this.path.getNode(i);

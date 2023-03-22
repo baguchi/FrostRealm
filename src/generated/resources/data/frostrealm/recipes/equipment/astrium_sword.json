@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "frostrealm:astrium_sword"
-  }
+  },
+  "show_notification": true
 }

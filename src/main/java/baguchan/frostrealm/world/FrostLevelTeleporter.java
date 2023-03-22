@@ -42,7 +42,7 @@ public class FrostLevelTeleporter implements ITeleporter {
 		if ((pos = placeInExistingPortal(dest, entity, entity.blockPosition(), entity instanceof Player)) == null) {
 			pos = moveToSafeCoords(dest, entity);
 			makePortal(entity, dest, pos.pos);
-			pos = placeInExistingPortal(dest, entity, new BlockPos(pos.pos), entity instanceof Player);
+			pos = placeInExistingPortal(dest, entity, BlockPos.containing(pos.pos), entity instanceof Player);
 		}
 		return pos;
 	}
@@ -264,7 +264,7 @@ public class FrostLevelTeleporter implements ITeleporter {
 		}
 
 		double yFactor = getYFactor(world);
-		cachePortalCoords(world, pos, makePortalAt(world, new BlockPos(entity.getX(), (entity.getY() * yFactor) - 1.0, entity.getZ())));
+		cachePortalCoords(world, pos, makePortalAt(world, BlockPos.containing(entity.getX(), (entity.getY() * yFactor) - 1.0, entity.getZ())));
 	}
 
 	private static boolean isOkayForPortal(ServerLevel world, BlockPos pos) {

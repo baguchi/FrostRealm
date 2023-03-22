@@ -2,29 +2,16 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.data.resource.FrostBiomeBuilders;
-import baguchan.frostrealm.world.biome.FrostrealmBiomeBuilder;
-import com.google.common.collect.ImmutableList;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Climate;
-import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class FrostBiomes {
-	public static final MultiNoiseBiomeSource.Preset FROSTREALM_BIOMESOURCE = new MultiNoiseBiomeSource.Preset(FrostRealm.prefix("frostrealm"), (p_187108_) -> {
-		ImmutableList.Builder<Pair<Climate.ParameterPoint, Holder<Biome>>> builder = ImmutableList.builder();
-		(new FrostrealmBiomeBuilder()).addBiomes((p_204279_) -> {
-			builder.add(p_204279_.mapSecond(p_187108_::getOrThrow));
-		});
-		return new Climate.ParameterList<>(builder.build());
-	});
 
 	public static final ResourceKey<Biome> TUNDRA = register("tundra");
 	public static final ResourceKey<Biome> FRIGID_FOREST = register("frigid_forest");

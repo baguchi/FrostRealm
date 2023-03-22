@@ -12,5 +12,6 @@
   ],
   "result": {
     "item": "frostrealm:yeti_fur_boots"
-  }
+  },
+  "show_notification": true
 }

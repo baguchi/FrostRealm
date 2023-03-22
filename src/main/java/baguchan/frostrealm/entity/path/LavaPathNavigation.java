@@ -31,7 +31,7 @@ public class LavaPathNavigation extends PathNavigation {
 	}
 
 	protected double getGroundY(Vec3 p_186132_) {
-		BlockPos blockpos = new BlockPos(p_186132_);
+		BlockPos blockpos = BlockPos.containing(p_186132_);
 		return this.level.getBlockState(blockpos.below()).isAir() || this.level.getBlockState(blockpos).getFluidState().is(FluidTags.LAVA) ? p_186132_.y : WalkNodeEvaluator.getFloorLevel(this.level, blockpos);
 	}
 

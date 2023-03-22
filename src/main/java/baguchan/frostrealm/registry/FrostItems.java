@@ -4,7 +4,6 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.item.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -62,23 +61,21 @@ public class FrostItems {
 	public static final RegistryObject<Item> ASTRIUM_HOE = ITEMS.register("astrium_hoe", () -> new HoeItem(FrostItemTier.ASTRIUM, -2, -1.0F, (new Item.Properties())));
 
 
-	public static final RegistryObject<Item> YETI_FUR_HELMET = ITEMS.register("yeti_fur_helmet", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.HEAD, (new Item.Properties())));
-	public static final RegistryObject<Item> YETI_FUR_CHESTPLATE = ITEMS.register("yeti_fur_chestplate", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.CHEST, (new Item.Properties())));
-	public static final RegistryObject<Item> YETI_FUR_LEGGINGS = ITEMS.register("yeti_fur_leggings", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.LEGS, (new Item.Properties())));
-	public static final RegistryObject<Item> YETI_FUR_BOOTS = ITEMS.register("yeti_fur_boots", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, EquipmentSlot.FEET, (new Item.Properties())));
+	public static final RegistryObject<Item> YETI_FUR_HELMET = ITEMS.register("yeti_fur_helmet", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorItem.Type.HELMET, (new Item.Properties())));
+	public static final RegistryObject<Item> YETI_FUR_CHESTPLATE = ITEMS.register("yeti_fur_chestplate", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorItem.Type.CHESTPLATE, (new Item.Properties())));
+	public static final RegistryObject<Item> YETI_FUR_LEGGINGS = ITEMS.register("yeti_fur_leggings", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorItem.Type.LEGGINGS, (new Item.Properties())));
+	public static final RegistryObject<Item> YETI_FUR_BOOTS = ITEMS.register("yeti_fur_boots", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorItem.Type.BOOTS, (new Item.Properties())));
 
-	public static final RegistryObject<Item> KOLOSSUS_FUR_HELMET = ITEMS.register("kolossus_fur_helmet", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, EquipmentSlot.HEAD, (new Item.Properties())));
-	public static final RegistryObject<Item> KOLOSSUS_FUR_CHESTPLATE = ITEMS.register("kolossus_fur_chestplate", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, EquipmentSlot.CHEST, (new Item.Properties())));
-	public static final RegistryObject<Item> KOLOSSUS_FUR_LEGGINGS = ITEMS.register("kolossus_fur_leggings", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, EquipmentSlot.LEGS, (new Item.Properties())));
-	public static final RegistryObject<Item> KOLOSSUS_FUR_BOOTS = ITEMS.register("kolossus_fur_boots", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, EquipmentSlot.FEET, (new Item.Properties())));
+	public static final RegistryObject<Item> KOLOSSUS_FUR_HELMET = ITEMS.register("kolossus_fur_helmet", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, ArmorItem.Type.HELMET, (new Item.Properties())));
+	public static final RegistryObject<Item> KOLOSSUS_FUR_CHESTPLATE = ITEMS.register("kolossus_fur_chestplate", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, ArmorItem.Type.CHESTPLATE, (new Item.Properties())));
+	public static final RegistryObject<Item> KOLOSSUS_FUR_LEGGINGS = ITEMS.register("kolossus_fur_leggings", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, ArmorItem.Type.LEGGINGS, (new Item.Properties())));
+	public static final RegistryObject<Item> KOLOSSUS_FUR_BOOTS = ITEMS.register("kolossus_fur_boots", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, ArmorItem.Type.BOOTS, (new Item.Properties())));
 
 
-	public static final RegistryObject<Item> ASTRIUM_HELMET = ITEMS.register("astrium_helmet", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.HEAD, (new Item.Properties())));
-	public static final RegistryObject<Item> ASTRIUM_CHESTPLATE = ITEMS.register("astrium_chestplate", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.CHEST, (new Item.Properties())));
-	public static final RegistryObject<Item> ASTRIUM_WITH_CRYONITE_CHESTPLATE = ITEMS.register("astrium_with_cryonite_chestplate", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM_WITH_CRYONITE, EquipmentSlot.CHEST, (new Item.Properties())));
-
-	public static final RegistryObject<Item> ASTRIUM_LEGGINGS = ITEMS.register("astrium_leggings", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.LEGS, (new Item.Properties())));
-	public static final RegistryObject<Item> ASTRIUM_BOOTS = ITEMS.register("astrium_boots", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, EquipmentSlot.FEET, (new Item.Properties())));
+	public static final RegistryObject<Item> ASTRIUM_HELMET = ITEMS.register("astrium_helmet", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, ArmorItem.Type.HELMET, (new Item.Properties())));
+	public static final RegistryObject<Item> ASTRIUM_CHESTPLATE = ITEMS.register("astrium_chestplate", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, ArmorItem.Type.CHESTPLATE, (new Item.Properties())));
+	public static final RegistryObject<Item> ASTRIUM_LEGGINGS = ITEMS.register("astrium_leggings", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, ArmorItem.Type.LEGGINGS, (new Item.Properties())));
+	public static final RegistryObject<Item> ASTRIUM_BOOTS = ITEMS.register("astrium_boots", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, ArmorItem.Type.BOOTS, (new Item.Properties())));
 
 
 	public static final RegistryObject<Item> MARMOT_SPAWNEGG = ITEMS.register("marmot_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.MARMOT, 0xB18346, 0x9B6B2D, (new Item.Properties())));
@@ -100,7 +97,7 @@ public class FrostItems {
 				, (builder) -> {
 					FrostCreativeModeTab.FROSTREALM_ITEM = builder.icon(() -> {
 						return new ItemStack(FrostItems.FROST_CATALYST.get());
-					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".item" + ".main_tab")).displayItems((features, output, hasPermissions) ->
+					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".item" + ".main_tab")).displayItems((features, output) ->
 							output.acceptAll(Stream.of(
 											FROST_CRYSTAL,
 											CRYONITE,
@@ -130,7 +127,6 @@ public class FrostItems {
 											ASTRIUM_HOE,
 											ASTRIUM_HELMET,
 											ASTRIUM_CHESTPLATE,
-											ASTRIUM_WITH_CRYONITE_CHESTPLATE,
 											ASTRIUM_LEGGINGS,
 											ASTRIUM_BOOTS,
 											YETI_FUR_HELMET,
@@ -159,7 +155,7 @@ public class FrostItems {
 				, (builder) -> {
 					FrostCreativeModeTab.FROSTREALM_BLOCK = builder.icon(() -> {
 						return new ItemStack(FrostItems.FROST_CATALYST.get());
-					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".block" + ".main_tab")).displayItems((features, output, hasPermissions) ->
+					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".block" + ".main_tab")).displayItems((features, output) ->
 							output.acceptAll(Stream.of(
 											FrostBlocks.FROZEN_DIRT,
 											FrostBlocks.FROZEN_GRASS_BLOCK,

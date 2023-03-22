@@ -40,7 +40,6 @@ public class ClientColdHUDEvent {
 					timeInPortal = timeInPortal * timeInPortal;
 					timeInPortal = timeInPortal * 0.8F + 0.2F;
 				}
-				RenderSystem.enableTexture();
 				RenderSystem.enableBlend();
 				RenderSystem.defaultBlendFunc();
 				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, timeInPortal);
@@ -60,7 +59,6 @@ public class ClientColdHUDEvent {
 				bufferbuilder.vertex(0.0D, 0.0D, -90.0D).uv(f, f1).endVertex();
 				tesselator.end();
 				RenderSystem.disableBlend();
-				RenderSystem.disableTexture();
 				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			}
 		});
