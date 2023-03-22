@@ -50,9 +50,9 @@ public class SnowMole extends Animal {
 
 	public void travel(Vec3 p_27490_) {
 		if (this.isEffectiveAi() && this.wasInPowderSnow) {
-			this.moveRelative(0.01F, p_27490_);
+			this.moveRelative(this.getSpeed(), p_27490_);
 			this.move(MoverType.SELF, this.getDeltaMovement());
-			this.setDeltaMovement(this.getDeltaMovement().scale(0.65D));
+			this.setDeltaMovement(this.getDeltaMovement().scale(0.6D));
 		} else {
 			super.travel(p_27490_);
 		}

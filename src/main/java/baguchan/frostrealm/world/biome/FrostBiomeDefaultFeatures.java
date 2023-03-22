@@ -91,6 +91,10 @@ public class FrostBiomeDefaultFeatures {
 		p_194721_.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FrostPlacements.LAVA_DELTA);
 	}
 
+	public static void addStarDustHillFeatures(BiomeGenerationSettings.Builder p_194721_) {
+		p_194721_.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FrostPlacements.STARDUST_CRUSTER);
+	}
+
 	public static void addIceCaveFeatures(BiomeGenerationSettings.Builder p_194721_) {
 		p_194721_.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, FrostPlacements.ICE_CLUSTER);
 		p_194721_.addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, FrostPlacements.LARGE_ICE);

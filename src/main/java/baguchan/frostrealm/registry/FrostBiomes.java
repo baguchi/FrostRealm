@@ -38,7 +38,7 @@ public class FrostBiomes {
 		context.register(FROZEN_CANYON, FrostBiomeBuilders.mountainBiome(placedFeatures, vanillaConfiguredCarvers));
 		context.register(GLACIERS, FrostBiomeBuilders.mountainBiome(placedFeatures, vanillaConfiguredCarvers));
 		context.register(HOT_ROCK, FrostBiomeBuilders.hotrockBiome(placedFeatures, vanillaConfiguredCarvers));
-		context.register(STAR_DUST_PEAKS, FrostBiomeBuilders.mountainBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(STAR_DUST_PEAKS, FrostBiomeBuilders.stardustPeakBiome(placedFeatures, vanillaConfiguredCarvers));
 		context.register(WARPED_CLIFFS, FrostBiomeBuilders.mountainBiome(placedFeatures, vanillaConfiguredCarvers));
 		context.register(FROZEN_OCEAN, FrostBiomeBuilders.oceanBiome(placedFeatures, vanillaConfiguredCarvers));
 		context.register(FROZEN_DEEP_OCEAN, FrostBiomeBuilders.oceanBiome(placedFeatures, vanillaConfiguredCarvers));

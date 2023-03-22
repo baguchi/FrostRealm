@@ -103,6 +103,16 @@ public class FrostBiomeBuilders {
 		return makeDefaultBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
 	}
 
+	public static Biome stardustPeakBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
+		BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
+		FrostBiomeDefaultFeatures.mountainCreatureSpawns(builder1);
+		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
+		FrostBiomeDefaultFeatures.addStarDustHillFeatures(builder);
+		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
+		return makeDefaultBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
+	}
+
 	public static Biome makeDefaultBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting) {
 		return makeDefaultBiome(builder, mobSpawnSetting, FrostSounds.FROST_MOON_BGM);
 	}
