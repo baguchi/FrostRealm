@@ -118,5 +118,13 @@
       }
     ],
     "subtitle": "subtitles.entity.snowpile_quail.death"
+  },
+  "ambient.mortar.moving": {
+    "sounds": [
+      {
+        "name": "frostrealm:ambient/gravity_moving"
+      }
+    ],
+    "subtitle": "subtitles.ambient.gravity_moving"
   }
 }

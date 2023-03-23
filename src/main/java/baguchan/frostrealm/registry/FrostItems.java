@@ -87,6 +87,9 @@ public class FrostItems {
 	public static final RegistryObject<Item> FROST_BEASTER_SPAWNEGG = ITEMS.register("frost_beaster_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.FROST_BEASTER, 0x7CA7A6, 0x973C3C, (new Item.Properties())));
 	public static final RegistryObject<Item> CRYSTAL_FOX_SPAWNEGG = ITEMS.register("crystal_fox_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.CRYSTAL_FOX, 0xF7FFFB, 0x90D3E8, (new Item.Properties())));
 	public static final RegistryObject<Item> SNOW_MOLE_SPAWNEGG = ITEMS.register("snow_mole_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.SNOW_MOLE, 0xE4E5E6, 0xB6A7A7, (new Item.Properties())));
+	public static final RegistryObject<Item> ASTRA_BALL_SPAWNEGG = ITEMS.register("astra_ball_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.ASTRA_BALL, 0x9352CC, 0xE3A6FF, (new Item.Properties())));
+
+
 	@SubscribeEvent
 	public static void registerCreativeModeTabs(CreativeModeTabEvent.Register event) {
 		event.registerCreativeModeTab(new ResourceLocation(FrostRealm.MODID, "item")
@@ -142,7 +145,8 @@ public class FrostItems {
 											GOKKUDILLO_SPAWNEGG,
 											FROST_BEASTER_SPAWNEGG,
 											CRYSTAL_FOX_SPAWNEGG,
-											SNOW_MOLE_SPAWNEGG)
+											SNOW_MOLE_SPAWNEGG,
+											ASTRA_BALL_SPAWNEGG)
 									.map(item -> item.get().getDefaultInstance())
 									.toList())).build();
 				});

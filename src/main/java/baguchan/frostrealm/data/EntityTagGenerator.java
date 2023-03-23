@@ -21,7 +21,7 @@ public class EntityTagGenerator extends EntityTypeTagsProvider {
 	protected void addTags(HolderLookup.Provider provider) {
 
 		tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.FROST_WRAITH.get(), FrostEntities.CLUST_WRAITH.get(), FrostEntities.GOKKUDILLO.get()
-				, FrostEntities.SNOWPILE_QUAIL.get(), FrostEntities.CRYSTAL_FOX.get(), FrostEntities.FROST_BEASTER.get(), FrostEntities.SNOW_MOLE.get());
-		tag(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE).addTag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.FROST_WOLF.get(), FrostEntities.YETI.get(), FrostEntities.MARMOT.get());
+                , FrostEntities.SNOWPILE_QUAIL.get(), FrostEntities.CRYSTAL_FOX.get(), FrostEntities.FROST_BEASTER.get(), FrostEntities.ASTRA_BALL.get(), FrostEntities.SNOW_MOLE.get());
+        tag(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE).addTag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.FROST_WOLF.get(), FrostEntities.YETI.get(), FrostEntities.MARMOT.get());
 	}
 }

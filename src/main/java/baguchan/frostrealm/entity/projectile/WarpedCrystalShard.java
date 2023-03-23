@@ -21,11 +21,11 @@ public class WarpedCrystalShard extends ThrowableItemProjectile {
 	}
 
 	public WarpedCrystalShard(Level p_37399_, LivingEntity p_37400_) {
-		super(FrostEntities.WARPED_CRYSTAL.get(), p_37400_, p_37399_);
+		super(FrostEntities.WARPED_CRYSTAL_SHARD.get(), p_37400_, p_37399_);
 	}
 
 	public WarpedCrystalShard(Level p_37394_, double p_37395_, double p_37396_, double p_37397_) {
-		super(FrostEntities.WARPED_CRYSTAL.get(), p_37395_, p_37396_, p_37397_, p_37394_);
+        super(FrostEntities.WARPED_CRYSTAL_SHARD.get(), p_37395_, p_37396_, p_37397_, p_37394_);
 	}
 
 	protected Item getDefaultItem() {
