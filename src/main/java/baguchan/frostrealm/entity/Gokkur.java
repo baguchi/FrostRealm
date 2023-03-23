@@ -242,7 +242,7 @@ public class Gokkur extends Monster {
 
 		@Override
 		public boolean canContinueToUse() {
-			return this.gokkur.getTarget() != null && this.gokkur.getMoveControl().hasWanted() && super.canContinueToUse();
+			return this.gokkur.getMoveControl().hasWanted() && super.canContinueToUse();
 		}
 
 		@Override
