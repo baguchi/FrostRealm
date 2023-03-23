@@ -242,7 +242,7 @@ public class Gokkur extends Monster {
 
 		@Override
 		public boolean canContinueToUse() {
-			return this.gokkur.getTarget() != null && super.canContinueToUse();
+			return this.gokkur.getTarget() != null && this.gokkur.getMoveControl().hasWanted() && super.canContinueToUse();
 		}
 
 		@Override
@@ -250,6 +250,10 @@ public class Gokkur extends Monster {
 			super.start();
 			this.gokkur.setRolling(true);
 			this.stopTrigger = false;
+			LivingEntity livingentity = this.gokkur.getTarget();
+			if (livingentity != null) {
+				this.gokkur.getMoveControl().setWantedPosition(livingentity.getX() - (livingentity.getLookAngle().x() * 5.0F), livingentity.getY(), livingentity.getZ() - (livingentity.getLookAngle().z() * 5.0F), 2.5D);
+			}
 		}
 
 		@Override
@@ -259,17 +263,19 @@ public class Gokkur extends Monster {
 			this.stopTrigger = false;
 		}
 
-		public void setStopTrigger(boolean stopTrigger) {
-			this.stopTrigger = stopTrigger;
-		}
-
 		@Override
 		public void tick() {
 			super.tick();
-			LivingEntity livingentity = this.gokkur.getTarget();
-			if (livingentity != null) {
-				this.gokkur.getMoveControl().setWantedPosition(livingentity.getX(), livingentity.getY(), livingentity.getZ(), 2.5D);
+			if (this.gokkur.horizontalCollision) {
+				this.gokkur.setRolling(false);
+				this.gokkur.setStun(true);
+				this.gokkur.knockback(0.8F, -this.gokkur.getDeltaMovement().x(), -this.gokkur.getDeltaMovement().z());
+
 			}
+		}
+
+		public void setStopTrigger(boolean stopTrigger) {
+			this.stopTrigger = stopTrigger;
 		}
 	}
 
