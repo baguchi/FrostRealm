@@ -99,6 +99,7 @@ public class FrostBlocks {
 	public static final RegistryObject<Block> FROST_CRYSTAL_ORE = register("frost_crystal_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(1, 2)));
 	public static final RegistryObject<Block> GLIMMERROCK_ORE = register("glimmerrock_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(1, 3)));
 	public static final RegistryObject<Block> ASTRIUM_ORE = register("astrium_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
+	public static final RegistryObject<Block> ASTRIUM_BLOCK = register("astrium_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 
 	public static final RegistryObject<Block> STARDUST_CRYSTAL_ORE = register("stardust_crystal_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK), UniformInt.of(2, 4)));
 	public static final RegistryObject<Block> STARDUST_CRYSTAL_CLUSTER = register("stardust_crystal_cluster", () -> new StarDustCrystalBlock(BlockBehaviour.Properties.of(Material.GLASS).isSuffocating(FrostBlocks::never).requiresCorrectToolForDrops().lightLevel((state) -> {

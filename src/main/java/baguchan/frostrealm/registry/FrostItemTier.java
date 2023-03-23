@@ -7,9 +7,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 
 public enum FrostItemTier implements Tier {
-	ASTRIUM(2, 320, 6.0F, 2.0F, 16, () -> Ingredient.of(FrostItems.ASTRIUM_INGOT.get())),
-	ROLGA(3, 424, 7.5F, 3.0F, 18, () -> Ingredient.of(FrostItems.ROLGA_CRYSTAL.get()));
-
+	ASTRIUM(2, 320, 6.0F, 2.0F, 16, () -> Ingredient.of(FrostItems.ASTRIUM_INGOT.get()));
 	private final int level;
 
 	private final int uses;

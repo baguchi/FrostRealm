@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "frostrealm:rolga_shard"
+              "frostrealm:astrium_ingot"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "frostrealm:rolga_crystal"
+        "recipe": "frostrealm:astrium_ingot_from_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "frostrealm:rolga_crystal"
+      "frostrealm:astrium_ingot_from_block"
     ]
   }
 }

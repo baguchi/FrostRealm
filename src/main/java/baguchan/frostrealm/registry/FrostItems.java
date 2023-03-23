@@ -1,7 +1,10 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.item.*;
+import baguchan.frostrealm.item.FrostCatalystItem;
+import baguchan.frostrealm.item.FusionCrystalDaggerItem;
+import baguchan.frostrealm.item.GlimmerRockItem;
+import baguchan.frostrealm.item.YetiFurArmorItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
@@ -22,9 +25,6 @@ public class FrostItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
 	public static final RegistryObject<Item> FROST_CRYSTAL = ITEMS.register("frost_crystal", () -> new Item((new Item.Properties())));
-
-	public static final RegistryObject<Item> ROLGA_CRYSTAL = ITEMS.register("rolga_crystal", () -> new Item((new Item.Properties()).fireResistant()));
-	public static final RegistryObject<Item> ROLGA_SHARD = ITEMS.register("rolga_shard", () -> new Item((new Item.Properties()).fireResistant()));
 
 	public static final RegistryObject<Item> CRYONITE = ITEMS.register("cryonite", () -> new Item((new Item.Properties())));
 
@@ -51,8 +51,6 @@ public class FrostItems {
 	public static final RegistryObject<Item> KOLOSSUS_FUR = ITEMS.register("kolossus_fur", () -> new Item((new Item.Properties())));
 
 	public static final RegistryObject<Item> FUSION_CRYSTAL_DAGGER = ITEMS.register("fusion_crystal_dagger", () -> new FusionCrystalDaggerItem((new Item.Properties()).durability(420)));
-	public static final RegistryObject<Item> ROLGA_SWORD = ITEMS.register("rolga_sword", () -> new RolgaSwordItem(FrostItemTier.ROLGA, 3, -2.35F, (new Item.Properties()).fireResistant()));
-
 
 	public static final RegistryObject<Item> ASTRIUM_SWORD = ITEMS.register("astrium_sword", () -> new SwordItem(FrostItemTier.ASTRIUM, 3, -2.3F, (new Item.Properties())));
 	public static final RegistryObject<Item> ASTRIUM_AXE = ITEMS.register("astrium_axe", () -> new AxeItem(FrostItemTier.ASTRIUM, 5.5F, -3.0F, (new Item.Properties())));
@@ -177,17 +175,18 @@ public class FrostItems {
                                             FrostBlocks.FROSTROOT_FENCE_GATE,
                                             FrostBlocks.FROSTROOT_DOOR,
                                             FrostBlocks.FROSTROOT_CHEST,
-                                            FrostBlocks.FROSTROOT_CRAFTING_TABLE,
-                                            FrostBlocks.VIGOROSHROOM,
-                                            FrostBlocks.ARCTIC_POPPY,
-                                            FrostBlocks.ARCTIC_WILLOW,
-                                            FrostBlocks.COLD_GRASS,
-                                            FrostBlocks.COLD_TALL_GRASS,
-                                            FrostBlocks.SNOWPILE_QUAIL_EGG,
-                                            FrostBlocks.FROST_CRYSTAL_ORE,
-                                            FrostBlocks.GLIMMERROCK_ORE,
-                                            FrostBlocks.ASTRIUM_ORE,
-                                            FrostBlocks.STARDUST_CRYSTAL_ORE,
+											FrostBlocks.FROSTROOT_CRAFTING_TABLE,
+											FrostBlocks.VIGOROSHROOM,
+											FrostBlocks.ARCTIC_POPPY,
+											FrostBlocks.ARCTIC_WILLOW,
+											FrostBlocks.COLD_GRASS,
+											FrostBlocks.COLD_TALL_GRASS,
+											FrostBlocks.SNOWPILE_QUAIL_EGG,
+											FrostBlocks.FROST_CRYSTAL_ORE,
+											FrostBlocks.GLIMMERROCK_ORE,
+											FrostBlocks.ASTRIUM_ORE,
+											FrostBlocks.ASTRIUM_BLOCK,
+											FrostBlocks.STARDUST_CRYSTAL_ORE,
 											FrostBlocks.STARDUST_CRYSTAL_CLUSTER,
 											FrostBlocks.WARPED_CRYSTAL_BLOCK,
 											FrostBlocks.FROST_TORCH,

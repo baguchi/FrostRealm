@@ -2,6 +2,7 @@
   "values": [
     "frostrealm:stardust_crystal_ore",
     "frostrealm:glimmerrock_ore",
-    "frostrealm:astrium_ore"
+    "frostrealm:astrium_ore",
+    "frostrealm:astrium_block"
   ]
 }

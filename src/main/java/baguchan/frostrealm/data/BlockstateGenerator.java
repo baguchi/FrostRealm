@@ -68,6 +68,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.glowBlock(FrostBlocks.FROST_CRYSTAL_ORE.get());
 		this.glowBlock(FrostBlocks.GLIMMERROCK_ORE.get());
 		this.simpleBlock(FrostBlocks.ASTRIUM_ORE.get());
+		this.simpleBlock(FrostBlocks.ASTRIUM_BLOCK.get());
 		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
 		this.translucentBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.translucentBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
