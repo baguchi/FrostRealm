@@ -5,7 +5,9 @@ import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.command.FrostWeatherCommand;
-import baguchan.frostrealm.message.*;
+import baguchan.frostrealm.message.ChangeWeatherMessage;
+import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
+import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.world.gen.FrostTreeFeatures;
 import com.google.common.collect.Maps;
@@ -112,14 +114,6 @@ public class FrostRealm {
 		CHANNEL.messageBuilder(ChangeWeatherMessage.class, 2)
 				.encoder(ChangeWeatherMessage::writeToPacket).decoder(ChangeWeatherMessage::readFromPacket)
 				.consumerMainThread(ChangeWeatherMessage::handle)
-				.add();
-		CHANNEL.messageBuilder(AuroraLevelMessage.class, 4)
-				.encoder(AuroraLevelMessage::writeToPacket).decoder(AuroraLevelMessage::readFromPacket)
-				.consumerMainThread(AuroraLevelMessage::handle)
-				.add();
-		CHANNEL.messageBuilder(AuroraPowerMessage.class, 5)
-				.encoder(AuroraPowerMessage::writeToPacket).decoder(AuroraPowerMessage::readFromPacket)
-				.consumerMainThread(AuroraPowerMessage::handle)
 				.add();
 	}
 

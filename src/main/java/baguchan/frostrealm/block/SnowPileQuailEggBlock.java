@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -46,6 +45,12 @@ public class SnowPileQuailEggBlock extends Block {
 		this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, Integer.valueOf(0)).setValue(EGGS, Integer.valueOf(1)));
 	}
 
+	@Override
+	public void onPlace(BlockState p_221227_, Level p_221228_, BlockPos p_221229_, BlockState p_221230_, boolean p_221231_) {
+		p_221228_.scheduleTick(p_221229_, this, 1200);
+	}
+
+	@Override
 	public void fallOn(Level p_154845_, BlockState p_154846_, BlockPos p_154847_, Entity p_154848_, float p_154849_) {
 		if (!(p_154848_ instanceof Zombie)) {
 			this.destroyEgg(p_154845_, p_154846_, p_154847_, p_154848_, 5);
@@ -92,43 +97,42 @@ public class SnowPileQuailEggBlock extends Block {
 		});
 	}
 
-	public void randomTick(BlockState p_57804_, ServerLevel p_57805_, BlockPos p_57806_, RandomSource p_57807_) {
-		if (this.shouldUpdateHatchLevel(p_57805_, p_57806_) && onDirt(p_57805_, p_57806_)) {
-			int i = p_57804_.getValue(HATCH);
-			if (i < 2) {
-				p_57805_.playSound(null, p_57806_, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + p_57807_.nextFloat() * 0.2F);
-				p_57805_.setBlock(p_57806_, p_57804_.setValue(HATCH, Integer.valueOf(i + 1)), 2);
-			} else {
-				p_57805_.playSound(null, p_57806_, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + p_57807_.nextFloat() * 0.2F);
-				p_57805_.removeBlock(p_57806_, false);
+	public void tick(BlockState p_221194_, ServerLevel p_221195_, BlockPos p_221196_, RandomSource p_221197_) {
+		if (!this.canSurvive(p_221194_, p_221195_, p_221196_)) {
+			this.destroyBlock(p_221195_, p_221196_);
+		} else {
+			this.hatchEgg(p_221194_, p_221195_, p_221196_, p_221197_);
+		}
+	}
 
-				for (int j = 0; j < p_57804_.getValue(EGGS); ++j) {
-					p_57805_.levelEvent(2001, p_57806_, Block.getId(p_57804_));
-					SnowPileQuail snowpileEgg = FrostEntities.SNOWPILE_QUAIL.get().create(p_57805_);
+	private void hatchEgg(BlockState p_221194_, ServerLevel p_221182_, BlockPos p_221183_, RandomSource p_221184_) {
+		this.destroyBlock(p_221182_, p_221183_);
+		p_221182_.playSound((Player) null, p_221183_, SoundEvents.FROGSPAWN_HATCH, SoundSource.BLOCKS, 1.0F, 1.0F);
+		if (this.shouldUpdateHatchLevel(p_221182_, p_221183_)) {
+			int i = p_221194_.getValue(HATCH);
+			if (i < 2) {
+				p_221182_.playSound(null, p_221183_, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + p_221184_.nextFloat() * 0.2F);
+				p_221182_.setBlock(p_221183_, p_221194_.setValue(HATCH, Integer.valueOf(i + 1)), 2);
+			} else {
+				p_221182_.playSound(null, p_221183_, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + p_221184_.nextFloat() * 0.2F);
+				p_221182_.removeBlock(p_221183_, false);
+
+				for (int j = 0; j < p_221194_.getValue(EGGS); ++j) {
+					p_221182_.levelEvent(2001, p_221183_, Block.getId(p_221194_));
+					SnowPileQuail snowpileEgg = FrostEntities.SNOWPILE_QUAIL.get().create(p_221182_);
 					snowpileEgg.setAge(-24000);
-					//snowpileEgg.setHomePos(p_57806_);
-					snowpileEgg.moveTo((double) p_57806_.getX() + 0.3D + (double) j * 0.2D, p_57806_.getY(), (double) p_57806_.getZ() + 0.3D, 0.0F, 0.0F);
-					p_57805_.addFreshEntity(snowpileEgg);
+					//snowpileEgg.setHomePos(p_221183_);
+					snowpileEgg.moveTo((double) p_221183_.getX() + 0.3D + (double) j * 0.2D, p_221183_.getY(), (double) p_221183_.getZ() + 0.3D, 0.0F, 0.0F);
+					p_221182_.addFreshEntity(snowpileEgg);
 				}
 			}
 		}
-
 	}
 
-	public static boolean onDirt(BlockGetter p_57763_, BlockPos p_57764_) {
-		return isDirt(p_57763_, p_57764_.below());
+	private void destroyBlock(Level p_221191_, BlockPos p_221192_) {
+		p_221191_.destroyBlock(p_221192_, false);
 	}
 
-	public static boolean isDirt(BlockGetter p_57801_, BlockPos p_57802_) {
-		return p_57801_.getBlockState(p_57802_).is(BlockTags.DIRT);
-	}
-
-	public void onPlace(BlockState p_57814_, Level p_57815_, BlockPos p_57816_, BlockState p_57817_, boolean p_57818_) {
-		if (onDirt(p_57815_, p_57816_) && !p_57815_.isClientSide) {
-			p_57815_.levelEvent(2005, p_57816_, 0);
-		}
-
-	}
 
 	private boolean shouldUpdateHatchLevel(Level p_57766_, BlockPos p_57816_) {
 		float f = p_57766_.getTimeOfDay(1.0F);

@@ -1,7 +1,6 @@
 package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.message.AuroraLevelMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
 import baguchan.frostrealm.registry.FrostDimensions;
@@ -22,7 +21,6 @@ import net.minecraftforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Optional;
 
 public class FrostWeatherCapability implements ICapabilityProvider, ICapabilitySerializable<CompoundTag> {
 
@@ -33,9 +31,6 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 	private float oWeatherLevel;
 
 	private float unstableLevel;
-
-	private float auroraLevel = 1.0F;
-	private int auroraRepairTick;
 
 	private FrostWeather frostWeather = FrostWeathers.BLIZZARD.get();
 
@@ -57,15 +52,6 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 	public float getUnstableLevel() {
 		return unstableLevel;
 	}
-
-	public void setAuroraLevel(float auroraLevel) {
-		this.auroraLevel = Mth.clamp(auroraLevel, 0.0F, 1.0F);
-	}
-
-	public float getAuroraLevel() {
-		return auroraLevel;
-	}
-
 	public static LazyOptional<FrostWeatherCapability> get(Level world) {
 		return world.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY);
 	}
@@ -86,37 +72,9 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 		}).isPresent();
 	}
 
-	public static float getAuroraLevel(Level world) {
-		Optional<FrostWeatherCapability> optional = get(world).filter(frostWeatherCapability -> {
-			return true;
-		});
-
-
-		if (optional.isPresent()) {
-			return get(world).filter(frostWeatherCapability -> {
-				return true;
-			}).get().getAuroraLevel();
-		}
-
-		return 0;
-	}
-
 	public void tick(Level level) {
 		if (!level.isClientSide()) {
 			if (level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-				if (this.auroraLevel < 1.0F) {
-					if (this.auroraRepairTick > 0) {
-						--this.auroraRepairTick;
-					} else {
-						this.auroraRepairTick = 400;
-						this.setAuroraLevel(this.getAuroraLevel() + 0.01F);
-						AuroraLevelMessage message = new AuroraLevelMessage(this.getAuroraLevel());
-						FrostRealm.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), message);
-
-					}
-				}
-
-
 				if (isWeatherActive()) {
 					if (frostWeather == FrostWeathers.PURPLE_FOG.get()) {
 						unstableLevel = 0;
@@ -128,7 +86,7 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 						//If weather not active and cooldown active
 						setWeatherCooldown(getWeatherCooldown() - 1);
 						if (getWeatherCooldown() <= 0) {
-							unstableLevel += level.random.nextDouble() * (1 - auroraLevel);
+							unstableLevel += level.random.nextDouble() * 0.1F;
 							FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.random, this.unstableLevel);
 
 							setFrostWeather(frostWeather);
@@ -212,8 +170,6 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 		nbt.putInt("WeatherTime", this.weatherTime);
 		nbt.putInt("WeatherCooldown", this.weatherCooldown);
 		nbt.putFloat("UnstableLevel", this.unstableLevel);
-		nbt.putFloat("AuroraLevel", this.auroraLevel);
-		nbt.putInt("AuroraRepairTick", this.auroraRepairTick);
 		if (this.frostWeather != null) {
 			nbt.putString("FrostWeather", FrostWeathers.getRegistry().get().getKey(this.frostWeather).toString());
 		}
@@ -224,8 +180,6 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 		this.weatherTime = nbt.getInt("WeatherTime");
 		this.weatherCooldown = nbt.getInt("WeatherCooldown");
 		this.unstableLevel = nbt.getFloat("UnstableLevel");
-		this.auroraLevel = nbt.getFloat("AuroraLevel");
-		this.auroraRepairTick = nbt.getInt("AuroraRepairTick");
 		FrostWeather frostWeather = FrostWeathers.getRegistry().get().getValue(ResourceLocation.tryParse(nbt.getString("FrostWeather")));
 		if (frostWeather != null) {
 			this.frostWeather = frostWeather;
