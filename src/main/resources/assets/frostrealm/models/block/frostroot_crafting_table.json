@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "frostrealm:block/frostroot_planks",
+    "east": "frostrealm:block/frostroot_crafting_table_side",
+    "north": "frostrealm:block/frostroot_crafting_table_front",
+    "particle": "frostrealm:block/frostroot_crafting_table_front",
+    "south": "frostrealm:block/frostroot_crafting_table_side",
+    "up": "frostrealm:block/frostroot_crafting_table_top",
+    "west": "frostrealm:block/frostroot_crafting_table_front"
+  }
+}

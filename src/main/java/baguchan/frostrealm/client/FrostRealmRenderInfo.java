@@ -81,7 +81,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 		RenderSystem.enableDepthTest();
 		RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		p_109781_.pushPose();
-		float f11 = (1.0F - frostWeatherCapability.getWeatherLevel(partialTick)) * frostWeatherCapability.getAuroraLevel();
+		float f11 = (1.0F - frostWeatherCapability.getWeatherLevel(partialTick));
 		FogRenderer.levelFogColor();
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f11);
 		Matrix4f matrix4f1 = p_109781_.last().pose();

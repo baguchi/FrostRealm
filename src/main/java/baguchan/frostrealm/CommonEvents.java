@@ -2,7 +2,6 @@ package baguchan.frostrealm;
 
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
-import baguchan.frostrealm.message.AuroraLevelMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
 import baguchan.frostrealm.registry.FrostBlocks;
@@ -90,10 +89,6 @@ public class CommonEvents {
 						ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
 						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
 					});
-					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-						AuroraLevelMessage message = new AuroraLevelMessage(cap.getAuroraLevel());
-						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-					});
 				}
 			}
 		}
@@ -113,10 +108,6 @@ public class CommonEvents {
 					});
 					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
 						ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
-						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-					});
-					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-						AuroraLevelMessage message = new AuroraLevelMessage(cap.getAuroraLevel());
 						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
 					});
 				}

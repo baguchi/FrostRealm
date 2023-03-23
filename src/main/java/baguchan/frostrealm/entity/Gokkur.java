@@ -65,6 +65,14 @@ public class Gokkur extends Monster {
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
+	public void onSyncedDataUpdated(EntityDataAccessor<?> p_29615_) {
+		if (IS_ROLLING.equals(p_29615_)) {
+			this.refreshDimensions();
+		}
+
+		super.onSyncedDataUpdated(p_29615_);
+	}
+
 	public static boolean checkGokkurSpawnRules(EntityType<? extends Monster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
 		return p_27579_.getBlockState(p_27581_.below()).is(FrostBlocks.FRIGID_STONE.get()) && Monster.checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_);
 	}
@@ -242,7 +250,7 @@ public class Gokkur extends Monster {
 
 		@Override
 		public boolean canContinueToUse() {
-			return this.gokkur.getMoveControl().hasWanted() && super.canContinueToUse();
+			return !this.gokkur.getNavigation().isDone() && super.canContinueToUse();
 		}
 
 		@Override
@@ -252,7 +260,7 @@ public class Gokkur extends Monster {
 			this.stopTrigger = false;
 			LivingEntity livingentity = this.gokkur.getTarget();
 			if (livingentity != null) {
-				this.gokkur.getMoveControl().setWantedPosition(livingentity.getX() - (livingentity.getLookAngle().x() * 5.0F), livingentity.getY(), livingentity.getZ() - (livingentity.getLookAngle().z() * 5.0F), 2.5D);
+				this.gokkur.getNavigation().moveTo(livingentity.getX() - (livingentity.getLookAngle().x() * 5.0F), livingentity.getY(), livingentity.getZ() - (livingentity.getLookAngle().z() * 5.0F), 1.75D);
 			}
 		}
 
@@ -267,7 +275,7 @@ public class Gokkur extends Monster {
 		public void tick() {
 			super.tick();
 			if (this.gokkur.horizontalCollision) {
-				this.gokkur.setRolling(false);
+				this.setStopTrigger(true);
 				this.gokkur.setStun(true);
 				this.gokkur.knockback(0.8F, -this.gokkur.getDeltaMovement().x(), -this.gokkur.getDeltaMovement().z());
 

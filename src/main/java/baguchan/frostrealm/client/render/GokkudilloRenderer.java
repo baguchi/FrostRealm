@@ -33,8 +33,8 @@ public class GokkudilloRenderer<T extends Gokkudillo> extends MobRenderer<T, Gok
 	@Override
 	protected void scale(T p_115314_, PoseStack p_115315_, float p_115316_) {
 		float size = p_115314_.getScale();
-		p_115315_.scale(size, size, size);
-		super.scale(p_115314_, p_115315_, p_115316_);
+		p_115315_.scale(1.8F, 1.8F, 1.8F);
+        super.scale(p_115314_, p_115315_, p_115316_);
 	}
 
 	@Override

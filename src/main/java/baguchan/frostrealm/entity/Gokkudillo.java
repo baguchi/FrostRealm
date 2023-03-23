@@ -3,7 +3,6 @@ package baguchan.frostrealm.entity;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -42,7 +41,7 @@ public class Gokkudillo extends Gokkur {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.MAX_HEALTH, 22.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 10.0F).add(Attributes.ARMOR_TOUGHNESS, 0.1F).add(Attributes.KNOCKBACK_RESISTANCE, 0.25F).add(Attributes.MOVEMENT_SPEED, 0.24D);
+		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.MAX_HEALTH, 22.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 8.0F).add(Attributes.KNOCKBACK_RESISTANCE, 0.25F).add(Attributes.MOVEMENT_SPEED, 0.24D);
 	}
 
 	public void onSyncedDataUpdated(EntityDataAccessor<?> p_29615_) {
@@ -176,27 +175,11 @@ public class Gokkudillo extends Gokkur {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag p_21484_) {
-		super.addAdditionalSaveData(p_21484_);
-	}
-
-	@Override
-	public float getScale() {
-		return this.isBaby() ? 1.0F : 1.8F;
-	}
-
-
-	@Override
 	protected float getStandingEyeHeight(Pose p_21131_, EntityDimensions p_21132_) {
 		return p_21132_.height * 0.65F;
 	}
 
 	public EntityDimensions getDimensions(Pose p_29608_) {
 		return this.isRolling() ? EntityDimensions.fixed(0.65F, 0.45F) : super.getDimensions(p_29608_);
-	}
-
-	@Override
-	public void readAdditionalSaveData(CompoundTag p_21450_) {
-		super.readAdditionalSaveData(p_21450_);
 	}
 }

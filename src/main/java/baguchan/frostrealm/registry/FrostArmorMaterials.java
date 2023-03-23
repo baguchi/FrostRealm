@@ -34,7 +34,7 @@ public enum FrostArmorMaterials implements StringRepresentable, ArmorMaterial {
 		p_266654_.put(ArmorItem.Type.LEGGINGS, 5);
 		p_266654_.put(ArmorItem.Type.CHESTPLATE, 6);
 		p_266654_.put(ArmorItem.Type.HELMET, 2);
-	}), 9, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> {
+	}), 12, SoundEvents.ARMOR_EQUIP_IRON, 0.5F, 0.0F, () -> {
 		return Ingredient.of(FrostItems.ASTRIUM_INGOT.get());
 	});
 

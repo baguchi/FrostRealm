@@ -83,7 +83,8 @@ public class BlockLootTables extends BlockLootSubProvider {
 			return createFrostLeavesDrops(p_124104_, FrostBlocks.FROSTROOT_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
 		});
 		this.dropSelf(FrostBlocks.FROSTROOT_PLANKS.get());
-		this.add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(FrostBlocks.FROSTROOT_CRAFTING_TABLE.get());
+        this.add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get());
 		this.dropSelf(FrostBlocks.FROSTROOT_FENCE.get());
 		this.dropSelf(FrostBlocks.FROSTROOT_FENCE_GATE.get());

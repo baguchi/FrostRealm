@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -43,6 +44,14 @@ public class SnowPileQuailEggBlock extends Block {
 	public SnowPileQuailEggBlock(BlockBehaviour.Properties p_57759_) {
 		super(p_57759_);
 		this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, Integer.valueOf(0)).setValue(EGGS, Integer.valueOf(1)));
+	}
+
+	public static boolean onDirt(BlockGetter p_57763_, BlockPos p_57764_) {
+		return isDirt(p_57763_, p_57764_.below());
+	}
+
+	public static boolean isDirt(BlockGetter p_57801_, BlockPos p_57802_) {
+		return p_57801_.getBlockState(p_57802_).is(BlockTags.DIRT);
 	}
 
 	@Override

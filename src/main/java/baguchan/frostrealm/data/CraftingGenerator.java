@@ -84,22 +84,29 @@ public class CraftingGenerator extends CraftingDataHelper {
 		swordItem(consumer, "rolga_sword", FrostItems.ROLGA_SWORD.get(), FrostItems.ROLGA_CRYSTAL.get(), Tags.Items.RODS_WOODEN);
 
 
-		makeFrostTorch(consumer, FrostBlocks.FROST_TORCH.get().asItem());
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_CHEST.get(), 1)
-				.pattern("SSS")
-				.pattern("S S")
-				.pattern("SSS")
-				.define('S', FrostBlocks.FROSTROOT_PLANKS.get())
-				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FROSTROOT_PLANKS.get()).getPath(), has(FrostBlocks.FROSTROOT_PLANKS.get())).save(consumer);
+        makeFrostTorch(consumer, FrostBlocks.FROST_TORCH.get().asItem());
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_CHEST.get(), 1)
+                .pattern("SSS")
+                .pattern("S S")
+                .pattern("SSS")
+                .define('S', FrostBlocks.FROSTROOT_PLANKS.get())
+                .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FROSTROOT_PLANKS.get()).getPath(), has(FrostBlocks.FROSTROOT_PLANKS.get())).save(consumer);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROST_CAMPFIRE.get(), 1)
-				.pattern(" S ")
-				.pattern("SFS")
-				.pattern("LLL")
-				.define('S', Tags.Items.RODS_WOODEN)
-				.define('F', FrostItems.FROST_CRYSTAL.get())
-				.define('L', ItemTags.LOGS_THAT_BURN)
-				.unlockedBy("has_item", has(ItemTags.LOGS_THAT_BURN)).save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_CRAFTING_TABLE.get(), 1)
+                .pattern("WW")
+                .pattern("WW")
+                .define('W', FrostBlocks.FROSTROOT_PLANKS.get())
+                .unlockedBy("has_item", has(FrostBlocks.FROSTROOT_PLANKS.get())).save(consumer);
+
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROST_CAMPFIRE.get(), 1)
+                .pattern(" S ")
+                .pattern("SFS")
+                .pattern("LLL")
+                .define('S', Tags.Items.RODS_WOODEN)
+                .define('F', FrostItems.FROST_CRYSTAL.get())
+                .define('L', ItemTags.LOGS_THAT_BURN)
+                .unlockedBy("has_item", has(ItemTags.LOGS_THAT_BURN)).save(consumer);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, FrostItems.ROLGA_CRYSTAL.get(), 1)
 				.pattern("CCC")
