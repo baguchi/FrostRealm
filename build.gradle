@@ -20,7 +20,7 @@ mixin {
     add sourceSets.main, "frostrealm.refmap.json"
 }
 
-version = '1.19.4-0.5.4.0'
+version = '1.19.4-0.6.0.0'
 group = 'baguchan.frostrealm' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'frostrealm'
 
@@ -130,14 +130,19 @@ repositories {
         name "Modding Legacy Maven"
         url "https://maven.moddinglegacy.com/artifactory/modding-legacy/"
     }
+    maven {
+        url "https://cursemaven.com"
+    }
 }
 
 dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.19.4-45.0.12'
+    minecraft 'net.minecraftforge:forge:1.19.4-45.0.22'
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+
+    implementation fg.deobf("curse.maven:wolflib-842904:4460963")
 
     // It's using to building some structure. not mean need this for dependencies
     runtimeOnly(fg.deobf("com.legacy:structure-gel:1.19.4-2.10.0"))

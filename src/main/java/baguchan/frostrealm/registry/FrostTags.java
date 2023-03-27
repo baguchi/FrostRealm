@@ -23,12 +23,15 @@ public class FrostTags {
 	}
 
 	public static class Items {
-		public static final TagKey<Item> AURORA_FUELS = tag("aurora_fuels");
+        public static final TagKey<Item> AURORA_FUELS = tag("aurora_fuels");
+        public static final TagKey<Item> YETI_LOVED = tag("yeti_loved");
+        public static final TagKey<Item> YETI_CURRENCY = tag("yeti_currency");
+        public static final TagKey<Item> YETI_BIG_CURRENCY = tag("yeti_big_currency");
 
-		private static TagKey<Item> tag(String p_203849_) {
-			return TagKey.create(Registries.ITEM, new ResourceLocation(FrostRealm.MODID, p_203849_));
-		}
-	}
+        private static TagKey<Item> tag(String p_203849_) {
+            return TagKey.create(Registries.ITEM, new ResourceLocation(FrostRealm.MODID, p_203849_));
+        }
+    }
 
 	public static class EntityTypes {
 		public static final TagKey<EntityType<?>> COLD_WEATHER_IMMUNE = tag("cold_weather_immune");

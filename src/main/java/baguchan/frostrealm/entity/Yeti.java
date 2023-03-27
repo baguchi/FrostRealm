@@ -1,20 +1,28 @@
 package baguchan.frostrealm.entity;
 
+import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.entity.goal.CreatureFollowParentGoal;
 import baguchan.frostrealm.entity.goal.GetFoodGoal;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.FrostEntities;
+import baguchan.frostrealm.registry.FrostTags;
+import baguchan.frostrealm.utils.ai.YetiAi;
+import baguchan.wolflib.entity.state.EntityState;
+import baguchan.wolflib.entity.state.EntityStateManager;
+import baguchan.wolflib.entity.state.IEntityState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -40,7 +48,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Yeti extends AgeableMob implements NeutralMob {
+public class Yeti extends AgeableMob implements NeutralMob, IEntityState {
 	private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(30, 59);
 	private int remainingPersistentAngerTime;
 	private UUID persistentAngerTarget;
@@ -49,9 +57,14 @@ public class Yeti extends AgeableMob implements NeutralMob {
 	@Nullable
 	private BlockPos homeTarget;
 	private int huntTime;
+	private int holdTime;
+
+	public final EntityState seeTradeState = new EntityState(new ResourceLocation(FrostRealm.MODID, "see_trade"));
+
+	private final EntityStateManager entityStateManager = new EntityStateManager(List.of(seeTradeState));
 
 	public static final Predicate<? super ItemEntity> ALLOWED_ITEMS = (p_213616_0_) -> {
-		return p_213616_0_.getItem().getItem().getFoodProperties() != null && p_213616_0_.getItem().getItem() != Items.SPIDER_EYE && p_213616_0_.getItem().getItem() != Items.PUFFERFISH;
+		return p_213616_0_.getItem().getItem().getFoodProperties() != null && p_213616_0_.getItem().getItem() != Items.SPIDER_EYE && p_213616_0_.getItem().getItem() != Items.PUFFERFISH || p_213616_0_.getItem().is(FrostTags.Items.YETI_CURRENCY) || p_213616_0_.getItem().is(FrostTags.Items.YETI_BIG_CURRENCY);
 	};
 
 
@@ -86,6 +99,12 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.24F).add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.FOLLOW_RANGE, 24.0D).add(Attributes.ATTACK_DAMAGE, 6.0F);
 	}
 
+	@Override
+	public boolean hurt(DamageSource p_21016_, float p_21017_) {
+		YetiAi.stopHoldingMainHandItem(this, false);
+		return super.hurt(p_21016_, p_21017_);
+	}
+
 	protected void completeUsingItem() {
 		InteractionHand hand = this.getUsedItemHand();
 		if (this.useItem.equals(this.getItemInHand(hand))) {
@@ -100,12 +119,19 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		super.completeUsingItem();
 	}
 
+	@Override
+	public void tick() {
+		super.tick();
+		this.entityStateManager.tick(this.level);
+	}
+
+	@Override
 	public void aiStep() {
 		this.updateSwingTime();
 		if (!this.level.isClientSide && this.isAlive()) {
 			ItemStack mainhand = this.getItemInHand(InteractionHand.MAIN_HAND);
 
-			if (!this.isUsingItem() && this.getItemInHand(InteractionHand.OFF_HAND).isEmpty() && (mainhand.getItem() == Items.BOW && this.getTarget() == null || mainhand.getItem() != Items.BOW)) {
+			if (!this.isUsingItem() && this.getItemInHand(InteractionHand.OFF_HAND).isEmpty()) {
 				ItemStack food = ItemStack.EMPTY;
 
 				if (this.getHealth() < this.getMaxHealth() && this.random.nextFloat() < 0.0025F) {
@@ -115,6 +141,14 @@ public class Yeti extends AgeableMob implements NeutralMob {
 				if (!food.isEmpty()) {
 					this.setItemSlot(EquipmentSlot.OFFHAND, food);
 					this.startUsingItem(InteractionHand.OFF_HAND);
+				}
+			}
+
+			if (!this.isBaby()) {
+				if (mainhand.is(FrostTags.Items.YETI_BIG_CURRENCY) || mainhand.is(FrostTags.Items.YETI_CURRENCY)) {
+					if (--this.holdTime <= 0) {
+						YetiAi.stopHoldingMainHandItem(this, true);
+					}
 				}
 			}
 		}
@@ -136,10 +170,18 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		return ItemStack.EMPTY;
 	}
 
+	@Override
 	public void pickUpItem(ItemEntity p_175445_1_) {
 		ItemStack itemstack = p_175445_1_.getItem();
 		Item item = itemstack.getItem();
-		if (this.wantsFood(itemstack)) {
+		if (itemstack.is(FrostTags.Items.YETI_LOVED)) {
+			this.onItemPickup(p_175445_1_);
+			this.take(p_175445_1_, itemstack.getCount());
+			YetiAi.holdInMainHand(this, itemstack.copy());
+			this.seeTradeState.setActive(this, true);
+			p_175445_1_.discard();
+			this.holdTime = 200;
+		} else if (this.wantsFood(itemstack)) {
 			this.onItemPickup(p_175445_1_);
 			this.take(p_175445_1_, itemstack.getCount());
 			ItemStack itemstack1 = this.inventory.addItem(itemstack);
@@ -152,6 +194,18 @@ public class Yeti extends AgeableMob implements NeutralMob {
 			super.pickUpItem(p_175445_1_);
 		}
 
+	}
+
+	public void holdInMainHand(ItemStack p_34784_) {
+		this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND, p_34784_);
+	}
+
+	public ItemStack addToInventory(ItemStack p_34779_) {
+		return this.inventory.addItem(p_34779_);
+	}
+
+	protected boolean canAddToInventory(ItemStack p_34781_) {
+		return this.inventory.canAddItem(p_34781_);
 	}
 
 	private boolean wantsFood(ItemStack p_213672_1_) {
@@ -199,6 +253,14 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		this.huntTime = huntTime;
 	}
 
+	public void setHoldTime(int holdTime) {
+		this.holdTime = holdTime;
+	}
+
+	public int getHoldTime() {
+		return holdTime;
+	}
+
 	@Override
 	public boolean wasKilled(ServerLevel p_216988_, LivingEntity p_216989_) {
 		setHuntTime(600);
@@ -220,6 +282,9 @@ public class Yeti extends AgeableMob implements NeutralMob {
 			}
 		}
 
+		this.setHuntTime(p_29541_.getInt("HuntTime"));
+		this.setHoldTime(p_29541_.getInt("HoldTime"));
+		this.entityStateManager.read(this, p_29541_);
 	}
 
 	public void addAdditionalSaveData(CompoundTag p_29548_) {
@@ -238,6 +303,9 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		}
 
 		p_29548_.put("Inventory", listnbt);
+		p_29548_.putInt("HuntTime", huntTime);
+		p_29548_.putInt("HoldTime", holdTime);
+		this.entityStateManager.write(this, p_29548_);
 	}
 
 	public void startPersistentAngerTimer() {
@@ -281,6 +349,11 @@ public class Yeti extends AgeableMob implements NeutralMob {
 	@Override
 	public boolean removeWhenFarAway(double p_21542_) {
 		return false;
+	}
+
+	@Override
+	public EntityStateManager getEntityStateManager() {
+		return entityStateManager;
 	}
 
 	public class YetiMeleeAttackGoal extends MeleeAttackGoal {
