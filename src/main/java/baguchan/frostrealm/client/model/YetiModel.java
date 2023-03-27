@@ -69,7 +69,6 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 
 		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
-
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
@@ -130,35 +129,6 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 		return p_102857_.swingingArm == InteractionHand.MAIN_HAND ? humanoidarm : humanoidarm.getOpposite();
 	}
 
-	protected void setupAttackAnimation(T p_102858_, float p_102859_) {
-		if (!(this.attackTime <= 0.0F)) {
-			HumanoidArm humanoidarm = this.getAttackArm(p_102858_);
-			ModelPart modelpart = this.getArm(humanoidarm);
-			float f = this.attackTime;
-			this.body.yRot = Mth.sin(Mth.sqrt(f) * ((float) Math.PI * 2F)) * 0.2F;
-			if (humanoidarm == HumanoidArm.LEFT) {
-				this.body.yRot *= -1.0F;
-			}
-
-			this.rightArm.z = Mth.sin(this.body.yRot) * 5.0F;
-			this.rightArm.x = -Mth.cos(this.body.yRot) * 5.0F;
-			this.leftArm.z = -Mth.sin(this.body.yRot) * 5.0F;
-			this.leftArm.x = Mth.cos(this.body.yRot) * 5.0F;
-			this.rightArm.yRot += this.body.yRot;
-			this.leftArm.yRot += this.body.yRot;
-			this.leftArm.xRot += this.body.yRot;
-			f = 1.0F - this.attackTime;
-			f = f * f;
-			f = f * f;
-			f = 1.0F - f;
-			float f1 = Mth.sin(f * (float) Math.PI);
-			float f2 = Mth.sin(this.attackTime * (float) Math.PI) * -(this.head.xRot - 0.7F) * 0.75F;
-			modelpart.xRot = (float) ((double) modelpart.xRot - ((double) f1 * 1.2D + (double) f2));
-			modelpart.yRot += this.body.yRot * 2.0F;
-			modelpart.zRot += Mth.sin(this.attackTime * (float) Math.PI) * -0.4F;
-		}
-	}
-
 	public ModelPart getArm(HumanoidArm p_102923_) {
 		return p_102923_ == HumanoidArm.LEFT ? this.leftArm : this.rightArm;
 	}
@@ -171,5 +141,10 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 		this.root.translateAndRotate(p_102926_);
 		this.getArm(p_102925_).translateAndRotate(p_102926_);
 		p_102926_.translate(0, 0.8D, 0);
+		if (this.young) {
+			p_102926_.scale(1.5F, 1.5F, 1.5F);
+			p_102926_.translate(-0.75F, -0.4F, 0.0F);
+			p_102926_.scale(1.4F, 1.4F, 1.4F);
+		}
 	}
 }
