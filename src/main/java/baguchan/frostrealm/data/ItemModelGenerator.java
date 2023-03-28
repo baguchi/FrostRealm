@@ -35,27 +35,28 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.SUGARBEET);
 		this.singleTex(FrostItems.SUGARBEET_SEEDS);
 		this.singleTex(FrostItems.BEARBERRY);
-		this.singleTex(FrostItems.COOKED_BEARBERRY);
-		this.singleTex(FrostItems.COOKED_SNOWPILE_QUAIL_EGG);
-		this.singleTex(FrostItems.SNOWPILE_QUAIL_MEAT);
-		this.singleTex(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT);
+        this.singleTex(FrostItems.COOKED_BEARBERRY);
+        this.singleTex(FrostItems.COOKED_SNOWPILE_QUAIL_EGG);
+        this.singleTex(FrostItems.SNOWPILE_QUAIL_MEAT);
+        this.singleTex(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT);
 
-		this.singleTex(FrostItems.FROST_CATALYST);
-		this.singleTex(FrostItems.STRAY_NECKLACE_PART);
+        this.singleTex(FrostItems.FROST_CATALYST);
+        this.singleTex(FrostItems.STRAY_NECKLACE_PART);
 
-		this.singleTex(FrostItems.YETI_FUR);
-		this.singleTex(FrostItems.KOLOSSUS_FUR);
+        this.singleTex(FrostItems.YETI_FUR);
+        this.singleTex(FrostItems.KOLOSSUS_FUR);
+        this.singleTexTool(FrostItems.OAK_SLEDGE);
+        this.singleTexTool(FrostItems.OAK_CHEST_SLEDGE);
+        this.singleTexTool(FrostItems.FUSION_CRYSTAL_DAGGER);
+        this.singleTexTool(FrostItems.ASTRIUM_SWORD);
+        this.singleTexTool(FrostItems.ASTRIUM_AXE);
+        this.singleTexTool(FrostItems.ASTRIUM_PICKAXE);
+        this.singleTexTool(FrostItems.ASTRIUM_SHOVEL);
+        this.singleTexTool(FrostItems.ASTRIUM_HOE);
 
-		this.singleTexTool(FrostItems.FUSION_CRYSTAL_DAGGER);
-		this.singleTexTool(FrostItems.ASTRIUM_SWORD);
-		this.singleTexTool(FrostItems.ASTRIUM_AXE);
-		this.singleTexTool(FrostItems.ASTRIUM_PICKAXE);
-		this.singleTexTool(FrostItems.ASTRIUM_SHOVEL);
-		this.singleTexTool(FrostItems.ASTRIUM_HOE);
-
-		this.singleTex(FrostItems.YETI_FUR_HELMET);
-		this.singleTex(FrostItems.YETI_FUR_CHESTPLATE);
-		this.singleTex(FrostItems.YETI_FUR_LEGGINGS);
+        this.singleTex(FrostItems.YETI_FUR_HELMET);
+        this.singleTex(FrostItems.YETI_FUR_CHESTPLATE);
+        this.singleTex(FrostItems.YETI_FUR_LEGGINGS);
 		this.singleTex(FrostItems.YETI_FUR_BOOTS);
 
 		this.singleTex(FrostItems.KOLOSSUS_FUR_HELMET);

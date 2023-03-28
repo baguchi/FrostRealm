@@ -88,7 +88,6 @@ public class FrostRealm {
 			map.putAll(Map.copyOf(MultiNoiseBiomeSourceParameterList.Preset.BY_NAME));
 			map.put(new ResourceLocation(FrostRealm.MODID, "frostrealm"), FrostBiomeSources.FROSTREALM_PRESET);
 			MultiNoiseBiomeSourceParameterList.Preset.BY_NAME = map;
-
 		});
 	}
 

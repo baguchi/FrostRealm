@@ -14,11 +14,14 @@ import baguchan.frostrealm.registry.FrostMenuTypes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,6 +36,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientRegistrar {
@@ -44,17 +48,19 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.MARMOT.get(), MarmotRenderer::new);
         event.registerEntityRenderer(FrostEntities.SNOWPILE_QUAIL.get(), SnowPileQuailRenderer::new);
         event.registerEntityRenderer(FrostEntities.FROST_WOLF.get(), FrostWolfRenderer::new);
-        event.registerEntityRenderer(FrostEntities.CRYSTAL_FOX.get(), CrystalFoxRenderer::new);
-        event.registerEntityRenderer(FrostEntities.SNOW_MOLE.get(), SnowMoleRenderer::new);
+		event.registerEntityRenderer(FrostEntities.CRYSTAL_FOX.get(), CrystalFoxRenderer::new);
+		event.registerEntityRenderer(FrostEntities.SNOW_MOLE.get(), SnowMoleRenderer::new);
 
-        event.registerEntityRenderer(FrostEntities.YETI.get(), YetiRenderer::new);
-        event.registerEntityRenderer(FrostEntities.FROST_WRAITH.get(), FrostWraithRenderer::new);
-        event.registerEntityRenderer(FrostEntities.CLUST_WRAITH.get(), ClustWraithRenderer::new);
-        event.registerEntityRenderer(FrostEntities.GOKKUDILLO.get(), GokkudilloRenderer::new);
-        event.registerEntityRenderer(FrostEntities.FROST_BEASTER.get(), FrostBeasterRenderer::new);
-        event.registerEntityRenderer(FrostEntities.ASTRA_BALL.get(), AstraBallRenderer::new);
-        event.registerEntityRenderer(FrostEntities.WARPED_CRYSTAL_SHARD.get(), WarpedCrystalRenderer::new);
-    }
+		event.registerEntityRenderer(FrostEntities.YETI.get(), YetiRenderer::new);
+		event.registerEntityRenderer(FrostEntities.FROST_WRAITH.get(), FrostWraithRenderer::new);
+		event.registerEntityRenderer(FrostEntities.CLUST_WRAITH.get(), ClustWraithRenderer::new);
+		event.registerEntityRenderer(FrostEntities.GOKKUDILLO.get(), GokkudilloRenderer::new);
+		event.registerEntityRenderer(FrostEntities.FROST_BEASTER.get(), FrostBeasterRenderer::new);
+		event.registerEntityRenderer(FrostEntities.ASTRA_BALL.get(), AstraBallRenderer::new);
+		event.registerEntityRenderer(FrostEntities.WARPED_CRYSTAL_SHARD.get(), WarpedCrystalRenderer::new);
+		event.registerEntityRenderer(FrostEntities.SLEDGE.get(), (r) -> new SledgeRenderer(r, false));
+		event.registerEntityRenderer(FrostEntities.CHEST_SLEDGE.get(), (r) -> new SledgeRenderer(r, true));
+	}
 
 	@SubscribeEvent
 	public static void registerLayerDefinition(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -71,14 +77,41 @@ public class ClientRegistrar {
 
 		event.registerLayerDefinition(FrostModelLayers.GOKKUDILLO, GokkudilloModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.CRYSTAL_FOX, CrystalFoxModel::createBodyLayer);
-        event.registerLayerDefinition(FrostModelLayers.SNOW_MOLE, SnowMoleModel::createBodyLayer);
-        event.registerLayerDefinition(FrostModelLayers.ASTRA_BALL, AstraBallModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.SNOW_MOLE, SnowMoleModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.ASTRA_BALL, AstraBallModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_OUTER, () -> YetiFurArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION));
 
 		event.registerLayerDefinition(FrostModelLayers.FROST_BEASTER_INNER_ARMOR, () -> layerdefinition3);
 		event.registerLayerDefinition(FrostModelLayers.FROST_BEASTER_OUTER_ARMOR, () -> layerdefinition1);
+
+		LayerDefinition layerdefinition19 = SledgeModel.createBodyModel();
+		LayerDefinition layerdefinition20 = ChestSledgeModel.createBodyModel();
+		LayerDefinition layerdefinition21 = RaftSledgeModel.createBodyModel();
+		LayerDefinition layerdefinition22 = ChestRaftSledgeModel.createBodyModel();
+
+		for (Boat.Type boat$type : Boat.Type.values()) {
+			if (boat$type == Boat.Type.BAMBOO) {
+				event.registerLayerDefinition(createSledgeModelName(boat$type), () -> layerdefinition21);
+				event.registerLayerDefinition(createChestSledgeModelName(boat$type), () -> layerdefinition22);
+			} else {
+				event.registerLayerDefinition(createSledgeModelName(boat$type), () -> layerdefinition19);
+				event.registerLayerDefinition(createChestSledgeModelName(boat$type), () -> layerdefinition20);
+			}
+		}
+	}
+
+	private static ModelLayerLocation createLocation(String p_171301_, String p_171302_) {
+		return new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, p_171301_), p_171302_);
+	}
+
+	public static ModelLayerLocation createSledgeModelName(Boat.Type p_171290_) {
+		return createLocation("sledge/" + p_171290_.getName(), "main");
+	}
+
+	public static ModelLayerLocation createChestSledgeModelName(Boat.Type p_233551_) {
+		return createLocation("chest_sledge/" + p_233551_.getName(), "main");
 	}
 
 	public static void renderTileEntity() {

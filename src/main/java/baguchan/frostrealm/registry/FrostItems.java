@@ -1,12 +1,10 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.item.FrostCatalystItem;
-import baguchan.frostrealm.item.FusionCrystalDaggerItem;
-import baguchan.frostrealm.item.GlimmerRockItem;
-import baguchan.frostrealm.item.YetiFurArmorItem;
+import baguchan.frostrealm.item.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -50,6 +48,8 @@ public class FrostItems {
 	public static final RegistryObject<Item> YETI_FUR = ITEMS.register("yeti_fur", () -> new Item((new Item.Properties())));
 	public static final RegistryObject<Item> KOLOSSUS_FUR = ITEMS.register("kolossus_fur", () -> new Item((new Item.Properties())));
 
+	public static final RegistryObject<Item> OAK_SLEDGE = ITEMS.register("oak_sledge", () -> new SledgeItem(false, Boat.Type.OAK, (new Item.Properties())));
+	public static final RegistryObject<Item> OAK_CHEST_SLEDGE = ITEMS.register("oak_chest_sledge", () -> new SledgeItem(true, Boat.Type.OAK, (new Item.Properties())));
 	public static final RegistryObject<Item> FUSION_CRYSTAL_DAGGER = ITEMS.register("fusion_crystal_dagger", () -> new FusionCrystalDaggerItem((new Item.Properties()).durability(420)));
 
 	public static final RegistryObject<Item> ASTRIUM_SWORD = ITEMS.register("astrium_sword", () -> new SwordItem(FrostItemTier.ASTRIUM, 3, -2.3F, (new Item.Properties())));
@@ -118,6 +118,8 @@ public class FrostItems {
 											STRAY_NECKLACE_PART,
 											YETI_FUR,
 											KOLOSSUS_FUR,
+											OAK_SLEDGE,
+											OAK_CHEST_SLEDGE,
 											FUSION_CRYSTAL_DAGGER,
 											ASTRIUM_SWORD,
 											ASTRIUM_AXE,
