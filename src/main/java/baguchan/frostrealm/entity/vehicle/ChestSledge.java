@@ -79,7 +79,7 @@ public class ChestSledge extends ChestBoat {
                     double d0 = (wolf.getX() - this.getX()) * 0.1F * f;
                     double d1 = (wolf.getY() - this.getY()) * 0.1F * f;
                     double d2 = (wolf.getZ() - this.getZ()) * 0.1F * f;
-                    this.setDeltaMovement(d0, d1, d2);
+                    this.setDeltaMovement(d0, this.getDeltaMovement().y, d2);
                 }
             }
         }
