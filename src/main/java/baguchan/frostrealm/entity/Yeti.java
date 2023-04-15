@@ -1,21 +1,17 @@
 package baguchan.frostrealm.entity;
 
-import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.entity.goal.CreatureFollowParentGoal;
-import baguchan.frostrealm.entity.goal.GetFoodGoal;
-import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
+import baguchan.frostrealm.entity.goal.*;
 import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostTags;
 import baguchan.frostrealm.utils.ai.YetiAi;
-import baguchan.wolflib.entity.state.EntityState;
-import baguchan.wolflib.entity.state.EntityStateManager;
-import baguchan.wolflib.entity.state.IEntityState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -48,7 +44,12 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Yeti extends AgeableMob implements NeutralMob, IEntityState {
+public class Yeti extends AgeableMob implements NeutralMob, IWarming {
+
+	private static final EntityDataAccessor<Boolean> TRADE_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> PANIC_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> WARMING_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
+
 	private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(30, 59);
 	private int remainingPersistentAngerTime;
 	private UUID persistentAngerTarget;
@@ -59,9 +60,7 @@ public class Yeti extends AgeableMob implements NeutralMob, IEntityState {
 	private int huntTime;
 	private int holdTime;
 
-	public final EntityState seeTradeState = new EntityState(new ResourceLocation(FrostRealm.MODID, "see_trade"));
-
-	private final EntityStateManager entityStateManager = new EntityStateManager(List.of(seeTradeState));
+	public AnimationState warmingAnimation = new AnimationState();
 
 	public static final Predicate<? super ItemEntity> ALLOWED_ITEMS = (p_213616_0_) -> {
 		return p_213616_0_.getItem().getItem().getFoodProperties() != null && p_213616_0_.getItem().getItem() != Items.SPIDER_EYE && p_213616_0_.getItem().getItem() != Items.PUFFERFISH || p_213616_0_.getItem().is(FrostTags.Items.YETI_CURRENCY) || p_213616_0_.getItem().is(FrostTags.Items.YETI_BIG_CURRENCY);
@@ -73,21 +72,59 @@ public class Yeti extends AgeableMob implements NeutralMob, IEntityState {
 	}
 
 	@Override
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(TRADE_ID, false);
+		this.entityData.define(PANIC_ID, false);
+		this.entityData.define(WARMING_ID, false);
+	}
+
+	public void setTrade(boolean trade) {
+		this.entityData.set(TRADE_ID, trade);
+	}
+
+	public boolean isTrade() {
+		return this.entityData.get(TRADE_ID);
+	}
+
+	public void setPanic(boolean panic) {
+		this.entityData.set(PANIC_ID, panic);
+	}
+
+	public boolean isPanic() {
+		return this.entityData.get(PANIC_ID);
+	}
+
+	public void setWarming(boolean warming) {
+		this.entityData.set(WARMING_ID, warming);
+	}
+
+	public boolean isWarming() {
+		return this.entityData.get(WARMING_ID);
+	}
+
+	@Override
 	protected void registerGoals() {
 		super.registerGoals();
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new Yeti.YetiMeleeAttackGoal());
 		this.goalSelector.addGoal(1, new Yeti.YetiPanicGoal());
+		this.goalSelector.addGoal(2, new WarmingGoal<>(this));
 		this.goalSelector.addGoal(3, new GetFoodGoal<>(this));
 		this.goalSelector.addGoal(4, new CreatureFollowParentGoal(this, 1.15D));
 		this.goalSelector.addGoal(5, new SeekShelterEvenBlizzardGoal(this, 1.2D));
 		this.goalSelector.addGoal(6, new MoveToGoal(this, 40.0D, 1.2D));
 		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
+		this.goalSelector.addGoal(8, new LookAtPlayerAndPanicGoal(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new Yeti.YetiHurtByTargetGoal());
 		this.targetSelector.addGoal(3, new HuntTargetGoal(this));
 		this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
+	}
+
+	@Override
+	public boolean canFreeze() {
+		return false;
 	}
 
 	@Override
@@ -102,6 +139,9 @@ public class Yeti extends AgeableMob implements NeutralMob, IEntityState {
 	@Override
 	public boolean hurt(DamageSource p_21016_, float p_21017_) {
 		YetiAi.stopHoldingMainHandItem(this, false);
+		if (this.isBaby() && !this.isPanic()) {
+			this.setPanic(true);
+		}
 		return super.hurt(p_21016_, p_21017_);
 	}
 
@@ -122,7 +162,12 @@ public class Yeti extends AgeableMob implements NeutralMob, IEntityState {
 	@Override
 	public void tick() {
 		super.tick();
-		this.entityStateManager.tick(this.level);
+
+		if (this.isWarming()) {
+			this.warmingAnimation.startIfStopped(this.tickCount);
+		} else {
+			this.warmingAnimation.stop();
+		}
 	}
 
 	@Override
@@ -178,7 +223,7 @@ public class Yeti extends AgeableMob implements NeutralMob, IEntityState {
 			this.onItemPickup(p_175445_1_);
 			this.take(p_175445_1_, itemstack.getCount());
 			YetiAi.holdInMainHand(this, itemstack.copy());
-			this.seeTradeState.setActive(this, true);
+			this.setTrade(true);
 			p_175445_1_.discard();
 			this.holdTime = 200;
 		} else if (this.wantsFood(itemstack)) {
@@ -284,7 +329,7 @@ public class Yeti extends AgeableMob implements NeutralMob, IEntityState {
 
 		this.setHuntTime(p_29541_.getInt("HuntTime"));
 		this.setHoldTime(p_29541_.getInt("HoldTime"));
-		this.entityStateManager.read(this, p_29541_);
+		this.setTrade(p_29541_.getBoolean("Trade"));
 	}
 
 	public void addAdditionalSaveData(CompoundTag p_29548_) {
@@ -305,7 +350,7 @@ public class Yeti extends AgeableMob implements NeutralMob, IEntityState {
 		p_29548_.put("Inventory", listnbt);
 		p_29548_.putInt("HuntTime", huntTime);
 		p_29548_.putInt("HoldTime", holdTime);
-		this.entityStateManager.write(this, p_29548_);
+		p_29548_.putBoolean("Trade", this.isTrade());
 	}
 
 	public void startPersistentAngerTimer() {
@@ -351,11 +396,6 @@ public class Yeti extends AgeableMob implements NeutralMob, IEntityState {
 		return false;
 	}
 
-	@Override
-	public EntityStateManager getEntityStateManager() {
-		return entityStateManager;
-	}
-
 	public class YetiMeleeAttackGoal extends MeleeAttackGoal {
 		public YetiMeleeAttackGoal() {
 			super(Yeti.this, 1.25D, true);
@@ -372,7 +412,18 @@ public class Yeti extends AgeableMob implements NeutralMob, IEntityState {
 		}
 
 		public boolean canUse() {
-			return (Yeti.this.isBaby() || Yeti.this.isOnFire()) && super.canUse();
+			return (Yeti.this.isBaby() || Yeti.this.isOnFire() || Yeti.this.isPanic()) && super.canUse();
+		}
+
+		@Override
+		protected boolean shouldPanic() {
+			return super.shouldPanic() || Yeti.this.isPanic();
+		}
+
+		@Override
+		public void stop() {
+			super.stop();
+			Yeti.this.setPanic(false);
 		}
 	}
 

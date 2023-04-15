@@ -24,6 +24,8 @@ public class FrostOrePlacements {
 	public static final ResourceKey<PlacedFeature> ASTRIUM_ORE_LOWER = registerKey("astrium_ore_lower");
 	public static final ResourceKey<PlacedFeature> ASTRIUM_ORE_UPPER = registerKey("astrium_ore_upper");
 
+	public static final ResourceKey<PlacedFeature> STARDUST_ORE_UPPER = registerKey("stardust_ore_upper");
+
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;
@@ -45,6 +47,8 @@ public class FrostOrePlacements {
 
 		PlacementUtils.register(context, ASTRIUM_ORE_LOWER, configuredFeature.getOrThrow(FrostConfiguredFeatures.ORE_ASTRIUM), commonOrePlacement(12, HeightRangePlacement.triangle(VerticalAnchor.absolute(-44), VerticalAnchor.absolute(76))));
 		PlacementUtils.register(context, ASTRIUM_ORE_UPPER, configuredFeature.getOrThrow(FrostConfiguredFeatures.ORE_ASTRIUM_SMALL), commonOrePlacement(90, HeightRangePlacement.triangle(VerticalAnchor.absolute(60), VerticalAnchor.absolute(384))));
+
+		PlacementUtils.register(context, STARDUST_ORE_UPPER, configuredFeature.getOrThrow(FrostConfiguredFeatures.ORE_STARDUST_CRYSTAL), commonOrePlacement(30, HeightRangePlacement.triangle(VerticalAnchor.absolute(60), VerticalAnchor.absolute(384))));
 	}
 
 	private static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {

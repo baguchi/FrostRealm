@@ -142,7 +142,6 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.19.4-45.0.22'
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 
-    implementation fg.deobf("curse.maven:wolflib-842904:4460963")
 
     // It's using to building some structure. not mean need this for dependencies
     runtimeOnly(fg.deobf("com.legacy:structure-gel:1.19.4-2.10.0"))

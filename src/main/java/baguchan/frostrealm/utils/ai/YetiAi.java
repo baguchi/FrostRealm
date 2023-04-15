@@ -1,13 +1,16 @@
 package baguchan.frostrealm.utils.ai;
 
 import baguchan.frostrealm.entity.Yeti;
+import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostLoots;
 import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -30,14 +33,14 @@ public class YetiAi {
                 throwItems(yeti, getBarterResponseItems(yeti));
                 yeti.setHoldTime(40);
                 if (itemstack.getCount() <= 0) {
-                    yeti.seeTradeState.setActive(yeti, false);
+                    yeti.setTrade(false);
                 }
             } else if (thrown && flag2) {
                 itemstack.shrink(1);
                 throwItems(yeti, getBigBarterResponseItems(yeti));
                 yeti.setHoldTime(40);
                 if (itemstack.getCount() <= 0) {
-                    yeti.seeTradeState.setActive(yeti, false);
+                    yeti.setTrade(false);
                 }
             } else if (!flag) {
                 yeti.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
@@ -59,7 +62,7 @@ public class YetiAi {
                 yeti.holdInMainHand(itemstack);
             }
             yeti.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-            yeti.seeTradeState.setActive(yeti, false);
+            yeti.setTrade(false);
         }
 
     }
@@ -130,5 +133,16 @@ public class YetiAi {
     private static Vec3 getRandomNearbyPos(Yeti p_35017_) {
         Vec3 vec3 = LandRandomPos.getPos(p_35017_, 4, 2);
         return vec3 == null ? p_35017_.position() : vec3;
+    }
+
+    public static boolean isWearingFear(LivingEntity p_34809_) {
+        for (ItemStack itemstack : p_34809_.getArmorSlots()) {
+            Item item = itemstack.getItem();
+            if (itemstack.is(FrostItems.YETI_FUR_HELMET.get()) || itemstack.is(FrostItems.YETI_FUR_CHESTPLATE.get()) || itemstack.is(FrostItems.YETI_FUR_LEGGINGS.get()) || itemstack.is(FrostItems.YETI_FUR_BOOTS.get())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

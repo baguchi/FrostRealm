@@ -5,6 +5,7 @@ import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.command.FrostWeatherCommand;
+import baguchan.frostrealm.command.TemperatureCommand;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
 import baguchan.frostrealm.message.ChangedColdMessage;
@@ -126,5 +127,6 @@ public class FrostRealm {
 
 	private void registerCommands(RegisterCommandsEvent evt) {
 		FrostWeatherCommand.register(evt.getDispatcher());
+		TemperatureCommand.register(evt.getDispatcher());
 	}
 }

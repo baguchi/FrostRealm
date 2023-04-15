@@ -93,6 +93,7 @@ public class FrostBiomeDefaultFeatures {
 
 	public static void addStarDustHillFeatures(BiomeGenerationSettings.Builder p_194721_) {
 		p_194721_.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FrostPlacements.STARDUST_CRUSTER);
+        p_194721_.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FrostOrePlacements.STARDUST_ORE_UPPER);
 	}
 
 	public static void addIceCaveFeatures(BiomeGenerationSettings.Builder p_194721_) {

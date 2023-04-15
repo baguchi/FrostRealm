@@ -264,6 +264,10 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 		return this.prevPortalAnimTime;
 	}
 
+	public boolean isColdBody() {
+		return this.temperature < 12;
+	}
+
 	@Nonnull
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
 		return (capability == FrostRealm.FROST_LIVING_CAPABILITY) ? LazyOptional.of(() -> this).cast() : LazyOptional.empty();

@@ -17,14 +17,17 @@ public class GetFoodGoal<T extends Yeti> extends Goal {
 
 	public boolean canUse() {
 
-		List<ItemEntity> list = this.mob.level.getEntitiesOfClass(ItemEntity.class, this.mob.getBoundingBox().inflate(8.0D, 6.0D, 8.0D), Yeti.ALLOWED_ITEMS);
-		if (!list.isEmpty() && this.mob.hasLineOfSight(list.get(0))) {
-			return this.mob.getNavigation().moveTo(list.get(0), 1.1F);
-		}
+        if (this.mob.isPanic() || this.mob.isTrade()) {
+            return false;
+        }
+        List<ItemEntity> list = this.mob.level.getEntitiesOfClass(ItemEntity.class, this.mob.getBoundingBox().inflate(8.0D, 6.0D, 8.0D), Yeti.ALLOWED_ITEMS);
+        if (!list.isEmpty() && this.mob.hasLineOfSight(list.get(0))) {
+            return this.mob.getNavigation().moveTo(list.get(0), 1.1F);
+        }
 
-		return false;
+        return false;
 
-	}
+    }
 
 	public void tick() {
         if (this.mob.getNavigation().getTargetPos().closerThan(this.mob.blockPosition(), 2D)) {

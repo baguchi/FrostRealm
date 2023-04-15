@@ -96,16 +96,15 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 
 		float f2 = ageInTicks - entity.tickCount;
 
-		float seeTradeAniamtion = entity.seeTradeState.getAnimationScale(f2);
-		if (seeTradeAniamtion > 0) {
-			this.head.xRot = seeTradeAniamtion * 30F * ((float) Math.PI / 180F);
+		if (entity.isTrade()) {
+			this.head.xRot = 30F * ((float) Math.PI / 180F);
 			this.head.yRot = 0.0F;
 			if (entity.getMainArm() == HumanoidArm.RIGHT) {
-				this.rightArm.xRot = seeTradeAniamtion * -42.5f * ((float) Math.PI / 180F);
-				this.rightArm.yRot = seeTradeAniamtion * -52.5F * ((float) Math.PI / 180F);
+				this.rightArm.xRot = -42.5f * ((float) Math.PI / 180F);
+				this.rightArm.yRot = -52.5F * ((float) Math.PI / 180F);
 			} else {
-				this.leftArm.xRot = seeTradeAniamtion * -42.5f * ((float) Math.PI / 180F);
-				this.leftArm.yRot = seeTradeAniamtion * 52.5F * ((float) Math.PI / 180F);
+				this.leftArm.xRot = -42.5f * ((float) Math.PI / 180F);
+				this.leftArm.yRot = 52.5F * ((float) Math.PI / 180F);
 			}
 		}
 
@@ -121,6 +120,7 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 
 
 		this.animateWalk(YetiAnimations.IDLE, ageInTicks, 1.0F, 0.1F, 0.1F);
+		this.animate(entity.warmingAnimation, YetiAnimations.WARMING, ageInTicks);
 	}
 
 	private HumanoidArm getAttackArm(T p_102857_) {

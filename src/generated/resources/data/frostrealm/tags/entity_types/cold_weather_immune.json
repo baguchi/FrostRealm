@@ -1,7 +1,6 @@
 {
   "values": [
     "#minecraft:freeze_immune_entity_types",
-    "frostrealm:yeti",
     "frostrealm:marmot"
   ]
 }
