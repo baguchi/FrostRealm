@@ -83,9 +83,20 @@ public class GlimmerRockItem extends Item {
 			if (player.isUsingItem()) {
 				applyEatTransform(poseStack, player, partialTick, arm, itemInHand);
 			}
-			applyItemArmTransform(poseStack, arm, equipProcess);
 
+			applyItemArmTransform(poseStack, arm, equipProcess);
+			applyItemArmAttackTransform(poseStack, arm, swingProcess);
 			return true;
+		}
+
+		private void applyItemArmAttackTransform(PoseStack p_109336_, HumanoidArm p_109337_, float p_109338_) {
+			int i = p_109337_ == HumanoidArm.RIGHT ? 1 : -1;
+			float f = Mth.sin(p_109338_ * p_109338_ * (float) Math.PI);
+			p_109336_.mulPose(Axis.YP.rotationDegrees((float) i * (45.0F + f * -20.0F)));
+			float f1 = Mth.sin(Mth.sqrt(p_109338_) * (float) Math.PI);
+			p_109336_.mulPose(Axis.ZP.rotationDegrees((float) i * f1 * -20.0F));
+			p_109336_.mulPose(Axis.XP.rotationDegrees(f1 * -80.0F));
+			p_109336_.mulPose(Axis.YP.rotationDegrees((float) i * -45.0F));
 		}
 
 		private void applyEatTransform(PoseStack p_109331_, LocalPlayer player, float p_109332_, HumanoidArm p_109333_, ItemStack p_109334_) {

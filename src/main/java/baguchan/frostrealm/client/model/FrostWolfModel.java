@@ -69,6 +69,15 @@ public class FrostWolfModel<T extends FrostWolf> extends ColorableAgeableListMod
 	}
 
 	public void prepareMobModel(T p_104132_, float p_104133_, float p_104134_, float p_104135_) {
+		if (this.young) {
+			this.head.xScale = 1.25F;
+			this.head.yScale = 1.25F;
+			this.head.zScale = 1.25F;
+		} else {
+			this.head.xScale = 1F;
+			this.head.yScale = 1F;
+			this.head.zScale = 1F;
+		}
 		if (p_104132_.isAngry()) {
 			this.tail.yRot = 0.0F;
 		} else {
