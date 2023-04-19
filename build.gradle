@@ -139,12 +139,12 @@ dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.19.4-45.0.22'
+    minecraft 'net.minecraftforge:forge:1.19.4-45.0.40'
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 
 
     // It's using to building some structure. not mean need this for dependencies
-    runtimeOnly(fg.deobf("com.legacy:structure-gel:1.19.4-2.10.0"))
+    runtimeOnly(fg.deobf("com.legacy:structure-gel:1.19.4-2.12.0"))
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency

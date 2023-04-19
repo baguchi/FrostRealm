@@ -43,11 +43,10 @@ public class GlimmerRockItem extends Item {
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-		super.onUsingTick(stack, player, count);
-
+	public void onUseTick(Level p_41428_, LivingEntity livingEntity, ItemStack p_41430_, int count) {
+		super.onUseTick(p_41428_, livingEntity, p_41430_, count);
 		if (count % 6 == 0) {
-			player.playSound(SoundEvents.REDSTONE_TORCH_BURNOUT, 0.3F, 1.0F);
+			livingEntity.playSound(SoundEvents.REDSTONE_TORCH_BURNOUT, 0.3F, 1.0F);
 		}
 	}
 
