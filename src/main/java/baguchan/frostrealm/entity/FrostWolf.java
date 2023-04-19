@@ -73,7 +73,7 @@ public class FrostWolf extends Wolf {
 		if (this.isAngry()) {
 			return 1.5393804F;
 		} else {
-			return this.isTame() ? (0.55F - (this.getMaxHealth() - this.getHealth()) * 0.015F) * (float) Math.PI : ((float) Math.PI / 5F);
+			return this.isTame() ? (((this.getHealth() - this.getMaxHealth()) - 1.0F) * 0.015F) * (float) Math.PI : ((float) Math.PI / 5F);
 		}
 	}
 
