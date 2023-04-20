@@ -34,7 +34,7 @@ public class ItemTagGenerator extends ItemTagsProvider {
                 .add(FrostItems.KOLOSSUS_FUR_HELMET.get(), FrostItems.KOLOSSUS_FUR_CHESTPLATE.get(), FrostItems.KOLOSSUS_FUR_LEGGINGS.get(), FrostItems.KOLOSSUS_FUR_BOOTS.get());
         tag(FrostTags.Items.AURORA_FUELS).add(FrostItems.STARDUST_CRYSTAL.get());
         tag(FrostTags.Items.YETI_CURRENCY).add(FrostItems.STARDUST_CRYSTAL.get());
-        tag(FrostTags.Items.YETI_BIG_CURRENCY).add(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get().asItem());
-        tag(FrostTags.Items.YETI_LOVED).addTags(FrostTags.Items.YETI_CURRENCY, FrostTags.Items.YETI_BIG_CURRENCY);
+        //tag(FrostTags.Items.YETI_BIG_CURRENCY).add(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get().asItem());
+        tag(FrostTags.Items.YETI_LOVED).addTags(FrostTags.Items.YETI_CURRENCY);
     }
 }

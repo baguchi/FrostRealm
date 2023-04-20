@@ -27,7 +27,7 @@ public class YetiAi {
 
         if (!yeti.isBaby()) {
             boolean flag = itemstack.is(FrostTags.Items.YETI_CURRENCY);
-            boolean flag2 = itemstack.is(FrostTags.Items.YETI_BIG_CURRENCY);
+            //boolean flag2 = itemstack.is(FrostTags.Items.YETI_BIG_CURRENCY);
             if (thrown && flag) {
                 itemstack.shrink(1);
                 throwItems(yeti, getBarterResponseItems(yeti));
@@ -35,14 +35,14 @@ public class YetiAi {
                 if (itemstack.getCount() <= 0) {
                     yeti.setTrade(false);
                 }
-            } else if (thrown && flag2) {
+            }/* else if (thrown && flag2) {
                 itemstack.shrink(1);
                 throwItems(yeti, getBigBarterResponseItems(yeti));
                 yeti.setHoldTime(40);
                 if (itemstack.getCount() <= 0) {
                     yeti.setTrade(false);
                 }
-            } else if (!flag) {
+            }*/ else if (!flag) {
                 yeti.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
                 boolean flag1 = !yeti.equipItemIfPossible(itemstack).isEmpty();
                 if (!flag1) {

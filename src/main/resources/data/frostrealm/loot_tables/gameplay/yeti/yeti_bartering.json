@@ -82,7 +82,7 @@
             }
           ],
           "name": "frostrealm:frost_crystal",
-          "weight": 10
+          "weight": 12
         },
         {
           "type": "minecraft:item",
@@ -98,7 +98,39 @@
             }
           ],
           "name": "frostrealm:glimmerrock",
-          "weight": 5
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "frostrealm:astrium_ingot",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "frostrealm:kolossus_fur",
+          "weight": 2
         }
       ],
       "rolls": 1
