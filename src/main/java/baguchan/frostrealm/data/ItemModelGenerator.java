@@ -91,7 +91,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.FRIGID_STONE_STAIRS);
 		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK);
 		this.toBlock(FrostBlocks.FRIGID_STONE_SMOOTH);
-		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_SLAB);
+        this.toBlock(FrostBlocks.CHISELED_FRIGID_STONE_BRICK);
+        this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_SLAB);
 		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_STAIRS);
 
 		this.toBlock(FrostBlocks.FRIGID_STONE_MOSSY);

@@ -1,6 +1,8 @@
 package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.data.resource.FrostDensityFunctions;
+import baguchan.frostrealm.data.resource.FrostNoises;
 import baguchan.frostrealm.data.resource.ModConfiguredFeatures;
 import baguchan.frostrealm.registry.FrostBiomeSources;
 import baguchan.frostrealm.registry.FrostBiomes;
@@ -36,10 +38,8 @@ import java.util.concurrent.CompletableFuture;
 public class WorldGenerator extends DatapackBuiltinEntriesProvider {
 
 	public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
-            .add(Registries.NOISE, (context) -> {
-            })
-            .add(Registries.DENSITY_FUNCTION, (context) -> {
-            })
+            .add(Registries.NOISE, FrostNoises::bootstrap)
+            .add(Registries.DENSITY_FUNCTION, FrostDensityFunctions::bootstrap)
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrapConfiguredFeature)
             .add(Registries.PLACED_FEATURE, ModConfiguredFeatures::bootstrapPlacedFeature)
             .add(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, FrostBiomeSources::bootstrapPreset)

@@ -24,9 +24,9 @@
       "xz_scale": 1.0,
       "y_scale": 0.5
     },
-    "continents": "minecraft:overworld/continents",
-    "depth": "minecraft:overworld/depth",
-    "erosion": "minecraft:overworld/erosion",
+    "continents": "minecraft:overworld_large_biomes/continents",
+    "depth": "frostrealm:depth",
+    "erosion": "minecraft:overworld_large_biomes/erosion",
     "final_density": {
       "type": "minecraft:min",
       "argument1": {
@@ -40,7 +40,7 @@
               "type": "minecraft:blend_density",
               "argument": {
                 "type": "minecraft:add",
-                "argument1": 0.1171875,
+                "argument1": 0.5,
                 "argument2": {
                   "type": "minecraft:mul",
                   "argument1": {
@@ -48,11 +48,11 @@
                     "from_value": 0.0,
                     "from_y": -80,
                     "to_value": 1.0,
-                    "to_y": -56
+                    "to_y": -48
                   },
                   "argument2": {
                     "type": "minecraft:add",
-                    "argument1": -0.1171875,
+                    "argument1": -0.5,
                     "argument2": {
                       "type": "minecraft:add",
                       "argument1": -0.078125,
@@ -61,21 +61,21 @@
                         "argument1": {
                           "type": "minecraft:y_clamped_gradient",
                           "from_value": 1.0,
-                          "from_y": 224,
+                          "from_y": 272,
                           "to_value": 0.0,
-                          "to_y": 240
+                          "to_y": 288
                         },
                         "argument2": {
                           "type": "minecraft:add",
                           "argument1": 0.078125,
                           "argument2": {
                             "type": "minecraft:range_choice",
-                            "input": "minecraft:overworld/sloped_cheese",
+                            "input": "minecraft:overworld_large_biomes/sloped_cheese",
                             "max_exclusive": 1.5625,
                             "min_inclusive": -1000000.0,
                             "when_in_range": {
                               "type": "minecraft:min",
-                              "argument1": "minecraft:overworld/sloped_cheese",
+                              "argument1": "minecraft:overworld_large_biomes/sloped_cheese",
                               "argument2": {
                                 "type": "minecraft:mul",
                                 "argument1": 5.0,
@@ -128,7 +128,7 @@
                                           "argument2": {
                                             "type": "minecraft:mul",
                                             "argument1": -0.64,
-                                            "argument2": "minecraft:overworld/sloped_cheese"
+                                            "argument2": "minecraft:overworld_large_biomes/sloped_cheese"
                                           }
                                         },
                                         "max": 0.5,
@@ -180,7 +180,7 @@
     },
     "initial_density_without_jaggedness": {
       "type": "minecraft:add",
-      "argument1": 0.1171875,
+      "argument1": 0.5,
       "argument2": {
         "type": "minecraft:mul",
         "argument1": {
@@ -188,11 +188,11 @@
           "from_value": 0.0,
           "from_y": -80,
           "to_value": 1.0,
-          "to_y": -56
+          "to_y": -48
         },
         "argument2": {
           "type": "minecraft:add",
-          "argument1": -0.1171875,
+          "argument1": -0.5,
           "argument2": {
             "type": "minecraft:add",
             "argument1": -0.078125,
@@ -201,9 +201,9 @@
               "argument1": {
                 "type": "minecraft:y_clamped_gradient",
                 "from_value": 1.0,
-                "from_y": 224,
+                "from_y": 272,
                 "to_value": 0.0,
-                "to_y": 240
+                "to_y": 288
               },
               "argument2": {
                 "type": "minecraft:add",
@@ -220,10 +220,10 @@
                         "type": "minecraft:quarter_negative",
                         "argument": {
                           "type": "minecraft:mul",
-                          "argument1": "minecraft:overworld/depth",
+                          "argument1": "frostrealm:depth",
                           "argument2": {
                             "type": "minecraft:cache_2d",
-                            "argument": "minecraft:overworld/factor"
+                            "argument": "frostrealm:factor"
                           }
                         }
                       }
@@ -247,7 +247,7 @@
     "ridges": "minecraft:overworld/ridges",
     "temperature": {
       "type": "minecraft:shifted_noise",
-      "noise": "minecraft:temperature",
+      "noise": "minecraft:temperature_large",
       "shift_x": "minecraft:shift_x",
       "shift_y": 0.0,
       "shift_z": "minecraft:shift_z",
@@ -256,7 +256,7 @@
     },
     "vegetation": {
       "type": "minecraft:shifted_noise",
-      "noise": "minecraft:vegetation",
+      "noise": "minecraft:vegetation_large",
       "shift_x": "minecraft:shift_x",
       "shift_y": 0.0,
       "shift_z": "minecraft:shift_z",
