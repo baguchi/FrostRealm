@@ -24,10 +24,11 @@ public class FrostAdvancementData extends ForgeAdvancementProvider {
 		super(output, registries, existingFileHelper, List.of());
 	}
 
+
 	public static class FrostAdvancements implements Consumer<Consumer<Advancement>> {
 		@Override
 		public void accept(Consumer<Advancement> consumer) {
-			Advancement enterAether = Advancement.Builder.advancement()
+			Advancement enterFrostrealm = Advancement.Builder.advancement()
 					.display(FrostBlocks.FROZEN_GRASS_BLOCK.get(),
 							Component.translatable("advancement.frostrealm.enter_frostrealm"),
 							Component.translatable("advancement.frostrealm.enter_frostrealm.desc"),
@@ -35,8 +36,8 @@ public class FrostAdvancementData extends ForgeAdvancementProvider {
 							FrameType.TASK, true, true, false)
 					.addCriterion("enter_frostrealm", ChangeDimensionTrigger.TriggerInstance.changedDimensionTo(FrostDimensions.FROSTREALM_LEVEL))
 					.save(consumer, "frostrealm:enter_frostrealm");
-			Advancement craftAltar = Advancement.Builder.advancement()
-					.parent(enterAether)
+			Advancement getRock = Advancement.Builder.advancement()
+					.parent(enterFrostrealm)
 					.display(FrostItems.GLIMMERROCK.get(),
 							Component.translatable("advancement.frostrealm.hot_source"),
 							Component.translatable("advancement.frostrealm.hot_source.desc"),

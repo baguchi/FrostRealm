@@ -1,6 +1,6 @@
 package baguchan.frostrealm.world.gen;
 
-import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.data.resource.FrostDensityFunctions;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -17,30 +17,7 @@ public class FrostNoiseRouterData {
 	private static final ResourceKey<DensityFunction> Y = createKey("y");
 	private static final ResourceKey<DensityFunction> SHIFT_X = createKey("shift_x");
 	private static final ResourceKey<DensityFunction> SHIFT_Z = createKey("shift_z");
-
-	private static final ResourceKey<DensityFunction> BASE_3D_NOISE_OVERWORLD = createKey("overworld/base_3d_noise");
-	private static final ResourceKey<DensityFunction> BASE_3D_NOISE_NETHER = createKey("nether/base_3d_noise");
-	private static final ResourceKey<DensityFunction> BASE_3D_NOISE_END = createKey("end/base_3d_noise");
-	public static final ResourceKey<DensityFunction> CONTINENTS = createKey("overworld/continents");
-	public static final ResourceKey<DensityFunction> EROSION = createKey("overworld/erosion");
 	public static final ResourceKey<DensityFunction> RIDGES = createKey("overworld/ridges");
-	public static final ResourceKey<DensityFunction> RIDGES_FOLDED = createKey("overworld/ridges_folded");
-	public static final ResourceKey<DensityFunction> OFFSET = createKey("overworld/offset");
-	public static final ResourceKey<DensityFunction> FACTOR = createKey("overworld/factor");
-	public static final ResourceKey<DensityFunction> JAGGEDNESS = createKey("overworld/jaggedness");
-	public static final ResourceKey<DensityFunction> DEPTH = createKey("overworld/depth");
-	private static final ResourceKey<DensityFunction> SLOPED_CHEESE = createKey("overworld/sloped_cheese");
-	public static final ResourceKey<DensityFunction> CONTINENTS_LARGE = createKey("overworld_large_biomes/continents");
-	public static final ResourceKey<DensityFunction> EROSION_LARGE = createKey("overworld_large_biomes/erosion");
-	private static final ResourceKey<DensityFunction> OFFSET_LARGE = createKey("overworld_large_biomes/offset");
-	private static final ResourceKey<DensityFunction> FACTOR_LARGE = createKey(FrostRealm.MODID, "factor");
-	private static final ResourceKey<DensityFunction> JAGGEDNESS_LARGE = createKey("overworld_large_biomes/jaggedness");
-	private static final ResourceKey<DensityFunction> DEPTH_LARGE = createKey(FrostRealm.MODID, "depth");
-	private static final ResourceKey<DensityFunction> SLOPED_CHEESE_LARGE = createKey("overworld_large_biomes/sloped_cheese");
-
-
-	private static final ResourceKey<DensityFunction> SLOPED_CHEESE_AMPLIFIED = createKey("overworld_amplified/sloped_cheese");
-	private static final ResourceKey<DensityFunction> SLOPED_CHEESE_END = createKey("end/sloped_cheese");
 	private static final ResourceKey<DensityFunction> SPAGHETTI_ROUGHNESS_FUNCTION = createKey("overworld/caves/spaghetti_roughness_function");
 	private static final ResourceKey<DensityFunction> ENTRANCES = createKey("overworld/caves/entrances");
 	private static final ResourceKey<DensityFunction> NOODLE = createKey("overworld/caves/noodle");
@@ -85,15 +62,15 @@ public class FrostNoiseRouterData {
 		DensityFunction densityfunction5 = getFunction(p_224486_, SHIFT_Z);
 		DensityFunction densityfunction6 = DensityFunctions.shiftedNoise2d(densityfunction4, densityfunction5, 0.25D, p_256236_.getOrThrow(Noises.TEMPERATURE_LARGE));
 		DensityFunction densityfunction7 = DensityFunctions.shiftedNoise2d(densityfunction4, densityfunction5, 0.25D, p_256236_.getOrThrow(Noises.VEGETATION_LARGE));
-		DensityFunction densityfunction8 = getFunction(p_224486_, FACTOR_LARGE);
-		DensityFunction densityfunction9 = getFunction(p_224486_, DEPTH_LARGE);
+		DensityFunction densityfunction8 = getFunction(p_224486_, FrostDensityFunctions.FACTOR);
+		DensityFunction densityfunction9 = getFunction(p_224486_, FrostDensityFunctions.DEPTH);
 		DensityFunction densityfunction10 = noiseGradientDensity(DensityFunctions.cache2d(densityfunction8), densityfunction9);
-		DensityFunction densityfunction11 = getFunction(p_224486_, SLOPED_CHEESE_LARGE);
+		DensityFunction densityfunction11 = getFunction(p_224486_, FrostDensityFunctions.SLOPED_CHEESE);
 		DensityFunction densityfunction12 = DensityFunctions.min(densityfunction11, DensityFunctions.mul(DensityFunctions.constant(5.0D), getFunction(p_224486_, ENTRANCES)));
 		DensityFunction densityfunction13 = DensityFunctions.rangeChoice(densityfunction11, -1000000.0D, 1.5625D, densityfunction12, underground(p_224486_, p_256236_, densityfunction11));
 		DensityFunction densityfunction14 = DensityFunctions.min(postProcess(slideOverworld(densityfunction13)), getFunction(p_224486_, NOODLE));
 		DensityFunction densityfunction15 = getFunction(p_224486_, Y);
-		return new NoiseRouter(densityfunction, densityfunction1, densityfunction2, densityfunction3, densityfunction6, densityfunction7, getFunction(p_224486_, CONTINENTS_LARGE), getFunction(p_224486_, EROSION_LARGE), densityfunction9, getFunction(p_224486_, RIDGES), slideOverworld(DensityFunctions.add(densityfunction10, DensityFunctions.constant(-0.703125D)).clamp(-80.0D, 64.0D)), densityfunction14, DensityFunctions.constant(0.0F), DensityFunctions.constant(0.0F), DensityFunctions.constant(0.0F));
+		return new NoiseRouter(densityfunction, densityfunction1, densityfunction2, densityfunction3, densityfunction6, densityfunction7, getFunction(p_224486_, FrostDensityFunctions.CONTINENTS), getFunction(p_224486_, FrostDensityFunctions.EROSION), densityfunction9, getFunction(p_224486_, RIDGES), slideOverworld(DensityFunctions.add(densityfunction10, DensityFunctions.constant(-0.703125D)).clamp(-80.0D, 64.0D)), densityfunction14, DensityFunctions.constant(0.0F), DensityFunctions.constant(0.0F), DensityFunctions.constant(0.0F));
 	}
 
 	private static DensityFunction slideOverworld(DensityFunction p_224491_) {
