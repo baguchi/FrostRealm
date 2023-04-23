@@ -21,13 +21,16 @@ import java.util.function.Consumer;
 
 public class FrostAdvancementData extends ForgeAdvancementProvider {
 	public FrostAdvancementData(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ExistingFileHelper existingFileHelper) {
-		super(output, registries, existingFileHelper, List.of());
+		super(output, registries, existingFileHelper, List.of(new FrostAdvancements()));
 	}
 
 
-	public static class FrostAdvancements implements Consumer<Consumer<Advancement>> {
+	public static class FrostAdvancements implements AdvancementGenerator {
+
+		@SuppressWarnings("unused")
 		@Override
-		public void accept(Consumer<Advancement> consumer) {
+		public void generate(HolderLookup.Provider provider, Consumer<Advancement> consumer, ExistingFileHelper existingFileHelper) {
+
 			Advancement enterFrostrealm = Advancement.Builder.advancement()
 					.display(FrostBlocks.FROZEN_GRASS_BLOCK.get(),
 							Component.translatable("advancement.frostrealm.enter_frostrealm"),
