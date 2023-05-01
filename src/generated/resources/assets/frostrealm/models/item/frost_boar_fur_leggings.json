@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "frostrealm:item/kolossus_fur"
+    "layer0": "frostrealm:item/frost_boar_fur_leggings"
   }
 }

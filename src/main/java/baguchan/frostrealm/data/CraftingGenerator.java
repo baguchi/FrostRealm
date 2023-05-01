@@ -23,9 +23,6 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 	@Override
 	protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_PLANKS.get(), 4).requires(FrostBlocks.FROSTROOT_LOG.get())
-				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FROSTROOT_LOG.get()).getPath(), has(FrostBlocks.FROSTROOT_LOG.get())).save(consumer);
-
 		makeSlab(consumer, FrostBlocks.FRIGID_STONE_SLAB.get(), FrostBlocks.FRIGID_STONE.get());
 		makeStairs(consumer, FrostBlocks.FRIGID_STONE_STAIRS.get(), FrostBlocks.FRIGID_STONE.get());
 
@@ -52,21 +49,34 @@ public class CraftingGenerator extends CraftingDataHelper {
                 .pattern("BB")
                 .define('B', FrostBlocks.FRIGID_STONE_BRICK.get())
                 .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FRIGID_STONE_BRICK.get()).getPath(), has(FrostBlocks.FRIGID_STONE_BRICK.get())).save(consumer);
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.CHISELED_FRIGID_STONE_BRICK.get(), 1)
-                .pattern("B")
-                .pattern("B")
-                .define('B', FrostBlocks.FRIGID_STONE_BRICK_SLAB.get())
-                .unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FRIGID_STONE_BRICK_SLAB.get()).getPath(), has(FrostBlocks.FRIGID_STONE_BRICK_SLAB.get())).save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.CHISELED_FRIGID_STONE_BRICK.get(), 1)
+				.pattern("B")
+				.pattern("B")
+				.define('B', FrostBlocks.FRIGID_STONE_BRICK_SLAB.get())
+				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FRIGID_STONE_BRICK_SLAB.get()).getPath(), has(FrostBlocks.FRIGID_STONE_BRICK_SLAB.get())).save(consumer);
 
 
-        makeSlab(consumer, FrostBlocks.FRIGID_STONE_BRICK_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
-        makeStairs(consumer, FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
+		makeSlab(consumer, FrostBlocks.FRIGID_STONE_BRICK_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
+		makeStairs(consumer, FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
 
-        makeSlab(consumer, FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_PLANKS.get());
-        makeStairs(consumer, FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS.get());
-        makeWoodFence(consumer, FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_PLANKS.get());
-        makeFenceGate(consumer, FrostBlocks.FROSTROOT_FENCE_GATE.get(), FrostBlocks.FROSTROOT_PLANKS.get());
-        makeDoor(consumer, FrostBlocks.FROSTROOT_DOOR.get(), FrostBlocks.FROSTROOT_PLANKS.get());
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_PLANKS.get(), 4).requires(FrostBlocks.FROSTROOT_LOG.get())
+				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FROSTROOT_LOG.get()).getPath(), has(FrostBlocks.FROSTROOT_LOG.get())).save(consumer);
+
+		makeSlab(consumer, FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_PLANKS.get());
+		makeStairs(consumer, FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS.get());
+		makeWoodFence(consumer, FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_PLANKS.get());
+		makeFenceGate(consumer, FrostBlocks.FROSTROOT_FENCE_GATE.get(), FrostBlocks.FROSTROOT_PLANKS.get());
+		makeDoor(consumer, FrostBlocks.FROSTROOT_DOOR.get(), FrostBlocks.FROSTROOT_PLANKS.get());
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTBITE_PLANKS.get(), 4).requires(FrostBlocks.FROSTBITE_LOG.get())
+				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FROSTBITE_LOG.get()).getPath(), has(FrostBlocks.FROSTBITE_LOG.get())).save(consumer);
+
+		makeSlab(consumer, FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_PLANKS.get());
+		makeStairs(consumer, FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS.get());
+		makeWoodFence(consumer, FrostBlocks.FROSTBITE_FENCE.get(), FrostBlocks.FROSTBITE_PLANKS.get());
+		makeFenceGate(consumer, FrostBlocks.FROSTBITE_FENCE_GATE.get(), FrostBlocks.FROSTBITE_PLANKS.get());
+		//makeDoor(consumer, FrostBlocks.FROSTBITE_DOOR.get(), FrostBlocks.FROSTBITE_PLANKS.get());
 
 		foodCooking(FrostItems.FROZEN_FRUIT.get(), FrostItems.MELTED_FRUIT.get(), 0.1F, consumer);
 		foodCooking(FrostItems.BEARBERRY.get(), FrostItems.COOKED_BEARBERRY.get(), 0.1F, consumer);
@@ -78,10 +88,10 @@ public class CraftingGenerator extends CraftingDataHelper {
 		leggingsItem(consumer, "yeti_fur_leggings", FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR.get());
 		bootsItem(consumer, "yeti_fur_boots", FrostItems.YETI_FUR_BOOTS.get(), FrostItems.YETI_FUR.get());
 
-		helmetItem(consumer, "kolossus_fur_helmet", FrostItems.KOLOSSUS_FUR_HELMET.get(), FrostItems.KOLOSSUS_FUR.get());
-		chestplateItem(consumer, "kolossus_fur_chestplate", FrostItems.KOLOSSUS_FUR_CHESTPLATE.get(), FrostItems.KOLOSSUS_FUR.get());
-		leggingsItem(consumer, "kolossus_fur_leggings", FrostItems.KOLOSSUS_FUR_LEGGINGS.get(), FrostItems.KOLOSSUS_FUR.get());
-		bootsItem(consumer, "kolossus_fur_boots", FrostItems.KOLOSSUS_FUR_BOOTS.get(), FrostItems.KOLOSSUS_FUR.get());
+		helmetItem(consumer, "kolossus_fur_helmet", FrostItems.FROST_BOAR_FUR_HELMET.get(), FrostItems.FROST_BOAR_FUR.get());
+		chestplateItem(consumer, "kolossus_fur_chestplate", FrostItems.FROST_BOAR_FUR_CHESTPLATE.get(), FrostItems.FROST_BOAR_FUR.get());
+		leggingsItem(consumer, "kolossus_fur_leggings", FrostItems.FROST_BOAR_FUR_LEGGINGS.get(), FrostItems.FROST_BOAR_FUR.get());
+		bootsItem(consumer, "kolossus_fur_boots", FrostItems.FROST_BOAR_FUR_BOOTS.get(), FrostItems.FROST_BOAR_FUR.get());
 
 
 		helmetItem(consumer, "astrium_helmet", FrostItems.ASTRIUM_HELMET.get(), FrostItems.ASTRIUM_INGOT.get());

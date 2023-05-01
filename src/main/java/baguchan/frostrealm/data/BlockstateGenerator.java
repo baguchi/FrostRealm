@@ -48,23 +48,33 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.slab(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
 		this.stairs(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
 
-		this.logBlock(FrostBlocks.FROSTROOT_LOG.get());
-		this.simpleBlock(FrostBlocks.FROSTROOT_LEAVES.get());
-		this.crossBlock(FrostBlocks.FROSTROOT_SAPLING.get());
-		this.simpleBlock(FrostBlocks.FROSTROOT_PLANKS.get());
-		this.slab(FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_PLANKS.get());
-		this.stairs(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS.get());
-		this.fenceBlock(FrostBlocks.FROSTROOT_FENCE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
-		this.fenceGateBlock(FrostBlocks.FROSTROOT_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
+        this.logBlock(FrostBlocks.FROSTROOT_LOG.get());
+        this.simpleBlock(FrostBlocks.FROSTROOT_LEAVES.get());
+        this.crossBlock(FrostBlocks.FROSTROOT_SAPLING.get());
+        this.simpleBlock(FrostBlocks.FROSTROOT_PLANKS.get());
+        this.slab(FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_PLANKS.get());
+        this.stairs(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS.get());
+        this.fenceBlock(FrostBlocks.FROSTROOT_FENCE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
+        this.fenceGateBlock(FrostBlocks.FROSTROOT_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
 
-		this.crossBlock(FrostBlocks.VIGOROSHROOM.get());
-		this.crossBlock(FrostBlocks.ARCTIC_POPPY.get());
-		this.crossBlock(FrostBlocks.ARCTIC_WILLOW.get());
+        this.logBlock(FrostBlocks.FROSTBITE_LOG.get());
+        this.simpleBlock(FrostBlocks.FROSTBITE_LEAVES.get());
+        this.crossBlock(FrostBlocks.FROSTBITE_SAPLING.get());
+        this.simpleBlock(FrostBlocks.FROSTBITE_PLANKS.get());
+        this.slab(FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_PLANKS.get());
+        this.stairs(FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS.get());
+        this.fenceBlock(FrostBlocks.FROSTBITE_FENCE.get(), texture(name(FrostBlocks.FROSTBITE_PLANKS.get())));
+        this.fenceGateBlock(FrostBlocks.FROSTBITE_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTBITE_PLANKS.get())));
 
-		this.crossTintBlock(FrostBlocks.COLD_GRASS.get());
 
-		this.ageThreeCrossBlock(FrostBlocks.BEARBERRY_BUSH.get());
-		this.ageThreeCrossBlock(FrostBlocks.SUGARBEET.get());
+        this.crossBlock(FrostBlocks.VIGOROSHROOM.get());
+        this.crossBlock(FrostBlocks.ARCTIC_POPPY.get());
+        this.crossBlock(FrostBlocks.ARCTIC_WILLOW.get());
+
+        this.crossTintBlock(FrostBlocks.COLD_GRASS.get());
+
+        this.ageThreeCrossBlock(FrostBlocks.BEARBERRY_BUSH.get());
+        this.ageThreeCrossBlock(FrostBlocks.SUGARBEET.get());
 
 		this.glowBlock(FrostBlocks.FROST_CRYSTAL_ORE.get());
 		this.glowBlock(FrostBlocks.GLIMMERROCK_ORE.get());

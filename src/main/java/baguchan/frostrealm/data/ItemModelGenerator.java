@@ -44,25 +44,25 @@ public class ItemModelGenerator extends ItemModelProvider {
         this.singleTex(FrostItems.STRAY_NECKLACE_PART);
 
         this.singleTex(FrostItems.YETI_FUR);
-        this.singleTex(FrostItems.KOLOSSUS_FUR);
-        this.singleTexTool(FrostItems.OAK_SLEDGE);
+		this.singleTex(FrostItems.FROST_BOAR_FUR);
+		this.singleTexTool(FrostItems.OAK_SLEDGE);
         this.singleTexTool(FrostItems.OAK_CHEST_SLEDGE);
         this.singleTexTool(FrostItems.FUSION_CRYSTAL_DAGGER);
         this.singleTexTool(FrostItems.ASTRIUM_SWORD);
-        this.singleTexTool(FrostItems.ASTRIUM_AXE);
-        this.singleTexTool(FrostItems.ASTRIUM_PICKAXE);
-        this.singleTexTool(FrostItems.ASTRIUM_SHOVEL);
-        this.singleTexTool(FrostItems.ASTRIUM_HOE);
+		this.singleTexTool(FrostItems.ASTRIUM_AXE);
+		this.singleTexTool(FrostItems.ASTRIUM_PICKAXE);
+		this.singleTexTool(FrostItems.ASTRIUM_SHOVEL);
+		this.singleTexTool(FrostItems.ASTRIUM_HOE);
 
-        this.singleTex(FrostItems.YETI_FUR_HELMET);
-        this.singleTex(FrostItems.YETI_FUR_CHESTPLATE);
-        this.singleTex(FrostItems.YETI_FUR_LEGGINGS);
+		this.singleTex(FrostItems.YETI_FUR_HELMET);
+		this.singleTex(FrostItems.YETI_FUR_CHESTPLATE);
+		this.singleTex(FrostItems.YETI_FUR_LEGGINGS);
 		this.singleTex(FrostItems.YETI_FUR_BOOTS);
 
-		this.singleTex(FrostItems.KOLOSSUS_FUR_HELMET);
-		this.singleTex(FrostItems.KOLOSSUS_FUR_CHESTPLATE);
-		this.singleTex(FrostItems.KOLOSSUS_FUR_LEGGINGS);
-		this.singleTex(FrostItems.KOLOSSUS_FUR_BOOTS);
+		this.singleTex(FrostItems.FROST_BOAR_FUR_HELMET);
+		this.singleTex(FrostItems.FROST_BOAR_FUR_CHESTPLATE);
+		this.singleTex(FrostItems.FROST_BOAR_FUR_LEGGINGS);
+		this.singleTex(FrostItems.FROST_BOAR_FUR_BOOTS);
 
 		this.singleTex(FrostItems.ASTRIUM_HELMET);
 		this.singleTex(FrostItems.ASTRIUM_CHESTPLATE);
@@ -111,7 +111,17 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.FROSTROOT_PLANKS_STAIRS);
 		this.woodenFence(FrostBlocks.FROSTROOT_FENCE, FrostBlocks.FROSTROOT_PLANKS);
 		this.toBlock(FrostBlocks.FROSTROOT_FENCE_GATE);
-        this.toBlock(FrostBlocks.FROSTROOT_CRAFTING_TABLE);
+		this.toBlock(FrostBlocks.FROSTROOT_CRAFTING_TABLE);
+
+		this.toBlock(FrostBlocks.FROSTBITE_LOG);
+		this.itemBlockFlat(FrostBlocks.FROSTBITE_SAPLING);
+		this.toBlock(FrostBlocks.FROSTBITE_LEAVES);
+		this.toBlock(FrostBlocks.FROSTBITE_PLANKS);
+		this.toBlock(FrostBlocks.FROSTBITE_PLANKS_SLAB);
+		this.toBlock(FrostBlocks.FROSTBITE_PLANKS_STAIRS);
+		this.woodenFence(FrostBlocks.FROSTBITE_FENCE, FrostBlocks.FROSTBITE_PLANKS);
+		this.toBlock(FrostBlocks.FROSTBITE_FENCE_GATE);
+		//this.toBlock(FrostBlocks.FROSTBITE_CRAFTING_TABLE);
 
 		this.itemBlockFlat(FrostBlocks.VIGOROSHROOM);
 		this.itemBlockFlat(FrostBlocks.ARCTIC_POPPY);

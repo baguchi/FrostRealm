@@ -49,7 +49,7 @@ public class AstraBall extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 2.0F).add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 6.0F).add(Attributes.KNOCKBACK_RESISTANCE, 0.5F).add(Attributes.MOVEMENT_SPEED, 0.24D).add(Attributes.FLYING_SPEED, 0.24D);
+        return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 2.0F).add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 6.0F).add(Attributes.KNOCKBACK_RESISTANCE, 0.25F).add(Attributes.MOVEMENT_SPEED, 0.24D).add(Attributes.FLYING_SPEED, 0.24D);
     }
 
     public void push(Entity p_33636_) {

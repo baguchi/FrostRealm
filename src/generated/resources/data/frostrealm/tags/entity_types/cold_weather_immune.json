@@ -1,6 +1,7 @@
 {
   "values": [
     "#minecraft:freeze_immune_entity_types",
-    "frostrealm:marmot"
+    "frostrealm:marmot",
+    "frostrealm:frost_boar"
   ]
 }

@@ -35,6 +35,7 @@ public class FrostEntities {
 	public static final RegistryObject<EntityType<Gokkudillo>> GOKKUDILLO = ENTITIES.register("gokkudillo", () -> EntityType.Builder.of(Gokkudillo::new, MobCategory.MONSTER).sized(1.0F, 0.85F).fireImmune().build(prefix("gokkudillo")));
 	public static final RegistryObject<EntityType<FrostBeaster>> FROST_BEASTER = ENTITIES.register("frost_beaster", () -> EntityType.Builder.of(FrostBeaster::new, MobCategory.MONSTER).sized(0.65F, 1.95F).build(prefix("frost_beaster")));
 	public static final RegistryObject<EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).build(prefix("astra_ball")));
+	public static final RegistryObject<EntityType<FrostBoar>> FROST_BOAR = ENTITIES.register("frost_boar", () -> EntityType.Builder.of(FrostBoar::new, MobCategory.CREATURE).sized(1.1F, 1.25F).build(prefix("frost_boar")));
 	public static final RegistryObject<EntityType<Sledge>> SLEDGE = ENTITIES.register("sledge", () -> EntityType.Builder.<Sledge>of(Sledge::new, MobCategory.MISC).sized(1.375F, 0.5625F).build(prefix("sledge")));
 	public static final RegistryObject<EntityType<ChestSledge>> CHEST_SLEDGE = ENTITIES.register("chest_sledge", () -> EntityType.Builder.<ChestSledge>of(ChestSledge::new, MobCategory.MISC).sized(1.375F, 0.5625F).build(prefix("chest_sledge")));
 
@@ -59,23 +60,26 @@ public class FrostEntities {
 		event.put(GOKKUDILLO.get(), Gokkudillo.createAttributes().build());
 		event.put(FROST_BEASTER.get(), FrostBeaster.createAttributes().build());
 		event.put(ASTRA_BALL.get(), AstraBall.createAttributes().build());
+		event.put(FROST_BOAR.get(), AstraBall.createAttributes().build());
 
 
-		SpawnPlacements.register(MARMOT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Marmot::checkMarmotSpawnRules);
+		SpawnPlacements.register(MARMOT.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Marmot::checkFrostAnimalSpawnRules);
 
-		SpawnPlacements.register(SNOWPILE_QUAIL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowPileQuail::checkQuailSpawnRules);
+		SpawnPlacements.register(SNOWPILE_QUAIL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowPileQuail::checkFrostAnimalSpawnRules);
 		SpawnPlacements.register(FROST_WOLF.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostWolf::checkFrostWolfSpawnRules);
-		SpawnPlacements.register(CRYSTAL_FOX.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalFox::checkCrystalFoxSpawnRules);
+		SpawnPlacements.register(CRYSTAL_FOX.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalFox::checkFrostAnimalSpawnRules);
 		SpawnPlacements.register(SNOW_MOLE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowMole::checkSnowMoleSpawnRules);
 
 
 		SpawnPlacements.register(YETI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
+
 		SpawnPlacements.register(FROST_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
 		SpawnPlacements.register(CLUST_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
 
 		SpawnPlacements.register(GOKKUDILLO.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gokkudillo::checkGokkudilloSpawnRules);
 		SpawnPlacements.register(FROST_BEASTER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBeaster::checkFrostBeasterSpawnRules);
 		SpawnPlacements.register(ASTRA_BALL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+		SpawnPlacements.register(FROST_BOAR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBoar::checkFrostAnimalSpawnRules);
 
 	}
 }

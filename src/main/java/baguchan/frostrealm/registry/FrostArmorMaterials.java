@@ -21,13 +21,13 @@ public enum FrostArmorMaterials implements StringRepresentable, ArmorMaterial {
 	}), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.5F, 0.0F, () -> {
 		return Ingredient.of(FrostItems.YETI_FUR.get());
 	}),
-	KOLOSSUS_FUR("frostrealm:kolossus_fur", 18, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
-        p_266652_.put(ArmorItem.Type.BOOTS, 2);
-        p_266652_.put(ArmorItem.Type.LEGGINGS, 5);
-        p_266652_.put(ArmorItem.Type.CHESTPLATE, 6);
-        p_266652_.put(ArmorItem.Type.HELMET, 2);
-    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0F, 0.0F, () -> {
-		return Ingredient.of(FrostItems.KOLOSSUS_FUR.get());
+	FROST_BOAR_FUR("frostrealm:kolossus_fur", 18, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
+		p_266652_.put(ArmorItem.Type.BOOTS, 2);
+		p_266652_.put(ArmorItem.Type.LEGGINGS, 5);
+		p_266652_.put(ArmorItem.Type.CHESTPLATE, 6);
+		p_266652_.put(ArmorItem.Type.HELMET, 2);
+	}), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0F, 0.0F, () -> {
+		return Ingredient.of(FrostItems.FROST_BOAR_FUR.get());
 	}),
 	ASTRIUM("frostrealm:astrium", 20, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266654_) -> {
 		p_266654_.put(ArmorItem.Type.BOOTS, 2);

@@ -1,6 +1,9 @@
 package baguchan.frostrealm.entity;
 
-import baguchan.frostrealm.entity.goal.*;
+import baguchan.frostrealm.entity.goal.CreatureFollowParentGoal;
+import baguchan.frostrealm.entity.goal.GetFoodGoal;
+import baguchan.frostrealm.entity.goal.LookAtPlayerAndPanicGoal;
+import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostTags;
@@ -44,19 +47,17 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Yeti extends AgeableMob implements NeutralMob, IWarming {
+public class Yeti extends AgeableMob implements NeutralMob {
 
-	private static final EntityDataAccessor<Boolean> TRADE_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Boolean> PANIC_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Boolean> WARMING_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> TRADE_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> PANIC_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(30, 59);
+    private int remainingPersistentAngerTime;
+    private UUID persistentAngerTarget;
 
-	private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(30, 59);
-	private int remainingPersistentAngerTime;
-	private UUID persistentAngerTarget;
-
-	private final SimpleContainer inventory = new SimpleContainer(5);
-	@Nullable
-	private BlockPos homeTarget;
+    private final SimpleContainer inventory = new SimpleContainer(5);
+    @Nullable
+    private BlockPos homeTarget;
 	private int huntTime;
 	private int holdTime;
 
@@ -76,7 +77,6 @@ public class Yeti extends AgeableMob implements NeutralMob, IWarming {
 		super.defineSynchedData();
 		this.entityData.define(TRADE_ID, false);
 		this.entityData.define(PANIC_ID, false);
-		this.entityData.define(WARMING_ID, false);
 	}
 
 	public void setTrade(boolean trade) {
@@ -95,37 +95,24 @@ public class Yeti extends AgeableMob implements NeutralMob, IWarming {
 		return this.entityData.get(PANIC_ID);
 	}
 
-	public void setWarming(boolean warming) {
-		this.entityData.set(WARMING_ID, warming);
-	}
-
-	public boolean isWarming() {
-		return this.entityData.get(WARMING_ID);
-	}
-
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(1, new Yeti.YetiMeleeAttackGoal());
-		this.goalSelector.addGoal(1, new Yeti.YetiPanicGoal());
-		this.goalSelector.addGoal(2, new WarmingGoal<>(this));
-		this.goalSelector.addGoal(3, new GetFoodGoal<>(this));
-		this.goalSelector.addGoal(4, new CreatureFollowParentGoal(this, 1.15D));
-		this.goalSelector.addGoal(5, new SeekShelterEvenBlizzardGoal(this, 1.2D));
-		this.goalSelector.addGoal(6, new MoveToGoal(this, 40.0D, 1.2D));
-		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(8, new LookAtPlayerAndPanicGoal(this, Player.class, 6.0F));
-		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(1, new Yeti.YetiHurtByTargetGoal());
-		this.targetSelector.addGoal(3, new HuntTargetGoal(this));
-		this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
-	}
-
-	@Override
-	public boolean canFreeze() {
-		return false;
-	}
+        this.goalSelector.addGoal(1, new Yeti.YetiMeleeAttackGoal());
+        this.goalSelector.addGoal(1, new Yeti.YetiPanicGoal());
+        this.goalSelector.addGoal(3, new GetFoodGoal<>(this));
+        this.goalSelector.addGoal(4, new CreatureFollowParentGoal(this, 1.15D));
+        this.goalSelector.addGoal(5, new SeekShelterEvenBlizzardGoal(this, 1.2D));
+        this.goalSelector.addGoal(6, new MoveToGoal(this, 40.0D, 1.2D));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(8, new LookAtPlayerAndPanicGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new Yeti.YetiHurtByTargetGoal());
+        this.targetSelector.addGoal(2, new TargetGoal<>(this, Player.class));
+        this.targetSelector.addGoal(3, new HuntTargetGoal<>(this, AbstractFish.class));
+        this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
+    }
 
 	@Override
 	protected PathNavigation createNavigation(Level p_33348_) {
@@ -162,12 +149,6 @@ public class Yeti extends AgeableMob implements NeutralMob, IWarming {
 	@Override
 	public void tick() {
 		super.tick();
-
-		if (this.isWarming()) {
-			this.warmingAnimation.startIfStopped(this.tickCount);
-		} else {
-			this.warmingAnimation.stop();
-		}
 	}
 
 	@Override
@@ -439,29 +420,54 @@ public class Yeti extends AgeableMob implements NeutralMob, IWarming {
 				this.stop();
 			}
 
-		}
+        }
 
-		protected void alertOther(Mob p_29580_, LivingEntity p_29581_) {
-			if (p_29580_ instanceof Yeti && !p_29580_.isBaby()) {
-				super.alertOther(p_29580_, p_29581_);
-			}
+        protected void alertOther(Mob p_29580_, LivingEntity p_29581_) {
+            if (p_29580_ instanceof Yeti && !p_29580_.isBaby()) {
+                super.alertOther(p_29580_, p_29581_);
+            }
 
-		}
-	}
+        }
+    }
 
-	static class HuntTargetGoal extends NearestAttackableTargetGoal<AbstractFish> {
-		HuntTargetGoal(Yeti p_27966_) {
-			super(p_27966_, AbstractFish.class, 10, true, false, null);
-		}
+    public static class TargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
+        TargetGoal(Yeti p_27966_, Class<T> tClass) {
+            super(p_27966_, tClass, 10, true, false, null);
+        }
 
-		public boolean canUse() {
-			return this.canTarget() && super.canUse();
-		}
+        public boolean canUse() {
+            return this.canTarget() && super.canUse();
+        }
 
-		public boolean canContinueToUse() {
-			boolean flag = this.canTarget();
-			if (flag && this.mob.getTarget() != null) {
-				return super.canContinueToUse();
+        public boolean canContinueToUse() {
+            boolean flag = this.canTarget();
+            if (flag && this.mob.getTarget() != null) {
+                return super.canContinueToUse();
+            } else {
+                this.targetMob = null;
+                return false;
+            }
+        }
+
+        private boolean canTarget() {
+            Yeti yeti = (Yeti) this.mob;
+            return !yeti.isAngry() && !yeti.isBaby();
+        }
+    }
+
+    public static class HuntTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
+        HuntTargetGoal(Yeti p_27966_, Class<T> tClass) {
+            super(p_27966_, tClass, 10, true, false, null);
+        }
+
+        public boolean canUse() {
+            return this.canTarget() && super.canUse();
+        }
+
+        public boolean canContinueToUse() {
+            boolean flag = this.canTarget();
+            if (flag && this.mob.getTarget() != null) {
+                return super.canContinueToUse();
 			} else {
 				this.targetMob = null;
 				return false;
@@ -474,20 +480,20 @@ public class Yeti extends AgeableMob implements NeutralMob, IWarming {
 		}
 	}
 
-	class MoveToGoal extends Goal {
-		final Yeti yeti;
-		final double stopDistance;
-		final double speedModifier;
+    public static class MoveToGoal extends Goal {
+        final Yeti yeti;
+        final double stopDistance;
+        final double speedModifier;
 
-		MoveToGoal(Yeti p_i50459_2_, double p_i50459_3_, double p_i50459_5_) {
-			this.yeti = p_i50459_2_;
-			this.stopDistance = p_i50459_3_;
-			this.speedModifier = p_i50459_5_;
-			this.setFlags(EnumSet.of(Goal.Flag.MOVE));
-		}
+        public MoveToGoal(Yeti p_i50459_2_, double p_i50459_3_, double p_i50459_5_) {
+            this.yeti = p_i50459_2_;
+            this.stopDistance = p_i50459_3_;
+            this.speedModifier = p_i50459_5_;
+            this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+        }
 
 		public void stop() {
-			Yeti.this.navigation.stop();
+            this.yeti.navigation.stop();
 		}
 
 		public boolean canUse() {
@@ -498,15 +504,15 @@ public class Yeti extends AgeableMob implements NeutralMob, IWarming {
 
 		public void tick() {
 			BlockPos blockpos = this.yeti.homeTarget;
-			if (blockpos != null && Yeti.this.navigation.isDone()) {
-				if (this.isTooFarAway(blockpos, 10.0D)) {
-					Vec3 vector3d = (new Vec3((double) blockpos.getX() - this.yeti.getX(), (double) blockpos.getY() - this.yeti.getY(), (double) blockpos.getZ() - this.yeti.getZ())).normalize();
-					Vec3 vector3d1 = vector3d.scale(10.0D).add(this.yeti.getX(), this.yeti.getY(), this.yeti.getZ());
-					Yeti.this.navigation.moveTo(vector3d1.x, vector3d1.y, vector3d1.z, this.speedModifier);
-				} else {
-					Yeti.this.navigation.moveTo((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), this.speedModifier);
-				}
-			}
+            if (blockpos != null && this.yeti.navigation.isDone()) {
+                if (this.isTooFarAway(blockpos, 10.0D)) {
+                    Vec3 vector3d = (new Vec3((double) blockpos.getX() - this.yeti.getX(), (double) blockpos.getY() - this.yeti.getY(), (double) blockpos.getZ() - this.yeti.getZ())).normalize();
+                    Vec3 vector3d1 = vector3d.scale(10.0D).add(this.yeti.getX(), this.yeti.getY(), this.yeti.getZ());
+                    this.yeti.navigation.moveTo(vector3d1.x, vector3d1.y, vector3d1.z, this.speedModifier);
+                } else {
+                    this.yeti.navigation.moveTo((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), this.speedModifier);
+                }
+            }
 
 		}
 

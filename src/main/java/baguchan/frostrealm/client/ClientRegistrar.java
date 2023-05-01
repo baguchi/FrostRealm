@@ -57,6 +57,7 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.GOKKUDILLO.get(), GokkudilloRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROST_BEASTER.get(), FrostBeasterRenderer::new);
 		event.registerEntityRenderer(FrostEntities.ASTRA_BALL.get(), AstraBallRenderer::new);
+		event.registerEntityRenderer(FrostEntities.FROST_BOAR.get(), FrostBoarRenderer::new);
 		event.registerEntityRenderer(FrostEntities.WARPED_CRYSTAL_SHARD.get(), WarpedCrystalRenderer::new);
 		event.registerEntityRenderer(FrostEntities.SLEDGE.get(), (r) -> new SledgeRenderer(r, false));
 		event.registerEntityRenderer(FrostEntities.CHEST_SLEDGE.get(), (r) -> new SledgeRenderer(r, true));
@@ -79,6 +80,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.CRYSTAL_FOX, CrystalFoxModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.SNOW_MOLE, SnowMoleModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.ASTRA_BALL, AstraBallModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.FROST_BOAR, FrostBoarModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_OUTER, () -> YetiFurArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION));

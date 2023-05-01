@@ -46,7 +46,7 @@ public class FrostItems {
 	public static final RegistryObject<Item> STRAY_NECKLACE_PART = ITEMS.register("stray_necklace_part", () -> new Item((new Item.Properties())));
 
 	public static final RegistryObject<Item> YETI_FUR = ITEMS.register("yeti_fur", () -> new Item((new Item.Properties())));
-	public static final RegistryObject<Item> KOLOSSUS_FUR = ITEMS.register("kolossus_fur", () -> new Item((new Item.Properties())));
+	public static final RegistryObject<Item> FROST_BOAR_FUR = ITEMS.register("frost_boar_fur", () -> new Item((new Item.Properties())));
 
 	public static final RegistryObject<Item> OAK_SLEDGE = ITEMS.register("oak_sledge", () -> new SledgeItem(false, Boat.Type.OAK, (new Item.Properties())));
 	public static final RegistryObject<Item> OAK_CHEST_SLEDGE = ITEMS.register("oak_chest_sledge", () -> new SledgeItem(true, Boat.Type.OAK, (new Item.Properties())));
@@ -64,10 +64,10 @@ public class FrostItems {
 	public static final RegistryObject<Item> YETI_FUR_LEGGINGS = ITEMS.register("yeti_fur_leggings", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorItem.Type.LEGGINGS, (new Item.Properties())));
 	public static final RegistryObject<Item> YETI_FUR_BOOTS = ITEMS.register("yeti_fur_boots", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorItem.Type.BOOTS, (new Item.Properties())));
 
-	public static final RegistryObject<Item> KOLOSSUS_FUR_HELMET = ITEMS.register("kolossus_fur_helmet", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, ArmorItem.Type.HELMET, (new Item.Properties())));
-	public static final RegistryObject<Item> KOLOSSUS_FUR_CHESTPLATE = ITEMS.register("kolossus_fur_chestplate", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, ArmorItem.Type.CHESTPLATE, (new Item.Properties())));
-	public static final RegistryObject<Item> KOLOSSUS_FUR_LEGGINGS = ITEMS.register("kolossus_fur_leggings", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, ArmorItem.Type.LEGGINGS, (new Item.Properties())));
-	public static final RegistryObject<Item> KOLOSSUS_FUR_BOOTS = ITEMS.register("kolossus_fur_boots", () -> new YetiFurArmorItem(FrostArmorMaterials.KOLOSSUS_FUR, ArmorItem.Type.BOOTS, (new Item.Properties())));
+	public static final RegistryObject<Item> FROST_BOAR_FUR_HELMET = ITEMS.register("frost_boar_fur_helmet", () -> new YetiFurArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, ArmorItem.Type.HELMET, (new Item.Properties())));
+	public static final RegistryObject<Item> FROST_BOAR_FUR_CHESTPLATE = ITEMS.register("frost_boar_fur_chestplate", () -> new YetiFurArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, ArmorItem.Type.CHESTPLATE, (new Item.Properties())));
+	public static final RegistryObject<Item> FROST_BOAR_FUR_LEGGINGS = ITEMS.register("frost_boar_fur_leggings", () -> new YetiFurArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, ArmorItem.Type.LEGGINGS, (new Item.Properties())));
+	public static final RegistryObject<Item> FROST_BOAR_FUR_BOOTS = ITEMS.register("frost_boar_fur_boots", () -> new YetiFurArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, ArmorItem.Type.BOOTS, (new Item.Properties())));
 
 
 	public static final RegistryObject<Item> ASTRIUM_HELMET = ITEMS.register("astrium_helmet", () -> new ArmorItem(FrostArmorMaterials.ASTRIUM, ArmorItem.Type.HELMET, (new Item.Properties())));
@@ -96,76 +96,79 @@ public class FrostItems {
 				, (builder) -> {
 					FrostCreativeModeTab.FROSTREALM_ITEM = builder.icon(() -> {
 						return new ItemStack(FrostItems.FROST_CATALYST.get());
-					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".item" + ".main_tab")).displayItems((features, output) ->
-							output.acceptAll(Stream.of(
-											FROST_CRYSTAL,
-											CRYONITE,
-											WARPED_CRYSTAL,
-											GLIMMERROCK,
-											ASTRIUM_RAW,
-											ASTRIUM_INGOT,
-											STARDUST_CRYSTAL,
-											FROZEN_FRUIT,
+					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".item" + ".main_tab")).displayItems((features, output) -> {
+
+						output.acceptAll(Stream.of(
+										FROST_CRYSTAL,
+										CRYONITE,
+										WARPED_CRYSTAL,
+										GLIMMERROCK,
+										ASTRIUM_RAW,
+										ASTRIUM_INGOT,
+										STARDUST_CRYSTAL,
+										FROZEN_FRUIT,
 											MELTED_FRUIT,
-											SUGARBEET,
-											SUGARBEET_SEEDS,
-											BEARBERRY,
-											COOKED_BEARBERRY,
-											COOKED_SNOWPILE_QUAIL_EGG,
-											SNOWPILE_QUAIL_MEAT,
-											COOKED_SNOWPILE_QUAIL_MEAT,
-											FROST_CATALYST,
-											STRAY_NECKLACE_PART,
-											YETI_FUR,
-											KOLOSSUS_FUR,
-											OAK_SLEDGE,
-											OAK_CHEST_SLEDGE,
-											FUSION_CRYSTAL_DAGGER,
-											ASTRIUM_SWORD,
-											ASTRIUM_AXE,
-											ASTRIUM_PICKAXE,
-											ASTRIUM_SHOVEL,
-											ASTRIUM_HOE,
-											ASTRIUM_HELMET,
-											ASTRIUM_CHESTPLATE,
-											ASTRIUM_LEGGINGS,
-											ASTRIUM_BOOTS,
-											YETI_FUR_HELMET,
-											YETI_FUR_CHESTPLATE,
-											YETI_FUR_LEGGINGS,
-											YETI_FUR_BOOTS,
-											KOLOSSUS_FUR_HELMET,
-											KOLOSSUS_FUR_CHESTPLATE,
-											KOLOSSUS_FUR_LEGGINGS,
-											KOLOSSUS_FUR_BOOTS,
-											MARMOT_SPAWNEGG,
-											SNOWPILE_QUAIL_SPAWNEGG,
-											FROST_WOLF_SPAWNEGG,
-											YETI_SPAWNEGG,
-											FROST_WRAITH_SPAWNEGG,
-											CLUST_WRAITH_SPAWNEGG,
-											GOKKUDILLO_SPAWNEGG,
-											FROST_BEASTER_SPAWNEGG,
-											CRYSTAL_FOX_SPAWNEGG,
-											SNOW_MOLE_SPAWNEGG,
-											ASTRA_BALL_SPAWNEGG)
-									.map(item -> item.get().getDefaultInstance())
-									.toList())).build();
+										SUGARBEET,
+										SUGARBEET_SEEDS,
+										BEARBERRY,
+										COOKED_BEARBERRY,
+										COOKED_SNOWPILE_QUAIL_EGG,
+										SNOWPILE_QUAIL_MEAT,
+										COOKED_SNOWPILE_QUAIL_MEAT,
+										FROST_CATALYST,
+										STRAY_NECKLACE_PART,
+										YETI_FUR,
+										FROST_BOAR_FUR,
+										OAK_SLEDGE,
+										OAK_CHEST_SLEDGE,
+										FUSION_CRYSTAL_DAGGER,
+										ASTRIUM_SWORD,
+										ASTRIUM_AXE,
+										ASTRIUM_PICKAXE,
+										ASTRIUM_SHOVEL,
+										ASTRIUM_HOE,
+										ASTRIUM_HELMET,
+										ASTRIUM_CHESTPLATE,
+										ASTRIUM_LEGGINGS,
+										ASTRIUM_BOOTS,
+										YETI_FUR_HELMET,
+										YETI_FUR_CHESTPLATE,
+										YETI_FUR_LEGGINGS,
+										YETI_FUR_BOOTS,
+										FROST_BOAR_FUR_HELMET,
+										FROST_BOAR_FUR_CHESTPLATE,
+										FROST_BOAR_FUR_LEGGINGS,
+										FROST_BOAR_FUR_BOOTS,
+										MARMOT_SPAWNEGG,
+										SNOWPILE_QUAIL_SPAWNEGG,
+										FROST_WOLF_SPAWNEGG,
+										YETI_SPAWNEGG,
+										FROST_WRAITH_SPAWNEGG,
+										CLUST_WRAITH_SPAWNEGG,
+										GOKKUDILLO_SPAWNEGG,
+										FROST_BEASTER_SPAWNEGG,
+										CRYSTAL_FOX_SPAWNEGG,
+										SNOW_MOLE_SPAWNEGG,
+										ASTRA_BALL_SPAWNEGG)
+								.map(item -> item.get().getDefaultInstance())
+								.toList());
+					}).build();
 				});
 		event.registerCreativeModeTab(new ResourceLocation(FrostRealm.MODID, "block")
 				, (builder) -> {
 					FrostCreativeModeTab.FROSTREALM_BLOCK = builder.icon(() -> {
 						return new ItemStack(FrostItems.FROST_CATALYST.get());
-					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".block" + ".main_tab")).displayItems((features, output) ->
-							output.acceptAll(Stream.of(
-											FrostBlocks.FROZEN_DIRT,
-											FrostBlocks.FROZEN_GRASS_BLOCK,
-											FrostBlocks.ETERNITY_GRASS_BLOCK,
-                                            FrostBlocks.FROZEN_FARMLAND,
-                                            FrostBlocks.POINTED_ICE,
-                                            FrostBlocks.FRIGID_STONE,
-                                            FrostBlocks.FRIGID_STONE_BRICK,
-                                            FrostBlocks.FRIGID_STONE_BRICK_SLAB,
+					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".block" + ".main_tab")).displayItems((features, output) -> {
+
+						output.acceptAll(Stream.of(
+										FrostBlocks.FROZEN_DIRT,
+										FrostBlocks.FROZEN_GRASS_BLOCK,
+										FrostBlocks.ETERNITY_GRASS_BLOCK,
+										FrostBlocks.FROZEN_FARMLAND,
+										FrostBlocks.POINTED_ICE,
+										FrostBlocks.FRIGID_STONE,
+										FrostBlocks.FRIGID_STONE_BRICK,
+										FrostBlocks.FRIGID_STONE_BRICK_SLAB,
                                             FrostBlocks.FRIGID_STONE_BRICK_STAIRS,
                                             FrostBlocks.FRIGID_STONE_BRICK_MOSSY,
                                             FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB,
@@ -173,34 +176,47 @@ public class FrostItems {
                                             FrostBlocks.FRIGID_STONE_SMOOTH,
                                             FrostBlocks.CHISELED_FRIGID_STONE_BRICK,
                                             FrostBlocks.FROSTROOT_LOG,
-                                            FrostBlocks.FROSTROOT_LEAVES,
-                                            FrostBlocks.FROSTROOT_SAPLING,
-                                            FrostBlocks.FROSTROOT_PLANKS,
-                                            FrostBlocks.FROSTROOT_PLANKS_SLAB,
-                                            FrostBlocks.FROSTROOT_PLANKS_STAIRS,
-                                            FrostBlocks.FROSTROOT_FENCE,
-                                            FrostBlocks.FROSTROOT_FENCE_GATE,
-                                            FrostBlocks.FROSTROOT_DOOR,
-                                            FrostBlocks.FROSTROOT_CHEST,
-											FrostBlocks.FROSTROOT_CRAFTING_TABLE,
-											FrostBlocks.VIGOROSHROOM,
-											FrostBlocks.ARCTIC_POPPY,
-											FrostBlocks.ARCTIC_WILLOW,
-											FrostBlocks.COLD_GRASS,
-											FrostBlocks.COLD_TALL_GRASS,
-											FrostBlocks.SNOWPILE_QUAIL_EGG,
-											FrostBlocks.FROST_CRYSTAL_ORE,
-											FrostBlocks.GLIMMERROCK_ORE,
-											FrostBlocks.ASTRIUM_ORE,
-											FrostBlocks.ASTRIUM_BLOCK,
-											FrostBlocks.STARDUST_CRYSTAL_ORE,
-											FrostBlocks.STARDUST_CRYSTAL_CLUSTER,
-											FrostBlocks.WARPED_CRYSTAL_BLOCK,
-											FrostBlocks.FROST_TORCH,
-											FrostBlocks.FROST_CAMPFIRE,
-											FrostBlocks.CRYSTAL_SMITHING_TABLE)
-									.map(block -> block.get().asItem().getDefaultInstance())
-									.toList())).build();
+										FrostBlocks.FROSTROOT_LEAVES,
+										FrostBlocks.FROSTROOT_SAPLING,
+										FrostBlocks.FROSTROOT_PLANKS,
+										FrostBlocks.FROSTROOT_PLANKS_SLAB,
+										FrostBlocks.FROSTROOT_PLANKS_STAIRS,
+										FrostBlocks.FROSTROOT_FENCE,
+										FrostBlocks.FROSTROOT_FENCE_GATE,
+										FrostBlocks.FROSTROOT_DOOR,
+										FrostBlocks.FROSTROOT_CHEST,
+										FrostBlocks.FROSTROOT_CRAFTING_TABLE,
+										FrostBlocks.FROSTBITE_LOG,
+										FrostBlocks.FROSTBITE_LEAVES,
+										FrostBlocks.FROSTBITE_SAPLING,
+										FrostBlocks.FROSTBITE_PLANKS,
+										FrostBlocks.FROSTBITE_PLANKS_SLAB,
+										FrostBlocks.FROSTBITE_PLANKS_STAIRS,
+										FrostBlocks.FROSTBITE_FENCE,
+										FrostBlocks.FROSTBITE_FENCE_GATE,
+										//FrostBlocks.FROSTBITE_DOOR,
+										//FrostBlocks.FROSTBITE_CHEST,
+										//FrostBlocks.FROSTBITE_CRAFTING_TABLE,
+										FrostBlocks.VIGOROSHROOM,
+										FrostBlocks.ARCTIC_POPPY,
+										FrostBlocks.ARCTIC_WILLOW,
+										FrostBlocks.COLD_GRASS,
+										FrostBlocks.COLD_TALL_GRASS,
+										FrostBlocks.SNOWPILE_QUAIL_EGG,
+										FrostBlocks.FROST_CRYSTAL_ORE,
+										FrostBlocks.GLIMMERROCK_ORE,
+										FrostBlocks.ASTRIUM_ORE,
+										FrostBlocks.ASTRIUM_BLOCK,
+										FrostBlocks.STARDUST_CRYSTAL_ORE,
+										FrostBlocks.STARDUST_CRYSTAL_CLUSTER,
+										FrostBlocks.WARPED_CRYSTAL_BLOCK,
+										FrostBlocks.FROST_TORCH,
+										FrostBlocks.FROST_CAMPFIRE,
+										FrostBlocks.CRYSTAL_SMITHING_TABLE)
+								.map(block -> block.get().asItem().getDefaultInstance())
+								.toList());
+
+					}).build();
 				});
 	}
 }

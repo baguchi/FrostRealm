@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "#": {
-      "item": "frostrealm:kolossus_fur"
+      "item": "frostrealm:frost_boar_fur"
     }
   },
   "pattern": [
@@ -12,7 +12,7 @@
     "# #"
   ],
   "result": {
-    "item": "frostrealm:kolossus_fur_leggings"
+    "item": "frostrealm:frost_boar_fur_leggings"
   },
   "show_notification": true
 }

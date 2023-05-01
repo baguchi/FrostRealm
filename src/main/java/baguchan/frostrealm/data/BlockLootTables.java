@@ -81,25 +81,39 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.dropSelf(FrostBlocks.FROSTROOT_LOG.get());
 		this.dropSelf(FrostBlocks.FROSTROOT_SAPLING.get());
 		this.add(FrostBlocks.FROSTROOT_LEAVES.get(), (p_124104_) -> {
-			return createFrostLeavesDrops(p_124104_, FrostBlocks.FROSTROOT_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
-		});
-		this.dropSelf(FrostBlocks.FROSTROOT_PLANKS.get());
+            return createFrostLeavesDrops(p_124104_, FrostBlocks.FROSTROOT_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
+        });
+        this.dropSelf(FrostBlocks.FROSTROOT_PLANKS.get());
         this.dropSelf(FrostBlocks.FROSTROOT_CRAFTING_TABLE.get());
         this.add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), this::createSlabItemTable);
-		this.dropSelf(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get());
-		this.dropSelf(FrostBlocks.FROSTROOT_FENCE.get());
-		this.dropSelf(FrostBlocks.FROSTROOT_FENCE_GATE.get());
-		this.add(FrostBlocks.FROSTROOT_DOOR.get(), this::createDoorTable);
+        this.dropSelf(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get());
+        this.dropSelf(FrostBlocks.FROSTROOT_FENCE.get());
+        this.dropSelf(FrostBlocks.FROSTROOT_FENCE_GATE.get());
+        this.add(FrostBlocks.FROSTROOT_DOOR.get(), this::createDoorTable);
 
-		this.dropSelf(FrostBlocks.VIGOROSHROOM.get());
-		this.dropSelf(FrostBlocks.ARCTIC_POPPY.get());
-		this.dropSelf(FrostBlocks.ARCTIC_WILLOW.get());
 
-		this.registerEmpty(FrostBlocks.COLD_GRASS.get());
-		this.registerEmpty(FrostBlocks.COLD_TALL_GRASS.get());
-		this.add(FrostBlocks.BEARBERRY_BUSH.get(), (p_124096_) -> {
-			return applyExplosionDecay(p_124096_, LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 3))).add(LootItem.lootTableItem(FrostItems.BEARBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))).withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 2))).add(LootItem.lootTableItem(FrostItems.BEARBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))));
-		});
+        this.dropSelf(FrostBlocks.FROSTBITE_LOG.get());
+        this.dropSelf(FrostBlocks.FROSTBITE_SAPLING.get());
+        this.add(FrostBlocks.FROSTBITE_LEAVES.get(), (p_124104_) -> {
+            return createLeavesDrops(p_124104_, FrostBlocks.FROSTBITE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
+        });
+        this.dropSelf(FrostBlocks.FROSTBITE_PLANKS.get());
+        //this.dropSelf(FrostBlocks.FROSTBITE_CRAFTING_TABLE.get());
+        this.add(FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(FrostBlocks.FROSTBITE_PLANKS_STAIRS.get());
+        this.dropSelf(FrostBlocks.FROSTBITE_FENCE.get());
+        this.dropSelf(FrostBlocks.FROSTBITE_FENCE_GATE.get());
+        //this.add(FrostBlocks.FROSTBITE_DOOR.get(), this::createDoorTable);
+
+        this.dropSelf(FrostBlocks.VIGOROSHROOM.get());
+        this.dropSelf(FrostBlocks.ARCTIC_POPPY.get());
+        this.dropSelf(FrostBlocks.ARCTIC_WILLOW.get());
+
+        this.registerEmpty(FrostBlocks.COLD_GRASS.get());
+        this.registerEmpty(FrostBlocks.COLD_TALL_GRASS.get());
+        this.add(FrostBlocks.BEARBERRY_BUSH.get(), (p_124096_) -> {
+            return applyExplosionDecay(p_124096_, LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 3))).add(LootItem.lootTableItem(FrostItems.BEARBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))).withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 2))).add(LootItem.lootTableItem(FrostItems.BEARBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))));
+        });
 		LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.SUGARBEET.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BeetrootBlock.AGE, 3));
 		this.add(FrostBlocks.SUGARBEET.get(), createCropDrops(FrostBlocks.SUGARBEET.get(), FrostItems.SUGARBEET.get(), FrostItems.SUGARBEET.get(), lootitemcondition$builder));
 
