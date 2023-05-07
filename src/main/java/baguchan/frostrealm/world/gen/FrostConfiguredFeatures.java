@@ -70,7 +70,6 @@ public class FrostConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_ICE = registerKey("large_ice");
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FROSTROOT_TREE = registerKey("frostroot_trees");
-
 	public static final ResourceKey<ConfiguredFeature<?, ?>> LOG = registerKey("log");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> CHAIN = registerKey("chain");
 

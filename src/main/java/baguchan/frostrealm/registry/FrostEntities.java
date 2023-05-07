@@ -35,8 +35,8 @@ public class FrostEntities {
 	public static final RegistryObject<EntityType<Gokkudillo>> GOKKUDILLO = ENTITIES.register("gokkudillo", () -> EntityType.Builder.of(Gokkudillo::new, MobCategory.MONSTER).sized(1.0F, 0.85F).fireImmune().build(prefix("gokkudillo")));
 	public static final RegistryObject<EntityType<FrostBeaster>> FROST_BEASTER = ENTITIES.register("frost_beaster", () -> EntityType.Builder.of(FrostBeaster::new, MobCategory.MONSTER).sized(0.65F, 1.95F).build(prefix("frost_beaster")));
 	public static final RegistryObject<EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).build(prefix("astra_ball")));
-	public static final RegistryObject<EntityType<FrostBoar>> FROST_BOAR = ENTITIES.register("frost_boar", () -> EntityType.Builder.of(FrostBoar::new, MobCategory.CREATURE).sized(1.1F, 1.25F).build(prefix("frost_boar")));
-	public static final RegistryObject<EntityType<Sledge>> SLEDGE = ENTITIES.register("sledge", () -> EntityType.Builder.<Sledge>of(Sledge::new, MobCategory.MISC).sized(1.375F, 0.5625F).build(prefix("sledge")));
+    public static final RegistryObject<EntityType<FrostBoar>> FROST_BOAR = ENTITIES.register("frost_boar", () -> EntityType.Builder.of(FrostBoar::new, MobCategory.CREATURE).sized(1.8F, 1.95F).build(prefix("frost_boar")));
+    public static final RegistryObject<EntityType<Sledge>> SLEDGE = ENTITIES.register("sledge", () -> EntityType.Builder.<Sledge>of(Sledge::new, MobCategory.MISC).sized(1.375F, 0.5625F).build(prefix("sledge")));
 	public static final RegistryObject<EntityType<ChestSledge>> CHEST_SLEDGE = ENTITIES.register("chest_sledge", () -> EntityType.Builder.<ChestSledge>of(ChestSledge::new, MobCategory.MISC).sized(1.375F, 0.5625F).build(prefix("chest_sledge")));
 
 	public static final RegistryObject<EntityType<WarpedCrystalShard>> WARPED_CRYSTAL_SHARD = ENTITIES.register("warped_crystal", () -> EntityType.Builder.<WarpedCrystalShard>of(WarpedCrystalShard::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(prefix("warped_crystal")));

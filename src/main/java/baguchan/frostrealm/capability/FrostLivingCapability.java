@@ -136,7 +136,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			if (this.hotSource == null) {
 				FrostWeatherCapability.get(entity.level).ifPresent(cap -> {
 					if (isAffectRain(entity) && cap.isWeatherActive() && cap.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
-						addExhaustion(0.005F * (entity.canFreeze() ? 1.0F : 0.25F));
+						addExhaustion(0.001F * (entity.canFreeze() ? 1.0F : 0.25F));
 					}
 				});
 			}

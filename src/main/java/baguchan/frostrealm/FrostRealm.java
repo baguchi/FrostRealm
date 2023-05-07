@@ -10,7 +10,6 @@ import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.*;
-import baguchan.frostrealm.world.gen.FrostTreeFeatures;
 import com.google.common.collect.Maps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -81,10 +80,8 @@ public class FrostRealm {
 	public void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			FrostBlocks.burnables();
-			FrostTreeFeatures.init();
 			this.setupMessages();
 			FrostBiomes.addBiomeTypes();
-
 			Map<ResourceLocation, MultiNoiseBiomeSourceParameterList.Preset> map = Maps.newHashMap();
 			map.putAll(Map.copyOf(MultiNoiseBiomeSourceParameterList.Preset.BY_NAME));
 			map.put(new ResourceLocation(FrostRealm.MODID, "frostrealm"), FrostBiomeSources.FROSTREALM_PRESET);
