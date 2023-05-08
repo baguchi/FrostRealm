@@ -352,7 +352,8 @@
             "type": "minecraft:biome",
             "biome_is": [
               "frostrealm:frigid_forest",
-              "frostrealm:tundra"
+              "frostrealm:tundra",
+              "frostrealm:frostbite_jungle"
             ]
           },
           "then_run": {

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "frostrealm:frostbite_tree",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.33333334,
+        "feature": {
+          "feature": "frostrealm:frostbite_tree_big",
+          "placement": []
+        }
+      }
+    ]
+  }
+}

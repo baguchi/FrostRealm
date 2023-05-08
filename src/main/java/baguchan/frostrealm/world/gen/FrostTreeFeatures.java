@@ -21,6 +21,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePla
 import net.minecraft.world.level.levelgen.feature.foliageplacers.MegaJungleFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 
@@ -29,7 +30,8 @@ import java.util.OptionalInt;
 public class FrostTreeFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FROST_TREE = registerKey("frostroot_tree");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FROST_TREE_BIG = registerKey("frostroot_tree_big");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> FROSTBITE_TREE = registerKey("frostbite_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FROSTBITE_TREE = registerKey("frostbite_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FROSTBITE_TREE_BIG = registerKey("frostbite_tree_big");
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;
@@ -42,7 +44,8 @@ public class FrostTreeFeatures {
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
 		FeatureUtils.register(context, FROST_TREE, Feature.TREE, createFrostRoot().build());
 		FeatureUtils.register(context, FROST_TREE_BIG, Feature.TREE, createFancyFrostRoot().build());
-		FeatureUtils.register(context, FROSTBITE_TREE, Feature.TREE, createFrostBite().build());
+        FeatureUtils.register(context, FROSTBITE_TREE, Feature.TREE, createFrostBite().build());
+        FeatureUtils.register(context, FROSTBITE_TREE_BIG, Feature.TREE, createFrostBite().build());
 	}
 
 
@@ -50,16 +53,20 @@ public class FrostTreeFeatures {
 		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(p_195147_), new StraightTrunkPlacer(p_195149_, p_195150_, p_195151_), BlockStateProvider.simple(p_195148_), new BlobFoliagePlacer(ConstantInt.of(p_195152_), ConstantInt.of(0), 3), new TwoLayersFeatureSize(1, 0, 1));
 	}
 
-	private static TreeConfiguration.TreeConfigurationBuilder createFrostRoot() {
-		return createStraightBlobTree(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_LEAVES.get(), 4, 2, 0, 2).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
-	}
+    private static TreeConfiguration.TreeConfigurationBuilder createFrostRoot() {
+        return createStraightBlobTree(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_LEAVES.get(), 4, 2, 0, 2).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
+    }
 
 
-	private static TreeConfiguration.TreeConfigurationBuilder createFancyFrostRoot() {
-		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTROOT_LOG.get()), new FancyTrunkPlacer(3, 11, 0), BlockStateProvider.simple(FrostBlocks.FROSTROOT_LEAVES.get()), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
-	}
+    private static TreeConfiguration.TreeConfigurationBuilder createFancyFrostRoot() {
+        return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTROOT_LOG.get()), new FancyTrunkPlacer(3, 11, 0), BlockStateProvider.simple(FrostBlocks.FROSTROOT_LEAVES.get()), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
+    }
 
-	private static TreeConfiguration.TreeConfigurationBuilder createFrostBite() {
-		return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTBITE_LOG.get()), new CherryTrunkPlacer(8, 1, 0, new WeightedListInt(SimpleWeightedRandomList.<IntProvider>builder().add(ConstantInt.of(1), 1).add(ConstantInt.of(2), 1).add(ConstantInt.of(3), 1).build()), UniformInt.of(2, 4), UniformInt.of(-4, -3), UniformInt.of(-1, 0)), BlockStateProvider.simple(FrostBlocks.FROSTBITE_LEAVES.get()), new MegaJungleFoliagePlacer(ConstantInt.of(1), ConstantInt.of(0), 2), new TwoLayersFeatureSize(1, 0, 2)).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
-	}
+    private static TreeConfiguration.TreeConfigurationBuilder createFrostBite() {
+        return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTBITE_LOG.get()), new CherryTrunkPlacer(8, 2, 2, new WeightedListInt(SimpleWeightedRandomList.<IntProvider>builder().add(ConstantInt.of(1), 1).add(ConstantInt.of(2), 1).add(ConstantInt.of(3), 1).build()), UniformInt.of(2, 4), UniformInt.of(-4, -3), UniformInt.of(-1, 0)), BlockStateProvider.simple(FrostBlocks.FROSTBITE_LEAVES.get()), new MegaJungleFoliagePlacer(ConstantInt.of(1), ConstantInt.of(0), 2), new TwoLayersFeatureSize(1, 0, 2)).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
+    }
+
+    private static TreeConfiguration.TreeConfigurationBuilder createFrostBiteBig() {
+        return new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTBITE_LOG.get()), new DarkOakTrunkPlacer(12, 4, 4), BlockStateProvider.simple(FrostBlocks.FROSTBITE_LEAVES.get()), new MegaJungleFoliagePlacer(ConstantInt.of(1), ConstantInt.of(0), 2), new TwoLayersFeatureSize(1, 0, 2)).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
+    }
 }

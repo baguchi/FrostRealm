@@ -43,8 +43,8 @@
       "frostrealm:spring_lava"
     ],
     [
-      "frostrealm:frostroot_tree_forest",
-      "frostrealm:patch_artic_willow",
+      "frostrealm:frostbite_trees",
+      "frostrealm:patch_vigoroshroom",
       "frostrealm:patch_tundra_grass"
     ]
   ],
@@ -53,20 +53,7 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [
-      {
-        "type": "frostrealm:frost_wolf",
-        "maxCount": 4,
-        "minCount": 2,
-        "weight": 6
-      },
-      {
-        "type": "frostrealm:snowpile_quail",
-        "maxCount": 5,
-        "minCount": 3,
-        "weight": 10
-      }
-    ],
+    "creature": [],
     "misc": [],
     "monster": [
       {

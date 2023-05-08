@@ -70,6 +70,8 @@ public class FrostConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_ICE = registerKey("large_ice");
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FROSTROOT_TREE = registerKey("frostroot_trees");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> FROSTBITE_TREE = registerKey("frostbite_trees");
+
 	public static final ResourceKey<ConfiguredFeature<?, ?>> LOG = registerKey("log");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> CHAIN = registerKey("chain");
 
@@ -79,9 +81,6 @@ public class FrostConfiguredFeatures {
 
 	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
 		HolderGetter<ConfiguredFeature<?, ?>> holdergetter = context.lookup(Registries.CONFIGURED_FEATURE);
-
-		Holder<ConfiguredFeature<?, ?>> holder1 = holdergetter.getOrThrow(FrostTreeFeatures.FROST_TREE);
-		Holder<ConfiguredFeature<?, ?>> holder2 = holdergetter.getOrThrow(FrostTreeFeatures.FROST_TREE_BIG);
 
 		FeatureUtils.register(context, ORE_FROST_CRYSTAL, Feature.ORE, new OreConfiguration(ORE_FROST_CRYSTAL_TARGET_LIST, 20));
 		FeatureUtils.register(context, ORE_FROST_CRYSTAL_BURIED, Feature.ORE, new OreConfiguration(ORE_FROST_CRYSTAL_TARGET_LIST, 20, 0.5F));
@@ -115,7 +114,15 @@ public class FrostConfiguredFeatures {
 
 		FeatureUtils.register(context, ICE_CLUSTER, FrostFeatures.ICE_CLUSTER.get(), new DripstoneClusterConfiguration(12, UniformInt.of(3, 6), UniformInt.of(2, 8), 1, 3, UniformInt.of(2, 4), UniformFloat.of(0.3F, 0.7F), ClampedNormalFloat.of(0.1F, 0.3F, 0.1F, 0.9F), 0.1F, 3, 8));
 		FeatureUtils.register(context, LARGE_ICE, FrostFeatures.LARGE_ICE.get(), new LargeDripstoneConfiguration(30, UniformInt.of(3, 19), UniformFloat.of(0.4F, 2.0F), 0.33F, UniformFloat.of(0.3F, 0.9F), UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.6F));
+
+		Holder<ConfiguredFeature<?, ?>> holder1 = holdergetter.getOrThrow(FrostTreeFeatures.FROST_TREE);
+		Holder<ConfiguredFeature<?, ?>> holder2 = holdergetter.getOrThrow(FrostTreeFeatures.FROST_TREE_BIG);
+		Holder<ConfiguredFeature<?, ?>> holder3 = holdergetter.getOrThrow(FrostTreeFeatures.FROSTBITE_TREE);
+		Holder<ConfiguredFeature<?, ?>> holder4 = holdergetter.getOrThrow(FrostTreeFeatures.FROSTBITE_TREE_BIG);
+
+
 		FeatureUtils.register(context, FROSTROOT_TREE, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(holder2), 0.33333334F)), PlacementUtils.inlinePlaced(holder1)));
+		FeatureUtils.register(context, FROSTBITE_TREE, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(holder4), 0.33333334F)), PlacementUtils.inlinePlaced(holder3)));
 
 		FeatureUtils.register(context, LOG, Feature.BLOCK_COLUMN, new BlockColumnConfiguration(List.of(BlockColumnConfiguration.layer(ConstantInt.of(32), BlockStateProvider.simple(FrostBlocks.FROSTROOT_LOG.get()))), Direction.DOWN, BlockPredicate.not(BlockPredicate.hasSturdyFace(new Vec3i(0, 1, 0), Direction.UP)), true));
 		FeatureUtils.register(context, CHAIN, Feature.BLOCK_COLUMN, new BlockColumnConfiguration(List.of(BlockColumnConfiguration.layer(ConstantInt.of(32), BlockStateProvider.simple(Blocks.CHAIN))), Direction.UP, BlockPredicate.not(BlockPredicate.hasSturdyFace(new Vec3i(0, -1, 0), Direction.DOWN)), true));

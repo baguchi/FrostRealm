@@ -12,6 +12,6 @@ public class FrostbiteTree extends AbstractTreeGrower {
 	@Nullable
 	@Override
 	protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource p_60014_, boolean p_60015_) {
-		return FrostTreeFeatures.FROSTBITE_TREE;
+		return p_60014_.nextInt(8) == 0 ? FrostTreeFeatures.FROSTBITE_TREE_BIG : FrostTreeFeatures.FROSTBITE_TREE;
 	}
 }
