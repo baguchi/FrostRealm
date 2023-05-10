@@ -74,7 +74,7 @@ public class FrostNoiseRouterData {
 	}
 
 	private static DensityFunction slideOverworld(DensityFunction p_224491_) {
-		return slide(p_224491_, -80, 384, 32, 16, -0.078125D, 0, 32, 0.5D);
+		return slide(p_224491_, -80, 400, 32, 16, -0.078125D, 0, 32, 0.5D);
 	}
 
 	private static DensityFunction noiseGradientDensity(DensityFunction p_212272_, DensityFunction p_212273_) {
@@ -86,11 +86,11 @@ public class FrostNoiseRouterData {
 		return DensityFunctions.interpolated(DensityFunctions.rangeChoice(p_209472_, (double) p_209474_, (double) (p_209475_ + 1), p_209473_, DensityFunctions.constant((double) p_209476_)));
 	}
 
-	private static DensityFunction slide(DensityFunction p_224444_, int p_224445_, int p_224446_, int p_224447_, int p_224448_, double p_224449_, int p_224450_, int p_224451_, double p_224452_) {
-		DensityFunction densityfunction1 = DensityFunctions.yClampedGradient(p_224445_ + p_224446_ - p_224447_, p_224445_ + p_224446_ - p_224448_, 1.0D, 0.0D);
-		DensityFunction $$9 = DensityFunctions.lerp(densityfunction1, p_224449_, p_224444_);
-		DensityFunction densityfunction2 = DensityFunctions.yClampedGradient(p_224445_ + p_224450_, p_224445_ + p_224451_, 0.0D, 1.0D);
-		return DensityFunctions.lerp(densityfunction2, p_224452_, $$9);
+	private static DensityFunction slide(DensityFunction density, int minY, int maxY, int fromYTop, int toYTop, double offset1, int fromYBottom, int toYBottom, double offset2) {
+		DensityFunction topSlide = DensityFunctions.yClampedGradient(minY + maxY - fromYTop, minY + maxY - toYTop, 1, 0);
+		density = DensityFunctions.lerp(topSlide, offset1, density);
+		DensityFunction bottomSlide = DensityFunctions.yClampedGradient(minY + fromYBottom, minY + toYBottom, 0, 1);
+		return DensityFunctions.lerp(bottomSlide, offset2, density);
 	}
 
 

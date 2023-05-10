@@ -17,8 +17,8 @@ public class FrostNoises {
     }
 
     public static void bootstrap(BootstapContext<NormalNoise.NoiseParameters> ctx) {
-        register(ctx, CONTINENTALNESS, -10, 1.0D, 1.0D, 2.0D, 3.0D, 2.0D, 1.0D, 1.0D, 1.0D, 1.0D);
-        register(ctx, EROSION, -9, 1.0D, 2.0D, 1.0D, 0.0D, 1.0D, 2.0D);
+        register(ctx, CONTINENTALNESS, -12, 1.0D, 1.0D, 2.0D, 2.0D, 2.0D, 1.0D, 1.0D, 1.0D, 1.0D);
+        register(ctx, EROSION, -6, 1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
     }
 
     public static void register(BootstapContext<NormalNoise.NoiseParameters> ctx, ResourceKey<NormalNoise.NoiseParameters> key, int firstOctave, double firstAmplitude, double... amplitudes) {
