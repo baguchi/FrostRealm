@@ -19,14 +19,16 @@ public class FrostModelLayers {
     public static final ModelLayerLocation CRYSTAL_FOX = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "crystal_fox"), "crystal_fox");
     public static final ModelLayerLocation SNOW_MOLE = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "snow_mole"), "snow_mole");
     public static final ModelLayerLocation FROST_BOAR = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "frost_boar"), "frost_boar");
+    public static final ModelLayerLocation SHADE_INSECT = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "shade_insect"), "shade_insect");
+    public static final ModelLayerLocation SHADE_INSECT_PART = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "shade_insect_part"), "shade_insect_part");
 
 
     public static final ModelLayerLocation GOKKUDILLO = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "gokkudillo"), "gokkudillo");
 
-	public static final ModelLayerLocation YETI_FUR_ARMOR_INNER = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "yeti_fur_armor_inner"), "yeti_fur_armor_inner");
-	public static final ModelLayerLocation YETI_FUR_ARMOR_OUTER = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "yeti_fur_armor_outer"), "yeti_fur_armor_outer");
+    public static final ModelLayerLocation YETI_FUR_ARMOR_INNER = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "yeti_fur_armor_inner"), "yeti_fur_armor_inner");
+    public static final ModelLayerLocation YETI_FUR_ARMOR_OUTER = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "yeti_fur_armor_outer"), "yeti_fur_armor_outer");
 
-	public static final ModelLayerLocation FROST_BEASTER_INNER_ARMOR = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "frost_beaster_inner_armor"), "frost_beaster_inner_armor");
-	public static final ModelLayerLocation FROST_BEASTER_OUTER_ARMOR = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "frost_beaster_outer_armor"), "frost_beaster_outer_armor");
+    public static final ModelLayerLocation FROST_BEASTER_INNER_ARMOR = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "frost_beaster_inner_armor"), "frost_beaster_inner_armor");
+    public static final ModelLayerLocation FROST_BEASTER_OUTER_ARMOR = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "frost_beaster_outer_armor"), "frost_beaster_outer_armor");
 
 }

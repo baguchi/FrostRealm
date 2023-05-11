@@ -89,6 +89,7 @@ public class FrostItems {
 	public static final RegistryObject<Item> SNOW_MOLE_SPAWNEGG = ITEMS.register("snow_mole_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.SNOW_MOLE, 0xE4E5E6, 0xB6A7A7, (new Item.Properties())));
 	public static final RegistryObject<Item> ASTRA_BALL_SPAWNEGG = ITEMS.register("astra_ball_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.ASTRA_BALL, 0x9352CC, 0xE3A6FF, (new Item.Properties())));
     public static final RegistryObject<Item> FROST_BOAR_SPAWNEGG = ITEMS.register("frost_boar_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.FROST_BOAR, 0x031822, 0x296B89, (new Item.Properties())));
+    public static final RegistryObject<Item> SHADE_INSECT_SPAWNEGG = ITEMS.register("shade_insect_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.SHADE_INSECT, 0x031822, 0x296B89, (new Item.Properties())));
 
 
 	@SubscribeEvent
@@ -140,17 +141,19 @@ public class FrostItems {
 										FROST_BOAR_FUR_CHESTPLATE,
 										FROST_BOAR_FUR_LEGGINGS,
 										FROST_BOAR_FUR_BOOTS,
-										MARMOT_SPAWNEGG,
-										SNOWPILE_QUAIL_SPAWNEGG,
-										FROST_WOLF_SPAWNEGG,
-										YETI_SPAWNEGG,
-										FROST_WRAITH_SPAWNEGG,
-										CLUST_WRAITH_SPAWNEGG,
-										GOKKUDILLO_SPAWNEGG,
-										FROST_BEASTER_SPAWNEGG,
-										CRYSTAL_FOX_SPAWNEGG,
-										SNOW_MOLE_SPAWNEGG,
-										ASTRA_BALL_SPAWNEGG)
+                                        MARMOT_SPAWNEGG,
+                                        SNOWPILE_QUAIL_SPAWNEGG,
+                                        FROST_WOLF_SPAWNEGG,
+                                        YETI_SPAWNEGG,
+                                        FROST_WRAITH_SPAWNEGG,
+                                        CLUST_WRAITH_SPAWNEGG,
+                                        GOKKUDILLO_SPAWNEGG,
+                                        FROST_BEASTER_SPAWNEGG,
+                                        CRYSTAL_FOX_SPAWNEGG,
+                                        SNOW_MOLE_SPAWNEGG,
+                                        ASTRA_BALL_SPAWNEGG,
+                                        FROST_BOAR_SPAWNEGG,
+                                        SHADE_INSECT_SPAWNEGG)
 								.map(item -> item.get().getDefaultInstance())
 								.toList());
 					}).build();

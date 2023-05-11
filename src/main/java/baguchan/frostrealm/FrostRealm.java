@@ -9,6 +9,7 @@ import baguchan.frostrealm.command.TemperatureCommand;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
 import baguchan.frostrealm.message.ChangedColdMessage;
+import baguchan.frostrealm.message.HurtMultipartMessage;
 import baguchan.frostrealm.registry.*;
 import com.google.common.collect.Maps;
 import net.minecraft.resources.ResourceLocation;
@@ -102,17 +103,21 @@ public class FrostRealm {
 	private void setupMessages() {
 		CHANNEL.messageBuilder(ChangedColdMessage.class, 0)
 				.encoder(ChangedColdMessage::writeToPacket).decoder(ChangedColdMessage::readFromPacket)
-				.consumerMainThread(ChangedColdMessage::handle)
-				.add();
-		CHANNEL.messageBuilder(ChangeWeatherTimeMessage.class, 1)
-				.encoder(ChangeWeatherTimeMessage::writeToPacket).decoder(ChangeWeatherTimeMessage::readFromPacket)
-				.consumerMainThread(ChangeWeatherTimeMessage::handle)
-				.add();
-		CHANNEL.messageBuilder(ChangeWeatherMessage.class, 2)
-				.encoder(ChangeWeatherMessage::writeToPacket).decoder(ChangeWeatherMessage::readFromPacket)
-				.consumerMainThread(ChangeWeatherMessage::handle)
-				.add();
-	}
+                .consumerMainThread(ChangedColdMessage::handle)
+                .add();
+        CHANNEL.messageBuilder(ChangeWeatherTimeMessage.class, 1)
+                .encoder(ChangeWeatherTimeMessage::writeToPacket).decoder(ChangeWeatherTimeMessage::readFromPacket)
+                .consumerMainThread(ChangeWeatherTimeMessage::handle)
+                .add();
+        CHANNEL.messageBuilder(ChangeWeatherMessage.class, 2)
+                .encoder(ChangeWeatherMessage::writeToPacket).decoder(ChangeWeatherMessage::readFromPacket)
+                .consumerMainThread(ChangeWeatherMessage::handle)
+                .add();
+        CHANNEL.messageBuilder(HurtMultipartMessage.class, 3)
+                .encoder(HurtMultipartMessage::write).decoder(HurtMultipartMessage::read)
+                .consumerMainThread(HurtMultipartMessage.Handler::handle)
+                .add();
+    }
 
 	public static ResourceLocation prefix(String name) {
 		return new ResourceLocation(FrostRealm.MODID, name.toLowerCase(Locale.ROOT));
