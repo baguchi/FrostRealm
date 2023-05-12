@@ -254,11 +254,11 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 	}
 
 	public void setPortalTimer(int timer) {
-		this.portalTimer = timer;
+		this.frostPortalTimer = timer;
 	}
 
 	public int getPortalTimer() {
-		return this.portalTimer;
+		return this.frostPortalTimer;
 	}
 
 	public float getPortalAnimTime() {

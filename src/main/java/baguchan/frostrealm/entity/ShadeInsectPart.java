@@ -123,13 +123,9 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
                     Vec3 vec3 = this.calculateViewVector(parent.xRotO, parent.yRotO);
                     Vec3 pos = new Vec3(parent.xo - vec3.x * radius, parent.yo + vec3.y * radius, parent.zo - vec3.z * radius);
 
-                    final double realPosX = (float) (pos.x + (parent.getX() - pos.x) * elasticity);
-                    final double realPosY = (float) (pos.y + (parent.getY() - pos.y) * elasticity);
-                    final double realPosZ = (float) (pos.z + (parent.getZ() - pos.z) * elasticity);
-
-
-                    this.setPos(realPosX, realPosY, realPosZ);
-
+                    final double realPosX = (float) (this.getX() + (pos.x - this.getX()) * elasticity);
+                    final double realPosY = (float) (this.getY() + (pos.y - this.getY()) * elasticity);
+                    final double realPosZ = (float) (this.getZ() + (pos.z - this.getZ()) * elasticity);
                     float realXRot = (float) (this.getXRot() + (parent.xRotO - this.getXRot()) * rotElasticity);
                     float realYRot = (float) (this.getYRot() + (parent.yRotO - this.getYRot()) * rotElasticity);
                     this.moveTo(realPosX, realPosY, realPosZ, realXRot, realYRot);
