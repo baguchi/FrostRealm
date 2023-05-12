@@ -20,11 +20,11 @@ public class FrostBiomeSources {
 
     public static final MultiNoiseBiomeSourceParameterList.Preset FROSTREALM_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(new ResourceLocation(FrostRealm.MODID, "frostrealm"), new MultiNoiseBiomeSourceParameterList.Preset.SourceProvider() {
         public <T> Climate.ParameterList<T> apply(Function<ResourceKey<Biome>, T> p_275530_) {
-            return generateTofuBiomes(p_275530_);
+            return generateFrostBiome(p_275530_);
         }
     });
 
-    static <T> Climate.ParameterList<T> generateTofuBiomes(Function<ResourceKey<Biome>, T> p_275249_) {
+    static <T> Climate.ParameterList<T> generateFrostBiome(Function<ResourceKey<Biome>, T> p_275249_) {
         ImmutableList.Builder<Pair<Climate.ParameterPoint, T>> builder = ImmutableList.builder();
         (new FrostrealmBiomeBuilder()).addBiomes((p_275579_) -> {
             builder.add(p_275579_.mapSecond(p_275249_));

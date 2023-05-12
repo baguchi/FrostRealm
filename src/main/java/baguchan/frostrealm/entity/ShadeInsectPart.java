@@ -111,21 +111,29 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
     @Override
     public void tick() {
         isInsidePortal = false;
+        this.setNoGravity(true);
+
         if (this.tickCount > 10) {
             Entity parent = getParent();
             refreshDimensions();
             if (!level.isClientSide) {
                 if (parent != null) {
-                    this.setNoGravity(true);
+                    double elasticity = 0.95D;
+                    double rotElasticity = 0.255D;
                     Vec3 vec3 = this.calculateViewVector(parent.xRotO, parent.yRotO);
-                    this.setPos(parent.xo - vec3.x * radius, parent.yo + vec3.y * radius, parent.zo - vec3.z * radius);
-                    final double d0 = parent.getX() - this.getX();
-                    final double d1 = parent.getY() - this.getY();
-                    final double d2 = parent.getZ() - this.getZ();
-                    final float f2 = -((float) (Mth.atan2(d1, Mth.sqrt((float) (d0 * d0 + d2 * d2))) * 180.0F / (float) Math.PI));
-                    this.setXRot(parent.xRotO);
+                    Vec3 pos = new Vec3(parent.xo - vec3.x * radius, parent.yo + vec3.y * radius, parent.zo - vec3.z * radius);
+
+                    final double realPosX = (float) (pos.x + (parent.getX() - pos.x) * elasticity);
+                    final double realPosY = (float) (pos.y + (parent.getY() - pos.y) * elasticity);
+                    final double realPosZ = (float) (pos.z + (parent.getZ() - pos.z) * elasticity);
+
+
+                    this.setPos(realPosX, realPosY, realPosZ);
+
+                    float realXRot = (float) (this.getXRot() + (parent.xRotO - this.getXRot()) * rotElasticity);
+                    float realYRot = (float) (this.getYRot() + (parent.yRotO - this.getYRot()) * rotElasticity);
+                    this.moveTo(realPosX, realPosY, realPosZ, realXRot, realYRot);
                     this.markHurt();
-                    this.setYRot(parent.yRotO);
                     this.yHeadRot = this.getYRot();
                     this.yBodyRot = this.yRotO;
                     if (parent instanceof LivingEntity) {
@@ -172,7 +180,8 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
     }
 
     public void setInitialPartPos(Entity parent) {
-        this.setPos(parent.xo + this.radius * Math.cos(parent.getYRot() * (float) Math.PI / 180.0F + this.angleYaw), parent.yo + this.offsetY, parent.zo + this.radius * Math.sin(parent.getYRot() * (float) Math.PI / 180.0F + this.angleYaw));
+        Vec3 vec3 = this.calculateViewVector(parent.xRotO, parent.yRotO);
+        this.setPos(parent.xo - vec3.x * radius, parent.yo + vec3.y * radius, parent.zo - vec3.z * radius);
     }
 
     public Entity getParent() {
@@ -342,5 +351,10 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
 
     public double getPassengersRidingOffset() {
         return (double) this.getEyeHeight();
+    }
+
+    @Override
+    public boolean canChangeDimensions() {
+        return false;
     }
 }

@@ -38,8 +38,10 @@ import javax.annotation.Nullable;
 public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySerializable<CompoundTag> {
 
 	public boolean isInFrostPortal = false;
-	public int portalTimer = 0;
+	public int frostPortalTimer = 0;
+	public int frostPortalCooldown = 200;
 	public float prevPortalAnimTime, portalAnimTime = 0.0F;
+
 
 	protected int temperature = 20;
 	protected float temperatureSaturation = 1.0F;
@@ -86,8 +88,12 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			}
 		}
 
+		if (this.frostPortalCooldown > 0) {
+			--this.frostPortalCooldown;
+		}
+
 		if (this.isInFrostPortal) {
-			++this.portalTimer;
+			++this.frostPortalTimer;
 			if (entity.level.isClientSide) {
 				this.portalAnimTime += 0.0125F;
 				if (this.portalAnimTime > 1.0F) {
@@ -105,11 +111,10 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 					this.portalAnimTime = 0.0F;
 				}
 			}
-			if (this.portalTimer > 0) {
-				this.portalTimer -= 4;
+			if (this.frostPortalTimer > 0) {
+				this.frostPortalTimer -= 4;
 			}
 		}
-
 
 		/*
 		 *  Body temperature stuff

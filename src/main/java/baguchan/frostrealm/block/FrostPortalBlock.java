@@ -1,6 +1,6 @@
 package baguchan.frostrealm.block;
 
-import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.world.FrostLevelTeleporter;
@@ -13,6 +13,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -68,12 +69,17 @@ public class FrostPortalBlock extends Block {
 	public void entityInside(BlockState p_196262_1_, Level p_196262_2_, BlockPos p_196262_3_, Entity p_196262_4_) {
 		super.entityInside(p_196262_1_, p_196262_2_, p_196262_3_, p_196262_4_);
 
-		p_196262_4_.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(handler -> {
+		FrostLivingCapability.get(p_196262_4_).ifPresent(handler -> {
 			handler.setInPortal(true);
-			int waitTime = handler.getPortalTimer();
-			if (waitTime >= 100) {
-				attemptSendPlayer(p_196262_4_, p_196262_2_);
-				handler.setPortalTimer(0);
+			if (handler.frostPortalCooldown <= 0) {
+				int waitTime = handler.getPortalTimer();
+				if (waitTime >= 80 || !(p_196262_4_ instanceof Player) || ((Player) p_196262_4_).isCreative()) {
+					attemptSendPlayer(p_196262_4_, p_196262_2_);
+					handler.setPortalTimer(0);
+					handler.frostPortalCooldown = 200;
+				}
+			} else {
+				handler.frostPortalCooldown = 200;
 			}
 		});
 	}
@@ -138,7 +144,7 @@ public class FrostPortalBlock extends Block {
 			int length = north + south - 1;
 			if (width > 12 || length > 12)
 				return;
-			if (width < 1 || length < 1)
+			if (width < 2 || length < 2)
 				return;
 			BlockPos neCorner = pos.east(east).north(north);
 			BlockPos nwCorner = pos.west(west).north(north);
@@ -151,10 +157,8 @@ public class FrostPortalBlock extends Block {
 			for (int y = 0; y <= 1; y++) {
 				for (int x = 0; x < wallWidth; x++) {
 					for (int z = 0; z < wallLength; z++) {
-						if (((y == 0 && x != 0 && z != 0 && x != wallWidth - 1 && z != wallLength - 1) || (y == 1 && (x == 0 || z == 0 || x == wallWidth - 1 || z == wallLength - 1))) &&
-								!isTofuBlock(world.getBlockState(nwCorner.below().offset(x, y, z))))
-							//TODO
-							//!isTofuBlock(world.getBlockState(nwCorner.above().offset(x, y, z))))
+						if (((y == 0 && x != 0 && z != 0 && x != wallWidth - 1 && z != wallLength - 1) || (y == 1 && (x == 0 && z < wallWidth - 1 && z > 0 || z == 0 && x < wallWidth - 1 && x > 0 || x == wallWidth - 1 && z > 0 && z < wallWidth - 1 || z == wallLength - 1 && x > 0 && x < wallWidth - 1))) &&
+								!isSnowBlock(world.getBlockState(nwCorner.below().offset(x, y, z))))
 							return;
 					}
 				}
@@ -166,18 +170,18 @@ public class FrostPortalBlock extends Block {
 			int i;
 			for (i = 0; i < 9; i++) {
 				BlockPos blockpos = pos.relative(facing, i);
-				if (!isEmptyBlock(this.world.getBlockState(blockpos)) || !isTofuBlock(this.world.getBlockState(blockpos.below())))
+				if (!isEmptyBlock(this.world.getBlockState(blockpos)) || !isSnowBlock(this.world.getBlockState(blockpos.below())))
 					break;
 			}
 			BlockState state = this.world.getBlockState(pos.relative(facing, i));
-			return isTofuBlock(state) ? i : 0;
+			return isSnowBlock(state) ? i : 0;
 		}
 
 		boolean isEmptyBlock(BlockState state) {
 			return (state.getBlock() == Blocks.WATER);
 		}
 
-		boolean isTofuBlock(BlockState state) {
+		boolean isSnowBlock(BlockState state) {
 			return (state.getBlock() == Blocks.SNOW_BLOCK);
 		}
 
