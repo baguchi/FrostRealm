@@ -21,6 +21,7 @@ import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -87,7 +88,7 @@ public class ShadeInsect extends Monster {
             if (this.isInWater()) {
                 this.moveRelative(0.02F, p_20818_);
                 this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale((double) 0.8F));
+                this.setDeltaMovement(this.getDeltaMovement().scale((double) 0.9F));
             } else if (this.isInLava()) {
                 this.moveRelative(0.02F, p_20818_);
                 this.move(MoverType.SELF, this.getDeltaMovement());
@@ -126,6 +127,7 @@ public class ShadeInsect extends Monster {
         this.goalSelector.addGoal(1, new ShadeInsect.ShadeInsectAttackStrategyGoal());
         this.goalSelector.addGoal(2, new ShadeInsect.ShadeInsectSweepAttackGoal());
         this.goalSelector.addGoal(3, new ShadeInsect.ShadeInsectCircleAroundAnchorGoal());
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(1, new ShadeInsect.ShadeInsectAttackPlayerTargetGoal());
     }
 
@@ -314,7 +316,7 @@ public class ShadeInsect extends Monster {
                 if (this.nextSweepTick <= 0) {
                     ShadeInsect.this.attackPhase = ShadeInsect.AttackPhase.SWOOP;
                     this.setAnchorAboveTarget();
-                    this.nextSweepTick = this.adjustedTickDelay((8 + ShadeInsect.this.random.nextInt(6)) * 20);
+                    this.nextSweepTick = this.adjustedTickDelay((6 + ShadeInsect.this.random.nextInt(4)) * 20);
                     ShadeInsect.this.playSound(SoundEvents.PHANTOM_SWOOP, 10.0F, 0.5F + ShadeInsect.this.random.nextFloat() * 0.1F);
                 }
             }
@@ -439,21 +441,30 @@ public class ShadeInsect extends Monster {
                 d3 = Math.sqrt(d0 * d0 + d2 * d2);
                 double d5 = Math.sqrt(d0 * d0 + d2 * d2 + d1 * d1);
                 float f = ShadeInsect.this.getYRot();
-                float f1 = (float) Mth.atan2(d2, d0);
-                float f2 = Mth.wrapDegrees(ShadeInsect.this.getYRot() + 90.0F);
-                float f3 = Mth.wrapDegrees(f1 * (180F / (float) Math.PI));
-
-                ShadeInsect.this.setYRot(Mth.approachDegrees(f2, f3, 4.0F) - 90.0F);
                 ShadeInsect.this.yBodyRot = ShadeInsect.this.getYRot();
                 float speed = (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
                 if (Mth.degreesDifferenceAbs(f, ShadeInsect.this.getYRot()) < 3.0F) {
-                    this.mob.setSpeed(Mth.lerp(0.025F, this.mob.getSpeed(), speed));
+                    this.mob.setSpeed(Mth.lerp(0.05F, this.mob.getSpeed(), speed));
                 } else {
                     this.mob.setSpeed(Mth.lerp(0.125F, this.mob.getSpeed(), speed));
                 }
 
-                float f4 = (float) (-(Mth.atan2(-d1, d3) * (double) (180F / (float) Math.PI)));
-                ShadeInsect.this.setXRot(f4);
+                /*
+                 * smooth turn start
+                 */
+                double maxTurnY = 1.5F;
+
+                float xRot = ((float) (Mth.atan2(d1, d3) * (double) (180F / (float) Math.PI)));
+                this.mob.setXRot(this.rotlerp(this.mob.getXRot(), xRot, 7.5F));
+
+                float yRot = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
+                this.mob.setYRot(this.rotlerp(this.mob.getYRot(), yRot, (float) maxTurnY));
+                /*
+                 * smooth turn fin
+                 */
+
+
+                float f4 = (float) ShadeInsect.this.getXRot();
                 float f5 = ShadeInsect.this.getYRot() + 90.0F;
                 double d6 = (double) (this.mob.getSpeed() * Mth.cos(f5 * ((float) Math.PI / 180F))) * Math.abs(d0 / d5);
                 double d7 = (double) (this.mob.getSpeed() * Mth.sin(f5 * ((float) Math.PI / 180F))) * Math.abs(d2 / d5);

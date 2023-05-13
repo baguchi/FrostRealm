@@ -22,8 +22,12 @@ public class RandomFlyingAndHoverGoal extends RandomStrollGoal {
 		double d1 = this.mob.getY() + (double) ((randomsource.nextFloat() * 2.0F - 1.0F) * 16.0F);
 		double d2 = this.mob.getZ() + (double) ((randomsource.nextFloat() * 2.0F - 1.0F) * 16.0F);
 
-		if (this.mob.getY() < 80) {
+		if (this.mob.level.canSeeSky(this.mob.blockPosition()) && this.mob.getY() < 80) {
 			d1 = this.mob.getY() + (double) ((randomsource.nextFloat() * 1.2F) * 16.0F);
+		}
+
+		if (this.mob.level.canSeeSky(this.mob.blockPosition()) && this.mob.getY() > 120) {
+			d1 = this.mob.getY() + (double) ((randomsource.nextFloat() * -1.2F) * 16.0F);
 		}
 
 		return new Vec3(d0, d1, d2);

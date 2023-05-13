@@ -38,7 +38,7 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
     protected float radius;
     protected float angleYaw;
     protected float offsetY;
-    protected float damageMultiplier = 0.75F;
+    protected float damageMultiplier = 0.95F;
 
     public ShadeInsectPart(EntityType t, Level world) {
         super(t, world);
@@ -110,25 +110,31 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
 
     @Override
     public void tick() {
-        isInsidePortal = false;
         this.setNoGravity(true);
-
+        isInsidePortal = false;
         if (this.tickCount > 10) {
             Entity parent = getParent();
             refreshDimensions();
             if (!level.isClientSide) {
                 if (parent != null) {
-                    double elasticity = 0.95D;
-                    double rotElasticity = 0.255D;
                     Vec3 vec3 = this.calculateViewVector(parent.xRotO, parent.yRotO);
-                    Vec3 pos = new Vec3(parent.xo - vec3.x * radius, parent.yo + vec3.y * radius, parent.zo - vec3.z * radius);
+                    Vec3 vec32 = new Vec3(parent.xo - vec3.x * radius, parent.yo + vec3.y * radius, parent.zo - vec3.z * radius);
 
-                    final double realPosX = (float) (this.getX() + (pos.x - this.getX()) * elasticity);
-                    final double realPosY = (float) (this.getY() + (pos.y - this.getY()) * elasticity);
-                    final double realPosZ = (float) (this.getZ() + (pos.z - this.getZ()) * elasticity);
-                    float realXRot = (float) (this.getXRot() + (parent.xRotO - this.getXRot()) * rotElasticity);
-                    float realYRot = (float) (this.getYRot() + (parent.yRotO - this.getYRot()) * rotElasticity);
-                    this.moveTo(realPosX, realPosY, realPosZ, realXRot, realYRot);
+                    double d0 = vec32.x - this.getX();
+                    double d1 = vec32.y - this.getY();
+                    double d2 = vec32.z - this.getZ();
+                    double d3 = Math.sqrt(d0 * d0 + d2 * d2);
+
+                    this.setPos(vec32.x, vec32.y, vec32.z);
+
+                    if (d3 > (double) 2.5000003E-7F) {
+                        float xRot = ((float) (Mth.atan2(d1, d3) * (double) (180F / (float) Math.PI)));
+                        this.setXRot(this.rotlerp(this.getXRot(), xRot, 1.0F));
+
+                        float yRot = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
+                        this.setYRot(this.rotlerp(this.getYRot(), yRot, (float) 3.5F));
+                    }
+
                     this.markHurt();
                     this.yHeadRot = this.getYRot();
                     this.yBodyRot = this.yRotO;
@@ -144,7 +150,9 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
                         this.remove(RemovalReason.DISCARDED);
                     }
                 } else {
-                    this.tickDeath();
+                    this.level.broadcastEntityEvent(this, (byte) 60);
+                    this.remove(Entity.RemovalReason.KILLED);
+                    this.dropExperience();
                 }
             }
         }
@@ -157,6 +165,26 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
                 this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
             }
         }
+    }
+
+    protected float rotlerp(float p_24992_, float p_24993_, float p_24994_) {
+        float f = Mth.wrapDegrees(p_24993_ - p_24992_);
+        if (f > p_24994_) {
+            f = p_24994_;
+        }
+
+        if (f < -p_24994_) {
+            f = -p_24994_;
+        }
+
+        float f1 = p_24992_ + f;
+        if (f1 < 0.0F) {
+            f1 += 360.0F;
+        } else if (f1 > 360.0F) {
+            f1 -= 360.0F;
+        }
+
+        return f1;
     }
 
     @Override
@@ -347,10 +375,5 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
 
     public double getPassengersRidingOffset() {
         return (double) this.getEyeHeight();
-    }
-
-    @Override
-    public boolean canChangeDimensions() {
-        return false;
     }
 }
