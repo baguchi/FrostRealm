@@ -6,13 +6,13 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.7.2
 import baguchan.frostrealm.entity.ShadeInsect;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
-public class ShadeInsectModel<T extends ShadeInsect> extends EntityModel<T> {
+public class ShadeInsectModel<T extends ShadeInsect> extends HierarchicalModel<T> {
     private final ModelPart core;
     private final ModelPart body;
     private final ModelPart leftWingBase;
@@ -65,5 +65,10 @@ public class ShadeInsectModel<T extends ShadeInsect> extends EntityModel<T> {
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         core.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    }
+
+    @Override
+    public ModelPart root() {
+        return this.core;
     }
 }

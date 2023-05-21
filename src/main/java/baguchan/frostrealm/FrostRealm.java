@@ -57,24 +57,26 @@ public class FrostRealm {
 			.simpleChannel();
 
 	public FrostRealm() {
-		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-		FrostWeathers.FROST_WEATHER.register(modBus);
-		FrostFeatures.FEATURES.register(modBus);
-		FrostSounds.SOUND_EVENTS.register(modBus);
-		FrostMenuTypes.MENU_TYPES.register(modBus);
-		FrostBlocks.BLOCKS.register(modBus);
-		FrostEntities.ENTITIES.register(modBus);
-		FrostItems.ITEMS.register(modBus);
-		FrostEffects.MOB_EFFECTS.register(modBus);
-		FrostEffects.POTION.register(modBus);
-		FrostRecipes.RECIPE_SERIALIZERS.register(modBus);
-		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
-		modBus.addListener(this::setup);
-		MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
+        IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+        FrostWeathers.FROST_WEATHER.register(modBus);
+        FrostFeatures.FEATURES.register(modBus);
+        FrostSounds.SOUND_EVENTS.register(modBus);
+        FrostMenuTypes.MENU_TYPES.register(modBus);
+        FrostBlocks.BLOCKS.register(modBus);
+        FrostSensors.SENSOR_TYPES.register(modBus);
+        FrostMemoryModuleType.MEMORY_MODULE_TYPES.register(modBus);
+        FrostEntities.ENTITIES.register(modBus);
+        FrostItems.ITEMS.register(modBus);
+        FrostEffects.MOB_EFFECTS.register(modBus);
+        FrostEffects.POTION.register(modBus);
+        FrostRecipes.RECIPE_SERIALIZERS.register(modBus);
+        FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
+        modBus.addListener(this::setup);
+        MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
 
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup));
+        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup));
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 

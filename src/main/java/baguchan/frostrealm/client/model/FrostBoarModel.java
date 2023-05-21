@@ -5,14 +5,15 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.7.2
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 
-public class FrostBoarModel<T extends Entity> extends EntityModel<T> {
+public class FrostBoarModel<T extends Entity> extends HierarchicalModel<T> {
+    private final ModelPart root;
     private final ModelPart head;
     private final ModelPart leg_R;
     private final ModelPart leg_L;
@@ -21,6 +22,7 @@ public class FrostBoarModel<T extends Entity> extends EntityModel<T> {
     private final ModelPart body;
 
     public FrostBoarModel(ModelPart root) {
+        this.root = root;
         this.head = root.getChild("head");
         this.leg_R = root.getChild("leg_R");
         this.leg_L = root.getChild("leg_L");
@@ -80,5 +82,10 @@ public class FrostBoarModel<T extends Entity> extends EntityModel<T> {
         leg_back_R.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         leg_back_L.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    }
+
+    @Override
+    public ModelPart root() {
+        return this.root;
     }
 }
