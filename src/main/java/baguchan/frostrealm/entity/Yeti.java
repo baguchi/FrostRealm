@@ -30,6 +30,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.npc.Villager;
@@ -132,11 +133,12 @@ public class Yeti extends AgeableMob implements NeutralMob, HuntMob {
 		this.goalSelector.addGoal(8, new LookAtPlayerAndPanicGoal(this, Player.class, 6.0F));
 		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new Yeti.YetiHurtByTargetGoal());
-		this.targetSelector.addGoal(3, new YetiTargetGoal<>(this, AbstractPiglin.class));
-		this.targetSelector.addGoal(3, new YetiTargetGoal<>(this, Villager.class));
-		this.targetSelector.addGoal(3, new YetiTargetGoal<>(this, WitherSkeleton.class));
-		this.targetSelector.addGoal(4, new HuntTargetGoal<>(this, FrostBoar.class));
-		this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, false));
+		this.targetSelector.addGoal(2, new YetiTargetGoal<>(this, AbstractIllager.class));
+		this.targetSelector.addGoal(2, new YetiTargetGoal<>(this, AbstractPiglin.class));
+		this.targetSelector.addGoal(2, new YetiTargetGoal<>(this, Villager.class));
+		this.targetSelector.addGoal(2, new YetiTargetGoal<>(this, WitherSkeleton.class));
+		this.targetSelector.addGoal(3, new HuntTargetGoal<>(this, FrostBoar.class));
+		this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
 	}
 
 	@Override
@@ -516,7 +518,7 @@ public class Yeti extends AgeableMob implements NeutralMob, HuntMob {
 
         private boolean canTarget() {
             Yeti yeti = (Yeti) this.mob;
-            return !yeti.isAngry() && !yeti.isBaby();
+			return !yeti.isBaby();
         }
     }
 
