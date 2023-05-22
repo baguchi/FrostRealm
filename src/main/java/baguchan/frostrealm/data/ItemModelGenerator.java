@@ -29,23 +29,25 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.GLIMMERROCK);
 		this.singleTex(FrostItems.ASTRIUM_RAW);
 		this.singleTex(FrostItems.ASTRIUM_INGOT);
-		this.singleTex(FrostItems.STARDUST_CRYSTAL);
-		this.singleTex(FrostItems.FROZEN_FRUIT);
-		this.singleTex(FrostItems.MELTED_FRUIT);
-		this.singleTex(FrostItems.SUGARBEET);
-		this.singleTex(FrostItems.SUGARBEET_SEEDS);
-		this.singleTex(FrostItems.BEARBERRY);
+        this.singleTex(FrostItems.STARDUST_CRYSTAL);
+        this.singleTex(FrostItems.FROZEN_FRUIT);
+        this.singleTex(FrostItems.MELTED_FRUIT);
+        this.singleTex(FrostItems.SUGARBEET);
+        this.singleTex(FrostItems.SUGARBEET_SEEDS);
+        this.singleTex(FrostItems.BEARBERRY);
         this.singleTex(FrostItems.COOKED_BEARBERRY);
         this.singleTex(FrostItems.COOKED_SNOWPILE_QUAIL_EGG);
         this.singleTex(FrostItems.SNOWPILE_QUAIL_MEAT);
         this.singleTex(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT);
+        this.singleTex(FrostItems.FROST_BOAR_MEAT);
+        this.singleTex(FrostItems.COOKED_FROST_BOAR_MEAT);
 
         this.singleTex(FrostItems.FROST_CATALYST);
         this.singleTex(FrostItems.STRAY_NECKLACE_PART);
 
         this.singleTex(FrostItems.YETI_FUR);
-		this.singleTex(FrostItems.FROST_BOAR_FUR);
-		this.singleTexTool(FrostItems.OAK_SLEDGE);
+        this.singleTex(FrostItems.FROST_BOAR_FUR);
+        this.singleTexTool(FrostItems.OAK_SLEDGE);
         this.singleTexTool(FrostItems.OAK_CHEST_SLEDGE);
         this.singleTexTool(FrostItems.FUSION_CRYSTAL_DAGGER);
         this.singleTexTool(FrostItems.ASTRIUM_SWORD);

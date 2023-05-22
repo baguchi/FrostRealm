@@ -23,19 +23,20 @@ import java.util.List;
 
 public class YetiAi {
     public static void stopHoldingMainHandItem(Yeti yeti, boolean thrown) {
-        ItemStack itemstack = yeti.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack itemstack = yeti.getItemInHand(InteractionHand.OFF_HAND);
 
-        if (!yeti.isBaby()) {
-            boolean flag = itemstack.is(FrostTags.Items.YETI_CURRENCY);
-            //boolean flag2 = itemstack.is(FrostTags.Items.YETI_BIG_CURRENCY);
-            if (thrown && flag) {
-                itemstack.shrink(1);
-                throwItems(yeti, getBarterResponseItems(yeti));
-                yeti.setHoldTime(40);
-                if (itemstack.getCount() <= 0) {
-                    yeti.setTrade(false);
-                }
-            }/* else if (thrown && flag2) {
+        if (!itemstack.isEmpty()) {
+            if (!yeti.isBaby()) {
+                boolean flag = itemstack.is(FrostTags.Items.YETI_CURRENCY);
+                //boolean flag2 = itemstack.is(FrostTags.Items.YETI_BIG_CURRENCY);
+                if (thrown && flag) {
+                    itemstack.shrink(1);
+                    throwItems(yeti, getBarterResponseItems(yeti));
+                    yeti.setHoldTime(40);
+                    if (itemstack.getCount() <= 0) {
+                        yeti.setTrade(false);
+                    }
+                }/* else if (thrown && flag2) {
                 itemstack.shrink(1);
                 throwItems(yeti, getBigBarterResponseItems(yeti));
                 yeti.setHoldTime(40);
@@ -43,26 +44,27 @@ public class YetiAi {
                     yeti.setTrade(false);
                 }
             }*/ else if (!flag) {
-                yeti.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-                boolean flag1 = !yeti.equipItemIfPossible(itemstack).isEmpty();
-                if (!flag1) {
-                    putInInventory(yeti, itemstack);
+                    yeti.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                    boolean flag1 = !yeti.equipItemIfPossible(itemstack).isEmpty();
+                    if (!flag1) {
+                        putInInventory(yeti, itemstack);
+                    }
                 }
-            }
-        } else {
-            boolean flag2 = !yeti.equipItemIfPossible(itemstack).isEmpty();
-            if (!flag2) {
-                ItemStack itemstack1 = yeti.getMainHandItem();
-                if (isLovedItem(itemstack1)) {
-                    putInInventory(yeti, itemstack1);
-                } else {
-                    throwItems(yeti, Collections.singletonList(itemstack1));
-                }
+            } else {
+                boolean flag2 = !yeti.equipItemIfPossible(itemstack).isEmpty();
+                if (!flag2) {
+                    ItemStack itemstack1 = yeti.getMainHandItem();
+                    if (isLovedItem(itemstack1)) {
+                        putInInventory(yeti, itemstack1);
+                    } else {
+                        throwItems(yeti, Collections.singletonList(itemstack1));
+                    }
 
-                yeti.holdInMainHand(itemstack);
+                    yeti.holdInMainHand(itemstack);
+                }
+                yeti.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                yeti.setTrade(false);
             }
-            yeti.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-            yeti.setTrade(false);
         }
 
     }

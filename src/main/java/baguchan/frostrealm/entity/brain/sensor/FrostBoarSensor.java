@@ -29,8 +29,8 @@ public class FrostBoarSensor extends Sensor<FrostBoar> {
             return !p_186150_.isBaby() && (p_186150_ instanceof FrostBoar);
         })) {
 
-            if (livingentity instanceof FrostBoar hoglin) {
-                list.add(hoglin);
+            if (livingentity instanceof FrostBoar boar) {
+                list.add(boar);
             }
         }
 

@@ -1,11 +1,9 @@
 package baguchan.frostrealm.entity;
 
-import baguchan.frostrealm.entity.goal.CreatureFollowParentGoal;
-import baguchan.frostrealm.entity.goal.GetFoodGoal;
-import baguchan.frostrealm.entity.goal.LookAtPlayerAndPanicGoal;
-import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
+import baguchan.frostrealm.entity.goal.*;
 import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.FrostEntities;
+import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostTags;
 import baguchan.frostrealm.utils.ai.YetiAi;
 import net.minecraft.core.BlockPos;
@@ -16,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
@@ -30,8 +29,10 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -47,17 +48,20 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Yeti extends AgeableMob implements NeutralMob {
+public class Yeti extends AgeableMob implements NeutralMob, HuntMob {
 
-    private static final EntityDataAccessor<Boolean> TRADE_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> PANIC_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
-    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(30, 59);
-    private int remainingPersistentAngerTime;
-    private UUID persistentAngerTarget;
+	private static final EntityDataAccessor<Boolean> TRADE_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> PANIC_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> HUNT_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> HUNT_LEADER_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
 
-    private final SimpleContainer inventory = new SimpleContainer(5);
-    @Nullable
-    private BlockPos homeTarget;
+	private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(30, 59);
+	private int remainingPersistentAngerTime;
+	private UUID persistentAngerTarget;
+
+	private final SimpleContainer inventory = new SimpleContainer(5);
+	@Nullable
+	private BlockPos homeTarget;
 	private int huntTime;
 	private int holdTime;
 
@@ -77,6 +81,8 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		super.defineSynchedData();
 		this.entityData.define(TRADE_ID, false);
 		this.entityData.define(PANIC_ID, false);
+		this.entityData.define(HUNT_ID, false);
+		this.entityData.define(HUNT_LEADER_ID, false);
 	}
 
 	public void setTrade(boolean trade) {
@@ -95,24 +101,43 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		return this.entityData.get(PANIC_ID);
 	}
 
+	public void setHunt(boolean hunt) {
+		this.entityData.set(HUNT_ID, hunt);
+	}
+
+	public boolean isHunt() {
+		return this.entityData.get(HUNT_ID);
+	}
+
+	public void setHuntLeader(boolean leader) {
+		this.entityData.set(HUNT_LEADER_ID, leader);
+	}
+
+	public boolean isHuntLeader() {
+		return this.entityData.get(HUNT_LEADER_ID);
+	}
+
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new Yeti.YetiMeleeAttackGoal());
-        this.goalSelector.addGoal(1, new Yeti.YetiPanicGoal());
-        this.goalSelector.addGoal(3, new GetFoodGoal<>(this));
-        this.goalSelector.addGoal(4, new CreatureFollowParentGoal(this, 1.15D));
-        this.goalSelector.addGoal(5, new SeekShelterEvenBlizzardGoal(this, 1.2D));
-        this.goalSelector.addGoal(6, new MoveToGoal(this, 40.0D, 1.2D));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(8, new LookAtPlayerAndPanicGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new Yeti.YetiHurtByTargetGoal());
-        this.targetSelector.addGoal(2, new TargetGoal<>(this, Player.class));
-        this.targetSelector.addGoal(3, new HuntTargetGoal<>(this, AbstractFish.class));
-        this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
-    }
+		this.goalSelector.addGoal(1, new Yeti.YetiMeleeAttackGoal());
+		this.goalSelector.addGoal(1, new Yeti.YetiPanicGoal());
+		this.goalSelector.addGoal(3, new GetFoodGoal<>(this));
+		this.goalSelector.addGoal(4, new CreatureFollowParentGoal(this, 1.15D));
+		this.goalSelector.addGoal(5, new SeekShelterEvenBlizzardGoal(this, 1.2D));
+		this.goalSelector.addGoal(6, new MoveToGoal(this, 40.0D, 1.2D));
+		this.goalSelector.addGoal(7, new FollowHuntLeaderGoal(this));
+		this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.9D));
+		this.goalSelector.addGoal(8, new LookAtPlayerAndPanicGoal(this, Player.class, 6.0F));
+		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+		this.targetSelector.addGoal(1, new Yeti.YetiHurtByTargetGoal());
+		this.targetSelector.addGoal(3, new YetiTargetGoal<>(this, AbstractPiglin.class));
+		this.targetSelector.addGoal(3, new YetiTargetGoal<>(this, Villager.class));
+		this.targetSelector.addGoal(3, new YetiTargetGoal<>(this, WitherSkeleton.class));
+		this.targetSelector.addGoal(4, new HuntTargetGoal<>(this, FrostBoar.class));
+		this.targetSelector.addGoal(5, new ResetUniversalAngerTargetGoal<>(this, false));
+	}
 
 	@Override
 	protected PathNavigation createNavigation(Level p_33348_) {
@@ -155,9 +180,9 @@ public class Yeti extends AgeableMob implements NeutralMob {
 	public void aiStep() {
 		this.updateSwingTime();
 		if (!this.level.isClientSide && this.isAlive()) {
-			ItemStack mainhand = this.getItemInHand(InteractionHand.MAIN_HAND);
+			ItemStack offhand = this.getItemInHand(InteractionHand.OFF_HAND);
 
-			if (!this.isUsingItem() && this.getItemInHand(InteractionHand.OFF_HAND).isEmpty()) {
+			if (!this.isUsingItem() && offhand.isEmpty()) {
 				ItemStack food = ItemStack.EMPTY;
 
 				if (this.getHealth() < this.getMaxHealth() && this.random.nextFloat() < 0.0025F) {
@@ -171,7 +196,7 @@ public class Yeti extends AgeableMob implements NeutralMob {
 			}
 
 			if (!this.isBaby()) {
-				if (mainhand.is(FrostTags.Items.YETI_BIG_CURRENCY) || mainhand.is(FrostTags.Items.YETI_CURRENCY)) {
+				if (offhand.is(FrostTags.Items.YETI_BIG_CURRENCY) || offhand.is(FrostTags.Items.YETI_CURRENCY)) {
 					if (--this.holdTime <= 0) {
 						YetiAi.stopHoldingMainHandItem(this, true);
 					}
@@ -308,6 +333,8 @@ public class Yeti extends AgeableMob implements NeutralMob {
 			}
 		}
 
+		this.setHunt(p_29541_.getBoolean("Hunt"));
+		this.setHuntLeader(p_29541_.getBoolean("HuntLeader"));
 		this.setHuntTime(p_29541_.getInt("HuntTime"));
 		this.setHoldTime(p_29541_.getInt("HoldTime"));
 		this.setTrade(p_29541_.getBoolean("Trade"));
@@ -329,6 +356,9 @@ public class Yeti extends AgeableMob implements NeutralMob {
 		}
 
 		p_29548_.put("Inventory", listnbt);
+
+		p_29548_.putBoolean("Hunt", this.isHunt());
+		p_29548_.putBoolean("HuntLeader", this.isHuntLeader());
 		p_29548_.putInt("HuntTime", huntTime);
 		p_29548_.putInt("HoldTime", holdTime);
 		p_29548_.putBoolean("Trade", this.isTrade());
@@ -356,14 +386,49 @@ public class Yeti extends AgeableMob implements NeutralMob {
 
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_29533_, DifficultyInstance p_29534_, MobSpawnType p_29535_, @Nullable SpawnGroupData p_29536_, @Nullable CompoundTag p_29537_) {
 		if (p_29536_ == null) {
-			p_29536_ = new AgeableMob.AgeableMobGroupData(1.0F);
+
+			if (p_29535_ == MobSpawnType.PATROL) {
+				this.setHuntLeader(true);
+				p_29536_ = new YetiGroupData(true, 0);
+			} else {
+				p_29536_ = new YetiGroupData(false, 1F);
+			}
 		}
 		this.inventory.addItem(new ItemStack(Items.SALMON, 4));
 		if (p_29535_ == MobSpawnType.STRUCTURE) {
 			this.homeTarget = this.blockPosition();
 		}
 
+		if (p_29536_ instanceof YetiGroupData yetiGroupData) {
+			this.setHunt(yetiGroupData.isHunt);
+		}
+
+		this.populateDefaultEquipmentSlots(p_29533_.getRandom(), p_29534_);
+		this.populateDefaultEquipmentEnchantments(p_29533_.getRandom(), p_29534_);
+
 		return super.finalizeSpawn(p_29533_, p_29534_, p_29535_, p_29536_, p_29537_);
+	}
+
+	protected void populateDefaultEquipmentSlots(RandomSource p_219165_, DifficultyInstance p_219166_) {
+		boolean flag = false;
+		boolean flag2 = false;
+
+		if (this.isHuntLeader()) {
+			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(FrostItems.ASTRIUM_AXE.get()));
+			flag = true;
+		}
+
+		if (!this.isHuntLeader() && this.isHunt()) {
+			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(FrostItems.ASTRIUM_SWORD.get()));
+			flag2 = true;
+		}
+
+		if (flag) {
+			this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(FrostItems.ASTRIUM_HELMET.get()));
+		}
+		if (flag2) {
+			this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(FrostItems.FROST_BOAR_FUR_HELMET.get()));
+		}
 	}
 
 	@Nullable
@@ -420,28 +485,28 @@ public class Yeti extends AgeableMob implements NeutralMob {
 				this.stop();
 			}
 
-        }
+		}
 
-        protected void alertOther(Mob p_29580_, LivingEntity p_29581_) {
-            if (p_29580_ instanceof Yeti && !p_29580_.isBaby()) {
-                super.alertOther(p_29580_, p_29581_);
-            }
+		protected void alertOther(Mob p_29580_, LivingEntity p_29581_) {
+			if (p_29580_ instanceof Yeti && !p_29580_.isBaby()) {
+				super.alertOther(p_29580_, p_29581_);
+			}
 
-        }
-    }
+		}
+	}
 
-    public static class TargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
-        TargetGoal(Yeti p_27966_, Class<T> tClass) {
-            super(p_27966_, tClass, 10, true, false, null);
-        }
+	public static class YetiTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
+		YetiTargetGoal(Yeti p_27966_, Class<T> tClass) {
+			super(p_27966_, tClass, 10, true, false, null);
+		}
 
-        public boolean canUse() {
-            return this.canTarget() && super.canUse();
-        }
+		public boolean canUse() {
+			return this.canTarget() && super.canUse();
+		}
 
-        public boolean canContinueToUse() {
-            boolean flag = this.canTarget();
-            if (flag && this.mob.getTarget() != null) {
+		public boolean canContinueToUse() {
+			boolean flag = this.canTarget();
+			if (flag && this.mob.getTarget() != null) {
                 return super.canContinueToUse();
             } else {
                 this.targetMob = null;
@@ -455,30 +520,7 @@ public class Yeti extends AgeableMob implements NeutralMob {
         }
     }
 
-    public static class HuntTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
-        HuntTargetGoal(Yeti p_27966_, Class<T> tClass) {
-            super(p_27966_, tClass, 10, true, false, null);
-        }
 
-        public boolean canUse() {
-            return this.canTarget() && super.canUse();
-        }
-
-        public boolean canContinueToUse() {
-            boolean flag = this.canTarget();
-            if (flag && this.mob.getTarget() != null) {
-                return super.canContinueToUse();
-			} else {
-				this.targetMob = null;
-				return false;
-			}
-		}
-
-		private boolean canTarget() {
-			Yeti yeti = (Yeti) this.mob;
-			return !yeti.isAngry() && !yeti.isBaby() && !yeti.isHunted();
-		}
-	}
 
     public static class MoveToGoal extends Goal {
         final Yeti yeti;
@@ -510,14 +552,25 @@ public class Yeti extends AgeableMob implements NeutralMob {
                     Vec3 vector3d1 = vector3d.scale(10.0D).add(this.yeti.getX(), this.yeti.getY(), this.yeti.getZ());
                     this.yeti.navigation.moveTo(vector3d1.x, vector3d1.y, vector3d1.z, this.speedModifier);
                 } else {
-                    this.yeti.navigation.moveTo((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), this.speedModifier);
-                }
-            }
+					this.yeti.navigation.moveTo((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), this.speedModifier);
+				}
+			}
 
 		}
 
 		private boolean isTooFarAway(BlockPos p_220846_1_, double p_220846_2_) {
 			return !p_220846_1_.closerThan(this.yeti.blockPosition(), p_220846_2_);
+		}
+	}
+
+	public static class YetiGroupData extends AgeableMobGroupData {
+		public final boolean isHunt;
+		public final float child;
+
+		public YetiGroupData(boolean p_34358_, float child) {
+			super(false);
+			this.isHunt = p_34358_;
+			this.child = child;
 		}
 	}
 }

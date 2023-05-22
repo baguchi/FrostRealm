@@ -9,6 +9,7 @@ import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostTags;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.world.FrostLevelData;
+import baguchan.frostrealm.world.FrostPatrolSpawner;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -43,10 +44,26 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID)
 public class CommonEvents {
+
+	private static final Map<ServerLevel, FrostPatrolSpawner> FROST_SPAWNER_MAP = new HashMap<>();
+
+
+	@SubscribeEvent
+	public static void onServerTick(TickEvent.LevelTickEvent tick) {
+		if (!tick.level.isClientSide && tick.level instanceof ServerLevel serverWorld) {
+			FROST_SPAWNER_MAP.computeIfAbsent(serverWorld,
+					k -> new FrostPatrolSpawner(serverWorld));
+			FrostPatrolSpawner spawner = FROST_SPAWNER_MAP.get(serverWorld);
+			spawner.tick();
+		}
+	}
+
 	@SubscribeEvent
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
 		event.register(FrostLivingCapability.class);

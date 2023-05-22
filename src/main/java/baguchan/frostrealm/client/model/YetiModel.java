@@ -4,6 +4,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.0.3
 
 
 import baguchan.frostrealm.client.animation.YetiAnimations;
+import baguchan.frostrealm.client.render.IArmor;
 import baguchan.frostrealm.entity.Yeti;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.ArmedModel;
@@ -16,16 +17,16 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements HeadedModel, ArmedModel {
-	private final ModelPart realRoot;
-	private final ModelPart root;
+public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements HeadedModel, ArmedModel, IArmor {
+    private final ModelPart realRoot;
+    private final ModelPart root;
 
-	public final ModelPart head;
-	public final ModelPart body;
-	public final ModelPart rightArm;
-	public final ModelPart leftArm;
-	public final ModelPart rightLeg;
-	public final ModelPart leftLeg;
+    public final ModelPart head;
+    public final ModelPart body;
+    public final ModelPart rightArm;
+    public final ModelPart leftArm;
+    public final ModelPart rightLeg;
+    public final ModelPart leftLeg;
 
 	public YetiModel(ModelPart part) {
 		super();
@@ -137,14 +138,62 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 		return this.head;
 	}
 
-	public void translateToHand(HumanoidArm p_102925_, PoseStack p_102926_) {
-		this.root.translateAndRotate(p_102926_);
-		this.getArm(p_102925_).translateAndRotate(p_102926_);
-		p_102926_.translate(0, 0.8D, 0);
-		if (this.young) {
-			p_102926_.scale(1.5F, 1.5F, 1.5F);
-			p_102926_.translate(-0.75F, -0.4F, 0.0F);
-			p_102926_.scale(1.4F, 1.4F, 1.4F);
-		}
-	}
+    public void translateToHand(HumanoidArm p_102925_, PoseStack p_102926_) {
+        this.root.translateAndRotate(p_102926_);
+        this.getArm(p_102925_).translateAndRotate(p_102926_);
+        p_102926_.translate(0, 0.8D, 0);
+        if (this.young) {
+            p_102926_.scale(1.5F, 1.5F, 1.5F);
+            p_102926_.translate(-0.75F, -0.4F, 0.0F);
+            p_102926_.scale(1.4F, 1.4F, 1.4F);
+        }
+    }
+
+    @Override
+    public ModelPart rightHand() {
+        return this.rightArm;
+    }
+
+    @Override
+    public ModelPart leftHand() {
+        return this.leftArm;
+    }
+
+    @Override
+    public ModelPart rightLeg() {
+        return this.rightLeg;
+    }
+
+    @Override
+    public ModelPart leftLeg() {
+        return this.leftLeg;
+    }
+
+    @Override
+    public void translateToHead(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.head.translateAndRotate(poseStack);
+        poseStack.translate(0, 0.25F, -0.325F);
+        poseStack.scale(1.1F, 1.1F, 1.1F);
+    }
+
+    @Override
+    public void translateToChest(PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.body.translateAndRotate(poseStack);
+        poseStack.translate(0, -0.1F, -0.1F);
+        poseStack.scale(2.825F, 2.0F, 2.825F);
+    }
+
+    @Override
+    public void translateToChestPat(HumanoidArm arm, PoseStack poseStack) {
+        this.root.translateAndRotate(poseStack);
+        this.getArm(arm).translateAndRotate(poseStack);
+        if (arm == HumanoidArm.RIGHT) {
+            poseStack.translate(0.195F, 0F, 0F);
+        } else {
+            poseStack.translate(-0.195F, 0F, 0F);
+        }
+        poseStack.scale(1.85F, 1.65F, 1.85F);
+    }
 }

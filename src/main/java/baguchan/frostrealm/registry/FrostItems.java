@@ -30,27 +30,28 @@ public class FrostItems {
 	public static final RegistryObject<Item> GLIMMERROCK = ITEMS.register("glimmerrock", () -> new GlimmerRockItem((new Item.Properties())));
 	public static final RegistryObject<Item> ASTRIUM_RAW = ITEMS.register("astrium_raw", () -> new Item((new Item.Properties())));
 	public static final RegistryObject<Item> ASTRIUM_INGOT = ITEMS.register("astrium_ingot", () -> new Item((new Item.Properties())));
-	public static final RegistryObject<Item> STARDUST_CRYSTAL = ITEMS.register("stardust_crystal", () -> new Item((new Item.Properties())));
-	public static final RegistryObject<Item> FROZEN_FRUIT = ITEMS.register("frozen_fruit", () -> new Item((new Item.Properties()).food(FrostFoods.FROZEN_FRUIT)));
-	public static final RegistryObject<Item> MELTED_FRUIT = ITEMS.register("melted_fruit", () -> new Item((new Item.Properties()).food(FrostFoods.MELTED_FRUIT)));
-	public static final RegistryObject<Item> SUGARBEET = ITEMS.register("sugarbeet", () -> new Item((new Item.Properties()).food(FrostFoods.SUGARBEET)));
-	public static final RegistryObject<Item> SUGARBEET_SEEDS = ITEMS.register("sugarbeet_seeds", () -> new ItemNameBlockItem(FrostBlocks.SUGARBEET.get(), (new Item.Properties())));
-	public static final RegistryObject<Item> BEARBERRY = ITEMS.register("bearberry", () -> new ItemNameBlockItem(FrostBlocks.BEARBERRY_BUSH.get(), (new Item.Properties())));
-	public static final RegistryObject<Item> COOKED_BEARBERRY = ITEMS.register("bearberry_cooked", () -> new Item((new Item.Properties()).food(FrostFoods.COOKED_BEARBERRY)));
-	public static final RegistryObject<Item> COOKED_SNOWPILE_QUAIL_EGG = ITEMS.register("cooked_snowpile_quail_egg", () -> new Item((new Item.Properties()).food(FrostFoods.COOKED_SNOWPILE_QUAIL_EGG)));
-	public static final RegistryObject<Item> SNOWPILE_QUAIL_MEAT = ITEMS.register("snowpile_quail_meat", () -> new Item((new Item.Properties()).food(FrostFoods.SNOWPILE_QUAIL_MEAT)));
-	public static final RegistryObject<Item> COOKED_SNOWPILE_QUAIL_MEAT = ITEMS.register("cooked_snowpile_quail_meat", () -> new Item((new Item.Properties()).food(FrostFoods.COOKED_SNOWPILE_QUAIL_MEAT)));
+    public static final RegistryObject<Item> STARDUST_CRYSTAL = ITEMS.register("stardust_crystal", () -> new Item((new Item.Properties())));
+    public static final RegistryObject<Item> FROZEN_FRUIT = ITEMS.register("frozen_fruit", () -> new Item((new Item.Properties()).food(FrostFoods.FROZEN_FRUIT)));
+    public static final RegistryObject<Item> MELTED_FRUIT = ITEMS.register("melted_fruit", () -> new Item((new Item.Properties()).food(FrostFoods.MELTED_FRUIT)));
+    public static final RegistryObject<Item> SUGARBEET = ITEMS.register("sugarbeet", () -> new Item((new Item.Properties()).food(FrostFoods.SUGARBEET)));
+    public static final RegistryObject<Item> SUGARBEET_SEEDS = ITEMS.register("sugarbeet_seeds", () -> new ItemNameBlockItem(FrostBlocks.SUGARBEET.get(), (new Item.Properties())));
+    public static final RegistryObject<Item> BEARBERRY = ITEMS.register("bearberry", () -> new ItemNameBlockItem(FrostBlocks.BEARBERRY_BUSH.get(), (new Item.Properties())));
+    public static final RegistryObject<Item> COOKED_BEARBERRY = ITEMS.register("bearberry_cooked", () -> new Item((new Item.Properties()).food(FrostFoods.COOKED_BEARBERRY)));
+    public static final RegistryObject<Item> COOKED_SNOWPILE_QUAIL_EGG = ITEMS.register("cooked_snowpile_quail_egg", () -> new Item((new Item.Properties()).food(FrostFoods.COOKED_SNOWPILE_QUAIL_EGG)));
+    public static final RegistryObject<Item> SNOWPILE_QUAIL_MEAT = ITEMS.register("snowpile_quail_meat", () -> new Item((new Item.Properties()).food(FrostFoods.SNOWPILE_QUAIL_MEAT)));
+    public static final RegistryObject<Item> COOKED_SNOWPILE_QUAIL_MEAT = ITEMS.register("cooked_snowpile_quail_meat", () -> new Item((new Item.Properties()).food(FrostFoods.COOKED_SNOWPILE_QUAIL_MEAT)));
+    public static final RegistryObject<Item> FROST_BOAR_MEAT = ITEMS.register("frost_boar_meat", () -> new Item((new Item.Properties()).food(FrostFoods.FROST_BOAR_MEAT)));
+    public static final RegistryObject<Item> COOKED_FROST_BOAR_MEAT = ITEMS.register("cooked_frost_boar_meat", () -> new Item((new Item.Properties()).food(FrostFoods.COOKED_FROST_BOAR_MEAT)));
 
+    public static final RegistryObject<Item> FROST_CATALYST = ITEMS.register("frost_catalyst", () -> new FrostCatalystItem((new Item.Properties()).stacksTo(1).durability(64)));
+    public static final RegistryObject<Item> STRAY_NECKLACE_PART = ITEMS.register("stray_necklace_part", () -> new Item((new Item.Properties())));
 
-	public static final RegistryObject<Item> FROST_CATALYST = ITEMS.register("frost_catalyst", () -> new FrostCatalystItem((new Item.Properties()).stacksTo(1).durability(64)));
-	public static final RegistryObject<Item> STRAY_NECKLACE_PART = ITEMS.register("stray_necklace_part", () -> new Item((new Item.Properties())));
+    public static final RegistryObject<Item> YETI_FUR = ITEMS.register("yeti_fur", () -> new Item((new Item.Properties())));
+    public static final RegistryObject<Item> FROST_BOAR_FUR = ITEMS.register("frost_boar_fur", () -> new Item((new Item.Properties())));
 
-	public static final RegistryObject<Item> YETI_FUR = ITEMS.register("yeti_fur", () -> new Item((new Item.Properties())));
-	public static final RegistryObject<Item> FROST_BOAR_FUR = ITEMS.register("frost_boar_fur", () -> new Item((new Item.Properties())));
-
-	public static final RegistryObject<Item> OAK_SLEDGE = ITEMS.register("oak_sledge", () -> new SledgeItem(false, Boat.Type.OAK, (new Item.Properties())));
-	public static final RegistryObject<Item> OAK_CHEST_SLEDGE = ITEMS.register("oak_chest_sledge", () -> new SledgeItem(true, Boat.Type.OAK, (new Item.Properties())));
-	public static final RegistryObject<Item> FUSION_CRYSTAL_DAGGER = ITEMS.register("fusion_crystal_dagger", () -> new FusionCrystalDaggerItem((new Item.Properties()).durability(420)));
+    public static final RegistryObject<Item> OAK_SLEDGE = ITEMS.register("oak_sledge", () -> new SledgeItem(false, Boat.Type.OAK, (new Item.Properties())));
+    public static final RegistryObject<Item> OAK_CHEST_SLEDGE = ITEMS.register("oak_chest_sledge", () -> new SledgeItem(true, Boat.Type.OAK, (new Item.Properties())));
+    public static final RegistryObject<Item> FUSION_CRYSTAL_DAGGER = ITEMS.register("fusion_crystal_dagger", () -> new FusionCrystalDaggerItem((new Item.Properties()).durability(420)));
 
 	public static final RegistryObject<Item> ASTRIUM_SWORD = ITEMS.register("astrium_sword", () -> new SwordItem(FrostItemTier.ASTRIUM, 3, -2.3F, (new Item.Properties())));
 	public static final RegistryObject<Item> ASTRIUM_AXE = ITEMS.register("astrium_axe", () -> new AxeItem(FrostItemTier.ASTRIUM, 5.5F, -3.0F, (new Item.Properties())));
@@ -107,26 +108,28 @@ public class FrostItems {
 										GLIMMERROCK,
 										ASTRIUM_RAW,
 										ASTRIUM_INGOT,
-										STARDUST_CRYSTAL,
-										FROZEN_FRUIT,
-											MELTED_FRUIT,
-										SUGARBEET,
-										SUGARBEET_SEEDS,
-										BEARBERRY,
-										COOKED_BEARBERRY,
-										COOKED_SNOWPILE_QUAIL_EGG,
-										SNOWPILE_QUAIL_MEAT,
-										COOKED_SNOWPILE_QUAIL_MEAT,
-										FROST_CATALYST,
-										STRAY_NECKLACE_PART,
-										YETI_FUR,
-										FROST_BOAR_FUR,
-										OAK_SLEDGE,
-										OAK_CHEST_SLEDGE,
-										FUSION_CRYSTAL_DAGGER,
-										ASTRIUM_SWORD,
-										ASTRIUM_AXE,
-										ASTRIUM_PICKAXE,
+                                        STARDUST_CRYSTAL,
+                                        FROZEN_FRUIT,
+                                        MELTED_FRUIT,
+                                        SUGARBEET,
+                                        SUGARBEET_SEEDS,
+                                        BEARBERRY,
+                                        COOKED_BEARBERRY,
+                                        COOKED_SNOWPILE_QUAIL_EGG,
+                                        SNOWPILE_QUAIL_MEAT,
+                                        COOKED_SNOWPILE_QUAIL_MEAT,
+                                        FROST_BOAR_MEAT,
+                                        COOKED_FROST_BOAR_MEAT,
+                                        FROST_CATALYST,
+                                        STRAY_NECKLACE_PART,
+                                        YETI_FUR,
+                                        FROST_BOAR_FUR,
+                                        OAK_SLEDGE,
+                                        OAK_CHEST_SLEDGE,
+                                        FUSION_CRYSTAL_DAGGER,
+                                        ASTRIUM_SWORD,
+                                        ASTRIUM_AXE,
+                                        ASTRIUM_PICKAXE,
 										ASTRIUM_SHOVEL,
 										ASTRIUM_HOE,
 										ASTRIUM_HELMET,

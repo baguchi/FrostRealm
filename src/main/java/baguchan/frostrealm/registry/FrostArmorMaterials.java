@@ -14,13 +14,13 @@ import java.util.function.Supplier;
 
 public enum FrostArmorMaterials implements StringRepresentable, ArmorMaterial {
 	YETI_FUR("frostrealm:yeti_fur", 15, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
-		p_266652_.put(ArmorItem.Type.BOOTS, 2);
-		p_266652_.put(ArmorItem.Type.LEGGINGS, 4);
-		p_266652_.put(ArmorItem.Type.CHESTPLATE, 5);
-		p_266652_.put(ArmorItem.Type.HELMET, 2);
-	}), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.5F, 0.0F, () -> {
-		return Ingredient.of(FrostItems.YETI_FUR.get());
-	}),
+        p_266652_.put(ArmorItem.Type.BOOTS, 2);
+        p_266652_.put(ArmorItem.Type.LEGGINGS, 4);
+        p_266652_.put(ArmorItem.Type.CHESTPLATE, 5);
+        p_266652_.put(ArmorItem.Type.HELMET, 2);
+    }), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0F, 0.0F, () -> {
+        return Ingredient.of(FrostItems.YETI_FUR.get());
+    }),
 	FROST_BOAR_FUR("frostrealm:kolossus_fur", 18, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
 		p_266652_.put(ArmorItem.Type.BOOTS, 2);
 		p_266652_.put(ArmorItem.Type.LEGGINGS, 5);
@@ -30,13 +30,13 @@ public enum FrostArmorMaterials implements StringRepresentable, ArmorMaterial {
 		return Ingredient.of(FrostItems.FROST_BOAR_FUR.get());
 	}),
 	ASTRIUM("frostrealm:astrium", 20, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266654_) -> {
-		p_266654_.put(ArmorItem.Type.BOOTS, 2);
-		p_266654_.put(ArmorItem.Type.LEGGINGS, 5);
-		p_266654_.put(ArmorItem.Type.CHESTPLATE, 6);
-		p_266654_.put(ArmorItem.Type.HELMET, 2);
-	}), 12, SoundEvents.ARMOR_EQUIP_IRON, 0.5F, 0.0F, () -> {
-		return Ingredient.of(FrostItems.ASTRIUM_INGOT.get());
-	});
+        p_266654_.put(ArmorItem.Type.BOOTS, 2);
+        p_266654_.put(ArmorItem.Type.LEGGINGS, 5);
+        p_266654_.put(ArmorItem.Type.CHESTPLATE, 6);
+        p_266654_.put(ArmorItem.Type.HELMET, 2);
+    }), 12, SoundEvents.ARMOR_EQUIP_IRON, 1.5F, 0.0F, () -> {
+        return Ingredient.of(FrostItems.ASTRIUM_INGOT.get());
+    });
 
 	private static final EnumMap<ArmorItem.Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266653_) -> {
 		p_266653_.put(ArmorItem.Type.BOOTS, 13);
