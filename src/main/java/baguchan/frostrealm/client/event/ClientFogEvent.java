@@ -3,7 +3,6 @@ package baguchan.frostrealm.client.event;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostDimensions;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -21,37 +20,14 @@ public class ClientFogEvent {
         Entity entity = event.getCamera().getEntity();
         float partialTicks = (float) event.getPartialTick();
         if (entity.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-            if (entity.getY() < 32 && entity.getY() > -16) {
-                if (fogLevel < 1F) {
-                    fogLevel += 0.01F;
-                } else {
-                    fogLevel = 1F;
-                }
-            } else {
-                if (fogLevel > 0F) {
-                    fogLevel -= 0.01F;
-                } else {
-                    fogLevel = 0F;
-                }
-            }
-            oFogLevel = fogLevel;
-
-            float currentFogLevel = Mth.lerp(partialTicks, this.oFogLevel, this.fogLevel);
-
 
             entity.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
 
                 float weatherLevel = cap.getWeatherLevel(partialTicks);
 
                 if (weatherLevel > 0F && cap.getFrostWeather() != null && cap.getFrostWeather().isUseFog()) {
-                    event.setNearPlaneDistance(20.0F * (cap.getFrostWeather().getDensity() / weatherLevel) + (20.0F * 0.5F / currentFogLevel));
-                    event.setFarPlaneDistance(160.0F * (cap.getFrostWeather().getDensity() / weatherLevel) + (160.0F * 0.5F / currentFogLevel));
-                    RenderSystem.setShaderFogStart(event.getNearPlaneDistance());
-                    RenderSystem.setShaderFogEnd(event.getFarPlaneDistance());
-                    event.setCanceled(true);
-                } else if (currentFogLevel > 0F) {
-                    event.setNearPlaneDistance(20.0F * 0.5F / currentFogLevel);
-                    event.setFarPlaneDistance(160.0F * 0.5F / currentFogLevel);
+                    event.setNearPlaneDistance(20.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
+                    event.setFarPlaneDistance(160.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
                     RenderSystem.setShaderFogStart(event.getNearPlaneDistance());
                     RenderSystem.setShaderFogEnd(event.getFarPlaneDistance());
                     event.setCanceled(true);

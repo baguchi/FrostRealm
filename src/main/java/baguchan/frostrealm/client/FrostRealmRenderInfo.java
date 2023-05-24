@@ -32,8 +32,6 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
     private static final ResourceLocation RAIN_TEXTURES = new ResourceLocation("textures/environment/rain.png");
     private static final ResourceLocation SNOW_TEXTURES = new ResourceLocation("textures/environment/snow.png");
-    private static final ResourceLocation FOG_TEXTURES = new ResourceLocation("textures/environment/fog.png");
-
     private final float[] rainxs = new float[1024];
     private final float[] rainzs = new float[1024];
     private int rainSoundTime;
@@ -70,18 +68,16 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 	@Override
 	public boolean renderSky(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
         level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(frostWeatherCapability -> {
-            renderAurora(poseStack, frostWeatherCapability, partialTick, Minecraft.getInstance());
+			renderAurora(poseStack, frostWeatherCapability, partialTick, ticks, Minecraft.getInstance());
         });
-        renderFog(poseStack, partialTick, Minecraft.getInstance(), camera);
 		return true;
 	}
 
-	private void renderAurora(PoseStack p_109781_, @NotNull FrostWeatherCapability frostWeatherCapability, float partialTick, Minecraft minecraft) {
+	private void renderAurora(PoseStack p_109781_, @NotNull FrostWeatherCapability frostWeatherCapability, float partialTick, int ticks, Minecraft minecraft) {
 		BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
-		RenderSystem.depthMask(false);
 		RenderSystem.disableCull();
+		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
-		RenderSystem.enableDepthTest();
 		RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		p_109781_.pushPose();
 		float f11 = (1.0F - frostWeatherCapability.getWeatherLevel(partialTick));
@@ -91,19 +87,25 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 		Matrix4f matrix4f1 = p_109781_.last().pose();
 		float f12 = 160.0F;
 		float f13 = (float) (110.0F);
+		float u1 = 0;
+		float v1 = 0;
+		float u2 = 1F;
+		float v2 = 1F;
+
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, AURORA_LOCATION);
 		bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		bufferbuilder.vertex(matrix4f1, -f12, (float) f13, -f12).uv(0.0F, 0.0F).endVertex();
-		bufferbuilder.vertex(matrix4f1, f12, (float) f13, -f12).uv(1.0F, 0.0F).endVertex();
-		bufferbuilder.vertex(matrix4f1, f12, (float) f13, f12).uv(1.0F, 1.0F).endVertex();
-		bufferbuilder.vertex(matrix4f1, -f12, (float) f13, f12).uv(0.0F, 1.0F).endVertex();
+		bufferbuilder.vertex(matrix4f1, -f12, (float) f13, -f12).uv(u1, v1).endVertex();
+		bufferbuilder.vertex(matrix4f1, f12, (float) f13, -f12).uv(u2, v1).endVertex();
+		bufferbuilder.vertex(matrix4f1, f12, (float) f13, f12).uv(u2, v2).endVertex();
+		bufferbuilder.vertex(matrix4f1, -f12, (float) f13, f12).uv(u1, v2).endVertex();
 		BufferUploader.drawWithShader(bufferbuilder.end());
 		p_109781_.popPose();
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.enableCull();
+		RenderSystem.defaultBlendFunc();
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
+		RenderSystem.enableCull();
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
 	@Override
@@ -120,48 +122,6 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
         });
 
         return true;
-    }
-
-    public static void renderFog(PoseStack p_109781_, float partialTick, Minecraft minecraft, Camera camera) {
-        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
-        RenderSystem.setShaderTexture(0, FOG_TEXTURES);
-        float u1 = partialTick * 0.01F;
-        float v1 = partialTick * 0.01F;
-        float u2 = partialTick * 0.01F + 1.0F;
-        float v2 = partialTick * 0.01F + 1.0F;
-        RenderSystem.depthMask(false);
-        RenderSystem.disableCull();
-        RenderSystem.enableBlend();
-        RenderSystem.enableDepthTest();
-        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-
-        FogRenderer.levelFogColor();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
-
-        renderStartFog(p_109781_, partialTick, minecraft, camera, 32, u1, u2, v1, v2);
-        renderStartFog(p_109781_, partialTick, minecraft, camera, -16, u1, u2, v1, v2);
-        RenderSystem.enableCull();
-        RenderSystem.disableBlend();
-        RenderSystem.depthMask(true);
-    }
-
-    private static void renderStartFog(PoseStack p_109781_, float partialTick, Minecraft minecraft, Camera camera, int startY, float u0, float u1, float v0, float v1) {
-        p_109781_.pushPose();
-        Tesselator tessellator = Tesselator.getInstance();
-        BufferBuilder bufferbuilder = tessellator.getBuilder();
-        Matrix4f matrix4f1 = p_109781_.last().pose();
-        float f12 = 160.0F;
-        float f13 = (float) (startY);
-
-        p_109781_.translate(0, -camera.getPosition().y, 0);
-        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferbuilder.vertex(matrix4f1, -f12, (float) f13, -f12).uv(u0, v0).endVertex();
-        bufferbuilder.vertex(matrix4f1, f12, (float) f13, -f12).uv(u0, v1).endVertex();
-        bufferbuilder.vertex(matrix4f1, f12, (float) f13, f12).uv(u1, v1).endVertex();
-        bufferbuilder.vertex(matrix4f1, -f12, (float) f13, f12).uv(u1, v0).endVertex();
-        BufferUploader.drawWithShader(bufferbuilder.end());
-        p_109781_.popPose();
     }
 
     private void renderBrizzardWeather(FrostWeatherCapability cap, LightTexture lightmap, ClientLevel world, Minecraft mc, float ticks, double x, double y, double z) {

@@ -5,8 +5,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 
-public class HuntTargetGoal<T extends LivingEntity, C extends Mob & HuntMob> extends NearestAttackableTargetGoal<T> {
-    public HuntTargetGoal(C p_27966_, Class<T> tClass) {
+public class HuntTargetGoal<T extends LivingEntity, M extends Mob & HuntMob> extends NearestAttackableTargetGoal<T> {
+    public HuntTargetGoal(M p_27966_, Class<T> tClass) {
         super(p_27966_, tClass, 10, true, false, null);
     }
 
@@ -25,7 +25,7 @@ public class HuntTargetGoal<T extends LivingEntity, C extends Mob & HuntMob> ext
     }
 
     private boolean canTarget() {
-        C huntMob = (C) this.mob;
+        M huntMob = (M) this.mob;
         return !huntMob.isBaby() && !huntMob.isHunted() && huntMob.isHunt();
     }
 }
