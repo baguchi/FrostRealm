@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
@@ -18,6 +19,8 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.monster.hoglin.HoglinBase;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 public class FrostBoar extends FrostAnimal {
@@ -26,6 +29,10 @@ public class FrostBoar extends FrostAnimal {
             , FrostSensors.FROST_BOAR_SENSOR.get());
     protected static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.BREED_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_ATTACKABLE, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED, MemoryModuleType.HAS_HUNTING_COOLDOWN, MemoryModuleType.IS_PANICKING
             , FrostMemoryModuleType.UNCOMFORTABLE.get(), MemoryModuleType.AVOID_TARGET, FrostMemoryModuleType.NEAREST_FROST_BOARS.get(), FrostMemoryModuleType.FROST_BOAR_COUNT.get());
+
+    private float runningScale;
+    public AnimationState walkAnimation = new AnimationState();
+    public AnimationState runAnimation = new AnimationState();
 
     public FrostBoar(EntityType<? extends FrostBoar> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
@@ -56,6 +63,38 @@ public class FrostBoar extends FrostAnimal {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 5.0F).add(Attributes.MAX_HEALTH, 50.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.7F).add(Attributes.ATTACK_KNOCKBACK, 0.5D).add(Attributes.MOVEMENT_SPEED, 0.3D);
+    }
+
+    @Override
+    public void tick() {
+        if (level.isClientSide()) {
+            if ((this.isMoving())) {
+                if (isDashing()) {
+                    //idleAnimationState.stop();
+                    runningScale = Mth.clamp(runningScale + 0.1F, 0, 1);
+                } else {
+                    //idleAnimationState.stop();
+                    runningScale = Mth.clamp(runningScale - 0.1F, 0, 1);
+                }
+            } else {
+                //idleAnimationState.startIfStopped(this.tickCount);
+            }
+        }
+        super.tick();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public float getRunningScale() {
+        return runningScale;
+    }
+
+
+    private boolean isDashing() {
+        return this.getDeltaMovement().horizontalDistanceSqr() > 0.02D;
+    }
+
+    private boolean isMoving() {
+        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
     }
 
     public boolean doHurtTarget(Entity p_34491_) {
