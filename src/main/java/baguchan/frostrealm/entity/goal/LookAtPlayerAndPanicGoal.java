@@ -1,7 +1,7 @@
 package baguchan.frostrealm.entity.goal;
 
 import baguchan.frostrealm.entity.Yeti;
-import baguchan.frostrealm.utils.ai.YetiAi;
+import baguchan.frostrealm.entity.brain.YetiAi;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 

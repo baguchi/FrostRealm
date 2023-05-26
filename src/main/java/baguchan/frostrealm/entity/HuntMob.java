@@ -8,6 +8,4 @@ public interface HuntMob {
     void setHuntLeader(boolean leader);
 
     boolean isHuntLeader();
-
-    boolean isHunted();
 }

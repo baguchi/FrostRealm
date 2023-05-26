@@ -26,9 +26,9 @@ import org.jetbrains.annotations.Nullable;
 public class FrostBoar extends FrostAnimal {
 
     protected static final ImmutableList<? extends SensorType<? extends Sensor<? super FrostBoar>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_ADULT, SensorType.HURT_BY
-            , FrostSensors.FROST_BOAR_SENSOR.get());
+            , FrostSensors.FROST_BOAR_SENSOR.get(), FrostSensors.ENEMY_SENSOR.get());
     protected static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.BREED_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_ATTACKABLE, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED, MemoryModuleType.HAS_HUNTING_COOLDOWN, MemoryModuleType.IS_PANICKING
-            , FrostMemoryModuleType.UNCOMFORTABLE.get(), MemoryModuleType.AVOID_TARGET, FrostMemoryModuleType.NEAREST_FROST_BOARS.get(), FrostMemoryModuleType.FROST_BOAR_COUNT.get());
+            , FrostMemoryModuleType.NEAREST_ENEMYS.get(), FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get(), MemoryModuleType.AVOID_TARGET, FrostMemoryModuleType.NEAREST_FROST_BOARS.get(), FrostMemoryModuleType.FROST_BOAR_COUNT.get());
 
     private float runningScale;
     public AnimationState walkAnimation = new AnimationState();
@@ -108,6 +108,7 @@ public class FrostBoar extends FrostAnimal {
         }
     }
 
+    @Override
     public boolean hurt(DamageSource p_34503_, float p_34504_) {
         boolean flag = super.hurt(p_34503_, p_34504_);
         if (this.level.isClientSide) {
@@ -137,4 +138,5 @@ public class FrostBoar extends FrostAnimal {
     public boolean isAdult() {
         return !this.isBaby();
     }
+
 }

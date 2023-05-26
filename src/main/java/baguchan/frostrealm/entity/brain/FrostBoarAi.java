@@ -46,7 +46,7 @@ public class FrostBoarAi {
         brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.AVOID, Activity.IDLE));
         Activity activity1 = brain.getActiveNonCoreActivity().orElse((Activity) null);
         if (activity != activity1) {
-            getSoundForCurrentActivity(boar).ifPresent((sound) -> boar.playSound(sound));
+            getSoundForCurrentActivity(boar).ifPresent(boar::playSound);
         }
 
         boar.setAggressive(brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET));
@@ -57,7 +57,7 @@ public class FrostBoarAi {
     }
 
     private static void initCoreActivity(Brain<FrostBoar> p_149307_) {
-        p_149307_.addActivity(Activity.CORE, 0, ImmutableList.of(StartAttacking.create(FrostBoarAi::findNearestValidAttackTarget), new Swim(0.8F), new LookAtTargetSink(45, 90), new MoveToTargetSink(), new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS), new CountDownCooldownTicks(FrostMemoryModuleType.UNCOMFORTABLE.get())));
+        p_149307_.addActivity(Activity.CORE, 0, ImmutableList.of(StartAttacking.create(FrostBoarAi::findNearestValidAttackTarget), new Swim(0.8F), new LookAtTargetSink(45, 90), new MoveToTargetSink(), new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS)));
     }
 
     private static void initIdleActivity(Brain<FrostBoar> p_149309_) {
@@ -90,7 +90,16 @@ public class FrostBoarAi {
     }
 
     private static Optional<? extends LivingEntity> findNearestValidAttackTarget(FrostBoar p_34611_) {
-        return !isBreeding(p_34611_) ? p_34611_.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE) : Optional.empty();
+        boolean flag = !isBreeding(p_34611_);
+
+        if (flag) {
+            Optional<List<LivingEntity>> listOptional = p_34611_.getBrain().getMemory(FrostMemoryModuleType.NEAREST_ENEMYS.get());
+            if (listOptional.isPresent() && !listOptional.get().isEmpty()) {
+                return Optional.of(listOptional.get().get(p_34611_.getRandom().nextInt(listOptional.get().size())));
+            }
+        }
+
+        return flag ? p_34611_.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE) : Optional.empty();
     }
 
     private static float getSpeedModifier(LivingEntity livingEntity) {
@@ -116,17 +125,23 @@ public class FrostBoarAi {
 
 
     public static void wasHurtBy(FrostBoar p_34596_, LivingEntity p_34597_) {
-        Brain<FrostBoar> brain = p_34596_.getBrain();
-        brain.eraseMemory(MemoryModuleType.BREED_TARGET);
-        if (p_34596_.isBaby() || !isEnoughFrostBoarOrHealth(p_34596_)) {
-            retreatFromNearestTarget(p_34596_, p_34597_);
-        } else {
-            maybeRetaliate(p_34596_, p_34597_);
+        if (!(p_34597_ instanceof FrostBoar)) {
+            Brain<FrostBoar> brain = p_34596_.getBrain();
+            brain.eraseMemory(MemoryModuleType.BREED_TARGET);
+            if (p_34596_.isBaby() || !isEnoughFrostBoarOrHealth(p_34596_)) {
+                retreatFromNearestTarget(p_34596_, p_34597_);
+                if (Sensor.isEntityAttackable(p_34596_, p_34597_)) {
+                    setAttackTarget(p_34596_, p_34597_);
+                }
+            } else {
+                maybeRetaliate(p_34596_, p_34597_);
+            }
         }
     }
 
+
     private static void maybeRetaliate(FrostBoar p_34625_, LivingEntity p_34626_) {
-        if (!p_34625_.getBrain().isActive(Activity.AVOID) || p_34626_.getType() != EntityType.PIGLIN) {
+        if (!p_34625_.getBrain().isActive(Activity.AVOID) || p_34626_.getType() != FrostEntities.YETI.get()) {
             if (p_34626_.getType() != FrostEntities.FROST_BOAR.get()) {
                 if (!BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(p_34625_, p_34626_, 4.0D)) {
                     if (Sensor.isEntityAttackable(p_34625_, p_34626_)) {
