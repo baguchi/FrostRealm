@@ -5,10 +5,8 @@ import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.*;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -48,11 +46,9 @@ public class Yeti extends AgeableMob implements HuntMob {
 			, FrostSensors.YETI_SENSOR.get(), FrostSensors.ENEMY_SENSOR.get());
 	protected static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.BREED_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_ATTACKABLE, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED, MemoryModuleType.HAS_HUNTING_COOLDOWN, MemoryModuleType.IS_PANICKING
 			, FrostMemoryModuleType.NEAREST_ENEMYS.get(), FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get(), MemoryModuleType.AVOID_TARGET, FrostMemoryModuleType.NEAREST_FROST_BOARS.get(), FrostMemoryModuleType.FROST_BOAR_COUNT.get(), FrostMemoryModuleType.NEAREST_YETIS.get(), FrostMemoryModuleType.YETI_COUNT.get()
-			, MemoryModuleType.ANGRY_AT, MemoryModuleType.UNIVERSAL_ANGER, MemoryModuleType.HUNTED_RECENTLY);
+			, MemoryModuleType.ANGRY_AT, MemoryModuleType.UNIVERSAL_ANGER, MemoryModuleType.HUNTED_RECENTLY, MemoryModuleType.HOME);
 
 	private final SimpleContainer inventory = new SimpleContainer(5);
-	@Nullable
-	private BlockPos homeTarget;
 	private int holdTime;
 
 	public AnimationState warmingAnimation = new AnimationState();
@@ -270,9 +266,6 @@ public class Yeti extends AgeableMob implements HuntMob {
 
 	public void readAdditionalSaveData(CompoundTag p_29541_) {
 		super.readAdditionalSaveData(p_29541_);
-		if (p_29541_.contains("HomeTarget")) {
-			this.homeTarget = NbtUtils.readBlockPos(p_29541_.getCompound("HomeTarget"));
-		}
 		ListTag listnbt = p_29541_.getList("Inventory", 10);
 
 		for (int i = 0; i < listnbt.size(); ++i) {
@@ -290,9 +283,6 @@ public class Yeti extends AgeableMob implements HuntMob {
 
 	public void addAdditionalSaveData(CompoundTag p_29548_) {
 		super.addAdditionalSaveData(p_29548_);
-		if (this.homeTarget != null) {
-			p_29548_.put("HomeTarget", NbtUtils.writeBlockPos(this.homeTarget));
-		}
 		ListTag listnbt = new ListTag();
 
 		for (int i = 0; i < this.inventory.getContainerSize(); ++i) {
@@ -314,21 +304,13 @@ public class Yeti extends AgeableMob implements HuntMob {
 		if (p_29536_ == null) {
 
 			if (p_29535_ == MobSpawnType.PATROL) {
-				this.setHuntLeader(true);
 				p_29536_ = new YetiGroupData(true, 0);
 			} else {
 				p_29536_ = new YetiGroupData(false, 1F);
 			}
 		}
 		this.inventory.addItem(new ItemStack(Items.SALMON, 4));
-		if (p_29535_ == MobSpawnType.STRUCTURE) {
-			this.homeTarget = this.blockPosition();
-		}
-
-		if (p_29536_ instanceof YetiGroupData yetiGroupData) {
-			this.setHunt(yetiGroupData.isHunt);
-		}
-		YetiAi.initMemories(this, p_29533_.getRandom());
+		YetiAi.initMemories(this, p_29533_.getRandom(), p_29535_);
 
 
 		this.populateDefaultEquipmentSlots(p_29533_.getRandom(), p_29534_);

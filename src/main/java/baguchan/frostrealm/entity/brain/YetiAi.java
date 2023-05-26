@@ -7,6 +7,7 @@ import baguchan.frostrealm.registry.*;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -17,6 +18,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
@@ -61,9 +63,9 @@ public class YetiAi {
         Activity activity = brain.getActiveNonCoreActivity().orElse((Activity) null);
         brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.AVOID, Activity.IDLE));
         Activity activity1 = brain.getActiveNonCoreActivity().orElse((Activity) null);
-        if (activity != activity1) {
+        /*if (activity != activity1) {
             getSoundForCurrentActivity(boar).ifPresent(boar::playSound);
-        }
+        }*/
 
         boar.setAggressive(brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET));
     }
@@ -77,7 +79,7 @@ public class YetiAi {
     }
 
     private static void initIdleActivity(Brain<Yeti> p_149309_) {
-        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F)), Pair.of(0, BehaviorBuilder.triggerIf(livingEntity -> true, StartHuntingBoar.create()))), ImmutableSet.of());
+        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(2, StrollToPoi.create(MemoryModuleType.HOME, 0.85F, 2, 100)), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F)), Pair.of(0, BehaviorBuilder.triggerIf(livingEntity -> true, StartHuntingBoar.create()))), ImmutableSet.of());
     }
 
     private static void initRetreatActivity(Brain<Yeti> p_34616_) {
@@ -96,6 +98,17 @@ public class YetiAi {
         return p_34618_.isAdult() && isEnoughYeti(p_34618_);
     }
 
+    private static boolean isNoEnoughYeti(Yeti p_34623_) {
+        if (p_34623_.isBaby()) {
+            return false;
+        } else {
+            int j = p_34623_.getBrain().getMemory(FrostMemoryModuleType.YETI_COUNT.get()).orElse(0) + 1;
+            int i = p_34623_.getBrain().getMemory(FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get()).orElse(0);
+
+            return j + 2 < i;
+        }
+    }
+
     private static boolean isEnoughYeti(Yeti p_34623_) {
         if (p_34623_.isBaby()) {
             return false;
@@ -103,7 +116,7 @@ public class YetiAi {
             int j = p_34623_.getBrain().getMemory(FrostMemoryModuleType.YETI_COUNT.get()).orElse(0) + 1;
             int i = p_34623_.getBrain().getMemory(FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get()).orElse(0);
 
-            return j > i;
+            return j > i - 2;
         }
     }
 
@@ -145,7 +158,7 @@ public class YetiAi {
     public static void wasHurtBy(Yeti p_34596_, LivingEntity p_34597_) {
         Brain<Yeti> brain = p_34596_.getBrain();
         if (!(p_34597_ instanceof Yeti)) {
-            if (p_34596_.isBaby() || !isEnoughYeti(p_34596_)) {
+            if (p_34596_.isBaby() || !isNoEnoughYeti(p_34596_)) {
                 retreatFromNearestTarget(p_34596_, p_34597_);
                 if (Sensor.isEntityAttackableIgnoringLineOfSight(p_34596_, p_34597_)) {
                     broadcastAngerTarget(p_34596_, p_34597_);
@@ -228,9 +241,13 @@ public class YetiAi {
         }
     }
 
-    public static void initMemories(Yeti p_219206_, RandomSource p_219207_) {
+    public static void initMemories(Yeti p_219206_, RandomSource p_219207_, MobSpawnType p_29535_) {
         int i = TIME_BETWEEN_HUNTS.sample(p_219207_);
         p_219206_.getBrain().setMemoryWithExpiry(MemoryModuleType.HUNTED_RECENTLY, true, (long) i);
+        if (p_29535_ == MobSpawnType.STRUCTURE) {
+            GlobalPos globalpos = GlobalPos.of(p_219206_.level.dimension(), p_219206_.blockPosition());
+            p_219206_.getBrain().setMemory(MemoryModuleType.HOME, globalpos);
+        }
     }
 
     public static void dontKillAnyMoreBoarForAWhile(Yeti p_34923_) {

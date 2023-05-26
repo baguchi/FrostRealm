@@ -32,6 +32,6 @@ public class StartHuntingBoar {
     }
 
     private static boolean hasHuntedRecently(Yeti p_260138_) {
-        return p_260138_.getBrain().hasMemoryValue(MemoryModuleType.HUNTED_RECENTLY);
+        return p_260138_.getBrain().hasMemoryValue(MemoryModuleType.HUNTED_RECENTLY) && p_260138_.isHunt();
     }
 }

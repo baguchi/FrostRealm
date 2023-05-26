@@ -65,9 +65,9 @@ public class FrostBoarModel<T extends FrostBoar> extends HierarchicalModel<T> {
         this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
         this.head.xRot = headPitch * ((float) Math.PI / 180F);
 
-        this.animateWalk(FrostBoarAnimations.RUN, limbSwing, limbSwingAmount * (entity.getRunningScale()), 4.0F, 8.0F);
-        this.animateWalk(FrostBoarAnimations.WALK, limbSwing, limbSwingAmount * (1.0F - entity.getRunningScale()), 2.0F, 6.0F);
-
+        this.animateWalk(FrostBoarAnimations.RUN, limbSwing, limbSwingAmount * (entity.getRunningScale()), 3.0F, 8.0F);
+        this.animateWalk(FrostBoarAnimations.WALK, limbSwing, limbSwingAmount * (1.0F - entity.getRunningScale()), 1.0F, 2.0F);
+        this.animate(entity.attackAnimation, FrostBoarAnimations.ATTACK, ageInTicks);
     }
 
     @Override

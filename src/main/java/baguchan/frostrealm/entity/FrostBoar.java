@@ -31,8 +31,7 @@ public class FrostBoar extends FrostAnimal {
             , FrostMemoryModuleType.NEAREST_ENEMYS.get(), FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get(), MemoryModuleType.AVOID_TARGET, FrostMemoryModuleType.NEAREST_FROST_BOARS.get(), FrostMemoryModuleType.FROST_BOAR_COUNT.get());
 
     private float runningScale;
-    public AnimationState walkAnimation = new AnimationState();
-    public AnimationState runAnimation = new AnimationState();
+    public AnimationState attackAnimation = new AnimationState();
 
     public FrostBoar(EntityType<? extends FrostBoar> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
@@ -106,6 +105,15 @@ public class FrostBoar extends FrostAnimal {
             FrostBoarAi.onHitTarget(this, (LivingEntity) p_34491_);
             return HoglinBase.hurtAndThrowTarget(this, (LivingEntity) p_34491_);
         }
+    }
+
+    public void handleEntityEvent(byte p_219360_) {
+        if (p_219360_ == 4) {
+            this.attackAnimation.start(this.tickCount);
+        } else {
+            super.handleEntityEvent(p_219360_);
+        }
+
     }
 
     @Override

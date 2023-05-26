@@ -1,5 +1,6 @@
 package baguchan.frostrealm.entity.brain.sensor;
 
+import baguchan.frostrealm.entity.FrostBoar;
 import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.registry.FrostMemoryModuleType;
 import com.google.common.collect.ImmutableSet;
@@ -23,18 +24,24 @@ public class YetiSensor extends Sensor<Yeti> {
         Brain<?> brain = p_26660_.getBrain();
         //brain.setMemory(MemoryModuleType.NEAREST_REPELLENT, this.findNearestRepellent(p_26659_, p_26660_));
         List<Yeti> list = Lists.newArrayList();
+        List<FrostBoar> list2 = Lists.newArrayList();
         NearestVisibleLivingEntities nearestvisiblelivingentities = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES).orElse(NearestVisibleLivingEntities.empty());
 
         for (LivingEntity livingentity : nearestvisiblelivingentities.findAll((p_186150_) -> {
-            return !p_186150_.isBaby() && (p_186150_ instanceof Yeti);
+            return !p_186150_.isBaby();
         })) {
 
             if (livingentity instanceof Yeti yeti) {
                 list.add(yeti);
             }
+            if (livingentity instanceof FrostBoar boar) {
+                list2.add(boar);
+            }
         }
 
         brain.setMemory(FrostMemoryModuleType.NEAREST_YETIS.get(), list);
         brain.setMemory(FrostMemoryModuleType.YETI_COUNT.get(), list.size());
+        brain.setMemory(FrostMemoryModuleType.NEAREST_FROST_BOARS.get(), list2);
+        brain.setMemory(FrostMemoryModuleType.FROST_BOAR_COUNT.get(), list2.size());
     }
 }

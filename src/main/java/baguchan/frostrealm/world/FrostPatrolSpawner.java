@@ -4,13 +4,14 @@ import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -84,13 +85,17 @@ public class FrostPatrolSpawner {
                     boolean flag = false;
 
                     for (int i = 0; i < 8; ++i) {
-                        Yeti yeti = FrostEntities.YETI.get().spawn(world, blockpos2, MobSpawnType.PATROL);
+                        Yeti yeti = FrostEntities.YETI.get().create(world);
                         if (yeti != null) {
                             if (!flag) {
                                 yeti.setHuntLeader(true);
                                 flag = true;
                             }
                             yeti.setHunt(true);
+                            yeti.moveTo((double) blockpos.getX() + 0.5D, (double) blockpos.getY(), (double) blockpos.getZ() + 0.5D, 0.0F, 0.0F);
+                            yeti.finalizeSpawn(world, world.getCurrentDifficultyAt(blockpos), MobSpawnType.PATROL, (SpawnGroupData) null, (CompoundTag) null);
+
+                            world.addFreshEntityWithPassengers(yeti);
                         }
                     }
 
@@ -137,7 +142,11 @@ public class FrostPatrolSpawner {
     }
 
 
-    private boolean hasEnoughSpace(BlockGetter level, BlockPos pos) {
+    private boolean hasEnoughSpace(ServerLevel level, BlockPos pos) {
+        if (!level.isLoaded(pos)) {
+            return false;
+        }
+
         for (BlockPos blockpos : BlockPos.betweenClosed(pos, pos.offset(1, 2, 1))) {
             if (!level.getBlockState(blockpos).getCollisionShape(level, blockpos).isEmpty()) {
                 return false;

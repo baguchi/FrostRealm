@@ -85,7 +85,9 @@ public class FrostBoarAi {
             return false;
         } else {
             int j = p_34623_.getBrain().getMemory(FrostMemoryModuleType.FROST_BOAR_COUNT.get()).orElse(0) + 1;
-            return j > 1 || (p_34623_.getHealth() > p_34623_.getMaxHealth() / 2);
+            int i = p_34623_.getBrain().getMemory(FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get()).orElse(0);
+
+            return j > i + 2 || (p_34623_.getHealth() > p_34623_.getMaxHealth() / 2);
         }
     }
 
