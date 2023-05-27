@@ -92,8 +92,8 @@ public class FrostPatrolSpawner {
                                 flag = true;
                             }
                             yeti.setHunt(true);
-                            yeti.moveTo((double) blockpos.getX() + 0.5D, (double) blockpos.getY(), (double) blockpos.getZ() + 0.5D, 0.0F, 0.0F);
-                            yeti.finalizeSpawn(world, world.getCurrentDifficultyAt(blockpos), MobSpawnType.PATROL, (SpawnGroupData) null, (CompoundTag) null);
+                            yeti.moveTo((double) blockpos2.getX() + 0.5D, (double) blockpos2.getY(), (double) blockpos2.getZ() + 0.5D, 0.0F, 0.0F);
+                            yeti.finalizeSpawn(world, world.getCurrentDifficultyAt(blockpos2), MobSpawnType.PATROL, (SpawnGroupData) null, (CompoundTag) null);
 
                             world.addFreshEntityWithPassengers(yeti);
                         }
