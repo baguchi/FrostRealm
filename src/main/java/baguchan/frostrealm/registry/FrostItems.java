@@ -48,6 +48,7 @@ public class FrostItems {
 
     public static final RegistryObject<Item> YETI_FUR = ITEMS.register("yeti_fur", () -> new Item((new Item.Properties())));
     public static final RegistryObject<Item> FROST_BOAR_FUR = ITEMS.register("frost_boar_fur", () -> new Item((new Item.Properties())));
+	public static final RegistryObject<Item> FROST_ARCHIVE = ITEMS.register("frost_archive", () -> new FrostArchiveItem((new Item.Properties())));
 
     public static final RegistryObject<Item> OAK_SLEDGE = ITEMS.register("oak_sledge", () -> new SledgeItem(false, Boat.Type.OAK, (new Item.Properties())));
     public static final RegistryObject<Item> OAK_CHEST_SLEDGE = ITEMS.register("oak_chest_sledge", () -> new SledgeItem(true, Boat.Type.OAK, (new Item.Properties())));
@@ -114,22 +115,23 @@ public class FrostItems {
                                         SUGARBEET,
                                         SUGARBEET_SEEDS,
                                         BEARBERRY,
-                                        COOKED_BEARBERRY,
-                                        COOKED_SNOWPILE_QUAIL_EGG,
-                                        SNOWPILE_QUAIL_MEAT,
-                                        COOKED_SNOWPILE_QUAIL_MEAT,
-                                        FROST_BOAR_MEAT,
-                                        COOKED_FROST_BOAR_MEAT,
-                                        FROST_CATALYST,
-                                        STRAY_NECKLACE_PART,
-                                        YETI_FUR,
-                                        FROST_BOAR_FUR,
-                                        OAK_SLEDGE,
-                                        OAK_CHEST_SLEDGE,
-                                        FUSION_CRYSTAL_DAGGER,
-                                        ASTRIUM_SWORD,
-                                        ASTRIUM_AXE,
-                                        ASTRIUM_PICKAXE,
+										COOKED_BEARBERRY,
+										COOKED_SNOWPILE_QUAIL_EGG,
+										SNOWPILE_QUAIL_MEAT,
+										COOKED_SNOWPILE_QUAIL_MEAT,
+										FROST_BOAR_MEAT,
+										COOKED_FROST_BOAR_MEAT,
+										FROST_CATALYST,
+										STRAY_NECKLACE_PART,
+										YETI_FUR,
+										FROST_BOAR_FUR,
+										FROST_ARCHIVE,
+										OAK_SLEDGE,
+										OAK_CHEST_SLEDGE,
+										FUSION_CRYSTAL_DAGGER,
+										ASTRIUM_SWORD,
+										ASTRIUM_AXE,
+										ASTRIUM_PICKAXE,
 										ASTRIUM_SHOVEL,
 										ASTRIUM_HOE,
 										ASTRIUM_HELMET,
