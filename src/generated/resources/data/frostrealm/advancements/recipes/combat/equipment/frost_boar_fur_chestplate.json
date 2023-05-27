@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "frostrealm:equipment/kolossus_fur_leggings"
+        "recipe": "frostrealm:equipment/frost_boar_fur_chestplate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "frostrealm:equipment/kolossus_fur_leggings"
+      "frostrealm:equipment/frost_boar_fur_chestplate"
     ]
   }
 }
