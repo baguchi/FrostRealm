@@ -141,7 +141,7 @@ public class FrostBiomeBuilders {
 						.grassColorOverride(7115607)
 						.foliageColorOverride(7115607)
 						.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
-						.backgroundMusic(new Music(soundEvent.getHolder().orElseThrow(), 12000, 24000, true))
+						.backgroundMusic(new Music(soundEvent.getHolder().orElseThrow(), 12000, 24000, false))
 						.build(),
 				mobSpawnSetting.build(),
 				builder.build(),
