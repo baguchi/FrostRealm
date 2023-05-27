@@ -48,7 +48,7 @@ public class FrostItems {
 
     public static final RegistryObject<Item> YETI_FUR = ITEMS.register("yeti_fur", () -> new Item((new Item.Properties())));
     public static final RegistryObject<Item> FROST_BOAR_FUR = ITEMS.register("frost_boar_fur", () -> new Item((new Item.Properties())));
-	public static final RegistryObject<Item> FROST_ARCHIVE = ITEMS.register("frost_archive", () -> new FrostArchiveItem((new Item.Properties())));
+	public static final RegistryObject<Item> FROST_ARCHIVE = ITEMS.register("frost_archive", () -> new FrostArchiveItem((new Item.Properties().stacksTo(1))));
 
     public static final RegistryObject<Item> OAK_SLEDGE = ITEMS.register("oak_sledge", () -> new SledgeItem(false, Boat.Type.OAK, (new Item.Properties())));
     public static final RegistryObject<Item> OAK_CHEST_SLEDGE = ITEMS.register("oak_chest_sledge", () -> new SledgeItem(true, Boat.Type.OAK, (new Item.Properties())));
