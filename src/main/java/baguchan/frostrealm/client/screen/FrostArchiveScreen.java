@@ -2,6 +2,7 @@ package baguchan.frostrealm.client.screen;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.frost_archive.FrostArchive;
+import baguchan.frostrealm.registry.FrostArchives;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -20,6 +21,7 @@ import net.minecraft.util.Mth;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
 
@@ -31,22 +33,30 @@ public class FrostArchiveScreen extends Screen {
     protected static final int TEXT_WIDTH = 114;
     protected static final int TEXT_HEIGHT = 128;
     protected static final int IMAGE_WIDTH = 256;
-    protected static final int IMAGE_HEIGHT = 167;
+    protected static final int IMAGE_HEIGHT = 192;
     private int currentPage;
     private List<FormattedCharSequence> cachedPageComponents = Collections.emptyList();
     private int cachedPage = -1;
+
+    private int currentCategoryPage;
+    private Set<ResourceLocation> cachedCategoryPageId = Set.of();
+
     private Component pageMsg = CommonComponents.EMPTY;
     private PageButton forwardButton;
     private PageButton backButton;
+    private PageButton forwardCategoryButton;
+    private PageButton backCategoryButton;
     private FrostArchive book;
 
     public FrostArchiveScreen(FrostArchive p_98266_) {
         super(GameNarrator.NO_TITLE);
+        this.cachedCategoryPageId = FrostArchives.getRegistry().get().getKeys();
+        this.currentCategoryPage = Mth.clamp(this.currentCategoryPage, 0, this.cachedCategoryPageId.size());
         this.book = p_98266_;
         this.currentPage = Mth.clamp(this.currentPage, 0, p_98266_.getPageCount());
     }
 
-    public void setBookAccess(FrostArchive p_98289_) {
+    public void setBookArchive(FrostArchive p_98289_) {
         this.book = p_98289_;
         this.currentPage = Mth.clamp(this.currentPage, 0, p_98289_.getPageCount());
         this.updateButtonVisibility();
@@ -81,19 +91,47 @@ public class FrostArchiveScreen extends Screen {
     }
 
     protected void createPageControlButtons() {
-        int i = (this.width - IMAGE_WIDTH) / 2;
+        int i = (this.width / 2);
         int j = 2;
-        this.forwardButton = this.addRenderableWidget(new PageButton(i + IMAGE_WIDTH, 159, true, (p_98297_) -> {
+        this.forwardButton = this.addRenderableWidget(new PageButton((int) (i + (IMAGE_WIDTH / 3.5)) + 12, IMAGE_HEIGHT - 16, true, (p_98297_) -> {
             this.pageForward();
         }, true));
-        this.backButton = this.addRenderableWidget(new PageButton(i + 0, 159, false, (p_98287_) -> {
+        this.backButton = this.addRenderableWidget(new PageButton((int) (i - (IMAGE_WIDTH / 3.5)) - 12, IMAGE_HEIGHT - 16, false, (p_98287_) -> {
             this.pageBack();
         }, true));
+        this.forwardCategoryButton = this.addRenderableWidget(new PageButton((int) (i + (IMAGE_WIDTH / 2.5F)) + 12, IMAGE_HEIGHT - 16, true, (p_98297_) -> {
+            this.pageCategoryForward();
+        }, true));
+        this.backCategoryButton = this.addRenderableWidget(new PageButton((int) (i - (IMAGE_WIDTH / 2.5)) - 12, IMAGE_HEIGHT - 16, false, (p_98287_) -> {
+            this.pageCategoryBack();
+        }, true));
+
         this.updateButtonVisibility();
     }
 
     private int getNumPages() {
         return this.book.getPageCount();
+    }
+
+    private int getNumCategoryPages() {
+        return this.cachedCategoryPageId.size();
+    }
+
+    protected void pageCategoryBack() {
+        if (this.currentCategoryPage > 0) {
+            --this.currentCategoryPage;
+        }
+        this.updateCategoryPage();
+        this.updateButtonVisibility();
+
+    }
+
+    protected void pageCategoryForward() {
+        if (this.currentCategoryPage < this.getNumCategoryPages() - 1) {
+            ++this.currentCategoryPage;
+        }
+        this.updateCategoryPage();
+        this.updateButtonVisibility();
     }
 
     protected void pageBack() {
@@ -108,13 +146,22 @@ public class FrostArchiveScreen extends Screen {
         if (this.currentPage < this.getNumPages() - 1) {
             ++this.currentPage;
         }
-
         this.updateButtonVisibility();
+    }
+
+    private void updateCategoryPage() {
+        this.currentPage = 0;
+        FrostArchive archive = FrostArchives.getRegistry().get().getValues().stream().toList().get(this.currentCategoryPage);
+        if (archive != null) {
+            this.setBookArchive(archive);
+        }
     }
 
     private void updateButtonVisibility() {
         this.forwardButton.visible = this.currentPage < this.getNumPages() - 1;
         this.backButton.visible = this.currentPage > 0;
+        this.forwardCategoryButton.visible = this.currentCategoryPage < this.getNumCategoryPages() - 1;
+        this.backCategoryButton.visible = this.currentCategoryPage > 0;
     }
 
     public boolean keyPressed(int p_98278_, int p_98279_, int p_98280_) {

@@ -18,6 +18,8 @@ public class FrostArchives {
 
 
 	public static final RegistryObject<FrostArchive> FIRST_STEP = FROST_ARCHIVE.register("first_step", () -> new FrostArchive("frost_archive.frostrealm.first_step", 3, Optional.empty()));
+	public static final RegistryObject<FrostArchive> FIRST_STEP_2 = FROST_ARCHIVE.register("first_step_tow", () -> new FrostArchive("frost_archive.frostrealm.first_step2", 3, Optional.empty()));
+
 	private static Supplier<IForgeRegistry<FrostArchive>> registry;
 
 	@SubscribeEvent
