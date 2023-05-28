@@ -1,9 +1,9 @@
 package baguchan.frostrealm.client.render;
 
+import bagu_chan.bagus_lib.client.layer.CustomArmorLayer;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.YetiModel;
-import baguchan.frostrealm.client.render.layer.CustomArmorLayer;
 import baguchan.frostrealm.entity.Yeti;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;

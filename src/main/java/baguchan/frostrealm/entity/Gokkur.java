@@ -1,11 +1,14 @@
 package baguchan.frostrealm.entity;
 
+import bagu_chan.bagus_lib.client.camera.CameraEvent;
+import bagu_chan.bagus_lib.client.camera.CameraHolder;
 import baguchan.frostrealm.entity.goal.StunGoal;
 import baguchan.frostrealm.entity.goal.TimeConditionGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.utils.MovementUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -93,12 +96,18 @@ public class Gokkur extends Monster {
 	}
 
 	public void aiStep() {
-		super.aiStep();
+        super.aiStep();
 
-		if (this.isStun()) {
-			this.level.addParticle(ParticleTypes.CRIT, this.getRandomX(0.6D), this.getEyeY() + 0.5F, this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
-		}
-	}
+        if (!this.isStun() && this.horizontalCollision) {
+            this.setStun(true);
+            this.knockback(0.8F, -this.getDeltaMovement().x(), -this.getDeltaMovement().z());
+            CameraEvent.addCameraHolderList(level, new CameraHolder(8, 30, GlobalPos.of(this.level.dimension(), this.blockPosition())));
+        }
+
+        if (this.isStun()) {
+            this.level.addParticle(ParticleTypes.CRIT, this.getRandomX(0.6D), this.getEyeY() + 0.5F, this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
+        }
+    }
 
 	@Nullable
 	@Override
@@ -245,12 +254,12 @@ public class Gokkur extends Monster {
 
 		@Override
 		public boolean isMatchCondition() {
-			return this.gokkur.getTarget() != null && this.gokkur.hasLineOfSight(this.gokkur.getTarget()) && !this.stopTrigger && !this.gokkur.isVehicle();
+            return this.gokkur.getTarget() != null && this.gokkur.hasLineOfSight(this.gokkur.getTarget()) && !this.gokkur.isStun() && !this.stopTrigger && !this.gokkur.isVehicle();
 		}
 
 		@Override
 		public boolean canContinueToUse() {
-			return !this.gokkur.getNavigation().isDone() && super.canContinueToUse();
+            return !this.gokkur.getNavigation().isDone() && !this.gokkur.isStun() && super.canContinueToUse();
 		}
 
 		@Override
@@ -274,12 +283,6 @@ public class Gokkur extends Monster {
 		@Override
 		public void tick() {
 			super.tick();
-			if (this.gokkur.horizontalCollision) {
-				this.setStopTrigger(true);
-				this.gokkur.setStun(true);
-				this.gokkur.knockback(0.8F, -this.gokkur.getDeltaMovement().x(), -this.gokkur.getDeltaMovement().z());
-
-			}
 		}
 
 		public void setStopTrigger(boolean stopTrigger) {

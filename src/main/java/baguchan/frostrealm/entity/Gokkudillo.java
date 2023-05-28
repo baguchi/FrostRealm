@@ -119,7 +119,7 @@ public class Gokkudillo extends Gokkur {
 			double d2 = this.getZ() - livingentity.getZ();
 			double d3 = livingentity.getX() - this.getX();
 			double d4 = livingentity.getZ() - this.getZ();
-            if (livingentity.hurt(this.damageSources().mobAttack(this), Mth.floor(getAttackDamage() * 1.5F))) {
+            if (livingentity.hurt(this.damageSources().mobAttack(this), Mth.floor(getAttackDamage() * 1.25F))) {
                 this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.doEnchantDamageEffects(this, livingentity);
                 if (this.getTarget() != null && this.getTarget() == livingentity && getRollingGoal() != null) {

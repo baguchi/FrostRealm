@@ -57,3 +57,10 @@ mandatory = true
 versionRange = "[1.19.4,)"
 ordering = "NONE"
 side = "BOTH"
+[[dependencies.frostrealm]]
+modId = "bagus_lib"
+mandatory = true
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+versionRange = "[1.19.4-1.0.3,)"
+ordering = "AFTER"
+side = "BOTH"

@@ -3,9 +3,10 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.0.3
 // Paste this class into your mod and generate all required imports
 
 
+import bagu_chan.bagus_lib.client.layer.IArmor;
 import baguchan.frostrealm.client.animation.YetiAnimations;
-import baguchan.frostrealm.client.render.IArmor;
 import baguchan.frostrealm.entity.Yeti;
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HeadedModel;
@@ -55,7 +56,7 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 
 		PartDefinition left_leg = root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(44, 61).addBox(-2.5F, -3.0F, -3.0F, 8.0F, 16.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, -13.0F, 0.0F));
 
-		PartDefinition right_leg = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(5, 61).addBox(9.5F, 12.0F, -3.0F, 8.0F, 16.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-19.0F, -28.0F, 0.0F));
+		PartDefinition right_leg = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(5, 61).addBox(-5.5F, -3.0F, -3.0F, 8.0F, 16.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-4.0F, -13.0F, 0.0F));
 
 		PartDefinition left_arm = root.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(44, 90).addBox(-4.0F, -0.5F, -4.0F, 8.0F, 26.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(18.0F, -27.0F, -1.0F));
 
@@ -139,61 +140,68 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 	}
 
     public void translateToHand(HumanoidArm p_102925_, PoseStack p_102926_) {
-        this.root.translateAndRotate(p_102926_);
-        this.getArm(p_102925_).translateAndRotate(p_102926_);
-        p_102926_.translate(0, 0.8D, 0);
-        if (this.young) {
-            p_102926_.scale(1.5F, 1.5F, 1.5F);
-            p_102926_.translate(-0.75F, -0.4F, 0.0F);
-            p_102926_.scale(1.4F, 1.4F, 1.4F);
-        }
-    }
+		this.root.translateAndRotate(p_102926_);
+		this.getArm(p_102925_).translateAndRotate(p_102926_);
+		p_102926_.translate(0, 0.8D, 0);
+		if (this.young) {
+			p_102926_.scale(1.5F, 1.5F, 1.5F);
+			p_102926_.translate(-0.75F, -0.4F, 0.0F);
+			p_102926_.scale(1.4F, 1.4F, 1.4F);
+		}
+	}
 
-    @Override
-    public ModelPart rightHand() {
-        return this.rightArm;
-    }
+	@Override
+	public Iterable<ModelPart> rightHands() {
+		return ImmutableList.of(this.rightArm);
+	}
 
-    @Override
-    public ModelPart leftHand() {
-        return this.leftArm;
-    }
+	@Override
+	public Iterable<ModelPart> leftHands() {
+		return ImmutableList.of(this.leftArm);
+	}
 
-    @Override
-    public ModelPart rightLeg() {
-        return this.rightLeg;
-    }
+	@Override
+	public Iterable<ModelPart> rightLegParts() {
+		return ImmutableList.of(this.rightLeg);
+	}
 
-    @Override
-    public ModelPart leftLeg() {
-        return this.leftLeg;
-    }
+	@Override
+	public Iterable<ModelPart> leftLegParts() {
+		return ImmutableList.of(this.leftLeg);
+	}
 
-    @Override
-    public void translateToHead(PoseStack poseStack) {
-        this.root.translateAndRotate(poseStack);
-        this.head.translateAndRotate(poseStack);
-        poseStack.translate(0, 0.25F, -0.325F);
-        poseStack.scale(1.1F, 1.1F, 1.1F);
-    }
+	@Override
+	public void translateToHead(PoseStack poseStack) {
+		this.root.translateAndRotate(poseStack);
+		this.head.translateAndRotate(poseStack);
+		poseStack.translate(0, 0.25F, -0.325F);
+		poseStack.scale(1.1F, 1.1F, 1.1F);
+	}
 
-    @Override
-    public void translateToChest(PoseStack poseStack) {
-        this.root.translateAndRotate(poseStack);
-        this.body.translateAndRotate(poseStack);
-        poseStack.translate(0, -0.1F, -0.1F);
-        poseStack.scale(2.825F, 2.0F, 2.825F);
-    }
+	@Override
+	public void translateToChest(PoseStack poseStack) {
+		this.root.translateAndRotate(poseStack);
+		this.body.translateAndRotate(poseStack);
+		poseStack.translate(0, -0.1F, -0.1F);
+		poseStack.scale(2.825F, 2.0F, 2.825F);
+	}
 
-    @Override
-    public void translateToChestPat(HumanoidArm arm, PoseStack poseStack) {
-        this.root.translateAndRotate(poseStack);
-        this.getArm(arm).translateAndRotate(poseStack);
-        if (arm == HumanoidArm.RIGHT) {
-            poseStack.translate(0.195F, 0F, 0F);
-        } else {
-            poseStack.translate(-0.195F, 0F, 0F);
-        }
-        poseStack.scale(1.85F, 1.65F, 1.85F);
-    }
+	@Override
+	public void translateToLeg(ModelPart modelPart, PoseStack poseStack) {
+		this.root.translateAndRotate(poseStack);
+		modelPart.translateAndRotate(poseStack);
+		poseStack.scale(2F, 1.01F, 2F);
+	}
+
+	@Override
+	public void translateToChestPat(HumanoidArm arm, PoseStack poseStack) {
+		this.root.translateAndRotate(poseStack);
+		this.getArm(arm).translateAndRotate(poseStack);
+		if (arm == HumanoidArm.RIGHT) {
+			poseStack.translate(0.195F, 0F, 0F);
+		} else {
+			poseStack.translate(-0.195F, 0F, 0F);
+		}
+		poseStack.scale(1.85F, 1.65F, 1.85F);
+	}
 }
