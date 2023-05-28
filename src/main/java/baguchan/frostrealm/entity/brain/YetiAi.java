@@ -25,6 +25,7 @@ import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
+import net.minecraft.world.entity.monster.piglin.StopAdmiringIfTiredOfTryingToReachItem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.Item;
@@ -44,13 +45,14 @@ import static net.minecraft.world.entity.ai.behavior.BehaviorUtils.isBreeding;
 
 public class YetiAi {
     private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(6, 16);
-    private static final UniformInt RETREAT_DURATION = TimeUtil.rangeOfSeconds(10, 30);
+    public static final UniformInt RETREAT_DURATION = TimeUtil.rangeOfSeconds(10, 30);
     protected static final UniformInt TIME_BETWEEN_HUNTS = TimeUtil.rangeOfSeconds(30, 120);
 
     public static Brain<?> makeBrain(Yeti Yeti, Brain<Yeti> p_149291_) {
         initCoreActivity(p_149291_);
         initIdleActivity(p_149291_);
         initFightActivity(p_149291_);
+        initAdmireItemActivity(p_149291_);
         initRetreatActivity(p_149291_);
         p_149291_.setCoreActivities(ImmutableSet.of(Activity.CORE));
         p_149291_.setDefaultActivity(Activity.IDLE);
@@ -61,7 +63,7 @@ public class YetiAi {
     public static void updateActivity(Yeti boar) {
         Brain<Yeti> brain = boar.getBrain();
         Activity activity = brain.getActiveNonCoreActivity().orElse((Activity) null);
-        brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.AVOID, Activity.IDLE));
+        brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.ADMIRE_ITEM, Activity.FIGHT, Activity.AVOID, Activity.IDLE));
         Activity activity1 = brain.getActiveNonCoreActivity().orElse((Activity) null);
         /*if (activity != activity1) {
             getSoundForCurrentActivity(boar).ifPresent(boar::playSound);
@@ -75,15 +77,19 @@ public class YetiAi {
     }
 
     private static void initCoreActivity(Brain<Yeti> p_149307_) {
-        p_149307_.addActivity(Activity.CORE, 0, ImmutableList.of(StartAttacking.create(YetiAi::findNearestValidAttackTarget), new Swim(0.8F), new LookAtTargetSink(45, 90), StopBeingAngryIfTargetDead.create(), new MoveToTargetSink()));
+        p_149307_.addActivity(Activity.CORE, 0, ImmutableList.of(StartAttacking.create(YetiAi::findNearestValidAttackTarget), new Swim(0.8F), new LookAtTargetSink(45, 90), StopBeingAngryIfTargetDead.create(), StartAdmiringItemIfSeen.create(120), new MoveToTargetSink()));
     }
 
     private static void initIdleActivity(Brain<Yeti> p_149309_) {
         p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(2, StrollToPoi.create(MemoryModuleType.HOME, 0.85F, 200, 400)), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F)), Pair.of(0, BehaviorBuilder.triggerIf(livingEntity -> true, StartHuntingBoar.create()))), ImmutableSet.of());
     }
 
+    private static void initAdmireItemActivity(Brain<Yeti> p_34941_) {
+        p_34941_.addActivityAndRemoveMemoryWhenStopped(Activity.ADMIRE_ITEM, 10, ImmutableList.of(GoToWantedItem.create(1.2F, true, 9), StopAdmiringIfItemTooFarAway.create(9), StopAdmiringIfTiredOfTryingToReachItem.create(200, 200)), MemoryModuleType.ADMIRING_ITEM);
+    }
+
     private static void initRetreatActivity(Brain<Yeti> p_34616_) {
-        p_34616_.addActivityAndRemoveMemoryWhenStopped(Activity.AVOID, 10, ImmutableList.of(SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 1.3F, 15, false), createIdleMovementBehaviors(), SetEntityLookTargetSometimes.create(8.0F, UniformInt.of(30, 60)), EraseMemoryIf.create(YetiAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)), MemoryModuleType.AVOID_TARGET);
+        p_34616_.addActivityAndRemoveMemoryWhenStopped(Activity.AVOID, 10, ImmutableList.of(SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 1.35F, 15, false), createIdleMovementBehaviors(), SetEntityLookTargetSometimes.create(8.0F, UniformInt.of(30, 60)), EraseMemoryIf.create(YetiAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)), MemoryModuleType.AVOID_TARGET);
     }
 
     private static RunOne<LivingEntity> createLookBehaviors() {
@@ -96,6 +102,10 @@ public class YetiAi {
 
     private static boolean wantsToStopFleeing(Yeti p_34618_) {
         return p_34618_.isAdult() && isEnoughYeti(p_34618_);
+    }
+
+    private static boolean isNotHoldingLovedItemInOffHand(Yeti p_35029_) {
+        return p_35029_.getOffhandItem().isEmpty() || !isLovedItem(p_35029_.getOffhandItem());
     }
 
     private static boolean isNoEnoughYeti(Yeti p_34623_) {
@@ -151,13 +161,18 @@ public class YetiAi {
     private static void setAvoidTarget(Yeti p_34620_, LivingEntity p_34621_) {
         p_34620_.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
         p_34620_.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
-        p_34620_.getBrain().setMemoryWithExpiry(MemoryModuleType.AVOID_TARGET, p_34621_, (long) RETREAT_DURATION.sample(p_34620_.level.random));
+        p_34620_.getBrain().setMemoryWithExpiry(MemoryModuleType.AVOID_TARGET, p_34621_, (long) RETREAT_DURATION.sample(p_34620_.getRandom()));
     }
 
 
     public static void wasHurtBy(Yeti p_34596_, LivingEntity p_34597_) {
         Brain<Yeti> brain = p_34596_.getBrain();
         if (!(p_34597_ instanceof Yeti)) {
+            brain.eraseMemory(MemoryModuleType.ADMIRING_ITEM);
+            if (p_34597_ instanceof Player) {
+                brain.setMemoryWithExpiry(MemoryModuleType.ADMIRING_DISABLED, true, 400L);
+            }
+
             if (p_34596_.isBaby() || !isNoEnoughYeti(p_34596_)) {
                 retreatFromNearestTarget(p_34596_, p_34597_);
                 if (Sensor.isEntityAttackableIgnoringLineOfSight(p_34596_, p_34597_)) {
@@ -288,7 +303,7 @@ public class YetiAi {
         }
     }
 
-    public static void stopHoldingMainHandItem(Yeti yeti, boolean thrown) {
+    public static void stopHoldingOffHandItem(Yeti yeti, boolean thrown) {
         ItemStack itemstack = yeti.getItemInHand(InteractionHand.OFF_HAND);
 
         if (!itemstack.isEmpty()) {
@@ -335,9 +350,37 @@ public class YetiAi {
 
     }
 
+    public static boolean wantsToPickup(Yeti p_34858_, ItemStack p_34859_) {
+        if (p_34859_.is(FrostTags.Items.YETI_SCARED)) {
+            return false;
+        } else if (isAdmiringDisabled(p_34858_) && p_34858_.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)) {
+            return false;
+        } else if (p_34859_.is(FrostTags.Items.YETI_CURRENCY)) {
+            return isNotHoldingLovedItemInOffHand(p_34858_);
+        } else {
+            boolean flag = p_34858_.canAddToInventory(p_34859_);
+            if (isFood(p_34859_)) {
+                return flag;
+            } else if (!isLovedItem(p_34859_)) {
+                return p_34858_.canReplaceCurrentItem(p_34859_);
+            } else {
+                return isNotHoldingLovedItemInOffHand(p_34858_) && flag;
+            }
+        }
+    }
+
+    private static boolean isAdmiringDisabled(Yeti p_35025_) {
+        return p_35025_.getBrain().hasMemoryValue(MemoryModuleType.ADMIRING_DISABLED);
+    }
+
     protected static boolean isLovedItem(ItemStack p_149966_) {
         return p_149966_.is(FrostTags.Items.YETI_LOVED);
     }
+
+    protected static boolean isFood(ItemStack p_149966_) {
+        return p_149966_.getItem().getFoodProperties() != null;
+    }
+
 
     private static List<ItemStack> getBarterResponseItems(Yeti p_34997_) {
         LootTable loottable = p_34997_.level.getServer().getLootTables().get(FrostLoots.YETI_BARTERING);

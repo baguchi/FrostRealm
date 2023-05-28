@@ -43,10 +43,12 @@ public class Yeti extends AgeableMob implements HuntMob {
 	private static final EntityDataAccessor<Boolean> HUNT_LEADER_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
 
 	protected static final ImmutableList<? extends SensorType<? extends Sensor<? super Yeti>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_ADULT, SensorType.HURT_BY
-			, FrostSensors.YETI_SENSOR.get(), FrostSensors.ENEMY_SENSOR.get());
+			, FrostSensors.YETI_SENSOR.get(), FrostSensors.ENEMY_SENSOR.get(), SensorType.NEAREST_ITEMS);
 	protected static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.BREED_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_ATTACKABLE, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED, MemoryModuleType.HAS_HUNTING_COOLDOWN, MemoryModuleType.IS_PANICKING
 			, FrostMemoryModuleType.NEAREST_ENEMYS.get(), FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get(), MemoryModuleType.AVOID_TARGET, FrostMemoryModuleType.NEAREST_FROST_BOARS.get(), FrostMemoryModuleType.FROST_BOAR_COUNT.get(), FrostMemoryModuleType.NEAREST_YETIS.get(), FrostMemoryModuleType.YETI_COUNT.get()
-			, MemoryModuleType.ANGRY_AT, MemoryModuleType.UNIVERSAL_ANGER, MemoryModuleType.HUNTED_RECENTLY, MemoryModuleType.HOME);
+			, MemoryModuleType.ANGRY_AT, MemoryModuleType.UNIVERSAL_ANGER, MemoryModuleType.HUNTED_RECENTLY, MemoryModuleType.HOME
+			, MemoryModuleType.ADMIRING_ITEM, MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM, MemoryModuleType.ADMIRING_DISABLED, MemoryModuleType.DISABLE_WALK_TO_ADMIRE_ITEM
+			, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS);
 
 	private final SimpleContainer inventory = new SimpleContainer(5);
 	private int holdTime;
@@ -61,6 +63,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 	public Yeti(EntityType<? extends Yeti> p_21683_, Level p_21684_) {
 		super(p_21683_, p_21684_);
 		this.getNavigation().setCanFloat(true);
+		this.setCanPickUpLoot(true);
 	}
 
 	@Override
@@ -177,7 +180,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 			if (!this.isBaby()) {
 				if (offhand.is(FrostTags.Items.YETI_BIG_CURRENCY) || offhand.is(FrostTags.Items.YETI_CURRENCY)) {
 					if (--this.holdTime <= 0) {
-						YetiAi.stopHoldingMainHandItem(this, true);
+						YetiAi.stopHoldingOffHandItem(this, true);
 					}
 				}
 			}
@@ -197,18 +200,23 @@ public class Yeti extends AgeableMob implements HuntMob {
 		return ItemStack.EMPTY;
 	}
 
+
+	public boolean wantsToPickUp(ItemStack p_34777_) {
+		return net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.canPickUpLoot() && YetiAi.wantsToPickup(this, p_34777_);
+	}
+
 	@Override
 	public void pickUpItem(ItemEntity p_175445_1_) {
 		ItemStack itemstack = p_175445_1_.getItem();
 		Item item = itemstack.getItem();
-		if (itemstack.is(FrostTags.Items.YETI_LOVED)) {
+		if (itemstack.is(FrostTags.Items.YETI_CURRENCY)) {
 			this.onItemPickup(p_175445_1_);
 			this.take(p_175445_1_, itemstack.getCount());
 			YetiAi.holdInMainHand(this, itemstack.copy());
 			this.setTrade(true);
 			p_175445_1_.discard();
 			this.holdTime = 200;
-		} else if (this.wantsFood(itemstack)) {
+		} else if (itemstack.is(FrostTags.Items.YETI_LOVED)) {
 			this.onItemPickup(p_175445_1_);
 			this.take(p_175445_1_, itemstack.getCount());
 			ItemStack itemstack1 = this.inventory.addItem(itemstack);
@@ -231,8 +239,14 @@ public class Yeti extends AgeableMob implements HuntMob {
 		return this.inventory.addItem(p_34779_);
 	}
 
-	protected boolean canAddToInventory(ItemStack p_34781_) {
+	public boolean canAddToInventory(ItemStack p_34781_) {
 		return this.inventory.canAddItem(p_34781_);
+	}
+
+	public boolean canReplaceCurrentItem(ItemStack p_34788_) {
+		EquipmentSlot equipmentslot = Mob.getEquipmentSlotForItem(p_34788_);
+		ItemStack itemstack = this.getItemBySlot(equipmentslot);
+		return this.canReplaceCurrentItem(p_34788_, itemstack);
 	}
 
 	private boolean wantsFood(ItemStack p_213672_1_) {
@@ -355,7 +369,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 		if (this.level.isClientSide) {
 			return false;
 		} else {
-			YetiAi.stopHoldingMainHandItem(this, false);
+			YetiAi.stopHoldingOffHandItem(this, false);
 			if (flag && p_34503_.getEntity() instanceof LivingEntity) {
 				YetiAi.wasHurtBy(this, (LivingEntity) p_34503_.getEntity());
 			}

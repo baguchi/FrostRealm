@@ -26,6 +26,7 @@ public class FrostTags {
         public static final TagKey<Item> AURORA_FUELS = tag("aurora_fuels");
         public static final TagKey<Item> YETI_LOVED = tag("yeti_loved");
         public static final TagKey<Item> YETI_CURRENCY = tag("yeti_currency");
+        public static final TagKey<Item> YETI_SCARED = tag("yeti_scared");
         public static final TagKey<Item> YETI_BIG_CURRENCY = tag("yeti_big_currency");
 
         private static TagKey<Item> tag(String p_203849_) {
