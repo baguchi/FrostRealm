@@ -12,10 +12,8 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
 import net.minecraft.world.entity.ai.sensing.Sensor;
-import net.minecraft.world.entity.item.ItemEntity;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 public class YetiSensor extends Sensor<Yeti> {
@@ -30,7 +28,6 @@ public class YetiSensor extends Sensor<Yeti> {
         List<FrostBoar> list2 = Lists.newArrayList();
         List<LivingEntity> list3 = Lists.newArrayList();
         NearestVisibleLivingEntities nearestvisiblelivingentities = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES).orElse(NearestVisibleLivingEntities.empty());
-        Optional<ItemEntity> itemEntity = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM);
 
 
         for (LivingEntity livingentity : nearestvisiblelivingentities.findAll((p_186150_) -> {

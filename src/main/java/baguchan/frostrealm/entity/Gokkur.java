@@ -99,10 +99,12 @@ public class Gokkur extends Monster {
         super.aiStep();
 
         if (!this.isStun() && this.horizontalCollision) {
-            this.setStun(true);
-            this.knockback(0.8F, -this.getDeltaMovement().x(), -this.getDeltaMovement().z());
-            CameraEvent.addCameraHolderList(level, new CameraHolder(8, 30, GlobalPos.of(this.level.dimension(), this.blockPosition())));
-        }
+			if (!this.level.isClientSide()) {
+				this.setStun(true);
+				this.knockback(0.8F, -this.getDeltaMovement().x(), -this.getDeltaMovement().z());
+				CameraEvent.addCameraHolderList(level, new CameraHolder(8, 30, GlobalPos.of(this.level.dimension(), this.blockPosition())));
+			}
+		}
 
         if (this.isStun()) {
             this.level.addParticle(ParticleTypes.CRIT, this.getRandomX(0.6D), this.getEyeY() + 0.5F, this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);

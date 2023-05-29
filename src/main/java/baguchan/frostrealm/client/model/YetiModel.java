@@ -171,17 +171,27 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 	}
 
 	@Override
-	public void translateToHead(PoseStack poseStack) {
+	public Iterable<ModelPart> bodyParts() {
+		return ImmutableList.of(this.body);
+	}
+
+	@Override
+	public Iterable<ModelPart> headParts() {
+		return ImmutableList.of(this.head);
+	}
+
+	@Override
+	public void translateToHead(ModelPart modelPart, PoseStack poseStack) {
 		this.root.translateAndRotate(poseStack);
-		this.head.translateAndRotate(poseStack);
+		modelPart.translateAndRotate(poseStack);
 		poseStack.translate(0, 0.25F, -0.325F);
 		poseStack.scale(1.1F, 1.1F, 1.1F);
 	}
 
 	@Override
-	public void translateToChest(PoseStack poseStack) {
+	public void translateToChest(ModelPart modelPart, PoseStack poseStack) {
 		this.root.translateAndRotate(poseStack);
-		this.body.translateAndRotate(poseStack);
+		modelPart.translateAndRotate(poseStack);
 		poseStack.translate(0, -0.1F, -0.1F);
 		poseStack.scale(2.825F, 2.0F, 2.825F);
 	}
@@ -194,10 +204,10 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 	}
 
 	@Override
-	public void translateToChestPat(HumanoidArm arm, PoseStack poseStack) {
+	public void translateToChestPat(ModelPart modelPart, PoseStack poseStack) {
 		this.root.translateAndRotate(poseStack);
-		this.getArm(arm).translateAndRotate(poseStack);
-		if (arm == HumanoidArm.RIGHT) {
+		modelPart.translateAndRotate(poseStack);
+		if (modelPart == rightArm) {
 			poseStack.translate(0.195F, 0F, 0F);
 		} else {
 			poseStack.translate(-0.195F, 0F, 0F);
