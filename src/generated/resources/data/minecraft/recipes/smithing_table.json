@@ -2,11 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "frostrealm:astrium_ingot"
-    },
     "S": {
-      "item": "frostrealm:frigid_stone_smooth"
+      "item": "frostrealm:astrium_ingot"
     },
     "W": {
       "tag": "minecraft:planks"
@@ -14,11 +11,11 @@
   },
   "pattern": [
     "SS",
-    "WA",
+    "WW",
     "WW"
   ],
   "result": {
-    "item": "frostrealm:crystal_smithing_table"
+    "item": "minecraft:smithing_table"
   },
   "show_notification": true
 }

@@ -198,20 +198,20 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn).getPath(), has(blockIn)).save(consumer);
 	}
 
-	public void makeFrostTorch(Consumer<FinishedRecipe> consumer, Item torchOut) {
-		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, torchOut, 4)
-				.pattern("C")
-				.pattern("M")
-				.define('C', FrostItems.FROST_CRYSTAL.get())
-				.define('M', Tags.Items.RODS_WOODEN)
-				.unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(FrostItems.FROST_CRYSTAL.get()).getPath(), has(FrostItems.FROST_CRYSTAL.get())).save(consumer);
-	}
+    public void makeFrostTorch(Consumer<FinishedRecipe> consumer, Item torchOut) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, torchOut, 4)
+                .pattern("C")
+                .pattern("M")
+                .define('C', FrostItems.FROST_CRYSTAL.get())
+                .define('M', Tags.Items.RODS_WOODEN)
+                .unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(FrostItems.FROST_CRYSTAL.get()).getPath(), has(FrostItems.FROST_CRYSTAL.get())).save(consumer);
+    }
 
-	protected static void cryoniteSmithing(Consumer<FinishedRecipe> p_251614_, Item p_250046_, RecipeCategory p_248986_, Item p_250389_) {
-		CrystalSmithingRecipeBuilder.smithing(Ingredient.of(p_250046_), Ingredient.of(FrostItems.CRYONITE.get()), p_248986_, p_250389_).unlocks("has_cryonite_ingot", has(FrostItems.CRYONITE.get())).save(p_251614_, getItemName(p_250389_) + "_crystal_smithing");
-	}
+    protected static void smithingCrystal(Consumer<FinishedRecipe> p_251614_, Ingredient template, Item addtinal, RecipeCategory p_248986_) {
+        CrystalSmithingRecipeBuilder.smithing(template, Ingredient.of(addtinal), p_248986_).save(p_251614_, getItemName(addtinal) + "_crystal_smithing");
+    }
 
-	protected final ResourceLocation locEquip(String name) {
-		return FrostRealm.prefix("equipment/" + name);
-	}
+    protected final ResourceLocation locEquip(String name) {
+        return FrostRealm.prefix("equipment/" + name);
+    }
 }

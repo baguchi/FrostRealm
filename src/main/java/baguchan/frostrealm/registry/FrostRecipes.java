@@ -12,7 +12,6 @@ import net.minecraftforge.registries.RegistryObject;
 public class FrostRecipes {
 	public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, FrostRealm.MODID);
 
-	public static final RecipeType<CrystalSmithingRecipe> RECIPETYPE_CRYSTAL_SMITHING = register("frostrealm:crystal_smithing");
 	public static final RegistryObject<RecipeSerializer<?>> RECIPE_CRYSTAL_SMITHING = RECIPE_SERIALIZERS.register("crystal_smithing", CrystalSmithingRecipe.Serializer::new);
 
 	static <T extends Recipe<?>> RecipeType<T> register(final String p_44120_) {

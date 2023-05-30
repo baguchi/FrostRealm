@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "frostrealm:crystal_smithing_table"
+        "recipe": "minecraft:smithing_table"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "frostrealm:crystal_smithing_table"
+      "minecraft:smithing_table"
     ]
   }
 }

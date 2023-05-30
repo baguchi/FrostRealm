@@ -25,6 +25,7 @@ import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.piglin.StopAdmiringIfTiredOfTryingToReachItem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
@@ -169,7 +170,7 @@ public class YetiAi {
         Brain<Yeti> brain = p_34596_.getBrain();
         if (!(p_34597_ instanceof Yeti)) {
             brain.eraseMemory(MemoryModuleType.ADMIRING_ITEM);
-            if (p_34597_ instanceof Player) {
+            if (p_34597_ instanceof Player && !((Player) p_34597_).isCreative()) {
                 brain.setMemoryWithExpiry(MemoryModuleType.ADMIRING_DISABLED, true, 400L);
             }
 
@@ -306,7 +307,6 @@ public class YetiAi {
     public static void stopHoldingOffHandItem(Yeti yeti, boolean thrown) {
         ItemStack itemstack = yeti.getItemInHand(InteractionHand.OFF_HAND);
 
-        if (!itemstack.isEmpty()) {
             if (!yeti.isBaby()) {
                 boolean flag = itemstack.is(FrostTags.Items.YETI_CURRENCY);
                 //boolean flag2 = itemstack.is(FrostTags.Items.YETI_BIG_CURRENCY);
@@ -317,36 +317,29 @@ public class YetiAi {
                     if (itemstack.getCount() <= 0) {
                         yeti.setTrade(false);
                     }
-                }/* else if (thrown && flag2) {
-                itemstack.shrink(1);
-                throwItems(yeti, getBigBarterResponseItems(yeti));
-                yeti.setHoldTime(40);
-                if (itemstack.getCount() <= 0) {
-                    yeti.setTrade(false);
-                }
-            }*/ else if (!flag) {
-                    yeti.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                } else if (!flag) {
+
                     boolean flag1 = !yeti.equipItemIfPossible(itemstack).isEmpty();
                     if (!flag1) {
                         putInInventory(yeti, itemstack);
                     }
+                    yeti.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
                 }
             } else {
                 boolean flag2 = !yeti.equipItemIfPossible(itemstack).isEmpty();
                 if (!flag2) {
-                    ItemStack itemstack1 = yeti.getMainHandItem();
+                    ItemStack itemstack1 = yeti.getOffhandItem();
                     if (isLovedItem(itemstack1)) {
                         putInInventory(yeti, itemstack1);
                     } else {
                         throwItems(yeti, Collections.singletonList(itemstack1));
                     }
 
-                    yeti.holdInMainHand(itemstack);
+                    yeti.holdInOffHand(itemstack);
                 }
-                yeti.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+
                 yeti.setTrade(false);
             }
-        }
 
     }
 
@@ -362,7 +355,7 @@ public class YetiAi {
             if (isFood(p_34859_)) {
                 return flag;
             } else if (!isLovedItem(p_34859_)) {
-                return p_34858_.canReplaceCurrentItem(p_34859_);
+                return false;
             } else {
                 return isNotHoldingLovedItemInOffHand(p_34858_) && flag;
             }
@@ -419,7 +412,7 @@ public class YetiAi {
 
     private static void throwItemsTowardPos(Yeti p_34864_, List<ItemStack> p_34865_, Vec3 p_34866_) {
         if (!p_34865_.isEmpty()) {
-            p_34864_.swing(InteractionHand.MAIN_HAND);
+            p_34864_.swing(InteractionHand.OFF_HAND);
 
             for (ItemStack itemstack : p_34865_) {
                 BehaviorUtils.throwItem(p_34864_, itemstack, p_34866_.add(0.0D, 1.0D, 0.0D));
@@ -428,17 +421,29 @@ public class YetiAi {
 
     }
 
-    public static void holdInMainHand(Yeti p_34933_, ItemStack p_34934_) {
-        if (isHoldingItemInMainHand(p_34933_)) {
-            p_34933_.spawnAtLocation(p_34933_.getItemInHand(InteractionHand.MAIN_HAND));
+    public static void holdInOffHand(Yeti p_34933_, ItemStack p_34934_) {
+        if (isHoldingItemInOffHand(p_34933_)) {
+            p_34933_.spawnAtLocation(p_34933_.getItemInHand(InteractionHand.OFF_HAND));
         }
 
-        p_34933_.holdInMainHand(p_34934_);
+        p_34933_.holdInOffHand(p_34934_);
     }
 
 
-    private static boolean isHoldingItemInMainHand(Yeti p_35027_) {
+    private static boolean isHoldingItemInOffHand(Yeti p_35027_) {
         return !p_35027_.getOffhandItem().isEmpty();
+    }
+
+    public static ItemStack removeOneItemFromItemEntity(ItemEntity p_34823_) {
+        ItemStack itemstack = p_34823_.getItem();
+        ItemStack itemstack1 = itemstack.split(1);
+        if (itemstack.isEmpty()) {
+            p_34823_.discard();
+        } else {
+            p_34823_.setItem(itemstack);
+        }
+
+        return itemstack1;
     }
 
     private static Vec3 getRandomNearbyPos(Yeti p_35017_) {

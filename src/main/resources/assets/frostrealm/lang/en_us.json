@@ -168,6 +168,8 @@
   "container.frostrealm.aurora_infuser.level.requirement_aurora": "Aurora Level Requirement: %s Percent",
   "container.frostrealm.aurora_infuser.clue": "%s . . . ?",
   "container.frostrealm.aurora_infuser.limitedEnchantability": "Insufficient conditions or insufficient power",
+  "frostrealm.item.modifiers.has_attribute": "This gem has Power Contain",
+  "frostrealm.item.modifiers.empty": "No Power Contain",
   "aurora_power.frostrealm.when_aurora_infusion": "When Aurora Infusion",
   "aurora_power.frostrealm.aurora_health": "Aurora Health",
   "aurora_power.frostrealm.aurora_protection": "Aurora Protection",

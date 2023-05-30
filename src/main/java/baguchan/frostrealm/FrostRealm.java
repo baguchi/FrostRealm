@@ -12,6 +12,8 @@ import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.message.HurtMultipartMessage;
 import baguchan.frostrealm.registry.*;
 import com.google.common.collect.Maps;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
@@ -26,9 +28,11 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.util.thread.EffectiveSide;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.registries.DataPackRegistryEvent;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -72,13 +76,17 @@ public class FrostRealm {
         FrostItems.ITEMS.register(modBus);
         FrostEffects.MOB_EFFECTS.register(modBus);
         FrostEffects.POTION.register(modBus);
-        FrostRecipes.RECIPE_SERIALIZERS.register(modBus);
-        FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
-        modBus.addListener(this::setup);
-        MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
+		FrostRecipes.RECIPE_SERIALIZERS.register(modBus);
+		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
+		modBus.addListener(this::setup);
+		modBus.addListener(this::dataSetup);
+		MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
 
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup));
+		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup));
 		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	private void dataSetup(final DataPackRegistryEvent.NewRegistry event) {
 	}
 
 	public void setup(FMLCommonSetupEvent event) {
@@ -134,4 +142,12 @@ public class FrostRealm {
 		FrostWeatherCommand.register(evt.getDispatcher());
 		TemperatureCommand.register(evt.getDispatcher());
 	}
+
+	public static RegistryAccess registryAccess() {
+		if (EffectiveSide.get().isServer()) {
+			return ServerLifecycleHooks.getCurrentServer().registryAccess();
+		}
+		return Minecraft.getInstance().getConnection().registryAccess();
+	}
+
 }

@@ -130,7 +130,6 @@ public class FrostBlocks {
 	public static final RegistryObject<Block> FROST_CAMPFIRE = register("frost_campfire", () -> new FrostCampfireBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F).noOcclusion().lightLevel(litBlockEmission(13)).sound(SoundType.WOOD)));
 
 	public static final RegistryObject<Block> FROSTROOT_CHEST = register("frostroot_chest", () -> new FrostChestBlock(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD), FrostBlockEntitys.FROST_CHEST::get));
-	public static final RegistryObject<Block> CRYSTAL_SMITHING_TABLE = register("crystal_smithing_table", () -> new CrystalSmithingTable(BlockBehaviour.Properties.of(Material.WOOD).strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
 	private static ToIntFunction<BlockState> litBlockEmission(int p_50760_) {
 		return (p_50763_) -> {

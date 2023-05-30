@@ -37,5 +37,8 @@ public class ItemTagGenerator extends ItemTagsProvider {
         //tag(FrostTags.Items.YETI_BIG_CURRENCY).add(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get().asItem());
         tag(FrostTags.Items.YETI_LOVED).addTags(FrostTags.Items.YETI_CURRENCY).add(FrostItems.FROST_BOAR_MEAT.get(), FrostItems.COOKED_FROST_BOAR_MEAT.get(), FrostItems.SNOWPILE_QUAIL_MEAT.get(), FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get());
         tag(FrostTags.Items.YETI_SCARED).add(FrostItems.YETI_FUR_HELMET.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_BOOTS.get());
+        tag(ItemTags.TRIMMABLE_ARMOR).add(FrostItems.YETI_FUR_HELMET.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_BOOTS.get())
+                .add(FrostItems.FROST_BOAR_FUR_HELMET.get(), FrostItems.FROST_BOAR_FUR_CHESTPLATE.get(), FrostItems.FROST_BOAR_FUR_LEGGINGS.get(), FrostItems.FROST_BOAR_FUR_BOOTS.get())
+                .add(FrostItems.ASTRIUM_HELMET.get(), FrostItems.ASTRIUM_CHESTPLATE.get(), FrostItems.ASTRIUM_LEGGINGS.get(), FrostItems.ASTRIUM_BOOTS.get());
     }
 }

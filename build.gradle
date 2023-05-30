@@ -20,7 +20,7 @@ mixin {
     add sourceSets.main, "frostrealm.refmap.json"
 }
 
-version = '1.19.4-0.7.0.0'
+version = '1.19.4-0.7.0.1'
 group = 'baguchan.frostrealm' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'frostrealm'
 
@@ -145,7 +145,7 @@ dependencies {
 
     // It's using to building some structure. not mean need this for dependencies
     runtimeOnly(fg.deobf("com.legacy:structure-gel:1.19.4-2.12.0"))
-    implementation fg.deobf("curse.maven:bagus-lib-866533:4557216")
+    implementation fg.deobf("curse.maven:bagus-lib-866533:4559012")
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency

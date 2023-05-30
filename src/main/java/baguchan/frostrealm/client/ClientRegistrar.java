@@ -6,13 +6,10 @@ import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.*;
 import baguchan.frostrealm.client.render.*;
 import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
-import baguchan.frostrealm.client.screen.CrystalSmithingScreen;
 import baguchan.frostrealm.registry.FrostBlockEntitys;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
-import baguchan.frostrealm.registry.FrostMenuTypes;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -161,8 +158,6 @@ public class ClientRegistrar {
 		FrostArmPoses.init();
 		renderTileEntity();
 		renderBlockColor();
-
-		MenuScreens.register(FrostMenuTypes.CRYSTAL_SMITHING.get(), CrystalSmithingScreen::new);
 	}
 
 	@SubscribeEvent

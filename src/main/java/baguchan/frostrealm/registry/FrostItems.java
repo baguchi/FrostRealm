@@ -22,15 +22,17 @@ import static baguchan.frostrealm.FrostRealm.MODID;
 public class FrostItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
-	public static final RegistryObject<Item> FROST_CRYSTAL = ITEMS.register("frost_crystal", () -> new Item((new Item.Properties())));
+    public static final RegistryObject<Item> FROST_CRYSTAL = ITEMS.register("frost_crystal", () -> new Item((new Item.Properties())));
 
-	public static final RegistryObject<Item> CRYONITE = ITEMS.register("cryonite", () -> new Item((new Item.Properties())));
+    public static final RegistryObject<Item> CRYONITE = ITEMS.register("cryonite", () -> new Item((new Item.Properties())));
 
-	public static final RegistryObject<Item> WARPED_CRYSTAL = ITEMS.register("warped_crystal", () -> new Item((new Item.Properties())));
-	public static final RegistryObject<Item> GLIMMERROCK = ITEMS.register("glimmerrock", () -> new GlimmerRockItem((new Item.Properties())));
-	public static final RegistryObject<Item> ASTRIUM_RAW = ITEMS.register("astrium_raw", () -> new Item((new Item.Properties())));
-	public static final RegistryObject<Item> ASTRIUM_INGOT = ITEMS.register("astrium_ingot", () -> new Item((new Item.Properties())));
+    public static final RegistryObject<Item> WARPED_CRYSTAL = ITEMS.register("warped_crystal", () -> new Item((new Item.Properties())));
+    public static final RegistryObject<Item> GLIMMERROCK = ITEMS.register("glimmerrock", () -> new GlimmerRockItem((new Item.Properties())));
+    public static final RegistryObject<Item> ASTRIUM_RAW = ITEMS.register("astrium_raw", () -> new Item((new Item.Properties())));
+    public static final RegistryObject<Item> ASTRIUM_INGOT = ITEMS.register("astrium_ingot", () -> new Item((new Item.Properties())));
     public static final RegistryObject<Item> STARDUST_CRYSTAL = ITEMS.register("stardust_crystal", () -> new Item((new Item.Properties())));
+    public static final RegistryObject<Item> AURORA_GEM = ITEMS.register("aurora_gem", () -> new Item((new Item.Properties())));
+
     public static final RegistryObject<Item> FROZEN_FRUIT = ITEMS.register("frozen_fruit", () -> new Item((new Item.Properties()).food(FrostFoods.FROZEN_FRUIT)));
     public static final RegistryObject<Item> MELTED_FRUIT = ITEMS.register("melted_fruit", () -> new Item((new Item.Properties()).food(FrostFoods.MELTED_FRUIT)));
     public static final RegistryObject<Item> SUGARBEET = ITEMS.register("sugarbeet", () -> new Item((new Item.Properties()).food(FrostFoods.SUGARBEET)));
@@ -103,23 +105,24 @@ public class FrostItems {
 					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".item" + ".main_tab")).displayItems((features, output) -> {
 
 						output.acceptAll(Stream.of(
-										FROST_CRYSTAL,
-										CRYONITE,
-										WARPED_CRYSTAL,
-										GLIMMERROCK,
-										ASTRIUM_RAW,
-										ASTRIUM_INGOT,
+                                        FROST_CRYSTAL,
+                                        CRYONITE,
+                                        WARPED_CRYSTAL,
+                                        GLIMMERROCK,
+                                        ASTRIUM_RAW,
+                                        ASTRIUM_INGOT,
                                         STARDUST_CRYSTAL,
+                                        AURORA_GEM,
                                         FROZEN_FRUIT,
                                         MELTED_FRUIT,
                                         SUGARBEET,
                                         SUGARBEET_SEEDS,
                                         BEARBERRY,
-										COOKED_BEARBERRY,
-										COOKED_SNOWPILE_QUAIL_EGG,
-										SNOWPILE_QUAIL_MEAT,
-										COOKED_SNOWPILE_QUAIL_MEAT,
-										FROST_BOAR_MEAT,
+                                        COOKED_BEARBERRY,
+                                        COOKED_SNOWPILE_QUAIL_EGG,
+                                        SNOWPILE_QUAIL_MEAT,
+                                        COOKED_SNOWPILE_QUAIL_MEAT,
+                                        FROST_BOAR_MEAT,
 										COOKED_FROST_BOAR_MEAT,
 										FROST_CATALYST,
 										STRAY_NECKLACE_PART,
@@ -210,18 +213,17 @@ public class FrostItems {
 										FrostBlocks.ARCTIC_POPPY,
 										FrostBlocks.ARCTIC_WILLOW,
 										FrostBlocks.COLD_GRASS,
-										FrostBlocks.COLD_TALL_GRASS,
-										FrostBlocks.SNOWPILE_QUAIL_EGG,
-										FrostBlocks.FROST_CRYSTAL_ORE,
-										FrostBlocks.GLIMMERROCK_ORE,
-										FrostBlocks.ASTRIUM_ORE,
-										FrostBlocks.ASTRIUM_BLOCK,
-										FrostBlocks.STARDUST_CRYSTAL_ORE,
-										FrostBlocks.STARDUST_CRYSTAL_CLUSTER,
-										FrostBlocks.WARPED_CRYSTAL_BLOCK,
-										FrostBlocks.FROST_TORCH,
-										FrostBlocks.FROST_CAMPFIRE,
-										FrostBlocks.CRYSTAL_SMITHING_TABLE)
+                                        FrostBlocks.COLD_TALL_GRASS,
+                                        FrostBlocks.SNOWPILE_QUAIL_EGG,
+                                        FrostBlocks.FROST_CRYSTAL_ORE,
+                                        FrostBlocks.GLIMMERROCK_ORE,
+                                        FrostBlocks.ASTRIUM_ORE,
+                                        FrostBlocks.ASTRIUM_BLOCK,
+                                        FrostBlocks.STARDUST_CRYSTAL_ORE,
+                                        FrostBlocks.STARDUST_CRYSTAL_CLUSTER,
+                                        FrostBlocks.WARPED_CRYSTAL_BLOCK,
+                                        FrostBlocks.FROST_TORCH,
+                                        FrostBlocks.FROST_CAMPFIRE)
 								.map(block -> block.get().asItem().getDefaultInstance())
 								.toList());
 

@@ -9,6 +9,8 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -95,15 +97,17 @@ public class CraftingGenerator extends CraftingDataHelper {
 		bootsItem(consumer, "frost_boar_fur_boots", FrostItems.FROST_BOAR_FUR_BOOTS.get(), FrostItems.FROST_BOAR_FUR.get());
 
 
-		helmetItem(consumer, "astrium_helmet", FrostItems.ASTRIUM_HELMET.get(), FrostItems.ASTRIUM_INGOT.get());
-		chestplateItem(consumer, "astrium_chestplate", FrostItems.ASTRIUM_CHESTPLATE.get(), FrostItems.ASTRIUM_INGOT.get());
-		leggingsItem(consumer, "astrium_leggings", FrostItems.ASTRIUM_LEGGINGS.get(), FrostItems.ASTRIUM_INGOT.get());
-		bootsItem(consumer, "astrium_boots", FrostItems.ASTRIUM_BOOTS.get(), FrostItems.ASTRIUM_INGOT.get());
+        helmetItem(consumer, "astrium_helmet", FrostItems.ASTRIUM_HELMET.get(), FrostItems.ASTRIUM_INGOT.get());
+        chestplateItem(consumer, "astrium_chestplate", FrostItems.ASTRIUM_CHESTPLATE.get(), FrostItems.ASTRIUM_INGOT.get());
+        leggingsItem(consumer, "astrium_leggings", FrostItems.ASTRIUM_LEGGINGS.get(), FrostItems.ASTRIUM_INGOT.get());
+        bootsItem(consumer, "astrium_boots", FrostItems.ASTRIUM_BOOTS.get(), FrostItems.ASTRIUM_INGOT.get());
 
-		swordItem(consumer, "astrium_sword", FrostItems.ASTRIUM_SWORD.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
-		axeItem(consumer, "astrium_axe", FrostItems.ASTRIUM_AXE.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
-		pickaxeItem(consumer, "astrium_pickaxe", FrostItems.ASTRIUM_PICKAXE.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
-		shovelItem(consumer, "astrium_shovel", FrostItems.ASTRIUM_SHOVEL.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+        swordItem(consumer, "astrium_sword", FrostItems.ASTRIUM_SWORD.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+        axeItem(consumer, "astrium_axe", FrostItems.ASTRIUM_AXE.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+        pickaxeItem(consumer, "astrium_pickaxe", FrostItems.ASTRIUM_PICKAXE.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+        shovelItem(consumer, "astrium_shovel", FrostItems.ASTRIUM_SHOVEL.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+
+        smithingCrystal(consumer, Ingredient.of(FrostItems.STARDUST_CRYSTAL.get()), FrostItems.AURORA_GEM.get(), RecipeCategory.COMBAT);
 
         makeFrostTorch(consumer, FrostBlocks.FROST_TORCH.get().asItem());
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_CHEST.get(), 1)
@@ -148,13 +152,12 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.define('B', Items.SNOWBALL)
 				.unlockedBy("has_" + ForgeRegistries.ITEMS.getKey(FrostItems.STRAY_NECKLACE_PART.get()).getPath(), has(FrostItems.STRAY_NECKLACE_PART.get())).save(consumer);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, FrostBlocks.CRYSTAL_SMITHING_TABLE.get(), 1)
-				.pattern("SS")
-				.pattern("WA")
-				.pattern("WW")
-				.define('S', FrostBlocks.FRIGID_STONE_SMOOTH.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Blocks.SMITHING_TABLE, 1)
+                .pattern("SS")
+                .pattern("WW")
+                .pattern("WW")
+                .define('S', FrostItems.ASTRIUM_INGOT.get())
 				.define('W', ItemTags.PLANKS)
-				.define('A', FrostItems.ASTRIUM_INGOT.get())
 				.unlockedBy("has_item", has(FrostItems.ASTRIUM_INGOT.get())).save(consumer);
 
 

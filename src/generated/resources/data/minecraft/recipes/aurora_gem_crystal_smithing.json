@@ -1,0 +1,9 @@
+{
+  "type": "frostrealm:crystal_smithing",
+  "addition": {
+    "item": "frostrealm:aurora_gem"
+  },
+  "template": {
+    "item": "frostrealm:stardust_crystal"
+  }
+}

@@ -4,12 +4,11 @@ import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
-import baguchan.frostrealm.registry.FrostBlocks;
-import baguchan.frostrealm.registry.FrostDimensions;
-import baguchan.frostrealm.registry.FrostTags;
-import baguchan.frostrealm.registry.FrostWeathers;
+import baguchan.frostrealm.registry.*;
+import baguchan.frostrealm.utils.ModifierUtils;
 import baguchan.frostrealm.world.FrostLevelData;
 import baguchan.frostrealm.world.FrostPatrolSpawner;
+import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -19,7 +18,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
@@ -34,6 +36,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -217,14 +220,31 @@ public class CommonEvents {
 		p_51252_.levelEvent(1501, p_51253_, 0);
 	}
 
-	public static boolean canPlaceSnowLayer(ServerLevel world, BlockPos pos) {
-		BlockState state = world.getBlockState(pos);
-		BlockState stateDown = world.getBlockState(pos.below());
-		return world.isEmptyBlock(pos.above())
-				&& world.isEmptyBlock(pos)
-				&& Block.canSupportRigidBlock(world, pos.below())
-				&& !(stateDown.getBlock() instanceof SnowLayerBlock)
-				&& !(state.getBlock() instanceof SnowLayerBlock)
-				&& Blocks.SNOW.defaultBlockState().canSurvive(world, pos);
-	}
+    public static boolean canPlaceSnowLayer(ServerLevel world, BlockPos pos) {
+        BlockState state = world.getBlockState(pos);
+        BlockState stateDown = world.getBlockState(pos.below());
+        return world.isEmptyBlock(pos.above())
+                && world.isEmptyBlock(pos)
+                && Block.canSupportRigidBlock(world, pos.below())
+                && !(stateDown.getBlock() instanceof SnowLayerBlock)
+                && !(state.getBlock() instanceof SnowLayerBlock)
+                && Blocks.SNOW.defaultBlockState().canSurvive(world, pos);
+    }
+
+    @SubscribeEvent
+    public static void modifier(ItemAttributeModifierEvent event) {
+        if (!event.getItemStack().isEmpty() && !event.getItemStack().is(FrostItems.AURORA_GEM.get())) {
+            for (EquipmentSlot slot : EquipmentSlot.values()) {
+                if (slot == event.getSlotType()) {
+                    Multimap<Attribute, AttributeModifier> multimap = ModifierUtils.getAttributeModifiers(event.getItemStack(), slot);
+                    if (!multimap.isEmpty()) {
+                        for (Map.Entry<Attribute, AttributeModifier> entry : multimap.entries()) {
+                            event.addModifier(entry.getKey(), entry.getValue());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 }

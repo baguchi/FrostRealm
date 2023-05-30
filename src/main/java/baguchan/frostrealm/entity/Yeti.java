@@ -88,6 +88,11 @@ public class Yeti extends AgeableMob implements HuntMob {
 		return (Brain<Yeti>) super.getBrain();
 	}
 
+	@javax.annotation.Nullable
+	public LivingEntity getTarget() {
+		return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse((LivingEntity) null);
+	}
+
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
@@ -211,12 +216,16 @@ public class Yeti extends AgeableMob implements HuntMob {
 		Item item = itemstack.getItem();
 		if (itemstack.is(FrostTags.Items.YETI_CURRENCY)) {
 			this.onItemPickup(p_175445_1_);
-			this.take(p_175445_1_, itemstack.getCount());
-			YetiAi.holdInMainHand(this, itemstack.copy());
+			this.take(p_175445_1_, 1);
+			YetiAi.holdInOffHand(this, itemstack.split(1));
 			this.setTrade(true);
-			p_175445_1_.discard();
+			if (itemstack.isEmpty()) {
+				p_175445_1_.discard();
+			} else {
+				itemstack.setCount(itemstack.getCount());
+			}
 			this.holdTime = 200;
-		} else if (itemstack.is(FrostTags.Items.YETI_LOVED)) {
+		} else if (item.getFoodProperties() != null) {
 			this.onItemPickup(p_175445_1_);
 			this.take(p_175445_1_, itemstack.getCount());
 			ItemStack itemstack1 = this.inventory.addItem(itemstack);
@@ -228,11 +237,10 @@ public class Yeti extends AgeableMob implements HuntMob {
 		} else {
 			super.pickUpItem(p_175445_1_);
 		}
-
 	}
 
-	public void holdInMainHand(ItemStack p_34784_) {
-		this.setItemSlotAndDropWhenKilled(EquipmentSlot.MAINHAND, p_34784_);
+	public void holdInOffHand(ItemStack p_34784_) {
+		this.setItemSlotAndDropWhenKilled(EquipmentSlot.OFFHAND, p_34784_);
 	}
 
 	public ItemStack addToInventory(ItemStack p_34779_) {

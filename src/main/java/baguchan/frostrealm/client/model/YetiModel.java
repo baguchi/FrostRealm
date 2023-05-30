@@ -101,13 +101,13 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 		if (entity.isTrade()) {
 			this.head.xRot = 30F * ((float) Math.PI / 180F);
 			this.head.yRot = 0.0F;
-			if (entity.getMainArm() == HumanoidArm.RIGHT) {
-				this.rightArm.xRot = -42.5f * ((float) Math.PI / 180F);
-				this.rightArm.yRot = -52.5F * ((float) Math.PI / 180F);
-			} else {
-				this.leftArm.xRot = -42.5f * ((float) Math.PI / 180F);
-				this.leftArm.yRot = 52.5F * ((float) Math.PI / 180F);
-			}
+			if (entity.getMainArm() == HumanoidArm.LEFT) {
+                this.rightArm.xRot = -42.5f * ((float) Math.PI / 180F);
+                this.rightArm.yRot = -52.5F * ((float) Math.PI / 180F);
+            } else {
+                this.leftArm.xRot = -42.5f * ((float) Math.PI / 180F);
+                this.leftArm.yRot = 52.5F * ((float) Math.PI / 180F);
+            }
 		}
 
 		if (f1 > 0) {

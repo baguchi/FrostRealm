@@ -18,7 +18,7 @@
             }
           ],
           "name": "frostrealm:sugarbeet_seeds",
-          "weight": 12
+          "weight": 10
         },
         {
           "type": "minecraft:item",
@@ -82,7 +82,7 @@
             }
           ],
           "name": "frostrealm:frost_crystal",
-          "weight": 12
+          "weight": 8
         },
         {
           "type": "minecraft:item",
@@ -98,7 +98,7 @@
             }
           ],
           "name": "frostrealm:glimmerrock",
-          "weight": 8
+          "weight": 4
         },
         {
           "type": "minecraft:item",
@@ -130,7 +130,27 @@
             }
           ],
           "name": "frostrealm:frost_boar_fur",
-          "weight": 2
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 6,
+          "name": "frostrealm:aurora_gem",
+          "functions": [
+            {
+              "function": "frostrealm:set_gem_function",
+              "modifiers": [
+                {
+                  "attribute": "minecraft:generic.max_health",
+                  "amount": {
+                    "min": 2,
+                    "max": 4
+                  },
+                  "slot": "mainhand"
+                }
+              ]
+            }
+          ]
         }
       ],
       "rolls": 1

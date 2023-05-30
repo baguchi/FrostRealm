@@ -60,6 +60,11 @@ public class FrostBoar extends FrostAnimal {
         return (Brain<FrostBoar>) super.getBrain();
     }
 
+    @javax.annotation.Nullable
+    public LivingEntity getTarget() {
+        return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse((LivingEntity) null);
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 5.0F).add(Attributes.MAX_HEALTH, 50.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.7F).add(Attributes.ATTACK_KNOCKBACK, 0.5D).add(Attributes.MOVEMENT_SPEED, 0.3D);
     }
