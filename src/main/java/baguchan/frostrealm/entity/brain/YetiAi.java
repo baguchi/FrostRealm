@@ -174,7 +174,7 @@ public class YetiAi {
                 brain.setMemoryWithExpiry(MemoryModuleType.ADMIRING_DISABLED, true, 400L);
             }
 
-            if (p_34596_.isBaby() || !isNoEnoughYeti(p_34596_)) {
+            if (p_34596_.isBaby() || isNoEnoughYeti(p_34596_)) {
                 retreatFromNearestTarget(p_34596_, p_34597_);
                 if (Sensor.isEntityAttackableIgnoringLineOfSight(p_34596_, p_34597_)) {
                     broadcastAngerTarget(p_34596_, p_34597_);

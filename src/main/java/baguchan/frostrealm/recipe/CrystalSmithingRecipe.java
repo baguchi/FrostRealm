@@ -31,7 +31,7 @@ public class CrystalSmithingRecipe implements SmithingRecipe {
     }
 
     public boolean matches(Container p_267224_, Level p_266798_) {
-        return this.template.test(p_267224_.getItem(0)) && p_267224_.getItem(1).getItem() instanceof ArmorItem || p_267224_.getItem(1).getItem() instanceof TieredItem && this.addition.test(p_267224_.getItem(2));
+        return this.template.test(p_267224_.getItem(0)) && (p_267224_.getItem(1).getItem() instanceof ArmorItem || p_267224_.getItem(1).getItem() instanceof TieredItem) && this.addition.test(p_267224_.getItem(2));
     }
 
     @Override

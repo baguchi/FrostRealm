@@ -96,19 +96,19 @@ public class Gokkur extends Monster {
 	}
 
 	public void aiStep() {
-        super.aiStep();
+		super.aiStep();
 
         if (this.isRolling() && !this.isStun() && this.horizontalCollision) {
-			if (!this.level.isClientSide()) {
-				this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-				this.setStun(true);
-				this.knockback(0.8F, -this.getDeltaMovement().x(), -this.getDeltaMovement().z());
-				CameraEvent.addCameraHolderList(level, new CameraHolder(6, 30, GlobalPos.of(this.level.dimension(), this.blockPosition())));
-				if (getRollingGoal() != null) {
-					getRollingGoal().setStopTrigger(true);
-				}
-			}
-		}
+            if (!this.level.isClientSide()) {
+                this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                this.setStun(true);
+                this.knockback(0.8F, -this.getDeltaMovement().x(), -this.getDeltaMovement().z());
+                CameraEvent.addCameraHolderList(level, new CameraHolder(6, 30, GlobalPos.of(this.level.dimension(), this.blockPosition())));
+                if (getRollingGoal() != null) {
+                    getRollingGoal().setStopTrigger(true);
+                }
+            }
+        }
 
         if (this.isStun()) {
             this.level.addParticle(ParticleTypes.CRIT, this.getRandomX(0.6D), this.getEyeY() + 0.5F, this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
@@ -140,13 +140,13 @@ public class Gokkur extends Monster {
 
 	protected void dealDamage(LivingEntity livingentity) {
 		if (this.isAlive() && isRolling()) {
-			boolean flag = livingentity.isDamageSourceBlocked(this.damageSources().mobAttack(this));
+            boolean flag = livingentity.isDamageSourceBlocked(this.damageSources().mobAttack(this));
             float f1 = (float) Mth.clamp(livingentity.getDeltaMovement().horizontalDistanceSqr() * 1.15F, 0.2F, 3.0F);
-			float f2 = flag ? 0.25F : 1.0F;
-			double d1 = this.getX() - livingentity.getX();
-			double d2 = this.getZ() - livingentity.getZ();
-			double d3 = livingentity.getX() - this.getX();
-			double d4 = livingentity.getZ() - this.getZ();
+            float f2 = flag ? 0.25F : 1.0F;
+            double d1 = this.getX() - livingentity.getX();
+            double d2 = this.getZ() - livingentity.getZ();
+            double d3 = livingentity.getX() - this.getX();
+            double d4 = livingentity.getZ() - this.getZ();
             if (livingentity.hurt(this.damageSources().mobAttack(this), Mth.floor(getAttackDamage() * 2.0F * (MovementUtils.movementDamageDistanceSqr(this))))) {
                 this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.doEnchantDamageEffects(this, livingentity);
@@ -155,7 +155,7 @@ public class Gokkur extends Monster {
                 }
                 livingentity.knockback(f2 * f1, d1, d2);
             }
-		}
+        }
 	}
 
 	@Override
@@ -302,15 +302,19 @@ public class Gokkur extends Monster {
 
 		public boolean canUse() {
 			return super.canUse() && !this.mob.isVehicle() && !this.gokkur.isRolling() && !this.gokkur.isStun();
-		}
+        }
 
-		public boolean canContinueToUse() {
-			if (this.gokkur.isStun()) {
-				return false;
-			} else {
-				return super.canContinueToUse();
-			}
-		}
+        public boolean canContinueToUse() {
+            if (this.gokkur.isStun()) {
+                return false;
+            } else {
+                return super.canContinueToUse();
+            }
+        }
 
-	}
+        @Override
+        protected double getAttackReachSqr(LivingEntity p_25556_) {
+            return (double) (this.mob.getBbWidth() * 1.5F * this.mob.getBbWidth() * 1.5F + p_25556_.getBbWidth());
+        }
+    }
 }

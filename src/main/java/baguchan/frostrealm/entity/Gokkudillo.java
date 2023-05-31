@@ -31,8 +31,8 @@ import java.util.UUID;
 public class Gokkudillo extends Gokkur {
 	private static final UUID ARMOR_MODIFIER_UUID = UUID.fromString("a0431f61-9dbb-d872-8a44-7e5e4204ae3e");
 	private static final UUID NO_ARMOR_MODIFIER_UUID = UUID.fromString("3748f92b-6aa9-db9d-dce8-33a6d73df14a");
-	private static final AttributeModifier ARMOR_MODIFIER = new AttributeModifier(ARMOR_MODIFIER_UUID, "Armor bonus", 10.0D, AttributeModifier.Operation.ADDITION);
-	private static final AttributeModifier NO_ARMOR_MODIFIER = new AttributeModifier(NO_ARMOR_MODIFIER_UUID, "No Armor bonus", -8.0D, AttributeModifier.Operation.ADDITION);
+    private static final AttributeModifier ARMOR_MODIFIER = new AttributeModifier(ARMOR_MODIFIER_UUID, "Armor bonus", 12.0D, AttributeModifier.Operation.ADDITION);
+    private static final AttributeModifier NO_ARMOR_MODIFIER = new AttributeModifier(NO_ARMOR_MODIFIER_UUID, "No Armor bonus", -8.0D, AttributeModifier.Operation.ADDITION);
 
 	public Gokkudillo(EntityType<? extends Monster> p_33002_, Level p_33003_) {
 		super(p_33002_, p_33003_);
@@ -44,7 +44,7 @@ public class Gokkudillo extends Gokkur {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.MAX_HEALTH, 22.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 8.0F).add(Attributes.KNOCKBACK_RESISTANCE, 0.25F).add(Attributes.MOVEMENT_SPEED, 0.24D);
+        return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.MAX_HEALTH, 22.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 10.0F).add(Attributes.KNOCKBACK_RESISTANCE, 0.25F).add(Attributes.MOVEMENT_SPEED, 0.24D);
 	}
 
 	public void onSyncedDataUpdated(EntityDataAccessor<?> p_29615_) {
