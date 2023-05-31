@@ -98,7 +98,7 @@ public class Gokkur extends Monster {
 	public void aiStep() {
         super.aiStep();
 
-        if (!this.isStun() && this.horizontalCollision) {
+        if (this.isRolling() && !this.isStun() && this.horizontalCollision) {
 			if (!this.level.isClientSide()) {
 				this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 				this.setStun(true);
@@ -177,13 +177,6 @@ public class Gokkur extends Monster {
 	public void playerTouch(Player p_20081_) {
 		super.playerTouch(p_20081_);
 		this.dealDamage(p_20081_);
-		if (getRollingGoal() != null && this.random.nextFloat() <= stopRollingPercent()) {
-			getRollingGoal().setStopTrigger(true);
-		}
-	}
-
-	protected float stopRollingPercent() {
-		return 1.0F;
 	}
 
 	protected float getAttackDamage() {
@@ -262,7 +255,7 @@ public class Gokkur extends Monster {
 
 		@Override
 		public boolean isMatchCondition() {
-            return this.gokkur.getTarget() != null && this.gokkur.hasLineOfSight(this.gokkur.getTarget()) && !this.gokkur.isStun() && !this.stopTrigger && !this.gokkur.isVehicle();
+			return this.gokkur.getTarget() != null && this.gokkur.hasLineOfSight(this.gokkur.getTarget()) && !this.gokkur.isStun() && !this.stopTrigger && !this.gokkur.isVehicle() && this.gokkur.isOnGround();
 		}
 
 		@Override
@@ -295,6 +288,7 @@ public class Gokkur extends Monster {
 
 		public void setStopTrigger(boolean stopTrigger) {
 			this.stopTrigger = stopTrigger;
+			this.mob.getNavigation().stop();
 		}
 	}
 
@@ -307,7 +301,7 @@ public class Gokkur extends Monster {
 		}
 
 		public boolean canUse() {
-			return super.canUse() && !this.mob.isVehicle();
+			return super.canUse() && !this.mob.isVehicle() && !this.gokkur.isRolling() && !this.gokkur.isStun();
 		}
 
 		public boolean canContinueToUse() {
