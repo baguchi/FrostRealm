@@ -109,8 +109,8 @@ public class GemRandomlyFunction extends LootItemConditionalFunction {
             } else {
                 NumberProvider numberprovider = GsonHelper.getAsObject(p_80863_, "amount", p_80864_, NumberProvider.class);
                 boolean armor = false;
-                if (GsonHelper.isBooleanValue(p_80863_, "slot")) {
-                    armor = GsonHelper.getAsBoolean(p_80863_, "slot");
+                if (GsonHelper.isBooleanValue(p_80863_, "armor")) {
+                    armor = GsonHelper.getAsBoolean(p_80863_, "armor");
                 }
 
                 return new GemRandomlyFunction.Modifier(attribute, numberprovider, armor);

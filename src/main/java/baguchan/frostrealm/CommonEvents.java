@@ -237,7 +237,7 @@ public class CommonEvents {
         ItemStack stack = event.getItemStack();
         if (!stack.isEmpty() && !stack.is(FrostItems.AURORA_GEM.get())) {
 
-            if (!(stack.getItem() instanceof ArmorItem) && event.getSlotType() == EquipmentSlot.MAINHAND || ((ArmorItem) stack.getItem()).getEquipmentSlot() == event.getSlotType()) {
+            if (event.getSlotType() == EquipmentSlot.MAINHAND || (stack.getItem() instanceof ArmorItem) && ((ArmorItem) stack.getItem()).getEquipmentSlot() == event.getSlotType()) {
                 Multimap<Attribute, AttributeModifier> multimap = ModifierUtils.getAttributeModifiers(stack, event.getSlotType());
                 if (!multimap.isEmpty()) {
                     for (Map.Entry<Attribute, AttributeModifier> entry : multimap.entries()) {

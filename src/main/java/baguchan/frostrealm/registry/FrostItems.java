@@ -31,7 +31,7 @@ public class FrostItems {
     public static final RegistryObject<Item> ASTRIUM_RAW = ITEMS.register("astrium_raw", () -> new Item((new Item.Properties())));
     public static final RegistryObject<Item> ASTRIUM_INGOT = ITEMS.register("astrium_ingot", () -> new Item((new Item.Properties())));
     public static final RegistryObject<Item> STARDUST_CRYSTAL = ITEMS.register("stardust_crystal", () -> new Item((new Item.Properties())));
-    public static final RegistryObject<Item> AURORA_GEM = ITEMS.register("aurora_gem", () -> new Item((new Item.Properties())));
+	public static final RegistryObject<Item> AURORA_GEM = ITEMS.register("aurora_gem", () -> new Item((new Item.Properties().stacksTo(1))));
 
     public static final RegistryObject<Item> FROZEN_FRUIT = ITEMS.register("frozen_fruit", () -> new Item((new Item.Properties()).food(FrostFoods.FROZEN_FRUIT)));
     public static final RegistryObject<Item> MELTED_FRUIT = ITEMS.register("melted_fruit", () -> new Item((new Item.Properties()).food(FrostFoods.MELTED_FRUIT)));

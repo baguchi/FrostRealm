@@ -34,7 +34,7 @@
             }
           ],
           "name": "frostrealm:stray_necklace_part",
-          "weight": 1
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -50,7 +50,7 @@
             }
           ],
           "name": "frostrealm:warped_crystal",
-          "weight": 8
+          "weight": 12
         },
         {
           "type": "minecraft:item",
@@ -66,7 +66,7 @@
             }
           ],
           "name": "frostrealm:cryonite",
-          "weight": 8
+          "weight": 10
         },
         {
           "type": "minecraft:item",
@@ -82,7 +82,7 @@
             }
           ],
           "name": "frostrealm:frost_crystal",
-          "weight": 8
+          "weight": 12
         },
         {
           "type": "minecraft:item",
@@ -114,7 +114,7 @@
             }
           ],
           "name": "frostrealm:astrium_ingot",
-          "weight": 4
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -123,18 +123,18 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
+                "max": 8.0,
+                "min": 4.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "frostrealm:frost_boar_fur",
-          "weight": 10
+          "weight": 8
         },
         {
           "type": "minecraft:item",
-          "weight": 6,
+          "weight": 3,
           "name": "frostrealm:aurora_gem",
           "functions": [
             {
@@ -145,6 +145,30 @@
                   "amount": {
                     "min": 2,
                     "max": 4
+                  },
+                  "armor": true
+                },
+                {
+                  "attribute": "minecraft:generic.attack_damage",
+                  "amount": {
+                    "min": 1,
+                    "max": 2
+                  },
+                  "armor": false
+                },
+                {
+                  "attribute": "minecraft:generic.armor",
+                  "amount": {
+                    "min": 1,
+                    "max": 2
+                  },
+                  "armor": true
+                },
+                {
+                  "attribute": "minecraft:generic.armor_toughness",
+                  "amount": {
+                    "min": 0.5,
+                    "max": 2
                   },
                   "armor": true
                 }
