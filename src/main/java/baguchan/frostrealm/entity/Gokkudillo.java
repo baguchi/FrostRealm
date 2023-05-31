@@ -1,8 +1,11 @@
 package baguchan.frostrealm.entity;
 
+import bagu_chan.bagus_lib.client.camera.CameraEvent;
+import bagu_chan.bagus_lib.client.camera.CameraHolder;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -140,6 +143,8 @@ public class Gokkudillo extends Gokkur {
 			}
 			this.knockback(0.8F, p_21246_.getX() - this.getX(), p_21246_.getZ() - this.getZ());
 			this.setStun(true);
+			CameraEvent.addCameraHolderList(level, new CameraHolder(4, 30, GlobalPos.of(this.level.dimension(), this.blockPosition())));
+
 		}
 	}
 

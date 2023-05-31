@@ -100,9 +100,13 @@ public class Gokkur extends Monster {
 
         if (!this.isStun() && this.horizontalCollision) {
 			if (!this.level.isClientSide()) {
+				this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 				this.setStun(true);
 				this.knockback(0.8F, -this.getDeltaMovement().x(), -this.getDeltaMovement().z());
-				CameraEvent.addCameraHolderList(level, new CameraHolder(8, 30, GlobalPos.of(this.level.dimension(), this.blockPosition())));
+				CameraEvent.addCameraHolderList(level, new CameraHolder(6, 30, GlobalPos.of(this.level.dimension(), this.blockPosition())));
+				if (getRollingGoal() != null) {
+					getRollingGoal().setStopTrigger(true);
+				}
 			}
 		}
 
@@ -164,6 +168,8 @@ public class Gokkur extends Monster {
 			}
 			this.knockback(0.8F, p_21246_.getX() - this.getX(), p_21246_.getZ() - this.getZ());
 			this.setStun(true);
+
+			CameraEvent.addCameraHolderList(level, new CameraHolder(4, 30, GlobalPos.of(this.level.dimension(), this.blockPosition())));
 		}
 	}
 
