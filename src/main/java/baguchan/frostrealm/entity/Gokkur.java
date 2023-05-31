@@ -2,8 +2,8 @@ package baguchan.frostrealm.entity;
 
 import bagu_chan.bagus_lib.client.camera.CameraEvent;
 import bagu_chan.bagus_lib.client.camera.CameraHolder;
+import bagu_chan.bagus_lib.entity.goal.TimeConditionGoal;
 import baguchan.frostrealm.entity.goal.StunGoal;
-import baguchan.frostrealm.entity.goal.TimeConditionGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.utils.MovementUtils;

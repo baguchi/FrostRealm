@@ -1,7 +1,7 @@
 package baguchan.frostrealm.entity;
 
+import bagu_chan.bagus_lib.entity.goal.TimeConditionGoal;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
-import baguchan.frostrealm.entity.goal.TimeConditionGoal;
 import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;

@@ -1,5 +1,6 @@
 package baguchan.frostrealm.entity.goal;
 
+import bagu_chan.bagus_lib.entity.goal.TimeConditionGoal;
 import baguchan.frostrealm.entity.IChargeMob;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;

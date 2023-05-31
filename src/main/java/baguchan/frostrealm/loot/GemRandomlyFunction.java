@@ -6,12 +6,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.gson.*;
-import net.minecraft.Util;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +21,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -37,7 +34,7 @@ public class GemRandomlyFunction extends LootItemConditionalFunction {
     }
 
     public LootItemFunctionType getType() {
-        return FrostLootFunctions.SET_GEM_FUNCTION;
+        return FrostLootFunctions.RANDOM_GEM_FUNCTION;
     }
 
     public Set<LootContextParam<?>> getReferencedContextParams() {
@@ -48,19 +45,17 @@ public class GemRandomlyFunction extends LootItemConditionalFunction {
 
     public ItemStack run(ItemStack p_80840_, LootContext p_80841_) {
         RandomSource randomsource = p_80841_.getRandom();
+        GemRandomlyFunction.Modifier gemRandomlyFunction$modifier = this.modifiers.get(randomsource.nextInt(this.modifiers.size()));
 
-        for (GemRandomlyFunction.Modifier GemRandomlyFunction$modifier : this.modifiers) {
-            UUID uuid = UUID.randomUUID();
+        UUID uuid = UUID.randomUUID();
+        ModifierUtils.addAttributeModifier(p_80840_, gemRandomlyFunction$modifier.attribute, new AttributeModifier(uuid, "Tool Bounus", (double) gemRandomlyFunction$modifier.amount.getFloat(p_80841_), AttributeModifier.Operation.ADDITION), gemRandomlyFunction$modifier.armor);
 
-            EquipmentSlot equipmentslot = Util.getRandom(GemRandomlyFunction$modifier.slots, randomsource);
-            ModifierUtils.addAttributeModifier(p_80840_, GemRandomlyFunction$modifier.attribute, new AttributeModifier(uuid, "Tool Bounus", (double) GemRandomlyFunction$modifier.amount.getFloat(p_80841_), AttributeModifier.Operation.ADDITION), equipmentslot);
-        }
 
         return p_80840_;
     }
 
-    public static GemRandomlyFunction.ModifierBuilder modifier(String p_165236_, Attribute p_165237_, AttributeModifier.Operation p_165238_, NumberProvider p_165239_) {
-        return new GemRandomlyFunction.ModifierBuilder(p_165237_, p_165239_);
+    public static GemRandomlyFunction.ModifierBuilder modifier(Attribute p_165237_, NumberProvider p_165239_, boolean armor) {
+        return new GemRandomlyFunction.ModifierBuilder(p_165237_, p_165239_, armor);
     }
 
     public static GemRandomlyFunction.Builder setAttributes() {
@@ -87,12 +82,12 @@ public class GemRandomlyFunction extends LootItemConditionalFunction {
     static class Modifier {
         final Attribute attribute;
         final NumberProvider amount;
-        final EquipmentSlot[] slots;
+        final boolean armor;
 
-        Modifier(Attribute p_165251_, NumberProvider p_165253_, EquipmentSlot[] p_165254_) {
+        Modifier(Attribute p_165251_, NumberProvider p_165253_, boolean armor) {
             this.attribute = p_165251_;
             this.amount = p_165253_;
-            this.slots = p_165254_;
+            this.armor = armor;
         }
 
         public JsonObject serialize(JsonSerializationContext p_80866_) {
@@ -100,17 +95,8 @@ public class GemRandomlyFunction extends LootItemConditionalFunction {
             jsonobject.addProperty("attribute", BuiltInRegistries.ATTRIBUTE.getKey(this.attribute).toString());
             jsonobject.add("amount", p_80866_.serialize(this.amount));
 
-            if (this.slots.length == 1) {
-                jsonobject.addProperty("slot", this.slots[0].getName());
-            } else {
-                JsonArray jsonarray = new JsonArray();
+            jsonobject.add("armor", p_80866_.serialize(this.armor));
 
-                for (EquipmentSlot equipmentslot : this.slots) {
-                    jsonarray.add(new JsonPrimitive(equipmentslot.getName()));
-                }
-
-                jsonobject.add("slot", jsonarray);
-            }
 
             return jsonobject;
         }
@@ -122,28 +108,12 @@ public class GemRandomlyFunction extends LootItemConditionalFunction {
                 throw new JsonSyntaxException("Unknown attribute: " + resourcelocation);
             } else {
                 NumberProvider numberprovider = GsonHelper.getAsObject(p_80863_, "amount", p_80864_, NumberProvider.class);
-                EquipmentSlot[] aequipmentslot;
-                if (GsonHelper.isStringValue(p_80863_, "slot")) {
-                    aequipmentslot = new EquipmentSlot[]{EquipmentSlot.byName(GsonHelper.getAsString(p_80863_, "slot"))};
-                } else {
-                    if (!GsonHelper.isArrayNode(p_80863_, "slot")) {
-                        throw new JsonSyntaxException("Invalid or missing attribute modifier slot; must be either string or array of strings.");
-                    }
-
-                    JsonArray jsonarray = GsonHelper.getAsJsonArray(p_80863_, "slot");
-                    aequipmentslot = new EquipmentSlot[jsonarray.size()];
-                    int i = 0;
-
-                    for (JsonElement jsonelement : jsonarray) {
-                        aequipmentslot[i++] = EquipmentSlot.byName(GsonHelper.convertToString(jsonelement, "slot"));
-                    }
-
-                    if (aequipmentslot.length == 0) {
-                        throw new JsonSyntaxException("Invalid attribute modifier slot; must contain at least one entry.");
-                    }
+                boolean armor = false;
+                if (GsonHelper.isBooleanValue(p_80863_, "slot")) {
+                    armor = GsonHelper.getAsBoolean(p_80863_, "slot");
                 }
 
-                return new GemRandomlyFunction.Modifier(attribute, numberprovider, aequipmentslot);
+                return new GemRandomlyFunction.Modifier(attribute, numberprovider, armor);
             }
         }
 
@@ -177,20 +147,16 @@ public class GemRandomlyFunction extends LootItemConditionalFunction {
     public static class ModifierBuilder {
         private final Attribute attribute;
         private final NumberProvider amount;
-        private final Set<EquipmentSlot> slots = EnumSet.noneOf(EquipmentSlot.class);
+        private final boolean armor;
 
-        public ModifierBuilder(Attribute p_165264_, NumberProvider p_165266_) {
+        public ModifierBuilder(Attribute p_165264_, NumberProvider p_165266_, boolean armor) {
             this.attribute = p_165264_;
             this.amount = p_165266_;
-        }
-
-        public GemRandomlyFunction.ModifierBuilder forSlot(EquipmentSlot p_165269_) {
-            this.slots.add(p_165269_);
-            return this;
+            this.armor = armor;
         }
 
         public GemRandomlyFunction.Modifier build() {
-            return new GemRandomlyFunction.Modifier(this.attribute, this.amount, this.slots.toArray(new EquipmentSlot[0]));
+            return new GemRandomlyFunction.Modifier(this.attribute, this.amount, this.armor);
         }
     }
 

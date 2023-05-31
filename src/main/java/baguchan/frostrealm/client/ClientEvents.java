@@ -41,14 +41,13 @@ public class ClientEvents {
         boolean flag = false;
         if (stack.is(FrostItems.AURORA_GEM.get())) {
             List<Component> list = Lists.newArrayList();
-            Attribute prevAttribute = null;
             for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
                 Multimap<Attribute, AttributeModifier> multimap = ModifierUtils.getAttributeModifiers(stack, equipmentSlot);
-                if (!multimap.isEmpty()) {
+                if (!flag && !multimap.isEmpty()) {
                     list.add(CommonComponents.EMPTY);
                     list.add(Component.translatable("frostrealm.item.modifiers.has_attribute").withStyle(ChatFormatting.DARK_GREEN));
                     flag = true;
-                    return;
+                    break;
                 }
             }
 

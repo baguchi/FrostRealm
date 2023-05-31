@@ -36,7 +36,7 @@ public class CrystalSmithingRecipe implements SmithingRecipe {
 
     @Override
     public ItemStack assemble(Container p_44001_, RegistryAccess p_267165_) {
-        ItemStack itemstack = p_44001_.getItem(0).copy();
+        ItemStack itemstack = p_44001_.getItem(1).copy();
         CompoundTag compoundtag = p_44001_.getItem(1).getTag();
         if (compoundtag != null) {
             itemstack.setTag(compoundtag.copy());

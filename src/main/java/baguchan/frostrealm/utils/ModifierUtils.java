@@ -11,7 +11,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class ModifierUtils {
@@ -30,7 +29,7 @@ public class ModifierUtils {
 
             for (int i = 0; i < listtag.size(); ++i) {
                 CompoundTag compoundtag = listtag.getCompound(i);
-                if (!compoundtag.contains("Slot", 8) || compoundtag.getString("Slot").equals(p_41639_.getName())) {
+                if (compoundtag.getString("Type").equals("Armor") && p_41639_.isArmor() || compoundtag.getString("Type").equals("Tool") && !p_41639_.isArmor()) {
                     Optional<Attribute> optional = BuiltInRegistries.ATTRIBUTE.getOptional(ResourceLocation.tryParse(compoundtag.getString("AttributeName")));
                     if (optional.isPresent()) {
                         AttributeModifier attributemodifier = AttributeModifier.load(compoundtag);
@@ -44,7 +43,7 @@ public class ModifierUtils {
         return multimap;
     }
 
-    public static void addAttributeModifier(ItemStack stack, Attribute p_41644_, AttributeModifier p_41645_, @Nullable EquipmentSlot p_41646_) {
+    public static void addAttributeModifier(ItemStack stack, Attribute p_41644_, AttributeModifier p_41645_, boolean isArmor) {
         CompoundTag compoundTag = stack.getOrCreateTag();
         if (!compoundTag.contains(TAG_MODIFIER_LIST, 9)) {
             compoundTag.put(TAG_MODIFIER_LIST, new ListTag());
@@ -53,10 +52,12 @@ public class ModifierUtils {
         ListTag listtag = compoundTag.getList(TAG_MODIFIER_LIST, 10);
         CompoundTag compoundtag = p_41645_.save();
         compoundtag.putString("AttributeName", BuiltInRegistries.ATTRIBUTE.getKey(p_41644_).toString());
-        if (p_41646_ != null) {
-            compoundtag.putString("Slot", p_41646_.getName());
-        }
 
+        if (isArmor) {
+            compoundtag.putString("Type", "Armor");
+        } else {
+            compoundtag.putString("Type", "Tool");
+        }
         listtag.add(compoundtag);
     }
 

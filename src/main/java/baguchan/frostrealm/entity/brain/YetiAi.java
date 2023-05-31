@@ -306,7 +306,7 @@ public class YetiAi {
 
     public static void stopHoldingOffHandItem(Yeti yeti, boolean thrown) {
         ItemStack itemstack = yeti.getItemInHand(InteractionHand.OFF_HAND);
-
+        if (!itemstack.isEmpty()) {
             if (!yeti.isBaby()) {
                 boolean flag = itemstack.is(FrostTags.Items.YETI_CURRENCY);
                 //boolean flag2 = itemstack.is(FrostTags.Items.YETI_BIG_CURRENCY);
@@ -340,7 +340,7 @@ public class YetiAi {
 
                 yeti.setTrade(false);
             }
-
+        }
     }
 
     public static boolean wantsToPickup(Yeti p_34858_, ItemStack p_34859_) {

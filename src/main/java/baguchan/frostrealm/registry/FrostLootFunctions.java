@@ -10,7 +10,7 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 
 public class FrostLootFunctions {
-    public static final LootItemFunctionType SET_GEM_FUNCTION = register("set_gem_function", new GemRandomlyFunction.Serializer());
+    public static final LootItemFunctionType RANDOM_GEM_FUNCTION = register("random_gem_function", new GemRandomlyFunction.Serializer());
 
 
     private static LootItemFunctionType register(String p_80763_, Serializer<? extends LootItemFunction> p_80764_) {

@@ -22,6 +22,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
@@ -54,138 +55,138 @@ import java.util.Optional;
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID)
 public class CommonEvents {
 
-	private static final Map<ServerLevel, FrostPatrolSpawner> FROST_SPAWNER_MAP = new HashMap<>();
+    private static final Map<ServerLevel, FrostPatrolSpawner> FROST_SPAWNER_MAP = new HashMap<>();
 
 
-	@SubscribeEvent
-	public static void onServerTick(TickEvent.LevelTickEvent tick) {
-		if (!tick.level.isClientSide && tick.level instanceof ServerLevel serverWorld) {
-			FROST_SPAWNER_MAP.computeIfAbsent(serverWorld,
-					k -> new FrostPatrolSpawner(serverWorld));
-			FrostPatrolSpawner spawner = FROST_SPAWNER_MAP.get(serverWorld);
-			spawner.tick();
-		}
-	}
+    @SubscribeEvent
+    public static void onServerTick(TickEvent.LevelTickEvent tick) {
+        if (!tick.level.isClientSide && tick.level instanceof ServerLevel serverWorld) {
+            FROST_SPAWNER_MAP.computeIfAbsent(serverWorld,
+                    k -> new FrostPatrolSpawner(serverWorld));
+            FrostPatrolSpawner spawner = FROST_SPAWNER_MAP.get(serverWorld);
+            spawner.tick();
+        }
+    }
 
-	@SubscribeEvent
-	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-		event.register(FrostLivingCapability.class);
-		event.register(FrostWeatherCapability.class);
-	}
+    @SubscribeEvent
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.register(FrostLivingCapability.class);
+        event.register(FrostWeatherCapability.class);
+    }
 
-	@SubscribeEvent
-	public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {
-		if (event.getObject() instanceof LivingEntity) {
-			event.addCapability(new ResourceLocation(FrostRealm.MODID, "frost_living"), new FrostLivingCapability());
-		}
-	}
+    @SubscribeEvent
+    public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {
+        if (event.getObject() instanceof LivingEntity) {
+            event.addCapability(new ResourceLocation(FrostRealm.MODID, "frost_living"), new FrostLivingCapability());
+        }
+    }
 
-	@SubscribeEvent
-	public static void onAttachLevelCapabilities(AttachCapabilitiesEvent<Level> event) {
-		event.addCapability(new ResourceLocation(FrostRealm.MODID, "frost_weather"), new FrostWeatherCapability());
-	}
+    @SubscribeEvent
+    public static void onAttachLevelCapabilities(AttachCapabilitiesEvent<Level> event) {
+        event.addCapability(new ResourceLocation(FrostRealm.MODID, "frost_weather"), new FrostWeatherCapability());
+    }
 
-	@SubscribeEvent
-	public static void onLevelUpdate(TickEvent.LevelTickEvent event) {
-		event.level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(frostWeatherCapability -> {
-			frostWeatherCapability.tick(event.level);
-		});
-	}
+    @SubscribeEvent
+    public static void onLevelUpdate(TickEvent.LevelTickEvent event) {
+        event.level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(frostWeatherCapability -> {
+            frostWeatherCapability.tick(event.level);
+        });
+    }
 
 
-	@SubscribeEvent
-	public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
-		if (event.getEntity() != null && event.getEntity().level instanceof ServerLevel) {
-			ServerLevel world = (ServerLevel) event.getEntity().level;
-			MinecraftServer server = world.getServer();
-			//sync weather
-			for (ServerLevel serverworld : server.getAllLevels()) {
-				if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-						ChangeWeatherTimeMessage message = new ChangeWeatherTimeMessage(cap.getWeatherTime(), cap.getWeatherCooldown());
-						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-					});
-					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-						ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
-						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-					});
-				}
-			}
-		}
-	}
+    @SubscribeEvent
+    public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() != null && event.getEntity().level instanceof ServerLevel) {
+            ServerLevel world = (ServerLevel) event.getEntity().level;
+            MinecraftServer server = world.getServer();
+            //sync weather
+            for (ServerLevel serverworld : server.getAllLevels()) {
+                if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+                    world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+                        ChangeWeatherTimeMessage message = new ChangeWeatherTimeMessage(cap.getWeatherTime(), cap.getWeatherCooldown());
+                        FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+                    });
+                    world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+                        ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
+                        FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+                    });
+                }
+            }
+        }
+    }
 
-	@SubscribeEvent
-	public static void onDimensionChangeEvent(PlayerEvent.PlayerChangedDimensionEvent event) {
-		if (event.getEntity() != null && event.getEntity().level instanceof ServerLevel) {
-			ServerLevel world = (ServerLevel) event.getEntity().level;
-			MinecraftServer server = world.getServer();
-			//sync weather
-			for (ServerLevel serverworld : server.getAllLevels()) {
-				if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-						ChangeWeatherTimeMessage message = new ChangeWeatherTimeMessage(cap.getWeatherTime(), cap.getWeatherCooldown());
-						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-					});
-					world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-						ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
-						FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-					});
-				}
-			}
-		}
-	}
+    @SubscribeEvent
+    public static void onDimensionChangeEvent(PlayerEvent.PlayerChangedDimensionEvent event) {
+        if (event.getEntity() != null && event.getEntity().level instanceof ServerLevel) {
+            ServerLevel world = (ServerLevel) event.getEntity().level;
+            MinecraftServer server = world.getServer();
+            //sync weather
+            for (ServerLevel serverworld : server.getAllLevels()) {
+                if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+                    world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+                        ChangeWeatherTimeMessage message = new ChangeWeatherTimeMessage(cap.getWeatherTime(), cap.getWeatherCooldown());
+                        FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+                    });
+                    world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+                        ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
+                        FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+                    });
+                }
+            }
+        }
+    }
 
-	@SubscribeEvent
-	public static void onUpdate(LivingEvent.LivingTickEvent event) {
-		LivingEntity livingEntity = event.getEntity();
-		livingEntity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(livingCapability -> {
-			livingCapability.tick(livingEntity);
-		});
-	}
+    @SubscribeEvent
+    public static void onUpdate(LivingEvent.LivingTickEvent event) {
+        LivingEntity livingEntity = event.getEntity();
+        livingEntity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(livingCapability -> {
+            livingCapability.tick(livingEntity);
+        });
+    }
 
-	@SubscribeEvent
-	public static void onHoeRightClick(PlayerInteractEvent.RightClickBlock event) {
-		ItemStack stack = event.getItemStack();
+    @SubscribeEvent
+    public static void onHoeRightClick(PlayerInteractEvent.RightClickBlock event) {
+        ItemStack stack = event.getItemStack();
 
-		if (stack.getItem() instanceof HoeItem) {
-			if (event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_DIRT.get() || event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_GRASS_BLOCK.get() || event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.ETERNITY_GRASS_BLOCK.get()) {
-				event.getLevel().setBlock(event.getPos(), FrostBlocks.FROZEN_FARMLAND.get().defaultBlockState(), 2);
-				stack.hurtAndBreak(1, event.getEntity(), (p_147232_) -> {
-					p_147232_.broadcastBreakEvent(event.getHand());
-				});
-				event.getLevel().playSound(event.getEntity(), event.getPos(), SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
-				event.setUseItem(Event.Result.ALLOW);
-			}
-		}
-	}
+        if (stack.getItem() instanceof HoeItem) {
+            if (event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_DIRT.get() || event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_GRASS_BLOCK.get() || event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.ETERNITY_GRASS_BLOCK.get()) {
+                event.getLevel().setBlock(event.getPos(), FrostBlocks.FROZEN_FARMLAND.get().defaultBlockState(), 2);
+                stack.hurtAndBreak(1, event.getEntity(), (p_147232_) -> {
+                    p_147232_.broadcastBreakEvent(event.getHand());
+                });
+                event.getLevel().playSound(event.getEntity(), event.getPos(), SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+                event.setUseItem(Event.Result.ALLOW);
+            }
+        }
+    }
 
-	@SubscribeEvent
-	public static void onWorldLoad(LevelEvent.Load event) {
-		if (event.getLevel() instanceof ServerLevel level && level.dimension().location().equals(FrostDimensions.FROSTREALM_LEVEL.location())) {
-			FrostLevelData levelData = new FrostLevelData(level.getServer().getWorldData(), level.getServer().getWorldData().overworldData());
-			level.serverLevelData = levelData;
-			level.levelData = levelData;
-		}
-	}
+    @SubscribeEvent
+    public static void onWorldLoad(LevelEvent.Load event) {
+        if (event.getLevel() instanceof ServerLevel level && level.dimension().location().equals(FrostDimensions.FROSTREALM_LEVEL.location())) {
+            FrostLevelData levelData = new FrostLevelData(level.getServer().getWorldData(), level.getServer().getWorldData().overworldData());
+            level.serverLevelData = levelData;
+            level.levelData = levelData;
+        }
+    }
 
-	@SubscribeEvent
-	public static void onPreServerTick(TickEvent.LevelTickEvent event) {
-		if (event.level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-			if (event.level instanceof ServerLevel serverLevel) {
-				event.level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-					if (cap.isWeatherActive() && cap.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
-						ChunkMap chunkManager = serverLevel.getChunkSource().chunkMap;
+    @SubscribeEvent
+    public static void onPreServerTick(TickEvent.LevelTickEvent event) {
+        if (event.level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+            if (event.level instanceof ServerLevel serverLevel) {
+                event.level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+                    if (cap.isWeatherActive() && cap.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
+                        ChunkMap chunkManager = serverLevel.getChunkSource().chunkMap;
 
-						if (event.level.random.nextInt(8) == 0) {
-							chunkManager.getChunks().forEach(chunkHolder -> {
-								Optional<LevelChunk> optionalChunk = chunkHolder.getEntityTickingChunkFuture().getNow(ChunkHolder.UNLOADED_LEVEL_CHUNK).left();
-								if (optionalChunk.isPresent()) {
-									ChunkPos chunkPos = optionalChunk.get().getPos();
-									if (!chunkManager.getPlayersCloseForSpawning(chunkPos).isEmpty()) {
-										BlockPos pos = serverLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, serverLevel.getBlockRandomPos(chunkPos.getMinBlockX(), 0, chunkPos.getMinBlockZ(), 15));
-										BlockPos posDown = pos.below();
+                        if (event.level.random.nextInt(8) == 0) {
+                            chunkManager.getChunks().forEach(chunkHolder -> {
+                                Optional<LevelChunk> optionalChunk = chunkHolder.getEntityTickingChunkFuture().getNow(ChunkHolder.UNLOADED_LEVEL_CHUNK).left();
+                                if (optionalChunk.isPresent()) {
+                                    ChunkPos chunkPos = optionalChunk.get().getPos();
+                                    if (!chunkManager.getPlayersCloseForSpawning(chunkPos).isEmpty()) {
+                                        BlockPos pos = serverLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, serverLevel.getBlockRandomPos(chunkPos.getMinBlockX(), 0, chunkPos.getMinBlockZ(), 15));
+                                        BlockPos posDown = pos.below();
 
-										if (serverLevel.isAreaLoaded(posDown, 1)) {
+                                        if (serverLevel.isAreaLoaded(posDown, 1)) {
                                             BlockState snowState = serverLevel.getBlockState(pos);
                                             BlockState snowStateBelow = serverLevel.getBlockState(pos.below());
                                             if (snowState.getBlock() instanceof CropBlock) {
@@ -203,22 +204,22 @@ public class CommonEvents {
                                                     serverLevel.setBlockAndUpdate(pos, snowState.setValue(SnowLayerBlock.LAYERS, ++layers));
                                                 }
                                             } else if (canPlaceSnowLayer(serverLevel, pos)) {
-												serverLevel.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
-											}
-										}
-									}
-								}
-							});
-						}
-					}
-				});
-			}
-		}
-	}
+                                                serverLevel.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        }
+    }
 
-	public static void makeParticles(Level p_51252_, BlockPos p_51253_) {
-		p_51252_.levelEvent(1501, p_51253_, 0);
-	}
+    public static void makeParticles(Level p_51252_, BlockPos p_51253_) {
+        p_51252_.levelEvent(1501, p_51253_, 0);
+    }
 
     public static boolean canPlaceSnowLayer(ServerLevel world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
@@ -233,14 +234,14 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void modifier(ItemAttributeModifierEvent event) {
-        if (!event.getItemStack().isEmpty() && !event.getItemStack().is(FrostItems.AURORA_GEM.get())) {
-            for (EquipmentSlot slot : EquipmentSlot.values()) {
-                if (slot == event.getSlotType()) {
-                    Multimap<Attribute, AttributeModifier> multimap = ModifierUtils.getAttributeModifiers(event.getItemStack(), slot);
-                    if (!multimap.isEmpty()) {
-                        for (Map.Entry<Attribute, AttributeModifier> entry : multimap.entries()) {
-                            event.addModifier(entry.getKey(), entry.getValue());
-                        }
+        ItemStack stack = event.getItemStack();
+        if (!stack.isEmpty() && !stack.is(FrostItems.AURORA_GEM.get())) {
+
+            if (!(stack.getItem() instanceof ArmorItem) && event.getSlotType() == EquipmentSlot.MAINHAND || ((ArmorItem) stack.getItem()).getEquipmentSlot() == event.getSlotType()) {
+                Multimap<Attribute, AttributeModifier> multimap = ModifierUtils.getAttributeModifiers(stack, event.getSlotType());
+                if (!multimap.isEmpty()) {
+                    for (Map.Entry<Attribute, AttributeModifier> entry : multimap.entries()) {
+                        event.addModifier(entry.getKey(), entry.getValue());
                     }
                 }
             }

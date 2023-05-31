@@ -92,7 +92,8 @@ public class FrostRealm {
 	public void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			FrostBlocks.burnables();
-			this.setupMessages();
+            FrostLootFunctions.init();
+            this.setupMessages();
 			FrostBiomes.addBiomeTypes();
 			Map<ResourceLocation, MultiNoiseBiomeSourceParameterList.Preset> map = Maps.newHashMap();
 			map.putAll(Map.copyOf(MultiNoiseBiomeSourceParameterList.Preset.BY_NAME));
