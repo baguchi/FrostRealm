@@ -1,5 +1,6 @@
-package baguchan.frostrealm.entity.brain;
+package baguchan.frostrealm.entity.brain.behavior;
 
+import baguchan.frostrealm.entity.brain.YetiAi;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;

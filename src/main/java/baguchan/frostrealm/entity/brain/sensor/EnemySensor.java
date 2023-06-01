@@ -27,7 +27,7 @@ public class EnemySensor extends Sensor<Mob> {
             NearestVisibleLivingEntities nearestvisiblelivingentities = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES).orElse(NearestVisibleLivingEntities.empty());
 
             nearestvisiblelivingentities.findAll((target) -> {
-                return target.getLastHurtMob() == mob || target instanceof Mob && ((Mob) target).getTarget() == mob;
+                return (target.getLastHurtMob() == mob || target instanceof Mob && ((Mob) target).getTarget() == mob) && mob.canAttack(target);
             }).forEach(list::add);
 
             brain.setMemory(FrostMemoryModuleType.NEAREST_ENEMYS.get(), list);

@@ -402,6 +402,10 @@ public class Yeti extends AgeableMob implements HuntMob {
 		return !this.isBaby();
 	}
 
+	public boolean canAttack(LivingEntity p_186270_) {
+		return p_186270_ instanceof Yeti ? false : super.canAttack(p_186270_);
+	}
+
 	public static class YetiGroupData extends AgeableMobGroupData {
 		public final boolean isHunt;
 		public final float child;

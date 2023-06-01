@@ -2,6 +2,8 @@ package baguchan.frostrealm.entity.brain;
 
 import baguchan.frostrealm.entity.FrostBoar;
 import baguchan.frostrealm.entity.Yeti;
+import baguchan.frostrealm.entity.brain.behavior.StartAdmiringItemIfSeen;
+import baguchan.frostrealm.entity.brain.behavior.StopAdmiringIfItemTooFarAway;
 import baguchan.frostrealm.entity.brain.yeti.StartHuntingBoar;
 import baguchan.frostrealm.registry.*;
 import com.google.common.collect.ImmutableList;

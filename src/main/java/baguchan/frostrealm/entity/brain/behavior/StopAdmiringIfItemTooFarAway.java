@@ -1,4 +1,4 @@
-package baguchan.frostrealm.entity.brain;
+package baguchan.frostrealm.entity.brain.behavior;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
