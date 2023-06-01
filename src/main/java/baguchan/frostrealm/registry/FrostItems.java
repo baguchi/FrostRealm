@@ -55,6 +55,7 @@ public class FrostItems {
     public static final RegistryObject<Item> OAK_SLEDGE = ITEMS.register("oak_sledge", () -> new SledgeItem(false, Boat.Type.OAK, (new Item.Properties())));
     public static final RegistryObject<Item> OAK_CHEST_SLEDGE = ITEMS.register("oak_chest_sledge", () -> new SledgeItem(true, Boat.Type.OAK, (new Item.Properties())));
     public static final RegistryObject<Item> FUSION_CRYSTAL_DAGGER = ITEMS.register("fusion_crystal_dagger", () -> new FusionCrystalDaggerItem((new Item.Properties()).durability(420)));
+	public static final RegistryObject<Item> FROST_SPEAR = ITEMS.register("frost_spear", () -> new FrostSpearItem((new Item.Properties().durability(521))));
 
 	public static final RegistryObject<Item> ASTRIUM_SWORD = ITEMS.register("astrium_sword", () -> new SwordItem(FrostItemTier.ASTRIUM, 3, -2.3F, (new Item.Properties())));
 	public static final RegistryObject<Item> ASTRIUM_AXE = ITEMS.register("astrium_axe", () -> new AxeItem(FrostItemTier.ASTRIUM, 5.5F, -3.0F, (new Item.Properties())));
@@ -122,7 +123,7 @@ public class FrostItems {
                                         COOKED_SNOWPILE_QUAIL_EGG,
                                         SNOWPILE_QUAIL_MEAT,
                                         COOKED_SNOWPILE_QUAIL_MEAT,
-                                        FROST_BOAR_MEAT,
+										FROST_BOAR_MEAT,
 										COOKED_FROST_BOAR_MEAT,
 										FROST_CATALYST,
 										STRAY_NECKLACE_PART,
@@ -132,6 +133,7 @@ public class FrostItems {
 										OAK_SLEDGE,
 										OAK_CHEST_SLEDGE,
 										FUSION_CRYSTAL_DAGGER,
+										FROST_SPEAR,
 										ASTRIUM_SWORD,
 										ASTRIUM_AXE,
 										ASTRIUM_PICKAXE,
