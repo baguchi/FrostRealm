@@ -368,7 +368,7 @@ public class YetiAi {
         return p_35025_.getBrain().hasMemoryValue(MemoryModuleType.ADMIRING_DISABLED);
     }
 
-    protected static boolean isLovedItem(ItemStack p_149966_) {
+    public static boolean isLovedItem(ItemStack p_149966_) {
         return p_149966_.is(FrostTags.Items.YETI_LOVED);
     }
 

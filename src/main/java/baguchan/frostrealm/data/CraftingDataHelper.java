@@ -194,6 +194,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, doorOut, 3)
 				.pattern("DD")
 				.pattern("DD")
+				.pattern("DD")
 				.define('D', blockIn)
 				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(blockIn).getPath(), has(blockIn)).save(consumer);
 	}

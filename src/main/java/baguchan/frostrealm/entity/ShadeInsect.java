@@ -523,7 +523,7 @@ public class ShadeInsect extends Monster {
                     if (!ShadeInsect.this.isSilent()) {
                         ShadeInsect.this.level.levelEvent(1039, ShadeInsect.this.blockPosition(), 0);
                     }
-                } else if (ShadeInsect.this.horizontalCollision || ShadeInsect.this.hurtTime > 0) {
+                } else if (ShadeInsect.this.hurtTime > 0) {
                     ShadeInsect.this.attackPhase = ShadeInsect.AttackPhase.CIRCLE;
                 }
 
