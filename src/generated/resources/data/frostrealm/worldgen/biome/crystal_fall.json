@@ -40,6 +40,15 @@
     [],
     [
       "frostrealm:spring_water"
+    ],
+    [
+      "frostrealm:frostroot_tree_plains",
+      "frostrealm:patch_tundra_rock",
+      "frostrealm:patch_tundra_mossy_rock",
+      "frostrealm:patch_bear_berry",
+      "frostrealm:patch_artic_poppy",
+      "frostrealm:patch_artic_willow",
+      "frostrealm:patch_tundra_grass"
     ]
   ],
   "has_precipitation": true,
@@ -47,7 +56,32 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "frostrealm:crystal_fox",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 8
+      },
+      {
+        "type": "frostrealm:marmot",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 10
+      },
+      {
+        "type": "frostrealm:snowpile_quail",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 12
+      },
+      {
+        "type": "frostrealm:frost_boar",
+        "maxCount": 5,
+        "minCount": 4,
+        "weight": 8
+      }
+    ],
     "misc": [],
     "monster": [
       {

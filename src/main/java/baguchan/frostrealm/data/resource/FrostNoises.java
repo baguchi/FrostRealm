@@ -11,6 +11,8 @@ public class FrostNoises {
 
     public static final ResourceKey<NormalNoise.NoiseParameters> CONTINENTALNESS = createKey("continentalness");
     public static final ResourceKey<NormalNoise.NoiseParameters> EROSION = createKey("erosion");
+    public static final ResourceKey<NormalNoise.NoiseParameters> ISLANDS_BOTTOM = createKey("islands_bottom");
+    public static final ResourceKey<NormalNoise.NoiseParameters> ISLANDS_HEIGHT = createKey("islands_height");
 
     private static ResourceKey<NormalNoise.NoiseParameters> createKey(String name) {
         return ResourceKey.create(Registries.NOISE, new ResourceLocation(FrostRealm.MODID, name));
@@ -19,6 +21,8 @@ public class FrostNoises {
     public static void bootstrap(BootstapContext<NormalNoise.NoiseParameters> ctx) {
         register(ctx, CONTINENTALNESS, -9, 1.0D, 1.0D, 2.0D, 2.0D, 2.0D, 1.0D, 1.0D, 1.0D, 1.0D);
         register(ctx, EROSION, -6, 1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
+        register(ctx, ISLANDS_BOTTOM, -6, 1.0D, 1.0D, 1.0D);
+        register(ctx, ISLANDS_HEIGHT, -9, 1.0D, 1.0D, 1.0D);
     }
 
     public static void register(BootstapContext<NormalNoise.NoiseParameters> ctx, ResourceKey<NormalNoise.NoiseParameters> key, int firstOctave, double firstAmplitude, double... amplitudes) {
