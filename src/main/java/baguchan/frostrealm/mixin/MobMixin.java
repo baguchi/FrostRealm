@@ -18,7 +18,7 @@ public abstract class MobMixin extends LivingEntity {
 
 	@Inject(method = "isSunBurnTick", at = @At("HEAD"), cancellable = true)
 	protected void isSunBurnTick(CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
-		if (FrostWeatherCapability.isBadWeatherActive(this.level)) {
+		if (FrostWeatherCapability.isBadWeatherActive(this.level())) {
 			callbackInfoReturnable.setReturnValue(false);
 		}
 	}

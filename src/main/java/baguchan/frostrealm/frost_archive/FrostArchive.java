@@ -1,6 +1,6 @@
 package baguchan.frostrealm.frost_archive;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Optional;
@@ -28,6 +28,6 @@ public class FrostArchive {
         return pageImage;
     }
 
-    public void renderPage(int pageCount, PoseStack poseStack, float x, int y) {
+    public void renderPage(int pageCount, GuiGraphics poseStack, float x, int y) {
     }
 }

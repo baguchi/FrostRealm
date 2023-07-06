@@ -5,8 +5,12 @@ import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostDimensions;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -66,14 +70,13 @@ public class ClientColdHUDEvent {
 
 	@SubscribeEvent
 	public void renderHudEvent(RenderGuiOverlayEvent.Post event) {
-		PoseStack stack = event.getPoseStack();
+		GuiGraphics guiGraphics = event.getGuiGraphics();
 		Minecraft mc = Minecraft.getInstance();
 		Entity entity = mc.getCameraEntity();
 		int screenWidth = mc.getWindow().getGuiScaledWidth();
 		int screenHeight = mc.getWindow().getGuiScaledHeight() - ((ForgeGui) mc.gui).rightHeight;
-		if (entity != null && entity.level.dimension() == FrostDimensions.FROSTREALM_LEVEL && event.getOverlay() == VanillaGuiOverlay.FOOD_LEVEL.type()) {
+		if (entity != null && entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL && event.getOverlay() == VanillaGuiOverlay.FOOD_LEVEL.type()) {
 			this.random.setSeed((this.tickCount * 312871));
-			stack.pushPose();
 			RenderSystem.enableBlend();
 			entity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
 				RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -89,26 +92,23 @@ public class ClientColdHUDEvent {
 						i7 = k1 + this.random.nextInt(3) - 1;
 					}
 					int k8 = j1 - k6 * 8 - 9;
-					mc.gui.blit(stack, k8, i7, 16 + i8 * 9, 27, 9, 9);
+					guiGraphics.blit(GUI_ICONS_LOCATION, k8, i7, 16 + i8 * 9, 27, 9, 9);
 					if (k6 * 2 + 1 < l) {
-						mc.gui.blit(stack, k8, i7, k7 + 36, 27, 9, 9);
+						guiGraphics.blit(GUI_ICONS_LOCATION, k8, i7, k7 + 36, 27, 9, 9);
 					}
 					if (k6 * 2 + 1 == l) {
-						mc.gui.blit(stack, k8, i7, k7 + 45, 27, 9, 9);
+						guiGraphics.blit(GUI_ICONS_LOCATION, k8, i7, k7 + 45, 27, 9, 9);
 					}
 				}
 			});
 			RenderSystem.disableBlend();
 			((ForgeGui) mc.gui).rightHeight += 10;
-			stack.popPose();
 			this.tickCount++;
 		}
 
 		if (event.getOverlay() == VanillaGuiOverlay.PORTAL.type()) {
 			Entity entity2 = mc.getCameraEntity();
-			stack.pushPose();
 			renderPortalOverlay(event, mc, mc.getWindow(), entity2);
-			stack.popPose();
 		}
 	}
 }

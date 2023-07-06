@@ -85,7 +85,7 @@ public class FrostPortalBlock extends Block {
 	}
 
 	private static ResourceKey<Level> getDestination(Entity entity) {
-		return entity.level.dimension() == Level.OVERWORLD
+		return entity.level().dimension() == Level.OVERWORLD
 				? FrostDimensions.FROSTREALM_LEVEL : Level.OVERWORLD;
 	}
 
@@ -107,9 +107,9 @@ public class FrostPortalBlock extends Block {
 				if (serverLevel == null)
 					return;
 
-				entity.level.getProfiler().push("portal");
+				entity.level().getProfiler().push("portal");
 				entity.changeDimension(serverLevel, new FrostLevelTeleporter());
-				entity.level.getProfiler().pop();
+				entity.level().getProfiler().pop();
 			}
 		}
 	}

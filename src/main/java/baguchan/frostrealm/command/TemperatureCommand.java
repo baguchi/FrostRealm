@@ -39,7 +39,7 @@ public class TemperatureCommand {
                 FrostRealm.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), message);
 
 
-                commandStack.sendSuccess(Component.translatable("commands.frostrelam.temperature.set", entity.getDisplayName()), true);
+                commandStack.sendSuccess(() -> Component.translatable("commands.frostrelam.temperature.set", entity.getDisplayName()), true);
                 return 1;
             } else {
                 commandStack.sendFailure(Component.translatable("commands.frostrelam.temperature.set.fail.no_living_entity", entity.getDisplayName()));

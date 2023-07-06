@@ -3,12 +3,12 @@ package baguchan.frostrealm.entity;
 import bagu_chan.bagus_lib.client.camera.CameraEvent;
 import bagu_chan.bagus_lib.client.camera.CameraHolder;
 import bagu_chan.bagus_lib.entity.goal.TimeConditionGoal;
+import bagu_chan.bagus_lib.util.GlobalVec3;
 import baguchan.frostrealm.entity.goal.StunGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.utils.MovementUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.GlobalPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -99,19 +99,19 @@ public class Gokkur extends Monster {
 		super.aiStep();
 
         if (this.isRolling() && !this.isStun() && this.horizontalCollision) {
-            if (!this.level.isClientSide()) {
-                this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                this.setStun(true);
-                this.knockback(0.8F, -this.getDeltaMovement().x(), -this.getDeltaMovement().z());
-                CameraEvent.addCameraHolderList(level, new CameraHolder(6, 30, GlobalPos.of(this.level.dimension(), this.blockPosition())));
-                if (getRollingGoal() != null) {
-                    getRollingGoal().setStopTrigger(true);
-                }
-            }
-        }
+			if (!this.level().isClientSide()) {
+				this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+				this.setStun(true);
+				this.knockback(0.8F, -this.getDeltaMovement().x(), -this.getDeltaMovement().z());
+				CameraEvent.addCameraHolderList(level(), new CameraHolder(6, 30, GlobalVec3.of(this.level().dimension(), this.position())));
+				if (getRollingGoal() != null) {
+					getRollingGoal().setStopTrigger(true);
+				}
+			}
+		}
 
         if (this.isStun()) {
-            this.level.addParticle(ParticleTypes.CRIT, this.getRandomX(0.6D), this.getEyeY() + 0.5F, this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
+			this.level().addParticle(ParticleTypes.CRIT, this.getRandomX(0.6D), this.getEyeY() + 0.5F, this.getRandomZ(0.6D), 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -169,7 +169,7 @@ public class Gokkur extends Monster {
 			this.knockback(0.8F, p_21246_.getX() - this.getX(), p_21246_.getZ() - this.getZ());
 			this.setStun(true);
 
-			CameraEvent.addCameraHolderList(level, new CameraHolder(4, 30, GlobalPos.of(this.level.dimension(), this.blockPosition())));
+			CameraEvent.addCameraHolderList(level(), new CameraHolder(4, 30, GlobalVec3.of(this.level().dimension(), this.position())));
 		}
 	}
 
@@ -194,9 +194,9 @@ public class Gokkur extends Monster {
 		if (!this.isRolling()) {
 			super.playStepSound(p_20135_, p_20136_);
 		} else {
-			if (!p_20136_.getMaterial().isLiquid()) {
-				BlockState blockstate = this.level.getBlockState(p_20135_.above());
-				SoundType soundtype = blockstate.is(Blocks.SNOW) ? blockstate.getSoundType(level, p_20135_, this) : p_20136_.getSoundType(level, p_20135_, this);
+			if (p_20136_.getFluidState().isEmpty()) {
+				BlockState blockstate = this.level().getBlockState(p_20135_.above());
+				SoundType soundtype = blockstate.is(Blocks.SNOW) ? blockstate.getSoundType(level(), p_20135_, this) : p_20136_.getSoundType(level(), p_20135_, this);
 				this.playSound(soundtype.getStepSound(), soundtype.getVolume() * 0.5F, soundtype.getPitch());
 			}
 		}
@@ -255,7 +255,7 @@ public class Gokkur extends Monster {
 
 		@Override
 		public boolean isMatchCondition() {
-			return this.gokkur.getTarget() != null && this.gokkur.hasLineOfSight(this.gokkur.getTarget()) && !this.gokkur.isStun() && !this.stopTrigger && !this.gokkur.isVehicle() && this.gokkur.isOnGround();
+			return this.gokkur.getTarget() != null && this.gokkur.hasLineOfSight(this.gokkur.getTarget()) && !this.gokkur.isStun() && !this.stopTrigger && !this.gokkur.isVehicle() && this.gokkur.onGround();
 		}
 
 		@Override

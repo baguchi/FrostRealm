@@ -40,5 +40,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "frostrealm:blocks/frozen_grass_block"
 }

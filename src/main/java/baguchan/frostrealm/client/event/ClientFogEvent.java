@@ -19,19 +19,19 @@ public class ClientFogEvent {
     public void setFog(ViewportEvent.RenderFog event) {
         Entity entity = event.getCamera().getEntity();
         float partialTicks = (float) event.getPartialTick();
-        if (entity.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+        if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 
-            entity.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+			entity.level().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
 
-                float weatherLevel = cap.getWeatherLevel(partialTicks);
+				float weatherLevel = cap.getWeatherLevel(partialTicks);
 
-                if (weatherLevel > 0F && cap.getFrostWeather() != null && cap.getFrostWeather().isUseFog()) {
-                    event.setNearPlaneDistance(20.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
-                    event.setFarPlaneDistance(160.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
-                    RenderSystem.setShaderFogStart(event.getNearPlaneDistance());
-                    RenderSystem.setShaderFogEnd(event.getFarPlaneDistance());
-                    event.setCanceled(true);
-                }
+				if (weatherLevel > 0F && cap.getFrostWeather() != null && cap.getFrostWeather().isUseFog()) {
+					event.setNearPlaneDistance(20.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
+					event.setFarPlaneDistance(160.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
+					RenderSystem.setShaderFogStart(event.getNearPlaneDistance());
+					RenderSystem.setShaderFogEnd(event.getFarPlaneDistance());
+					event.setCanceled(true);
+				}
 			});
 
 
@@ -41,8 +41,8 @@ public class ClientFogEvent {
 	@SubscribeEvent
 	public void setFogColor(ViewportEvent.ComputeFogColor event) {
 		Entity entity = event.getCamera().getEntity();
-		if (entity.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-			entity.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+		if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+			entity.level().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
 				float partialTicks = (float) event.getPartialTick();
 				float weatherLevel = cap.getWeatherLevel(partialTicks);
 				if (weatherLevel > 0F && cap.getFrostWeather() != null && cap.getFrostWeather().isUseFog()) {

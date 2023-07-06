@@ -31,7 +31,7 @@ public class FrostWolf extends Wolf {
 
 	public FrostWolf(EntityType<? extends Wolf> p_30369_, Level p_30370_) {
 		super(p_30369_, p_30370_);
-		this.maxUpStep = 1.0F;
+		this.setMaxUpStep(1.0F);
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class FrostWolf extends Wolf {
 
 		}
 		Entity entity = this.getLeashHolder();
-		if (entity != null && entity.level == this.level) {
+		if (entity != null && entity.level() == this.level()) {
 			this.restrictTo(entity.blockPosition(), 5);
 			float f = this.distanceTo(entity);
 			if (this instanceof TamableAnimal && ((TamableAnimal) this).isInSittingPose()) {

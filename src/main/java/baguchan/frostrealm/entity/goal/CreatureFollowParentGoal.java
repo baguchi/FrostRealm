@@ -23,7 +23,7 @@ public class CreatureFollowParentGoal extends Goal {
 		if (!this.animal.isBaby()) {
 			return false;
 		} else {
-			List<? extends PathfinderMob> list = this.animal.level.getEntitiesOfClass(this.animal.getClass(), this.animal.getBoundingBox().inflate(8.0D, 4.0D, 8.0D));
+			List<? extends PathfinderMob> list = this.animal.level().getEntitiesOfClass(this.animal.getClass(), this.animal.getBoundingBox().inflate(8.0D, 4.0D, 8.0D));
 			PathfinderMob animal = null;
 			double d0 = Double.MAX_VALUE;
 

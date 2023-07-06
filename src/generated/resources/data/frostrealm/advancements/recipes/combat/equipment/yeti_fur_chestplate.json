@@ -30,5 +30,6 @@
     "recipes": [
       "frostrealm:equipment/yeti_fur_chestplate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

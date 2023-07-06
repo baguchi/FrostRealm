@@ -33,5 +33,6 @@
     [
       "hot_source"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

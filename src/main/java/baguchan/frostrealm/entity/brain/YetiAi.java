@@ -34,7 +34,7 @@ import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -213,7 +213,7 @@ public class YetiAi {
     }
 
     public static void angerNearbyYeti(Player player, boolean see) {
-        List<Yeti> list = player.level.getEntitiesOfClass(Yeti.class, player.getBoundingBox().inflate(16.0D));
+        List<Yeti> list = player.level().getEntitiesOfClass(Yeti.class, player.getBoundingBox().inflate(16.0D));
         list.stream().filter(YetiAi::isIdle).filter((p_34881_) -> {
             return !see || BehaviorUtils.canSee(p_34881_, player);
         }).forEach((p_269951_) -> {
@@ -252,7 +252,7 @@ public class YetiAi {
                 dontKillAnyMoreBoarForAWhile(p_34925_);
             }
 
-            if (p_34926_.getType() == EntityType.PLAYER && p_34925_.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+            if (p_34926_.getType() == EntityType.PLAYER && p_34925_.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
                 p_34925_.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
             }
 
@@ -263,13 +263,13 @@ public class YetiAi {
         int i = TIME_BETWEEN_HUNTS.sample(p_219207_);
         p_219206_.getBrain().setMemoryWithExpiry(MemoryModuleType.HUNTED_RECENTLY, true, (long) i);
         if (p_29535_ == MobSpawnType.STRUCTURE) {
-            GlobalPos globalpos = GlobalPos.of(p_219206_.level.dimension(), p_219206_.blockPosition());
+            GlobalPos globalpos = GlobalPos.of(p_219206_.level().dimension(), p_219206_.blockPosition());
             p_219206_.getBrain().setMemory(MemoryModuleType.HOME, globalpos);
         }
     }
 
     public static void dontKillAnyMoreBoarForAWhile(Yeti p_34923_) {
-        p_34923_.getBrain().setMemoryWithExpiry(MemoryModuleType.HUNTED_RECENTLY, true, (long) TIME_BETWEEN_HUNTS.sample(p_34923_.level.random));
+        p_34923_.getBrain().setMemoryWithExpiry(MemoryModuleType.HUNTED_RECENTLY, true, (long) TIME_BETWEEN_HUNTS.sample(p_34923_.level().random));
     }
 
     private static void broadcastAttackTarget(Yeti p_34635_, LivingEntity p_34636_) {
@@ -378,14 +378,14 @@ public class YetiAi {
 
 
     private static List<ItemStack> getBarterResponseItems(Yeti p_34997_) {
-        LootTable loottable = p_34997_.level.getServer().getLootTables().get(FrostLoots.YETI_BARTERING);
-        List<ItemStack> list = loottable.getRandomItems((new LootContext.Builder((ServerLevel) p_34997_.level)).withParameter(LootContextParams.THIS_ENTITY, p_34997_).withRandom(p_34997_.level.random).create(LootContextParamSets.PIGLIN_BARTER));
+        LootTable loottable = p_34997_.level().getServer().getLootData().getLootTable(FrostLoots.YETI_BARTERING);
+        List<ItemStack> list = loottable.getRandomItems((new LootParams.Builder((ServerLevel) p_34997_.level())).withParameter(LootContextParams.THIS_ENTITY, p_34997_).create(LootContextParamSets.PIGLIN_BARTER));
         return list;
     }
 
     private static List<ItemStack> getBigBarterResponseItems(Yeti p_34997_) {
-        LootTable loottable = p_34997_.level.getServer().getLootTables().get(FrostLoots.YETI_BIG_BARTERING);
-        List<ItemStack> list = loottable.getRandomItems((new LootContext.Builder((ServerLevel) p_34997_.level)).withParameter(LootContextParams.THIS_ENTITY, p_34997_).withRandom(p_34997_.level.random).create(LootContextParamSets.PIGLIN_BARTER));
+        LootTable loottable = p_34997_.level().getServer().getLootData().getLootTable(FrostLoots.YETI_BIG_BARTERING);
+        List<ItemStack> list = loottable.getRandomItems((new LootParams.Builder((ServerLevel) p_34997_.level())).withParameter(LootContextParams.THIS_ENTITY, p_34997_).create(LootContextParamSets.PIGLIN_BARTER));
         return list;
     }
 
@@ -395,7 +395,7 @@ public class YetiAi {
     }
 
     private static void throwItems(Yeti p_34861_, List<ItemStack> p_34862_) {
-        Player player = p_34861_.getLevel().getNearestPlayer(p_34861_, 10.0D);
+        Player player = p_34861_.level().getNearestPlayer(p_34861_, 10.0D);
         if (player != null) {
             throwItemsTowardPlayer(p_34861_, player, p_34862_);
         } else {

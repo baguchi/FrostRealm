@@ -29,7 +29,7 @@ public class SnowMole extends Animal {
 		this.moveControl = new SnowMoveControl(this, 85, 10, 3.0F);
 		this.lookControl = new SmoothSwimmingLookControl(this, 10);
 		this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 0.0F);
-		this.maxUpStep = 1.0F;
+		this.setMaxUpStep(1.0F);
 	}
 
 	@Override

@@ -46,7 +46,7 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
     }
 
     public ShadeInsectPart(EntityType t, LivingEntity parent, float radius, float angleYaw, float offsetY) {
-        super(t, parent.level);
+        super(t, parent.level());
         this.setParent(parent);
         this.radius = radius;
         this.angleYaw = (angleYaw + 90.0F) * (float) Math.PI / 180.0F;
@@ -115,7 +115,7 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
         if (this.tickCount > 10) {
             Entity parent = getParent();
             refreshDimensions();
-            if (!level.isClientSide) {
+            if (!level().isClientSide) {
                 if (parent != null) {
                     Vec3 vec3 = this.calculateViewVector(parent.xRotO, parent.yRotO);
                     Vec3 vec32 = new Vec3(parent.xo - vec3.x * radius, parent.yo + vec3.y * radius, parent.zo - vec3.z * radius);
@@ -139,18 +139,18 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
                     this.yHeadRot = this.getYRot();
                     this.yBodyRot = this.yRotO;
                     if (parent instanceof LivingEntity) {
-                        if (!level.isClientSide && (((LivingEntity) parent).hurtTime > 0 || ((LivingEntity) parent).deathTime > 0)) {
+                        if (!level().isClientSide && (((LivingEntity) parent).hurtTime > 0 || ((LivingEntity) parent).deathTime > 0)) {
                             FrostRealm.sendMSGToAll(new HurtMultipartMessage(this.getId(), parent.getId(), 0));
                             this.hurtTime = ((LivingEntity) parent).hurtTime;
                             this.deathTime = ((LivingEntity) parent).deathTime;
                         }
                     }
                     this.pushEntities();
-                    if (parent.isRemoved() && !level.isClientSide) {
+                    if (parent.isRemoved() && !level().isClientSide) {
                         this.remove(RemovalReason.DISCARDED);
                     }
                 } else {
-                    this.level.broadcastEntityEvent(this, (byte) 60);
+                    this.level().broadcastEntityEvent(this, (byte) 60);
                     this.remove(Entity.RemovalReason.KILLED);
                     this.dropExperience();
                 }
@@ -158,11 +158,11 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
         }
         super.tick();
 
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             float f = Mth.cos((float) (this.getUniqueFlapTickOffset() + this.tickCount) * 7.448451F * ((float) Math.PI / 180F) + (float) Math.PI);
             float f1 = Mth.cos((float) (this.getUniqueFlapTickOffset() + this.tickCount + 1) * 7.448451F * ((float) Math.PI / 180F) + (float) Math.PI);
             if (f > 0.0F && f1 <= 0.0F) {
-                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
+                this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
             }
         }
     }
@@ -210,8 +210,8 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
 
     public Entity getParent() {
         UUID id = getParentId();
-        if (id != null && !level.isClientSide) {
-            return ((ServerLevel) level).getEntity(id);
+        if (id != null && !level().isClientSide) {
+            return ((ServerLevel) level()).getEntity(id);
         }
         return null;
     }
@@ -272,7 +272,7 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
 
         final Entity parent = getParent();
         final boolean prev = parent != null && parent.hurt(source, damage * this.damageMultiplier);
-        if (prev && !level.isClientSide) {
+        if (prev && !level().isClientSide) {
             FrostRealm.sendMSGToAll(new HurtMultipartMessage(this.getId(), parent.getId(), damage * this.damageMultiplier));
         }
         return super.hurt(source, damage);
@@ -306,17 +306,17 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
             } else {
                 BlockPos ground = BlockPos.containing(this.getX(), this.getY() - 1.0D, this.getZ());
                 float f = 0.91F;
-                if (this.onGround) {
-                    f = this.level.getBlockState(ground).getFriction(this.level, ground, this) * 0.91F;
+                if (this.onGround()) {
+                    f = this.level().getBlockState(ground).getFriction(this.level(), ground, this) * 0.91F;
                 }
 
                 float f1 = 0.16277137F / (f * f * f);
                 f = 0.91F;
-                if (this.onGround) {
-                    f = this.level.getBlockState(ground).getFriction(this.level, ground, this) * 0.91F;
+                if (this.onGround()) {
+                    f = this.level().getBlockState(ground).getFriction(this.level(), ground, this) * 0.91F;
                 }
 
-                this.moveRelative(this.onGround ? 0.1F * f1 : 0.02F, p_20818_);
+                this.moveRelative(this.onGround() ? 0.1F * f1 : 0.02F, p_20818_);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale((double) f));
             }

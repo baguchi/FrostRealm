@@ -74,8 +74,8 @@ public class ShadeInsect extends Monster {
 
     public Entity getChild() {
         UUID id = getChildId();
-        if (id != null && !level.isClientSide) {
-            return ((ServerLevel) level).getEntity(id);
+        if (id != null && !level().isClientSide) {
+            return ((ServerLevel) level()).getEntity(id);
         }
         return null;
     }
@@ -150,11 +150,11 @@ public class ShadeInsect extends Monster {
 
     public void tick() {
         super.tick();
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             float f = Mth.cos((float) (this.getUniqueFlapTickOffset() + this.tickCount) * 7.448451F * ((float) Math.PI / 180F) + (float) Math.PI);
             float f1 = Mth.cos((float) (this.getUniqueFlapTickOffset() + this.tickCount + 1) * 7.448451F * ((float) Math.PI / 180F) + (float) Math.PI);
             if (f > 0.0F && f1 <= 0.0F) {
-                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
+                this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
             }
         }
     }
@@ -269,7 +269,7 @@ public class ShadeInsect extends Monster {
                 return false;
             } else {
                 this.nextScanTick = reducedTickDelay(60);
-                List<Player> list = ShadeInsect.this.level.getNearbyPlayers(this.attackTargeting, ShadeInsect.this, ShadeInsect.this.getBoundingBox().inflate(46.0D, 64.0D, 46.0D));
+                List<Player> list = ShadeInsect.this.level().getNearbyPlayers(this.attackTargeting, ShadeInsect.this, ShadeInsect.this.getBoundingBox().inflate(46.0D, 64.0D, 46.0D));
                 if (!list.isEmpty()) {
                     list.sort(Comparator.<Entity, Double>comparing(Entity::getY).reversed());
 
@@ -306,7 +306,7 @@ public class ShadeInsect extends Monster {
         }
 
         public void stop() {
-            BlockPos pos = ShadeInsect.this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, ShadeInsect.this.blockPosition()).above(15 + ShadeInsect.this.random.nextInt(20));
+            BlockPos pos = ShadeInsect.this.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, ShadeInsect.this.blockPosition()).above(15 + ShadeInsect.this.random.nextInt(20));
             ShadeInsect.this.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1.2D);
         }
 
@@ -325,8 +325,8 @@ public class ShadeInsect extends Monster {
 
         private void setAnchorAboveTarget() {
             BlockPos pos = ShadeInsect.this.getTarget().blockPosition().above(20 + ShadeInsect.this.random.nextInt(20));
-            if (pos.getY() < ShadeInsect.this.level.getSeaLevel()) {
-                pos = new BlockPos(pos.getX(), ShadeInsect.this.level.getSeaLevel() + 1, pos.getZ());
+            if (pos.getY() < ShadeInsect.this.level().getSeaLevel()) {
+                pos = new BlockPos(pos.getX(), ShadeInsect.this.level().getSeaLevel() + 1, pos.getZ());
             }
             ShadeInsect.this.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1.2D);
         }
@@ -378,19 +378,19 @@ public class ShadeInsect extends Monster {
                 this.selectNext();
 
 
-                if (!ShadeInsect.this.level.isEmptyBlock(ShadeInsect.this.blockPosition().below(1))) {
+                if (!ShadeInsect.this.level().isEmptyBlock(ShadeInsect.this.blockPosition().below(1))) {
                     this.height = Math.max(2.0F, this.height);
                     this.selectNext();
                 }
 
-                if (!ShadeInsect.this.level.isEmptyBlock(ShadeInsect.this.blockPosition().above(1))) {
+                if (!ShadeInsect.this.level().isEmptyBlock(ShadeInsect.this.blockPosition().above(1))) {
                     this.height = Math.min(-2.0F, this.height);
                     this.selectNext();
                 }
             } else {
 
                 if (ShadeInsect.this.random.nextInt(this.adjustedTickDelay(350)) == 0) {
-                    BlockPos pos = ShadeInsect.this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, ShadeInsect.this.blockPosition()).above(15 + ShadeInsect.this.random.nextInt(20));
+                    BlockPos pos = ShadeInsect.this.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, ShadeInsect.this.blockPosition()).above(15 + ShadeInsect.this.random.nextInt(20));
 
                     if (ShadeInsect.this.blockPosition().getY() + 10 < pos.getY()) {
                         ShadeInsect.this.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1.2D);
@@ -521,7 +521,7 @@ public class ShadeInsect extends Monster {
                     ShadeInsect.this.doHurtTarget(livingentity);
                     ShadeInsect.this.attackPhase = ShadeInsect.AttackPhase.CIRCLE;
                     if (!ShadeInsect.this.isSilent()) {
-                        ShadeInsect.this.level.levelEvent(1039, ShadeInsect.this.blockPosition(), 0);
+                        ShadeInsect.this.level().levelEvent(1039, ShadeInsect.this.blockPosition(), 0);
                     }
                 } else if (ShadeInsect.this.hurtTime > 0) {
                     ShadeInsect.this.attackPhase = ShadeInsect.AttackPhase.CIRCLE;

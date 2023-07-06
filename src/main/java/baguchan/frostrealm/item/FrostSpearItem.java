@@ -3,7 +3,6 @@ package baguchan.frostrealm.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,7 +18,6 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.ForgeMod;
 
 import java.util.UUID;
@@ -52,11 +50,9 @@ public class FrostSpearItem extends Item implements Vanishable {
 		if (p_43289_.is(Blocks.COBWEB)) {
 			return 0.1F;
 		} else {
-			Material material = p_43289_.getMaterial();
-			return material != Material.PLANT && material != Material.REPLACEABLE_PLANT && !p_43289_.is(BlockTags.LEAVES) && material != Material.VEGETABLE ? 0.5F : 1.5F;
+			return super.getDestroySpeed(p_43288_, p_43289_);
 		}
 	}
-
 
 	public boolean hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
 		p_43278_.hurtAndBreak(1, p_43280_, (p_43296_) -> {

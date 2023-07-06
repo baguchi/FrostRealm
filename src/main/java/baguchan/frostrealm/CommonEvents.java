@@ -96,8 +96,8 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getEntity() != null && event.getEntity().level instanceof ServerLevel) {
-            ServerLevel world = (ServerLevel) event.getEntity().level;
+        if (event.getEntity() != null && event.getEntity().level() instanceof ServerLevel) {
+            ServerLevel world = (ServerLevel) event.getEntity().level();
             MinecraftServer server = world.getServer();
             //sync weather
             for (ServerLevel serverworld : server.getAllLevels()) {
@@ -117,8 +117,8 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onDimensionChangeEvent(PlayerEvent.PlayerChangedDimensionEvent event) {
-        if (event.getEntity() != null && event.getEntity().level instanceof ServerLevel) {
-            ServerLevel world = (ServerLevel) event.getEntity().level;
+        if (event.getEntity() != null && event.getEntity().level() instanceof ServerLevel) {
+            ServerLevel world = (ServerLevel) event.getEntity().level();
             MinecraftServer server = world.getServer();
             //sync weather
             for (ServerLevel serverworld : server.getAllLevels()) {

@@ -30,5 +30,6 @@
     "recipes": [
       "frostrealm:frostroot_chest"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

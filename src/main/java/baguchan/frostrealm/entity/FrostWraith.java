@@ -59,7 +59,7 @@ public class FrostWraith extends FrozenMonster {
 
 	private void calculateFlapping() {
 		Vec3 vec3 = this.getDeltaMovement();
-		if (!this.onGround && vec3.y < 0.0D) {
+		if (!this.onGround() && vec3.y < 0.0D) {
 			this.setDeltaMovement(vec3.multiply(1.0D, 0.6D, 1.0D));
 		}
 

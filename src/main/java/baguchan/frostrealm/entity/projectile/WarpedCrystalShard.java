@@ -41,7 +41,7 @@ public class WarpedCrystalShard extends ThrowableItemProjectile {
 			ParticleOptions particleoptions = this.getParticle();
 
 			for (int i = 0; i < 8; ++i) {
-				this.level.addParticle(particleoptions, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+				this.level().addParticle(particleoptions, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 
@@ -56,10 +56,10 @@ public class WarpedCrystalShard extends ThrowableItemProjectile {
 		super.onHitEntity(p_37404_);
 		Entity entity = p_37404_.getEntity();
 		if (entity.hurt(this.damageSources().thrown(this, this.getOwner()), 3)) {
-            this.level.broadcastEntityEvent(this, (byte) 3);
-            this.playSound(SoundEvents.GLASS_BREAK, 1.0F, 1.25F);
-            this.discard();
-        } else {
+			this.level().broadcastEntityEvent(this, (byte) 3);
+			this.playSound(SoundEvents.GLASS_BREAK, 1.0F, 1.25F);
+			this.discard();
+		} else {
             this.setDeltaMovement(this.getDeltaMovement().scale(-0.1D));
             this.setYRot(this.getYRot() + 180.0F);
             this.yRotO += 180.0F;
@@ -69,8 +69,8 @@ public class WarpedCrystalShard extends ThrowableItemProjectile {
 	@Override
 	protected void onHitBlock(BlockHitResult p_37258_) {
 		super.onHitBlock(p_37258_);
-		if (!this.level.isClientSide) {
-			this.level.broadcastEntityEvent(this, (byte) 3);
+		if (!this.level().isClientSide) {
+			this.level().broadcastEntityEvent(this, (byte) 3);
 			this.playSound(SoundEvents.GLASS_BREAK, 1.0F, 1.25F);
 			this.discard();
 		}

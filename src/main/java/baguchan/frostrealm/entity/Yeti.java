@@ -69,12 +69,12 @@ public class Yeti extends AgeableMob implements HuntMob {
 
 	@Override
 	protected void customServerAiStep() {
-		this.level.getProfiler().push("boarBrain");
-		this.getBrain().tick((ServerLevel) this.level, this);
-		this.level.getProfiler().pop();
-		this.level.getProfiler().push("boarActivityUpdate");
+		this.level().getProfiler().push("boarBrain");
+		this.getBrain().tick((ServerLevel) this.level(), this);
+		this.level().getProfiler().pop();
+		this.level().getProfiler().push("boarActivityUpdate");
 		YetiAi.updateActivity(this);
-		this.level.getProfiler().pop();
+		this.level().getProfiler().pop();
 	}
 
 	protected Brain.Provider<Yeti> brainProvider() {
@@ -167,7 +167,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 	@Override
 	public void aiStep() {
 		this.updateSwingTime();
-		if (!this.level.isClientSide && this.isAlive()) {
+		if (!this.level().isClientSide && this.isAlive()) {
 			ItemStack offhand = this.getItemInHand(InteractionHand.OFF_HAND);
 
 			if (!this.isUsingItem() && offhand.isEmpty()) {
@@ -208,7 +208,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 
 
 	public boolean wantsToPickUp(ItemStack p_34777_) {
-		return net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && this.canPickUpLoot() && YetiAi.wantsToPickup(this, p_34777_);
+		return net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && this.canPickUpLoot() && YetiAi.wantsToPickup(this, p_34777_);
 	}
 
 	@Override
@@ -280,11 +280,6 @@ public class Yeti extends AgeableMob implements HuntMob {
 
 	public int getHoldTime() {
 		return holdTime;
-	}
-
-	@Override
-	public boolean wasKilled(ServerLevel p_216988_, LivingEntity p_216989_) {
-		return super.wasKilled(p_216988_, p_216989_);
 	}
 
 	public void readAdditionalSaveData(CompoundTag p_29541_) {
@@ -375,7 +370,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 	@Override
 	public boolean hurt(DamageSource p_34503_, float p_34504_) {
 		boolean flag = super.hurt(p_34503_, p_34504_);
-		if (this.level.isClientSide) {
+		if (this.level().isClientSide) {
 			return false;
 		} else {
 			YetiAi.stopHoldingOffHandItem(this, false);

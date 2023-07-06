@@ -30,5 +30,6 @@
     "recipes": [
       "frostrealm:equipment/frost_boar_fur_chestplate"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

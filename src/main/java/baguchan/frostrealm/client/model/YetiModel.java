@@ -151,32 +151,32 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 	}
 
 	@Override
-	public Iterable<ModelPart> rightHands() {
+	public Iterable<ModelPart> rightHandArmors() {
 		return ImmutableList.of(this.rightArm);
 	}
 
 	@Override
-	public Iterable<ModelPart> leftHands() {
+	public Iterable<ModelPart> leftHandArmors() {
 		return ImmutableList.of(this.leftArm);
 	}
 
 	@Override
-	public Iterable<ModelPart> rightLegParts() {
+	public Iterable<ModelPart> rightLegPartArmors() {
 		return ImmutableList.of(this.rightLeg);
 	}
 
 	@Override
-	public Iterable<ModelPart> leftLegParts() {
+	public Iterable<ModelPart> leftLegPartArmors() {
 		return ImmutableList.of(this.leftLeg);
 	}
 
 	@Override
-	public Iterable<ModelPart> bodyParts() {
+	public Iterable<ModelPart> bodyPartArmors() {
 		return ImmutableList.of(this.body);
 	}
 
 	@Override
-	public Iterable<ModelPart> headParts() {
+	public Iterable<ModelPart> headPartArmors() {
 		return ImmutableList.of(this.head);
 	}
 

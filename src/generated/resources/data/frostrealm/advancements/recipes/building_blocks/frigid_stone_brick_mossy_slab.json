@@ -30,5 +30,6 @@
     "recipes": [
       "frostrealm:frigid_stone_brick_mossy_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

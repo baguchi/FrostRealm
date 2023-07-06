@@ -21,7 +21,7 @@ import java.util.List;
 public class Sledge extends Boat {
     public Sledge(EntityType<? extends Boat> p_38290_, Level p_38291_) {
         super(p_38290_, p_38291_);
-        this.maxUpStep = 1.0F;
+        this.setMaxUpStep(1);
     }
 
     public Sledge(Level p_38293_, double p_38294_, double p_38295_, double p_38296_) {
@@ -30,7 +30,7 @@ public class Sledge extends Boat {
         this.xo = p_38294_;
         this.yo = p_38295_;
         this.zo = p_38296_;
-        this.maxUpStep = 1.0F;
+        this.setMaxUpStep(1);
     }
 
     public InteractionResult interact(Player p_38330_, InteractionHand p_38331_) {
@@ -40,7 +40,7 @@ public class Sledge extends Boat {
             int i = (int) p_38330_.getX();
             int j = (int) p_38330_.getY();
             int k = (int) p_38330_.getZ();
-            for (Mob mob : p_38330_.level.getEntitiesOfClass(Mob.class, new AABB((double) i - 7.0D, (double) j - 7.0D, (double) k - 7.0D, (double) i + 7.0D, (double) j + 7.0D, (double) k + 7.0D))) {
+            for (Mob mob : p_38330_.level().getEntitiesOfClass(Mob.class, new AABB((double) i - 7.0D, (double) j - 7.0D, (double) k - 7.0D, (double) i + 7.0D, (double) j + 7.0D, (double) k + 7.0D))) {
                 if (mob.getLeashHolder() == p_38330_) {
 
                     mob.setLeashedTo(this, true);
@@ -67,7 +67,7 @@ public class Sledge extends Boat {
 
     public void boatMoving() {
         if (this.isVehicle()) {
-            List<FrostWolf> frostWolfList = this.level.getEntitiesOfClass(FrostWolf.class, new AABB(this.blockPosition()).inflate(7.0F)).stream().filter(entity -> entity.getLeashHolder() == this).toList();
+            List<FrostWolf> frostWolfList = this.level().getEntitiesOfClass(FrostWolf.class, new AABB(this.blockPosition()).inflate(7.0F)).stream().filter(entity -> entity.getLeashHolder() == this).toList();
 
             for (FrostWolf wolf : frostWolfList) {
                 if (wolf.isTame() && !wolf.isInSittingPose()) {

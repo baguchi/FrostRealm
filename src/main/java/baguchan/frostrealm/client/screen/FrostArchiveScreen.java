@@ -4,10 +4,9 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.frost_archive.FrostArchive;
 import baguchan.frostrealm.registry.FrostArchives;
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.GameNarrator;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
@@ -181,12 +180,11 @@ public class FrostArchiveScreen extends Screen {
         }
     }
 
-    public void render(PoseStack p_98282_, int p_98283_, int p_98284_, float p_98285_) {
+    public void render(GuiGraphics p_98282_, int p_98283_, int p_98284_, float p_98285_) {
         this.renderBackground(p_98282_);
-        RenderSystem.setShaderTexture(0, BOOK_LOCATION);
         int i = (this.width - IMAGE_WIDTH) / 2;
         int j = 2;
-        blit(p_98282_, i, 2, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
+        p_98282_.blit(BOOK_LOCATION, i, 2, 0, 0, IMAGE_WIDTH, IMAGE_HEIGHT);
 
 
         if (this.cachedPage != this.currentPage) {
@@ -197,22 +195,22 @@ public class FrostArchiveScreen extends Screen {
 
         this.cachedPage = this.currentPage;
         int i1 = this.font.width(this.pageMsg);
-        this.font.draw(p_98282_, this.pageMsg, (float) (i - i1 + IMAGE_WIDTH - 44), 18.0F, 0);
+        p_98282_.drawString(this.font, this.pageMsg.getString(), (i - i1 + IMAGE_WIDTH - 44), 18, 0);
         int k = Math.min(128 / 9, this.cachedPageComponents.size());
 
         for (int l = 0; l < k; ++l) {
             FormattedCharSequence formattedcharsequence = this.cachedPageComponents.get(l);
-            this.font.draw(p_98282_, formattedcharsequence, (float) (i + (IMAGE_WIDTH / 2) + 8), (float) (32 + l * 9), 0);
+            p_98282_.drawString(this.font, formattedcharsequence.toString(), (i + (IMAGE_WIDTH / 2) + 8), (32 + l * 9), 0);
         }
 
         Style style = this.getClickedComponentStyleAt((double) p_98283_, (double) p_98284_);
         if (style != null) {
-            this.renderComponentHoverEffect(p_98282_, style, p_98283_, p_98284_);
+            p_98282_.renderComponentHoverEffect(this.font, style, p_98283_, p_98284_);
         }
 
         Component formattedtext = Component.translatable(this.book.getPageId());
 
-        this.font.draw(p_98282_, formattedtext, (float) (i + 8), (float) 32, 0);
+        p_98282_.drawString(this.font, formattedtext.getString(), (i + 8), 32, 0);
 
 
         if (this.book != null) {

@@ -54,7 +54,7 @@ public class FrostWeatherCommand {
 			ChangeWeatherTimeMessage message = new ChangeWeatherTimeMessage(0, p_139174_);
 			FrostRealm.CHANNEL.send(PacketDistributor.DIMENSION.with(p_139173_.getLevel()::dimension), message);
 		});
-		p_139173_.sendSuccess(Component.translatable("commands.frostrealm.frost_weather.clear"), true);
+		p_139173_.sendSuccess(() -> Component.translatable("commands.frostrealm.frost_weather.clear"), true);
 
 		return p_139174_;
 	}
@@ -92,7 +92,7 @@ public class FrostWeatherCommand {
 					ChangeWeatherTimeMessage message2 = new ChangeWeatherTimeMessage(p_139179_, 0);
 					FrostRealm.CHANNEL.send(PacketDistributor.DIMENSION.with(p_139178_.getLevel()::dimension), message2);
 				});
-				p_139178_.sendSuccess(Component.translatable("commands.frostrealm.frost_weather.set"), true);
+				p_139178_.sendSuccess(() -> Component.translatable("commands.frostrealm.frost_weather.set"), true);
 				return p_139179_;
 			} else {
 				p_139178_.sendFailure(Component.translatable("commands.frostrealm.frost_weather.set.fail"));

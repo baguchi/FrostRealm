@@ -35,7 +35,7 @@ public class WarpedCrystalRenderer<T extends WarpedCrystalShard> extends EntityR
 
 		stackIn.translate(0.0F, 0.0F, -entityIn.getBbHeight() / 2);
 
-		BakedModel bakedmodel = this.itemRenderer.getModel(entityIn.getItem(), entityIn.level, (LivingEntity) null, entityIn.getId());
+		BakedModel bakedmodel = this.itemRenderer.getModel(entityIn.getItem(), entityIn.level(), (LivingEntity) null, entityIn.getId());
 
         this.itemRenderer.render(entityIn.getItem(), ItemDisplayContext.GROUND, false, stackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, bakedmodel);
         stackIn.popPose();

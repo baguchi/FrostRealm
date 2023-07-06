@@ -26,11 +26,11 @@ public class MinecraftMixin {
 	@Inject(method = "getSituationalMusic", at = @At("HEAD"), cancellable = true)
 	public void getSituationalMusic(CallbackInfoReturnable<Music> callbackInfo) {
 		if (player != null) {
-			if (player.level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-				if (player.level.isNight()) {
+			if (player.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+				if (player.level().isNight()) {
 					callbackInfo.setReturnValue(new Music(FrostSounds.CALM_NIGHT_BGM.getHolder().orElseThrow(), 12000, 24000, true));
 				} else {
-					Holder<Biome> holder = player.level.getBiome(player.blockPosition());
+					Holder<Biome> holder = player.level().getBiome(player.blockPosition());
 					callbackInfo.setReturnValue(holder.value().getBackgroundMusic().orElse(Musics.GAME));
 
 				}

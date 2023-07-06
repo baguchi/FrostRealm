@@ -20,7 +20,6 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 
 public class FusionCrystalDaggerItem extends Item implements Vanishable {
 	private final float attackDamage;
@@ -47,12 +46,12 @@ public class FusionCrystalDaggerItem extends Item implements Vanishable {
 		return !p_43294_.isCreative();
 	}
 
+	@Override
 	public float getDestroySpeed(ItemStack p_43288_, BlockState p_43289_) {
 		if (p_43289_.is(Blocks.COBWEB)) {
-			return 14.0F;
+			return 15.0F;
 		} else {
-			Material material = p_43289_.getMaterial();
-			return material != Material.PLANT && material != Material.REPLACEABLE_PLANT && !p_43289_.is(BlockTags.LEAVES) && material != Material.VEGETABLE ? 1.0F : 1.5F;
+			return p_43289_.is(BlockTags.SWORD_EFFICIENT) ? 1.5F : 1.0F;
 		}
 	}
 

@@ -65,7 +65,7 @@ public class SnowPileQuailModel<T extends SnowPileQuail> extends EntityModel<T> 
 		this.wingR.zRot = 0.0F;
 		this.wingL.zRot = -0.0F;
 
-		if (!entity.isOnGround() || entity.isAngry()) {
+		if (!entity.onGround() || entity.isAngry()) {
 			this.wingR.zRot = 0.6F + 0.8F * Mth.sin(2.4F * ageInTicks);
 			this.wingL.zRot = -0.6F + -0.8F * Mth.sin(2.4F * ageInTicks);
 		}

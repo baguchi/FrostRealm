@@ -2,10 +2,10 @@ package baguchan.frostrealm.entity;
 
 import bagu_chan.bagus_lib.client.camera.CameraEvent;
 import bagu_chan.bagus_lib.client.camera.CameraHolder;
+import bagu_chan.bagus_lib.util.GlobalVec3;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.GlobalPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -58,7 +58,7 @@ public class Gokkudillo extends Gokkur {
 
 	@Override
 	public void setRolling(boolean roll) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			this.getAttribute(Attributes.ARMOR).removeModifier(ARMOR_MODIFIER);
 			if (roll) {
 				this.getAttribute(Attributes.ARMOR).addPermanentModifier(ARMOR_MODIFIER);
@@ -72,7 +72,7 @@ public class Gokkudillo extends Gokkur {
 
 	@Override
 	public void setStun(boolean stun) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			this.getAttribute(Attributes.ARMOR).removeModifier(NO_ARMOR_MODIFIER);
 			if (stun) {
 				this.getAttribute(Attributes.ARMOR).addPermanentModifier(NO_ARMOR_MODIFIER);
@@ -140,7 +140,7 @@ public class Gokkudillo extends Gokkur {
 			}
 			this.knockback(0.8F, p_21246_.getX() - this.getX(), p_21246_.getZ() - this.getZ());
 			this.setStun(true);
-			CameraEvent.addCameraHolderList(level, new CameraHolder(4, 30, GlobalPos.of(this.level.dimension(), this.blockPosition())));
+			CameraEvent.addCameraHolderList(level(), new CameraHolder(4, 30, GlobalVec3.of(this.level().dimension(), this.position())));
 
 		}
 	}
@@ -160,9 +160,9 @@ public class Gokkudillo extends Gokkur {
 		if (!this.isRolling()) {
 			super.playStepSound(p_20135_, p_20136_);
 		} else {
-			if (!p_20136_.getMaterial().isLiquid()) {
-				BlockState blockstate = this.level.getBlockState(p_20135_.above());
-				SoundType soundtype = blockstate.is(Blocks.SNOW) ? blockstate.getSoundType(level, p_20135_, this) : p_20136_.getSoundType(level, p_20135_, this);
+			if (p_20136_.getFluidState().isEmpty()) {
+				BlockState blockstate = this.level().getBlockState(p_20135_.above());
+				SoundType soundtype = blockstate.is(Blocks.SNOW) ? blockstate.getSoundType(level(), p_20135_, this) : p_20136_.getSoundType(level(), p_20135_, this);
 				this.playSound(soundtype.getStepSound(), soundtype.getVolume() * 1.2F, soundtype.getPitch());
 			}
 		}

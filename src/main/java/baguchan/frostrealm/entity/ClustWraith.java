@@ -143,13 +143,13 @@ public class ClustWraith extends FrostWraith implements RangedAttackMob {
 		this.playSound(SoundEvents.TRIDENT_THROW, 2.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 
 		for (int i = 0; i < 3; i++) {
-			WarpedCrystalShard crystal = new WarpedCrystalShard(this.level, this);
+			WarpedCrystalShard crystal = new WarpedCrystalShard(this.level(), this);
 			double d1 = p_29912_.getX() - this.getX();
 			double d2 = p_29912_.getEyeY() - this.getEyeY();
 			double d3 = p_29912_.getZ() - this.getZ();
 			float f = Mth.sqrt((float) (d1 * d1 + d3 * d3)) * 0.2F;
 			crystal.shoot(d1 + f * (this.random.nextDouble() - this.random.nextDouble()), d2 + f * (this.random.nextDouble() - this.random.nextDouble()), d3 + f * (this.random.nextDouble() - this.random.nextDouble()), 0.9F, 0.8F);
-			this.level.addFreshEntity(crystal);
+			this.level().addFreshEntity(crystal);
 		}
 	}
 }

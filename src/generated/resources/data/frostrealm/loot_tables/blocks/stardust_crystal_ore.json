@@ -54,5 +54,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "frostrealm:blocks/stardust_crystal_ore"
 }

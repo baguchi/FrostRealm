@@ -97,7 +97,7 @@ public class SnowPileQuailEggBlock extends Block {
 	}
 
 	public static void angerNearbyQuail(LivingEntity p_34874_) {
-		List<SnowPileQuail> list = p_34874_.level.getEntitiesOfClass(SnowPileQuail.class, p_34874_.getBoundingBox().inflate(8.0D));
+		List<SnowPileQuail> list = p_34874_.level().getEntitiesOfClass(SnowPileQuail.class, p_34874_.getBoundingBox().inflate(8.0D));
 		list.stream().filter((p_34881_) -> {
 			return p_34881_.hasLineOfSight(p_34874_);
 		}).forEach((p_34872_) -> {

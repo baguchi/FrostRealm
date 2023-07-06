@@ -17,5 +17,6 @@
     "recipes": [
       "minecraft:aurora_gem_crystal_smithing"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

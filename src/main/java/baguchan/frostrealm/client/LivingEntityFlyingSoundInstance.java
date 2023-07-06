@@ -31,7 +31,7 @@ public class LivingEntityFlyingSoundInstance extends AbstractTickableSoundInstan
             this.x = (float) this.livingEntity.getX();
             this.y = (float) this.livingEntity.getY();
             this.z = (float) this.livingEntity.getZ();
-            if (!this.livingEntity.isOnGround()) {
+            if (!this.livingEntity.onGround()) {
                 float speed = (float) this.livingEntity.getDeltaMovement().length() + 0.1F;
                 this.pitch = Mth.lerp(Mth.clamp(speed, this.getMinPitch(), this.getMaxPitch()), this.getMinPitch(), this.getMaxPitch());
                 this.volume = Mth.lerp(Mth.clamp(speed, 0.5F, 1.0F), 0.0F, 1.2F);

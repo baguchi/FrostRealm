@@ -151,12 +151,12 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 	}
 
 	public void aiStep() {
-		if (!this.level.isClientSide && this.isAlive() && this.isEffectiveAi()) {
+		if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
 			++this.ticksSinceEaten;
 			ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
 			if (this.canEat(itemstack)) {
 				if (this.ticksSinceEaten > 600) {
-					ItemStack itemstack1 = itemstack.finishUsingItem(this.level, this);
+					ItemStack itemstack1 = itemstack.finishUsingItem(this.level(), this);
 					this.heal(2);
 					if (!itemstack1.isEmpty()) {
 						this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
@@ -170,7 +170,7 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 					this.ticksSinceEaten = 0;
 				} else if (this.ticksSinceEaten > 560 && this.random.nextFloat() < 0.1F) {
 					this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
-					this.level.broadcastEntityEvent(this, (byte) 45);
+					this.level().broadcastEntityEvent(this, (byte) 45);
 				}
 			}
 
@@ -206,18 +206,18 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 	}
 
 	private void spitOutItem(ItemStack p_28602_) {
-		if (!p_28602_.isEmpty() && !this.level.isClientSide) {
-			ItemEntity itementity = new ItemEntity(this.level, this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, p_28602_);
+		if (!p_28602_.isEmpty() && !this.level().isClientSide) {
+			ItemEntity itementity = new ItemEntity(this.level(), this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, p_28602_);
 			itementity.setPickUpDelay(40);
 			itementity.setThrower(this.getUUID());
 			this.playSound(SoundEvents.FOX_SPIT, 1.0F, 1.0F);
-			this.level.addFreshEntity(itementity);
+			this.level().addFreshEntity(itementity);
 		}
 	}
 
 	private void dropItemStack(ItemStack p_28606_) {
-		ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), p_28606_);
-		this.level.addFreshEntity(itementity);
+		ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), p_28606_);
+		this.level().addFreshEntity(itementity);
 	}
 
 	public boolean canHoldItem(ItemStack p_28578_) {
@@ -227,7 +227,7 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 	}
 
 	private boolean canEat(ItemStack p_28598_) {
-		return (p_28598_.getItem().isEdible() || p_28598_.is(FrostItems.BEARBERRY.get())) && this.getTarget() == null && this.onGround && !this.isSleeping();
+		return (p_28598_.getItem().isEdible() || p_28598_.is(FrostItems.BEARBERRY.get())) && this.getTarget() == null && this.onGround() && !this.isSleeping();
 	}
 
 	@javax.annotation.Nonnull
@@ -276,8 +276,8 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 		if (this.isSleeping()) {
 			return SoundEvents.FOX_SLEEP;
 		} else {
-			if (!this.level.isDay() && this.random.nextFloat() < 0.1F) {
-				List<Player> list = this.level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(16.0D, 16.0D, 16.0D), EntitySelector.NO_SPECTATORS);
+			if (!this.level().isDay() && this.random.nextFloat() < 0.1F) {
+				List<Player> list = this.level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(16.0D, 16.0D, 16.0D), EntitySelector.NO_SPECTATORS);
 				if (list.isEmpty()) {
 					return SoundEvents.FOX_SCREECH;
 				}
@@ -318,19 +318,19 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 				if (!p_30412_.getAbilities().instabuild) {
 					itemstack.shrink(1);
 				}
-				if (!this.level.isClientSide()) {
+				if (!this.level().isClientSide()) {
 					if (!this.isShearableWithoutConditions()) {
 						if (this.random.nextInt(3) == 0) {
 
 							this.setShearable(true);
 
 						}
-						this.level.addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
+						this.level().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), 0.0D, 0.0D, 0.0D);
 						return InteractionResult.SUCCESS;
 					}
 				}
 
-				this.level.broadcastEntityEvent(this, (byte) 5);
+				this.level().broadcastEntityEvent(this, (byte) 5);
 				this.playSound(SoundEvents.FOX_EAT, 1.0F, 1.0F);
 				this.heal(item.getFoodProperties() != null ? (float) item.getFoodProperties().getNutrition() : 1);
 				this.gameEvent(GameEvent.ENTITY_INTERACT, this);
@@ -343,9 +343,9 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 
 			if (this.random.nextInt(5) == 0) {
 				this.addTrustedUUID(p_30412_.getUUID());
-				this.level.broadcastEntityEvent(this, (byte) 7);
+				this.level().broadcastEntityEvent(this, (byte) 7);
 			} else {
-				this.level.broadcastEntityEvent(this, (byte) 6);
+				this.level().broadcastEntityEvent(this, (byte) 6);
 			}
 
 			return InteractionResult.SUCCESS;
@@ -363,7 +363,7 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 			double d0 = this.random.nextGaussian() * 0.02D;
 			double d1 = this.random.nextGaussian() * 0.02D;
 			double d2 = this.random.nextGaussian() * 0.02D;
-			this.level.addParticle(particleoptions, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
+			this.level().addParticle(particleoptions, this.getRandomX(1.0D), this.getRandomY() + 0.5D, this.getRandomZ(1.0D), d0, d1, d2);
 		}
 
 	}
@@ -449,8 +449,8 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 		}
 
 		protected void onReachedTarget() {
-			if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(CrystalFox.this.level, CrystalFox.this)) {
-				BlockState blockstate = CrystalFox.this.level.getBlockState(this.blockPos);
+			if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(CrystalFox.this.level(), CrystalFox.this)) {
+				BlockState blockstate = CrystalFox.this.level().getBlockState(this.blockPos);
 				if (blockstate.is(FrostBlocks.BEARBERRY_BUSH.get())) {
 					this.pickBearBerry(blockstate);
 				}
@@ -462,7 +462,7 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 		private void pickBearBerry(BlockState p_148929_) {
 			int i = p_148929_.getValue(BearBerryBushBlock.AGE);
 			p_148929_.setValue(BearBerryBushBlock.AGE, Integer.valueOf(1));
-			int j = 1 + CrystalFox.this.level.random.nextInt(2) + (i == 3 ? 1 : 0);
+			int j = 1 + CrystalFox.this.level().random.nextInt(2) + (i == 3 ? 1 : 0);
 			ItemStack itemstack = CrystalFox.this.getItemBySlot(EquipmentSlot.MAINHAND);
 			if (itemstack.isEmpty()) {
 				CrystalFox.this.heal(1);
@@ -471,13 +471,13 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 			}
 
 			if (j > 0) {
-				Block.popResource(CrystalFox.this.level, this.blockPos, new ItemStack(FrostItems.BEARBERRY.get(), j));
+				Block.popResource(CrystalFox.this.level(), this.blockPos, new ItemStack(FrostItems.BEARBERRY.get(), j));
 			}
 
-			CrystalFox.this.level.broadcastEntityEvent(CrystalFox.this, (byte) 5);
+			CrystalFox.this.level().broadcastEntityEvent(CrystalFox.this, (byte) 5);
 
 			CrystalFox.this.playSound(SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, 1.0F, 1.0F);
-			CrystalFox.this.level.setBlock(this.blockPos, p_148929_.setValue(BearBerryBushBlock.AGE, Integer.valueOf(1)), 2);
+			CrystalFox.this.level().setBlock(this.blockPos, p_148929_.setValue(BearBerryBushBlock.AGE, Integer.valueOf(1)), 2);
 		}
 
 		public boolean canUse() {

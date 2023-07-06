@@ -122,7 +122,7 @@ public class FrostBoarAi {
     private static void setAvoidTarget(FrostBoar p_34620_, LivingEntity p_34621_) {
         p_34620_.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
         p_34620_.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
-        p_34620_.getBrain().setMemoryWithExpiry(MemoryModuleType.AVOID_TARGET, p_34621_, (long) RETREAT_DURATION.sample(p_34620_.level.random));
+        p_34620_.getBrain().setMemoryWithExpiry(MemoryModuleType.AVOID_TARGET, p_34621_, (long) RETREAT_DURATION.sample(p_34620_.level().random));
     }
 
 

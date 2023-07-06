@@ -41,12 +41,12 @@ public class FrostBoar extends FrostAnimal {
 
     @Override
     protected void customServerAiStep() {
-        this.level.getProfiler().push("boarBrain");
-        this.getBrain().tick((ServerLevel) this.level, this);
-        this.level.getProfiler().pop();
-        this.level.getProfiler().push("boarActivityUpdate");
+        this.level().getProfiler().push("boarBrain");
+        this.getBrain().tick((ServerLevel) this.level(), this);
+        this.level().getProfiler().pop();
+        this.level().getProfiler().push("boarActivityUpdate");
         FrostBoarAi.updateActivity(this);
-        this.level.getProfiler().pop();
+        this.level().getProfiler().pop();
     }
 
     protected Brain.Provider<FrostBoar> brainProvider() {
@@ -72,7 +72,7 @@ public class FrostBoar extends FrostAnimal {
 
     @Override
     public void tick() {
-        if (level.isClientSide()) {
+        if (level().isClientSide()) {
             if ((this.isMoving())) {
                 if (isDashing()) {
                     //idleAnimationState.stop();
@@ -106,7 +106,7 @@ public class FrostBoar extends FrostAnimal {
         if (!(p_34491_ instanceof LivingEntity)) {
             return false;
         } else {
-            this.level.broadcastEntityEvent(this, (byte) 4);
+            this.level().broadcastEntityEvent(this, (byte) 4);
             this.playSound(SoundEvents.HOGLIN_ATTACK, 1.0F, this.getVoicePitch());
             FrostBoarAi.onHitTarget(this, (LivingEntity) p_34491_);
             return HoglinBase.hurtAndThrowTarget(this, (LivingEntity) p_34491_);
@@ -125,7 +125,7 @@ public class FrostBoar extends FrostAnimal {
     @Override
     public boolean hurt(DamageSource p_34503_, float p_34504_) {
         boolean flag = super.hurt(p_34503_, p_34504_);
-        if (this.level.isClientSide) {
+        if (this.level().isClientSide) {
             return false;
         } else {
             if (flag && p_34503_.getEntity() instanceof LivingEntity) {

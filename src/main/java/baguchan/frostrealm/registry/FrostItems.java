@@ -1,20 +1,13 @@
 package baguchan.frostrealm.registry;
 
-import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.item.*;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.event.CreativeModeTabEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
-import java.util.stream.Stream;
 
 import static baguchan.frostrealm.FrostRealm.MODID;
 
@@ -96,140 +89,4 @@ public class FrostItems {
     public static final RegistryObject<Item> FROST_BOAR_SPAWNEGG = ITEMS.register("frost_boar_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.FROST_BOAR, 0x031822, 0x296B89, (new Item.Properties())));
     public static final RegistryObject<Item> SHADE_INSECT_SPAWNEGG = ITEMS.register("shade_insect_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.SHADE_INSECT, 0x031822, 0x296B89, (new Item.Properties())));
 
-
-	@SubscribeEvent
-	public static void registerCreativeModeTabs(CreativeModeTabEvent.Register event) {
-		event.registerCreativeModeTab(new ResourceLocation(FrostRealm.MODID, "item")
-				, (builder) -> {
-					FrostCreativeModeTab.FROSTREALM_ITEM = builder.icon(() -> {
-						return new ItemStack(FrostItems.FROST_CATALYST.get());
-					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".item" + ".main_tab")).displayItems((features, output) -> {
-
-						output.acceptAll(Stream.of(
-                                        FROST_CRYSTAL,
-                                        CRYONITE,
-                                        WARPED_CRYSTAL,
-                                        GLIMMERROCK,
-                                        ASTRIUM_RAW,
-                                        ASTRIUM_INGOT,
-                                        STARDUST_CRYSTAL,
-                                        AURORA_GEM,
-                                        FROZEN_FRUIT,
-                                        MELTED_FRUIT,
-                                        SUGARBEET,
-                                        SUGARBEET_SEEDS,
-                                        BEARBERRY,
-                                        COOKED_BEARBERRY,
-                                        COOKED_SNOWPILE_QUAIL_EGG,
-                                        SNOWPILE_QUAIL_MEAT,
-                                        COOKED_SNOWPILE_QUAIL_MEAT,
-										FROST_BOAR_MEAT,
-										COOKED_FROST_BOAR_MEAT,
-										FROST_CATALYST,
-										STRAY_NECKLACE_PART,
-										YETI_FUR,
-										FROST_BOAR_FUR,
-										FROST_ARCHIVE,
-										OAK_SLEDGE,
-										OAK_CHEST_SLEDGE,
-										FUSION_CRYSTAL_DAGGER,
-										FROST_SPEAR,
-										ASTRIUM_SWORD,
-										ASTRIUM_AXE,
-										ASTRIUM_PICKAXE,
-										ASTRIUM_SHOVEL,
-										ASTRIUM_HOE,
-										ASTRIUM_HELMET,
-										ASTRIUM_CHESTPLATE,
-										ASTRIUM_LEGGINGS,
-										ASTRIUM_BOOTS,
-										YETI_FUR_HELMET,
-										YETI_FUR_CHESTPLATE,
-										YETI_FUR_LEGGINGS,
-										YETI_FUR_BOOTS,
-										FROST_BOAR_FUR_HELMET,
-										FROST_BOAR_FUR_CHESTPLATE,
-										FROST_BOAR_FUR_LEGGINGS,
-										FROST_BOAR_FUR_BOOTS,
-                                        MARMOT_SPAWNEGG,
-                                        SNOWPILE_QUAIL_SPAWNEGG,
-                                        FROST_WOLF_SPAWNEGG,
-                                        YETI_SPAWNEGG,
-                                        FROST_WRAITH_SPAWNEGG,
-                                        CLUST_WRAITH_SPAWNEGG,
-                                        GOKKUDILLO_SPAWNEGG,
-                                        FROST_BEASTER_SPAWNEGG,
-                                        CRYSTAL_FOX_SPAWNEGG,
-                                        SNOW_MOLE_SPAWNEGG,
-                                        ASTRA_BALL_SPAWNEGG,
-                                        FROST_BOAR_SPAWNEGG,
-                                        SHADE_INSECT_SPAWNEGG)
-								.map(item -> item.get().getDefaultInstance())
-								.toList());
-					}).build();
-				});
-		event.registerCreativeModeTab(new ResourceLocation(FrostRealm.MODID, "block")
-				, (builder) -> {
-					FrostCreativeModeTab.FROSTREALM_BLOCK = builder.icon(() -> {
-						return new ItemStack(FrostItems.FROST_CATALYST.get());
-					}).title(Component.translatable("itemGroup." + FrostRealm.MODID + ".block" + ".main_tab")).displayItems((features, output) -> {
-
-						output.acceptAll(Stream.of(
-										FrostBlocks.FROZEN_DIRT,
-										FrostBlocks.FROZEN_GRASS_BLOCK,
-										FrostBlocks.ETERNITY_GRASS_BLOCK,
-										FrostBlocks.FROZEN_FARMLAND,
-										FrostBlocks.POINTED_ICE,
-										FrostBlocks.FRIGID_STONE,
-										FrostBlocks.FRIGID_STONE_BRICK,
-										FrostBlocks.FRIGID_STONE_BRICK_SLAB,
-                                            FrostBlocks.FRIGID_STONE_BRICK_STAIRS,
-                                            FrostBlocks.FRIGID_STONE_BRICK_MOSSY,
-                                            FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB,
-                                            FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS,
-                                            FrostBlocks.FRIGID_STONE_SMOOTH,
-                                            FrostBlocks.CHISELED_FRIGID_STONE_BRICK,
-                                            FrostBlocks.FROSTROOT_LOG,
-										FrostBlocks.FROSTROOT_LEAVES,
-										FrostBlocks.FROSTROOT_SAPLING,
-										FrostBlocks.FROSTROOT_PLANKS,
-										FrostBlocks.FROSTROOT_PLANKS_SLAB,
-										FrostBlocks.FROSTROOT_PLANKS_STAIRS,
-										FrostBlocks.FROSTROOT_FENCE,
-										FrostBlocks.FROSTROOT_FENCE_GATE,
-										FrostBlocks.FROSTROOT_DOOR,
-										FrostBlocks.FROSTROOT_CHEST,
-										FrostBlocks.FROSTROOT_CRAFTING_TABLE,
-										FrostBlocks.FROSTBITE_LOG,
-										FrostBlocks.FROSTBITE_LEAVES,
-										FrostBlocks.FROSTBITE_SAPLING,
-										FrostBlocks.FROSTBITE_PLANKS,
-										FrostBlocks.FROSTBITE_PLANKS_SLAB,
-										FrostBlocks.FROSTBITE_PLANKS_STAIRS,
-										FrostBlocks.FROSTBITE_FENCE,
-										FrostBlocks.FROSTBITE_FENCE_GATE,
-										//FrostBlocks.FROSTBITE_DOOR,
-										//FrostBlocks.FROSTBITE_CHEST,
-										//FrostBlocks.FROSTBITE_CRAFTING_TABLE,
-										FrostBlocks.VIGOROSHROOM,
-										FrostBlocks.ARCTIC_POPPY,
-										FrostBlocks.ARCTIC_WILLOW,
-										FrostBlocks.COLD_GRASS,
-                                        FrostBlocks.COLD_TALL_GRASS,
-                                        FrostBlocks.SNOWPILE_QUAIL_EGG,
-                                        FrostBlocks.FROST_CRYSTAL_ORE,
-                                        FrostBlocks.GLIMMERROCK_ORE,
-                                        FrostBlocks.ASTRIUM_ORE,
-                                        FrostBlocks.ASTRIUM_BLOCK,
-                                        FrostBlocks.STARDUST_CRYSTAL_ORE,
-                                        FrostBlocks.STARDUST_CRYSTAL_CLUSTER,
-                                        FrostBlocks.WARPED_CRYSTAL_BLOCK,
-                                        FrostBlocks.FROST_TORCH,
-                                        FrostBlocks.FROST_CAMPFIRE)
-								.map(block -> block.get().asItem().getDefaultInstance())
-								.toList());
-
-					}).build();
-				});
-	}
 }

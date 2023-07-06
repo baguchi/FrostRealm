@@ -35,7 +35,7 @@ public class FollowHuntLeaderGoal extends Goal {
             Predicate<Yeti> predicate = (p_25258_) -> {
                 return p_25258_.isHunt() && !p_25258_.isHuntLeader();
             };
-            List<Yeti> list = this.mob.level.getEntitiesOfClass(Yeti.class, this.mob.getBoundingBox().inflate(24.0D, 24.0D, 24.0D), predicate);
+            List<Yeti> list = this.mob.level().getEntitiesOfClass(Yeti.class, this.mob.getBoundingBox().inflate(24.0D, 24.0D, 24.0D), predicate);
             if (!list.isEmpty()) {
                 this.target = list.get(0);
             }

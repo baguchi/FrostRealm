@@ -30,5 +30,6 @@
     "recipes": [
       "frostrealm:campfire_cooking_cooked_snowpile_quail_meat"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
