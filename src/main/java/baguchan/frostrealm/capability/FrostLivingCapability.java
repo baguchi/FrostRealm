@@ -119,7 +119,7 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 		/*
 		 *  Body temperature stuff
 		 */
-		if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL && (!entity.getType().is(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE) || (entity instanceof Player && !((Player) entity).isCreative() && !entity.isSpectator())) && !entity.hasEffect(FrostEffects.COLD_RESISTANCE.get())) {
+		if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL && (!entity.getType().is(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE) && !((entity instanceof Player && ((Player) entity).isCreative()) || entity.isSpectator())) && !entity.hasEffect(FrostEffects.COLD_RESISTANCE.get())) {
 			Difficulty difficulty = entity.level().getDifficulty();
 			this.lastTemperate = this.temperature;
 			hotSourceTick(entity);
