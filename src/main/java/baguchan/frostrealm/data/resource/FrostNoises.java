@@ -8,6 +8,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public class FrostNoises {
+    public static final ResourceKey<NormalNoise.NoiseParameters> TEMPERATURE = createKey("temperature");
+    public static final ResourceKey<NormalNoise.NoiseParameters> VEGETATION = createKey("vegetation");
+
 
     public static final ResourceKey<NormalNoise.NoiseParameters> CONTINENTALNESS = createKey("continentalness");
     public static final ResourceKey<NormalNoise.NoiseParameters> EROSION = createKey("erosion");
@@ -19,10 +22,15 @@ public class FrostNoises {
     }
 
     public static void bootstrap(BootstapContext<NormalNoise.NoiseParameters> ctx) {
-        register(ctx, CONTINENTALNESS, -9, 1.0D, 1.0D, 2.0D, 2.0D, 2.0D, 1.0D, 1.0D, 1.0D, 1.0D);
-        register(ctx, EROSION, -6, 1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
+        registerBiomeNoises(ctx, -1, CONTINENTALNESS, EROSION);
         register(ctx, ISLANDS_BOTTOM, -4, 1.0D, 1.0D, 1.0D);
         register(ctx, ISLANDS_HEIGHT, -9, 1.0D, 1.0D, 1.0D);
+    }
+
+
+    private static void registerBiomeNoises(BootstapContext<NormalNoise.NoiseParameters> p_256503_, int p_236479_, ResourceKey<NormalNoise.NoiseParameters> p_236482_, ResourceKey<NormalNoise.NoiseParameters> p_236483_) {
+        register(p_256503_, p_236482_, -9 + p_236479_, 1.0D, 1.0D, 2.0D, 2.0D, 2.0D, 1.0D, 1.0D, 1.0D, 1.0D);
+        register(p_256503_, p_236483_, -9 + p_236479_, 1.0D, 1.0D, 0.0D, 1.0D, 1.0D);
     }
 
     public static void register(BootstapContext<NormalNoise.NoiseParameters> ctx, ResourceKey<NormalNoise.NoiseParameters> key, int firstOctave, double firstAmplitude, double... amplitudes) {
