@@ -42,18 +42,18 @@ public abstract class SurfaceSystemMixin {
     @Inject(method = "buildSurface", locals = LocalCapture.CAPTURE_FAILHARD, at = @At(value = "INVOKE", target = "Lnet/minecraft/core/Holder;is(Lnet/minecraft/resources/ResourceKey;)Z", ordinal = 0))
     private void onGetBiome(RandomState p_224649_, BiomeManager p_224650_, Registry<Biome> p_224651_, boolean p_224652_, WorldGenerationContext p_224653_, ChunkAccess chunkAccess, NoiseChunk p_224655_, SurfaceRules.RuleSource p_224656_, CallbackInfo ci, BlockPos.MutableBlockPos $$8, ChunkPos $$9, int $$10, int $$11, BlockColumn blockcolumn, SurfaceRules.Context $$13, SurfaceRules.SurfaceRule surfaceRule, BlockPos.MutableBlockPos blockpos$mutableblockpos1, int real, int $$17, int x, int z, int y, Holder holder2) {
 
-        Holder<Biome> holder = p_224650_.getBiome(blockpos$mutableblockpos1.set(x, 200, z));
+        Holder<Biome> holder = p_224650_.getBiome(blockpos$mutableblockpos1.set(x, 180, z));
 
         if (holder.is(FrostBiomes.CRYSTAL_FALL)) {
             crystalFallExtension(surfaceRule, chunkAccess,
-                    blockpos$mutableblockpos1.set(x, 200, z), x, z);
+                    blockpos$mutableblockpos1.set(x, 180, z), x, z);
         }
     }
 
     private void crystalFallExtension(SurfaceRules.SurfaceRule surfaceRule, ChunkAccess p_189937_, BlockPos.MutableBlockPos p_189938_, int p_189939_, int p_189940_) {
-        double height = 200;
+        double height = 180;
         double d1 = Math.abs(this.bottomHeight.getValue((double) p_189939_, 0.0D, (double) p_189940_) * 30);
-        double d5 = Math.abs(this.height.getValue((double) p_189939_, 0.0D, (double) p_189940_) * 20D);
+        double d5 = Math.abs(this.height.getValue((double) p_189939_, 0.0D, (double) p_189940_) * 30D) + 20;
         int j = (int) (height - d1);
 
         for (int l = (int) (d5 + height); l >= j; --l) {
