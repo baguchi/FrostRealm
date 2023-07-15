@@ -110,7 +110,7 @@ public class FrostBiomeBuilders {
 		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
 		return fullDefinition(
 				Biome.Precipitation.SNOW,
-				-1.2F,
+				0.6F,
 				0.6F,
 				new BiomeSpecialEffects.Builder()
 						.fogColor(4630224)
@@ -124,7 +124,7 @@ public class FrostBiomeBuilders {
 						.build(),
 				builder1.build(),
 				builder.build(),
-				Biome.TemperatureModifier.NONE
+				Biome.TemperatureModifier.FROZEN
 		);
 	}
 
