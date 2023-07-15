@@ -31,7 +31,7 @@ public class SnowMoleModel<T extends Entity> extends HierarchicalModel<T> {
 
 		PartDefinition nose = root.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -1.0F, -1.0F, 4.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -5.0F));
 
-		PartDefinition handR = root.addOrReplaceChild("handR", CubeListBuilder.create().texOffs(39, 0).addBox(-5.0F, -1.0F, -3.0F, 6.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-4.0F, 2.0F, 0.0F));
+		PartDefinition handR = root.addOrReplaceChild("handR", CubeListBuilder.create().texOffs(39, 0).addBox(-5.0F, -1.0F, -3.0F, 6.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 2.0F, 0.0F));
 
 		PartDefinition handL = root.addOrReplaceChild("handL", CubeListBuilder.create().texOffs(39, 7).addBox(0.0F, -1.0F, -3.0F, 6.0F, 2.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(4.0F, 2.0F, 0.0F));
 
