@@ -52,22 +52,24 @@ public abstract class SurfaceSystemMixin {
 
     private void crystalFallExtension(SurfaceRules.SurfaceRule surfaceRule, ChunkAccess p_189937_, BlockPos.MutableBlockPos p_189938_, int p_189939_, int p_189940_) {
         double height = 180;
-        double d1 = Math.abs(this.bottomHeight.getValue((double) p_189939_, 0.0D, (double) p_189940_) * 30);
-        double d5 = Math.abs(this.height.getValue((double) p_189939_, 0.0D, (double) p_189940_) * 30D) + 20;
+
+        double d5 = this.height.getValue((double) p_189939_, 0.0D, (double) p_189940_) * 30D;
+        double d1 = this.bottomHeight.getValue((double) p_189939_, 0.0D, (double) p_189940_) * d5;
         int j = (int) (height - d1);
 
-        for (int l = (int) (d5 + height); l >= j; --l) {
-            if (p_189937_.getBlockState(p_189938_.setY(l)).isAir()) {
+        if (d5 > 1F) {
+            for (int l = (int) (d5 + height); l >= j; --l) {
+                if (p_189937_.getBlockState(p_189938_.setY(l)).isAir()) {
 
-                if ((d5 + height) - 1 <= l) {
-                    p_189937_.setBlockState(p_189938_.setY(l), FrostBlocks.FROZEN_GRASS_BLOCK.get().defaultBlockState(), false);
-                } else if ((d5 + height) - 4 < l) {
-                    p_189937_.setBlockState(p_189938_.setY(l), FrostBlocks.FROZEN_DIRT.get().defaultBlockState(), false);
-                } else {
-                    p_189937_.setBlockState(p_189938_.setY(l), FrostBlocks.FRIGID_STONE.get().defaultBlockState(), false);
+                    if ((d5 + height) - 1 <= l) {
+                        p_189937_.setBlockState(p_189938_.setY(l), FrostBlocks.FROZEN_GRASS_BLOCK.get().defaultBlockState(), false);
+                    } else if ((d5 + height) - 4 < l) {
+                        p_189937_.setBlockState(p_189938_.setY(l), FrostBlocks.FROZEN_DIRT.get().defaultBlockState(), false);
+                    } else {
+                        p_189937_.setBlockState(p_189938_.setY(l), FrostBlocks.FRIGID_STONE.get().defaultBlockState(), false);
+                    }
                 }
             }
         }
-
     }
 }
