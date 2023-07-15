@@ -4,7 +4,6 @@ import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.world.biome.FrostBiomeDefaultFeatures;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.MobCategory;
@@ -12,7 +11,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.registries.RegistryObject;
@@ -107,25 +105,7 @@ public class FrostBiomeBuilders {
 		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
 		builder1.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SEAL.get(), 10, 3, 4));
-		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
-		return fullDefinition(
-				Biome.Precipitation.SNOW,
-				0.6F,
-				0.6F,
-				new BiomeSpecialEffects.Builder()
-						.fogColor(4630224)
-						.skyColor(7907327)
-						.waterColor(0x3f_76_e4)
-						.waterFogColor(0x05_05_33)
-						.grassColorOverride(7115607)
-						.foliageColorOverride(7115607)
-						.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
-						.backgroundMusic(new Music(FrostSounds.FROST_MOON_BGM.getHolder().orElseThrow(), 12000, 24000, false))
-						.build(),
-				builder1.build(),
-				builder.build(),
-				Biome.TemperatureModifier.FROZEN
-		);
+	return makeDefaultBiome(builder, builder1);
 	}
 
 	public static Biome mountainBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {

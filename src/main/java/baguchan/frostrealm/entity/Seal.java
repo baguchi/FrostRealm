@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
@@ -29,9 +28,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -125,19 +122,6 @@ public class Seal extends Animal {
             if (this.isInWater()) {
                 if (this.randomStrollGoal != null) {
                     this.randomStrollGoal.setInterval(10);
-                }
-                if (this.getDeltaMovement().y > 0.05F) {
-                    if (this.verticalCollision && !this.verticalCollisionBelow && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this)) {
-                        boolean flag = false;
-                        AABB aabb = this.getBoundingBox().move(this.getDeltaMovement());
-
-                        for (BlockPos blockpos : BlockPos.betweenClosed(Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
-                            BlockState blockstate = this.level().getBlockState(blockpos);
-                            if (blockstate.is(BlockTags.ICE)) {
-                                flag = this.level().destroyBlock(blockpos, true, this) || flag;
-                            }
-                        }
-                    }
                 }
             } else {
                 if (this.randomStrollGoal != null) {
