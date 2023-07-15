@@ -81,10 +81,10 @@ public class Seal extends Animal {
     }
 
     public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
-        if (p_27574_.getBlockState(p_27573_).is(BlockTags.ICE)) {
+        if (p_27574_.getBlockState(p_27573_.below()).is(BlockTags.ICE) || p_27574_.getBlockState(p_27573_.below()).is(Blocks.SNOW_BLOCK)) {
             return 20.0F;
         }
-        return p_27574_.getBlockState(p_27573_).is(Blocks.WATER) ? 10.0F : super.getWalkTargetValue(p_27573_, p_27574_);
+        return p_27574_.getBlockState(p_27573_).is(Blocks.WATER) ? 10.0F : p_27574_.getPathfindingCostFromLightLevels(p_27573_) - 0.5F;
     }
 
     protected PathNavigation createNavigation(Level p_27480_) {
@@ -105,8 +105,16 @@ public class Seal extends Animal {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 16.0D).add(Attributes.ATTACK_DAMAGE, 3.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.24D);
     }
 
-    public static boolean checkSealSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
-        return p_27579_.getBlockState(p_27581_.below()).is(BlockTags.ICE) && p_27579_.getBlockState(p_27581_).isAir();
+    public static boolean checkSealSpawnRules(EntityType<? extends Seal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
+        return true;
+    }
+
+    public MobType getMobType() {
+        return MobType.WATER;
+    }
+
+    public boolean checkSpawnObstruction(LevelReader p_30348_) {
+        return p_30348_.isUnobstructed(this);
     }
 
     @Nullable
