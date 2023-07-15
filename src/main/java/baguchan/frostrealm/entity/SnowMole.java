@@ -1,6 +1,6 @@
 package baguchan.frostrealm.entity;
 
-import baguchan.frostrealm.entity.goal.RandomSnowSwimGoal;
+import baguchan.frostrealm.entity.goal.RandomMoveGoal;
 import baguchan.frostrealm.entity.movecontrol.SnowMoveControl;
 import baguchan.frostrealm.entity.path.SnowPathNavigation;
 import baguchan.frostrealm.registry.FrostEntities;
@@ -36,8 +36,8 @@ public class SnowMole extends Animal {
 	protected void registerGoals() {
 		super.registerGoals();
 		this.goalSelector.addGoal(1, new FloatGoal(this));
-		this.goalSelector.addGoal(2, new PanicGoal(this, 1.2F));
-		this.goalSelector.addGoal(3, new RandomSnowSwimGoal(this, 1.0F, 10));
+        this.goalSelector.addGoal(2, new PanicGoal(this, 1.2F));
+        this.goalSelector.addGoal(3, new RandomMoveGoal(this, 1.0F, 10));
 	}
 
 	public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
@@ -66,13 +66,17 @@ public class SnowMole extends Animal {
 		return p_27579_.getBlockState(p_27581_.below()).is(Blocks.SNOW_BLOCK) && p_27579_.getBlockState(p_27581_).isAir();
 	}
 
-	public boolean checkSpawnObstruction(LevelReader p_30348_) {
-		return p_30348_.isUnobstructed(this);
-	}
+    public boolean checkSpawnObstruction(LevelReader p_30348_) {
+        return p_30348_.isUnobstructed(this);
+    }
 
-	@Nullable
-	@Override
-	public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-		return FrostEntities.SNOW_MOLE.get().create(p_146743_);
-	}
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
+        return FrostEntities.SNOW_MOLE.get().create(p_146743_);
+    }
+
+    protected float getStandingEyeHeight(Pose p_28352_, EntityDimensions p_28353_) {
+        return p_28353_.height * 0.5F;
+    }
 }

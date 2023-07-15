@@ -1,11 +1,5 @@
 {
-  "carvers": {
-    "air": [
-      "frostrealm:frostrealm_cave",
-      "frostrealm:frostrealm_cave_extra_underground",
-      "frostrealm:frostrealm_canyon"
-    ]
-  },
+  "carvers": {},
   "downfall": 0.6,
   "effects": {
     "fog_color": 4630224,
@@ -28,15 +22,7 @@
     [],
     [],
     [],
-    [
-      "frostrealm:astrium_ore_upper",
-      "frostrealm:astrium_ore_lower",
-      "frostrealm:frost_crystal_ore_lower",
-      "frostrealm:frost_crystal_ore_upper",
-      "frostrealm:glimmer_ore_lower",
-      "frostrealm:glimmer_ore_extra",
-      "frostrealm:glimmer_ore_small"
-    ],
+    [],
     [],
     [
       "frostrealm:spring_water",
@@ -50,6 +36,9 @@
       "frostrealm:patch_artic_poppy",
       "frostrealm:patch_artic_willow",
       "frostrealm:patch_tundra_grass"
+    ],
+    [
+      "minecraft:freeze_top_layer"
     ]
   ],
   "has_precipitation": true,
@@ -57,7 +46,14 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "frostrealm:seal",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 10
+      }
+    ],
     "misc": [],
     "monster": [
       {
