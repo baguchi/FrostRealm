@@ -48,7 +48,14 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "frostrealm:seal",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 10
+      }
+    ],
     "misc": [],
     "monster": [
       {

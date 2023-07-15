@@ -56,7 +56,10 @@ public class FrostBiomeBuilders {
 		BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
 		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
+		builder1.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SEAL.get(), 10, 3, 4));
+
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
+
 		return makeDefaultBiome(builder, builder1);
 	}
 
@@ -103,9 +106,10 @@ public class FrostBiomeBuilders {
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
 		FrostBiomeDefaultFeatures.addPlainsFeatures(builder);
 		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
+		builder1.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SEAL.get(), 10, 1, 2));
+
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
-		builder1.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SEAL.get(), 10, 3, 4));
-	return makeDefaultBiome(builder, builder1);
+		return makeDefaultBiome(builder, builder1);
 	}
 
 	public static Biome mountainBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {

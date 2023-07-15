@@ -16,6 +16,7 @@ public class FrostTags {
 		public static final TagKey<Block> HOT_SOURCE = tag("hot_source");
 		public static final TagKey<Block> WORLD_CARVER_REPLACEABLE = tag("world_replaceable");
         public static final TagKey<Block> NON_FREEZE_CROP = tag("non_freeze_crop");
+		public static final TagKey<Block> SEAL_SPAWNABLE = tag("seal_spawnable");
 
 		private static TagKey<Block> tag(String name) {
 			return BlockTags.create(new ResourceLocation(FrostRealm.MODID, name));

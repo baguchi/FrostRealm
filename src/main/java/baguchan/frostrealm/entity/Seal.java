@@ -2,10 +2,10 @@ package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.entity.goal.RandomMoveGoal;
 import baguchan.frostrealm.registry.FrostEntities;
+import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -81,10 +81,19 @@ public class Seal extends Animal {
     }
 
     public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
-        if (p_27574_.getBlockState(p_27573_.below()).is(BlockTags.ICE) || p_27574_.getBlockState(p_27573_.below()).is(Blocks.SNOW_BLOCK)) {
-            return 20.0F;
+        if (p_27574_.getBlockState(p_27573_.below()).is(FrostTags.Blocks.SEAL_SPAWNABLE) || p_27574_.getBlockState(p_27573_.below()).is(Blocks.SNOW_BLOCK)) {
+            return 12.0F;
         }
         return p_27574_.getBlockState(p_27573_).is(Blocks.WATER) ? 10.0F : p_27574_.getPathfindingCostFromLightLevels(p_27573_) - 0.5F;
+    }
+
+    public static boolean checkSealSpawnRules(EntityType<? extends Animal> p_218105_, LevelAccessor p_218106_, MobSpawnType p_218107_, BlockPos p_218108_, RandomSource p_218109_) {
+        return p_218106_.getBlockState(p_218108_.below()).is(FrostTags.Blocks.SEAL_SPAWNABLE) && isBrightEnoughToSpawn(p_218106_, p_218108_);
+    }
+
+    @Override
+    public int getMaxSpawnClusterSize() {
+        return 8;
     }
 
     protected PathNavigation createNavigation(Level p_27480_) {
@@ -103,18 +112,6 @@ public class Seal extends Animal {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 16.0D).add(Attributes.ATTACK_DAMAGE, 3.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.24D);
-    }
-
-    public static boolean checkSealSpawnRules(EntityType<? extends Seal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
-        return true;
-    }
-
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-    public boolean checkSpawnObstruction(LevelReader p_30348_) {
-        return p_30348_.isUnobstructed(this);
     }
 
     @Nullable
