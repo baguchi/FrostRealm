@@ -2,13 +2,16 @@ package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.entity.goal.RandomMoveGoal;
 import baguchan.frostrealm.registry.FrostEntities;
+import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -39,6 +42,10 @@ public class Seal extends Animal {
     @javax.annotation.Nullable
     protected RandomStrollGoal randomStrollGoal;
 
+
+    public final AnimationState fartAnimationState = new AnimationState();
+    public int gasTick;
+
     public Seal(EntityType<? extends Seal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 0.9F, true);
@@ -55,7 +62,12 @@ public class Seal extends Animal {
         super.registerGoals();
         this.randomStrollGoal = new RandomMoveGoal(this, 1.0D, 30);
 
-        this.goalSelector.addGoal(0, new BreathAirGoal(this));
+        this.goalSelector.addGoal(0, new BreathAirGoal(this) {
+            @Override
+            public boolean canUse() {
+                return getAirSupply() < 600;
+            }
+        });
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.3F));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.15D, FOOD_ITEMS, false));
@@ -73,8 +85,65 @@ public class Seal extends Animal {
         return FOOD_ITEMS.test(p_27600_);
     }
 
+
+    @Override
+    public void baseTick() {
+        super.baseTick();
+        if (this.level().isClientSide) {
+            if (this.gasTick > 0) {
+                this.gasTick--;
+            }
+
+            if (this.gasTick <= 0 && this.fartAnimationState.isStarted()) {
+                this.fartAnimationState.stop();
+            }
+        }
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return this.random.nextInt(6) == 0 ? FrostSounds.SEAL_FART.get() : FrostSounds.SEAL_IDLE.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_21239_) {
+        return FrostSounds.SEAL_HURT.get();
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getDeathSound() {
+        return FrostSounds.SEAL_DEATH.get();
+    }
+
+
+    @Override
+    public void handleEntityEvent(byte p_27562_) {
+        if (p_27562_ == 61) {
+            this.fartAnimationState.start(this.tickCount);
+            this.gasTick = 110;
+        } else {
+            super.handleEntityEvent(p_27562_);
+        }
+    }
+
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28332_, DifficultyInstance p_28333_, MobSpawnType p_28334_, @javax.annotation.Nullable SpawnGroupData p_28335_, @javax.annotation.Nullable CompoundTag p_28336_) {
+        boolean flag = false;
+        if (p_28335_ instanceof AgeableMobGroupData) {
+            if (((AgeableMobGroupData) p_28335_).getGroupSize() >= 2) {
+                flag = true;
+            }
+        } else {
+            p_28335_ = new AgeableMobGroupData(true);
+        }
+
+        if (flag) {
+            this.setAge(-24000);
+        }
+
         this.setAirSupply(this.getMaxAirSupply());
         this.setXRot(0.0F);
         return super.finalizeSpawn(p_28332_, p_28333_, p_28334_, p_28335_, p_28336_);

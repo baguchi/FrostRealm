@@ -26,6 +26,11 @@ public class FrostSounds {
 	public static final RegistryObject<SoundEvent> SNOWPILE_QUAIL_IDLE = register("entity.snowpile_quail.idle");
 	public static final RegistryObject<SoundEvent> SNOWPILE_QUAIL_HURT = register("entity.snowpile_quail.hurt");
 	public static final RegistryObject<SoundEvent> SNOWPILE_QUAIL_DEATH = register("entity.snowpile_quail.death");
+	public static final RegistryObject<SoundEvent> SEAL_IDLE = register("entity.seal.idle");
+	public static final RegistryObject<SoundEvent> SEAL_HURT = register("entity.seal.hurt");
+	public static final RegistryObject<SoundEvent> SEAL_DEATH = register("entity.seal.death");
+	public static final RegistryObject<SoundEvent> SEAL_FART = register("entity.seal.fart");
+
 	public static final RegistryObject<SoundEvent> MORTAR = register("ambient.mortar.moving");
 
 	private static RegistryObject<SoundEvent> register(String sound) {

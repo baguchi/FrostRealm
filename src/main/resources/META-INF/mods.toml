@@ -29,7 +29,7 @@ displayName = "FrostRealm" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile = "logo.png" #optional
 # A text field displayed in the mod UI
-credits = "RoundDelta for making music" #optional
+credits = "RoundDelta for making music. Akto for helping add Seal Sounds" #optional
 # A text field displayed in the mod UI
 authors = "bagu_chan, Evo, Team CookieJar" #optional
 # The description text for the mod (multi line!) (#mandatory)

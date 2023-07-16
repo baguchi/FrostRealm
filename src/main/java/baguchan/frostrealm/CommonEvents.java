@@ -40,7 +40,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.LevelEvent;
@@ -246,13 +245,6 @@ public class CommonEvents {
                     }
                 }
             }
-        }
-    }
-
-    @SubscribeEvent
-    public static void modifierSpawn(MobSpawnEvent.SpawnPlacementCheck event) {
-        if (event.getEntityType() == FrostEntities.SEAL.get() && event.getLevel().getBlockState(event.getPos().below()).is(Blocks.ICE) && event.getLevel().getBlockState(event.getPos()).isAir()) {
-            event.setResult(Event.Result.ALLOW);
         }
     }
 }

@@ -119,6 +119,44 @@
     ],
     "subtitle": "subtitles.entity.snowpile_quail.death"
   },
+  "entity.seal.idle": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/seal/seal_idle_1"
+      },
+      {
+        "name": "frostrealm:entity/seal/seal_idle_2"
+      },
+      {
+        "name": "frostrealm:entity/seal/seal_idle_3"
+      }
+    ],
+    "subtitle": "subtitles.entity.seal.idle"
+  },
+  "entity.seal.hurt": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/seal/seal_hurt_1"
+      }
+    ],
+    "subtitle": "subtitles.entity.seal.hurt"
+  },
+  "entity.seal.death": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/seal/seal_death_1"
+      }
+    ],
+    "subtitle": "subtitles.entity.seal.death"
+  },
+  "entity.seal.fart": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/seal/seal_fart"
+      }
+    ],
+    "subtitle": "subtitles.entity.seal.fart"
+  },
   "ambient.mortar.moving": {
     "sounds": [
       {

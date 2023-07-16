@@ -110,7 +110,7 @@ public class FrostBiomeBuilders {
 		FrostBiomeDefaultFeatures.addPlainsFeatures(builder);
 		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
 
-		builder1.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SEAL.get(), 10, 2, 4));
+		builder1.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SEAL.get(), 10, 4, 5));
 
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
 		return makeOceanBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
