@@ -57,8 +57,7 @@
       "frostrealm:patch_tundra_grass"
     ],
     [
-      "minecraft:freeze_top_layer",
-      "frostrealm:glacier_ice"
+      "minecraft:freeze_top_layer"
     ]
   ],
   "has_precipitation": true,

@@ -21,7 +21,6 @@
     "frostrealm:astrium_block",
     "frostrealm:stardust_crystal_ore",
     "frostrealm:stardust_crystal_cluster",
-    "frostrealm:warped_crystal_block",
-    "frostrealm:glacier_ice"
+    "frostrealm:warped_crystal_block"
   ]
 }
