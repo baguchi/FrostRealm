@@ -6,7 +6,7 @@
       "frostrealm:frostrealm_canyon"
     ]
   },
-  "downfall": 0.6,
+  "downfall": 0.5,
   "effects": {
     "fog_color": 4630224,
     "foliage_color": 7115607,
@@ -41,6 +41,10 @@
     [
       "frostrealm:spring_water",
       "frostrealm:spring_lava"
+    ],
+    [],
+    [
+      "minecraft:freeze_top_layer"
     ]
   ],
   "has_precipitation": true,

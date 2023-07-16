@@ -42,6 +42,10 @@
     [],
     [
       "frostrealm:spring_lava_hotrock_extra"
+    ],
+    [],
+    [
+      "minecraft:freeze_top_layer"
     ]
   ],
   "has_precipitation": true,

@@ -40,6 +40,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.LevelEvent;
@@ -149,7 +150,7 @@ public class CommonEvents {
         ItemStack stack = event.getItemStack();
 
         if (stack.getItem() instanceof HoeItem) {
-            if (event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_DIRT.get() || event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_GRASS_BLOCK.get() || event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.ETERNITY_GRASS_BLOCK.get()) {
+            if (event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_DIRT.get() || event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_GRASS_BLOCK.get()) {
                 event.getLevel().setBlock(event.getPos(), FrostBlocks.FROZEN_FARMLAND.get().defaultBlockState(), 2);
                 stack.hurtAndBreak(1, event.getEntity(), (p_147232_) -> {
                     p_147232_.broadcastBreakEvent(event.getHand());
@@ -248,4 +249,10 @@ public class CommonEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void modifierSpawn(MobSpawnEvent.SpawnPlacementCheck event) {
+        if (event.getEntityType() == FrostEntities.SEAL.get() && event.getLevel().getBlockState(event.getPos().below()).is(Blocks.ICE) && event.getLevel().getBlockState(event.getPos()).isAir()) {
+            event.setResult(Event.Result.ALLOW);
+        }
+    }
 }

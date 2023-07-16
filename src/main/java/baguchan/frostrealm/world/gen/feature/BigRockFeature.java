@@ -51,6 +51,6 @@ public class BigRockFeature extends Feature<BlockStateConfiguration> {
 	}
 
 	public static boolean isGrass(BlockState p_159760_) {
-		return p_159760_.is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) || p_159760_.is(FrostBlocks.ETERNITY_GRASS_BLOCK.get());
+		return p_159760_.is(FrostBlocks.FROZEN_GRASS_BLOCK.get());
 	}
 }

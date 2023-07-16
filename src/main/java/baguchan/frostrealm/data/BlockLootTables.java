@@ -54,9 +54,6 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.add(FrostBlocks.FROZEN_GRASS_BLOCK.get(), (p_124193_) -> {
 			return createSingleItemTableWithSilkTouch(p_124193_, FrostBlocks.FROZEN_DIRT.get());
 		});
-		this.add(FrostBlocks.ETERNITY_GRASS_BLOCK.get(), (p_124193_) -> {
-			return createSingleItemTableWithSilkTouch(p_124193_, FrostBlocks.FROZEN_DIRT.get());
-		});
 		this.dropOther(FrostBlocks.FROZEN_FARMLAND.get(), FrostBlocks.FROZEN_DIRT.get());
 		this.dropSelf(FrostBlocks.POINTED_ICE.get());
 

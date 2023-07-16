@@ -61,6 +61,7 @@ public class FrostPlacements {
 	public static final ResourceKey<PlacedFeature> LOG_PLACE = registerKey("log");
 	public static final ResourceKey<PlacedFeature> CHAIN_PLACE = registerKey("chain");
 
+	public static final PlacementModifier GLACIER_HEIGHT = HeightRangePlacement.uniform(VerticalAnchor.absolute(32), VerticalAnchor.absolute(86));
 
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;
