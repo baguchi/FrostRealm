@@ -6,6 +6,7 @@ import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.*;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -330,6 +331,10 @@ public class Yeti extends AgeableMob implements HuntMob {
 		this.inventory.addItem(new ItemStack(Items.SALMON, 4));
 		YetiAi.initMemories(this, p_29533_.getRandom(), p_29535_);
 
+		if (p_29535_ == MobSpawnType.STRUCTURE) {
+			GlobalPos globalpos = GlobalPos.of(p_29533_.getLevel().dimension(), this.blockPosition());
+			this.getBrain().setMemory(MemoryModuleType.HOME, globalpos);
+		}
 
 		this.populateDefaultEquipmentSlots(p_29533_.getRandom(), p_29534_);
 		this.populateDefaultEquipmentEnchantments(p_29533_.getRandom(), p_29534_);
