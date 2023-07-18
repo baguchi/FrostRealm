@@ -84,7 +84,7 @@ public class YetiAi {
     }
 
     private static void initIdleActivity(Brain<Yeti> p_149309_) {
-        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(2, StrollToPoi.create(MemoryModuleType.HOME, 0.85F, 400, 600)), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F)), Pair.of(0, BehaviorBuilder.triggerIf(livingEntity -> true, StartHuntingBoar.create()))), ImmutableSet.of());
+        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(2, StrollToPoi.create(MemoryModuleType.HOME, 0.85F, 600, 800)), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F)), Pair.of(0, BehaviorBuilder.triggerIf(livingEntity -> true, StartHuntingBoar.create()))), ImmutableSet.of());
     }
 
     private static void initAdmireItemActivity(Brain<Yeti> p_34941_) {
