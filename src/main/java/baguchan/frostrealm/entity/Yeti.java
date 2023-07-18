@@ -66,6 +66,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 		super(p_21683_, p_21684_);
 		this.getNavigation().setCanFloat(true);
 		this.setCanPickUpLoot(true);
+		this.setMaxUpStep(1.25F);
 	}
 
 	@Override
