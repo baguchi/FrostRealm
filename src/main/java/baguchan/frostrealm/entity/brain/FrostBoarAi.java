@@ -17,7 +17,7 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
-import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.schedule.Activity;
 
 import java.util.List;
@@ -28,6 +28,14 @@ import static net.minecraft.world.entity.ai.behavior.BehaviorUtils.isBreeding;
 public class FrostBoarAi {
     private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(6, 16);
     private static final UniformInt RETREAT_DURATION = TimeUtil.rangeOfSeconds(10, 30);
+
+    private static final TargetingConditions ATTACK_TARGET_CONDITIONS_IGNORE_LINE_OF_SIGHT = TargetingConditions.forCombat().range(20.0D).ignoreLineOfSight();
+    private static final TargetingConditions ATTACK_TARGET_CONDITIONS_IGNORE_INVISIBILITY_AND_LINE_OF_SIGHT = TargetingConditions.forCombat().range(20.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
+
+
+    public static boolean isEntityAttackableIgnoringLineOfSight(LivingEntity p_182378_, LivingEntity p_182379_) {
+        return p_182378_.getBrain().isMemoryValue(MemoryModuleType.ATTACK_TARGET, p_182379_) ? ATTACK_TARGET_CONDITIONS_IGNORE_INVISIBILITY_AND_LINE_OF_SIGHT.test(p_182378_, p_182379_) : ATTACK_TARGET_CONDITIONS_IGNORE_LINE_OF_SIGHT.test(p_182378_, p_182379_);
+    }
 
     public static Brain<?> makeBrain(FrostBoar frostBoar, Brain<FrostBoar> p_149291_) {
         initCoreActivity(p_149291_);
@@ -95,9 +103,14 @@ public class FrostBoarAi {
         boolean flag = !isBreeding(p_34611_);
 
         if (flag) {
-            Optional<List<LivingEntity>> listOptional = p_34611_.getBrain().getMemory(FrostMemoryModuleType.NEAREST_ENEMYS.get());
-            if (listOptional.isPresent() && !listOptional.get().isEmpty()) {
-                return Optional.of(listOptional.get().get(p_34611_.getRandom().nextInt(listOptional.get().size())));
+            Optional<LivingEntity> optional = BehaviorUtils.getLivingEntityFromUUIDMemory(p_34611_, MemoryModuleType.ANGRY_AT);
+            if (optional.isPresent() && isEntityAttackableIgnoringLineOfSight(p_34611_, optional.get())) {
+                return optional;
+            } else {
+                Optional<List<LivingEntity>> listOptional = p_34611_.getBrain().getMemory(FrostMemoryModuleType.NEAREST_ENEMYS.get());
+                if (listOptional.isPresent() && !listOptional.get().isEmpty()) {
+                    return Optional.of(listOptional.get().get(p_34611_.getRandom().nextInt(listOptional.get().size())));
+                }
             }
         }
 
@@ -130,9 +143,14 @@ public class FrostBoarAi {
         if (!(p_34597_ instanceof FrostBoar)) {
             Brain<FrostBoar> brain = p_34596_.getBrain();
             brain.eraseMemory(MemoryModuleType.BREED_TARGET);
-            if (p_34596_.isBaby() || !isEnoughFrostBoarOrHealth(p_34596_)) {
+            if (p_34596_.isBaby()) {
                 retreatFromNearestTarget(p_34596_, p_34597_);
-                if (Sensor.isEntityAttackable(p_34596_, p_34597_)) {
+                if (isEntityAttackableIgnoringLineOfSight(p_34596_, p_34597_)) {
+                    broadcastAttackTarget(p_34596_, p_34597_);
+                }
+            } else if (!isEnoughFrostBoarOrHealth(p_34596_)) {
+                retreatFromNearestTarget(p_34596_, p_34597_);
+                if (isEntityAttackableIgnoringLineOfSight(p_34596_, p_34597_)) {
                     setAttackTarget(p_34596_, p_34597_);
                 }
             } else {
@@ -146,7 +164,7 @@ public class FrostBoarAi {
         if (!p_34625_.getBrain().isActive(Activity.AVOID) || p_34626_.getType() != FrostEntities.YETI.get()) {
             if (p_34626_.getType() != FrostEntities.FROST_BOAR.get()) {
                 if (!BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(p_34625_, p_34626_, 4.0D)) {
-                    if (Sensor.isEntityAttackable(p_34625_, p_34626_)) {
+                    if (isEntityAttackableIgnoringLineOfSight(p_34625_, p_34626_)) {
                         setAttackTarget(p_34625_, p_34626_);
                         broadcastAttackTarget(p_34625_, p_34626_);
                     }

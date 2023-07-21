@@ -26,8 +26,8 @@ import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.piglin.StopAdmiringIfTiredOfTryingToReachItem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
@@ -44,12 +44,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static net.minecraft.world.entity.ai.behavior.BehaviorUtils.isBreeding;
-
 public class YetiAi {
     private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(6, 16);
     public static final UniformInt RETREAT_DURATION = TimeUtil.rangeOfSeconds(10, 30);
     protected static final UniformInt TIME_BETWEEN_HUNTS = TimeUtil.rangeOfSeconds(30, 120);
+    private static final TargetingConditions ATTACK_TARGET_CONDITIONS_IGNORE_LINE_OF_SIGHT = TargetingConditions.forCombat().range(24.0D).ignoreLineOfSight();
+    private static final TargetingConditions ATTACK_TARGET_CONDITIONS_IGNORE_INVISIBILITY_AND_LINE_OF_SIGHT = TargetingConditions.forCombat().range(24.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
 
     public static Brain<?> makeBrain(Yeti Yeti, Brain<Yeti> p_149291_) {
         initCoreActivity(p_149291_);
@@ -134,16 +134,17 @@ public class YetiAi {
     }
 
     private static Optional<? extends LivingEntity> findNearestValidAttackTarget(Yeti p_34611_) {
-        boolean flag = !isBreeding(p_34611_);
-
-        if (flag) {
+        Optional<LivingEntity> optional = BehaviorUtils.getLivingEntityFromUUIDMemory(p_34611_, MemoryModuleType.ANGRY_AT);
+        if (optional.isPresent() && isEntityAttackableIgnoringLineOfSight(p_34611_, optional.get())) {
+            return optional;
+        } else {
             Optional<List<LivingEntity>> listOptional = p_34611_.getBrain().getMemory(FrostMemoryModuleType.NEAREST_ENEMYS.get());
             if (listOptional.isPresent() && !listOptional.get().isEmpty()) {
                 return Optional.of(listOptional.get().get(p_34611_.getRandom().nextInt(listOptional.get().size())));
             }
         }
 
-        return flag ? p_34611_.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE) : Optional.empty();
+        return p_34611_.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
     }
 
     private static float getSpeedModifier(LivingEntity livingEntity) {
@@ -178,9 +179,11 @@ public class YetiAi {
 
             if (p_34596_.isBaby() || isNoEnoughYeti(p_34596_)) {
                 retreatFromNearestTarget(p_34596_, p_34597_);
-                if (Sensor.isEntityAttackableIgnoringLineOfSight(p_34596_, p_34597_)) {
+                if (YetiAi.isEntityAttackableIgnoringLineOfSight(p_34596_, p_34597_)) {
                     broadcastAngerTarget(p_34596_, p_34597_);
                 }
+            } else if (isNoEnoughYeti(p_34596_)) {
+                retreatFromNearestTarget(p_34596_, p_34597_);
             } else {
                 maybeRetaliate(p_34596_, p_34597_);
             }
@@ -245,7 +248,7 @@ public class YetiAi {
     }
 
     protected static void setAngerTarget(Yeti p_34925_, LivingEntity p_34926_) {
-        if (Sensor.isEntityAttackableIgnoringLineOfSight(p_34925_, p_34926_)) {
+        if (YetiAi.isEntityAttackableIgnoringLineOfSight(p_34925_, p_34926_)) {
             p_34925_.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
             p_34925_.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, p_34926_.getUUID(), 600L);
             if (p_34926_ instanceof FrostBoar) {
@@ -257,6 +260,10 @@ public class YetiAi {
             }
 
         }
+    }
+
+    public static boolean isEntityAttackableIgnoringLineOfSight(LivingEntity p_182378_, LivingEntity p_182379_) {
+        return p_182378_.getBrain().isMemoryValue(MemoryModuleType.ATTACK_TARGET, p_182379_) ? ATTACK_TARGET_CONDITIONS_IGNORE_INVISIBILITY_AND_LINE_OF_SIGHT.test(p_182378_, p_182379_) : ATTACK_TARGET_CONDITIONS_IGNORE_LINE_OF_SIGHT.test(p_182378_, p_182379_);
     }
 
     public static void initMemories(Yeti p_219206_, RandomSource p_219207_, MobSpawnType p_29535_) {
@@ -317,7 +324,7 @@ public class YetiAi {
                     throwItems(yeti, getBarterResponseItems(yeti));
                     yeti.setHoldTime(40);
                     if (itemstack.getCount() <= 0) {
-                        yeti.setTrade(false);
+                        yeti.setState(Yeti.State.IDLING);
                     }
                 } else if (!flag) {
 
@@ -340,7 +347,7 @@ public class YetiAi {
                     yeti.holdInOffHand(itemstack);
                 }
 
-                yeti.setTrade(false);
+                yeti.setState(Yeti.State.IDLING);
             }
         }
     }
@@ -434,18 +441,6 @@ public class YetiAi {
 
     private static boolean isHoldingItemInOffHand(Yeti p_35027_) {
         return !p_35027_.getOffhandItem().isEmpty();
-    }
-
-    public static ItemStack removeOneItemFromItemEntity(ItemEntity p_34823_) {
-        ItemStack itemstack = p_34823_.getItem();
-        ItemStack itemstack1 = itemstack.split(1);
-        if (itemstack.isEmpty()) {
-            p_34823_.discard();
-        } else {
-            p_34823_.setItem(itemstack);
-        }
-
-        return itemstack1;
     }
 
     private static Vec3 getRandomNearbyPos(Yeti p_35017_) {

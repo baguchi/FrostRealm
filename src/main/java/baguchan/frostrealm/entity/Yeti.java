@@ -38,11 +38,10 @@ import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 public class Yeti extends AgeableMob implements HuntMob {
-
-	private static final EntityDataAccessor<Boolean> TRADE_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Boolean> PANIC_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> HUNT_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> HUNT_LEADER_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
+
+	private static final EntityDataAccessor<String> DATA_STATE = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.STRING);
 
 	protected static final ImmutableList<? extends SensorType<? extends Sensor<? super Yeti>>> SENSOR_TYPES = ImmutableList.of(ModSensors.SMART_NEAREST_LIVING_ENTITY_SENSOR.get(), SensorType.NEAREST_ADULT, SensorType.HURT_BY
 			, FrostSensors.YETI_SENSOR.get(), FrostSensors.ENEMY_SENSOR.get(), SensorType.NEAREST_ITEMS);
@@ -56,6 +55,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 	private int holdTime;
 
 	public AnimationState warmingAnimation = new AnimationState();
+	public AnimationState cheerAnimation = new AnimationState();
 
 	public static final Predicate<? super ItemEntity> ALLOWED_ITEMS = (p_213616_0_) -> {
 		return p_213616_0_.getItem().getItem().getFoodProperties() != null && p_213616_0_.getItem().getItem() != Items.SPIDER_EYE && p_213616_0_.getItem().getItem() != Items.PUFFERFISH || p_213616_0_.getItem().is(FrostTags.Items.YETI_CURRENCY) || p_213616_0_.getItem().is(FrostTags.Items.YETI_BIG_CURRENCY);
@@ -99,26 +99,19 @@ public class Yeti extends AgeableMob implements HuntMob {
 	@Override
 	protected void defineSynchedData() {
 		super.defineSynchedData();
-		this.entityData.define(TRADE_ID, false);
-		this.entityData.define(PANIC_ID, false);
+		this.entityData.define(DATA_STATE, State.IDLING.name());
 		this.entityData.define(HUNT_ID, false);
 		this.entityData.define(HUNT_LEADER_ID, false);
 	}
 
-	public void setTrade(boolean trade) {
-		this.entityData.set(TRADE_ID, trade);
-	}
 
 	public boolean isTrade() {
-		return this.entityData.get(TRADE_ID);
+		return State.get(this.entityData.get(DATA_STATE)) == State.TRADE;
 	}
 
-	public void setPanic(boolean panic) {
-		this.entityData.set(PANIC_ID, panic);
-	}
 
-	public boolean isPanic() {
-		return this.entityData.get(PANIC_ID);
+	public boolean isCheer() {
+		return State.get(this.entityData.get(DATA_STATE)) == State.CHEER;
 	}
 
 	public void setHunt(boolean hunt) {
@@ -137,13 +130,29 @@ public class Yeti extends AgeableMob implements HuntMob {
 		return this.entityData.get(HUNT_LEADER_ID);
 	}
 
+	public boolean isPanic() {
+		return State.get(this.entityData.get(DATA_STATE)) == State.PANIC;
+	}
+
+	public void setState(State state) {
+		this.entityData.set(DATA_STATE, state.name());
+	}
+
+	private void setStateName(String state) {
+		this.entityData.set(DATA_STATE, state);
+	}
+
+	public String getState() {
+		return this.entityData.get(DATA_STATE);
+	}
+
 	@Override
 	protected PathNavigation createNavigation(Level p_33348_) {
 		return new FrostPathNavigation(this, p_33348_);
 	}
 
 	public static AttributeSupplier.Builder createAttributeMap() {
-		return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.24F).add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.FOLLOW_RANGE, 24.0D).add(Attributes.ATTACK_DAMAGE, 6.0F);
+		return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.24F).add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.FOLLOW_RANGE, 30.0D).add(Attributes.ATTACK_DAMAGE, 6.0F);
 	}
 
 	@Override
@@ -221,7 +230,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 			this.onItemPickup(p_175445_1_);
 			this.take(p_175445_1_, 1);
 			YetiAi.holdInOffHand(this, itemstack.split(1));
-			this.setTrade(true);
+			this.setState(State.TRADE);
 			if (itemstack.isEmpty()) {
 				p_175445_1_.discard();
 			} else {
@@ -298,7 +307,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 		this.setHunt(p_29541_.getBoolean("Hunt"));
 		this.setHuntLeader(p_29541_.getBoolean("HuntLeader"));
 		this.setHoldTime(p_29541_.getInt("HoldTime"));
-		this.setTrade(p_29541_.getBoolean("Trade"));
+		this.setStateName(p_29541_.getString("State"));
 	}
 
 	public void addAdditionalSaveData(CompoundTag p_29548_) {
@@ -317,7 +326,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 		p_29548_.putBoolean("Hunt", this.isHunt());
 		p_29548_.putBoolean("HuntLeader", this.isHuntLeader());
 		p_29548_.putInt("HoldTime", holdTime);
-		p_29548_.putBoolean("Trade", this.isTrade());
+		p_29548_.putString("State", this.getState());
 	}
 
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_29533_, DifficultyInstance p_29534_, MobSpawnType p_29535_, @Nullable SpawnGroupData p_29536_, @Nullable CompoundTag p_29537_) {
@@ -416,5 +425,22 @@ public class Yeti extends AgeableMob implements HuntMob {
 			this.isHunt = p_34358_;
 			this.child = child;
 		}
+	}
+
+	public static enum State {
+		IDLING,
+		TRADE,
+		PANIC,
+		CHEER,
+		EATING;
+
+		public static State get(String nameIn) {
+			for (State role : values()) {
+				if (role.name().equals(nameIn))
+					return role;
+			}
+			return State.IDLING;
+		}
+
 	}
 }
