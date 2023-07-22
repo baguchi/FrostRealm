@@ -78,7 +78,7 @@ public class StrayWarriorModel<T extends StrayWarrior> extends HierarchicalModel
         this.right_leg.zRot = 0.0F;
         this.left_leg.zRot = 0.0F;
 
-        if (!entity.attackAnimationState.isStarted()) {
+        if (!entity.attackAnimationState.isStarted() && !entity.guardAnimationState.isStarted()) {
             if (entity.getMainArm() == HumanoidArm.RIGHT) {
                 this.applyStatic(SpearAttackAnimations.IDLE_RIGHT);
             } else {
@@ -90,6 +90,12 @@ public class StrayWarriorModel<T extends StrayWarrior> extends HierarchicalModel
             this.animate(entity.attackAnimationState, SpearAttackAnimations.SPIN_SPEAR_ATTACK_RIGHT, ageInTicks);
         } else {
             this.animate(entity.attackAnimationState, SpearAttackAnimations.SPIN_SPEAR_ATTACK_LEFT, ageInTicks);
+        }
+
+        if (entity.getMainArm() == HumanoidArm.RIGHT) {
+            this.animate(entity.guardAnimationState, SpearAttackAnimations.GUARD_RIGHT, ageInTicks);
+        } else {
+            this.animate(entity.guardAnimationState, SpearAttackAnimations.GUARD_LEFT, ageInTicks);
         }
 
     }

@@ -89,5 +89,6 @@ public class FrostItems {
     public static final RegistryObject<Item> FROST_BOAR_SPAWNEGG = ITEMS.register("frost_boar_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.FROST_BOAR, 0x031822, 0x296B89, (new Item.Properties())));
     public static final RegistryObject<Item> SHADE_INSECT_SPAWNEGG = ITEMS.register("shade_insect_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.SHADE_INSECT, 0x031822, 0x296B89, (new Item.Properties())));
 	public static final RegistryObject<Item> SEAL_SPAWNEGG = ITEMS.register("seal_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.SEAL, 0xFFFFFF, 0xFFFFFF, (new Item.Properties())));
+	public static final RegistryObject<Item> STRAY_WARRIOR_SPAWNEGG = ITEMS.register("stray_warrior_spawn_egg", () -> new ForgeSpawnEggItem(FrostEntities.STRAY_WARRIOR, 6387319, 14543594, (new Item.Properties())));
 
 }

@@ -1,10 +1,15 @@
 package baguchan.frostrealm.entity;
 
 import bagu_chan.bagus_lib.entity.goal.AnimatedAttackGoal;
+import baguchan.frostrealm.entity.goal.GuardAnimationGoal;
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -22,22 +27,44 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 
-public class StrayWarrior extends AbstractSkeleton {
+public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
+    private static final EntityDataAccessor<Boolean> DATA_GUARD = SynchedEntityData.defineId(StrayWarrior.class, EntityDataSerializers.BOOLEAN);
+
     public int attackAnimationTick;
     private final int attackAnimationLength = (int) (20 * 1.75);
     private final int attackAnimationLeftActionPoint = (int) ((int) attackAnimationLength - (20 * 0.655));
     public final AnimationState attackAnimationState = new AnimationState();
 
+    public int guardAnimationTick;
+
+    private final int guardAnimationLength = (int) (20 * 3.5);
+    private final int guardAnimationLeftActionPoint = (int) ((int) guardAnimationLength - (20 * 0.25));
+    private final int guardAnimationStopLeftActionPoint = (int) ((int) guardAnimationLength - (20 * 3.25));
+    public final AnimationState guardAnimationState = new AnimationState();
+
 
     public StrayWarrior(EntityType<? extends StrayWarrior> p_32133_, Level p_32134_) {
         super(p_32133_, p_32134_);
+        this.xpReward = 10;
     }
 
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(1, new GuardAnimationGoal<>(this, guardAnimationLeftActionPoint, guardAnimationStopLeftActionPoint, guardAnimationLength));
         this.goalSelector.addGoal(4, new AnimatedAttackGoal(this, 1.2D, attackAnimationLeftActionPoint, attackAnimationLength) {
+            @Override
+            public boolean canUse() {
+                return !isGuard() && super.canUse();
+            }
+
+            @Override
+            public boolean canContinueToUse() {
+                return !isGuard() && super.canContinueToUse();
+            }
+
             @Override
             protected double getAttackReachSqr(LivingEntity p_25556_) {
                 return !getMainHandItem().is(FrostItems.FROST_SPEAR.get()) ? super.getAttackReachSqr(p_25556_) : (double) (getBbWidth() * 2.0F * getBbWidth() * 2.0F + 10.0F + p_25556_.getBbWidth());
@@ -46,7 +73,21 @@ public class StrayWarrior extends AbstractSkeleton {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.25D);
+        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.MAX_HEALTH, 30F);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_GUARD, false);
+    }
+
+    public void setGuard(boolean guard) {
+        this.entityData.set(DATA_GUARD, guard);
+    }
+
+    public boolean isGuard() {
+        return this.entityData.get(DATA_GUARD);
     }
 
     @Override
@@ -65,6 +106,18 @@ public class StrayWarrior extends AbstractSkeleton {
             if (this.attackAnimationTick >= this.attackAnimationLength) {
                 this.attackAnimationState.stop();
             }
+
+            if (this.isGuard()) {
+                this.attackAnimationState.stop();
+            }
+
+            if (this.guardAnimationTick < this.guardAnimationLength) {
+                this.guardAnimationTick++;
+            }
+
+            if (this.guardAnimationTick >= this.guardAnimationLength) {
+                this.guardAnimationState.stop();
+            }
         }
     }
 
@@ -73,6 +126,10 @@ public class StrayWarrior extends AbstractSkeleton {
         if (p_21375_ == 4) {
             this.attackAnimationState.start(this.tickCount);
             this.attackAnimationTick = 0;
+        } else if (p_21375_ == 61) {
+            this.guardAnimationState.start(this.tickCount);
+            this.attackAnimationState.stop();
+            this.guardAnimationTick = 0;
         } else {
             super.handleEntityEvent(p_21375_);
         }
@@ -81,6 +138,7 @@ public class StrayWarrior extends AbstractSkeleton {
     protected void populateDefaultEquipmentSlots(RandomSource p_218949_, DifficultyInstance p_218950_) {
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(FrostItems.FROST_SPEAR.get()));
         this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(FrostItems.YETI_FUR_HELMET.get()));
+        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(FrostItems.YETI_FUR_CHESTPLATE.get()));
     }
 
     @Override
@@ -90,6 +148,40 @@ public class StrayWarrior extends AbstractSkeleton {
 
         }
         return super.doHurtTarget(p_21372_);
+    }
+
+    @Override
+    public boolean hurt(DamageSource p_21016_, float p_21017_) {
+        if (this.isDamageSourceBlockedBySpear(p_21016_)) {
+            this.playSound(SoundEvents.ANVIL_LAND, 1.0F, 1.5F);
+            return false;
+        }
+
+        return super.hurt(p_21016_, p_21017_);
+    }
+
+    public boolean isDamageSourceBlockedBySpear(DamageSource p_21276_) {
+        Entity entity = p_21276_.getDirectEntity();
+        boolean flag = false;
+        if (entity instanceof AbstractArrow abstractarrow) {
+            if (abstractarrow.getPierceLevel() > 0) {
+                flag = true;
+            }
+        }
+
+        if (!p_21276_.is(DamageTypeTags.BYPASSES_SHIELD) && this.isGuard() && !flag) {
+            Vec3 vec32 = p_21276_.getSourcePosition();
+            if (vec32 != null) {
+                Vec3 vec3 = this.getViewVector(1.0F);
+                Vec3 vec31 = vec32.vectorTo(this.position()).normalize();
+                vec31 = new Vec3(vec31.x, 0.0D, vec31.z);
+                if (vec31.dot(vec3) < 0.0D) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public static boolean checkStraySpawnRules(EntityType<StrayWarrior> p_219121_, ServerLevelAccessor p_219122_, MobSpawnType p_219123_, BlockPos p_219124_, RandomSource p_219125_) {
