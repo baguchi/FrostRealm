@@ -22,6 +22,7 @@ public class FrostModelLayers {
     public static final ModelLayerLocation SHADE_INSECT = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "shade_insect"), "shade_insect");
     public static final ModelLayerLocation SHADE_INSECT_PART = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "shade_insect_part"), "shade_insect_part");
 
+    public static final ModelLayerLocation STRAY_WARRIOR = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "stray_warrior"), "stray_warrior");
 
     public static final ModelLayerLocation GOKKUDILLO = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "gokkudillo"), "gokkudillo");
     public static final ModelLayerLocation SEAL = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "seal"), "seal");

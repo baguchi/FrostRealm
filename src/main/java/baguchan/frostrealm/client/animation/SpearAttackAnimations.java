@@ -1,0 +1,131 @@
+package baguchan.frostrealm.client.animation;
+
+import net.minecraft.client.animation.AnimationChannel;
+import net.minecraft.client.animation.AnimationDefinition;
+import net.minecraft.client.animation.Keyframe;
+import net.minecraft.client.animation.KeyframeAnimations;
+
+public class SpearAttackAnimations {
+
+
+    public static final AnimationDefinition SPIN_SPEAR_ATTACK_RIGHT = AnimationDefinition.Builder.withLength(1.75f)
+            .addAnimation("right_arm",
+                    new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(45f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(24.79f, -12.31f, 59.79f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.625f, KeyframeAnimations.degreeVec(24.79f, -12.31f, 59.79f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.75f, KeyframeAnimations.degreeVec(-33.93f, 9.09f, 17.11f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1f, KeyframeAnimations.degreeVec(-33.93f, 9.09f, 17.11f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1.25f, KeyframeAnimations.degreeVec(0f, 0f, 70f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1.5f, KeyframeAnimations.degreeVec(0f, 0f, 70f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1.75f, KeyframeAnimations.degreeVec(45f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM)))
+            .addAnimation("left_arm",
+                    new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(-45f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(31.16f, 34.39f, 2.55f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.625f, KeyframeAnimations.degreeVec(31.16f, 34.39f, 2.55f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.75f, KeyframeAnimations.degreeVec(26.95f, -6.14f, -15.33f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1f, KeyframeAnimations.degreeVec(26.95f, -6.14f, -15.33f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1.25f, KeyframeAnimations.degreeVec(31.16f, 34.39f, 2.55f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1.5f, KeyframeAnimations.degreeVec(31.16f, 34.39f, 2.55f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1.75f, KeyframeAnimations.degreeVec(-45f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM)))
+            .addAnimation("right_item",
+                    new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                            new Keyframe(0.375f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(0f, -180f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(0.625f, KeyframeAnimations.degreeVec(0f, -360f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(1.25f, KeyframeAnimations.degreeVec(0f, -360f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(1.375f, KeyframeAnimations.degreeVec(0f, -180f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(1.5f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR))).build();
+    public static final AnimationDefinition SPIN_SPEAR_ATTACK_LEFT = AnimationDefinition.Builder.withLength(1.75f)
+            .addAnimation("right_arm",
+                    new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(-45f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(31.16f, -34.39f, -2.55f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.625f, KeyframeAnimations.degreeVec(31.16f, -34.39f, -2.55f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.75f, KeyframeAnimations.degreeVec(26.95f, 6.14f, 15.33f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1f, KeyframeAnimations.degreeVec(26.95f, 6.14f, 15.33f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1.25f, KeyframeAnimations.degreeVec(31.16f, -34.39f, -2.55f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1.5f, KeyframeAnimations.degreeVec(31.16f, -34.39f, -2.55f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1.75f, KeyframeAnimations.degreeVec(-45f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM)))
+            .addAnimation("left_arm",
+                    new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(55f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(24.79f, -12.31f, -59.79f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.625f, KeyframeAnimations.degreeVec(24.79f, -12.31f, -59.79f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(0.75f, KeyframeAnimations.degreeVec(-33.93f, 9.09f, -17.11f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1f, KeyframeAnimations.degreeVec(-33.93f, 9.09f, -17.11f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1.25f, KeyframeAnimations.degreeVec(0f, 0f, -70f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1.5f, KeyframeAnimations.degreeVec(0f, 0f, -70f),
+                                    AnimationChannel.Interpolations.CATMULLROM),
+                            new Keyframe(1.75f, KeyframeAnimations.degreeVec(55f, 0f, 0f),
+                                    AnimationChannel.Interpolations.CATMULLROM)))
+            .addAnimation("left_item",
+                    new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                            new Keyframe(0.375f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(0.5f, KeyframeAnimations.degreeVec(0f, -180f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(0.625f, KeyframeAnimations.degreeVec(0f, -360f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(1.25f, KeyframeAnimations.degreeVec(0f, -360f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(1.375f, KeyframeAnimations.degreeVec(0f, -180f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR),
+                            new Keyframe(1.5f, KeyframeAnimations.degreeVec(0f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR))).build();
+    public static final AnimationDefinition IDLE_RIGHT = AnimationDefinition.Builder.withLength(0f)
+            .addAnimation("right_arm",
+                    new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(45f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR)))
+            .addAnimation("left_arm",
+                    new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(-45f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR))).build();
+    public static final AnimationDefinition IDLE_LEFT = AnimationDefinition.Builder.withLength(0f)
+            .addAnimation("right_arm",
+                    new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(-45f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR)))
+            .addAnimation("left_arm",
+                    new AnimationChannel(AnimationChannel.Targets.ROTATION,
+                            new Keyframe(0f, KeyframeAnimations.degreeVec(45f, 0f, 0f),
+                                    AnimationChannel.Interpolations.LINEAR))).build();
+}

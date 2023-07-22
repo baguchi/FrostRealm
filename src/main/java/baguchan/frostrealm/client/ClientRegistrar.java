@@ -58,7 +58,8 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.WARPED_CRYSTAL_SHARD.get(), WarpedCrystalRenderer::new);
         event.registerEntityRenderer(FrostEntities.SHADE_INSECT.get(), ShadeInsectRenderer::new);
 		event.registerEntityRenderer(FrostEntities.SHADE_INSECT_PART.get(), ShadeInsectPartRenderer::new);
-		event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
+        event.registerEntityRenderer(FrostEntities.STRAY_WARRIOR.get(), StrayWarriorRenderer::new);
+        event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
 		event.registerEntityRenderer(FrostEntities.SLEDGE.get(), (r) -> new SledgeRenderer(r, false));
         event.registerEntityRenderer(FrostEntities.CHEST_SLEDGE.get(), (r) -> new SledgeRenderer(r, true));
     }
@@ -82,8 +83,9 @@ public class ClientRegistrar {
         event.registerLayerDefinition(FrostModelLayers.ASTRA_BALL, AstraBallModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.FROST_BOAR, FrostBoarModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SHADE_INSECT, ShadeInsectModel::createBodyLayer);
-		event.registerLayerDefinition(FrostModelLayers.SHADE_INSECT_PART, ShadeInsectPartModel::createBodyLayer);
-		event.registerLayerDefinition(FrostModelLayers.SEAL, SealModel::createBodyLayer);
+        event.registerLayerDefinition(FrostModelLayers.SHADE_INSECT_PART, ShadeInsectPartModel::createBodyLayer);
+        event.registerLayerDefinition(FrostModelLayers.STRAY_WARRIOR, StrayWarriorModel::createBodyLayer);
+        event.registerLayerDefinition(FrostModelLayers.SEAL, SealModel::createBodyLayer);
 
         event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
         event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_OUTER, () -> YetiFurArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION));

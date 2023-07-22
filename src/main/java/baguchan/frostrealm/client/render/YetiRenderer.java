@@ -10,7 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
@@ -25,7 +24,6 @@ public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiModel<T>> {
 
 	public YetiRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new YetiModel<>(p_173952_.bakeLayer(FrostModelLayers.YETI)), 0.75F);
-		this.addLayer(new CustomHeadLayer<>(this, p_173952_.getModelSet(), 1.0F, 1.0F, 1.0F, Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer()));
         this.addLayer(new ItemInHandLayer<>(this, Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer()));
         this.addLayer(new CustomArmorLayer<>(this, p_173952_));
         this.addLayer(new EyesLayer<T, YetiModel<T>>(this) {

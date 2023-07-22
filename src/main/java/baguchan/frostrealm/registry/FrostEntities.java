@@ -37,6 +37,8 @@ public class FrostEntities {
     public static final RegistryObject<EntityType<ClustWraith>> CLUST_WRAITH = ENTITIES.register("clust_wraith", () -> EntityType.Builder.of(ClustWraith::new, MobCategory.MONSTER).sized(0.6F, 1.4F).build(prefix("clust_wraith")));
     public static final RegistryObject<EntityType<Gokkudillo>> GOKKUDILLO = ENTITIES.register("gokkudillo", () -> EntityType.Builder.of(Gokkudillo::new, MobCategory.MONSTER).sized(1.0F, 0.85F).fireImmune().build(prefix("gokkudillo")));
     public static final RegistryObject<EntityType<FrostBeaster>> FROST_BEASTER = ENTITIES.register("frost_beaster", () -> EntityType.Builder.of(FrostBeaster::new, MobCategory.MONSTER).sized(0.65F, 1.95F).build(prefix("frost_beaster")));
+    public static final RegistryObject<EntityType<StrayWarrior>> STRAY_WARRIOR = ENTITIES.register("stray_warrior", () -> EntityType.Builder.of(StrayWarrior::new, MobCategory.MONSTER).sized(0.6F, 1.99F).immuneTo(Blocks.POWDER_SNOW).clientTrackingRange(8).build(prefix("stray_warrior")));
+
     public static final RegistryObject<EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).build(prefix("astra_ball")));
     public static final RegistryObject<EntityType<FrostBoar>> FROST_BOAR = ENTITIES.register("frost_boar", () -> EntityType.Builder.of(FrostBoar::new, MobCategory.CREATURE).sized(1.8F, 1.95F).build(prefix("frost_boar")));
     public static final RegistryObject<EntityType<ShadeInsect>> SHADE_INSECT = ENTITIES.register("shade_insect", () -> EntityType.Builder.of(ShadeInsect::new, MobCategory.MONSTER).sized(1.1F, 1.1F).build(prefix("shade_insect")));
@@ -66,6 +68,7 @@ public class FrostEntities {
         event.put(CLUST_WRAITH.get(), ClustWraith.createAttributes().build());
         event.put(GOKKUDILLO.get(), Gokkudillo.createAttributes().build());
         event.put(FROST_BEASTER.get(), FrostBeaster.createAttributes().build());
+        event.put(STRAY_WARRIOR.get(), StrayWarrior.createAttributes().build());
         event.put(ASTRA_BALL.get(), AstraBall.createAttributes().build());
         event.put(FROST_BOAR.get(), FrostBoar.createAttributes().build());
         event.put(SHADE_INSECT.get(), ShadeInsect.createAttributes().build());
@@ -91,6 +94,7 @@ public class FrostEntities {
 
         event.register(GOKKUDILLO.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Gokkudillo::checkGokkudilloSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(FROST_BEASTER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBeaster::checkFrostBeasterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(STRAY_WARRIOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, StrayWarrior::checkStraySpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(ASTRA_BALL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(FROST_BOAR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBoar::checkFrostAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
     }
