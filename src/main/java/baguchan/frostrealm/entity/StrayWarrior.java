@@ -5,6 +5,7 @@ import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -39,7 +40,7 @@ public class StrayWarrior extends AbstractSkeleton {
         this.goalSelector.addGoal(4, new AnimatedAttackGoal(this, 1.2D, attackAnimationLeftActionPoint, attackAnimationLength) {
             @Override
             protected double getAttackReachSqr(LivingEntity p_25556_) {
-                return (double) (getBbWidth() * 2.0F * getBbWidth() * 2.0F + 6.0F + p_25556_.getBbWidth());
+                return !getMainHandItem().is(FrostItems.FROST_SPEAR.get()) ? super.getAttackReachSqr(p_25556_) : (double) (getBbWidth() * 2.0F * getBbWidth() * 2.0F + 10.0F + p_25556_.getBbWidth());
             }
         });
     }
@@ -85,7 +86,8 @@ public class StrayWarrior extends AbstractSkeleton {
     @Override
     public boolean doHurtTarget(Entity p_21372_) {
         if (this.getMainHandItem().is(FrostItems.FROST_SPEAR.get())) {
-            p_21372_.setTicksFrozen(200 + p_21372_.getTicksFrozen());
+            p_21372_.setTicksFrozen(Mth.clamp(p_21372_.getTicksFrozen() + 100, 0, 600));
+
         }
         return super.doHurtTarget(p_21372_);
     }
