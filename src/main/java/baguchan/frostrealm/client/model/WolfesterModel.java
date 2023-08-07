@@ -103,12 +103,7 @@ public class WolfesterModel<T extends FrostBeaster> extends HumanoidModel<T> imp
 		this.leftLeg2.xRot = -0.8727F - (Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount / f) / 2;
 		this.rightLeg3.xRot = 0.4363F + (Mth.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f) / 3;
 		this.leftLeg3.xRot = 0.4363F + (Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount / f) / 3;
-
-		this.animate(entity, limbSwing, limbSwingAmount, ageInTicks);
 		this.hat.copyFrom(this.head);
-	}
-
-	public void animate(T entity, float limbSwing, float limbSwingAmount, float ageInTicks) {
 	}
 
 	protected Iterable<ModelPart> headParts() {
