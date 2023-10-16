@@ -70,12 +70,6 @@ public class GokkudilloModel<T extends Gokkudillo> extends EntityModel<T> {
 		this.legBackR.zRot = 0.0F;
 		this.legBackL.zRot = 0.0F;
 
-		this.legR.visible = !entity.isRolling();
-		this.legL.visible = !entity.isRolling();
-		this.legBackR.visible = !entity.isRolling();
-		this.legBackL.visible = !entity.isRolling();
-		this.head2.visible = !entity.isRolling();
-		this.tail.visible = !entity.isRolling();
 	}
 
 	@Override

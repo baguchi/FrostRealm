@@ -1,15 +1,12 @@
 package baguchan.frostrealm.entity;
 
-import bagu_chan.bagus_lib.client.camera.CameraEvent;
-import bagu_chan.bagus_lib.client.camera.CameraHolder;
-import bagu_chan.bagus_lib.util.GlobalVec3;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -20,22 +17,42 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class Gokkudillo extends Gokkur {
+public class Gokkudillo extends Monster implements IGuardMob {
+	private static final EntityDataAccessor<Boolean> DATA_GUARD = SynchedEntityData.defineId(Gokkudillo.class, EntityDataSerializers.BOOLEAN);
+
 	private static final UUID ARMOR_MODIFIER_UUID = UUID.fromString("a0431f61-9dbb-d872-8a44-7e5e4204ae3e");
-	private static final UUID NO_ARMOR_MODIFIER_UUID = UUID.fromString("3748f92b-6aa9-db9d-dce8-33a6d73df14a");
-    private static final AttributeModifier ARMOR_MODIFIER = new AttributeModifier(ARMOR_MODIFIER_UUID, "Armor bonus", 12.0D, AttributeModifier.Operation.ADDITION);
-    private static final AttributeModifier NO_ARMOR_MODIFIER = new AttributeModifier(NO_ARMOR_MODIFIER_UUID, "No Armor bonus", -8.0D, AttributeModifier.Operation.ADDITION);
+	private static final AttributeModifier ARMOR_MODIFIER = new AttributeModifier(ARMOR_MODIFIER_UUID, "Armor bonus", 16.0D, AttributeModifier.Operation.ADDITION);
 
 	public Gokkudillo(EntityType<? extends Monster> p_33002_, Level p_33003_) {
 		super(p_33002_, p_33003_);
+	}
+
+	@Override
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(DATA_GUARD, false);
+	}
+
+	public void setGuard(boolean guard) {
+		this.entityData.set(DATA_GUARD, guard);
+		if (!this.level().isClientSide) {
+			this.getAttribute(Attributes.ARMOR).removeModifier(ARMOR_MODIFIER);
+			if (guard) {
+				this.getAttribute(Attributes.ARMOR).addPermanentModifier(ARMOR_MODIFIER);
+				this.gameEvent(GameEvent.ENTITY_INTERACT);
+			} else {
+				this.gameEvent(GameEvent.ENTITY_INTERACT);
+			}
+		}
+	}
+
+	public boolean isGuard() {
+		return this.entityData.get(DATA_GUARD);
 	}
 
 
@@ -44,46 +61,17 @@ public class Gokkudillo extends Gokkur {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.MAX_HEALTH, 22.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 10.0F).add(Attributes.KNOCKBACK_RESISTANCE, 0.25F).add(Attributes.MOVEMENT_SPEED, 0.24D);
+		return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.MAX_HEALTH, 22.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.ARMOR, 10.0F).add(Attributes.KNOCKBACK_RESISTANCE, 0.25F).add(Attributes.MOVEMENT_SPEED, 0.24D);
 	}
 
 	public void onSyncedDataUpdated(EntityDataAccessor<?> p_29615_) {
-		if (IS_ROLLING.equals(p_29615_)) {
-			this.refreshDimensions();
-		}
-
 		super.onSyncedDataUpdated(p_29615_);
 	}
 
 
 	@Override
-	public void setRolling(boolean roll) {
-		if (!this.level().isClientSide) {
-			this.getAttribute(Attributes.ARMOR).removeModifier(ARMOR_MODIFIER);
-			if (roll) {
-				this.getAttribute(Attributes.ARMOR).addPermanentModifier(ARMOR_MODIFIER);
-				this.gameEvent(GameEvent.ENTITY_INTERACT);
-			} else {
-				this.gameEvent(GameEvent.ENTITY_INTERACT);
-			}
-		}
-		super.setRolling(roll);
-	}
-
-	@Override
-	public void setStun(boolean stun) {
-		if (!this.level().isClientSide) {
-			this.getAttribute(Attributes.ARMOR).removeModifier(NO_ARMOR_MODIFIER);
-			if (stun) {
-				this.getAttribute(Attributes.ARMOR).addPermanentModifier(NO_ARMOR_MODIFIER);
-			}
-		}
-		super.setStun(stun);
-	}
-
-	@Override
 	public boolean hurt(DamageSource p_21016_, float p_21017_) {
-		if (this.isRolling()) {
+		if (this.isGuard()) {
 			Entity entity = p_21016_.getDirectEntity();
 			if (entity instanceof AbstractArrow) {
 				return false;
@@ -109,79 +97,13 @@ public class Gokkudillo extends Gokkur {
 		return FrostSounds.GOKKUDILLO_DEATH.get();
 	}
 
-	protected float stopRollingPercent() {
-		return 0.25F;
-	}
-
-	protected void dealDamage(LivingEntity livingentity) {
-		if (this.isAlive() && isRolling()) {
-			boolean flag = livingentity.isDamageSourceBlocked(this.damageSources().mobAttack(this));
-            float f1 = (float) Mth.clamp(livingentity.getDeltaMovement().horizontalDistanceSqr() * 1.5F, 0.2F, 3.0F);
-			float f2 = flag ? 0.25F : 1.0F;
-			double d1 = this.getX() - livingentity.getX();
-			double d2 = this.getZ() - livingentity.getZ();
-			double d3 = livingentity.getX() - this.getX();
-			double d4 = livingentity.getZ() - this.getZ();
-            if (livingentity.hurt(this.damageSources().mobAttack(this), Mth.floor(getAttackDamage() * 1.25F))) {
-                this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                this.doEnchantDamageEffects(this, livingentity);
-                livingentity.knockback(f2 * f1, d1, d2);
-            }
-		}
-	}
-
-	@Override
-	protected void blockedByShield(LivingEntity p_21246_) {
-		super.blockedByShield(p_21246_);
-		if (this.isAlive() && isRolling()) {
-			this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-			if (getRollingGoal() != null) {
-				getRollingGoal().setStopTrigger(true);
-			}
-			this.knockback(0.8F, p_21246_.getX() - this.getX(), p_21246_.getZ() - this.getZ());
-			this.setStun(true);
-			CameraEvent.addCameraHolderList(level(), new CameraHolder(4, 30, GlobalVec3.of(this.level().dimension(), this.position())));
-
-		}
-	}
-
-	protected float getAttackDamage() {
-		return (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-	}
-
-
-	@Override
-	protected float nextStep() {
-		return this.isRolling() ? super.nextStep() + 3 : super.nextStep();
-	}
-
-	@Override
-	protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
-		if (!this.isRolling()) {
-			super.playStepSound(p_20135_, p_20136_);
-		} else {
-			if (p_20136_.getFluidState().isEmpty()) {
-				BlockState blockstate = this.level().getBlockState(p_20135_.above());
-				SoundType soundtype = blockstate.is(Blocks.SNOW) ? blockstate.getSoundType(level(), p_20135_, this) : p_20136_.getSoundType(level(), p_20135_, this);
-				this.playSound(soundtype.getStepSound(), soundtype.getVolume() * 1.2F, soundtype.getPitch());
-			}
-		}
-	}
-
 	@Override
 	public void tick() {
 		super.tick();
-		if (this.isRolling() && !this.isInWater() && !this.isSpectator() && !this.isCrouching() && !this.isInLava() && this.isAlive()) {
-			this.spawnSprintParticle();
-		}
 	}
 
 	@Override
 	protected float getStandingEyeHeight(Pose p_21131_, EntityDimensions p_21132_) {
 		return p_21132_.height * 0.65F;
-	}
-
-	public EntityDimensions getDimensions(Pose p_29608_) {
-		return this.isRolling() ? EntityDimensions.fixed(0.65F, 0.45F) : super.getDimensions(p_29608_);
 	}
 }

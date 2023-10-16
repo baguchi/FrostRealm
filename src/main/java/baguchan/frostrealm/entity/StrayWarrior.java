@@ -1,7 +1,9 @@
 package baguchan.frostrealm.entity;
 
+import bagu_chan.bagus_lib.entity.AnimationScale;
 import bagu_chan.bagus_lib.entity.goal.AnimatedAttackGoal;
-import baguchan.frostrealm.entity.goal.GuardAnimationGoal;
+import baguchan.frostrealm.entity.goal.GuardAndCounterAnimationGoal;
+import baguchan.frostrealm.entity.utils.GuardHandler;
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -35,15 +37,17 @@ public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
     public int attackAnimationTick;
     private final int attackAnimationLength = (int) (20 * 1.75);
     private final int attackAnimationLeftActionPoint = (int) ((int) attackAnimationLength - (20 * 0.655));
+    public int counterAnimationTick;
+    private final int counterAnimationLength = (int) (20 * 0.5F);
+    private final int counterAnimationLeftActionPoint = (int) ((int) counterAnimationLength - (20 * 0.1f));
+
+
     public final AnimationState attackAnimationState = new AnimationState();
-
-    public int guardAnimationTick;
-
-    private final int guardAnimationLength = (int) (20 * 3.5);
-    private final int guardAnimationLeftActionPoint = (int) ((int) guardAnimationLength - (20 * 0.25));
-    private final int guardAnimationStopLeftActionPoint = (int) ((int) guardAnimationLength - (20 * 3.25));
-    public final AnimationState guardAnimationState = new AnimationState();
-
+    public final AnimationState counterAnimationState = new AnimationState();
+    public final AnimationScale guardAnimationScale = new AnimationScale(0.2F);
+    public final GuardHandler guardHandler = new GuardHandler(2);
+    public GuardAndCounterAnimationGoal guardAnimationGoal;
+    public CounterGoal counterGoal;
 
     public StrayWarrior(EntityType<? extends StrayWarrior> p_32133_, Level p_32134_) {
         super(p_32133_, p_32134_);
@@ -53,7 +57,26 @@ public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new GuardAnimationGoal<>(this, guardAnimationLeftActionPoint, guardAnimationStopLeftActionPoint, guardAnimationLength));
+        counterGoal = new CounterGoal(this, counterAnimationLeftActionPoint, counterAnimationLength) {
+            @Override
+            protected void doTheAnimation() {
+                this.attacker.level().broadcastEntityEvent(this.attacker, (byte) 61);
+            }
+
+            @Override
+            protected double getAttackReachSqr(LivingEntity p_25556_) {
+                return !getMainHandItem().is(FrostItems.FROST_SPEAR.get()) ? super.getAttackReachSqr(p_25556_) : (double) (getBbWidth() * 2.0F * getBbWidth() * 2.0F + 10.0F + p_25556_.getBbWidth());
+            }
+        };
+        guardAnimationGoal = new GuardAndCounterAnimationGoal<>(this, true, 60) {
+            @Override
+            protected void stopGuardAndAttackAnimation() {
+                super.stopGuardAndAttackAnimation();
+                counterGoal.trigger();
+            }
+        };
+        this.goalSelector.addGoal(1, counterGoal);
+        this.goalSelector.addGoal(2, guardAnimationGoal);
         this.goalSelector.addGoal(4, new AnimatedAttackGoal(this, 1.2D, attackAnimationLeftActionPoint, attackAnimationLength) {
             @Override
             public boolean canUse() {
@@ -82,6 +105,18 @@ public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
         this.entityData.define(DATA_GUARD, false);
     }
 
+    public void onSyncedDataUpdated(EntityDataAccessor<?> p_219422_) {
+        super.onSyncedDataUpdated(p_219422_);
+        if (DATA_GUARD.equals(p_219422_)) {
+            if (this.isGuard()) {
+                if (!this.level().isClientSide()) {
+                    this.attackAnimationState.stop();
+                }
+            }
+        }
+
+    }
+
     public void setGuard(boolean guard) {
         this.entityData.set(DATA_GUARD, guard);
     }
@@ -107,16 +142,32 @@ public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
                 this.attackAnimationState.stop();
             }
 
+
+            if (this.counterAnimationTick < this.counterAnimationLength) {
+                this.counterAnimationTick++;
+                if (this.attackAnimationState.isStarted()) {
+                    this.attackAnimationState.stop();
+                }
+            }
+
+            if (this.counterAnimationTick >= this.counterAnimationLength) {
+                this.counterAnimationState.stop();
+            }
+
             if (this.isGuard()) {
                 this.attackAnimationState.stop();
+                this.counterAnimationState.stop();
             }
-
-            if (this.guardAnimationTick < this.guardAnimationLength) {
-                this.guardAnimationTick++;
-            }
-
-            if (this.guardAnimationTick >= this.guardAnimationLength) {
-                this.guardAnimationState.stop();
+            this.guardAnimationScale.setFlag(this.isGuard());
+            this.guardAnimationScale.tick(this);
+        } else {
+            this.guardHandler.tick(this);
+            if (this.guardHandler.isTrigger()) {
+                if (this.guardAnimationGoal != null) {
+                    this.guardAnimationGoal.trigger();
+                    this.guardHandler.setTrigger(false);
+                    this.guardHandler.resetTrigger(true);
+                }
             }
         }
     }
@@ -127,9 +178,8 @@ public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
             this.attackAnimationState.start(this.tickCount);
             this.attackAnimationTick = 0;
         } else if (p_21375_ == 61) {
-            this.guardAnimationState.start(this.tickCount);
-            this.attackAnimationState.stop();
-            this.guardAnimationTick = 0;
+            this.counterAnimationState.start(this.tickCount);
+            this.counterAnimationTick = 0;
         } else {
             super.handleEntityEvent(p_21375_);
         }
@@ -152,9 +202,15 @@ public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
 
     @Override
     public boolean hurt(DamageSource p_21016_, float p_21017_) {
+
+
         if (this.isDamageSourceBlockedBySpear(p_21016_)) {
             this.playSound(SoundEvents.ANVIL_LAND, 1.0F, 1.5F);
             return false;
+        } else {
+            if (!this.level().isClientSide()) {
+                this.guardHandler.addHurtCount(p_21017_);
+            }
         }
 
         return super.hurt(p_21016_, p_21017_);

@@ -6,8 +6,11 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.7.4
 import bagu_chan.bagus_lib.client.layer.IArmor;
 import baguchan.frostrealm.client.animation.SpearAttackAnimations;
 import baguchan.frostrealm.entity.StrayWarrior;
+import baguchan.frostrealm.mixin.client.HierarchicalModelAccessor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.animation.AnimationDefinition;
+import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -78,7 +81,10 @@ public class StrayWarriorModel<T extends StrayWarrior> extends HierarchicalModel
         this.right_leg.zRot = 0.0F;
         this.left_leg.zRot = 0.0F;
 
-        if (!entity.attackAnimationState.isStarted() && !entity.guardAnimationState.isStarted()) {
+        float f = ageInTicks - entity.tickCount;
+        float f2 = entity.guardAnimationScale.getAnimationScale(f);
+
+        if (!entity.attackAnimationState.isStarted() && !entity.counterAnimationState.isStarted() && entity.guardAnimationScale.getAnimationScale(f) <= 0) {
             if (entity.getMainArm() == HumanoidArm.RIGHT) {
                 this.applyStatic(SpearAttackAnimations.IDLE_RIGHT);
             } else {
@@ -93,11 +99,18 @@ public class StrayWarriorModel<T extends StrayWarrior> extends HierarchicalModel
         }
 
         if (entity.getMainArm() == HumanoidArm.RIGHT) {
-            this.animate(entity.guardAnimationState, SpearAttackAnimations.GUARD_RIGHT, ageInTicks);
+            this.animate(entity.counterAnimationState, SpearAttackAnimations.COUNTER_RIGHT, ageInTicks);
         } else {
-            this.animate(entity.guardAnimationState, SpearAttackAnimations.GUARD_LEFT, ageInTicks);
+            this.animate(entity.counterAnimationState, SpearAttackAnimations.COUNTER_LEFT, ageInTicks);
         }
 
+        if (!entity.counterAnimationState.isStarted()) {
+            if (entity.getMainArm() == HumanoidArm.RIGHT) {
+                this.applyStaticWithScale(SpearAttackAnimations.GUARD_RIGHT, entity.guardAnimationScale.getAnimationScale(f));
+            } else {
+                this.applyStaticWithScale(SpearAttackAnimations.GUARD_LEFT, entity.guardAnimationScale.getAnimationScale(f));
+            }
+        }
     }
 
     @Override
@@ -161,6 +174,10 @@ public class StrayWarriorModel<T extends StrayWarrior> extends HierarchicalModel
 
     private ModelPart getArmItem(HumanoidArm p_102923_) {
         return p_102923_ == HumanoidArm.LEFT ? this.left_item : this.right_item;
+    }
+
+    protected void applyStaticWithScale(AnimationDefinition p_288996_, float scale) {
+        KeyframeAnimations.animate(this, p_288996_, 0L, scale, HierarchicalModelAccessor.getAnimationVector());
     }
 
 

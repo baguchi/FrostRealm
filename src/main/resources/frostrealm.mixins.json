@@ -10,6 +10,7 @@
     "SurfaceSystemMixin"
   ],
   "client": [
+    "client.HierarchicalModelAccessor",
     "client.MinecraftMixin"
   ],
   "injectors": {

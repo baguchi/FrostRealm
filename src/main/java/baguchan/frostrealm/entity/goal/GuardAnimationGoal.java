@@ -7,58 +7,76 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import java.util.EnumSet;
 
 public class GuardAnimationGoal<T extends PathfinderMob & IGuardMob> extends Goal {
-    private final T mob;
-    private final int leftActionPoint;
-    private final int leftStopActionPoint;
-    private final int guardLengh;
+    protected final T mob;
+    protected final int guardLengh;
 
-    private int tick;
+    protected final boolean onlyTrigger;
+    protected boolean trigger;
+    protected boolean stopTrigger;
 
-    public GuardAnimationGoal(T mob, int leftActionPoint, int leftStopActionPoint, int guardLengh) {
+    protected int tick;
+
+    public GuardAnimationGoal(T mob, boolean onlyTrigger, int guardLengh) {
         super();
         this.mob = mob;
-        this.leftActionPoint = leftActionPoint;
-        this.leftStopActionPoint = leftStopActionPoint;
+        this.onlyTrigger = onlyTrigger;
         this.guardLengh = guardLengh;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
     @Override
     public boolean canUse() {
-        if (this.mob.hurtTime > 0 && this.mob.getRandom().nextInt(30) == 0) {
-            return true;
+        if (!this.onlyTrigger) {
+            if (this.mob.hurtTime > 0 && this.mob.getRandom().nextInt(80) == 0) {
+                return true;
+            }
         }
-        return false;
+        return this.trigger;
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.tick > 0;
+        return this.tick > 0 && !this.stopTrigger;
     }
 
     @Override
     public void start() {
         super.start();
-        this.mob.level().broadcastEntityEvent(this.mob, (byte) 61);
+        this.mob.setGuard(true);
+        this.guardAnimation();
+
         this.tick = this.guardLengh;
+    }
+
+    protected void guardAnimation() {
+    }
+
+    protected void stopGuardAnimation() {
     }
 
     public void stop() {
         super.stop();
         this.mob.setGuard(false);
+        this.stopGuardAnimation();
+        this.trigger = false;
+        this.stopTrigger = false;
     }
 
     public void tick() {
-        if (this.tick == this.leftActionPoint) {
-            this.mob.setGuard(true);
-        } else if (this.tick == this.leftStopActionPoint) {
-            this.mob.setGuard(false);
-        }
         --this.tick;
         if (this.mob.getTarget() != null) {
             this.mob.lookAt(this.mob.getTarget(), 10F, 10F);
         }
     }
+
+    public void trigger() {
+        this.trigger = true;
+    }
+
+    public void stopTrigger() {
+        this.stopTrigger = true;
+    }
+
 
     public boolean requiresUpdateEveryTick() {
         return true;

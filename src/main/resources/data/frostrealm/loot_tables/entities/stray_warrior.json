@@ -9,15 +9,6 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "min": 0.0,
-                "max": 2.0
-              },
-              "add": false
-            },
-            {
               "function": "minecraft:looting_enchant",
               "count": {
                 "type": "minecraft:uniform",
@@ -26,7 +17,7 @@
               }
             }
           ],
-          "name": "frostrealm:frost_crystal"
+          "name": "frostrealm:stray_necklace_part"
         }
       ]
     }
