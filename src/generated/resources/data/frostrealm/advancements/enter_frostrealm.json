@@ -1,4 +1,5 @@
 {
+  "parent": "frostrealm:warriors_lost_item",
   "criteria": {
     "enter_frostrealm": {
       "conditions": {

@@ -1,0 +1,37 @@
+{
+  "criteria": {
+    "warriors_lost_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "frostrealm:stray_necklace_part"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.frostrealm.warriors_lost_item.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "frostrealm:stray_necklace_part"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.frostrealm.warriors_lost_item"
+    }
+  },
+  "requirements": [
+    [
+      "warriors_lost_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
