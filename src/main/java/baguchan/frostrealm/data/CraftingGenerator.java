@@ -64,6 +64,8 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_PLANKS.get(), 4).requires(FrostBlocks.FROSTROOT_LOG.get())
 				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FROSTROOT_LOG.get()).getPath(), has(FrostBlocks.FROSTROOT_LOG.get())).save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_PLANKS.get(), 4).requires(FrostBlocks.STRIPPED_FROSTROOT_LOG.get())
+				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.STRIPPED_FROSTROOT_LOG.get()).getPath(), has(FrostBlocks.STRIPPED_FROSTROOT_LOG.get())).save(consumer, prefix("stripped_frostroot_to_plank"));
 
 		makeSlab(consumer, FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_PLANKS.get());
 		makeStairs(consumer, FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS.get());
@@ -73,6 +75,8 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTBITE_PLANKS.get(), 4).requires(FrostBlocks.FROSTBITE_LOG.get())
 				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.FROSTBITE_LOG.get()).getPath(), has(FrostBlocks.FROSTBITE_LOG.get())).save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTBITE_PLANKS.get(), 4).requires(FrostBlocks.STRIPPED_FROSTBITE_LOG.get())
+				.unlockedBy("has_" + ForgeRegistries.BLOCKS.getKey(FrostBlocks.STRIPPED_FROSTBITE_LOG.get()).getPath(), has(FrostBlocks.STRIPPED_FROSTBITE_LOG.get())).save(consumer, prefix("stripped_frostbite_to_plank"));
 
 		makeSlab(consumer, FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_PLANKS.get());
 		makeStairs(consumer, FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS.get());

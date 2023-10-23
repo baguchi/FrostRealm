@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_stripped_frostbite_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "frostrealm:stripped_frostbite_log"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "frostrealm:stripped_frostbite_to_plank"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_stripped_frostbite_log",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "frostrealm:stripped_frostbite_to_plank"
+    ]
+  },
+  "sends_telemetry_event": false
+}

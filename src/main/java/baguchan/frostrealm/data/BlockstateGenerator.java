@@ -49,6 +49,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.stairs(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
 
         this.logBlock(FrostBlocks.FROSTROOT_LOG.get());
+		this.logBlock(FrostBlocks.STRIPPED_FROSTROOT_LOG.get());
         this.simpleBlock(FrostBlocks.FROSTROOT_LEAVES.get());
         this.crossBlock(FrostBlocks.FROSTROOT_SAPLING.get());
         this.simpleBlock(FrostBlocks.FROSTROOT_PLANKS.get());
@@ -58,6 +59,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         this.fenceGateBlock(FrostBlocks.FROSTROOT_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
 
         this.logBlock(FrostBlocks.FROSTBITE_LOG.get());
+		this.logBlock(FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
         this.simpleBlock(FrostBlocks.FROSTBITE_LEAVES.get());
         this.crossBlock(FrostBlocks.FROSTBITE_SAPLING.get());
         this.simpleBlock(FrostBlocks.FROSTBITE_PLANKS.get());

@@ -85,10 +85,10 @@ public class FrostBiteTrunkPlacer extends TrunkPlacer {
             for (int x = -1; x < 1; ++x) {
                 for (int z = -1; z < 1; ++z) {
                     BlockPos blockpos1 = p_273471_.offset(x, 0, z);
-                    if (blockpos1.distSqr(p_273471_) <= (double) length * length * 0.5F) {
+                    if (blockpos1.distSqr(p_273471_) <= (double) length * length * 0.05F) {
                         this.placeLog(p_272827_, p_272650_, p_272993_, blockpos1.above(i1), p_273355_);
                     } else if (blockpos1.getY() == p_273471_.getY()) {
-                        this.placeLog(p_272827_, p_272650_, p_272993_, blockpos1.above(i1), p_273355_);
+                        this.placeLog(p_272827_, p_272650_, p_272993_, p_273471_.above(i1), p_273355_);
                     }
                 }
             }

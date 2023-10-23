@@ -1,6 +1,7 @@
 {
   "values": [
     "frostrealm:frostroot_log",
+    "frostrealm:stripped_frostroot_log",
     "frostrealm:frostroot_planks",
     "frostrealm:frostroot_planks_stairs",
     "frostrealm:frostroot_planks_slab",
@@ -9,6 +10,7 @@
     "frostrealm:frostroot_chest",
     "frostrealm:frostroot_crafting_table",
     "frostrealm:frostbite_log",
+    "frostrealm:stripped_frostbite_log",
     "frostrealm:frostbite_planks",
     "frostrealm:frostbite_planks_stairs",
     "frostrealm:frostbite_planks_slab",

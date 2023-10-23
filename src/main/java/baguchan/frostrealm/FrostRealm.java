@@ -92,6 +92,7 @@ public class FrostRealm {
 
 	public void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
+			FrostBlocks.stripable();
 			FrostBlocks.burnables();
             FrostLootFunctions.init();
 			FrostTrunkPlacers.init();

@@ -30,16 +30,16 @@ public class BlockTagGenerator extends BlockTagsProvider {
                 , FrostBlocks.FROST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.ASTRIUM_ORE.get(), FrostBlocks.ASTRIUM_BLOCK.get(), FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get()
                 , FrostBlocks.WARPED_CRYSTAL_BLOCK.get()
         );
-        tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_PLANKS.get(), FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_FENCE_GATE.get()
+        tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_PLANKS.get(), FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_FENCE_GATE.get()
                         , FrostBlocks.FROSTROOT_CHEST.get(), FrostBlocks.FROSTROOT_CRAFTING_TABLE.get())
-                .add(FrostBlocks.FROSTBITE_LOG.get(), FrostBlocks.FROSTBITE_PLANKS.get(), FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_FENCE.get(), FrostBlocks.FROSTBITE_FENCE_GATE.get());
+                .add(FrostBlocks.FROSTBITE_LOG.get(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get(), FrostBlocks.FROSTBITE_PLANKS.get(), FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_FENCE.get(), FrostBlocks.FROSTBITE_FENCE_GATE.get());
 
         tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTROOT_SAPLING.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.ASTRIUM_ORE.get(), FrostBlocks.ASTRIUM_BLOCK.get());
 
-        tag(BlockTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.FROSTBITE_LOG.get());
+        tag(BlockTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.FROSTBITE_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
         tag(BlockTags.LEAVES).add(FrostBlocks.FROSTROOT_LEAVES.get(), FrostBlocks.FROSTBITE_LEAVES.get());
         tag(BlockTags.WOODEN_FENCES).add(FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTBITE_FENCE.get());
         tag(BlockTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE.get(), FrostBlocks.FROSTBITE_FENCE_GATE.get());

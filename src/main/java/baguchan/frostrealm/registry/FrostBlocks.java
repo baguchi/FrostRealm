@@ -68,6 +68,7 @@ public class FrostBlocks {
 
 	//FROSTROOT
 	public static final RegistryObject<RotatedPillarBlock> FROSTROOT_LOG = register("frostroot_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().strength(2.0F).sound(SoundType.WOOD)));
+	public static final RegistryObject<RotatedPillarBlock> STRIPPED_FROSTROOT_LOG = register("stripped_frostroot_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().strength(2.0F).sound(SoundType.WOOD)));
 	public static final RegistryObject<LeavesBlock> FROSTROOT_LEAVES = register("frostroot_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of().strength(0.2F).noOcclusion().isSuffocating(FrostBlocks::never).sound(SoundType.GRASS)));
 	public static final RegistryObject<SaplingBlock> FROSTROOT_SAPLING = register("frostroot_sapling", () -> new SaplingBlock(new FrostrootTree(), BlockBehaviour.Properties.of().randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS)));
 	public static final RegistryObject<Block> FROSTROOT_PLANKS = register("frostroot_planks", () -> new Block(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD)));
@@ -79,6 +80,7 @@ public class FrostBlocks {
 	public static final RegistryObject<Block> FROSTROOT_CRAFTING_TABLE = register("frostroot_crafting_table", () -> new FrostCraftingTableBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
 	public static final RegistryObject<RotatedPillarBlock> FROSTBITE_LOG = register("frostbite_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().strength(2.0F).sound(SoundType.WOOD)));
+	public static final RegistryObject<RotatedPillarBlock> STRIPPED_FROSTBITE_LOG = register("stripped_frostbite_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().strength(2.0F).sound(SoundType.WOOD)));
 	public static final RegistryObject<LeavesBlock> FROSTBITE_LEAVES = register("frostbite_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of().strength(0.2F).noOcclusion().isSuffocating(FrostBlocks::never).sound(SoundType.GRASS)));
 	public static final RegistryObject<SaplingBlock> FROSTBITE_SAPLING = register("frostbite_sapling", () -> new SaplingBlock(new FrostbiteTree(), BlockBehaviour.Properties.of().randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS)));
 	public static final RegistryObject<Block> FROSTBITE_PLANKS = register("frostbite_planks", () -> new Block(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD)));
@@ -142,15 +144,30 @@ public class FrostBlocks {
 		return false;
 	}
 
+	public static void stripable() {
+		AxeItem.STRIPPABLES.put(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get());
+		AxeItem.STRIPPABLES.put(FrostBlocks.FROSTBITE_LOG.get(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
+	}
+
 	public static void burnables() {
 		FireBlock fireblock = (FireBlock) Blocks.FIRE;
 		fireblock.setFlammable(FROSTROOT_LEAVES.get(), 60, 100);
 		fireblock.setFlammable(FROSTROOT_LOG.get(), 5, 5);
+		fireblock.setFlammable(STRIPPED_FROSTROOT_LOG.get(), 5, 5);
 		fireblock.setFlammable(FROSTROOT_PLANKS.get(), 5, 20);
 		fireblock.setFlammable(FROSTROOT_PLANKS_SLAB.get(), 5, 20);
 		fireblock.setFlammable(FROSTROOT_PLANKS_STAIRS.get(), 5, 20);
 		fireblock.setFlammable(FROSTROOT_FENCE.get(), 5, 20);
 		fireblock.setFlammable(FROSTROOT_FENCE_GATE.get(), 5, 20);
+
+		fireblock.setFlammable(FROSTBITE_LEAVES.get(), 60, 100);
+		fireblock.setFlammable(FROSTBITE_LOG.get(), 5, 5);
+		fireblock.setFlammable(STRIPPED_FROSTBITE_LOG.get(), 5, 5);
+		fireblock.setFlammable(FROSTBITE_PLANKS.get(), 5, 20);
+		fireblock.setFlammable(FROSTBITE_PLANKS_SLAB.get(), 5, 20);
+		fireblock.setFlammable(FROSTBITE_PLANKS_STAIRS.get(), 5, 20);
+		fireblock.setFlammable(FROSTBITE_FENCE.get(), 5, 20);
+		fireblock.setFlammable(FROSTBITE_FENCE_GATE.get(), 5, 20);
 		fireblock.setFlammable(COLD_GRASS.get(), 60, 100);
 		fireblock.setFlammable(COLD_TALL_GRASS.get(), 60, 100);
 	}

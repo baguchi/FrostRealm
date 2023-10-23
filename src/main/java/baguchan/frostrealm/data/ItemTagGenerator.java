@@ -23,7 +23,7 @@ public class ItemTagGenerator extends ItemTagsProvider {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-        tag(ItemTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.get().asItem(), FrostBlocks.FROSTBITE_LOG.get().asItem());
+        tag(ItemTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.get().asItem(), FrostBlocks.FROSTBITE_LOG.get().asItem(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get().asItem(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get().asItem());
         tag(ItemTags.PLANKS).add(FrostBlocks.FROSTROOT_PLANKS.get().asItem(), FrostBlocks.FROSTBITE_PLANKS.get().asItem());
         tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.get().asItem());
         tag(ItemTags.STONE_TOOL_MATERIALS).add(FrostBlocks.FRIGID_STONE.get().asItem());
