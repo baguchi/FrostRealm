@@ -22,6 +22,17 @@ public class FrostLevelData extends DerivedLevelData {
 		this.wrapped.setDayTime(pTime);
 	}
 
+
+    @Override
+    public long getGameTime() {
+        return this.wrapped.getGameTime();
+    }
+
+    @Override
+    public void setGameTime(long pTime) {
+        this.wrapped.setGameTime(pTime);
+    }
+
 	@Override
 	public int getClearWeatherTime() {
 		return 6000;

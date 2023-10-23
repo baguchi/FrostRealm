@@ -94,6 +94,7 @@ public class FrostRealm {
 		event.enqueueWork(() -> {
 			FrostBlocks.burnables();
             FrostLootFunctions.init();
+			FrostTrunkPlacers.init();
             this.setupMessages();
 			FrostBiomes.addBiomeTypes();
 			Map<ResourceLocation, MultiNoiseBiomeSourceParameterList.Preset> map = Maps.newHashMap();

@@ -1,12 +1,12 @@
 package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
+import baguchan.frostrealm.entity.goal.BreedAndEggGoal;
 import baguchan.frostrealm.entity.goal.QuailAngryGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostSounds;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -14,11 +14,9 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -34,7 +32,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -43,7 +40,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
-public class SnowPileQuail extends FrostAnimal {
+public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> HAS_EGG = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 
@@ -67,7 +64,7 @@ public class SnowPileQuail extends FrostAnimal {
 			return !((Wolf) p_28590_).isTame();
 		}));
 		this.goalSelector.addGoal(3, new QuailAngryGoal(this));
-		this.goalSelector.addGoal(4, new SnowPileQuailBreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(4, new BreedAndEggGoal<>(this, 1.0D));
 		this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
 		this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
 		this.goalSelector.addGoal(7, new MoveToGoal(this, 8.0D, 1.1D));
@@ -333,40 +330,6 @@ public class SnowPileQuail extends FrostAnimal {
 
 		private boolean isTooFarAway(BlockPos pos, double distance) {
 			return !pos.closerThan(this.quail.blockPosition(), distance);
-		}
-	}
-
-	static class SnowPileQuailBreedGoal extends BreedGoal {
-		private final SnowPileQuail quail;
-
-		SnowPileQuailBreedGoal(SnowPileQuail quail, double speed) {
-			super(quail, speed);
-			this.quail = quail;
-		}
-
-		public boolean canUse() {
-			return super.canUse() && !this.quail.hasEgg();
-		}
-
-		protected void breed() {
-			ServerPlayer serverplayer = this.animal.getLoveCause();
-			if (serverplayer == null && this.partner.getLoveCause() != null) {
-				serverplayer = this.partner.getLoveCause();
-			}
-
-			if (serverplayer != null) {
-				serverplayer.awardStat(Stats.ANIMALS_BRED);
-				CriteriaTriggers.BRED_ANIMALS.trigger(serverplayer, this.animal, this.partner, null);
-			}
-
-			this.quail.setHasEgg(true);
-			this.animal.resetLove();
-			this.partner.resetLove();
-			RandomSource random = this.animal.getRandom();
-			if (this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-				this.level.addFreshEntity(new ExperienceOrb(this.level, this.animal.getX(), this.animal.getY(), this.animal.getZ(), random.nextInt(7) + 1));
-			}
-
 		}
 	}
 }

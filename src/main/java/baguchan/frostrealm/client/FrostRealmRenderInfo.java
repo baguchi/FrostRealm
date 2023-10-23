@@ -86,13 +86,13 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 		Matrix4f matrix4f1 = p_109781_.last().pose();
 		float f12 = 160.0F;
-		float f13 = (float) (110.0F);
+        float f13 = (float) (100.0F);
 		float u1 = 0;
 		float v1 = 0;
 		float u2 = 1F;
 		float v2 = 1F;
 
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(FrostShaders::getRenderTypeAuroraShader);
 		RenderSystem.setShaderTexture(0, AURORA_LOCATION);
 		bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		bufferbuilder.vertex(matrix4f1, -f12, (float) f13, -f12).uv(u1, v1).endVertex();
