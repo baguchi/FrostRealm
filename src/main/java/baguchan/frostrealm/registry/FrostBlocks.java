@@ -148,11 +148,6 @@ public class FrostBlocks {
 		return false;
 	}
 
-	public static void stripable() {
-		AxeItem.STRIPPABLES.put(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get());
-		AxeItem.STRIPPABLES.put(FrostBlocks.FROSTBITE_LOG.get(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
-	}
-
 	public static void burnables() {
 		FireBlock fireblock = (FireBlock) Blocks.FIRE;
 		fireblock.setFlammable(FROSTROOT_LEAVES.get(), 60, 100);

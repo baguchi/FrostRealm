@@ -9,21 +9,20 @@ import baguchan.frostrealm.utils.ModifierUtils;
 import baguchan.frostrealm.world.FrostLevelData;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.server.level.ChunkMap;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -34,15 +33,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
@@ -130,22 +130,6 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
-    public static void onHoeRightClick(PlayerInteractEvent.RightClickBlock event) {
-        ItemStack stack = event.getItemStack();
-
-        if (stack.getItem() instanceof HoeItem) {
-            if (event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_DIRT.get() || event.getLevel().getBlockState(event.getPos()).getBlock() == FrostBlocks.FROZEN_GRASS_BLOCK.get()) {
-                event.getLevel().setBlock(event.getPos(), FrostBlocks.FROZEN_FARMLAND.get().defaultBlockState(), 2);
-                stack.hurtAndBreak(1, event.getEntity(), (p_147232_) -> {
-                    p_147232_.broadcastBreakEvent(event.getHand());
-                });
-                event.getLevel().playSound(event.getEntity(), event.getPos(), SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
-                event.setUseItem(Event.Result.ALLOW);
-            }
-        }
-    }
-
-    @SubscribeEvent
     public static void onWorldLoad(LevelEvent.Load event) {
         if (event.getLevel() instanceof ServerLevel level && level.dimension().location().equals(FrostDimensions.FROSTREALM_LEVEL.location())) {
             FrostLevelData levelData = new FrostLevelData(level.getServer().getWorldData(), level.getServer().getWorldData().overworldData());
@@ -228,6 +212,28 @@ public class CommonEvents {
                     for (Map.Entry<Attribute, AttributeModifier> entry : multimap.entries()) {
                         event.addModifier(entry.getKey(), entry.getValue());
                     }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void blockToolInteractions(BlockEvent.BlockToolModificationEvent event) {
+        ToolAction action = event.getToolAction();
+        BlockState state = event.getState();
+        UseOnContext context = event.getContext();
+        if (!event.isSimulated()) {
+            if (action == ToolActions.AXE_STRIP) {
+                if (state.is(FrostBlocks.FROSTROOT_LOG.get())) {
+                    event.setFinalState(FrostBlocks.STRIPPED_FROSTROOT_LOG.get().withPropertiesOf(state));
+                }
+                if (state.is(FrostBlocks.FROSTBITE_LOG.get())) {
+                    event.setFinalState(FrostBlocks.STRIPPED_FROSTBITE_LOG.get().withPropertiesOf(state));
+                }
+            }
+            if (action == ToolActions.HOE_TILL && (context.getClickedFace() != Direction.DOWN && context.getLevel().getBlockState(context.getClickedPos().above()).isAir())) {
+                if (state.is(FrostBlocks.FROZEN_DIRT.get()) || state.is(FrostBlocks.FROZEN_GRASS_BLOCK.get())) {
+                    event.setFinalState(FrostBlocks.FROZEN_FARMLAND.get().defaultBlockState());
                 }
             }
         }
