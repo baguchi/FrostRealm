@@ -76,18 +76,6 @@
         "maxCount": 2,
         "minCount": 1,
         "weight": 80
-      },
-      {
-        "type": "frostrealm:frost_beaster",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 30
-      },
-      {
-        "type": "frostrealm:gokkudillo",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 10
       }
     ],
     "underground_water_creature": [],

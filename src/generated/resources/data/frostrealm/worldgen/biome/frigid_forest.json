@@ -58,12 +58,6 @@
     "axolotls": [],
     "creature": [
       {
-        "type": "frostrealm:frost_wolf",
-        "maxCount": 4,
-        "minCount": 2,
-        "weight": 6
-      },
-      {
         "type": "frostrealm:snowpile_quail",
         "maxCount": 6,
         "minCount": 4,
@@ -83,18 +77,6 @@
         "maxCount": 2,
         "minCount": 1,
         "weight": 80
-      },
-      {
-        "type": "frostrealm:frost_beaster",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 30
-      },
-      {
-        "type": "frostrealm:gokkudillo",
-        "maxCount": 1,
-        "minCount": 1,
-        "weight": 10
       }
     ],
     "underground_water_creature": [],

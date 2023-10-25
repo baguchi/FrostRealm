@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "frostrealm:block/rye_0"
+    },
+    "age=1": {
+      "model": "frostrealm:block/rye_1"
+    },
+    "age=2": {
+      "model": "frostrealm:block/rye_2"
+    },
+    "age=3": {
+      "model": "frostrealm:block/rye_3"
+    },
+    "age=4": {
+      "model": "frostrealm:block/rye_4"
+    },
+    "age=5": {
+      "model": "frostrealm:block/rye_5"
+    },
+    "age=6": {
+      "model": "frostrealm:block/rye_6"
+    },
+    "age=7": {
+      "model": "frostrealm:block/rye_7"
+    }
+  }
+}
