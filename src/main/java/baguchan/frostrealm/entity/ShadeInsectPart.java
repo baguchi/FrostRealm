@@ -127,13 +127,12 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
 
                     this.setPos(vec32.x, vec32.y, vec32.z);
 
-                    if (d3 > (double) 2.5000003E-7F) {
-                        float xRot = ((float) (Mth.atan2(d1, d3) * (double) (180F / (float) Math.PI)));
-                        this.setXRot(this.rotlerp(this.getXRot(), xRot, 1.0F));
+                    float xRot = ((float) (Mth.atan2(d1, d3) * (double) (180F / (float) Math.PI)));
+                    this.setXRot(this.limitAngle(this.getXRot(), xRot, 5.0F));
 
-                        float yRot = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
-                        this.setYRot(this.rotlerp(this.getYRot(), yRot, (float) 3.5F));
-                    }
+                    float yRot = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
+                    this.setYRot(this.limitAngle(this.getYRot(), yRot, (float) 3.5F));
+
 
                     this.markHurt();
                     this.yHeadRot = this.getYRot();
@@ -165,26 +164,6 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
                 this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
             }
         }
-    }
-
-    protected float rotlerp(float p_24992_, float p_24993_, float p_24994_) {
-        float f = Mth.wrapDegrees(p_24993_ - p_24992_);
-        if (f > p_24994_) {
-            f = p_24994_;
-        }
-
-        if (f < -p_24994_) {
-            f = -p_24994_;
-        }
-
-        float f1 = p_24992_ + f;
-        if (f1 < 0.0F) {
-            f1 += 360.0F;
-        } else if (f1 > 360.0F) {
-            f1 -= 360.0F;
-        }
-
-        return f1;
     }
 
     @Override

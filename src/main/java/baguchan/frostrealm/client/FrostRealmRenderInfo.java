@@ -52,7 +52,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 	@Override
 	public Vec3 getBrightnessDependentFogColor(Vec3 biomeFogColor, float daylight) {
-		return biomeFogColor.multiply(daylight * 0.94F + 0.04F, (daylight * 0.94F + 0.04F), (daylight * 0.94F + 0.04F));
+		return biomeFogColor;
 	}
 
 	@Override

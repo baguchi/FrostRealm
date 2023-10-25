@@ -55,9 +55,9 @@ public class ClientFogEvent {
 					float blue = weatherLevel * cap.getFrostWeather().getBlue();
 
 					float f9 = Math.min(1.0F / fogRed, Math.min(1.0F / fogGreen, 1.0F / fogBlue));
-					fogRed = fogRed * (1.0F - red) + fogRed * f9 * red;
-					fogGreen = fogGreen * (1.0F - green) + fogGreen * f9 * green;
-					fogBlue = fogBlue * (1.0F - blue) + fogBlue * f9 * blue;
+					fogRed = fogRed * f9 * red;
+					fogGreen = fogGreen * f9 * green;
+					fogBlue = fogBlue * f9 * blue;
 
 					event.setRed(fogRed);
 					event.setGreen(fogGreen);
