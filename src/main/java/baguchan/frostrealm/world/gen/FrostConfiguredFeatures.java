@@ -1,7 +1,7 @@
 package baguchan.frostrealm.world.gen;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.block.BearBerryBushBlock;
+import baguchan.frostrealm.block.crop.BearBerryBushBlock;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostFeatures;
 import com.google.common.collect.ImmutableList;

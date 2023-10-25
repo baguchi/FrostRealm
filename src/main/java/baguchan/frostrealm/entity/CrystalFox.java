@@ -1,6 +1,6 @@
 package baguchan.frostrealm.entity;
 
-import baguchan.frostrealm.block.BearBerryBushBlock;
+import baguchan.frostrealm.block.crop.BearBerryBushBlock;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;

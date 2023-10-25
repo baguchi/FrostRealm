@@ -35,6 +35,9 @@ public class ItemModelGenerator extends ItemModelProvider {
         this.singleTex(FrostItems.MELTED_FRUIT);
         this.singleTex(FrostItems.SUGARBEET);
         this.singleTex(FrostItems.SUGARBEET_SEEDS);
+		this.singleTex(FrostItems.RYE);
+		this.singleTex(FrostItems.RYE_BREAD);
+		this.singleTex(FrostItems.RYE_SEEDS);
         this.singleTex(FrostItems.BEARBERRY);
         this.singleTex(FrostItems.COOKED_BEARBERRY);
         this.singleTex(FrostItems.COOKED_SNOWPILE_QUAIL_EGG);
@@ -47,8 +50,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         this.singleTex(FrostItems.STRAY_NECKLACE_PART);
 
         this.singleTex(FrostItems.YETI_FUR);
-        this.singleTex(FrostItems.FROST_BOAR_FUR);
-		this.singleTex(FrostItems.FROST_ARCHIVE);
+		this.singleTex(FrostItems.FROST_BOAR_FUR);
+		;
         this.singleTexTool(FrostItems.FUSION_CRYSTAL_DAGGER);
         this.singleTexTool(FrostItems.ASTRIUM_SWORD);
 		this.singleTexTool(FrostItems.ASTRIUM_AXE);

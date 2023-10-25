@@ -2,6 +2,9 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.block.*;
+import baguchan.frostrealm.block.crop.BearBerryBushBlock;
+import baguchan.frostrealm.block.crop.RyeBlock;
+import baguchan.frostrealm.block.crop.SugarBeetBlock;
 import baguchan.frostrealm.blockentity.FrostChestBlockEntity;
 import baguchan.frostrealm.world.tree.FrostbiteTree;
 import baguchan.frostrealm.world.tree.FrostrootTree;
@@ -103,6 +106,7 @@ public class FrostBlocks {
 	public static final RegistryObject<Block> BEARBERRY_BUSH = noItemRegister("bearberry_bush", () -> new BearBerryBushBlock(BlockBehaviour.Properties.of().noOcclusion().noCollission().sound(SoundType.GRASS)));
 	//CROP
 	public static final RegistryObject<Block> SUGARBEET = noItemRegister("sugarbeet", () -> new SugarBeetBlock(BlockBehaviour.Properties.of().noOcclusion().noCollission().sound(SoundType.CROP)));
+	public static final RegistryObject<Block> RYE = noItemRegister("rye", () -> new RyeBlock(BlockBehaviour.Properties.of().noOcclusion().noCollission().sound(SoundType.CROP)));
 	//EGG
 	public static final RegistryObject<Block> SNOWPILE_QUAIL_EGG = register("snowpile_quail_egg", () -> new SnowPileQuailEggBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.2F, 0.25F).sound(SoundType.METAL)));
 

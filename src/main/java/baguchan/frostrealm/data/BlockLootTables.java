@@ -1,6 +1,6 @@
 package baguchan.frostrealm.data;
 
-import baguchan.frostrealm.block.BearBerryBushBlock;
+import baguchan.frostrealm.block.crop.BearBerryBushBlock;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
@@ -115,6 +115,8 @@ public class BlockLootTables extends BlockLootSubProvider {
         });
 		LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.SUGARBEET.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BeetrootBlock.AGE, 3));
 		this.add(FrostBlocks.SUGARBEET.get(), createCropDrops(FrostBlocks.SUGARBEET.get(), FrostItems.SUGARBEET.get(), FrostItems.SUGARBEET.get(), lootitemcondition$builder));
+        LootItemCondition.Builder lootitemcondition$builder2 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.RYE.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BeetrootBlock.AGE, 7));
+        this.add(FrostBlocks.RYE.get(), createCropDrops(FrostBlocks.RYE.get(), FrostItems.RYE_SEEDS.get(), FrostItems.RYE.get(), lootitemcondition$builder2));
 
 
 		this.add(FrostBlocks.FROST_CRYSTAL_ORE.get(), this::createFrostCrystalOreDrops);

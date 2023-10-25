@@ -77,6 +77,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 
         this.ageThreeCrossBlock(FrostBlocks.BEARBERRY_BUSH.get());
         this.ageThreeCrossBlock(FrostBlocks.SUGARBEET.get());
+		this.ageSevenCrossBlock(FrostBlocks.RYE.get());
 
 		this.glowBlock(FrostBlocks.FROST_CRYSTAL_ORE.get());
 		this.glowBlock(FrostBlocks.GLIMMERROCK_ORE.get());
@@ -147,6 +148,16 @@ public class BlockstateGenerator extends BlockStateProvider {
 	public void ageThreeCrossBlock(Block block) {
 		getVariantBuilder(block).forAllStates(state -> {
 			int age = state.getValue(BlockStateProperties.AGE_3);
+			ModelFile cross_1 = models().singleTexture(name(block) + "_" + age, mcLoc("block/cross"), "cross", texture(name(block) + "_" + age)).renderType("minecraft:cutout");
+			return ConfiguredModel.builder()
+					.modelFile(cross_1)
+					.build();
+		});
+	}
+
+	public void ageSevenCrossBlock(Block block) {
+		getVariantBuilder(block).forAllStates(state -> {
+			int age = state.getValue(BlockStateProperties.AGE_7);
 			ModelFile cross_1 = models().singleTexture(name(block) + "_" + age, mcLoc("block/cross"), "cross", texture(name(block) + "_" + age)).renderType("minecraft:cutout");
 			return ConfiguredModel.builder()
 					.modelFile(cross_1)

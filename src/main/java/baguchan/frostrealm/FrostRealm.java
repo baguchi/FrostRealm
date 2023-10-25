@@ -65,7 +65,6 @@ public class FrostRealm {
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		FrostWeathers.FROST_WEATHER.register(modBus);
-		FrostArchives.FROST_ARCHIVE.register(modBus);
 		FrostFeatures.FEATURES.register(modBus);
 		FrostSounds.SOUND_EVENTS.register(modBus);
 		FrostMenuTypes.MENU_TYPES.register(modBus);

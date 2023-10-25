@@ -1,4 +1,4 @@
-package baguchan.frostrealm.block;
+package baguchan.frostrealm.block.crop;
 
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.core.BlockPos;

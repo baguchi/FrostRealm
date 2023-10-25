@@ -166,5 +166,11 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 
 		smeltOre(FrostItems.ASTRIUM_RAW.get(), FrostItems.ASTRIUM_INGOT.get(), 0.2F, consumer);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, FrostItems.RYE_BREAD.get(), 1)
+				.pattern("WWW")
+				.define('W', FrostItems.RYE.get())
+				.unlockedBy("has_item", has(FrostItems.RYE.get())).save(consumer);
+
 	}
 }
