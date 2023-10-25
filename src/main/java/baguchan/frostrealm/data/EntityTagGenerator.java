@@ -20,10 +20,10 @@ public class EntityTagGenerator extends EntityTypeTagsProvider {
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
 
-		tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.FROST_WRAITH.get(), FrostEntities.CLUST_WRAITH.get(), FrostEntities.GOKKUDILLO.get()
-						, FrostEntities.SNOWPILE_QUAIL.get(), FrostEntities.CRYSTAL_FOX.get(), FrostEntities.FROST_BEASTER.get(), FrostEntities.ASTRA_BALL.get(), FrostEntities.SNOW_MOLE.get(), FrostEntities.FROST_WOLF.get(), FrostEntities.YETI.get(), FrostEntities.SHADE_INSECT_PART.get(), FrostEntities.SHADE_INSECT.get(), FrostEntities.SEAL.get())
+        tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.FROST_WRAITH.get(), FrostEntities.CLUST_WRAITH.get()
+                        , FrostEntities.SNOWPILE_QUAIL.get(), FrostEntities.CRYSTAL_FOX.get(), FrostEntities.ASTRA_BALL.get(), FrostEntities.SNOW_MOLE.get(), FrostEntities.YETI.get(), FrostEntities.SHADE_INSECT_PART.get(), FrostEntities.SHADE_INSECT.get(), FrostEntities.SEAL.get())
 				.add(FrostEntities.STRAY_WARRIOR.get());
 		tag(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE).addTag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.MARMOT.get(), FrostEntities.FROST_BOAR.get());
-		tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS).add(FrostEntities.FROST_WOLF.get(), FrostEntities.SLEDGE.get(), FrostEntities.CHEST_SLEDGE.get());
+        tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS);
 	}
 }

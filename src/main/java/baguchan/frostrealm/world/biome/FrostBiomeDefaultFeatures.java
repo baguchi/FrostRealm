@@ -19,8 +19,6 @@ public class FrostBiomeDefaultFeatures {
 	public static void monsterSpawns(MobSpawnSettings.Builder p_126813_) {
 		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WRAITH.get(), 100, 2, 3));
 		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.CLUST_WRAITH.get(), 80, 1, 2));
-		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_BEASTER.get(), 30, 1, 2));
-		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUDILLO.get(), 10, 1, 1));
 	}
 
 	public static void plainCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
@@ -31,7 +29,6 @@ public class FrostBiomeDefaultFeatures {
 	}
 
 	public static void forestCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WOLF.get(), 6, 2, 4));
 		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL.get(), 10, 4, 6));
 	}
 
@@ -40,11 +37,9 @@ public class FrostBiomeDefaultFeatures {
 	}
 
 	public static void mountainMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
-		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUDILLO.get(), 10, 1, 1));
 	}
 
 	public static void underGroundMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
-		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUDILLO.get(), 10, 1, 1));
 	}
 
 	public static void addDefaultOres(BiomeGenerationSettings.Builder p_194721_) {

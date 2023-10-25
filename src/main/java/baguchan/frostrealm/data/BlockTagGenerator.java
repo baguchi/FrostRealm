@@ -61,6 +61,6 @@ public class BlockTagGenerator extends BlockTagsProvider {
         tag(Tags.Blocks.ORES).add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.FROST_CRYSTAL_ORE.get());
 		tag(FrostTags.Blocks.NON_FREEZE_CROP).add(FrostBlocks.SUGARBEET.get());
         tag(FrostTags.Blocks.SEAL_SPAWNABLE).add(FrostBlocks.FRIGID_STONE.get(), Blocks.SNOW_BLOCK, Blocks.ICE, Blocks.BLUE_ICE, Blocks.PACKED_ICE);
-
+        tag(BlockTags.SMALL_FLOWERS).add(FrostBlocks.ARCTIC_POPPY.get(), FrostBlocks.ARCTIC_WILLOW.get());
 	}
 }

@@ -49,8 +49,6 @@ public class ItemModelGenerator extends ItemModelProvider {
         this.singleTex(FrostItems.YETI_FUR);
         this.singleTex(FrostItems.FROST_BOAR_FUR);
 		this.singleTex(FrostItems.FROST_ARCHIVE);
-		this.singleTexTool(FrostItems.OAK_SLEDGE);
-        this.singleTexTool(FrostItems.OAK_CHEST_SLEDGE);
         this.singleTexTool(FrostItems.FUSION_CRYSTAL_DAGGER);
         this.singleTexTool(FrostItems.ASTRIUM_SWORD);
 		this.singleTexTool(FrostItems.ASTRIUM_AXE);
@@ -75,12 +73,9 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 		this.egg(FrostItems.MARMOT_SPAWNEGG);
 		this.egg(FrostItems.SNOWPILE_QUAIL_SPAWNEGG);
-		this.egg(FrostItems.FROST_WOLF_SPAWNEGG);
 		this.egg(FrostItems.YETI_SPAWNEGG);
 		this.egg(FrostItems.FROST_WRAITH_SPAWNEGG);
 		this.egg(FrostItems.CLUST_WRAITH_SPAWNEGG);
-		this.egg(FrostItems.GOKKUDILLO_SPAWNEGG);
-		this.egg(FrostItems.FROST_BEASTER_SPAWNEGG);
 		this.egg(FrostItems.CRYSTAL_FOX_SPAWNEGG);
 		this.egg(FrostItems.SNOW_MOLE_SPAWNEGG);
         this.egg(FrostItems.ASTRA_BALL_SPAWNEGG);

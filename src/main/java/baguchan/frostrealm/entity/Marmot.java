@@ -12,6 +12,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -23,6 +24,8 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 
@@ -30,6 +33,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class Marmot extends FrostAnimal {
+	public static final Ingredient FOOD_ITEMS = Ingredient.of(ItemTags.SMALL_FLOWERS);
 	private static final UniformInt TIME_BETWEEN_STANDS = UniformInt.of(300, 600);
 	private static final UniformInt TIME_BETWEEN_STANDS_COOLDOWN = UniformInt.of(600, 1200);
 
@@ -50,6 +54,11 @@ public class Marmot extends FrostAnimal {
 		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.1F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+	}
+
+	@Override
+	public boolean isFood(ItemStack p_27600_) {
+		return FOOD_ITEMS.test(p_27600_);
 	}
 
 	public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
