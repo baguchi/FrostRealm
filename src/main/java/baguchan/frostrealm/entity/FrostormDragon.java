@@ -205,7 +205,7 @@ public class FrostormDragon extends Monster implements IFlyMob {
                 avec3[j] = new Vec3(this.subEntities[j].getX(), this.subEntities[j].getY(), this.subEntities[j].getZ());
             }
 
-            Vec3 vec3 = this.calculateViewVector(-this.getXRot(), this.getYRot());
+            Vec3 vec3 = this.calculateViewVector(-this.getXRot(), this.yBodyRot);
 
             this.tickPart(this.body, (double) (-vec3.x * 0.5F), 0.0D, (double) (-vec3.z * 0.5F));
             if (!this.level().isClientSide && this.hurtTime == 0) {
@@ -492,10 +492,7 @@ public class FrostormDragon extends Monster implements IFlyMob {
                 FrostormDragon.this.yBodyRot = FrostormDragon.this.getYRot();
             } else {
                 //fix part entity cannot move
-                FrostormDragon.this.yBodyRot = FrostormDragon.this.getYRot();
                 super.clientTick();
-
-
             }
 
         }
