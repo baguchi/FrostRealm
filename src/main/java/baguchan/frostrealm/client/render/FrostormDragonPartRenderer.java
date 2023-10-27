@@ -2,8 +2,8 @@ package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
-import baguchan.frostrealm.client.model.ShadeInsectPartModel;
-import baguchan.frostrealm.entity.ShadeInsectPart;
+import baguchan.frostrealm.client.model.FrostormDragonPartModel;
+import baguchan.frostrealm.entity.FrostormDragonPart;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -13,12 +13,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class ShadeInsectPartRenderer<T extends ShadeInsectPart> extends LivingEntityRenderer<T, ShadeInsectPartModel<T>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/shade_insect/shade_insect.png");
+public class FrostormDragonPartRenderer<T extends FrostormDragonPart> extends LivingEntityRenderer<T, FrostormDragonPartModel<T>> {
+    private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/frostorm_dragon/frostorm_dragon_part.png");
 
 
-    public ShadeInsectPartRenderer(EntityRendererProvider.Context p_173952_) {
-        super(p_173952_, new ShadeInsectPartModel<>(p_173952_.bakeLayer(FrostModelLayers.SHADE_INSECT_PART)), 0.5F);
+    public FrostormDragonPartRenderer(EntityRendererProvider.Context p_173952_) {
+        super(p_173952_, new FrostormDragonPartModel<>(p_173952_.bakeLayer(FrostModelLayers.FROSTROM_DRAGON_PART)), 0.5F);
     }
 
     protected void setupRotations(T p_115685_, PoseStack p_115686_, float p_115687_, float p_115688_, float p_115689_) {

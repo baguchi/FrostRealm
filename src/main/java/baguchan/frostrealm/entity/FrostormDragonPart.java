@@ -29,23 +29,23 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
-import static baguchan.frostrealm.entity.ShadeInsect.TICKS_PER_FLAP;
+import static baguchan.frostrealm.entity.FrostormDragon.TICKS_PER_FLAP;
 
-public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart {
-    private static final EntityDataAccessor<Integer> BODYINDEX = SynchedEntityData.defineId(ShadeInsectPart.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Optional<UUID>> PARENT_UUID = SynchedEntityData.defineId(ShadeInsectPart.class, EntityDataSerializers.OPTIONAL_UUID);
+public class FrostormDragonPart extends LivingEntity implements IHurtableMultipart {
+    private static final EntityDataAccessor<Integer> BODYINDEX = SynchedEntityData.defineId(FrostormDragonPart.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Optional<UUID>> PARENT_UUID = SynchedEntityData.defineId(FrostormDragonPart.class, EntityDataSerializers.OPTIONAL_UUID);
     public EntityDimensions multipartSize;
     protected float radius;
     protected float angleYaw;
     protected float offsetY;
     protected float damageMultiplier = 0.95F;
 
-    public ShadeInsectPart(EntityType t, Level world) {
+    public FrostormDragonPart(EntityType t, Level world) {
         super(t, world);
         multipartSize = t.getDimensions();
     }
 
-    public ShadeInsectPart(EntityType t, LivingEntity parent, float radius, float angleYaw, float offsetY) {
+    public FrostormDragonPart(EntityType t, LivingEntity parent, float radius, float angleYaw, float offsetY) {
         super(t, parent.level());
         this.setParent(parent);
         this.radius = radius;
@@ -115,6 +115,11 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
         if (this.tickCount > 10) {
             Entity parent = getParent();
             refreshDimensions();
+            if (parent != null) {
+                if (!parent.isAlive()) {
+                    dead = true;
+                }
+            }
             if (!level().isClientSide) {
                 if (parent != null) {
                     Vec3 vec3 = this.calculateViewVector(parent.xRotO, parent.yRotO);
@@ -211,7 +216,7 @@ public class ShadeInsectPart extends LivingEntity implements IHurtableMultipart 
 
     @Override
     public void push(Entity p_33636_) {
-        if (p_33636_ != this && !(p_33636_ instanceof ShadeInsect) && !(p_33636_ instanceof ShadeInsectPart)) {
+        if (p_33636_ != this && !(p_33636_ instanceof FrostormDragon) && !(p_33636_ instanceof FrostormDragonPart)) {
             super.push(p_33636_);
             this.dealDamage(p_33636_);
         }

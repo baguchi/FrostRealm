@@ -39,18 +39,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class ShadeInsect extends Monster {
-    private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(ShadeInsect.class, EntityDataSerializers.OPTIONAL_UUID);
+public class FrostormDragon extends Monster {
+    private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(FrostormDragon.class, EntityDataSerializers.OPTIONAL_UUID);
 
     public static final float FLAP_DEGREES_PER_TICK = 7.448451F;
     public static final int TICKS_PER_FLAP = Mth.ceil(24.166098F);
-    ShadeInsect.AttackPhase attackPhase = ShadeInsect.AttackPhase.CIRCLE;
+    FrostormDragon.AttackPhase attackPhase = FrostormDragon.AttackPhase.CIRCLE;
 
-    public ShadeInsect(EntityType<? extends Monster> p_33002_, Level p_33003_) {
+    public FrostormDragon(EntityType<? extends Monster> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
         this.xpReward = 200;
-        this.moveControl = new ShadeInsect.ShadeInsectMoveControl(this);
-        this.lookControl = new ShadeInsect.ShadeInsectLookControl(this);
+        this.moveControl = new FrostormDragon.FrostormDragonMoveControl(this);
+        this.lookControl = new FrostormDragon.FrostormDragonLookControl(this);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -120,15 +120,15 @@ public class ShadeInsect extends Monster {
     }
 
     protected BodyRotationControl createBodyControl() {
-        return new ShadeInsect.ShadeInsectBodyRotationControl(this);
+        return new FrostormDragon.FrostormDragonBodyRotationControl(this);
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new ShadeInsect.ShadeInsectAttackStrategyGoal());
-        this.goalSelector.addGoal(2, new ShadeInsect.ShadeInsectSweepAttackGoal());
-        this.goalSelector.addGoal(3, new ShadeInsect.ShadeInsectCircleAroundAnchorGoal());
+        this.goalSelector.addGoal(1, new FrostormDragon.FrostormDragonAttackStrategyGoal());
+        this.goalSelector.addGoal(2, new FrostormDragon.FrostormDragonSweepAttackGoal());
+        this.goalSelector.addGoal(3, new FrostormDragon.FrostormDragonCircleAroundAnchorGoal());
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new ShadeInsect.ShadeInsectAttackPlayerTargetGoal());
+        this.targetSelector.addGoal(1, new FrostormDragon.FrostormDragonAttackPlayerTargetGoal());
     }
 
     protected float getStandingEyeHeight(Pose p_33136_, EntityDimensions p_33137_) {
@@ -157,6 +157,9 @@ public class ShadeInsect extends Monster {
                 this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
             }
         }
+        if (this.tickCount > 20 && (getChild() == null || !getChild().isAlive() || getChild() instanceof FrostormDragonPart frostormDragonPart && (frostormDragonPart.getParent() == null || !frostormDragonPart.isAlive()))) {
+            dead = true;
+        }
     }
 
     @Override
@@ -170,7 +173,7 @@ public class ShadeInsect extends Monster {
 
     @Override
     public void push(Entity p_33636_) {
-        if (p_33636_ != this && !(p_33636_ instanceof ShadeInsect) && !(p_33636_ instanceof ShadeInsectPart)) {
+        if (p_33636_ != this && !(p_33636_ instanceof FrostormDragon) && !(p_33636_ instanceof FrostormDragonPart)) {
             super.push(p_33636_);
         }
     }
@@ -193,7 +196,7 @@ public class ShadeInsect extends Monster {
             LivingEntity partParent = this;
             final int segments = 5 + getRandom().nextInt(3);
             for (int i = 0; i < segments; i++) {
-                ShadeInsectPart part = new ShadeInsectPart(FrostEntities.SHADE_INSECT_PART.get(), partParent, 0.8F, 180, 0);
+                FrostormDragonPart part = new FrostormDragonPart(FrostEntities.FROSTORM_DRAGON_PART.get(), partParent, 0.8F, 180, 0);
                 part.setParent(partParent);
                 part.setBodyIndex(i);
                 if (partParent == this) {
@@ -259,7 +262,7 @@ public class ShadeInsect extends Monster {
         SWOOP;
     }
 
-    class ShadeInsectAttackPlayerTargetGoal extends Goal {
+    class FrostormDragonAttackPlayerTargetGoal extends Goal {
         private final TargetingConditions attackTargeting = TargetingConditions.forCombat().range(64.0D);
         private int nextScanTick = reducedTickDelay(20);
 
@@ -269,13 +272,13 @@ public class ShadeInsect extends Monster {
                 return false;
             } else {
                 this.nextScanTick = reducedTickDelay(60);
-                List<Player> list = ShadeInsect.this.level().getNearbyPlayers(this.attackTargeting, ShadeInsect.this, ShadeInsect.this.getBoundingBox().inflate(46.0D, 64.0D, 46.0D));
+                List<Player> list = FrostormDragon.this.level().getNearbyPlayers(this.attackTargeting, FrostormDragon.this, FrostormDragon.this.getBoundingBox().inflate(46.0D, 64.0D, 46.0D));
                 if (!list.isEmpty()) {
                     list.sort(Comparator.<Entity, Double>comparing(Entity::getY).reversed());
 
                     for (Player player : list) {
-                        if (ShadeInsect.this.canAttack(player, TargetingConditions.DEFAULT)) {
-                            ShadeInsect.this.setTarget(player);
+                        if (FrostormDragon.this.canAttack(player, TargetingConditions.DEFAULT)) {
+                            FrostormDragon.this.setTarget(player);
                             return true;
                         }
                     }
@@ -286,86 +289,86 @@ public class ShadeInsect extends Monster {
         }
 
         public boolean canContinueToUse() {
-            LivingEntity livingentity = ShadeInsect.this.getTarget();
-            return livingentity != null ? ShadeInsect.this.canAttack(livingentity, TargetingConditions.DEFAULT) : false;
+            LivingEntity livingentity = FrostormDragon.this.getTarget();
+            return livingentity != null ? FrostormDragon.this.canAttack(livingentity, TargetingConditions.DEFAULT) : false;
         }
     }
 
-    class ShadeInsectAttackStrategyGoal extends Goal {
+    class FrostormDragonAttackStrategyGoal extends Goal {
         private int nextSweepTick;
 
         public boolean canUse() {
-            LivingEntity livingentity = ShadeInsect.this.getTarget();
-            return livingentity != null ? ShadeInsect.this.canAttack(livingentity, TargetingConditions.DEFAULT) : false;
+            LivingEntity livingentity = FrostormDragon.this.getTarget();
+            return livingentity != null ? FrostormDragon.this.canAttack(livingentity, TargetingConditions.DEFAULT) : false;
         }
 
         public void start() {
             this.nextSweepTick = this.adjustedTickDelay(40);
-            ShadeInsect.this.attackPhase = ShadeInsect.AttackPhase.CIRCLE;
+            FrostormDragon.this.attackPhase = FrostormDragon.AttackPhase.CIRCLE;
             this.setAnchorAboveTarget();
         }
 
         public void stop() {
-            BlockPos pos = ShadeInsect.this.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, ShadeInsect.this.blockPosition()).above(15 + ShadeInsect.this.random.nextInt(20));
-            ShadeInsect.this.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1.2D);
+            BlockPos pos = FrostormDragon.this.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, FrostormDragon.this.blockPosition()).above(15 + FrostormDragon.this.random.nextInt(20));
+            FrostormDragon.this.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1.2D);
         }
 
         public void tick() {
-            if (ShadeInsect.this.attackPhase == ShadeInsect.AttackPhase.CIRCLE) {
+            if (FrostormDragon.this.attackPhase == FrostormDragon.AttackPhase.CIRCLE) {
                 --this.nextSweepTick;
                 if (this.nextSweepTick <= 0) {
-                    ShadeInsect.this.attackPhase = ShadeInsect.AttackPhase.SWOOP;
+                    FrostormDragon.this.attackPhase = FrostormDragon.AttackPhase.SWOOP;
                     this.setAnchorAboveTarget();
-                    this.nextSweepTick = this.adjustedTickDelay((6 + ShadeInsect.this.random.nextInt(4)) * 20);
-                    ShadeInsect.this.playSound(SoundEvents.PHANTOM_SWOOP, 10.0F, 0.5F + ShadeInsect.this.random.nextFloat() * 0.1F);
+                    this.nextSweepTick = this.adjustedTickDelay((6 + FrostormDragon.this.random.nextInt(4)) * 20);
+                    FrostormDragon.this.playSound(SoundEvents.PHANTOM_SWOOP, 10.0F, 0.5F + FrostormDragon.this.random.nextFloat() * 0.1F);
                 }
             }
 
         }
 
         private void setAnchorAboveTarget() {
-            BlockPos pos = ShadeInsect.this.getTarget().blockPosition().above(20 + ShadeInsect.this.random.nextInt(20));
-            if (pos.getY() < ShadeInsect.this.level().getSeaLevel()) {
-                pos = new BlockPos(pos.getX(), ShadeInsect.this.level().getSeaLevel() + 1, pos.getZ());
+            BlockPos pos = FrostormDragon.this.getTarget().blockPosition().above(20 + FrostormDragon.this.random.nextInt(20));
+            if (pos.getY() < FrostormDragon.this.level().getSeaLevel()) {
+                pos = new BlockPos(pos.getX(), FrostormDragon.this.level().getSeaLevel() + 1, pos.getZ());
             }
-            ShadeInsect.this.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1.2D);
+            FrostormDragon.this.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1.2D);
         }
     }
 
-    class ShadeInsectBodyRotationControl extends BodyRotationControl {
-        public ShadeInsectBodyRotationControl(Mob p_33216_) {
+    class FrostormDragonBodyRotationControl extends BodyRotationControl {
+        public FrostormDragonBodyRotationControl(Mob p_33216_) {
             super(p_33216_);
         }
 
         public void clientTick() {
-            ShadeInsect.this.yHeadRot = ShadeInsect.this.yBodyRot;
-            ShadeInsect.this.yBodyRot = ShadeInsect.this.getYRot();
+            FrostormDragon.this.yHeadRot = FrostormDragon.this.yBodyRot;
+            FrostormDragon.this.yBodyRot = FrostormDragon.this.getYRot();
         }
     }
 
-    class ShadeInsectCircleAroundAnchorGoal extends Goal {
+    class FrostormDragonCircleAroundAnchorGoal extends Goal {
         private float angle;
         private float distance;
         private float height;
         private float clockwise;
 
         public boolean canUse() {
-            return ShadeInsect.this.getTarget() == null || ShadeInsect.this.attackPhase == ShadeInsect.AttackPhase.CIRCLE;
+            return FrostormDragon.this.getTarget() == null || FrostormDragon.this.attackPhase == FrostormDragon.AttackPhase.CIRCLE;
         }
 
         public void start() {
-            this.distance = 5.0F + ShadeInsect.this.random.nextFloat() * 10.0F;
-            this.height = -4.0F + ShadeInsect.this.random.nextFloat() * 9.0F;
-            this.clockwise = ShadeInsect.this.random.nextBoolean() ? 1.0F : -1.0F;
+            this.distance = 5.0F + FrostormDragon.this.random.nextFloat() * 10.0F;
+            this.height = -4.0F + FrostormDragon.this.random.nextFloat() * 9.0F;
+            this.clockwise = FrostormDragon.this.random.nextBoolean() ? 1.0F : -1.0F;
             this.selectNext();
         }
 
         public void tick() {
-            if (ShadeInsect.this.random.nextInt(this.adjustedTickDelay(350)) == 0) {
-                this.height = -4.0F + ShadeInsect.this.random.nextFloat() * 9.0F;
+            if (FrostormDragon.this.random.nextInt(this.adjustedTickDelay(350)) == 0) {
+                this.height = -4.0F + FrostormDragon.this.random.nextFloat() * 9.0F;
             }
 
-            if (ShadeInsect.this.random.nextInt(this.adjustedTickDelay(250)) == 0) {
+            if (FrostormDragon.this.random.nextInt(this.adjustedTickDelay(250)) == 0) {
                 ++this.distance;
                 if (this.distance > 15.0F) {
                     this.distance = 5.0F;
@@ -373,27 +376,27 @@ public class ShadeInsect extends Monster {
                 }
             }
 
-            if (ShadeInsect.this.getNavigation().isDone()) {
-                this.angle = ShadeInsect.this.random.nextFloat() * 2.0F * (float) Math.PI;
+            if (FrostormDragon.this.getNavigation().isDone()) {
+                this.angle = FrostormDragon.this.random.nextFloat() * 2.0F * (float) Math.PI;
                 this.selectNext();
 
 
-                if (!ShadeInsect.this.level().isEmptyBlock(ShadeInsect.this.blockPosition().below(1))) {
+                if (!FrostormDragon.this.level().isEmptyBlock(FrostormDragon.this.blockPosition().below(1))) {
                     this.height = Math.max(2.0F, this.height);
                     this.selectNext();
                 }
 
-                if (!ShadeInsect.this.level().isEmptyBlock(ShadeInsect.this.blockPosition().above(1))) {
+                if (!FrostormDragon.this.level().isEmptyBlock(FrostormDragon.this.blockPosition().above(1))) {
                     this.height = Math.min(-2.0F, this.height);
                     this.selectNext();
                 }
             } else {
 
-                if (ShadeInsect.this.random.nextInt(this.adjustedTickDelay(350)) == 0) {
-                    BlockPos pos = ShadeInsect.this.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, ShadeInsect.this.blockPosition()).above(15 + ShadeInsect.this.random.nextInt(20));
+                if (FrostormDragon.this.random.nextInt(this.adjustedTickDelay(350)) == 0) {
+                    BlockPos pos = FrostormDragon.this.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, FrostormDragon.this.blockPosition()).above(15 + FrostormDragon.this.random.nextInt(20));
 
-                    if (ShadeInsect.this.blockPosition().getY() + 10 < pos.getY()) {
-                        ShadeInsect.this.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1.2D);
+                    if (FrostormDragon.this.blockPosition().getY() + 10 < pos.getY()) {
+                        FrostormDragon.this.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1.2D);
                     }
                 }
             }
@@ -402,13 +405,13 @@ public class ShadeInsect extends Monster {
         private void selectNext() {
 
             this.angle += this.clockwise * 15.0F * ((float) Math.PI / 180F);
-            Vec3 vec3 = new Vec3(ShadeInsect.this.blockPosition().getX(), ShadeInsect.this.blockPosition().getY(), ShadeInsect.this.blockPosition().getZ()).add((double) (this.distance * Mth.cos(this.angle)), (double) (-4.0F + this.height), (double) (this.distance * Mth.sin(this.angle)));
-            ShadeInsect.this.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, 0.8D);
+            Vec3 vec3 = new Vec3(FrostormDragon.this.blockPosition().getX(), FrostormDragon.this.blockPosition().getY(), FrostormDragon.this.blockPosition().getZ()).add((double) (this.distance * Mth.cos(this.angle)), (double) (-4.0F + this.height), (double) (this.distance * Mth.sin(this.angle)));
+            FrostormDragon.this.getNavigation().moveTo(vec3.x, vec3.y, vec3.z, 0.8D);
         }
     }
 
-    class ShadeInsectLookControl extends LookControl {
-        public ShadeInsectLookControl(Mob p_33235_) {
+    class FrostormDragonLookControl extends LookControl {
+        public FrostormDragonLookControl(Mob p_33235_) {
             super(p_33235_);
         }
 
@@ -416,9 +419,9 @@ public class ShadeInsect extends Monster {
         }
     }
 
-    class ShadeInsectMoveControl extends MoveControl {
+    class FrostormDragonMoveControl extends MoveControl {
 
-        public ShadeInsectMoveControl(Mob p_33241_) {
+        public FrostormDragonMoveControl(Mob p_33241_) {
             super(p_33241_);
         }
 
@@ -440,10 +443,10 @@ public class ShadeInsect extends Monster {
                 d2 *= d4;
                 d3 = Math.sqrt(d0 * d0 + d2 * d2);
                 double d5 = Math.sqrt(d0 * d0 + d2 * d2 + d1 * d1);
-                float f = ShadeInsect.this.getYRot();
-                ShadeInsect.this.yBodyRot = ShadeInsect.this.getYRot();
+                float f = FrostormDragon.this.getYRot();
+                FrostormDragon.this.yBodyRot = FrostormDragon.this.getYRot();
                 float speed = (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                if (Mth.degreesDifferenceAbs(f, ShadeInsect.this.getYRot()) < 3.0F) {
+                if (Mth.degreesDifferenceAbs(f, FrostormDragon.this.getYRot()) < 3.0F) {
                     this.mob.setSpeed(Mth.lerp(0.05F, this.mob.getSpeed(), speed));
                 } else {
                     this.mob.setSpeed(Mth.lerp(0.125F, this.mob.getSpeed(), speed));
@@ -464,26 +467,26 @@ public class ShadeInsect extends Monster {
                  */
 
 
-                float f4 = (float) ShadeInsect.this.getXRot();
-                float f5 = ShadeInsect.this.getYRot() + 90.0F;
+                float f4 = (float) FrostormDragon.this.getXRot();
+                float f5 = FrostormDragon.this.getYRot() + 90.0F;
                 double d6 = (double) (this.mob.getSpeed() * Mth.cos(f5 * ((float) Math.PI / 180F))) * Math.abs(d0 / d5);
                 double d7 = (double) (this.mob.getSpeed() * Mth.sin(f5 * ((float) Math.PI / 180F))) * Math.abs(d2 / d5);
                 double d8 = (double) (this.mob.getSpeed() * Mth.sin(f4 * ((float) Math.PI / 180F))) * Math.abs(d1 / d5);
-                Vec3 vec3 = ShadeInsect.this.getDeltaMovement();
-                ShadeInsect.this.setDeltaMovement(vec3.add((new Vec3(d6, d8, d7)).subtract(vec3).scale(0.2D)));
+                Vec3 vec3 = FrostormDragon.this.getDeltaMovement();
+                FrostormDragon.this.setDeltaMovement(vec3.add((new Vec3(d6, d8, d7)).subtract(vec3).scale(0.2D)));
             }
 
         }
     }
 
-    class ShadeInsectSweepAttackGoal extends Goal {
+    class FrostormDragonSweepAttackGoal extends Goal {
 
         public boolean canUse() {
-            return ShadeInsect.this.getTarget() != null && ShadeInsect.this.attackPhase == ShadeInsect.AttackPhase.SWOOP;
+            return FrostormDragon.this.getTarget() != null && FrostormDragon.this.attackPhase == FrostormDragon.AttackPhase.SWOOP;
         }
 
         public boolean canContinueToUse() {
-            LivingEntity livingentity = ShadeInsect.this.getTarget();
+            LivingEntity livingentity = FrostormDragon.this.getTarget();
             if (livingentity == null) {
                 return false;
             } else if (!livingentity.isAlive()) {
@@ -509,22 +512,22 @@ public class ShadeInsect extends Monster {
         }
 
         public void stop() {
-            ShadeInsect.this.setTarget((LivingEntity) null);
-            ShadeInsect.this.attackPhase = ShadeInsect.AttackPhase.CIRCLE;
+            FrostormDragon.this.setTarget((LivingEntity) null);
+            FrostormDragon.this.attackPhase = FrostormDragon.AttackPhase.CIRCLE;
         }
 
         public void tick() {
-            LivingEntity livingentity = ShadeInsect.this.getTarget();
+            LivingEntity livingentity = FrostormDragon.this.getTarget();
             if (livingentity != null) {
-                ShadeInsect.this.getNavigation().moveTo(livingentity, 1.25F);
-                if (ShadeInsect.this.getBoundingBox().inflate((double) 0.2F).intersects(livingentity.getBoundingBox())) {
-                    ShadeInsect.this.doHurtTarget(livingentity);
-                    ShadeInsect.this.attackPhase = ShadeInsect.AttackPhase.CIRCLE;
-                    if (!ShadeInsect.this.isSilent()) {
-                        ShadeInsect.this.level().levelEvent(1039, ShadeInsect.this.blockPosition(), 0);
+                FrostormDragon.this.getNavigation().moveTo(livingentity, 1.25F);
+                if (FrostormDragon.this.getBoundingBox().inflate((double) 0.2F).intersects(livingentity.getBoundingBox())) {
+                    FrostormDragon.this.doHurtTarget(livingentity);
+                    FrostormDragon.this.attackPhase = FrostormDragon.AttackPhase.CIRCLE;
+                    if (!FrostormDragon.this.isSilent()) {
+                        FrostormDragon.this.level().levelEvent(1039, FrostormDragon.this.blockPosition(), 0);
                     }
-                } else if (ShadeInsect.this.hurtTime > 0) {
-                    ShadeInsect.this.attackPhase = ShadeInsect.AttackPhase.CIRCLE;
+                } else if (FrostormDragon.this.hurtTime > 0) {
+                    FrostormDragon.this.attackPhase = FrostormDragon.AttackPhase.CIRCLE;
                 }
 
             }
