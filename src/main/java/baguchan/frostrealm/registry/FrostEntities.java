@@ -36,9 +36,7 @@ public class FrostEntities {
 
     public static final RegistryObject<EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).build(prefix("astra_ball")));
     public static final RegistryObject<EntityType<FrostBoar>> FROST_BOAR = ENTITIES.register("frost_boar", () -> EntityType.Builder.of(FrostBoar::new, MobCategory.CREATURE).sized(1.8F, 1.95F).build(prefix("frost_boar")));
-    public static final RegistryObject<EntityType<FrostormDragon>> FROSTORM_DRAGON = ENTITIES.register("frostorm_dragon", () -> EntityType.Builder.of(FrostormDragon::new, MobCategory.MONSTER).sized(1.0F, 1.0F).build(prefix("frostorm_dragon")));
-    public static final RegistryObject<EntityType<FrostormDragonPart>> FROSTORM_DRAGON_PART = ENTITIES.register("frostorm_dragon_part", () -> EntityType.Builder.<FrostormDragonPart>of(FrostormDragonPart::new, MobCategory.MONSTER).sized(0.45F, 0.45F).build(prefix("frostorm_dragon_part")));
-
+    public static final RegistryObject<EntityType<FrostormDragon>> FROSTORM_DRAGON = ENTITIES.register("frostorm_dragon", () -> EntityType.Builder.of(FrostormDragon::new, MobCategory.MONSTER).sized(3.25F, 4.0F).build(prefix("frostorm_dragon")));
     public static final RegistryObject<EntityType<WarpedCrystalShard>> WARPED_CRYSTAL_SHARD = ENTITIES.register("warped_crystal", () -> EntityType.Builder.<WarpedCrystalShard>of(WarpedCrystalShard::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(prefix("warped_crystal")));
 
     private static String prefix(String path) {
@@ -61,7 +59,6 @@ public class FrostEntities {
         event.put(ASTRA_BALL.get(), AstraBall.createAttributes().build());
         event.put(FROST_BOAR.get(), FrostBoar.createAttributes().build());
         event.put(FROSTORM_DRAGON.get(), FrostormDragon.createAttributes().build());
-        event.put(FROSTORM_DRAGON_PART.get(), FrostormDragonPart.createAttributes().build());
     }
 
     @SubscribeEvent

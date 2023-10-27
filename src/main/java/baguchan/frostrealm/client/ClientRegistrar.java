@@ -58,7 +58,6 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.FROST_BOAR.get(), FrostBoarRenderer::new);
         event.registerEntityRenderer(FrostEntities.WARPED_CRYSTAL_SHARD.get(), WarpedCrystalRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROSTORM_DRAGON.get(), FrostormDragonRenderer::new);
-		event.registerEntityRenderer(FrostEntities.FROSTORM_DRAGON_PART.get(), FrostormDragonPartRenderer::new);
         event.registerEntityRenderer(FrostEntities.STRAY_WARRIOR.get(), StrayWarriorRenderer::new);
         event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
 	}
@@ -79,7 +78,6 @@ public class ClientRegistrar {
         event.registerLayerDefinition(FrostModelLayers.ASTRA_BALL, AstraBallModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.FROST_BOAR, FrostBoarModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.FROSTROM_DRAGON, FrostormDragonModel::createBodyLayer);
-		event.registerLayerDefinition(FrostModelLayers.FROSTROM_DRAGON_PART, FrostormDragonPartModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.STRAY_WARRIOR, StrayWarriorModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SEAL, SealModel::createBodyLayer);
 

@@ -20,8 +20,6 @@ public class FrostModelLayers {
     public static final ModelLayerLocation SNOW_MOLE = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "snow_mole"), "snow_mole");
     public static final ModelLayerLocation FROST_BOAR = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "frost_boar"), "frost_boar");
     public static final ModelLayerLocation FROSTROM_DRAGON = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "frostorm_dragon"), "frostorm_dragon");
-    public static final ModelLayerLocation FROSTROM_DRAGON_PART = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "frostorm_dragon_part"), "frostorm_dragon_part");
-
     public static final ModelLayerLocation STRAY_WARRIOR = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "stray_warrior"), "stray_warrior");
 
     public static final ModelLayerLocation GOKKUDILLO = new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, "gokkudillo"), "gokkudillo");

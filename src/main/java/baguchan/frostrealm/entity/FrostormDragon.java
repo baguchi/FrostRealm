@@ -1,12 +1,13 @@
 package baguchan.frostrealm.entity;
 
-import baguchan.frostrealm.registry.FrostEntities;
+import baguchan.frostrealm.entity.goal.MeleeAttackNonFlyingGoal;
+import baguchan.frostrealm.entity.goal.RandomMoveNonFlyingGoal;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -20,37 +21,86 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.PartEntity;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
-public class FrostormDragon extends Monster {
-    private static final EntityDataAccessor<Optional<UUID>> CHILD_UUID = SynchedEntityData.defineId(FrostormDragon.class, EntityDataSerializers.OPTIONAL_UUID);
+public class FrostormDragon extends Monster implements IFlyMob {
+    private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(FrostormDragon.class, EntityDataSerializers.BOOLEAN);
 
-    public static final float FLAP_DEGREES_PER_TICK = 7.448451F;
-    public static final int TICKS_PER_FLAP = Mth.ceil(24.166098F);
+
+    private final FrostormDragonPart[] subEntities;
+    public final FrostormDragonPart head;
+    private final FrostormDragonPart neck;
+    private final FrostormDragonPart body;
+    private final FrostormDragonPart tail1;
+    private final FrostormDragonPart tail2;
+    private final FrostormDragonPart tail3;
+
+
     FrostormDragon.AttackPhase attackPhase = FrostormDragon.AttackPhase.CIRCLE;
+
+
+    protected final FlyingPathNavigation flyingPathNavigation;
+    protected final GroundPathNavigation groundNavigation;
+
 
     public FrostormDragon(EntityType<? extends Monster> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
         this.xpReward = 200;
-        this.moveControl = new FrostormDragon.FrostormDragonMoveControl(this);
+        this.setMaxUpStep(2.0F);
+        this.head = new FrostormDragonPart(this, "head", 1.0F, 1.0F, 1.25F);
+        this.neck = new FrostormDragonPart(this, "neck", 2.0F, 2.0F, 1.15F);
+        this.body = new FrostormDragonPart(this, "body", 3.0F, 3.0F, 1.0F);
+        this.tail1 = new FrostormDragonPart(this, "tail", 2.0F, 2.0F, 0.85F);
+        this.tail2 = new FrostormDragonPart(this, "tail", 2.0F, 2.0F, 0.8F);
+        this.tail3 = new FrostormDragonPart(this, "tail", 2.0F, 2.0F, 0.785F);
+
+        this.subEntities = new FrostormDragonPart[]{this.head, this.neck, this.body, this.tail1, this.tail2, this.tail3};
+        this.moveControl = new FrostormDragonMoveControl(this);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+
+        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, this.level());
+        flyingpathnavigation.setCanOpenDoors(false);
+        flyingpathnavigation.setCanFloat(true);
+        flyingpathnavigation.setCanPassDoors(true);
+        this.flyingPathNavigation = flyingpathnavigation;
+        this.groundNavigation = new GroundPathNavigation(this, this.level());
         this.lookControl = new FrostormDragon.FrostormDragonLookControl(this);
+    }
+
+
+    protected BodyRotationControl createBodyControl() {
+        return new FrostormDragonBodyRotationControl(this);
+    }
+
+
+    public void updateFlying() {
+        if (!this.level().isClientSide) {
+            if (this.isEffectiveAi() && this.isFlying()) {
+                this.navigation = this.flyingPathNavigation;
+            } else {
+                this.navigation = this.groundNavigation;
+            }
+        }
+
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -60,70 +110,67 @@ public class FrostormDragon extends Monster {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(CHILD_UUID, Optional.empty());
+        this.entityData.define(FLYING, false);
     }
 
-    @Nullable
-    public UUID getChildId() {
-        return this.entityData.get(CHILD_UUID).orElse(null);
+    public boolean isFlying() {
+        return this.entityData.get(FLYING);
     }
 
-    public void setChildId(@Nullable UUID uniqueId) {
-        this.entityData.set(CHILD_UUID, Optional.ofNullable(uniqueId));
+    public void setFlying(boolean shear) {
+        this.entityData.set(FLYING, shear);
     }
 
-    public Entity getChild() {
-        UUID id = getChildId();
-        if (id != null && !level().isClientSide) {
-            return ((ServerLevel) level()).getEntity(id);
-        }
-        return null;
+    @Override
+    public void readAdditionalSaveData(CompoundTag p_27576_) {
+        super.readAdditionalSaveData(p_27576_);
+
+        this.setFlying(p_27576_.getBoolean("Flying"));
     }
 
-    protected void checkFallDamage(double p_20809_, boolean p_20810_, BlockState p_20811_, BlockPos p_20812_) {
+    @Override
+    public void addAdditionalSaveData(CompoundTag p_27587_) {
+        super.addAdditionalSaveData(p_27587_);
+        p_27587_.putBoolean("Flying", this.isFlying());
     }
-
     public void travel(Vec3 p_20818_) {
-        if (this.isControlledByLocalInstance()) {
-            if (this.isInWater()) {
-                this.moveRelative(0.02F, p_20818_);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale((double) 0.9F));
-            } else if (this.isInLava()) {
-                this.moveRelative(0.02F, p_20818_);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
-            } else {
-                this.moveRelative(0.1F, p_20818_);
-                this.move(MoverType.SELF, this.getDeltaMovement());
-                this.setDeltaMovement(this.getDeltaMovement().scale((double) 0.91F));
+        if (this.isFlying()) {
+            if (this.isControlledByLocalInstance()) {
+                if (this.isInWater()) {
+                    this.moveRelative(0.02F, p_20818_);
+                    this.move(MoverType.SELF, this.getDeltaMovement());
+                    this.setDeltaMovement(this.getDeltaMovement().scale((double) 0.9F));
+                } else if (this.isInLava()) {
+                    this.moveRelative(0.02F, p_20818_);
+                    this.move(MoverType.SELF, this.getDeltaMovement());
+                    this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
+                } else {
+                    this.moveRelative(0.1F, p_20818_);
+                    this.move(MoverType.SELF, this.getDeltaMovement());
+                    this.setDeltaMovement(this.getDeltaMovement().scale((double) 0.91F));
+                }
             }
+
+            this.calculateEntityAnimation(false);
+        } else {
+            super.travel(p_20818_);
         }
-
-        this.calculateEntityAnimation(false);
-    }
-
-    protected PathNavigation createNavigation(Level p_218342_) {
-        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, p_218342_);
-        flyingpathnavigation.setCanOpenDoors(false);
-        flyingpathnavigation.setCanFloat(true);
-        flyingpathnavigation.setCanPassDoors(true);
-        return flyingpathnavigation;
     }
 
     public boolean onClimbable() {
         return false;
     }
-
-    public boolean isFlapping() {
-        return (this.getUniqueFlapTickOffset() + this.tickCount) % TICKS_PER_FLAP == 0;
-    }
-
-    protected BodyRotationControl createBodyControl() {
+   /* protected BodyRotationControl createBodyControl() {
         return new FrostormDragon.FrostormDragonBodyRotationControl(this);
-    }
+    }*/
 
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new MeleeAttackNonFlyingGoal<>(this, 0.9F, true));
+        this.goalSelector.addGoal(6, new RandomMoveNonFlyingGoal<>(this, 0.8F, 140));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+
         this.goalSelector.addGoal(1, new FrostormDragon.FrostormDragonAttackStrategyGoal());
         this.goalSelector.addGoal(2, new FrostormDragon.FrostormDragonSweepAttackGoal());
         this.goalSelector.addGoal(3, new FrostormDragon.FrostormDragonCircleAroundAnchorGoal());
@@ -140,20 +187,110 @@ public class FrostormDragon extends Monster {
         super.onSyncedDataUpdated(p_33134_);
     }
 
-    public int getUniqueFlapTickOffset() {
-        return this.getId() * 3;
-    }
-
     protected boolean shouldDespawnInPeaceful() {
         return false;
     }
 
-    public void tick() {
-        super.tick();
+    public void aiStep() {
+        super.aiStep();
+        if (this.isDeadOrDying()) {
+            float f8 = (this.random.nextFloat() - 0.5F) * 8.0F;
+            float f10 = (this.random.nextFloat() - 0.5F) * 4.0F;
+            float f11 = (this.random.nextFloat() - 0.5F) * 8.0F;
+            this.level().addParticle(ParticleTypes.EXPLOSION, this.getX() + (double) f8, this.getY() + 2.0D + (double) f10, this.getZ() + (double) f11, 0.0D, 0.0D, 0.0D);
+        } else {
+            Vec3[] avec3 = new Vec3[this.subEntities.length];
+
+            for (int j = 0; j < this.subEntities.length; ++j) {
+                avec3[j] = new Vec3(this.subEntities[j].getX(), this.subEntities[j].getY(), this.subEntities[j].getZ());
+            }
+
+            Vec3 vec3 = this.calculateViewVector(-this.getXRot(), this.getYRot());
+
+            this.tickPart(this.body, (double) (-vec3.x * 0.5F), 0.0D, (double) (-vec3.z * 0.5F));
+            if (!this.level().isClientSide && this.hurtTime == 0) {
+                if (this.isFlying()) {
+                    this.knockBack(this.level().getEntities(this, this.body.getBoundingBox().inflate(4.0D, 2.0D, 4.0D).move(0.0D, -2.0D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
+                    this.hurt(this.level().getEntities(this, this.head.getBoundingBox(), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
+                    this.hurt(this.level().getEntities(this, this.neck.getBoundingBox(), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
+                }
+            }
+            if (this.isFlying()) {
+                this.tickPart(this.head, (double) (-vec3.x * 4.5F), (double) (-vec3.y * 4.5F - 2F), (double) (-vec3.z * 4.5F));
+                this.tickPart(this.neck, (double) (-vec3.x * 4.0F), (double) (-vec3.y * 4.0F - 2F), (double) (-vec3.z * 4.0F));
+            } else {
+                this.tickPart(this.head, (double) (-vec3.x * 4.5F), (double) (-2F), (double) (-vec3.z * 4.5F));
+                this.tickPart(this.neck, (double) (-vec3.x * 4.0F), (double) (-2F), (double) (-vec3.z * 4.0F));
+
+            }
+            for (int k = 0; k < 3; ++k) {
+                FrostormDragonPart part = null;
+                if (k == 0) {
+                    part = this.tail1;
+                }
+
+                if (k == 1) {
+                    part = this.tail2;
+                }
+
+                if (k == 2) {
+                    part = this.tail3;
+                }
+                float f22 = (float) (k + 1) * 2.0F;
+                if (this.isFlying()) {
+                    this.tickPart(part, (double) ((vec3.x * f22)), vec3.y * f22 - 2F, (double) vec3.z * f22);
+
+                } else {
+                    this.tickPart(part, (double) ((vec3.x * f22)), -2F, (double) vec3.z * f22);
+
+                }
+            }
+/*
+                if (!this.level().isClientSide) {
+                    this.inWall = this.checkWalls(this.head.getBoundingBox()) | this.checkWalls(this.neck.getBoundingBox()) | this.checkWalls(this.body.getBoundingBox());
+                    if (this.dragonFight != null) {
+                        this.dragonFight.updateDragon(this);
+                    }
+                }*/
+
+            for (int l = 0; l < this.subEntities.length; ++l) {
+                this.subEntities[l].xo = avec3[l].x;
+                this.subEntities[l].yo = avec3[l].y;
+                this.subEntities[l].zo = avec3[l].z;
+                this.subEntities[l].xOld = avec3[l].x;
+                this.subEntities[l].yOld = avec3[l].y;
+                this.subEntities[l].zOld = avec3[l].z;
+            }
+        }
+
+
+        if (this.isFlying()) {
+            if (this.isFlyStopCoudition()) {
+                this.setFlying(false);
+            }
+        }
+        /*if (!this.isFlying() && !this.isInFluidType() && this.fallDistance > 3.0F) {
+            this.setFlying(true);
+        }*/
+
+        this.updateFlying();
+    }
+
+    private float rotWrap(double p_31165_) {
+        return (float) Mth.wrapDegrees(p_31165_);
+    }
+
+    public boolean isFlyStopCoudition() {
+        return this.isInFluidType() || this.isInPowderSnow || this.onGround();
+    }
+
+
+    private void tickPart(FrostormDragonPart p_31116_, double p_31117_, double p_31118_, double p_31119_) {
+        p_31116_.setPos(this.getX() - p_31117_, this.getY() - p_31118_, this.getZ() - p_31119_);
     }
 
     protected float getSoundVolume() {
-        return 4.0F;
+        return 3.0F;
     }
 
     @Override
@@ -161,6 +298,35 @@ public class FrostormDragon extends Monster {
         if (p_33636_ != this && !(p_33636_ instanceof FrostormDragon) && !(p_33636_ instanceof FrostormDragonPart)) {
             super.push(p_33636_);
         }
+    }
+
+    private void knockBack(List<Entity> p_31132_) {
+        double d0 = (this.body.getBoundingBox().minX + this.body.getBoundingBox().maxX) / 2.0D;
+        double d1 = (this.body.getBoundingBox().minZ + this.body.getBoundingBox().maxZ) / 2.0D;
+
+        for (Entity entity : p_31132_) {
+            if (entity instanceof LivingEntity) {
+                double d2 = entity.getX() - d0;
+                double d3 = entity.getZ() - d1;
+                double d4 = Math.max(d2 * d2 + d3 * d3, 0.1D);
+                entity.push(d2 / d4 * 4.0D, (double) 0.2F, d3 / d4 * 4.0D);
+                if (((LivingEntity) entity).getLastHurtByMobTimestamp() < entity.tickCount - 2) {
+                    entity.hurt(this.damageSources().mobAttack(this), 5.0F);
+                    this.doEnchantDamageEffects(this, entity);
+                }
+            }
+        }
+
+    }
+
+    private void hurt(List<Entity> p_31142_) {
+        for (Entity entity : p_31142_) {
+            if (entity instanceof LivingEntity) {
+                entity.hurt(this.damageSources().mobAttack(this), 10.0F);
+                this.doEnchantDamageEffects(this, entity);
+            }
+        }
+
     }
 
     @Override
@@ -171,50 +337,17 @@ public class FrostormDragon extends Monster {
         return super.hurt(source, p_21017_);
     }
 
-    protected void customServerAiStep() {
-        super.customServerAiStep();
+
+    public boolean hurt(FrostormDragonPart frostormDragon, DamageSource source, float p_21017_) {
+        if (source.is(DamageTypes.CRAMMING) || source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.DROWN)) {
+            return false;
+        }
+        return this.hurt(source, p_21017_);
     }
 
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_33126_, DifficultyInstance p_33127_, MobSpawnType p_33128_, @Nullable SpawnGroupData p_33129_, @Nullable CompoundTag p_33130_) {
-        final Entity child = getChild();
-        if (child == null) {
-            LivingEntity partParent = this;
-            final int segments = 20 + getRandom().nextInt(5);
-            for (int i = 0; i < segments; i++) {
-                FrostormDragonPart part = new FrostormDragonPart(FrostEntities.FROSTORM_DRAGON_PART.get(), partParent, 0.35F, 180, 0);
-
-
-                part.setParent(partParent);
-                part.setHeadId(this.getUUID());
-                part.setBodyIndex(i);
-                if (partParent == this) {
-                    this.setChildId(part.getUUID());
-                }
-                part.setInitialPartPos(partParent);
-                partParent = part;
-                p_33126_.addFreshEntity(part);
-            }
-        }
 
         return super.finalizeSpawn(p_33126_, p_33127_, p_33128_, p_33129_, p_33130_);
-    }
-
-    public void readAdditionalSaveData(CompoundTag p_33132_) {
-        super.readAdditionalSaveData(p_33132_);
-        if (p_33132_.hasUUID("ChildUUID")) {
-            this.setChildId(p_33132_.getUUID("ChildUUID"));
-        }
-    }
-
-    public void addAdditionalSaveData(CompoundTag p_33141_) {
-        super.addAdditionalSaveData(p_33141_);
-        if (this.getChildId() != null) {
-            p_33141_.putUUID("ChildUUID", this.getChildId());
-        }
-    }
-
-    public boolean shouldRenderAtSqrDistance(double p_33107_) {
-        return true;
     }
 
     public SoundSource getSoundSource() {
@@ -237,12 +370,32 @@ public class FrostormDragon extends Monster {
         return MobType.UNDEAD;
     }
 
-    public boolean canAttackType(EntityType<?> p_33111_) {
+    public double getPassengersRidingOffset() {
+        return (double) this.getEyeHeight();
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
         return true;
     }
 
-    public double getPassengersRidingOffset() {
-        return (double) this.getEyeHeight();
+    @Override
+    public net.minecraftforge.entity.PartEntity<?>[] getParts() {
+        return this.subEntities;
+    }
+
+
+    public FrostormDragonPart[] getSubEntities() {
+        return this.subEntities;
+    }
+
+    public void remove(Entity.RemovalReason removalReason) {
+        super.remove(removalReason);
+        if (subEntities != null) {
+            for (PartEntity part : subEntities) {
+                part.remove(RemovalReason.KILLED);
+            }
+        }
     }
 
     static enum AttackPhase {
@@ -260,14 +413,16 @@ public class FrostormDragon extends Monster {
                 return false;
             } else {
                 this.nextScanTick = reducedTickDelay(60);
-                List<Player> list = FrostormDragon.this.level().getNearbyPlayers(this.attackTargeting, FrostormDragon.this, FrostormDragon.this.getBoundingBox().inflate(46.0D, 64.0D, 46.0D));
-                if (!list.isEmpty()) {
-                    list.sort(Comparator.<Entity, Double>comparing(Entity::getY).reversed());
+                if (FrostormDragon.this.isFlying()) {
+                    List<Player> list = FrostormDragon.this.level().getNearbyPlayers(this.attackTargeting, FrostormDragon.this, FrostormDragon.this.getBoundingBox().inflate(46.0D, 64.0D, 46.0D));
+                    if (!list.isEmpty()) {
+                        list.sort(Comparator.<Entity, Double>comparing(Entity::getY).reversed());
 
-                    for (Player player : list) {
-                        if (FrostormDragon.this.canAttack(player, TargetingConditions.DEFAULT)) {
-                            FrostormDragon.this.setTarget(player);
-                            return true;
+                        for (Player player : list) {
+                            if (FrostormDragon.this.canAttack(player, TargetingConditions.DEFAULT)) {
+                                FrostormDragon.this.setTarget(player);
+                                return true;
+                            }
                         }
                     }
                 }
@@ -287,7 +442,7 @@ public class FrostormDragon extends Monster {
 
         public boolean canUse() {
             LivingEntity livingentity = FrostormDragon.this.getTarget();
-            return livingentity != null ? FrostormDragon.this.canAttack(livingentity, TargetingConditions.DEFAULT) : false;
+            return livingentity != null ? FrostormDragon.this.isFlying() && FrostormDragon.this.canAttack(livingentity, TargetingConditions.DEFAULT) : false;
         }
 
         public void start() {
@@ -324,13 +479,25 @@ public class FrostormDragon extends Monster {
     }
 
     class FrostormDragonBodyRotationControl extends BodyRotationControl {
-        public FrostormDragonBodyRotationControl(Mob p_33216_) {
+        protected final FrostormDragon frostormDragon;
+
+        public FrostormDragonBodyRotationControl(FrostormDragon p_33216_) {
             super(p_33216_);
+            this.frostormDragon = p_33216_;
         }
 
         public void clientTick() {
-            FrostormDragon.this.yHeadRot = FrostormDragon.this.yBodyRot;
-            FrostormDragon.this.yBodyRot = FrostormDragon.this.getYRot();
+            if (FrostormDragon.this.isFlying()) {
+                FrostormDragon.this.yHeadRot = FrostormDragon.this.yBodyRot;
+                FrostormDragon.this.yBodyRot = FrostormDragon.this.getYRot();
+            } else {
+                //fix part entity cannot move
+                FrostormDragon.this.yBodyRot = FrostormDragon.this.getYRot();
+                super.clientTick();
+
+
+            }
+
         }
     }
 
@@ -341,7 +508,7 @@ public class FrostormDragon extends Monster {
         private float clockwise;
 
         public boolean canUse() {
-            return FrostormDragon.this.getTarget() == null || FrostormDragon.this.attackPhase == FrostormDragon.AttackPhase.CIRCLE;
+            return FrostormDragon.this.isFlying() && (FrostormDragon.this.getTarget() == null || FrostormDragon.this.attackPhase == FrostormDragon.AttackPhase.CIRCLE);
         }
 
         public void start() {
@@ -404,66 +571,77 @@ public class FrostormDragon extends Monster {
         }
 
         public void tick() {
+            if (!FrostormDragon.this.isFlying()) {
+                super.tick();
+            }
         }
     }
 
     class FrostormDragonMoveControl extends MoveControl {
+        protected final FrostormDragon frostormDragon;
 
-        public FrostormDragonMoveControl(Mob p_33241_) {
+        public FrostormDragonMoveControl(FrostormDragon p_33241_) {
             super(p_33241_);
+            this.frostormDragon = p_33241_;
         }
 
         public void tick() {
-            this.operation = MoveControl.Operation.WAIT;
-            this.mob.setNoGravity(true);
-            double d0 = this.wantedX - this.mob.getX();
-            double d1 = this.wantedY - this.mob.getY();
-            double d2 = this.wantedZ - this.mob.getZ();
-            double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-            if (d3 < (double) 2.5000003E-7F) {
-                this.mob.setYya(0.0F);
-                this.mob.setZza(0.0F);
-                return;
-            }
-            if (Math.abs(d3) > (double) 1.0E-5F) {
-                double d4 = 1.0D - Math.abs(d1 * (double) 0.7F) / d3;
-                d0 *= d4;
-                d2 *= d4;
-                d3 = Math.sqrt(d0 * d0 + d2 * d2);
-                double d5 = Math.sqrt(d0 * d0 + d2 * d2 + d1 * d1);
-                float f = FrostormDragon.this.getYRot();
-                FrostormDragon.this.yBodyRot = FrostormDragon.this.getYRot();
-                float speed = (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
-                if (Mth.degreesDifferenceAbs(f, FrostormDragon.this.getYRot()) < 3.0F) {
-                    this.mob.setSpeed(Mth.lerp(0.05F, this.mob.getSpeed(), speed));
-                } else {
-                    this.mob.setSpeed(Mth.lerp(0.125F, this.mob.getSpeed(), speed));
+
+            if (this.frostormDragon.isFlying()) {
+                this.operation = MoveControl.Operation.WAIT;
+                this.mob.setNoGravity(true);
+                double d0 = this.wantedX - this.mob.getX();
+                double d1 = this.wantedY - this.mob.getY();
+                double d2 = this.wantedZ - this.mob.getZ();
+                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
+                if (d3 < (double) 2.5000003E-7F) {
+                    this.mob.setYya(0.0F);
+                    this.mob.setZza(0.0F);
+                    return;
+                }
+                if (Math.abs(d3) > (double) 1.0E-5F) {
+                    double d4 = 1.0D - Math.abs(d1 * (double) 0.7F) / d3;
+                    d0 *= d4;
+                    d2 *= d4;
+                    d3 = Math.sqrt(d0 * d0 + d2 * d2);
+                    double d5 = Math.sqrt(d0 * d0 + d2 * d2 + d1 * d1);
+                    float f = FrostormDragon.this.getYRot();
+                    FrostormDragon.this.yBodyRot = FrostormDragon.this.getYRot();
+                    float speed = (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    if (Mth.degreesDifferenceAbs(f, FrostormDragon.this.getYRot()) < 3.0F) {
+                        this.mob.setSpeed(Mth.lerp(0.05F, this.mob.getSpeed(), speed));
+                    } else {
+                        this.mob.setSpeed(Mth.lerp(0.125F, this.mob.getSpeed(), speed));
+                    }
+
+                    /*
+                     * smooth turn start
+                     */
+                    double maxTurnY = 1.5F;
+
+                    float xRot = ((float) (Mth.atan2(d1, d3) * (double) (180F / (float) Math.PI)));
+                    this.mob.setXRot(this.rotlerp(this.mob.getXRot(), xRot, 7.5F));
+
+                    float yRot = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
+                    this.mob.setYRot(this.rotlerp(this.mob.getYRot(), yRot, (float) maxTurnY));
+                    /*
+                     * smooth turn fin
+                     */
+
+
+                    float f4 = (float) FrostormDragon.this.getXRot();
+                    float f5 = FrostormDragon.this.getYRot() + 90.0F;
+                    double d6 = (double) (this.mob.getSpeed() * Mth.cos(f5 * ((float) Math.PI / 180F))) * Math.abs(d0 / d5);
+                    double d7 = (double) (this.mob.getSpeed() * Mth.sin(f5 * ((float) Math.PI / 180F))) * Math.abs(d2 / d5);
+                    double d8 = (double) (this.mob.getSpeed() * Mth.sin(f4 * ((float) Math.PI / 180F))) * Math.abs(d1 / d5);
+                    Vec3 vec3 = FrostormDragon.this.getDeltaMovement();
+                    FrostormDragon.this.setDeltaMovement(vec3.add((new Vec3(d6, d8, d7)).subtract(vec3).scale(0.2D)));
                 }
 
-                /*
-                 * smooth turn start
-                 */
-                double maxTurnY = 1.5F;
-
-                float xRot = ((float) (Mth.atan2(d1, d3) * (double) (180F / (float) Math.PI)));
-                this.mob.setXRot(this.rotlerp(this.mob.getXRot(), xRot, 7.5F));
-
-                float yRot = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
-                this.mob.setYRot(this.rotlerp(this.mob.getYRot(), yRot, (float) maxTurnY));
-                /*
-                 * smooth turn fin
-                 */
-
-
-                float f4 = (float) FrostormDragon.this.getXRot();
-                float f5 = FrostormDragon.this.getYRot() + 90.0F;
-                double d6 = (double) (this.mob.getSpeed() * Mth.cos(f5 * ((float) Math.PI / 180F))) * Math.abs(d0 / d5);
-                double d7 = (double) (this.mob.getSpeed() * Mth.sin(f5 * ((float) Math.PI / 180F))) * Math.abs(d2 / d5);
-                double d8 = (double) (this.mob.getSpeed() * Mth.sin(f4 * ((float) Math.PI / 180F))) * Math.abs(d1 / d5);
-                Vec3 vec3 = FrostormDragon.this.getDeltaMovement();
-                FrostormDragon.this.setDeltaMovement(vec3.add((new Vec3(d6, d8, d7)).subtract(vec3).scale(0.2D)));
+            } else {
+                this.mob.setNoGravity(false);
+                super.tick();
             }
-
         }
     }
 
@@ -475,7 +653,7 @@ public class FrostormDragon extends Monster {
 
         public boolean canContinueToUse() {
             LivingEntity livingentity = FrostormDragon.this.getTarget();
-            if (livingentity == null) {
+            if (livingentity == null || !FrostormDragon.this.isFlying()) {
                 return false;
             } else if (!livingentity.isAlive()) {
                 return false;
