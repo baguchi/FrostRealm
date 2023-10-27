@@ -14,9 +14,13 @@ import net.minecraft.client.model.geom.builders.*;
 public class FrostormDragonPartModel<T extends FrostormDragonPart> extends EntityModel<T> {
 
     private final ModelPart tail;
+    private final ModelPart right_leg;
+    private final ModelPart left_leg;
 
     public FrostormDragonPartModel(ModelPart root) {
         this.tail = root.getChild("tail");
+        this.right_leg = this.tail.getChild("right_leg");
+        this.left_leg = this.tail.getChild("left_leg");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -43,7 +47,8 @@ public class FrostormDragonPartModel<T extends FrostormDragonPart> extends Entit
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+        this.right_leg.visible = false;
+        this.left_leg.visible = false;
     }
 
     @Override

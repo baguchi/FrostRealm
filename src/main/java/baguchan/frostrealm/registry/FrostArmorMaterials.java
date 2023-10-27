@@ -13,7 +13,7 @@ import java.util.EnumMap;
 import java.util.function.Supplier;
 
 public enum FrostArmorMaterials implements StringRepresentable, ArmorMaterial {
-	YETI_FUR("frostrealm:yeti_fur", 16, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
+	YETI_FUR("frostrealm:yeti_fur", 20, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
 		p_266652_.put(ArmorItem.Type.BOOTS, 2);
 		p_266652_.put(ArmorItem.Type.LEGGINGS, 5);
 		p_266652_.put(ArmorItem.Type.CHESTPLATE, 6);
@@ -21,7 +21,7 @@ public enum FrostArmorMaterials implements StringRepresentable, ArmorMaterial {
 	}), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0F, 0.0F, () -> {
 		return Ingredient.of(FrostItems.YETI_FUR.get());
 	}),
-	FROST_BOAR_FUR("frostrealm:kolossus_fur", 18, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
+	FROST_BOAR_FUR("frostrealm:frost_boar_fur", 20, Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
 		p_266652_.put(ArmorItem.Type.BOOTS, 2);
 		p_266652_.put(ArmorItem.Type.LEGGINGS, 5);
 		p_266652_.put(ArmorItem.Type.CHESTPLATE, 6);

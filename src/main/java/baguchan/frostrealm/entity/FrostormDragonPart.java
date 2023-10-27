@@ -34,6 +34,7 @@ import static baguchan.frostrealm.entity.FrostormDragon.TICKS_PER_FLAP;
 public class FrostormDragonPart extends LivingEntity implements IHurtableMultipart {
     private static final EntityDataAccessor<Integer> BODYINDEX = SynchedEntityData.defineId(FrostormDragonPart.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Optional<UUID>> PARENT_UUID = SynchedEntityData.defineId(FrostormDragonPart.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Optional<UUID>> HEAD_UUID = SynchedEntityData.defineId(FrostormDragonPart.class, EntityDataSerializers.OPTIONAL_UUID);
     public EntityDimensions multipartSize;
     protected float radius;
     protected float angleYaw;
@@ -61,6 +62,7 @@ public class FrostormDragonPart extends LivingEntity implements IHurtableMultipa
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(PARENT_UUID, Optional.empty());
+        this.entityData.define(HEAD_UUID, Optional.empty());
         this.entityData.define(BODYINDEX, 0);
     }
 
@@ -73,6 +75,9 @@ public class FrostormDragonPart extends LivingEntity implements IHurtableMultipa
         if (this.getParentId() != null) {
             compound.putUUID("ParentUUID", this.getParentId());
         }
+        if (this.getHeadId() != null) {
+            compound.putUUID("HeadUUID", this.getHeadId());
+        }
         compound.putInt("BodyIndex", getBodyIndex());
         compound.putFloat("PartAngle", angleYaw);
         compound.putFloat("PartRadius", radius);
@@ -82,6 +87,9 @@ public class FrostormDragonPart extends LivingEntity implements IHurtableMultipa
         super.readAdditionalSaveData(compound);
         if (compound.hasUUID("ParentUUID")) {
             this.setParentId(compound.getUUID("ParentUUID"));
+        }
+        if (compound.hasUUID("HeadUUID")) {
+            this.setHeadId(compound.getUUID("HeadUUID"));
         }
         this.setBodyIndex(compound.getInt("BodyIndex"));
         this.angleYaw = compound.getFloat("PartAngle");
@@ -108,45 +116,65 @@ public class FrostormDragonPart extends LivingEntity implements IHurtableMultipa
         this.entityData.set(PARENT_UUID, Optional.ofNullable(uniqueId));
     }
 
+    @Nullable
+    public UUID getHeadId() {
+        return this.entityData.get(HEAD_UUID).orElse(null);
+    }
+
+    public void setHeadId(@Nullable UUID uniqueId) {
+        this.entityData.set(HEAD_UUID, Optional.ofNullable(uniqueId));
+    }
+
     @Override
     public void tick() {
         this.setNoGravity(true);
         isInsidePortal = false;
         if (this.tickCount > 10) {
             Entity parent = getParent();
+            Entity headEntity = getHeadEntity();
             refreshDimensions();
-            if (parent != null) {
-                if (!parent.isAlive()) {
-                    dead = true;
-                }
+            if (parent != null && !parent.isAlive()) {
+                dead = true;
+            }
+            if (headEntity != null && !headEntity.isAlive()) {
+                dead = true;
             }
             if (!level().isClientSide) {
                 if (parent != null) {
                     Vec3 vec3 = this.calculateViewVector(parent.xRotO, parent.yRotO);
-                    Vec3 vec32 = new Vec3(parent.xo - vec3.x * radius, parent.yo + vec3.y * radius, parent.zo - vec3.z * radius);
+                    Vec3 vec32 = new Vec3(parent.getX() - vec3.x * radius, parent.getY() + vec3.y * radius, parent.getZ() - vec3.z * radius);
 
                     double d0 = vec32.x - this.getX();
                     double d1 = vec32.y - this.getY();
                     double d2 = vec32.z - this.getZ();
                     double d3 = Math.sqrt(d0 * d0 + d2 * d2);
 
-                    this.setPos(vec32.x, vec32.y, vec32.z);
+                    if (Mth.abs((float) d0) > 0.01F || Mth.abs((float) d1) > 0.01F || Mth.abs((float) d1) > 0.01F) {
+                        this.setPos(vec32.x, vec32.y, vec32.z);
+                    }
 
                     float xRot = ((float) (Mth.atan2(d1, d3) * (double) (180F / (float) Math.PI)));
-                    this.setXRot(this.limitAngle(this.getXRot(), xRot, 5.0F));
+                    float xLimit = this.limitAngle(this.getXRot(), xRot, 5.0F);
+                    if (Mth.abs(xLimit - this.getXRot()) >= 2.0F) {
+                        this.setXRot(xLimit);
+                    }
 
                     float yRot = (float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
-                    this.setYRot(this.limitAngle(this.getYRot(), yRot, (float) 3.5F));
-
+                    float yLimit = this.limitAngle(this.getYRot(), yRot, 3.5F);
+                    if (Mth.abs(yLimit - this.getYRot()) >= 2.0F) {
+                        this.setYRot(yLimit);
+                    }
 
                     this.markHurt();
                     this.yHeadRot = this.getYRot();
                     this.yBodyRot = this.yRotO;
                     if (parent instanceof LivingEntity) {
-                        if (!level().isClientSide && (((LivingEntity) parent).hurtTime > 0 || ((LivingEntity) parent).deathTime > 0)) {
-                            FrostRealm.sendMSGToAll(new HurtMultipartMessage(this.getId(), parent.getId(), 0));
-                            this.hurtTime = ((LivingEntity) parent).hurtTime;
-                            this.deathTime = ((LivingEntity) parent).deathTime;
+                        if (!level().isClientSide) {
+                            if ((((LivingEntity) parent).hurtTime > 0 || ((LivingEntity) parent).deathTime > 0)) {
+                                FrostRealm.sendMSGToAll(new HurtMultipartMessage(this.getId(), parent.getId(), 0));
+                                this.hurtTime = ((LivingEntity) parent).hurtTime;
+                                this.deathTime = ((LivingEntity) parent).deathTime;
+                            }
                         }
                     }
                     this.pushEntities();
@@ -154,21 +182,19 @@ public class FrostormDragonPart extends LivingEntity implements IHurtableMultipa
                         this.remove(RemovalReason.DISCARDED);
                     }
                 } else {
+
                     this.level().broadcastEntityEvent(this, (byte) 60);
                     this.remove(Entity.RemovalReason.KILLED);
                     this.dropExperience();
                 }
+                }
+        } else {
+            Entity parent = getParent();
+            if (parent != null && !parent.isAlive()) {
+                this.setInitialPartPos(parent);
             }
         }
         super.tick();
-
-        if (this.level().isClientSide) {
-            float f = Mth.cos((float) (this.getUniqueFlapTickOffset() + this.tickCount) * 7.448451F * ((float) Math.PI / 180F) + (float) Math.PI);
-            float f1 = Mth.cos((float) (this.getUniqueFlapTickOffset() + this.tickCount + 1) * 7.448451F * ((float) Math.PI / 180F) + (float) Math.PI);
-            if (f > 0.0F && f1 <= 0.0F) {
-                this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
-            }
-        }
     }
 
     @Override
@@ -176,7 +202,15 @@ public class FrostormDragonPart extends LivingEntity implements IHurtableMultipa
         super.tickDeath();
         if (this.deathTime >= 20) {
             this.dropExperience();
+            if (this.getHeadEntity() != null && this.getBodyIndex() < 5) {
+                this.getHeadEntity().hurt(this.damageSources().generic(), 2000);
+            }
         }
+    }
+
+    @Override
+    public boolean isAlive() {
+        return super.isAlive();
     }
 
     protected boolean isAlwaysExperienceDropper() {
@@ -189,7 +223,16 @@ public class FrostormDragonPart extends LivingEntity implements IHurtableMultipa
 
     public void setInitialPartPos(Entity parent) {
         Vec3 vec3 = this.calculateViewVector(parent.xRotO, parent.yRotO);
-        this.setPos(parent.xo - vec3.x * radius, parent.yo + vec3.y * radius, parent.zo - vec3.z * radius);
+        Vec3 vec32 = new Vec3(parent.getX() - vec3.x * radius, parent.getY() + vec3.y * radius, parent.getZ() - vec3.z * radius);
+        this.setPos(vec32);
+    }
+
+    public Entity getHeadEntity() {
+        UUID id = getHeadId();
+        if (id != null && !level().isClientSide) {
+            return ((ServerLevel) level()).getEntity(id);
+        }
+        return null;
     }
 
     public Entity getParent() {
@@ -217,7 +260,6 @@ public class FrostormDragonPart extends LivingEntity implements IHurtableMultipa
     @Override
     public void push(Entity p_33636_) {
         if (p_33636_ != this && !(p_33636_ instanceof FrostormDragon) && !(p_33636_ instanceof FrostormDragonPart)) {
-            super.push(p_33636_);
             this.dealDamage(p_33636_);
         }
 

@@ -54,7 +54,7 @@ public class FrostormDragon extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 100.0D).add(Attributes.FOLLOW_RANGE, 32.0D).add(Attributes.ATTACK_DAMAGE, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.3F);
+        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 300.0D).add(Attributes.FOLLOW_RANGE, 32.0D).add(Attributes.ATTACK_DAMAGE, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.3F);
     }
 
     @Override
@@ -150,21 +150,6 @@ public class FrostormDragon extends Monster {
 
     public void tick() {
         super.tick();
-        if (this.level().isClientSide) {
-            float f = Mth.cos((float) (this.getUniqueFlapTickOffset() + this.tickCount) * 7.448451F * ((float) Math.PI / 180F) + (float) Math.PI);
-            float f1 = Mth.cos((float) (this.getUniqueFlapTickOffset() + this.tickCount + 1) * 7.448451F * ((float) Math.PI / 180F) + (float) Math.PI);
-            if (f > 0.0F && f1 <= 0.0F) {
-                this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.PHANTOM_FLAP, this.getSoundSource(), 0.95F + this.random.nextFloat() * 0.05F, 0.95F + this.random.nextFloat() * 0.05F, false);
-            }
-        }
-        if (this.tickCount > 20 && (getChild() == null || !getChild().isAlive() || getChild() instanceof FrostormDragonPart frostormDragonPart && (frostormDragonPart.getParent() == null || !frostormDragonPart.isAlive()))) {
-            dead = true;
-        }
-    }
-
-    @Override
-    public float getVoicePitch() {
-        return 0.5F;
     }
 
     protected float getSoundVolume() {
@@ -194,15 +179,18 @@ public class FrostormDragon extends Monster {
         final Entity child = getChild();
         if (child == null) {
             LivingEntity partParent = this;
-            final int segments = 5 + getRandom().nextInt(3);
+            final int segments = 20 + getRandom().nextInt(5);
             for (int i = 0; i < segments; i++) {
-                FrostormDragonPart part = new FrostormDragonPart(FrostEntities.FROSTORM_DRAGON_PART.get(), partParent, 0.8F, 180, 0);
+                FrostormDragonPart part = new FrostormDragonPart(FrostEntities.FROSTORM_DRAGON_PART.get(), partParent, 0.35F, 180, 0);
+
+
                 part.setParent(partParent);
+                part.setHeadId(this.getUUID());
                 part.setBodyIndex(i);
                 if (partParent == this) {
                     this.setChildId(part.getUUID());
                 }
-                part.setInitialPartPos(this);
+                part.setInitialPartPos(partParent);
                 partParent = part;
                 p_33126_.addFreshEntity(part);
             }
@@ -234,15 +222,15 @@ public class FrostormDragon extends Monster {
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.PHANTOM_AMBIENT;
+        return SoundEvents.ENDER_DRAGON_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource p_33152_) {
-        return SoundEvents.PHANTOM_HURT;
+        return SoundEvents.ENDER_DRAGON_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.PHANTOM_DEATH;
+        return SoundEvents.ENDER_DRAGON_DEATH;
     }
 
     public MobType getMobType() {
@@ -320,7 +308,7 @@ public class FrostormDragon extends Monster {
                     FrostormDragon.this.attackPhase = FrostormDragon.AttackPhase.SWOOP;
                     this.setAnchorAboveTarget();
                     this.nextSweepTick = this.adjustedTickDelay((6 + FrostormDragon.this.random.nextInt(4)) * 20);
-                    FrostormDragon.this.playSound(SoundEvents.PHANTOM_SWOOP, 10.0F, 0.5F + FrostormDragon.this.random.nextFloat() * 0.1F);
+                    FrostormDragon.this.playSound(SoundEvents.ENDER_DRAGON_AMBIENT, 10.0F, 0.5F + FrostormDragon.this.random.nextFloat() * 0.1F);
                 }
             }
 
