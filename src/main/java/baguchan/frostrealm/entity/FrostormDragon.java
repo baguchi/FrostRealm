@@ -183,7 +183,7 @@ public class FrostormDragon extends Monster implements IFlyMob {
     }
 
     protected float getStandingEyeHeight(Pose p_33136_, EntityDimensions p_33137_) {
-        return p_33137_.height * 0.35F;
+        return p_33137_.height * 0.95F;
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_33134_) {
@@ -381,11 +381,6 @@ public class FrostormDragon extends Monster implements IFlyMob {
     }
 
     public double getPassengersRidingOffset() {
-        return this.getBbHeight();
-    }
-
-    @Override
-    public float getEyeHeight(Pose p_20237_) {
         return this.getBbHeight();
     }
 

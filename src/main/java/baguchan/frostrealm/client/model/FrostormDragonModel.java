@@ -198,10 +198,10 @@ public class FrostormDragonModel<T extends FrostormDragon> extends HierarchicalM
             this.getAnyDescendantWithName("tail2").get().xRot = Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
             this.getAnyDescendantWithName("tail3").get().xRot = Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
             this.getAnyDescendantWithName("tail4").get().xRot = Mth.cos(f) * 8.0F * ((float) Math.PI / 180F);
-            this.getAnyDescendantWithName("tail5").get().xRot = -Mth.cos(f) * 8F * ((float) Math.PI / 180F);
-            this.getAnyDescendantWithName("tail6").get().xRot = -Mth.cos(f) * 12F * ((float) Math.PI / 180F);
-            this.getAnyDescendantWithName("tail7").get().xRot = -Mth.cos(f) * 12F * ((float) Math.PI / 180F);
-            this.getAnyDescendantWithName("tail8").get().xRot = -Mth.cos(f) * 8F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail5").get().xRot = -Mth.cos(f) * 16F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail6").get().xRot = -Mth.cos(f) * 24F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail7").get().xRot = -Mth.cos(f) * 24F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail8").get().xRot = -Mth.cos(f) * 16F * ((float) Math.PI / 180F);
             this.getAnyDescendantWithName("tail9").get().xRot = Mth.cos(f) * 8.0F * ((float) Math.PI / 180F);
             this.getAnyDescendantWithName("tail10").get().xRot = Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
             this.getAnyDescendantWithName("tail11").get().xRot = Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
