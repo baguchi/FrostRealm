@@ -163,34 +163,50 @@ public class FrostormDragonModel<T extends FrostormDragon> extends HierarchicalM
             this.head2.yRot = netHeadYaw * ((float) Math.PI / 180F);
             this.head2.xRot = headPitch * ((float) Math.PI / 180F);
         }
+        float f = (ageInTicks) * 1.448451F * ((float) Math.PI / 180F);
         if (entity.isFlying()) {
             this.applyStatic(FrostormDragonAnimations.FLIGHT);
-            float f = (ageInTicks) * 2.448451F * ((float) Math.PI / 180F);
+
+            this.getAnyDescendantWithName("tail13").get().xRot = -Mth.cos(f) * 8.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail14").get().xRot = -Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail15").get().xRot = -Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail16").get().xRot = -Mth.cos(f) * 8.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail17").get().xRot = Mth.cos(f) * 8F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail18").get().xRot = Mth.cos(f) * 24F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail19").get().xRot = Mth.cos(f) * 24F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail20").get().xRot = Mth.cos(f) * 8F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail21").get().xRot = -Mth.cos(f) * 8.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail22").get().xRot = -Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail23").get().xRot = -Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail24").get().xRot = -Mth.cos(f) * 8.0F * ((float) Math.PI / 180F);
+
+            this.getAnyDescendantWithName("tail1").get().xRot = Mth.cos(f) * 8F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail2").get().xRot = Mth.cos(f) * 24F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail3").get().xRot = Mth.cos(f) * 24F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail4").get().xRot = Mth.cos(f) * 8F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail5").get().xRot = -Mth.cos(f) * 8.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail6").get().xRot = -Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail7").get().xRot = -Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail8").get().xRot = -Mth.cos(f) * 8.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail9").get().xRot = Mth.cos(f) * 8F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail10").get().xRot = Mth.cos(f) * 24F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail11").get().xRot = Mth.cos(f) * 24F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail12").get().xRot = Mth.cos(f) * 8F * ((float) Math.PI / 180F);
+
+        } else {
             this.getAnyDescendantWithName("tail1").get().xRot = Mth.cos(f) * 8.0F * ((float) Math.PI / 180F);
             this.getAnyDescendantWithName("tail2").get().xRot = Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
             this.getAnyDescendantWithName("tail3").get().xRot = Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
             this.getAnyDescendantWithName("tail4").get().xRot = Mth.cos(f) * 8.0F * ((float) Math.PI / 180F);
-            this.getAnyDescendantWithName("tail5").get().xRot = -Mth.cos(f) * 8.0F * ((float) Math.PI / 180F) / 2;
-            this.getAnyDescendantWithName("tail6").get().xRot = -Mth.cos(f) * 12.0F * ((float) Math.PI / 180F) / 2;
-            this.getAnyDescendantWithName("tail7").get().xRot = -Mth.cos(f) * 12.0F * ((float) Math.PI / 180F) / 2;
-            this.getAnyDescendantWithName("tail8").get().xRot = -Mth.cos(f) * 8.0F * ((float) Math.PI / 180F) / 2;
-            this.getAnyDescendantWithName("tail9").get().xRot = Mth.cos(f) * 8.0F * ((float) Math.PI / 180F) / 4;
-            this.getAnyDescendantWithName("tail10").get().xRot = Mth.cos(f) * 12.0F * ((float) Math.PI / 180F) / 4;
-            this.getAnyDescendantWithName("tail11").get().xRot = Mth.cos(f) * 12.0F * ((float) Math.PI / 180F) / 4;
-            this.getAnyDescendantWithName("tail12").get().xRot = Mth.cos(f) * 8.0F * ((float) Math.PI / 180F) / 4;
-            this.getAnyDescendantWithName("tail13").get().xRot = -Mth.cos(f) * 8.0F * ((float) Math.PI / 180F) / 8;
-            this.getAnyDescendantWithName("tail14").get().xRot = -Mth.cos(f) * 12.0F * ((float) Math.PI / 180F) / 8;
-            this.getAnyDescendantWithName("tail15").get().xRot = -Mth.cos(f) * 12.0F * ((float) Math.PI / 180F) / 8;
-            this.getAnyDescendantWithName("tail16").get().xRot = -Mth.cos(f) * 8.0F * ((float) Math.PI / 180F) / 8;
-            this.getAnyDescendantWithName("tail17").get().xRot = Mth.cos(f) * 8.0F * ((float) Math.PI / 180F) / 16;
-            this.getAnyDescendantWithName("tail18").get().xRot = Mth.cos(f) * 12.0F * ((float) Math.PI / 180F) / 16;
-            this.getAnyDescendantWithName("tail19").get().xRot = Mth.cos(f) * 12.0F * ((float) Math.PI / 180F) / 16;
-            this.getAnyDescendantWithName("tail20").get().xRot = Mth.cos(f) * 8.0F * ((float) Math.PI / 180F) / 16;
-            this.getAnyDescendantWithName("tail21").get().xRot = -Mth.cos(f) * 8.0F * ((float) Math.PI / 180F) / 32;
-            this.getAnyDescendantWithName("tail22").get().xRot = -Mth.cos(f) * 12.0F * ((float) Math.PI / 180F) / 32;
-            this.getAnyDescendantWithName("tail23").get().xRot = -Mth.cos(f) * 12.0F * ((float) Math.PI / 180F) / 32;
-            this.getAnyDescendantWithName("tail24").get().xRot = -Mth.cos(f) * 8.0F * ((float) Math.PI / 180F) / 32;
-        } else {
+            this.getAnyDescendantWithName("tail5").get().xRot = -Mth.cos(f) * 8F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail6").get().xRot = -Mth.cos(f) * 12F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail7").get().xRot = -Mth.cos(f) * 12F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail8").get().xRot = -Mth.cos(f) * 8F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail9").get().xRot = Mth.cos(f) * 8.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail10").get().xRot = Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail11").get().xRot = Mth.cos(f) * 12.0F * ((float) Math.PI / 180F);
+            this.getAnyDescendantWithName("tail12").get().xRot = Mth.cos(f) * 8.0F * ((float) Math.PI / 180F);
+
             this.animateWalk(FrostormDragonAnimations.WALKING, limbSwing, limbSwingAmount, 0.75F, 2.5F);
         }
     }

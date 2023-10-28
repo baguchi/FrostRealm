@@ -53,6 +53,8 @@ public class FrostormDragon extends Monster implements IFlyMob {
     private final FrostormDragonPart tail1;
     private final FrostormDragonPart tail2;
     private final FrostormDragonPart tail3;
+    private final FrostormDragonPart tail4;
+    private final FrostormDragonPart tail5;
 
 
     FrostormDragon.AttackPhase attackPhase = FrostormDragon.AttackPhase.CIRCLE;
@@ -69,11 +71,13 @@ public class FrostormDragon extends Monster implements IFlyMob {
         this.head = new FrostormDragonPart(this, "head", 1.0F, 1.0F, 1.25F);
         this.neck = new FrostormDragonPart(this, "neck", 2.0F, 2.0F, 1.15F);
         this.body = new FrostormDragonPart(this, "body", 3.0F, 3.0F, 1.0F);
-        this.tail1 = new FrostormDragonPart(this, "tail", 2.0F, 2.0F, 0.85F);
-        this.tail2 = new FrostormDragonPart(this, "tail", 2.0F, 2.0F, 0.8F);
-        this.tail3 = new FrostormDragonPart(this, "tail", 2.0F, 2.0F, 0.785F);
+        this.tail1 = new FrostormDragonPart(this, "tail", 2.0F, 1.0F, 0.85F);
+        this.tail2 = new FrostormDragonPart(this, "tail", 2.0F, 1.0F, 0.8F);
+        this.tail3 = new FrostormDragonPart(this, "tail", 2.0F, 1.0F, 0.785F);
+        this.tail4 = new FrostormDragonPart(this, "tail", 2.0F, 1.0F, 0.785F);
+        this.tail5 = new FrostormDragonPart(this, "tail", 2.0F, 1.0F, 0.785F);
 
-        this.subEntities = new FrostormDragonPart[]{this.head, this.neck, this.body, this.tail1, this.tail2, this.tail3};
+        this.subEntities = new FrostormDragonPart[]{this.head, this.neck, this.body, this.tail1, this.tail2, this.tail3, this.tail4, this.tail5};
         this.moveControl = new FrostormDragonMoveControl(this);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
 
@@ -223,7 +227,7 @@ public class FrostormDragon extends Monster implements IFlyMob {
                 this.tickPart(this.neck, (double) (-vec3.x * 4.0F), (double) (-2F), (double) (-vec3.z * 4.0F));
 
             }
-            for (int k = 0; k < 3; ++k) {
+            for (int k = 0; k < 5; ++k) {
                 FrostormDragonPart part = null;
                 if (k == 0) {
                     part = this.tail1;
@@ -235,6 +239,12 @@ public class FrostormDragon extends Monster implements IFlyMob {
 
                 if (k == 2) {
                     part = this.tail3;
+                }
+                if (k == 3) {
+                    part = this.tail4;
+                }
+                if (k == 4) {
+                    part = this.tail5;
                 }
                 float f22 = (float) (k + 1) * 2.0F;
                 if (this.isFlying()) {
@@ -371,7 +381,12 @@ public class FrostormDragon extends Monster implements IFlyMob {
     }
 
     public double getPassengersRidingOffset() {
-        return (double) this.getEyeHeight();
+        return this.getBbHeight();
+    }
+
+    @Override
+    public float getEyeHeight(Pose p_20237_) {
+        return this.getBbHeight();
     }
 
     @Override
