@@ -29,6 +29,12 @@ public class FrostormDragonRenderer<T extends FrostormDragon> extends MobRendere
     }
 
     @Override
+    protected void scale(T p_115314_, PoseStack p_115315_, float p_115316_) {
+        float size = p_115314_.getScale();
+        p_115315_.scale(size, size, size);
+        super.scale(p_115314_, p_115315_, p_115316_);
+    }
+    @Override
     public ResourceLocation getTextureLocation(T p_110775_1_) {
         return TEXTURE;
     }

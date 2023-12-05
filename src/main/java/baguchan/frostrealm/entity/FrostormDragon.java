@@ -1,13 +1,16 @@
 package baguchan.frostrealm.entity;
 
+import baguchan.frostrealm.entity.goal.BreedAndEggGoal;
 import baguchan.frostrealm.entity.goal.MeleeAttackNonFlyingGoal;
 import baguchan.frostrealm.entity.goal.RandomMoveNonFlyingGoal;
+import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -29,12 +32,13 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
-import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
 
@@ -42,8 +46,9 @@ import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
 
-public class FrostormDragon extends Monster implements IFlyMob {
+public class FrostormDragon extends Animal implements IFlyMob, IHasEgg {
     private static final EntityDataAccessor<Boolean> FLYING = SynchedEntityData.defineId(FrostormDragon.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HAS_EGG = SynchedEntityData.defineId(FrostormDragon.class, EntityDataSerializers.BOOLEAN);
 
 
     private final FrostormDragonPart[] subEntities;
@@ -64,7 +69,7 @@ public class FrostormDragon extends Monster implements IFlyMob {
     protected final GroundPathNavigation groundNavigation;
 
 
-    public FrostormDragon(EntityType<? extends Monster> p_33002_, Level p_33003_) {
+    public FrostormDragon(EntityType<? extends FrostormDragon> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
         this.xpReward = 200;
         this.setMaxUpStep(2.0F);
@@ -108,13 +113,14 @@ public class FrostormDragon extends Monster implements IFlyMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 300.0D).add(Attributes.FOLLOW_RANGE, 32.0D).add(Attributes.ATTACK_DAMAGE, 8.0D).add(Attributes.MOVEMENT_SPEED, 0.3F);
+        return Animal.createMobAttributes().add(Attributes.MAX_HEALTH, 300.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.9F).add(Attributes.ATTACK_KNOCKBACK, 2.0F).add(Attributes.FOLLOW_RANGE, 32.0D).add(Attributes.ATTACK_DAMAGE, 12.0D).add(Attributes.MOVEMENT_SPEED, 0.3F);
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FLYING, false);
+        this.entityData.define(HAS_EGG, false);
     }
 
     public boolean isFlying() {
@@ -126,16 +132,28 @@ public class FrostormDragon extends Monster implements IFlyMob {
     }
 
     @Override
+    public boolean hasEgg() {
+        return this.entityData.get(HAS_EGG);
+    }
+
+    @Override
+    public void setHasEgg(boolean hasEgg) {
+        this.entityData.set(HAS_EGG, hasEgg);
+    }
+
+    @Override
     public void readAdditionalSaveData(CompoundTag p_27576_) {
         super.readAdditionalSaveData(p_27576_);
 
         this.setFlying(p_27576_.getBoolean("Flying"));
+        this.setHasEgg(p_27576_.getBoolean("HasEgg"));
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag p_27587_) {
         super.addAdditionalSaveData(p_27587_);
         p_27587_.putBoolean("Flying", this.isFlying());
+        p_27587_.putBoolean("HasEgg", this.hasEgg());
     }
     public void travel(Vec3 p_20818_) {
         if (this.isFlying()) {
@@ -171,6 +189,8 @@ public class FrostormDragon extends Monster implements IFlyMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MeleeAttackNonFlyingGoal<>(this, 0.9F, true));
+        //this.goalSelector.addGoal(3, new TemptGoal(this, 0.9F, true));
+        this.goalSelector.addGoal(2, new BreedAndEggGoal<>(this, 0.9F));
         this.goalSelector.addGoal(6, new RandomMoveNonFlyingGoal<>(this, 0.8F, 140));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -184,6 +204,11 @@ public class FrostormDragon extends Monster implements IFlyMob {
 
     protected float getStandingEyeHeight(Pose p_33136_, EntityDimensions p_33137_) {
         return p_33137_.height * 0.95F;
+    }
+
+    @Override
+    public AABB getBoundingBoxForCulling() {
+        return super.getBoundingBoxForCulling().inflate(3.0F, 2.0F, 3.0F);
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_33134_) {
@@ -209,9 +234,17 @@ public class FrostormDragon extends Monster implements IFlyMob {
                 avec3[j] = new Vec3(this.subEntities[j].getX(), this.subEntities[j].getY(), this.subEntities[j].getZ());
             }
 
-            Vec3 vec3 = this.calculateViewVector(-this.getXRot(), this.yBodyRot);
+            Vec3 noFlyingVec3 = this.calculateViewVector(0.0F, this.yBodyRot).scale(this.getScale());
 
-            this.tickPart(this.body, (double) (-vec3.x * 0.5F), 0.0D, (double) (-vec3.z * 0.5F));
+
+            Vec3 vec3 = this.calculateViewVector(-this.getXRot(), this.yBodyRot).scale(this.getScale());
+
+            if (this.isFlying()) {
+                this.tickPart(this.body, (double) (-vec3.x * 0.5F), 0.0D, (double) (-vec3.z * 0.5F));
+            } else {
+                this.tickPart(this.body, (double) (-noFlyingVec3.x * 0.5F), 0.0D, (double) (-noFlyingVec3.z * 0.5F));
+
+            }
             if (!this.level().isClientSide && this.hurtTime == 0) {
                 if (this.isFlying()) {
                     this.knockBack(this.level().getEntities(this, this.body.getBoundingBox().inflate(4.0D, 2.0D, 4.0D).move(0.0D, -2.0D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
@@ -220,11 +253,11 @@ public class FrostormDragon extends Monster implements IFlyMob {
                 }
             }
             if (this.isFlying()) {
-                this.tickPart(this.head, (double) (-vec3.x * 4.5F), (double) (-vec3.y * 4.5F - 2F), (double) (-vec3.z * 4.5F));
-                this.tickPart(this.neck, (double) (-vec3.x * 4.0F), (double) (-vec3.y * 4.0F - 2F), (double) (-vec3.z * 4.0F));
+                this.tickPart(this.head, (double) (-vec3.x * 4.5F), (double) (-vec3.y * 4.5F - 2F * this.getScale()), (double) (-vec3.z * 4.5F));
+                this.tickPart(this.neck, (double) (-vec3.x * 4.0F), (double) (-vec3.y * 4.0F - 2F * this.getScale()), (double) (-vec3.z * 4.0F));
             } else {
-                this.tickPart(this.head, (double) (-vec3.x * 4.5F), (double) (-2F), (double) (-vec3.z * 4.5F));
-                this.tickPart(this.neck, (double) (-vec3.x * 4.0F), (double) (-2F), (double) (-vec3.z * 4.0F));
+                this.tickPart(this.head, (double) (-noFlyingVec3.x * 4.5F), (double) (-2F * this.getScale()), (double) (-noFlyingVec3.z * 4.5F));
+                this.tickPart(this.neck, (double) (-noFlyingVec3.x * 4.0F), (double) (-2F * this.getScale()), (double) (-noFlyingVec3.z * 4.0F));
 
             }
             for (int k = 0; k < 5; ++k) {
@@ -248,10 +281,10 @@ public class FrostormDragon extends Monster implements IFlyMob {
                 }
                 float f22 = (float) (k + 1) * 2.0F;
                 if (this.isFlying()) {
-                    this.tickPart(part, (double) ((vec3.x * f22)), vec3.y * f22 - 2F, (double) vec3.z * f22);
+                    this.tickPart(part, (double) ((vec3.x * f22)), vec3.y * f22 - 2F * this.getScale(), (double) vec3.z * f22);
 
                 } else {
-                    this.tickPart(part, (double) ((vec3.x * f22)), -2F, (double) vec3.z * f22);
+                    this.tickPart(part, (double) ((noFlyingVec3.x * f22)), -2F * this.getScale(), (double) noFlyingVec3.z * f22);
 
                 }
             }
@@ -360,6 +393,11 @@ public class FrostormDragon extends Monster implements IFlyMob {
         return super.finalizeSpawn(p_33126_, p_33127_, p_33128_, p_33129_, p_33130_);
     }
 
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
+        return FrostEntities.FROSTORM_DRAGON.get().create(p_146743_);
+    }
+
     public SoundSource getSoundSource() {
         return SoundSource.HOSTILE;
     }
@@ -407,6 +445,7 @@ public class FrostormDragon extends Monster implements IFlyMob {
             }
         }
     }
+
 
     static enum AttackPhase {
         CIRCLE,
