@@ -59,7 +59,7 @@ public class VigoroMushroomBlock extends BushBlock implements BonemealableBlock 
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader p_54870_, BlockPos p_54871_, BlockState p_54872_, boolean p_54873_) {
+	public boolean isValidBonemealTarget(LevelReader p_54870_, BlockPos p_54871_, BlockState p_54872_) {
 		return true;
 	}
 

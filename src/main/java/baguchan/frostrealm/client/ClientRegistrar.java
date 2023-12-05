@@ -23,17 +23,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
-import net.minecraftforge.client.event.RegisterShadersEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import net.neoforged.neoforge.client.event.RegisterShadersEvent;
+import net.neoforged.neoforge.common.NeoForge;
 
 import java.io.IOException;
 
@@ -126,10 +126,10 @@ public class ClientRegistrar {
 
 
 	public static void setup(FMLCommonSetupEvent event) {
-		MinecraftForge.EVENT_BUS.register(new ClientColdHUDEvent());
-		MinecraftForge.EVENT_BUS.register(new ClientFogEvent());
+        NeoForge.EVENT_BUS.register(new ClientColdHUDEvent());
+        NeoForge.EVENT_BUS.register(new ClientFogEvent());
 		IEventBus busMod = FMLJavaModLoadingContext.get().getModEventBus();
-		IEventBus busForge = MinecraftForge.EVENT_BUS;
+        IEventBus busForge = NeoForge.EVENT_BUS;
 		FrostArmPoses.init();
 		renderTileEntity();
 		renderBlockColor();

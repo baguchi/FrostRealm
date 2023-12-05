@@ -4,7 +4,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.client.IArmPoseTransformer;
+import net.neoforged.neoforge.client.IArmPoseTransformer;
 
 public class RubHandArmPose implements IArmPoseTransformer {
 	@Override

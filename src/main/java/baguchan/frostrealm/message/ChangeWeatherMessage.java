@@ -5,10 +5,8 @@ import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.weather.FrostWeather;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import net.neoforged.fml.LogicalSide;
+import net.neoforged.neoforge.network.NetworkEvent;
 
 public class ChangeWeatherMessage {
 	private final FrostWeather weather;
@@ -18,22 +16,21 @@ public class ChangeWeatherMessage {
 	}
 
 	public static void writeToPacket(ChangeWeatherMessage packet, FriendlyByteBuf buf) {
-		buf.writeRegistryIdUnsafe(FrostWeathers.getRegistry().get(), packet.weather);
+        buf.writeResourceLocation(FrostWeathers.getRegistry().getKey(packet.weather));
 	}
 
 	public static ChangeWeatherMessage readFromPacket(FriendlyByteBuf buf) {
-		return new ChangeWeatherMessage(buf.readRegistryIdUnsafe(FrostWeathers.getRegistry().get()));
+        return new ChangeWeatherMessage(FrostWeathers.getRegistry().get(buf.readResourceLocation()));
 	}
 
-	public static void handle(ChangeWeatherMessage message, Supplier<NetworkEvent.Context> ctx) {
-		NetworkEvent.Context context = ctx.get();
+    public void handle(NetworkEvent.Context context) {
 		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT)
 			context.enqueueWork(() -> {
 				if (Minecraft.getInstance().level != null)
 					Minecraft.getInstance().level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY, null).ifPresent(cap -> {
-						cap.setFrostWeather(message.weather);
+                        cap.setFrostWeather(weather);
 					});
 			});
-		ctx.get().setPacketHandled(true);
+        context.setPacketHandled(true);
 	}
 }

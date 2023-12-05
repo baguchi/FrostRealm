@@ -4,10 +4,8 @@ import baguchan.frostrealm.FrostRealm;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import net.neoforged.fml.LogicalSide;
+import net.neoforged.neoforge.network.NetworkEvent;
 
 public class ChangedColdMessage {
 	private final int entityId;
@@ -38,17 +36,16 @@ public class ChangedColdMessage {
 		return new ChangedColdMessage(buf.readInt(), buf.readInt(), buf.readFloat());
 	}
 
-	public static void handle(ChangedColdMessage message, Supplier<NetworkEvent.Context> ctx) {
-		NetworkEvent.Context context = ctx.get();
+    public void handle(NetworkEvent.Context context) {
 		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT)
 			context.enqueueWork(() -> {
-				Entity entity = Minecraft.getInstance().level.getEntity(message.entityId);
+                Entity entity = Minecraft.getInstance().level.getEntity(entityId);
 				if (entity != null && entity instanceof net.minecraft.world.entity.LivingEntity)
 					entity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY, null).ifPresent(frostLivingCapability -> {
-						frostLivingCapability.setTemperatureLevel(message.temperature);
-						frostLivingCapability.setSaturation(message.temperatureSaturation);
+                        frostLivingCapability.setTemperatureLevel(temperature);
+                        frostLivingCapability.setSaturation(temperatureSaturation);
 					});
 			});
-		ctx.get().setPacketHandled(true);
+        context.setPacketHandled(true);
 	}
 }

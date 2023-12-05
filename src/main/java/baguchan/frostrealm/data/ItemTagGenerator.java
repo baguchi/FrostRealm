@@ -10,8 +10,8 @@ import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -23,8 +23,8 @@ public class ItemTagGenerator extends ItemTagsProvider {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-        tag(ItemTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.get().asItem(), FrostBlocks.FROSTBITE_LOG.get().asItem(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get().asItem(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get().asItem());
-        tag(ItemTags.PLANKS).add(FrostBlocks.FROSTROOT_PLANKS.get().asItem(), FrostBlocks.FROSTBITE_PLANKS.get().asItem());
+        tag(ItemTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.get().asItem(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get().asItem());
+        tag(ItemTags.PLANKS).add(FrostBlocks.FROSTROOT_PLANKS.get().asItem());
         tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.get().asItem());
         tag(ItemTags.STONE_TOOL_MATERIALS).add(FrostBlocks.FRIGID_STONE.get().asItem());
         tag(ItemTags.STONE_CRAFTING_MATERIALS).add(FrostBlocks.FRIGID_STONE.get().asItem());

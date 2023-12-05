@@ -11,6 +11,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
@@ -57,14 +58,17 @@ public class FrostCraftingMenu extends RecipeBookMenu<CraftingContainer> {
 
     }
 
-    protected static void slotChangedCraftingGrid(AbstractContainerMenu p_150547_, Level p_150548_, Player p_150549_, CraftingContainer p_150550_, ResultContainer p_150551_) {
+    protected static void slotChangedCraftingGrid(
+            AbstractContainerMenu p_150547_, Level p_150548_, Player p_150549_, CraftingContainer p_150550_, ResultContainer p_150551_
+    ) {
         if (!p_150548_.isClientSide) {
             ServerPlayer serverplayer = (ServerPlayer) p_150549_;
             ItemStack itemstack = ItemStack.EMPTY;
-            Optional<CraftingRecipe> optional = p_150548_.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, p_150550_, p_150548_);
+            Optional<RecipeHolder<CraftingRecipe>> optional = p_150548_.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, p_150550_, p_150548_);
             if (optional.isPresent()) {
-                CraftingRecipe craftingrecipe = optional.get();
-                if (p_150551_.setRecipeUsed(p_150548_, serverplayer, craftingrecipe)) {
+                RecipeHolder<CraftingRecipe> recipeholder = optional.get();
+                CraftingRecipe craftingrecipe = recipeholder.value();
+                if (p_150551_.setRecipeUsed(p_150548_, serverplayer, recipeholder)) {
                     ItemStack itemstack1 = craftingrecipe.assemble(p_150550_, p_150548_.registryAccess());
                     if (itemstack1.isItemEnabled(p_150548_.enabledFeatures())) {
                         itemstack = itemstack1;
@@ -91,6 +95,11 @@ public class FrostCraftingMenu extends RecipeBookMenu<CraftingContainer> {
     public void clearCraftingContent() {
         this.craftSlots.clearContent();
         this.resultSlots.clearContent();
+    }
+
+    @Override
+    public boolean recipeMatches(RecipeHolder<? extends Recipe<CraftingContainer>> p_301144_) {
+        return false;
     }
 
     public boolean recipeMatches(Recipe<? super CraftingContainer> p_39384_) {

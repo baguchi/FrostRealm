@@ -15,7 +15,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Optional;
 import java.util.Set;
@@ -32,7 +32,9 @@ public class FrostWeatherCommand {
 		}).then(Commands.argument("duration", IntegerArgumentType.integer(0, 1000000)).executes((p_139188_) -> {
 			return setClear(p_139188_.getSource(), IntegerArgumentType.getInteger(p_139188_, "duration") * 20);
 		}))).then(Commands.argument("set_weather", StringArgumentType.string())
-				.suggests((ctx, builder) -> SharedSuggestionProvider.suggest(FrostWeathers.getRegistry().get().getKeys().stream().map(ResourceLocation::toString).map(StringArgumentType::escapeIfRequired), builder))
+				.suggests((ctx, builder) -> SharedSuggestionProvider.suggest(FrostWeathers.getRegistry().stream().map(frostWeather -> {
+					return FrostWeathers.getRegistry().getKey(frostWeather).toString();
+				}).map(StringArgumentType::escapeIfRequired), builder))
 				.executes((ctx) -> {
 					return setRain(StringArgumentType.getString(ctx, "set_weather"), ctx.getSource(), 6000);
 				}).then(Commands.argument("duration", IntegerArgumentType.integer(0, 1000000)).executes((ctx) -> {
@@ -60,7 +62,9 @@ public class FrostWeatherCommand {
 	}
 
 	private static int setRain(String filter, CommandSourceStack p_139178_, int p_139179_) {
-		Set<ResourceLocation> names = FrostWeathers.getRegistry().get().getKeys().stream().filter(n -> n.toString().matches(filter)).collect(Collectors.toSet());
+		Set<ResourceLocation> names = FrostWeathers.getRegistry().stream().map(frostWeather -> {
+			return FrostWeathers.getRegistry().getKey(frostWeather);
+		}).filter(n -> n.toString().matches(filter)).collect(Collectors.toSet());
 
 		if (p_139178_.getLevel().dimension() != FrostDimensions.FROSTREALM_LEVEL) {
 			p_139178_.sendFailure(Component.translatable("commands.frostrealm.frost_weather.set.fail_dimension"));
@@ -75,8 +79,8 @@ public class FrostWeatherCommand {
 
 		if (names.size() == 1) {
 			ResourceLocation name = names.iterator().next();
-			Optional<FrostWeather> frostWeather = FrostWeathers.getRegistry().get().getValues().stream().filter(weather -> {
-				return FrostWeathers.getRegistry().get().getKey(weather).equals(name);
+			Optional<FrostWeather> frostWeather = FrostWeathers.getRegistry().stream().filter(weather -> {
+				return FrostWeathers.getRegistry().getKey(weather).equals(name);
 			}).findFirst();
 
 			if (frostWeather.isPresent()) {

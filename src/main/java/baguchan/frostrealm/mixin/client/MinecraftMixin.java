@@ -28,7 +28,7 @@ public class MinecraftMixin {
 		if (player != null) {
 			if (player.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 				if (player.level().isNight()) {
-					callbackInfo.setReturnValue(new Music(FrostSounds.CALM_NIGHT_BGM.getHolder().orElseThrow(), 12000, 24000, true));
+                    callbackInfo.setReturnValue(new Music(Holder.direct(FrostSounds.CALM_NIGHT_BGM.get()), 12000, 24000, true));
 				} else {
 					Holder<Biome> holder = player.level().getBiome(player.blockPosition());
 					callbackInfo.setReturnValue(holder.value().getBackgroundMusic().orElse(Musics.GAME));

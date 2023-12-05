@@ -20,6 +20,8 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.ToolAction;
+import net.neoforged.neoforge.common.ToolActions;
 
 public class FusionCrystalDaggerItem extends Item implements Vanishable {
 	private final float attackDamage;
@@ -126,8 +128,8 @@ public class FusionCrystalDaggerItem extends Item implements Vanishable {
 	}
 
 	@Override
-	public boolean canPerformAction(ItemStack stack, net.minecraftforge.common.ToolAction toolAction) {
-		return net.minecraftforge.common.ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
+	public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
+		return ToolActions.DEFAULT_SWORD_ACTIONS.contains(toolAction);
 	}
 
 	@Override

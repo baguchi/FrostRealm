@@ -70,7 +70,6 @@ public class FrostConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_ICE = registerKey("large_ice");
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FROSTROOT_TREE = registerKey("frostroot_trees");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> FROSTBITE_TREE = registerKey("frostbite_trees");
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> LOG = registerKey("log");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> CHAIN = registerKey("chain");
@@ -118,12 +117,8 @@ public class FrostConfiguredFeatures {
 
 		Holder<ConfiguredFeature<?, ?>> holder1 = holdergetter.getOrThrow(FrostTreeFeatures.FROST_TREE);
 		Holder<ConfiguredFeature<?, ?>> holder2 = holdergetter.getOrThrow(FrostTreeFeatures.FROST_TREE_BIG);
-		Holder<ConfiguredFeature<?, ?>> holder3 = holdergetter.getOrThrow(FrostTreeFeatures.FROSTBITE_TREE);
-		Holder<ConfiguredFeature<?, ?>> holder4 = holdergetter.getOrThrow(FrostTreeFeatures.FROSTBITE_TREE_BIG);
-
 
 		FeatureUtils.register(context, FROSTROOT_TREE, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(holder2), 0.33333334F)), PlacementUtils.inlinePlaced(holder1)));
-		FeatureUtils.register(context, FROSTBITE_TREE, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(holder4), 0.33333334F)), PlacementUtils.inlinePlaced(holder3)));
 		FeatureUtils.register(context, LOG, Feature.BLOCK_COLUMN, new BlockColumnConfiguration(List.of(BlockColumnConfiguration.layer(ConstantInt.of(32), BlockStateProvider.simple(FrostBlocks.FROSTROOT_LOG.get()))), Direction.DOWN, BlockPredicate.not(BlockPredicate.hasSturdyFace(new Vec3i(0, 1, 0), Direction.UP)), true));
 		FeatureUtils.register(context, CHAIN, Feature.BLOCK_COLUMN, new BlockColumnConfiguration(List.of(BlockColumnConfiguration.layer(ConstantInt.of(32), BlockStateProvider.simple(Blocks.CHAIN))), Direction.UP, BlockPredicate.not(BlockPredicate.hasSturdyFace(new Vec3i(0, -1, 0), Direction.DOWN)), true));
 	}

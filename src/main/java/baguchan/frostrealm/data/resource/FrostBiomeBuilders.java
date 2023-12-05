@@ -3,6 +3,7 @@ package baguchan.frostrealm.data.resource;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.world.biome.FrostBiomeDefaultFeatures;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
@@ -16,7 +17,8 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
-import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 public class FrostBiomeBuilders {
 
@@ -139,7 +141,7 @@ public class FrostBiomeBuilders {
 		return makeDefaultBiome(builder, mobSpawnSetting, FrostSounds.FROST_MOON_BGM);
 	}
 
-	public static Biome makeOceanBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting, RegistryObject<SoundEvent> soundEvent) {
+	public static Biome makeOceanBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting, Supplier<SoundEvent> soundEvent) {
 		FrostBiomeDefaultFeatures.addDefaultCarvers(builder);
 		FrostBiomeDefaultFeatures.addDefaultOres(builder);
 		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
@@ -154,7 +156,7 @@ public class FrostBiomeBuilders {
 						.grassColorOverride(7115607)
 						.foliageColorOverride(7115607)
 						.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
-						.backgroundMusic(new Music(soundEvent.getHolder().orElseThrow(), 12000, 24000, false))
+						.backgroundMusic(new Music(Holder.direct(soundEvent.get()), 12000, 24000, false))
 						.build(),
 				mobSpawnSetting.build(),
 				builder.build(),
@@ -162,7 +164,7 @@ public class FrostBiomeBuilders {
 		);
 	}
 
-	public static Biome makeDefaultBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting, RegistryObject<SoundEvent> soundEvent) {
+	public static Biome makeDefaultBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting, Supplier<SoundEvent> soundEvent) {
 		FrostBiomeDefaultFeatures.addDefaultCarvers(builder);
 		FrostBiomeDefaultFeatures.addDefaultOres(builder);
 		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
@@ -178,7 +180,7 @@ public class FrostBiomeBuilders {
 						.grassColorOverride(7115607)
 						.foliageColorOverride(7115607)
 						.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
-						.backgroundMusic(new Music(soundEvent.getHolder().orElseThrow(), 12000, 24000, false))
+						.backgroundMusic(new Music(Holder.direct(soundEvent.get()), 12000, 24000, false))
 						.build(),
 				mobSpawnSetting.build(),
 				builder.build(),
@@ -186,7 +188,7 @@ public class FrostBiomeBuilders {
 		);
 	}
 
-	public static Biome makeDefaultHotBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting, RegistryObject<SoundEvent> soundEvent) {
+	public static Biome makeDefaultHotBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting, Supplier<SoundEvent> soundEvent) {
 		FrostBiomeDefaultFeatures.addDefaultCarvers(builder);
 		FrostBiomeDefaultFeatures.addDefaultOres(builder);
 		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
@@ -202,7 +204,7 @@ public class FrostBiomeBuilders {
 						.grassColorOverride(7115607)
 						.foliageColorOverride(7115607)
 						.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
-						.backgroundMusic(new Music(soundEvent.getHolder().orElseThrow(), 12000, 24000, false))
+						.backgroundMusic(new Music(Holder.direct(soundEvent.get()), 12000, 24000, false))
 						.build(),
 				mobSpawnSetting.build(),
 				builder.build(),

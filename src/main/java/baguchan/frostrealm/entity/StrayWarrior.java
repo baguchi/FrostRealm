@@ -30,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
@@ -63,11 +64,6 @@ public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
             protected void doTheAnimation() {
                 this.attacker.level().broadcastEntityEvent(this.attacker, (byte) 61);
             }
-
-            @Override
-            protected double getAttackReachSqr(LivingEntity p_25556_) {
-                return !getMainHandItem().is(FrostItems.FROST_SPEAR.get()) ? super.getAttackReachSqr(p_25556_) : (double) (getBbWidth() * 2.0F * getBbWidth() * 2.0F + 10.0F + p_25556_.getBbWidth());
-            }
         };
         guardAnimationGoal = new GuardAndCounterAnimationGoal<>(this, true, 60) {
             @Override
@@ -87,11 +83,6 @@ public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
             @Override
             public boolean canContinueToUse() {
                 return !isGuard() && super.canContinueToUse();
-            }
-
-            @Override
-            protected double getAttackReachSqr(LivingEntity p_25556_) {
-                return !getMainHandItem().is(FrostItems.FROST_SPEAR.get()) ? super.getAttackReachSqr(p_25556_) : (double) (getBbWidth() * 2.0F * getBbWidth() * 2.0F + 10.0F + p_25556_.getBbWidth());
             }
         });
     }
@@ -274,5 +265,10 @@ public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
         }
 
         return abstractarrow;
+    }
+
+    @Override
+    protected AABB getAttackBoundingBox() {
+        return this.getMainHandItem().is(FrostItems.FROST_SPEAR.get()) ? super.getAttackBoundingBox().inflate(0.5F, 0, 0.5F) : super.getAttackBoundingBox();
     }
 }

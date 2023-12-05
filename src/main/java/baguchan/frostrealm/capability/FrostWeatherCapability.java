@@ -13,11 +13,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.common.capabilities.ICapabilitySerializable;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -171,7 +171,7 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 		nbt.putInt("WeatherCooldown", this.weatherCooldown);
 		nbt.putFloat("UnstableLevel", this.unstableLevel);
 		if (this.frostWeather != null) {
-			nbt.putString("FrostWeather", FrostWeathers.getRegistry().get().getKey(this.frostWeather).toString());
+            nbt.putString("FrostWeather", FrostWeathers.getRegistry().getKey(this.frostWeather).toString());
 		}
 		return nbt;
 	}
@@ -180,7 +180,7 @@ public class FrostWeatherCapability implements ICapabilityProvider, ICapabilityS
 		this.weatherTime = nbt.getInt("WeatherTime");
 		this.weatherCooldown = nbt.getInt("WeatherCooldown");
 		this.unstableLevel = nbt.getFloat("UnstableLevel");
-		FrostWeather frostWeather = FrostWeathers.getRegistry().get().getValue(ResourceLocation.tryParse(nbt.getString("FrostWeather")));
+        FrostWeather frostWeather = FrostWeathers.getRegistry().get(ResourceLocation.tryParse(nbt.getString("FrostWeather")));
 		if (frostWeather != null) {
 			this.frostWeather = frostWeather;
 		} else {

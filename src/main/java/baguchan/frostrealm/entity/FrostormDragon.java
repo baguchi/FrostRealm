@@ -40,7 +40,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
+import net.neoforged.neoforge.entity.PartEntity;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -428,7 +428,7 @@ public class FrostormDragon extends Animal implements IFlyMob, IHasEgg {
     }
 
     @Override
-    public net.minecraftforge.entity.PartEntity<?>[] getParts() {
+    public PartEntity<?>[] getParts() {
         return this.subEntities;
     }
 
@@ -440,7 +440,7 @@ public class FrostormDragon extends Animal implements IFlyMob, IHasEgg {
     public void remove(Entity.RemovalReason removalReason) {
         super.remove(removalReason);
         if (subEntities != null) {
-            for (PartEntity part : subEntities) {
+            for (PartEntity<?> part : subEntities) {
                 part.remove(RemovalReason.KILLED);
             }
         }

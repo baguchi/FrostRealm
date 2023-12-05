@@ -3,10 +3,8 @@ package baguchan.frostrealm.message;
 import baguchan.frostrealm.FrostRealm;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import net.neoforged.fml.LogicalSide;
+import net.neoforged.neoforge.network.NetworkEvent;
 
 public class ChangeWeatherTimeMessage {
 	private final int weatherTime;
@@ -27,16 +25,15 @@ public class ChangeWeatherTimeMessage {
 		return new ChangeWeatherTimeMessage(buf.readInt(), buf.readInt());
 	}
 
-	public static void handle(ChangeWeatherTimeMessage message, Supplier<NetworkEvent.Context> ctx) {
-		NetworkEvent.Context context = ctx.get();
+    public void handle(NetworkEvent.Context context) {
 		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT)
 			context.enqueueWork(() -> {
 				if (Minecraft.getInstance().level != null)
 					Minecraft.getInstance().level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY, null).ifPresent(cap -> {
-						cap.setWetherTime(message.weatherTime);
-						cap.setWeatherCooldown(message.weatherTimeCooldown);
+                        cap.setWetherTime(weatherTime);
+                        cap.setWeatherCooldown(weatherTimeCooldown);
 					});
 			});
-		ctx.get().setPacketHandled(true);
+        context.setPacketHandled(true);
 	}
 }

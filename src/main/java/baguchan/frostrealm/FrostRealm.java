@@ -17,30 +17,30 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.util.thread.EffectiveSide;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.registries.DataPackRegistryEvent;
-import net.minecraftforge.server.ServerLifecycleHooks;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.fml.util.thread.EffectiveSide;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.capabilities.Capability;
+import net.neoforged.neoforge.common.capabilities.CapabilityManager;
+import net.neoforged.neoforge.common.capabilities.CapabilityToken;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.network.NetworkRegistry;
+import net.neoforged.neoforge.network.PlayNetworkDirection;
+import net.neoforged.neoforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Locale;
 import java.util.Map;
 
-@Mod("frostrealm")
+@Mod(FrostRealm.MODID)
 public class FrostRealm {
 	public static final Logger LOGGER = LogManager.getLogger("frostrealm");
 
@@ -63,7 +63,7 @@ public class FrostRealm {
 	public FrostRealm() {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+		IEventBus forgeBus = NeoForge.EVENT_BUS;
 		FrostWeathers.FROST_WEATHER.register(modBus);
 		FrostFeatures.FEATURES.register(modBus);
 		FrostSounds.SOUND_EVENTS.register(modBus);
@@ -74,16 +74,18 @@ public class FrostRealm {
 		FrostEntities.ENTITIES.register(modBus);
 		FrostCreativeTabs.CREATIVE_MODE_TABS.register(modBus);
 		FrostItems.ITEMS.register(modBus);
+		FrostLootFunctions.LOOT_REIGSTER.register(modBus);
 		FrostEffects.MOB_EFFECTS.register(modBus);
 		FrostEffects.POTION.register(modBus);
 		FrostRecipes.RECIPE_SERIALIZERS.register(modBus);
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
 		modBus.addListener(this::setup);
 		modBus.addListener(this::dataSetup);
-		MinecraftForge.EVENT_BUS.addListener(this::registerCommands);
+		NeoForge.EVENT_BUS.addListener(this::registerCommands);
 
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup));
-		MinecraftForge.EVENT_BUS.register(this);
+		if (FMLEnvironment.dist == Dist.CLIENT) {
+			FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup);
+		}
 	}
 
 	private void dataSetup(final DataPackRegistryEvent.NewRegistry event) {
@@ -92,8 +94,6 @@ public class FrostRealm {
 	public void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			FrostBlocks.burnables();
-            FrostLootFunctions.init();
-			FrostTrunkPlacers.init();
             this.setupMessages();
 			FrostBiomes.addBiomeTypes();
 			Map<ResourceLocation, MultiNoiseBiomeSourceParameterList.Preset> map = Maps.newHashMap();
@@ -110,7 +110,7 @@ public class FrostRealm {
 	}
 
 	public static <MSG> void sendNonLocal(MSG msg, ServerPlayer player) {
-		CHANNEL.sendTo(msg, player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+		CHANNEL.sendTo(msg, player.connection.connection, PlayNetworkDirection.PLAY_TO_CLIENT);
 	}
 
 	private void setupMessages() {
@@ -128,7 +128,7 @@ public class FrostRealm {
                 .add();
         CHANNEL.messageBuilder(HurtMultipartMessage.class, 3)
                 .encoder(HurtMultipartMessage::write).decoder(HurtMultipartMessage::read)
-                .consumerMainThread(HurtMultipartMessage.Handler::handle)
+				.consumerMainThread(HurtMultipartMessage::handle)
                 .add();
     }
 

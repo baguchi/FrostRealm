@@ -54,27 +54,25 @@ public class CounterGoal extends Goal {
         LivingEntity livingentity = this.attacker.getTarget();
         if (livingentity != null) {
             this.attacker.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
-            double d0 = this.attacker.getPerceivedTargetDistanceSquareForMeleeAttack(livingentity);
             this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
-            this.checkAndPerformAttack(livingentity, d0);
+            this.checkAndPerformAttack(livingentity);
         }
     }
 
-    protected void checkAndPerformAttack(LivingEntity p_29589_, double p_29590_) {
-        double d0 = this.getAttackReachSqr(p_29589_);
+    protected void checkAndPerformAttack(LivingEntity p_29589_) {
         if (this.ticksUntilNextAttack == this.leftActionPoint) {
-            if (p_29590_ <= d0) {
+            if (this.canPerformAttack(p_29589_)) {
                 this.attacker.doHurtTarget(p_29589_);
             }
-        } else if (p_29590_ <= d0) {
+        } else if (this.canPerformAttack(p_29589_)) {
             if (this.ticksUntilNextAttack == this.attackLengh) {
                 this.doTheAnimation();
             }
         }
     }
 
-    protected double getAttackReachSqr(LivingEntity p_25556_) {
-        return (double) (this.attacker.getBbWidth() * 2.0F * this.attacker.getBbWidth() * 2.0F + p_25556_.getBbWidth());
+    protected boolean canPerformAttack(LivingEntity p_301160_) {
+        return this.attacker.isWithinMeleeAttackRange(p_301160_) && this.attacker.getSensing().hasLineOfSight(p_301160_);
     }
 
     protected void doTheAnimation() {

@@ -31,7 +31,7 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader p_53692_, BlockPos p_53693_, BlockState p_53694_, boolean p_53695_) {
+	public boolean isValidBonemealTarget(LevelReader p_53692_, BlockPos p_53693_, BlockState p_53694_) {
 		return p_53692_.getBlockState(p_53693_.above()).isAir();
 	}
 

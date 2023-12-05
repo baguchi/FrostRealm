@@ -42,7 +42,8 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.common.IForgeShearable;
+import net.neoforged.neoforge.common.IShearable;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,7 +52,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class CrystalFox extends FrostAnimal implements IForgeShearable {
+public class CrystalFox extends FrostAnimal implements IShearable {
 	private static final EntityDataAccessor<Boolean> SHEARABLE = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.BOOLEAN);
 
 
@@ -449,7 +450,7 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 		}
 
 		protected void onReachedTarget() {
-			if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(CrystalFox.this.level(), CrystalFox.this)) {
+			if (EventHooks.getMobGriefingEvent(CrystalFox.this.level(), CrystalFox.this)) {
 				BlockState blockstate = CrystalFox.this.level().getBlockState(this.blockPos);
 				if (blockstate.is(FrostBlocks.BEARBERRY_BUSH.get())) {
 					this.pickBearBerry(blockstate);
@@ -496,14 +497,13 @@ public class CrystalFox extends FrostAnimal implements IForgeShearable {
 			super(CrystalFox.this, p_28720_, p_28721_);
 		}
 
-		protected void checkAndPerformAttack(LivingEntity p_28724_, double p_28725_) {
-			double d0 = this.getAttackReachSqr(p_28724_);
-			if (p_28725_ <= d0 && this.isTimeToAttack()) {
+		@Override
+		protected void checkAndPerformAttack(LivingEntity p_28724_) {
+			if (this.canPerformAttack(p_28724_)) {
 				this.resetAttackCooldown();
 				this.mob.doHurtTarget(p_28724_);
 				CrystalFox.this.playSound(SoundEvents.FOX_BITE, 1.0F, 1.0F);
 			}
-
 		}
 
 		public void start() {

@@ -18,7 +18,7 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeMod;
+import net.neoforged.neoforge.common.NeoForgeMod;
 
 import java.util.UUID;
 
@@ -32,8 +32,8 @@ public class FrostSpearItem extends Item implements Vanishable {
 		ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 		builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
 		builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", -2.6F, AttributeModifier.Operation.ADDITION));
-		builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(UUID.fromString("358accd2-f9a8-912b-2397-6356e2043b68"), "Weapon modifier", 1.0F, AttributeModifier.Operation.ADDITION));
-		builder.put(ForgeMod.BLOCK_REACH.get(), new AttributeModifier(UUID.fromString("2460a516-b2ef-b8a4-a6bc-33c4566d8a90"), "Weapon modifier", 1.0F, AttributeModifier.Operation.ADDITION));
+		builder.put(NeoForgeMod.ENTITY_REACH.value(), new AttributeModifier(UUID.fromString("358accd2-f9a8-912b-2397-6356e2043b68"), "Weapon modifier", 1.0F, AttributeModifier.Operation.ADDITION));
+		builder.put(NeoForgeMod.BLOCK_REACH.value(), new AttributeModifier(UUID.fromString("2460a516-b2ef-b8a4-a6bc-33c4566d8a90"), "Weapon modifier", 1.0F, AttributeModifier.Operation.ADDITION));
 
 		this.defaultModifiers = builder.build();
 	}

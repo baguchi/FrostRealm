@@ -5,7 +5,12 @@ import baguchan.frostrealm.utils.ModifierUtils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
-import com.google.gson.*;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -20,21 +25,26 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 public class GemRandomlyFunction extends LootItemConditionalFunction {
+    public static final Codec<GemRandomlyFunction> CODEC = RecordCodecBuilder.create((p_298285_) -> {
+        return commonFields(p_298285_).and(Modifier.CODEC.listOf().fieldOf("modifiers").forGetter(p_298083_ -> p_298083_.modifiers))
+                .apply(p_298285_, GemRandomlyFunction::new);
+    });
     final List<GemRandomlyFunction.Modifier> modifiers;
 
-    GemRandomlyFunction(LootItemCondition[] p_80833_, List<GemRandomlyFunction.Modifier> p_80834_) {
+    GemRandomlyFunction(List<LootItemCondition> p_80833_, List<GemRandomlyFunction.Modifier> p_80834_) {
         super(p_80833_);
         this.modifiers = ImmutableList.copyOf(p_80834_);
     }
 
     public LootItemFunctionType getType() {
-        return FrostLootFunctions.RANDOM_GEM_FUNCTION;
+        return FrostLootFunctions.RANDOM_GEM_FUNCTION.get();
     }
 
     public Set<LootContextParam<?>> getReferencedContextParams() {
@@ -69,17 +79,19 @@ public class GemRandomlyFunction extends LootItemConditionalFunction {
             return this;
         }
 
-        public GemRandomlyFunction.Builder withModifier(GemRandomlyFunction.ModifierBuilder p_165246_) {
-            this.modifiers.add(p_165246_.build());
-            return this;
-        }
-
         public LootItemFunction build() {
             return new GemRandomlyFunction(this.getConditions(), this.modifiers);
         }
     }
 
     static class Modifier {
+        public static final Codec<Modifier> CODEC = RecordCodecBuilder.create(instance -> instance
+                .group(
+                        BuiltInRegistries.ATTRIBUTE.byNameCodec().fieldOf("attribute").forGetter(instance2 -> instance2.attribute),
+                        NumberProviders.CODEC.fieldOf("amount").forGetter(modifier -> modifier.amount),
+                        Codec.BOOL.fieldOf("armor").forGetter(modifier -> modifier.armor))
+                .apply(instance, Modifier::new));
+
         final Attribute attribute;
         final NumberProvider amount;
         final boolean armor;
@@ -157,34 +169,6 @@ public class GemRandomlyFunction extends LootItemConditionalFunction {
 
         public GemRandomlyFunction.Modifier build() {
             return new GemRandomlyFunction.Modifier(this.attribute, this.amount, this.armor);
-        }
-    }
-
-    public static class Serializer extends LootItemConditionalFunction.Serializer<GemRandomlyFunction> {
-        public void serialize(JsonObject p_80891_, GemRandomlyFunction p_80892_, JsonSerializationContext p_80893_) {
-            super.serialize(p_80891_, p_80892_, p_80893_);
-            JsonArray jsonarray = new JsonArray();
-
-            for (GemRandomlyFunction.Modifier GemRandomlyFunction$modifier : p_80892_.modifiers) {
-                jsonarray.add(GemRandomlyFunction$modifier.serialize(p_80893_));
-            }
-
-            p_80891_.add("modifiers", jsonarray);
-        }
-
-        public GemRandomlyFunction deserialize(JsonObject p_80883_, JsonDeserializationContext p_80884_, LootItemCondition[] p_80885_) {
-            JsonArray jsonarray = GsonHelper.getAsJsonArray(p_80883_, "modifiers");
-            List<GemRandomlyFunction.Modifier> list = Lists.newArrayListWithExpectedSize(jsonarray.size());
-
-            for (JsonElement jsonelement : jsonarray) {
-                list.add(GemRandomlyFunction.Modifier.deserialize(GsonHelper.convertToJsonObject(jsonelement, "modifier"), p_80884_));
-            }
-
-            if (list.isEmpty()) {
-                throw new JsonSyntaxException("Invalid attribute modifiers array; cannot be empty");
-            } else {
-                return new GemRandomlyFunction(p_80885_, list);
-            }
         }
     }
 }

@@ -29,6 +29,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.CommonHooks;
 
 public class BearBerryBushBlock extends BushBlock implements BonemealableBlock {
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_3;
@@ -54,9 +55,9 @@ public class BearBerryBushBlock extends BushBlock implements BonemealableBlock {
 
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		int i = state.getValue(AGE);
-		if (i < 3 && level.getRawBrightness(pos.above(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(level, pos, state, random.nextInt(5) == 0)) {
+        if (i < 3 && level.getRawBrightness(pos.above(), 0) >= 9 && CommonHooks.onCropsGrowPre(level, pos, state, random.nextInt(5) == 0)) {
 			level.setBlock(pos, state.setValue(AGE, Integer.valueOf(i + 1)), 2);
-			net.minecraftforge.common.ForgeHooks.onCropsGrowPost(level, pos, state);
+            CommonHooks.onCropsGrowPost(level, pos, state);
 		}
 	}
 
@@ -87,7 +88,7 @@ public class BearBerryBushBlock extends BushBlock implements BonemealableBlock {
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader p_57260_, BlockPos p_57261_, BlockState p_57262_, boolean p_57263_) {
+    public boolean isValidBonemealTarget(LevelReader p_57260_, BlockPos p_57261_, BlockState p_57262_) {
 		return p_57262_.getValue(AGE) < 3;
 	}
 

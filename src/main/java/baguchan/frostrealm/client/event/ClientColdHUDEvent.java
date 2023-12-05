@@ -17,12 +17,12 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.gui.overlay.ForgeGui;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.RenderGuiOverlayEvent;
+import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
+import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
 
 import java.util.Random;
 
@@ -74,7 +74,7 @@ public class ClientColdHUDEvent {
 		Minecraft mc = Minecraft.getInstance();
 		Entity entity = mc.getCameraEntity();
 		int screenWidth = mc.getWindow().getGuiScaledWidth();
-		int screenHeight = mc.getWindow().getGuiScaledHeight() - ((ForgeGui) mc.gui).rightHeight;
+		int screenHeight = mc.getWindow().getGuiScaledHeight() - ((ExtendedGui) mc.gui).rightHeight;
 		if (entity != null && entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL && event.getOverlay() == VanillaGuiOverlay.FOOD_LEVEL.type()) {
 			this.random.setSeed((this.tickCount * 312871));
 			RenderSystem.enableBlend();
@@ -102,7 +102,7 @@ public class ClientColdHUDEvent {
 				}
 			});
 			RenderSystem.disableBlend();
-			((ForgeGui) mc.gui).rightHeight += 10;
+			((ExtendedGui) mc.gui).rightHeight += 10;
 			this.tickCount++;
 		}
 

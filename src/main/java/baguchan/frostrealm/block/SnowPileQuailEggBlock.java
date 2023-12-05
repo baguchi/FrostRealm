@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -176,7 +177,7 @@ public class SnowPileQuailEggBlock extends Block {
 			if (!(p_57769_ instanceof LivingEntity)) {
 				return false;
 			} else {
-				return p_57769_ instanceof Player || net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(p_57768_, p_57769_);
+				return p_57769_ instanceof Player || EventHooks.getMobGriefingEvent(p_57768_, p_57769_);
 			}
 		} else {
 			return false;

@@ -59,7 +59,6 @@ public class FrostBiomeDefaultFeatures {
 	}
 
 	public static void addFrostBiteJungleFeatures(BiomeGenerationSettings.Builder p_194721_) {
-		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.FROSTBITE_TREES);
 		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_VIGOROSHROOM);
 		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_TUNDRA_GRASS);
 	}

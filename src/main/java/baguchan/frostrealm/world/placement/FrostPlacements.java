@@ -28,7 +28,6 @@ public class FrostPlacements {
 
 	public static final ResourceKey<PlacedFeature> FROSTROOT_TREES_FOREST = registerKey("frostroot_tree_forest");
 	public static final ResourceKey<PlacedFeature> FROSTROOT_TREES_PLAINS = registerKey("frostroot_tree_plains");
-	public static final ResourceKey<PlacedFeature> FROSTBITE_TREES = registerKey("frostbite_trees");
 
 	public static final ResourceKey<PlacedFeature> PATCH_TUNDRA_GRASS = registerKey("patch_tundra_grass");
 	public static final ResourceKey<PlacedFeature> PATCH_TUNDRA_GRASS_BONEMEAL = registerKey("patch_tundra_grass_bonemeal");
@@ -77,7 +76,6 @@ public class FrostPlacements {
 
 		PlacementUtils.register(context, FROSTROOT_TREES_FOREST, configuredFeature.getOrThrow(FrostConfiguredFeatures.FROSTROOT_TREE), treePlacement(PlacementUtils.countExtra(10, 0.1F, 1), FrostBlocks.FROSTROOT_SAPLING.get()));
 		PlacementUtils.register(context, FROSTROOT_TREES_PLAINS, configuredFeature.getOrThrow(FrostConfiguredFeatures.FROSTROOT_TREE), treePlacement(PlacementUtils.countExtra(0, 0.01F, 1), FrostBlocks.FROSTROOT_SAPLING.get()));
-		PlacementUtils.register(context, FROSTBITE_TREES, configuredFeature.getOrThrow(FrostConfiguredFeatures.FROSTBITE_TREE), treePlacement(PlacementUtils.countExtra(7, 0.1F, 1), FrostBlocks.FROSTBITE_SAPLING.get()));
 
 		PlacementUtils.register(context, PATCH_TUNDRA_GRASS, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_TUNDRA_GRASS), NoiseThresholdCountPlacement.of(-0.8D, 5, 10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 		PlacementUtils.register(context, PATCH_TUNDRA_GRASS_BONEMEAL, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_TUNDRA_GRASS), PlacementUtils.isEmpty());

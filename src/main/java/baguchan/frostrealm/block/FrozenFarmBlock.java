@@ -22,6 +22,10 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.FarmlandWaterManager;
+import net.neoforged.neoforge.common.IPlantable;
+
 public class FrozenFarmBlock extends Block {
 	public static final IntegerProperty MOISTURE = BlockStateProperties.MOISTURE;
 	protected static final VoxelShape SHAPE = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 15.0D, 16.0D);
@@ -79,7 +83,7 @@ public class FrozenFarmBlock extends Block {
 	}
 
 	public void fallOn(Level p_153227_, BlockState p_153228_, BlockPos p_153229_, Entity p_153230_, float p_153231_) {
-		if (!p_153227_.isClientSide && net.minecraftforge.common.ForgeHooks.onFarmlandTrample(p_153227_, p_153229_, FrostBlocks.FROZEN_DIRT.get().defaultBlockState(), p_153231_, p_153230_)) { // Forge: Move logic to Entity#canTrample
+		if (!p_153227_.isClientSide && CommonHooks.onFarmlandTrample(p_153227_, p_153229_, FrostBlocks.FROZEN_DIRT.get().defaultBlockState(), p_153231_, p_153230_)) { // Forge: Move logic to Entity#canTrample
 			turnToDirt(p_153228_, p_153227_, p_153229_);
 		}
 
@@ -94,7 +98,7 @@ public class FrozenFarmBlock extends Block {
 	private static boolean isUnderCrops(BlockGetter p_53251_, BlockPos p_53252_) {
 		BlockState plant = p_53251_.getBlockState(p_53252_.above());
 		BlockState state = p_53251_.getBlockState(p_53252_);
-		return plant.getBlock() instanceof net.minecraftforge.common.IPlantable && state.canSustainPlant(p_53251_, p_53252_, Direction.UP, (net.minecraftforge.common.IPlantable) plant.getBlock());
+		return plant.getBlock() instanceof IPlantable && state.canSustainPlant(p_53251_, p_53252_, Direction.UP, (IPlantable) plant.getBlock());
 	}
 
 	private static boolean isNearWater(LevelReader p_53259_, BlockPos p_53260_) {
@@ -104,7 +108,7 @@ public class FrozenFarmBlock extends Block {
 			}
 		}
 
-		return net.minecraftforge.common.FarmlandWaterManager.hasBlockWaterTicket(p_53259_, p_53260_);
+		return FarmlandWaterManager.hasBlockWaterTicket(p_53259_, p_53260_);
 	}
 
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_53283_) {

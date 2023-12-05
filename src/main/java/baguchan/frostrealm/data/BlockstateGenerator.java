@@ -2,6 +2,7 @@ package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -11,12 +12,11 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelBuilder;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
@@ -57,17 +57,6 @@ public class BlockstateGenerator extends BlockStateProvider {
         this.stairs(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS.get());
         this.fenceBlock(FrostBlocks.FROSTROOT_FENCE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
         this.fenceGateBlock(FrostBlocks.FROSTROOT_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
-
-        this.logBlock(FrostBlocks.FROSTBITE_LOG.get());
-		this.logBlock(FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
-        this.simpleBlock(FrostBlocks.FROSTBITE_LEAVES.get());
-        this.crossBlock(FrostBlocks.FROSTBITE_SAPLING.get());
-        this.simpleBlock(FrostBlocks.FROSTBITE_PLANKS.get());
-        this.slab(FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_PLANKS.get());
-        this.stairs(FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS.get());
-        this.fenceBlock(FrostBlocks.FROSTBITE_FENCE.get(), texture(name(FrostBlocks.FROSTBITE_PLANKS.get())));
-        this.fenceGateBlock(FrostBlocks.FROSTBITE_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTBITE_PLANKS.get())));
-
 
         this.crossBlock(FrostBlocks.VIGOROSHROOM.get());
         this.crossBlock(FrostBlocks.ARCTIC_POPPY.get());
@@ -181,7 +170,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 
 
 	private ResourceLocation key(Block block) {
-		return ForgeRegistries.BLOCKS.getKey(block);
+        return BuiltInRegistries.BLOCK.getKey(block);
 	}
 
 	public void doorBlock(DoorBlock block, ResourceLocation bottom, ResourceLocation top) {
@@ -252,7 +241,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 	}
 
 	protected String name(Block block) {
-		return ForgeRegistries.BLOCKS.getKey(block).getPath();
+        return BuiltInRegistries.BLOCK.getKey(block).getPath();
 	}
 
 	@Nonnull

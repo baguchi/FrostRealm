@@ -1,12 +1,11 @@
 package baguchan.frostrealm.recipe;
 
 import baguchan.frostrealm.registry.FrostRecipes;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
@@ -20,12 +19,10 @@ import net.minecraft.world.level.Level;
 import java.util.stream.Stream;
 
 public class CrystalSmithingRecipe implements SmithingRecipe {
-    private final ResourceLocation id;
     final Ingredient template;
     final Ingredient addition;
 
-    public CrystalSmithingRecipe(ResourceLocation p_44523_, Ingredient template, Ingredient addition) {
-        this.id = p_44523_;
+    public CrystalSmithingRecipe(Ingredient template, Ingredient addition) {
         this.template = template;
         this.addition = addition;
     }
@@ -69,10 +66,6 @@ public class CrystalSmithingRecipe implements SmithingRecipe {
         return this.addition.test(p_266922_);
     }
 
-    public ResourceLocation getId() {
-        return this.id;
-    }
-
     public RecipeSerializer<?> getSerializer() {
         return FrostRecipes.RECIPE_CRYSTAL_SMITHING.get();
     }
@@ -82,17 +75,24 @@ public class CrystalSmithingRecipe implements SmithingRecipe {
 	}
 
     public static class Serializer implements RecipeSerializer<CrystalSmithingRecipe> {
-        public CrystalSmithingRecipe fromJson(ResourceLocation p_267037_, JsonObject p_267004_) {
-            Ingredient ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(p_267004_, "template"));
-            Ingredient ingredient2 = Ingredient.fromJson(GsonHelper.getAsJsonObject(p_267004_, "addition"));
+        private static final Codec<CrystalSmithingRecipe> CODEC = RecordCodecBuilder.create(
+                p_301062_ -> p_301062_.group(
+                                Ingredient.CODEC.fieldOf("template").forGetter(p_301310_ -> p_301310_.template),
+                                Ingredient.CODEC.fieldOf("addition").forGetter(p_301153_ -> p_301153_.addition)
+                        )
+                        .apply(p_301062_, CrystalSmithingRecipe::new)
+        );
 
-            return new CrystalSmithingRecipe(p_267037_, ingredient, ingredient2);
+        @Override
+        public Codec<CrystalSmithingRecipe> codec() {
+            return CODEC;
         }
 
-        public CrystalSmithingRecipe fromNetwork(ResourceLocation p_267169_, FriendlyByteBuf p_267251_) {
-            Ingredient ingredient = Ingredient.fromNetwork(p_267251_);
-            Ingredient ingredient1 = Ingredient.fromNetwork(p_267251_);
-            return new CrystalSmithingRecipe(p_267169_, ingredient, ingredient1);
+        @Override
+        public CrystalSmithingRecipe fromNetwork(FriendlyByteBuf p_44106_) {
+            Ingredient ingredient = Ingredient.fromNetwork(p_44106_);
+            Ingredient ingredient1 = Ingredient.fromNetwork(p_44106_);
+            return new CrystalSmithingRecipe(ingredient, ingredient1);
         }
 
         public void toNetwork(FriendlyByteBuf p_266901_, CrystalSmithingRecipe p_266893_) {

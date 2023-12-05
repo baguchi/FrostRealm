@@ -33,19 +33,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.common.ToolAction;
-import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.ItemAttributeModifierEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.ToolAction;
+import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
+import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
+import net.neoforged.neoforge.event.TickEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Map;
 import java.util.Optional;
@@ -226,9 +226,6 @@ public class CommonEvents {
             if (action == ToolActions.AXE_STRIP) {
                 if (state.is(FrostBlocks.FROSTROOT_LOG.get())) {
                     event.setFinalState(FrostBlocks.STRIPPED_FROSTROOT_LOG.get().withPropertiesOf(state));
-                }
-                if (state.is(FrostBlocks.FROSTBITE_LOG.get())) {
-                    event.setFinalState(FrostBlocks.STRIPPED_FROSTBITE_LOG.get().withPropertiesOf(state));
                 }
             }
             if (action == ToolActions.HOE_TILL && (context.getClickedFace() != Direction.DOWN && context.getLevel().getBlockState(context.getClickedPos().above()).isAir())) {

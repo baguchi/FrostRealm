@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ColdTallGrassBlock extends BushBlock implements BonemealableBlock, net.minecraftforge.common.IForgeShearable {
+public class ColdTallGrassBlock extends BushBlock implements BonemealableBlock {
 	protected static final float AABB_OFFSET = 6.0F;
 	protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
@@ -33,7 +33,7 @@ public class ColdTallGrassBlock extends BushBlock implements BonemealableBlock, 
 	}
 
 	@Override
-	public boolean isValidBonemealTarget(LevelReader p_256559_, BlockPos p_50898_, BlockState p_50899_, boolean p_50900_) {
+    public boolean isValidBonemealTarget(LevelReader p_256559_, BlockPos p_50898_, BlockState p_50899_) {
 		return true;
 	}
 
