@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_stray_necklace_part",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_stray_necklace_part"
     ]
   ],
   "rewards": {

@@ -1,8 +1,6 @@
 {
   "values": [
     "frostrealm:frostroot_log",
-    "frostrealm:frostbite_log",
-    "frostrealm:stripped_frostroot_log",
-    "frostrealm:stripped_frostbite_log"
+    "frostrealm:stripped_frostroot_log"
   ]
 }

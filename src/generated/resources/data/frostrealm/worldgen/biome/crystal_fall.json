@@ -15,7 +15,9 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
-      "sound": "frostrealm:music.frost_moon"
+      "sound": {
+        "sound_id": "frostrealm:music.frost_moon"
+      }
     },
     "sky_color": 7907327,
     "water_color": 4159204,

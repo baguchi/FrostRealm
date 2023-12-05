@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_frigid_stone_brick_mossy",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_frigid_stone_brick_mossy"
     ]
   ],
   "rewards": {

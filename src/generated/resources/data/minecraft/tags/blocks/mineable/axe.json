@@ -8,13 +8,6 @@
     "frostrealm:frostroot_fence",
     "frostrealm:frostroot_fence_gate",
     "frostrealm:frostroot_chest",
-    "frostrealm:frostroot_crafting_table",
-    "frostrealm:frostbite_log",
-    "frostrealm:stripped_frostbite_log",
-    "frostrealm:frostbite_planks",
-    "frostrealm:frostbite_planks_stairs",
-    "frostrealm:frostbite_planks_slab",
-    "frostrealm:frostbite_fence",
-    "frostrealm:frostbite_fence_gate"
+    "frostrealm:frostroot_crafting_table"
   ]
 }
