@@ -1,6 +1,6 @@
 {
-  "type": "forge:add_spawns",
-  "biomes": "#forge:is_cold/overworld",
+  "type": "neoforge:add_spawns",
+  "biomes": "#neoforge:is_cold/overworld",
   "spawners": {
     "type": "frostrealm:stray_warrior",
     "weight": 5,

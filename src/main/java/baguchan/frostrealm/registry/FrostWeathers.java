@@ -17,7 +17,7 @@ import static net.minecraft.resources.ResourceKey.createRegistryKey;
 
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class FrostWeathers {
-    public static final ResourceKey<Registry<FrostWeather>> WEATHER_RESOURCE_KEY = createRegistryKey(new ResourceLocation(FrostRealm.MODID, "fost_weather"));
+	public static final ResourceKey<Registry<FrostWeather>> WEATHER_RESOURCE_KEY = createRegistryKey(new ResourceLocation(FrostRealm.MODID, "frost_weather"));
 
 
 	public static final DeferredRegister<FrostWeather> FROST_WEATHER = DeferredRegister.create(new ResourceLocation(FrostRealm.MODID, "frost_weather"), FrostRealm.MODID);
