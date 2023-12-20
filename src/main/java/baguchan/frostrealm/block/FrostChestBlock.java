@@ -1,6 +1,7 @@
 package baguchan.frostrealm.block;
 
 import baguchan.frostrealm.blockentity.FrostChestBlockEntity;
+import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -108,6 +109,11 @@ public class FrostChestBlock extends AbstractChestBlock<FrostChestBlockEntity> i
 	public FrostChestBlock(BlockBehaviour.Properties p_51490_, Supplier<BlockEntityType<? extends FrostChestBlockEntity>> p_51491_) {
 		super(p_51490_, p_51491_);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, ChestType.SINGLE).setValue(WATERLOGGED, Boolean.valueOf(false)));
+	}
+
+	@Override
+	protected MapCodec<? extends AbstractChestBlock<FrostChestBlockEntity>> codec() {
+		return null;
 	}
 
 	public static DoubleBlockCombiner.BlockType getBlockType(BlockState p_51583_) {

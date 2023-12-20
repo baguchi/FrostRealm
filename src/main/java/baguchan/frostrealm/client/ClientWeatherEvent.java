@@ -1,6 +1,7 @@
 package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.capability.FrostWeatherManager;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -13,9 +14,7 @@ public class ClientWeatherEvent {
 	@SubscribeEvent
 	public static void onClientLevelUpdate(TickEvent.RenderTickEvent event) {
 		if (Minecraft.getInstance().level != null) {
-			Minecraft.getInstance().level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(frostWeatherCapability -> {
-				frostWeatherCapability.clientTick(Minecraft.getInstance().level);
-			});
+			FrostWeatherManager.clientTick(Minecraft.getInstance().level);
 		}
 	}
 }

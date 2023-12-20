@@ -1,8 +1,8 @@
 package baguchan.frostrealm.command;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.capability.FrostWeatherSavedData;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
-import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.weather.FrostWeather;
@@ -49,15 +49,15 @@ public class FrostWeatherCommand {
 			p_139173_.sendFailure(Component.translatable("commands.frostrealm.frost_weather.clear.fail_dimension"));
 			return p_139174_;
 		}
-		p_139173_.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-			cap.setWetherTime(0);
-			cap.setWeatherCooldown(p_139174_);
-
-			ChangeWeatherTimeMessage message = new ChangeWeatherTimeMessage(0, p_139174_);
+		FrostWeatherSavedData cap = FrostWeatherSavedData.get(p_139173_.getLevel());
+		if (cap != null) {
+			cap.setFrostWeather(FrostWeathers.NOPE.get());
+			cap.setWetherTime(p_139174_);
+			ChangeWeatherMessage message = new ChangeWeatherMessage(FrostWeathers.NOPE.get());
 			FrostRealm.CHANNEL.send(PacketDistributor.DIMENSION.with(p_139173_.getLevel()::dimension), message);
-		});
-		p_139173_.sendSuccess(() -> Component.translatable("commands.frostrealm.frost_weather.clear"), true);
 
+			p_139173_.sendSuccess(() -> Component.translatable("commands.frostrealm.frost_weather.clear"), true);
+		}
 		return p_139174_;
 	}
 
@@ -84,20 +84,16 @@ public class FrostWeatherCommand {
 			}).findFirst();
 
 			if (frostWeather.isPresent()) {
-				p_139178_.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+				FrostWeatherSavedData cap = FrostWeatherSavedData.get(p_139178_.getLevel());
+				if (cap != null) {
 					cap.setFrostWeather(frostWeather.get());
 
 					cap.setWetherTime(p_139179_);
-					cap.setWeatherCooldown(0);
-
 					ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather.get());
 					FrostRealm.CHANNEL.send(PacketDistributor.DIMENSION.with(p_139178_.getLevel()::dimension), message);
-
-					ChangeWeatherTimeMessage message2 = new ChangeWeatherTimeMessage(p_139179_, 0);
-					FrostRealm.CHANNEL.send(PacketDistributor.DIMENSION.with(p_139178_.getLevel()::dimension), message2);
-				});
-				p_139178_.sendSuccess(() -> Component.translatable("commands.frostrealm.frost_weather.set"), true);
-				return p_139179_;
+					p_139178_.sendSuccess(() -> Component.translatable("commands.frostrealm.frost_weather.set"), true);
+					return p_139179_;
+				}
 			} else {
 				p_139178_.sendFailure(Component.translatable("commands.frostrealm.frost_weather.set.fail"));
 				return p_139179_;

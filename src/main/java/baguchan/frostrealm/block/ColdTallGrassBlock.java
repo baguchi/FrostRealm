@@ -1,6 +1,7 @@
 package baguchan.frostrealm.block;
 
 import baguchan.frostrealm.registry.FrostBlocks;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -24,12 +25,13 @@ public class ColdTallGrassBlock extends BushBlock implements BonemealableBlock {
 		super(p_57318_);
 	}
 
-	public VoxelShape getShape(BlockState p_57336_, BlockGetter p_57337_, BlockPos p_57338_, CollisionContext p_57339_) {
-		return SHAPE;
+	@Override
+	protected MapCodec<? extends BushBlock> codec() {
+		return null;
 	}
 
-	public BlockBehaviour.OffsetType getOffsetType() {
-		return BlockBehaviour.OffsetType.XYZ;
+	public VoxelShape getShape(BlockState p_57336_, BlockGetter p_57337_, BlockPos p_57338_, CollisionContext p_57339_) {
+		return SHAPE;
 	}
 
 	@Override

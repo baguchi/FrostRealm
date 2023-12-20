@@ -1,5 +1,6 @@
 package baguchan.frostrealm.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -21,6 +22,11 @@ public class VigoroMushroomBlock extends BushBlock implements BonemealableBlock 
 
 	public VigoroMushroomBlock(BlockBehaviour.Properties p_153983_) {
 		super(p_153983_);
+	}
+
+	@Override
+	protected MapCodec<? extends BushBlock> codec() {
+		return null;
 	}
 
 	public VoxelShape getShape(BlockState p_54889_, BlockGetter p_54890_, BlockPos p_54891_, CollisionContext p_54892_) {

@@ -1,21 +1,18 @@
 package baguchan.frostrealm;
 
 import baguchan.frostrealm.capability.FrostLivingCapability;
-import baguchan.frostrealm.capability.FrostWeatherCapability;
+import baguchan.frostrealm.capability.FrostWeatherSavedData;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
-import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
 import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.utils.ModifierUtils;
 import baguchan.frostrealm.world.FrostLevelData;
 import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.server.level.ChunkMap;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -37,8 +34,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.ToolAction;
 import net.neoforged.neoforge.common.ToolActions;
-import net.neoforged.neoforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
@@ -53,30 +48,6 @@ import java.util.Optional;
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID)
 public class CommonEvents {
 
-    @SubscribeEvent
-    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.register(FrostLivingCapability.class);
-        event.register(FrostWeatherCapability.class);
-    }
-
-    @SubscribeEvent
-    public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof LivingEntity) {
-            event.addCapability(new ResourceLocation(FrostRealm.MODID, "frost_living"), new FrostLivingCapability());
-        }
-    }
-
-    @SubscribeEvent
-    public static void onAttachLevelCapabilities(AttachCapabilitiesEvent<Level> event) {
-        event.addCapability(new ResourceLocation(FrostRealm.MODID, "frost_weather"), new FrostWeatherCapability());
-    }
-
-    @SubscribeEvent
-    public static void onLevelUpdate(TickEvent.LevelTickEvent event) {
-        event.level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(frostWeatherCapability -> {
-            frostWeatherCapability.tick(event.level);
-        });
-    }
 
 
     @SubscribeEvent
@@ -87,14 +58,10 @@ public class CommonEvents {
             //sync weather
             for (ServerLevel serverworld : server.getAllLevels()) {
                 if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-                    world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-                        ChangeWeatherTimeMessage message = new ChangeWeatherTimeMessage(cap.getWeatherTime(), cap.getWeatherCooldown());
-                        FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-                    });
-                    world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-                        ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
-                        FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-                    });
+                    FrostWeatherSavedData cap = FrostWeatherSavedData.get(serverworld);
+                    ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
+                    FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+
                 }
             }
         }
@@ -108,14 +75,10 @@ public class CommonEvents {
             //sync weather
             for (ServerLevel serverworld : server.getAllLevels()) {
                 if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-                    world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-                        ChangeWeatherTimeMessage message = new ChangeWeatherTimeMessage(cap.getWeatherTime(), cap.getWeatherCooldown());
-                        FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-                    });
-                    world.getLevel().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-                        ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
-                        FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
-                    });
+
+                    FrostWeatherSavedData cap = FrostWeatherSavedData.get(serverworld);
+                    ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
+                    FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
                 }
             }
         }
@@ -124,9 +87,8 @@ public class CommonEvents {
     @SubscribeEvent
     public static void onUpdate(LivingEvent.LivingTickEvent event) {
         LivingEntity livingEntity = event.getEntity();
-        livingEntity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(livingCapability -> {
-            livingCapability.tick(livingEntity);
-        });
+        FrostLivingCapability capability = livingEntity.getData(FrostAttachs.FROST_LIVING);
+        capability.tick(livingEntity);
     }
 
     @SubscribeEvent
@@ -142,8 +104,8 @@ public class CommonEvents {
     public static void onPreServerTick(TickEvent.LevelTickEvent event) {
         if (event.level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
             if (event.level instanceof ServerLevel serverLevel) {
-                event.level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-                    if (cap.isWeatherActive() && cap.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
+                FrostWeatherSavedData frostWeatherSavedData = FrostWeatherSavedData.get(serverLevel);
+                if (frostWeatherSavedData.isWeatherActive() && frostWeatherSavedData.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
                         ChunkMap chunkManager = serverLevel.getChunkSource().chunkMap;
 
                         if (event.level.random.nextInt(8) == 0) {
@@ -181,7 +143,6 @@ public class CommonEvents {
                             });
                         }
                     }
-                });
             }
         }
     }

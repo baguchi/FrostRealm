@@ -1,7 +1,8 @@
 package baguchan.frostrealm.item;
 
-import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.client.FrostArmPoses;
+import baguchan.frostrealm.registry.FrostAttachs;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
@@ -35,10 +36,9 @@ public class GlimmerRockItem extends Item {
 		if (p_151211_ instanceof Player player) {
 			player.awardStat(Stats.ITEM_USED.get(this));
 		}
-		p_151211_.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
-            cap.setTemperatureLevel(cap.getTemperatureLevel() + 1);
-            cap.setSaturation(cap.getSaturationLevel() + 0.05F);
-        });
+		FrostLivingCapability cap = p_151209_.getData(FrostAttachs.FROST_LIVING);
+		cap.setTemperatureLevel(cap.getTemperatureLevel() + 1);
+		cap.setSaturation(cap.getSaturationLevel() + 0.05F);
         p_151209_.shrink(1);
 		return p_151209_;
 	}

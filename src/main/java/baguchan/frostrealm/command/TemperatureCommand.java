@@ -31,10 +31,10 @@ public class TemperatureCommand {
 
         if (entity != null) {
             if (entity instanceof LivingEntity) {
-                FrostLivingCapability.get(entity).ifPresent(frostLivingCapability -> {
+                FrostLivingCapability frostLivingCapability = FrostLivingCapability.get(entity);
                     frostLivingCapability.setTemperatureLevel(temperature);
                     frostLivingCapability.setSaturation(saturation);
-                });
+
                 ChangedColdMessage message = new ChangedColdMessage(entity, temperature, saturation);
                 FrostRealm.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), message);
 

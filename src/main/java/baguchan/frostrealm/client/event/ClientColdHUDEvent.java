@@ -1,6 +1,8 @@
 package baguchan.frostrealm.client.event;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.capability.FrostLivingCapability;
+import baguchan.frostrealm.registry.FrostAttachs;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostDimensions;
 import com.mojang.blaze3d.platform.Window;
@@ -35,7 +37,7 @@ public class ClientColdHUDEvent {
 	public static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation(FrostRealm.MODID, "textures/gui/icons.png");
 
 	public static void renderPortalOverlay(RenderGuiOverlayEvent.Post event, Minecraft mc, Window window, Entity livingEntity) {
-		livingEntity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
+		FrostLivingCapability cap = livingEntity.getData(FrostAttachs.FROST_LIVING);
 			float timeInPortal = Mth.lerp(event.getPartialTick(), cap.getPrevPortalAnimTime(), cap.getPortalAnimTime());
 
 			if (timeInPortal > 0.0F) {
@@ -65,7 +67,6 @@ public class ClientColdHUDEvent {
 				RenderSystem.disableBlend();
 				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			}
-		});
 	}
 
 	@SubscribeEvent
@@ -78,8 +79,8 @@ public class ClientColdHUDEvent {
 		if (entity != null && entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL && event.getOverlay() == VanillaGuiOverlay.FOOD_LEVEL.type()) {
 			this.random.setSeed((this.tickCount * 312871));
 			RenderSystem.enableBlend();
-			entity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY).ifPresent(cap -> {
-				RenderSystem.setShader(GameRenderer::getPositionTexShader);
+			FrostLivingCapability cap = entity.getData(FrostAttachs.FROST_LIVING);
+			RenderSystem.setShader(GameRenderer::getPositionTexShader);
 				RenderSystem.setShaderTexture(0, GUI_ICONS_LOCATION);
 				int l = cap.getTemperatureLevel();
 				int j1 = screenWidth / 2 + 91;
@@ -100,7 +101,6 @@ public class ClientColdHUDEvent {
 						guiGraphics.blit(GUI_ICONS_LOCATION, k8, i7, k7 + 45, 27, 9, 9);
 					}
 				}
-			});
 			RenderSystem.disableBlend();
 			((ExtendedGui) mc.gui).rightHeight += 10;
 			this.tickCount++;

@@ -1,6 +1,6 @@
 package baguchan.frostrealm.mixin;
 
-import baguchan.frostrealm.capability.FrostWeatherCapability;
+import baguchan.frostrealm.capability.FrostWeatherManager;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -18,7 +18,7 @@ public abstract class MobMixin extends LivingEntity {
 
 	@Inject(method = "isSunBurnTick", at = @At("HEAD"), cancellable = true)
 	protected void isSunBurnTick(CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
-		if (FrostWeatherCapability.isBadWeatherActive(this.level())) {
+		if (FrostWeatherManager.isBadWeatherActive(this.level())) {
 			callbackInfoReturnable.setReturnValue(false);
 		}
 	}

@@ -17,7 +17,7 @@ public class WarmingGoal<T extends PathfinderMob & IWarming> extends Goal {
 
 	public boolean canUse() {
 		if (!this.mob.isWarming()) {
-			if (FrostLivingCapability.get(this.mob).filter(FrostLivingCapability::isColdBody).isPresent()) {
+			if (FrostLivingCapability.get(this.mob).isColdBody()) {
 				return true;
 			}
 		}
@@ -40,10 +40,9 @@ public class WarmingGoal<T extends PathfinderMob & IWarming> extends Goal {
 
 	public void tick() {
 		if (this.mob.tickCount % 20 == 0) {
-			FrostLivingCapability.get(this.mob).ifPresent(cap -> {
-				cap.setTemperatureLevel(cap.getTemperatureLevel() + 1);
-				cap.setSaturation(cap.getSaturationLevel() + 0.1F);
-			});
+			FrostLivingCapability cap = FrostLivingCapability.get(this.mob);
+			cap.setTemperatureLevel(cap.getTemperatureLevel() + 1);
+			cap.setSaturation(cap.getSaturationLevel() + 0.1F);
 		}
 	}
 }

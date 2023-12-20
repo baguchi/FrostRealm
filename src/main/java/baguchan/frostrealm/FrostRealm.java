@@ -1,13 +1,10 @@
 package baguchan.frostrealm;
 
 
-import baguchan.frostrealm.capability.FrostLivingCapability;
-import baguchan.frostrealm.capability.FrostWeatherCapability;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.command.FrostWeatherCommand;
 import baguchan.frostrealm.command.TemperatureCommand;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
-import baguchan.frostrealm.message.ChangeWeatherTimeMessage;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.message.HurtMultipartMessage;
 import baguchan.frostrealm.registry.*;
@@ -21,13 +18,9 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.util.thread.EffectiveSide;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.CapabilityManager;
-import net.neoforged.neoforge.common.capabilities.CapabilityToken;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.network.NetworkRegistry;
 import net.neoforged.neoforge.network.PlayNetworkDirection;
@@ -48,11 +41,6 @@ public class FrostRealm {
 
 	public static final String NETWORK_PROTOCOL = "2";
 
-	public static final Capability<FrostLivingCapability> FROST_LIVING_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
-	});
-
-	public static final Capability<FrostWeatherCapability> FROST_WEATHER_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
-	});
 
 	public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "net"))
 			.networkProtocolVersion(() -> NETWORK_PROTOCOL)
@@ -60,8 +48,7 @@ public class FrostRealm {
 			.serverAcceptedVersions(NETWORK_PROTOCOL::equals)
 			.simpleChannel();
 
-	public FrostRealm() {
-        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+	public FrostRealm(IEventBus modBus) {
 
 		IEventBus forgeBus = NeoForge.EVENT_BUS;
 		FrostWeathers.FROST_WEATHER.register(modBus);
@@ -79,12 +66,13 @@ public class FrostRealm {
 		FrostEffects.POTION.register(modBus);
 		FrostRecipes.RECIPE_SERIALIZERS.register(modBus);
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
+		FrostAttachs.ATTACHMENT_TYPES.register(modBus);
 		modBus.addListener(this::setup);
 		modBus.addListener(this::dataSetup);
 		NeoForge.EVENT_BUS.addListener(this::registerCommands);
 
 		if (FMLEnvironment.dist == Dist.CLIENT) {
-			FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientRegistrar::setup);
+			modBus.addListener(ClientRegistrar::setup);
 		}
 	}
 
@@ -118,15 +106,11 @@ public class FrostRealm {
 				.encoder(ChangedColdMessage::writeToPacket).decoder(ChangedColdMessage::readFromPacket)
                 .consumerMainThread(ChangedColdMessage::handle)
                 .add();
-        CHANNEL.messageBuilder(ChangeWeatherTimeMessage.class, 1)
-                .encoder(ChangeWeatherTimeMessage::writeToPacket).decoder(ChangeWeatherTimeMessage::readFromPacket)
-                .consumerMainThread(ChangeWeatherTimeMessage::handle)
-                .add();
-        CHANNEL.messageBuilder(ChangeWeatherMessage.class, 2)
+		CHANNEL.messageBuilder(ChangeWeatherMessage.class, 1)
                 .encoder(ChangeWeatherMessage::writeToPacket).decoder(ChangeWeatherMessage::readFromPacket)
                 .consumerMainThread(ChangeWeatherMessage::handle)
                 .add();
-        CHANNEL.messageBuilder(HurtMultipartMessage.class, 3)
+		CHANNEL.messageBuilder(HurtMultipartMessage.class, 2)
                 .encoder(HurtMultipartMessage::write).decoder(HurtMultipartMessage::read)
 				.consumerMainThread(HurtMultipartMessage::handle)
                 .add();

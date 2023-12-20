@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.capability.FrostWeatherCapability;
+import baguchan.frostrealm.capability.FrostWeatherManager;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.registry.FrostWeathers;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -20,7 +20,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import java.util.Random;
@@ -67,20 +66,19 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 	@Override
 	public boolean renderSky(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
-        level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(frostWeatherCapability -> {
-			renderAurora(poseStack, frostWeatherCapability, partialTick, ticks, Minecraft.getInstance());
-        });
+		renderAurora(poseStack, FrostWeatherManager.getWeatherLevel(partialTick), partialTick, ticks, Minecraft.getInstance());
+
 		return true;
 	}
 
-	private void renderAurora(PoseStack p_109781_, @NotNull FrostWeatherCapability frostWeatherCapability, float partialTick, int ticks, Minecraft minecraft) {
+	private void renderAurora(PoseStack p_109781_, float weatherLevel, float partialTick, int ticks, Minecraft minecraft) {
 		BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
 		RenderSystem.disableCull();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		p_109781_.pushPose();
-		float f11 = (1.0F - frostWeatherCapability.getWeatherLevel(partialTick));
+		float f11 = (1.0F - weatherLevel);
 		FogRenderer.levelFogColor();
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f11);
 
@@ -115,18 +113,16 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 	@Override
     public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, LightTexture lightTexture, double camX, double camY, double camZ) {
-        level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(frostWeatherCapability -> {
-            if (frostWeatherCapability.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
-                this.renderBrizzardWeather(frostWeatherCapability, lightTexture, level, Minecraft.getInstance(), partialTick, camX, camY, camZ);
-            }
-        });
+		if (FrostWeatherManager.getPrevFrostWeather() == FrostWeathers.BLIZZARD.get()) {
+			this.renderBrizzardWeather(lightTexture, level, Minecraft.getInstance(), partialTick, camX, camY, camZ);
+		}
 
         return true;
     }
 
-    private void renderBrizzardWeather(FrostWeatherCapability cap, LightTexture lightmap, ClientLevel world, Minecraft mc, float ticks, double x, double y, double z) {
+	private void renderBrizzardWeather(LightTexture lightmap, ClientLevel world, Minecraft mc, float ticks, double x, double y, double z) {
         ++this.rendererUpdateCount;
-        float f = cap.getWeatherLevel(ticks);
+		float f = FrostWeatherManager.getWeatherLevel(ticks);
         if (!(f <= 0.0F)) {
             lightmap.turnOnLightLayer();
             Level level = Minecraft.getInstance().level;
@@ -220,37 +216,34 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 	@Override
 	public boolean tickRain(ClientLevel level, int ticks, Camera camera) {
-		level.getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-			if (cap.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
-				float f2 = cap.getWeatherLevel(1.0F) / (Minecraft.useFancyGraphics() ? 1.0F : 2.0F);
-				if (!(f2 <= 0.0F)) {
-					Random random = new Random((long) ticks * 312987231L);
-					LevelReader levelreader = level;
-					BlockPos blockpos = new BlockPos(camera.getBlockPosition());
-					BlockPos blockpos1 = null;
-					int i = (int) (100.0F * f2 * f2) / (Minecraft.getInstance().options.particles().get() == ParticleStatus.DECREASED ? 2 : 1);
+		if (FrostWeatherManager.getPrevFrostWeather() == FrostWeathers.BLIZZARD.get()) {
+			float f2 = FrostWeatherManager.getWeatherLevel(1.0F) / (Minecraft.useFancyGraphics() ? 1.0F : 2.0F);
+			if (!(f2 <= 0.0F)) {
+				Random random = new Random((long) ticks * 312987231L);
+				LevelReader levelreader = level;
+				BlockPos blockpos = new BlockPos(camera.getBlockPosition());
+				BlockPos blockpos1 = null;
+				int i = (int) (100.0F * f2 * f2) / (Minecraft.getInstance().options.particles().get() == ParticleStatus.DECREASED ? 2 : 1);
 
-					for (int j = 0; j < i; ++j) {
-						int k = random.nextInt(21) - 10;
-						int l = random.nextInt(21) - 10;
-						BlockPos blockpos2 = levelreader.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos.offset(k, 0, l));
-						if (blockpos2.getY() > levelreader.getMinBuildHeight() && blockpos2.getY() <= blockpos.getY() + 10 && blockpos2.getY() >= blockpos.getY() - 10) {
-							blockpos1 = blockpos2.below();
-						}
+				for (int j = 0; j < i; ++j) {
+					int k = random.nextInt(21) - 10;
+					int l = random.nextInt(21) - 10;
+					BlockPos blockpos2 = levelreader.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos.offset(k, 0, l));
+					if (blockpos2.getY() > levelreader.getMinBuildHeight() && blockpos2.getY() <= blockpos.getY() + 10 && blockpos2.getY() >= blockpos.getY() - 10) {
+						blockpos1 = blockpos2.below();
 					}
+				}
 
-					if (blockpos1 != null && random.nextInt(5) + 5 < this.rainSoundTime++) {
-						this.rainSoundTime = 0;
-						if (blockpos1.getY() > blockpos.getY() + 1 && levelreader.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos).getY() > Mth.floor((float) blockpos.getY())) {
-							level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT.get(), SoundSource.WEATHER, 0.5F, 0.5F, false);
-						} else {
-							level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT.get(), SoundSource.WEATHER, 2.0F, 1.0F, false);
-						}
+				if (blockpos1 != null && random.nextInt(5) + 5 < this.rainSoundTime++) {
+					this.rainSoundTime = 0;
+					if (blockpos1.getY() > blockpos.getY() + 1 && levelreader.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos).getY() > Mth.floor((float) blockpos.getY())) {
+						level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT.get(), SoundSource.WEATHER, 0.5F, 0.5F, false);
+					} else {
+						level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT.get(), SoundSource.WEATHER, 2.0F, 1.0F, false);
 					}
 				}
 			}
-		});
-
+		}
 		return true;
 	}
 }

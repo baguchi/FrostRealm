@@ -17,7 +17,7 @@ public class FrostTorchBlock extends TorchBlock {
 	protected static final VoxelShape AABB = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 10.0D, 10.0D);
 
 	public FrostTorchBlock(BlockBehaviour.Properties p_57491_) {
-		super(p_57491_, ParticleTypes.SOUL_FIRE_FLAME);
+		super(ParticleTypes.SOUL_FIRE_FLAME, p_57491_);
 	}
 
 	public VoxelShape getShape(BlockState p_57510_, BlockGetter p_57511_, BlockPos p_57512_, CollisionContext p_57513_) {

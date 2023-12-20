@@ -2,15 +2,11 @@ package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.message.ChangedColdMessage;
-import baguchan.frostrealm.registry.FrostDimensions;
-import baguchan.frostrealm.registry.FrostEffects;
-import baguchan.frostrealm.registry.FrostTags;
-import baguchan.frostrealm.registry.FrostWeathers;
+import baguchan.frostrealm.registry.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
@@ -26,16 +22,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.ICapabilityProvider;
-import net.neoforged.neoforge.common.capabilities.ICapabilitySerializable;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySerializable<CompoundTag> {
+public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 
 	public boolean isInFrostPortal = false;
 	public int frostPortalTimer = 0;
@@ -62,8 +52,8 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 		this.temperatureSaturation = Math.min(this.temperatureSaturation + temprature * saturation * 2.0F, this.temperature);
 	}
 
-	public static LazyOptional<FrostLivingCapability> get(Entity entity) {
-		return entity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY);
+	public static FrostLivingCapability get(Entity entity) {
+		return entity.getData(FrostAttachs.FROST_LIVING);
 	}
 
 	public void tick(LivingEntity entity) {
@@ -139,11 +129,12 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 			if (entity.isInWaterOrRain())
 				tempAffect *= 2.0F;
 			if (this.hotSource == null) {
-				FrostWeatherCapability.get(entity.level()).ifPresent(cap -> {
+				FrostWeatherSavedData cap = FrostWeatherSavedData.get(entity.level());
+				if (cap != null) {
 					if (isAffectRain(entity) && cap.isWeatherActive() && cap.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
 						addExhaustion(0.001F * (entity.canFreeze() ? 1.0F : 0.25F));
 					}
-				});
+				}
 			}
 			Biome biome = entity.level().getBiome(entity.blockPosition()).value();
 
@@ -271,11 +262,6 @@ public class FrostLivingCapability implements ICapabilityProvider, ICapabilitySe
 
 	public boolean isColdBody() {
 		return this.temperature < 12;
-	}
-
-	@Nonnull
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-		return (capability == FrostRealm.FROST_LIVING_CAPABILITY) ? LazyOptional.of(() -> this).cast() : LazyOptional.empty();
 	}
 
 	public CompoundTag serializeNBT() {

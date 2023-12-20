@@ -1,6 +1,6 @@
 package baguchan.frostrealm.entity.goal;
 
-import baguchan.frostrealm.capability.FrostWeatherCapability;
+import baguchan.frostrealm.capability.FrostWeatherSavedData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.FleeSunGoal;
@@ -28,7 +28,7 @@ public class SeekShelterEvenBlizzardGoal extends FleeSunGoal {
 			} else {
 				this.interval = 60;
 				BlockPos blockpos = this.mob.blockPosition();
-				return (this.seekDays && this.mob.level().isDay() || FrostWeatherCapability.isBadWeatherActive(this.mob.level())) && this.mob.level().canSeeSky(blockpos) && this.setWantedPos();
+				return (this.seekDays && this.mob.level().isDay() || FrostWeatherSavedData.get(this.mob.level()) != null && FrostWeatherSavedData.get(this.mob.level()).isWeatherActive()) && this.mob.level().canSeeSky(blockpos) && this.setWantedPos();
 			}
 		} else {
 			return false;

@@ -195,7 +195,7 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 		if (!p_28602_.isEmpty() && !this.level().isClientSide) {
 			ItemEntity itementity = new ItemEntity(this.level(), this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, p_28602_);
 			itementity.setPickUpDelay(40);
-			itementity.setThrower(this.getUUID());
+			itementity.setThrower(this);
 			this.playSound(SoundEvents.FOX_SPIT, 1.0F, 1.0F);
 			this.level().addFreshEntity(itementity);
 		}

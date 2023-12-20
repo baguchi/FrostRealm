@@ -6,7 +6,7 @@ import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.advancements.FrameType;
+import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.critereon.ChangeDimensionTrigger;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.core.HolderLookup;
@@ -37,7 +37,7 @@ public class FrostAdvancementData extends AdvancementProvider {
 							Component.translatable("advancement.frostrealm.warriors_lost_item"),
 							Component.translatable("advancement.frostrealm.warriors_lost_item.desc"),
 							null,
-							FrameType.TASK, true, true, false)
+							AdvancementType.TASK, true, true, false)
 					.addCriterion("warriors_lost_item", InventoryChangeTrigger.TriggerInstance.hasItems(FrostItems.STRAY_NECKLACE_PART.get()))
 					.save(consumer, "frostrealm:warriors_lost_item");
             AdvancementHolder enterFrostrealm = Advancement.Builder.advancement()
@@ -46,7 +46,7 @@ public class FrostAdvancementData extends AdvancementProvider {
 							Component.translatable("advancement.frostrealm.enter_frostrealm"),
 							Component.translatable("advancement.frostrealm.enter_frostrealm.desc"),
 							new ResourceLocation(FrostRealm.MODID, "textures/block/frozen_dirt.png"),
-							FrameType.TASK, true, true, false)
+							AdvancementType.TASK, true, true, false)
 					.addCriterion("enter_frostrealm", ChangeDimensionTrigger.TriggerInstance.changedDimensionTo(FrostDimensions.FROSTREALM_LEVEL))
 					.save(consumer, "frostrealm:enter_frostrealm");
             AdvancementHolder getRock = Advancement.Builder.advancement()
@@ -55,7 +55,7 @@ public class FrostAdvancementData extends AdvancementProvider {
 							Component.translatable("advancement.frostrealm.hot_source"),
 							Component.translatable("advancement.frostrealm.hot_source.desc"),
 							null,
-							FrameType.TASK, true, true, false)
+							AdvancementType.TASK, true, true, false)
 					.addCriterion("hot_source", InventoryChangeTrigger.TriggerInstance.hasItems(FrostItems.GLIMMERROCK.get()))
 					.save(consumer, "frostrealm:get_glimmerrock");
 		}

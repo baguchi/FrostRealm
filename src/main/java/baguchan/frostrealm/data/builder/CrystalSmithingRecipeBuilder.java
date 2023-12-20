@@ -1,10 +1,12 @@
 package baguchan.frostrealm.data.builder;
 
+import baguchan.frostrealm.recipe.CrystalSmithingRecipe;
 import baguchan.frostrealm.registry.FrostRecipes;
-import com.google.gson.JsonObject;
-import net.minecraft.advancements.*;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -44,51 +46,13 @@ public class CrystalSmithingRecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(p_126397_))
                 .requirements(AdvancementRequirements.Strategy.OR);
         p_126396_.accept(
-                new CrystalSmithingRecipeBuilder.Result(
-                        p_126397_,
-                        FrostRecipes.RECIPE_CRYSTAL_SMITHING.get(),
+                p_126397_,
+                new CrystalSmithingRecipe(
                         this.template,
-                        this.addition,
-                        advancement$builder.build(p_126397_.withPrefix("recipes/" + this.category.getFolderName() + "/"))
-                )
+                        this.addition
+                ),
+                advancement$builder.build(p_126397_.withPrefix("recipes/" + this.category.getFolderName() + "/"))
         );
 	}
 
-	public static class Result implements FinishedRecipe {
-        private final ResourceLocation id;
-        private final Ingredient template;
-        private final Ingredient addition;
-        private final AdvancementHolder advancement;
-		private final RecipeSerializer<?> type;
-
-        public Result(ResourceLocation p_126408_, RecipeSerializer<?> p_126409_, Ingredient template, Ingredient addition, AdvancementHolder p_126413_) {
-            this.id = p_126408_;
-            this.type = p_126409_;
-            this.template = template;
-            this.addition = addition;
-            this.advancement = p_126413_;
-        }
-
-		public void serializeRecipeData(JsonObject p_126416_) {
-            p_126416_.add("template", this.template.toJson(false));
-            p_126416_.add("addition", this.addition.toJson(false));
-		}
-
-        @Override
-        public ResourceLocation id() {
-            return this.id;
-        }
-
-        @Override
-        public RecipeSerializer<?> type() {
-            return this.type;
-        }
-
-        @org.jetbrains.annotations.Nullable
-        @Override
-        public AdvancementHolder advancement() {
-            return this.advancement;
-        }
-
-	}
 }

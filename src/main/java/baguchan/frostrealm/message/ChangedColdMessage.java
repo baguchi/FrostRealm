@@ -1,6 +1,7 @@
 package baguchan.frostrealm.message;
 
-import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.capability.FrostLivingCapability;
+import baguchan.frostrealm.registry.FrostAttachs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
@@ -40,12 +41,13 @@ public class ChangedColdMessage {
 		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT)
 			context.enqueueWork(() -> {
                 Entity entity = Minecraft.getInstance().level.getEntity(entityId);
-				if (entity != null && entity instanceof net.minecraft.world.entity.LivingEntity)
-					entity.getCapability(FrostRealm.FROST_LIVING_CAPABILITY, null).ifPresent(frostLivingCapability -> {
-                        frostLivingCapability.setTemperatureLevel(temperature);
-                        frostLivingCapability.setSaturation(temperatureSaturation);
-					});
+				if (entity != null && entity instanceof net.minecraft.world.entity.LivingEntity) {
+					FrostLivingCapability frostLivingCapability = entity.getData(FrostAttachs.FROST_LIVING);
+					frostLivingCapability.setTemperatureLevel(temperature);
+					frostLivingCapability.setSaturation(temperatureSaturation);
+				}
 			});
+
         context.setPacketHandled(true);
 	}
 }

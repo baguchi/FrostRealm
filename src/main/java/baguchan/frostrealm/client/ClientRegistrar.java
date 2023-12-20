@@ -25,11 +25,9 @@ import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.neoforged.neoforge.client.event.RegisterShadersEvent;
@@ -128,8 +126,6 @@ public class ClientRegistrar {
 	public static void setup(FMLCommonSetupEvent event) {
         NeoForge.EVENT_BUS.register(new ClientColdHUDEvent());
         NeoForge.EVENT_BUS.register(new ClientFogEvent());
-		IEventBus busMod = FMLJavaModLoadingContext.get().getModEventBus();
-        IEventBus busForge = NeoForge.EVENT_BUS;
 		FrostArmPoses.init();
 		renderTileEntity();
 		renderBlockColor();

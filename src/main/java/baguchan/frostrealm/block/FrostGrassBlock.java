@@ -2,6 +2,7 @@ package baguchan.frostrealm.block;
 
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.world.placement.FrostPlacements;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -116,6 +117,11 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 			int i = LightEngine.getLightBlockInto(p_56825_, p_56824_, p_56826_, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(p_56825_, blockpos));
 			return i < p_56825_.getMaxLightLevel();
 		}
+	}
+
+	@Override
+	protected MapCodec<? extends SpreadingSnowyDirtBlock> codec() {
+		return null;
 	}
 
 	private static boolean canPropagate(BlockState p_56828_, LevelReader p_56829_, BlockPos p_56830_) {
