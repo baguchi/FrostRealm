@@ -63,23 +63,19 @@ public class FrostWeatherManager {
 
     public static void clientTick(ClientLevel level) {
         if (level.isClientSide()) {
+            setoWeatherLevel(Mth.clamp(getRawWeatherLevel(), 0.0F, 1.0F));
             if (frostWeather != FrostWeathers.NOPE.get()) {
                 setWeatherLevel(getRawWeatherLevel() + 0.02F);
+                if (getWeatherLevel() == 1 && prevFrostWeather != frostWeather) {
 
+                    prevFrostWeather = frostWeather;
+                }
             } else {
                 setWeatherLevel(getRawWeatherLevel() - 0.01F);
-
+                if (getWeatherLevel() == 0) {
+                    prevFrostWeather = FrostWeathers.NOPE.get();
+                }
             }
-            if (getWeatherLevel() == 1) {
-
-                prevFrostWeather = frostWeather;
-            }
-            if (getWeatherLevel() == 0) {
-                prevFrostWeather = FrostWeathers.NOPE.get();
-            }
-            setoWeatherLevel(Mth.clamp(getRawWeatherLevel(), 0.0F, 1.0F));
-
-            setoWeatherLevel(Mth.clamp(getRawWeatherLevel(), 0.0F, 1.0F));
         }
     }
 
@@ -140,6 +136,7 @@ public class FrostWeatherManager {
         return frostWeather;
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static void setFrostWeather(FrostWeather weather) {
         frostWeather = weather;
     }

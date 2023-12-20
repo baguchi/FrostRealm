@@ -1,8 +1,9 @@
 package baguchan.frostrealm.client.event;
 
-import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.capability.FrostWeatherManager;
 import baguchan.frostrealm.registry.FrostDimensions;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -12,58 +13,60 @@ import net.neoforged.neoforge.client.event.ViewportEvent;
 @OnlyIn(Dist.CLIENT)
 public class ClientFogEvent {
 
-    private float fogLevel;
-    private float oFogLevel;
 
     @SubscribeEvent
     public void setFog(ViewportEvent.RenderFog event) {
         Entity entity = event.getCamera().getEntity();
         float partialTicks = (float) event.getPartialTick();
         if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+            float weatherLevel = FrostWeatherManager.getWeatherLevel(partialTicks);
 
-			entity.level().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
+            if (weatherLevel > 0F) {
+                float fogDensity = Mth.lerp(1F, (float) FrostWeatherManager.getPrevFrostWeather().getDensity(), (float) FrostWeatherManager.getFrostWeather().getDensity());
 
-				float weatherLevel = cap.getWeatherLevel(partialTicks);
+                event.setNearPlaneDistance(20.0F * (fogDensity / weatherLevel));
+                event.setFarPlaneDistance(160.0F * (fogDensity / weatherLevel));
+                RenderSystem.setShaderFogStart(event.getNearPlaneDistance());
+                RenderSystem.setShaderFogEnd(event.getFarPlaneDistance());
+                event.setCanceled(true);
+            }
+        }
+    }
 
-				if (weatherLevel > 0F && cap.getFrostWeather() != null && cap.getFrostWeather().isUseFog()) {
-					event.setNearPlaneDistance(20.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
-					event.setFarPlaneDistance(160.0F * (cap.getFrostWeather().getDensity() / weatherLevel));
-					RenderSystem.setShaderFogStart(event.getNearPlaneDistance());
-					RenderSystem.setShaderFogEnd(event.getFarPlaneDistance());
-					event.setCanceled(true);
-				}
-			});
+    @SubscribeEvent
+    public void setFogColor(ViewportEvent.ComputeFogColor event) {
+        Entity entity = event.getCamera().getEntity();
+        if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+            float partialTicks = (float) event.getPartialTick();
+            float weatherLevel = FrostWeatherManager.getWeatherLevel(partialTicks);
+            if (weatherLevel > 0F) {
+                float fogRed = event.getRed();
+                float fogGreen = event.getGreen();
+                float fogBlue = event.getBlue();
+
+                float red = FrostWeatherManager.getPrevFrostWeather().getRed();
+                ;
+                float green = FrostWeatherManager.getPrevFrostWeather().getGreen();
+                float blue = FrostWeatherManager.getPrevFrostWeather().getBlue();
 
 
-		}
-	}
+                float red2 = FrostWeatherManager.getFrostWeather().getRed();
+                float green2 = FrostWeatherManager.getFrostWeather().getGreen();
+                float blue2 = FrostWeatherManager.getFrostWeather().getBlue();
 
-	@SubscribeEvent
-	public void setFogColor(ViewportEvent.ComputeFogColor event) {
-		Entity entity = event.getCamera().getEntity();
-		if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-			entity.level().getCapability(FrostRealm.FROST_WEATHER_CAPABILITY).ifPresent(cap -> {
-				float partialTicks = (float) event.getPartialTick();
-				float weatherLevel = cap.getWeatherLevel(partialTicks);
-				if (weatherLevel > 0F && cap.getFrostWeather() != null && cap.getFrostWeather().isUseFog()) {
-					float fogRed = event.getRed();
-					float fogGreen = event.getGreen();
-					float fogBlue = event.getBlue();
 
-					float red = weatherLevel * cap.getFrostWeather().getRed();
-					float green = weatherLevel * cap.getFrostWeather().getGreen();
-					float blue = weatherLevel * cap.getFrostWeather().getBlue();
+                float redTotal = Mth.lerp(1F, (float) red, (float) red2);
+                float greenTotal = Mth.lerp(1F, (float) green, (float) green2);
+                float blueTotal = Mth.lerp(1F, (float) blue, (float) blue2);
 
-					float f9 = Math.min(1.0F / fogRed, Math.min(1.0F / fogGreen, 1.0F / fogBlue));
-					fogRed = fogRed * f9 * red;
-					fogGreen = fogGreen * f9 * green;
-					fogBlue = fogBlue * f9 * blue;
+                fogRed = fogRed * (1.0F - weatherLevel) + fogRed * redTotal * weatherLevel;
+                fogGreen = fogGreen * (1.0F - weatherLevel) + fogGreen * greenTotal * weatherLevel;
+                fogBlue = fogBlue * (1.0F - weatherLevel) + fogBlue * blueTotal * weatherLevel;
 
-					event.setRed(fogRed);
-					event.setGreen(fogGreen);
-					event.setBlue(fogBlue);
-				}
-			});
-		}
-	}
+                event.setRed(fogRed);
+                event.setGreen(fogGreen);
+                event.setBlue(fogBlue);
+            }
+        }
+    }
 }
