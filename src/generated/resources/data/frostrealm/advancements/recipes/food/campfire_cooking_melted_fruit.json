@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:campfire_cooking_melted_fruit"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

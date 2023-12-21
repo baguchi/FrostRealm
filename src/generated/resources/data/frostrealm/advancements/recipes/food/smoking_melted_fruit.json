@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:smoking_melted_fruit"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

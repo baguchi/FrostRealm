@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:smoking_cooked_snowpile_quail_egg"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

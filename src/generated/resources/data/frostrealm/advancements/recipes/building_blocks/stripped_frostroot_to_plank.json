@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:stripped_frostroot_to_plank"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

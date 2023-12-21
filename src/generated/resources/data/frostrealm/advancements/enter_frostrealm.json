@@ -9,17 +9,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "background": "frostrealm:textures/block/frozen_dirt.png",
     "description": {
       "translate": "advancement.frostrealm.enter_frostrealm.desc"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "frostrealm:frozen_grass_block"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancement.frostrealm.enter_frostrealm"
     }

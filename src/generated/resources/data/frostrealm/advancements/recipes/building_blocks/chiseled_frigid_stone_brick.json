@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:chiseled_frigid_stone_brick"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

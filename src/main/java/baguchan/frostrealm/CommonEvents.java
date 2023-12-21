@@ -131,7 +131,7 @@ public class CommonEvents {
                                                 serverLevel.setBlockAndUpdate(pos.below(), snowStateBelow.setValue(BlockStateProperties.LIT, false));
                                             } else if (snowState.getBlock() == Blocks.SNOW.defaultBlockState().getBlock()) {
                                                 int layers = snowState.getValue(SnowLayerBlock.LAYERS);
-                                                if (layers < 3) {
+                                                if (layers < 2) {
                                                     serverLevel.setBlockAndUpdate(pos, snowState.setValue(SnowLayerBlock.LAYERS, ++layers));
                                                 }
                                             } else if (canPlaceSnowLayer(serverLevel, pos)) {

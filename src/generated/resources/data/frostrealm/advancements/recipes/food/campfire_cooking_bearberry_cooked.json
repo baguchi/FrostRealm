@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:campfire_cooking_bearberry_cooked"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

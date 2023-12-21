@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:smoking_bearberry_cooked"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

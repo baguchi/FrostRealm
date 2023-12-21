@@ -1,10 +1,11 @@
 package baguchan.frostrealm.world.gen;
 
-import baguchan.frostrealm.data.resource.FrostDensityFunctions;
+import baguchan.frostrealm.data.resource.FrostNoises;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.DensityFunctions;
 import net.minecraft.world.level.levelgen.NoiseRouter;
@@ -13,7 +14,12 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 
 public class FrostNoiseRouterData {
+	public static final ResourceKey<DensityFunction> FACTOR = createKey("overworld/factor");
+	public static final ResourceKey<DensityFunction> DEPTH = createKey("overworld/depth");
+	private static final ResourceKey<DensityFunction> SLOPED_CHEESE = createKey("overworld/sloped_cheese");
 
+	public static final ResourceKey<DensityFunction> CONTINENTS = createKey("overworld/continents");
+	public static final ResourceKey<DensityFunction> EROSION = createKey("overworld/erosion");
 	private static final ResourceKey<DensityFunction> Y = createKey("y");
 	private static final ResourceKey<DensityFunction> SHIFT_X = createKey("shift_x");
 	private static final ResourceKey<DensityFunction> SHIFT_Z = createKey("shift_z");
@@ -25,6 +31,7 @@ public class FrostNoiseRouterData {
 	private static final ResourceKey<DensityFunction> SPAGHETTI_2D_THICKNESS_MODULATOR = createKey("overworld/caves/spaghetti_2d_thickness_modulator");
 	private static final ResourceKey<DensityFunction> SPAGHETTI_2D = createKey("overworld/caves/spaghetti_2d");
 
+	private final Climate.Parameter deepOceanContinentalness = Climate.Parameter.span(-1.05F, -0.455F);
 
 	private static ResourceKey<DensityFunction> createKey(String p_209537_) {
 		return ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation(p_209537_));
@@ -50,6 +57,15 @@ public class FrostNoiseRouterData {
 		return DensityFunctions.max(densityfunction7, densityfunction9);
 	}
 
+	private static DensityFunction sky(HolderGetter<DensityFunction> densityFunctions, HolderGetter<NormalNoise.NoiseParameters> p_256236_) {
+		DensityFunction density = DensityFunctions.noise(p_256236_.getOrThrow(FrostNoises.ISLANDS_HEIGHT), 8);
+		density = DensityFunctions.add(density, DensityFunctions.constant(-2));
+		density = slide(density, 80, 220, 32, 16, -0.4D, 0, 32, -0.2D);
+		density = DensityFunctions.add(density, DensityFunctions.constant(-0.15));
+		density = DensityFunctions.mul(density, getFunction(densityFunctions, CONTINENTS));
+		return density;
+	}
+
 	private static DensityFunction postProcess(DensityFunction p_224493_) {
 		DensityFunction densityfunction = DensityFunctions.blendDensity(p_224493_);
 		return DensityFunctions.mul(DensityFunctions.interpolated(densityfunction), DensityFunctions.constant(0.64D)).squeeze();
@@ -64,15 +80,17 @@ public class FrostNoiseRouterData {
 		DensityFunction densityfunction5 = getFunction(p_224486_, SHIFT_Z);
 		DensityFunction densityfunction6 = DensityFunctions.shiftedNoise2d(densityfunction4, densityfunction5, 0.25D, p_256236_.getOrThrow(Noises.TEMPERATURE_LARGE));
 		DensityFunction densityfunction7 = DensityFunctions.shiftedNoise2d(densityfunction4, densityfunction5, 0.25D, p_256236_.getOrThrow(Noises.VEGETATION_LARGE));
-		DensityFunction densityfunction8 = getFunction(p_224486_, FrostDensityFunctions.FACTOR);
-		DensityFunction densityfunction9 = getFunction(p_224486_, FrostDensityFunctions.DEPTH);
+		DensityFunction densityfunction8 = getFunction(p_224486_, FACTOR);
+		DensityFunction densityfunction9 = getFunction(p_224486_, DEPTH);
 		DensityFunction densityfunction10 = noiseGradientDensity(DensityFunctions.cache2d(densityfunction8), densityfunction9);
-		DensityFunction densityfunction11 = getFunction(p_224486_, FrostDensityFunctions.SLOPED_CHEESE);
+		DensityFunction densityfunction11 = getFunction(p_224486_, SLOPED_CHEESE);
 		DensityFunction densityfunction12 = DensityFunctions.min(densityfunction11, DensityFunctions.mul(DensityFunctions.constant(5.0D), getFunction(p_224486_, ENTRANCES)));
 		DensityFunction densityfunction13 = DensityFunctions.rangeChoice(densityfunction11, -1000000.0D, 1.5625D, densityfunction12, underground(p_224486_, p_256236_, densityfunction11));
-		DensityFunction densityfunction14 = DensityFunctions.min(postProcess(DensityFunctions.add(slideCave(densityfunction13), slideOverworld(densityfunction13))), getFunction(p_224486_, NOODLE));
+		DensityFunction calculateGround = DensityFunctions.add(slideCave(densityfunction13), slideOverworld(densityfunction13));
+		DensityFunction calculateGroundAndSky = DensityFunctions.add(calculateGround, sky(p_224486_, p_256236_));
+		DensityFunction densityfunction14 = DensityFunctions.min(postProcess(calculateGroundAndSky), getFunction(p_224486_, NOODLE));
 		DensityFunction densityfunction15 = getFunction(p_224486_, Y);
-		return new NoiseRouter(densityfunction, densityfunction1, densityfunction2, densityfunction3, densityfunction6, densityfunction7, getFunction(p_224486_, FrostDensityFunctions.CONTINENTS), getFunction(p_224486_, FrostDensityFunctions.EROSION), densityfunction9, getFunction(p_224486_, RIDGES), slideOverworld(DensityFunctions.add(densityfunction10, DensityFunctions.constant(-0.703125D)).clamp(-80.0D, 64.0D)), densityfunction14, DensityFunctions.constant(0.0F), DensityFunctions.constant(0.0F), DensityFunctions.constant(0.0F));
+		return new NoiseRouter(densityfunction, densityfunction1, densityfunction2, densityfunction3, densityfunction6, densityfunction7, getFunction(p_224486_, CONTINENTS), getFunction(p_224486_, EROSION), densityfunction9, getFunction(p_224486_, RIDGES), slideOverworld(DensityFunctions.add(densityfunction10, DensityFunctions.constant(-0.703125D)).clamp(-80.0D, 64.0D)), densityfunction14, DensityFunctions.constant(0.0F), DensityFunctions.constant(0.0F), DensityFunctions.constant(0.0F));
 	}
 
 	private static DensityFunction slideOverworld(DensityFunction p_224491_) {

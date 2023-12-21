@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:equipment/yeti_fur_helmet"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

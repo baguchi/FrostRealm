@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:frigid_stone_smooth"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

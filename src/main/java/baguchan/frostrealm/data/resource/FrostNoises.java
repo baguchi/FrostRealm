@@ -8,13 +8,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public class FrostNoises {
-    public static final ResourceKey<NormalNoise.NoiseParameters> TEMPERATURE = createKey("temperature");
-    public static final ResourceKey<NormalNoise.NoiseParameters> VEGETATION = createKey("vegetation");
-
-
-    public static final ResourceKey<NormalNoise.NoiseParameters> CONTINENTALNESS = createKey("continentalness");
-    public static final ResourceKey<NormalNoise.NoiseParameters> EROSION = createKey("erosion");
-    public static final ResourceKey<NormalNoise.NoiseParameters> ISLANDS_BOTTOM = createKey("islands_bottom");
     public static final ResourceKey<NormalNoise.NoiseParameters> ISLANDS_HEIGHT = createKey("islands_height");
 
     private static ResourceKey<NormalNoise.NoiseParameters> createKey(String name) {
@@ -22,8 +15,6 @@ public class FrostNoises {
     }
 
     public static void bootstrap(BootstapContext<NormalNoise.NoiseParameters> ctx) {
-        registerBiomeNoises(ctx, -1, CONTINENTALNESS, EROSION);
-        register(ctx, ISLANDS_BOTTOM, -4, 1.0D, 1.0D, 1.0D);
         register(ctx, ISLANDS_HEIGHT, -9, 1.0D, 1.0D, 1.0D);
     }
 

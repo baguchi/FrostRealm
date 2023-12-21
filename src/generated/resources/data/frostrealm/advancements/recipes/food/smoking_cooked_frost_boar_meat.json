@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:smoking_cooked_frost_boar_meat"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

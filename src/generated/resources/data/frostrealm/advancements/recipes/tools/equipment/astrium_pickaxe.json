@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:equipment/astrium_pickaxe"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

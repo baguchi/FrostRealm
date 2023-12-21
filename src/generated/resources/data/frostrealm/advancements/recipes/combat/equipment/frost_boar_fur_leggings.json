@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:equipment/frost_boar_fur_leggings"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:smelting_bearberry_cooked"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

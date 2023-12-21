@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:smelting_astrium_ingot"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

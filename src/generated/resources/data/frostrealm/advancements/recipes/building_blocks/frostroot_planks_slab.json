@@ -30,6 +30,5 @@
     "recipes": [
       "frostrealm:frostroot_planks_slab"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
