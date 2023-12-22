@@ -1,7 +1,7 @@
 {
   "type": "frostrealm:frostrealm",
   "generator": {
-    "type": "minecraft:noise",
+    "type": "frostrealm:frostrealm",
     "biome_source": {
       "type": "minecraft:multi_noise",
       "preset": "frostrealm:frostrealm"

@@ -67,6 +67,7 @@ public class FrostRealm {
 		FrostRecipes.RECIPE_SERIALIZERS.register(modBus);
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
 		FrostAttachs.ATTACHMENT_TYPES.register(modBus);
+        FrostChunkGenerators.CHUNK_GENERATOR.register(modBus);
 		modBus.addListener(this::setup);
 		modBus.addListener(this::dataSetup);
 		NeoForge.EVENT_BUS.addListener(this::registerCommands);

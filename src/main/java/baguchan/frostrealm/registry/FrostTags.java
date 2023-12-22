@@ -7,9 +7,17 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 
 public class FrostTags {
+    public static class Biomes {
+        public static final TagKey<Biome> SKY_BIOME = tag("sky_biome");
+
+        private static TagKey<Biome> tag(String name) {
+            return TagKey.create(Registries.BIOME, new ResourceLocation(FrostRealm.MODID, name));
+        }
+    }
 	public static class Blocks {
 		public static final TagKey<Block> BASE_STONE_FROSTREALM = tag("base_stone_frostrealm");
 		public static final TagKey<Block> TUNDRA_REPLACEABLE = tag("tundra_replaceable");

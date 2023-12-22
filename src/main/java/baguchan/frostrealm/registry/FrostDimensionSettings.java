@@ -2,8 +2,10 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.world.biome.FrostrealmBiomeBuilder;
+import baguchan.frostrealm.world.gen.FrostChunkGenerator;
 import baguchan.frostrealm.world.gen.FrostNoiseRouterData;
 import baguchan.frostrealm.world.gen.FrostSurfaceRuleData;
+import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -12,13 +14,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
-import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseSettings;
 
@@ -47,15 +48,15 @@ public class FrostDimensionSettings {
 	}
 
 	public static void bootstrapLevelStem(BootstapContext<LevelStem> context) {
-		HolderGetter<Biome> biomeRegistry = context.lookup(Registries.BIOME);
+        HolderGetter<Codec<? extends ChunkGenerator>> chunk = context.lookup(Registries.CHUNK_GENERATOR);
 		HolderGetter<DimensionType> dimTypes = context.lookup(Registries.DIMENSION_TYPE);
 		HolderGetter<NoiseGeneratorSettings> noiseGenSettings = context.lookup(Registries.NOISE_SETTINGS);
 
 		HolderGetter<MultiNoiseBiomeSourceParameterList> multiNoiseBiomeSourceParameterLists = context.lookup(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST);
 		Holder.Reference<MultiNoiseBiomeSourceParameterList> reference = multiNoiseBiomeSourceParameterLists.getOrThrow(FrostBiomeSources.FROSTREALM);
 
-		NoiseBasedChunkGenerator wrappedChunkGenerator =
-				new NoiseBasedChunkGenerator(
+        FrostChunkGenerator wrappedChunkGenerator =
+                new FrostChunkGenerator(
 						MultiNoiseBiomeSource.createFromPreset(reference),
 						noiseGenSettings.getOrThrow(FrostDimensionSettings.FROSTREALM_NOISE));
 

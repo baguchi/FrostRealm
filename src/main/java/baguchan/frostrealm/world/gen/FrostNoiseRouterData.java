@@ -46,7 +46,7 @@ public class FrostNoiseRouterData {
 		DensityFunction densityfunction2 = DensityFunctions.noise(p_256236_.getOrThrow(Noises.CAVE_LAYER), 8.0D);
 		DensityFunction densityfunction3 = DensityFunctions.mul(DensityFunctions.constant(4.0D), densityfunction2.square());
 		DensityFunction densityfunction4 = DensityFunctions.noise(p_256236_.getOrThrow(Noises.CAVE_CHEESE), 0.6666666666666666D);
-		DensityFunction densityfunction5 = DensityFunctions.add(DensityFunctions.add(DensityFunctions.constant(0.4D), densityfunction4).clamp(-1.0D, 1.0D), DensityFunctions.add(DensityFunctions.constant(-0.2D), DensityFunctions.mul(DensityFunctions.constant(-0.64D), p_256658_)).clamp(-0.5D, 0.5D));
+        DensityFunction densityfunction5 = DensityFunctions.add(DensityFunctions.add(DensityFunctions.constant(0.27D), densityfunction4).clamp(-1.0D, 1.0D), DensityFunctions.add(DensityFunctions.constant(-0.2D), DensityFunctions.mul(DensityFunctions.constant(-0.64D), p_256658_)).clamp(-0.125D, 0.5D));
 		DensityFunction densityfunction6 = DensityFunctions.add(densityfunction3, densityfunction5);
 		DensityFunction densityfunction7 = DensityFunctions.min(DensityFunctions.min(densityfunction6, getFunction(p_256548_, ENTRANCES)), DensityFunctions.add(densityfunction, densityfunction1));
 		DensityFunction densityfunction8 = getFunction(p_256548_, PILLARS);
@@ -57,17 +57,6 @@ public class FrostNoiseRouterData {
 	private static DensityFunction postProcess(DensityFunction p_224493_) {
 		DensityFunction densityfunction = DensityFunctions.blendDensity(p_224493_);
 		return DensityFunctions.mul(DensityFunctions.interpolated(densityfunction), DensityFunctions.constant(0.64D)).squeeze();
-	}
-
-	private static DensityFunction buildSky(HolderGetter<DensityFunction> densityFunctions) {
-		DensityFunction density = getFunction(densityFunctions, ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation("minecraft", "end/base_3d_noise")));
-		density = DensityFunctions.add(density, DensityFunctions.constant(-0.13));
-		density = slide(density, 128, 256, 72, 0, -0.2, 8, 40, -0.1);
-		density = DensityFunctions.add(density, DensityFunctions.constant(-0.05));
-		density = DensityFunctions.blendDensity(density);
-		density = DensityFunctions.interpolated(density);
-		density = density.squeeze();
-		return density;
 	}
 
 	public static NoiseRouter frostrealm(HolderGetter<DensityFunction> p_255681_, HolderGetter<NormalNoise.NoiseParameters> p_256005_) {
@@ -85,7 +74,7 @@ public class FrostNoiseRouterData {
 		DensityFunction densityfunction11 = getFunction(p_255681_, SLOPED_CHEESE);
 		DensityFunction densityfunction12 = DensityFunctions.min(densityfunction11, DensityFunctions.mul(DensityFunctions.constant(5.0D), getFunction(p_255681_, ENTRANCES)));
 		DensityFunction densityfunction13 = DensityFunctions.rangeChoice(densityfunction11, -1000000.0D, 1.5625D, densityfunction12, underground(p_255681_, p_256005_, densityfunction11));
-		DensityFunction densityfunction14 = DensityFunctions.min(DensityFunctions.add(postProcess(slideOverworld(densityfunction13)), buildSky(p_255681_)), getFunction(p_255681_, NOODLE));
+        DensityFunction densityfunction14 = DensityFunctions.min(postProcess(slideOverworld(densityfunction13)), getFunction(p_255681_, NOODLE));
 		DensityFunction densityfunction15 = getFunction(p_255681_, Y);
 		DensityFunction densityfunction16 = DensityFunctions.zero();
 		float f = 4.0F;
