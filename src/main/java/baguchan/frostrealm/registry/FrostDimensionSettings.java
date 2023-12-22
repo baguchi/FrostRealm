@@ -75,9 +75,9 @@ public class FrostDimensionSettings {
 				1.0D, //coordinate scale
 				true, //bed works
 				false, //respawn anchor works
-				-80,
-				400,
-				400, // Logical Height
+				-64,
+				384,
+				384, // Logical Height
 				BlockTags.INFINIBURN_OVERWORLD, //infiburn
 				FrostRealm.prefix("renderer"), // DimensionRenderInfo
 				0f,
