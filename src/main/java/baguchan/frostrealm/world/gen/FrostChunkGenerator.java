@@ -60,13 +60,10 @@ public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
     }
 
     //Thanks TwilightForest about Chunk based gen!
-    private void addIslands(WorldGenRegion primer, ChunkAccess chunk, NoiseChunk p_224655_, RandomState randomState, SurfaceRules.RuleSource ruleSource, SurfaceSystem surfaceSystem, BiomeManager p_224650_,
-                            Registry<Biome> p_224651_, WorldGenerationContext worldGenerationContext, int height) {
+    private void addIslands(WorldGenRegion primer, ChunkAccess chunk, RandomState randomState, int height) {
         BlockPos blockpos = primer.getCenter().getWorldPosition();
         int[] thicks = new int[5 * 5];
         boolean biomeFound = false;
-        SurfaceRules.Context surfacerules$context = new SurfaceRules.Context(surfaceSystem, randomState, chunk, p_224655_, p_224650_::getBiome, p_224651_, worldGenerationContext);
-        SurfaceRules.SurfaceRule surfacerules$surfacerule = ruleSource.apply(surfacerules$context);
         for (int dZ = 0; dZ < 5; dZ++) {
             for (int dX = 0; dX < 5; dX++) {
                 for (int bx = -1; bx <= 1; bx++) {
@@ -116,7 +113,6 @@ public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
 
                     for (int y = islandsBottom; y < islandsTop; y++) {
                         primer.setBlock(pos.atY(y), darkLeaves, 3);
-                        surfacerules$surfacerule.tryApply(pos.getX(), pos.getY(), pos.getZ());
                     }
 
                     // What are you gonna do, call the cops?
@@ -170,7 +166,7 @@ public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
                         noisechunk,
                         noisegeneratorsettings.surfaceRule()
                 );
-        this.addIslands(worldGenRegion, p_224262_, noisechunk, p_224264_, noisegeneratorsettings.surfaceRule(), p_224264_.surfaceSystem(), p_224266_, p_224267_, p_224263_, 64);
+        this.addIslands(worldGenRegion, p_224262_, p_224264_, 64);
 
     }
 
