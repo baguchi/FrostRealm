@@ -64,7 +64,8 @@ public class FrostConfiguredFeatures {
 
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_LAVA = registerKey("spring_lava_hot_rock");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_WATER = registerKey("spring_wate_fall");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_WATER = registerKey("spring_water_fall");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> WATER_DELTA = registerKey("water_delta");
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ICE_CLUSTER = registerKey("ice_cluster");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> LARGE_ICE = registerKey("large_ice");
@@ -110,6 +111,8 @@ public class FrostConfiguredFeatures {
 
 		FeatureUtils.register(context, SPRING_LAVA, Feature.SPRING, new SpringConfiguration(Fluids.LAVA.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, FrostBlocks.FRIGID_STONE.get())));
 		FeatureUtils.register(context, SPRING_WATER, Feature.SPRING, new SpringConfiguration(Fluids.WATER.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, FrostBlocks.FRIGID_STONE.get())));
+		FeatureUtils.register(context, WATER_DELTA, Feature.DELTA_FEATURE,
+				new DeltaFeatureConfiguration(Blocks.WATER.defaultBlockState(), Blocks.BLUE_ICE.defaultBlockState(), UniformInt.of(4, 8), UniformInt.of(0, 2)));
 
 		FeatureUtils.register(context, ICE_CLUSTER, FrostFeatures.ICE_CLUSTER.get(), new DripstoneClusterConfiguration(12, UniformInt.of(3, 6), UniformInt.of(2, 8), 1, 3, UniformInt.of(2, 4), UniformFloat.of(0.3F, 0.7F), ClampedNormalFloat.of(0.1F, 0.3F, 0.1F, 0.9F), 0.1F, 3, 8));
 		FeatureUtils.register(context, LARGE_ICE, FrostFeatures.LARGE_ICE.get(), new LargeDripstoneConfiguration(30, UniformInt.of(3, 19), UniformFloat.of(0.4F, 2.0F), 0.33F, UniformFloat.of(0.3F, 0.9F), UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.6F));

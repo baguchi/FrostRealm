@@ -43,8 +43,9 @@ public class FrostBlocks {
 	}).strength(-1.0F).sound(SoundType.GLASS)));
 
     public static final Supplier<Block> FROZEN_DIRT = register("frozen_dirt", () -> new Block(BlockBehaviour.Properties.of().strength(0.5F).sound(SoundType.GRAVEL)));
-    public static final Supplier<Block> FROZEN_GRASS_BLOCK = register("frozen_grass_block", () -> new FrostGrassBlock(BlockBehaviour.Properties.of().randomTicks().strength(0.6F).sound(SoundType.GRASS)));
-    public static final Supplier<Block> FROZEN_FARMLAND = register("frozen_farmland", () -> new FrozenFarmBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.5F).randomTicks().sound(SoundType.GRAVEL)));
+	public static final Supplier<Block> FROZEN_GRASS_BLOCK = register("frozen_grass_block", () -> new FrostGrassBlock(BlockBehaviour.Properties.of().randomTicks().strength(0.6F).sound(SoundType.GRASS), FrostBlocks.FROZEN_DIRT));
+	public static final Supplier<Block> FRIGID_GRASS_BLOCK = register("frigid_grass_block", () -> new FrostGrassBlock(BlockBehaviour.Properties.of().randomTicks().strength(1.5F, 6.0F).sound(SoundType.NYLIUM), FrostBlocks.FRIGID_STONE));
+	public static final Supplier<Block> FROZEN_FARMLAND = register("frozen_farmland", () -> new FrozenFarmBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.5F).randomTicks().sound(SoundType.GRAVEL)));
 
     public static final Supplier<Block> POINTED_ICE = register("pointed_ice", () -> new PointedIceBlock(BlockBehaviour.Properties.of().friction(0.98F).randomTicks().strength(0.5F).dynamicShape().sound(SoundType.GLASS)));
 

@@ -45,8 +45,9 @@ public class FrostBiomeBuilders {
 		FrostBiomeDefaultFeatures.addPlainsFeatures(builder);
 		FrostBiomeDefaultFeatures.plainCreatureSpawns(builder1);
 		FrostBiomeDefaultFeatures.addWaterSpringOnlyFeatures(builder);
+        FrostBiomeDefaultFeatures.addWaterDelta(builder);
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
-		return makeDefaultBiome(builder, builder1);
+        return makeSkyBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
 	}
 
 	public static Biome hotrockBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
@@ -168,6 +169,29 @@ public class FrostBiomeBuilders {
 						.skyColor(7907327)
 						.waterColor(0x3f_76_e4)
 						.waterFogColor(0x05_05_33)
+                        .grassColorOverride(7115607)
+                        .foliageColorOverride(7115607)
+                        .grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
+                        .backgroundMusic(new Music(Holder.direct(soundEvent.get()), 12000, 24000, false))
+                        .build(),
+                mobSpawnSetting.build(),
+                builder.build(),
+                Biome.TemperatureModifier.NONE
+        );
+    }
+
+    public static Biome makeSkyBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting, Supplier<SoundEvent> soundEvent) {
+        FrostBiomeDefaultFeatures.addDefaultCarvers(builder);
+        FrostBiomeDefaultFeatures.addDefaultOres(builder);
+
+        return fullDefinition(
+                0.4F,
+                0.8F,
+                new BiomeSpecialEffects.Builder()
+                        .fogColor(4630224)
+                        .skyColor(7907327)
+                        .waterColor(0x3f_76_e4)
+                        .waterFogColor(0x05_05_33)
 						.grassColorOverride(7115607)
 						.foliageColorOverride(7115607)
 						.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)

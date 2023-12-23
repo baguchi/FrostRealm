@@ -21,5 +21,4 @@ public class FrostFeatures {
     public static final Supplier<Feature<BlockStateConfiguration>> SHAPE_CRYSTAL = FEATURES.register("shape_crystal", () -> new ShapeCrystalFeature(BlockStateConfiguration.CODEC));
 
     public static final Supplier<Feature<BlockStateConfiguration>> BIG_WARPED_ISLAND = FEATURES.register("big_warped_island", () -> new BigWarpedIslandFeature(BlockStateConfiguration.CODEC));
-
 }

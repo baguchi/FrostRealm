@@ -6,7 +6,7 @@
       "frostrealm:frostrealm_canyon"
     ]
   },
-  "downfall": 0.5,
+  "downfall": 0.8,
   "effects": {
     "fog_color": 4630224,
     "foliage_color": 7115607,
@@ -16,7 +16,7 @@
       "min_delay": 12000,
       "replace_current_music": false,
       "sound": {
-        "sound_id": "frostrealm:music.frost_moon"
+        "sound_id": "frostrealm:music.calm_night"
       }
     },
     "sky_color": 7907327,
@@ -28,7 +28,9 @@
     [],
     [],
     [],
-    [],
+    [
+      "frostrealm:water_delta"
+    ],
     [],
     [
       "frostrealm:astrium_ore_upper",
@@ -51,9 +53,6 @@
       "frostrealm:patch_artic_poppy",
       "frostrealm:patch_artic_willow",
       "frostrealm:patch_tundra_grass"
-    ],
-    [
-      "minecraft:freeze_top_layer"
     ]
   ],
   "has_precipitation": true,
@@ -106,5 +105,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": -1.2
+  "temperature": 0.4
 }

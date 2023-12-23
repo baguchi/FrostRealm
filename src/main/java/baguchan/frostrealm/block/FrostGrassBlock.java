@@ -12,11 +12,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.SnowLayerBlock;
-import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
@@ -25,10 +21,14 @@ import net.minecraft.world.level.lighting.LightEngine;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements BonemealableBlock {
-	public FrostGrassBlock(BlockBehaviour.Properties p_53685_) {
+	public final Supplier<Block> turnBlock;
+
+	public FrostGrassBlock(Properties p_53685_, Supplier<Block> turnBlock) {
 		super(p_53685_);
+		this.turnBlock = turnBlock;
 	}
 
 	@Override
@@ -90,14 +90,14 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 		if (!canBeGrass(p_56819_, p_56820_, p_56821_)) {
 			if (!p_56820_.isAreaLoaded(p_56821_, 3))
 				return; // Forge: prevent loading unloaded chunks when checking neighbor's light and spreading
-			p_56820_.setBlockAndUpdate(p_56821_, FrostBlocks.FROZEN_DIRT.get().defaultBlockState());
+			p_56820_.setBlockAndUpdate(p_56821_, this.turnBlock.get().defaultBlockState());
 		} else {
 			if (p_56820_.getMaxLocalRawBrightness(p_56821_.above()) >= 9) {
 				BlockState blockstate = this.defaultBlockState();
 
 				for (int i = 0; i < 4; ++i) {
 					BlockPos blockpos = p_56821_.offset(p_56822_.nextInt(3) - 1, p_56822_.nextInt(5) - 3, p_56822_.nextInt(3) - 1);
-					if (p_56820_.getBlockState(blockpos).is(FrostBlocks.FROZEN_DIRT.get()) && canPropagate(blockstate, p_56820_, blockpos)) {
+					if (p_56820_.getBlockState(blockpos).is(this.turnBlock.get()) && canPropagate(blockstate, p_56820_, blockpos)) {
 						p_56820_.setBlockAndUpdate(blockpos, blockstate.setValue(SNOWY, Boolean.valueOf(p_56820_.getBlockState(blockpos.above()).is(Blocks.SNOW))));
 					}
 				}

@@ -2,11 +2,11 @@
   "parent": "block/block",
   "render_type": "cutout_mipped",
   "textures": {
-    "particle": "frostrealm:block/frozen_dirt",
-    "bottom": "frostrealm:block/frozen_dirt",
-    "top": "frostrealm:block/eternity_grass_block_top",
-    "side": "frostrealm:block/frozen_dirt",
-    "overlay": "frostrealm:block/eternity_grass_block_side"
+    "particle": "frostrealm:block/frigid_stone",
+    "bottom": "frostrealm:block/frigid_stone",
+    "top": "frostrealm:block/frozen_grass_block_top",
+    "side": "frostrealm:block/frigid_stone",
+    "overlay": "frostrealm:block/frozen_grass_block_side_overlay"
   },
   "elements": [
     {

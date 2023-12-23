@@ -89,6 +89,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 		this.toBlock(FrostBlocks.FROZEN_DIRT);
 		this.toBlock(FrostBlocks.FROZEN_GRASS_BLOCK);
+		this.toBlock(FrostBlocks.FRIGID_GRASS_BLOCK);
 		this.toBlock(FrostBlocks.FROZEN_FARMLAND);
 
 		this.toBlock(FrostBlocks.FRIGID_STONE);
