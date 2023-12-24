@@ -60,7 +60,7 @@ public class FrostConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TUNDRA_MOSSY_ROCK = registerKey("tundra_mossy_rock");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> STAR_DUST_CLUSTER = registerKey("star_dust_cluster");
 
-	public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_WARPED_ISLAND = registerKey("big_warped_island");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> STONE_SPIKE = registerKey("stone_spike");
 
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_LAVA = registerKey("spring_lava_hot_rock");
@@ -105,9 +105,7 @@ public class FrostConfiguredFeatures {
 		FeatureUtils.register(context, TUNDRA_MOSSY_ROCK, FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE_MOSSY.get().defaultBlockState()));
 		FeatureUtils.register(context, STAR_DUST_CLUSTER, FrostFeatures.SHAPE_CRYSTAL.get(), new BlockStateConfiguration(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get().defaultBlockState()));
 
-
-		FeatureUtils.register(context, BIG_WARPED_ISLAND, FrostFeatures.BIG_WARPED_ISLAND.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState()));
-
+        FeatureUtils.register(context, STONE_SPIKE, FrostFeatures.STONE_SPIKE.get());
 
 		FeatureUtils.register(context, SPRING_LAVA, Feature.SPRING, new SpringConfiguration(Fluids.LAVA.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, FrostBlocks.FRIGID_STONE.get())));
 		FeatureUtils.register(context, SPRING_WATER, Feature.SPRING, new SpringConfiguration(Fluids.WATER.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, FrostBlocks.FRIGID_STONE.get())));

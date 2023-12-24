@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.BlockGetter;
@@ -22,7 +23,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -67,6 +70,12 @@ public class FrostBlocks {
     public static final Supplier<Block> FRIGID_STONE_BRICK_MOSSY = register("frigid_stone_brick_mossy", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
     public static final Supplier<SlabBlock> FRIGID_STONE_BRICK_MOSSY_SLAB = register("frigid_stone_brick_mossy_slab", () -> new SlabBlock(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
     public static final Supplier<StairBlock> FRIGID_STONE_BRICK_MOSSY_STAIRS = register("frigid_stone_brick_mossy_stairs", () -> new StairBlock(FRIGID_STONE_BRICK_MOSSY.get()::defaultBlockState, BlockBehaviour.Properties.of().strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
+
+    public static final Supplier<Block> SHERBET_SAND = register("sherbet_sand", () -> new ColoredFallingBlock(new ColorRGBA(0xFFB9EB), BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PINK).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
+    public static final Supplier<Block> SHERBET_SANDSTONE = register("sherbet_sandstone", () -> new Block(BlockBehaviour.Properties.of().strength(0.8F).requiresCorrectToolForDrops().sound(SoundType.STONE)));
+    public static final Supplier<SlabBlock> SHERBET_SANDSTONE_SLAB = register("sherbet_sandstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.of().strength(0.8F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.STONE)));
+    public static final Supplier<StairBlock> SHERBET_SANDSTONE_STAIRS = register("sherbet_sandstone_stairs", () -> new StairBlock(FRIGID_STONE.get()::defaultBlockState, BlockBehaviour.Properties.of().noOcclusion().strength(0.8F).requiresCorrectToolForDrops().sound(SoundType.STONE)));
+
 
 	//FROSTROOT
     public static final Supplier<RotatedPillarBlock> FROSTROOT_LOG = register("frostroot_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().strength(2.0F).sound(SoundType.WOOD)));

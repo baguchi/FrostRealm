@@ -42,7 +42,18 @@ public class CraftingGenerator extends CraftingDataHelper {
         makeSlab(consumer, FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
         makeStairs(consumer, FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FRIGID_STONE_BRICK.get(), 4)
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.SHERBET_SANDSTONE.get(), 4)
+				.pattern("BB")
+				.pattern("BB")
+				.define('B', FrostBlocks.SHERBET_SAND.get())
+				.unlockedBy("has_item", has(FrostBlocks.SHERBET_SAND.get())).save(consumer);
+
+
+		makeSlab(consumer, FrostBlocks.SHERBET_SANDSTONE_SLAB.get(), FrostBlocks.SHERBET_SANDSTONE.get());
+		makeStairs(consumer, FrostBlocks.SHERBET_SANDSTONE_STAIRS.get(), FrostBlocks.SHERBET_SANDSTONE.get());
+
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FRIGID_STONE_BRICK.get(), 4)
                 .pattern("BB")
                 .pattern("BB")
                 .define('B', FrostBlocks.FRIGID_STONE.get())

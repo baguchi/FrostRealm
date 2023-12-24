@@ -7,6 +7,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.DripstoneClusterConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.LargeDripstoneConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -20,5 +21,5 @@ public class FrostFeatures {
     public static final Supplier<Feature<BlockStateConfiguration>> BIG_ROCK = FEATURES.register("big_rock", () -> new BigRockFeature(BlockStateConfiguration.CODEC));
     public static final Supplier<Feature<BlockStateConfiguration>> SHAPE_CRYSTAL = FEATURES.register("shape_crystal", () -> new ShapeCrystalFeature(BlockStateConfiguration.CODEC));
 
-    public static final Supplier<Feature<BlockStateConfiguration>> BIG_WARPED_ISLAND = FEATURES.register("big_warped_island", () -> new BigWarpedIslandFeature(BlockStateConfiguration.CODEC));
+    public static final Supplier<Feature<NoneFeatureConfiguration>> STONE_SPIKE = FEATURES.register("stone_spike", () -> new StoneSpikeFeature(NoneFeatureConfiguration.CODEC));
 }

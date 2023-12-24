@@ -29,7 +29,8 @@
     [],
     [],
     [
-      "frostrealm:water_delta"
+      "frostrealm:water_delta",
+      "frostrealm:stone_spike"
     ],
     [],
     [
@@ -47,7 +48,7 @@
     ],
     [
       "frostrealm:frostroot_tree_plains",
-      "frostrealm:patch_artic_willow_sky",
+      "frostrealm:patch_artic_poppy_sky",
       "frostrealm:patch_tundra_grass_sky"
     ]
   ],

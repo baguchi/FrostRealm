@@ -78,6 +78,10 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.add(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS.get());
 
+		this.dropSelf(FrostBlocks.SHERBET_SAND.get());
+		this.dropSelf(FrostBlocks.SHERBET_SANDSTONE.get());
+		this.add(FrostBlocks.SHERBET_SANDSTONE_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(FrostBlocks.SHERBET_SANDSTONE_STAIRS.get());
 
 		this.dropSelf(FrostBlocks.FROSTROOT_LOG.get());
 		this.dropSelf(FrostBlocks.STRIPPED_FROSTROOT_LOG.get());

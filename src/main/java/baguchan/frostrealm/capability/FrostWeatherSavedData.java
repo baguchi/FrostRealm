@@ -1,5 +1,7 @@
 package baguchan.frostrealm.capability;
 
+import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.weather.FrostWeather;
 import net.minecraft.nbt.CompoundTag;
@@ -9,6 +11,7 @@ import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +25,7 @@ public class FrostWeatherSavedData extends SavedData {
 	private final ServerLevel serverLevel;
 	private static Map<Level, FrostWeatherSavedData> dataMap = new HashMap<>();
 
-	private FrostWeather frostWeather = FrostWeathers.BLIZZARD.get();
+    private FrostWeather frostWeather = FrostWeathers.NOPE.get();
 
 	public FrostWeatherSavedData(ServerLevel serverLevel) {
 		this.serverLevel = serverLevel;
@@ -94,8 +97,10 @@ public class FrostWeatherSavedData extends SavedData {
 		if (frostWeather != null) {
 			data.frostWeather = frostWeather;
 		} else {
-			data.frostWeather = FrostWeathers.BLIZZARD.get();
+            data.frostWeather = FrostWeathers.NOPE.get();
 		}
+        ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
+        FrostRealm.CHANNEL.send(PacketDistributor.DIMENSION.with(p_300199_::dimension), message);
 		return data;
 	}
 

@@ -81,7 +81,7 @@ public class FrostBiomeDefaultFeatures {
 		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.FROSTROOT_TREES_PLAINS);
 		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_ARTIC_POPPY_SKY);
 		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_TUNDRA_GRASS_SKY);
-
+        p_194721_.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FrostPlacements.STONE_SPIKE);
 	}
 
 

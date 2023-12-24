@@ -46,7 +46,7 @@ public class FrostPlacements {
 	public static final ResourceKey<PlacedFeature> PATCH_TUNDRA_ROCK = registerKey("patch_tundra_rock");
 	public static final ResourceKey<PlacedFeature> PATCH_TUNDRA_MOSSY_ROCK = registerKey("patch_tundra_mossy_rock");
 
-	public static final ResourceKey<PlacedFeature> BIG_WARPED_ISLAND = registerKey("big_warped_island");
+    public static final ResourceKey<PlacedFeature> STONE_SPIKE = registerKey("stone_spike");
 
 
 	public static final ResourceKey<PlacedFeature> LAVA_DELTA = registerKey("delta");
@@ -98,8 +98,7 @@ public class FrostPlacements {
 		PlacementUtils.register(context, PATCH_TUNDRA_ROCK, configuredFeature.getOrThrow(FrostConfiguredFeatures.TUNDRA_ROCK), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 		PlacementUtils.register(context, PATCH_TUNDRA_MOSSY_ROCK, configuredFeature.getOrThrow(FrostConfiguredFeatures.TUNDRA_MOSSY_ROCK), RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
-		PlacementUtils.register(context, BIG_WARPED_ISLAND, configuredFeature.getOrThrow(FrostConfiguredFeatures.BIG_WARPED_ISLAND), RarityFilter.onAverageOnceEvery(25), InSquarePlacement.spread(), PlacementUtils.countExtra(1, 0.25F, 1), HeightRangePlacement.uniform(VerticalAnchor.absolute(80), VerticalAnchor.top()), BiomeFilter.biome());
-
+        PlacementUtils.register(context, STONE_SPIKE, configuredFeature.getOrThrow(FrostConfiguredFeatures.STONE_SPIKE), RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
 		PlacementUtils.register(context, LAVA_DELTA, configuredFeature.getOrThrow(NetherFeatures.DELTA), CountOnEveryLayerPlacement.of(8), BiomeFilter.biome());
 		PlacementUtils.register(context, WATER_DELTA, configuredFeature.getOrThrow(FrostConfiguredFeatures.WATER_DELTA), CountOnEveryLayerPlacement.of(4), BiomeFilter.biome());

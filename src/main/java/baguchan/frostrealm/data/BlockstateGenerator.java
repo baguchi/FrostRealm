@@ -48,7 +48,21 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.slab(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
 		this.stairs(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get());
 
-        this.logBlock(FrostBlocks.FROSTROOT_LOG.get());
+		this.simpleBlock(FrostBlocks.SHERBET_SAND.get());
+
+		ModelFile sandstone = models().withExistingParent(name(FrostBlocks.SHERBET_SANDSTONE.get()), new ResourceLocation("block/orientable"))
+				.texture("top", suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_top"))
+				.texture("side", blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()))
+				.texture("front", blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()))
+				.texture("bottom", suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_bottom"));
+
+
+		this.simpleBlock(FrostBlocks.SHERBET_SANDSTONE.get(), sandstone);
+		this.slabBlock(FrostBlocks.SHERBET_SANDSTONE_SLAB.get(), texture(name(FrostBlocks.SHERBET_SANDSTONE.get())), texture(name(FrostBlocks.SHERBET_SANDSTONE.get())), suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_bottom"), suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_top"));
+		this.stairsBlock(FrostBlocks.SHERBET_SANDSTONE_STAIRS.get(), blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_bottom"), suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_top"));
+
+
+		this.logBlock(FrostBlocks.FROSTROOT_LOG.get());
 		this.logBlock(FrostBlocks.STRIPPED_FROSTROOT_LOG.get());
         this.simpleBlock(FrostBlocks.FROSTROOT_LEAVES.get());
         this.crossBlock(FrostBlocks.FROSTROOT_SAPLING.get());
