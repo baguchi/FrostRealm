@@ -44,14 +44,15 @@ public class FrostBlocks {
 
     public static final Supplier<Block> FROZEN_DIRT = register("frozen_dirt", () -> new Block(BlockBehaviour.Properties.of().strength(0.5F).sound(SoundType.GRAVEL)));
 	public static final Supplier<Block> FROZEN_GRASS_BLOCK = register("frozen_grass_block", () -> new FrostGrassBlock(BlockBehaviour.Properties.of().randomTicks().strength(0.6F).sound(SoundType.GRASS), FrostBlocks.FROZEN_DIRT));
-	public static final Supplier<Block> FRIGID_GRASS_BLOCK = register("frigid_grass_block", () -> new FrostGrassBlock(BlockBehaviour.Properties.of().randomTicks().strength(1.5F, 6.0F).sound(SoundType.NYLIUM), FrostBlocks.FRIGID_STONE));
 	public static final Supplier<Block> FROZEN_FARMLAND = register("frozen_farmland", () -> new FrozenFarmBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.5F).randomTicks().sound(SoundType.GRAVEL)));
 
     public static final Supplier<Block> POINTED_ICE = register("pointed_ice", () -> new PointedIceBlock(BlockBehaviour.Properties.of().friction(0.98F).randomTicks().strength(0.5F).dynamicShape().sound(SoundType.GLASS)));
 
 
     public static final Supplier<Block> FRIGID_STONE = register("frigid_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
-    public static final Supplier<SlabBlock> FRIGID_STONE_SLAB = register("frigid_stone_slab", () -> new SlabBlock(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
+	public static final Supplier<Block> FRIGID_GRASS_BLOCK = register("frigid_grass_block", () -> new FrostGrassBlock(BlockBehaviour.Properties.of().randomTicks().strength(1.5F, 6.0F).sound(SoundType.NYLIUM), FrostBlocks.FRIGID_STONE));
+
+	public static final Supplier<SlabBlock> FRIGID_STONE_SLAB = register("frigid_stone_slab", () -> new SlabBlock(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
     public static final Supplier<StairBlock> FRIGID_STONE_STAIRS = register("frigid_stone_stairs", () -> new StairBlock(FRIGID_STONE.get()::defaultBlockState, BlockBehaviour.Properties.of().noOcclusion().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
     public static final Supplier<Block> FRIGID_STONE_BRICK = register("frigid_stone_brick", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
     public static final Supplier<SlabBlock> FRIGID_STONE_BRICK_SLAB = register("frigid_stone_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));

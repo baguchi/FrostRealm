@@ -64,6 +64,7 @@ public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
         BlockPos blockpos = primer.getCenter().getWorldPosition();
         int[] thicks = new int[5 * 5];
         boolean biomeFound = false;
+        boolean stony_islands = false;
         for (int dZ = 0; dZ < 5; dZ++) {
             for (int dX = 0; dX < 5; dX++) {
                 for (int bx = -1; bx <= 1; bx++) {
@@ -73,6 +74,7 @@ public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
                         if (FrostBiomes.CRYSTAL_FALL.location().equals(primer.registryAccess().registryOrThrow(Registries.BIOME).getKey(biome))) {
                             thicks[dX + dZ * 5]++;
                             biomeFound = true;
+                            stony_islands = true;
                         }
                     }
                 }
@@ -109,10 +111,20 @@ public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
 
                     islandsBottom -= noise;
                     islandsTop -= noise2;
-                    BlockState darkLeaves = FrostBlocks.FRIGID_STONE.get().defaultBlockState();
+                    BlockState baseBlock = FrostBlocks.FRIGID_STONE.get().defaultBlockState();
+                    BlockState topBlock = FrostBlocks.FRIGID_GRASS_BLOCK.get().defaultBlockState();
+
+                    if (!stony_islands) {
+                        baseBlock = FrostBlocks.FROZEN_DIRT.get().defaultBlockState();
+                        topBlock = FrostBlocks.FROZEN_GRASS_BLOCK.get().defaultBlockState();
+                    }
 
                     for (int y = islandsBottom; y < islandsTop; y++) {
-                        primer.setBlock(pos.atY(y), darkLeaves, 3);
+                        if (y < islandsTop - 1) {
+                            primer.setBlock(pos.atY(y), baseBlock, 3);
+                        } else {
+                            primer.setBlock(pos.atY(y), topBlock, 3);
+                        }
                     }
 
                     // What are you gonna do, call the cops?

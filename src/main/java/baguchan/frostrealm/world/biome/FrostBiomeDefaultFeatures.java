@@ -28,6 +28,10 @@ public class FrostBiomeDefaultFeatures {
 		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_BOAR.get(), 8, 4, 5));
 	}
 
+	public static void crystalFallCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
+		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.MARMOT.get(), 6, 3, 4));
+	}
+
 	public static void forestCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
 		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL.get(), 10, 4, 6));
 	}
@@ -58,11 +62,6 @@ public class FrostBiomeDefaultFeatures {
 		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_TUNDRA_GRASS);
 	}
 
-	public static void addFrostBiteJungleFeatures(BiomeGenerationSettings.Builder p_194721_) {
-		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_VIGOROSHROOM);
-		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_TUNDRA_GRASS);
-	}
-
 	public static void addPlainsFeatures(BiomeGenerationSettings.Builder p_194721_) {
 		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.FROSTROOT_TREES_PLAINS);
 		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_TUNDRA_ROCK);
@@ -76,6 +75,13 @@ public class FrostBiomeDefaultFeatures {
 	public static void addSpringFeatures(BiomeGenerationSettings.Builder p_194721_) {
 		p_194721_.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, FrostPlacements.SPRING_WATER);
 		p_194721_.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, FrostPlacements.SPRING_LAVA);
+	}
+
+	public static void addCrystalFallPlantsFeatures(BiomeGenerationSettings.Builder p_194721_) {
+		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.FROSTROOT_TREES_PLAINS);
+		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_ARTIC_POPPY_SKY);
+		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_TUNDRA_GRASS_SKY);
+
 	}
 
 

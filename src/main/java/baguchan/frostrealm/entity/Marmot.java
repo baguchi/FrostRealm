@@ -3,10 +3,8 @@ package baguchan.frostrealm.entity;
 import bagu_chan.bagus_lib.entity.goal.TimeConditionGoal;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.entity.path.FrostPathNavigation;
-import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostSounds;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -27,7 +25,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -59,10 +56,6 @@ public class Marmot extends FrostAnimal {
 	@Override
 	public boolean isFood(ItemStack p_27600_) {
 		return FOOD_ITEMS.test(p_27600_);
-	}
-
-	public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
-		return p_27574_.getBlockState(p_27573_.below()).is(FrostBlocks.FROZEN_GRASS_BLOCK.get()) ? 10.0F : p_27574_.getPathfindingCostFromLightLevels(p_27573_) - 0.5F;
 	}
 
 	@Override

@@ -42,10 +42,10 @@ public class FrostBiomeBuilders {
 	public static Biome waterFallBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
 		BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
-		FrostBiomeDefaultFeatures.addPlainsFeatures(builder);
-		FrostBiomeDefaultFeatures.plainCreatureSpawns(builder1);
 		FrostBiomeDefaultFeatures.addWaterSpringOnlyFeatures(builder);
         FrostBiomeDefaultFeatures.addWaterDelta(builder);
+		FrostBiomeDefaultFeatures.addCrystalFallPlantsFeatures(builder);
+		FrostBiomeDefaultFeatures.crystalFallCreatureSpawns(builder1);
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
         return makeSkyBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
 	}

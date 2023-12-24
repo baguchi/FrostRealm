@@ -58,7 +58,9 @@ public class BlockTagGenerator extends BlockTagsProvider {
         tag(FrostTags.Blocks.TUNDRA_REPLACEABLE).add(FrostBlocks.FRIGID_STONE.get(), FrostBlocks.FROZEN_DIRT.get());
         tag(FrostTags.Blocks.WORLD_CARVER_REPLACEABLE).add(FrostBlocks.FRIGID_STONE.get(), FrostBlocks.FROZEN_DIRT.get(), FrostBlocks.FROZEN_GRASS_BLOCK.get(), Blocks.ICE, Blocks.BLUE_ICE, Blocks.PACKED_ICE);
 
+        tag(FrostTags.Blocks.ANIMAL_SPAWNABLE).add(FrostBlocks.FROZEN_GRASS_BLOCK.get(), FrostBlocks.FRIGID_GRASS_BLOCK.get());
         tag(BlockTags.DIRT).add(FrostBlocks.FROZEN_DIRT.get(), FrostBlocks.FROZEN_GRASS_BLOCK.get());
+        tag(BlockTags.DIRT).add(FrostBlocks.FRIGID_GRASS_BLOCK.get());
         tag(Tags.Blocks.ORES).add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.FROST_CRYSTAL_ORE.get());
         tag(FrostTags.Blocks.NON_FREEZE_CROP).add(FrostBlocks.SUGARBEET.get(), FrostBlocks.RYE.get());
         tag(FrostTags.Blocks.SEAL_SPAWNABLE).add(FrostBlocks.FRIGID_STONE.get(), Blocks.SNOW_BLOCK, Blocks.ICE, Blocks.BLUE_ICE, Blocks.PACKED_ICE);
