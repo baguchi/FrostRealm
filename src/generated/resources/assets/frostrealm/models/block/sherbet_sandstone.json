@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "bottom": "frostrealm:block/sherbet_sandstone_bottom",
+    "front": "frostrealm:block/sherbet_sandstone",
+    "side": "frostrealm:block/sherbet_sandstone",
+    "top": "frostrealm:block/sherbet_sandstone_top"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "frostrealm:block/sherbet_sandstone_bottom",
+    "side": "frostrealm:block/sherbet_sandstone",
+    "top": "frostrealm:block/sherbet_sandstone_top"
+  }
+}
