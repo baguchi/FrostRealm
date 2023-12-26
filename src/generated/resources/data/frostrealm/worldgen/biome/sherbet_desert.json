@@ -6,9 +6,9 @@
       "frostrealm:frostrealm_canyon"
     ]
   },
-  "downfall": 0.6,
+  "downfall": 0.8,
   "effects": {
-    "fog_color": 4630224,
+    "fog_color": 16759275,
     "foliage_color": 7115607,
     "grass_color": 7115607,
     "music": {
@@ -16,7 +16,7 @@
       "min_delay": 12000,
       "replace_current_music": false,
       "sound": {
-        "sound_id": "frostrealm:music.calm_night"
+        "sound_id": "frostrealm:music.frost_moon"
       }
     },
     "sky_color": 7907327,
@@ -74,5 +74,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 1.0
+  "temperature": 0.5
 }

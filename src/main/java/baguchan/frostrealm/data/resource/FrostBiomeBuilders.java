@@ -55,7 +55,7 @@ public class FrostBiomeBuilders {
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
 		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
-		return makeDefaultHotBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
+		return makeDesertBiome(builder, builder1, FrostSounds.FROST_MOON_BGM);
 	}
 
 	public static Biome hotrockBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
