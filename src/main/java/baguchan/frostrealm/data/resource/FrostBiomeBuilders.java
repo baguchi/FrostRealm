@@ -183,9 +183,10 @@ public class FrostBiomeBuilders {
     public static Biome makeSkyBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting, Supplier<SoundEvent> soundEvent) {
         FrostBiomeDefaultFeatures.addDefaultCarvers(builder);
         FrostBiomeDefaultFeatures.addDefaultOres(builder);
+        builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
 
         return fullDefinition(
-                0.4F,
+                0.3F,
                 0.8F,
                 new BiomeSpecialEffects.Builder()
                         .fogColor(4630224)
@@ -203,13 +204,37 @@ public class FrostBiomeBuilders {
 		);
 	}
 
+    public static Biome makeDesertBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting, Supplier<SoundEvent> soundEvent) {
+        FrostBiomeDefaultFeatures.addDefaultCarvers(builder);
+        FrostBiomeDefaultFeatures.addDefaultOres(builder);
+        builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
+
+        return fullDefinition(
+                0.5F,
+                0.8F,
+                new BiomeSpecialEffects.Builder()
+                        .fogColor(0xFFB9EB)
+                        .skyColor(7907327)
+                        .waterColor(0x3f_76_e4)
+                        .waterFogColor(0x05_05_33)
+                        .grassColorOverride(7115607)
+                        .foliageColorOverride(7115607)
+                        .grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
+                        .backgroundMusic(new Music(Holder.direct(soundEvent.get()), 12000, 24000, false))
+                        .build(),
+                mobSpawnSetting.build(),
+                builder.build(),
+                Biome.TemperatureModifier.NONE
+        );
+    }
+
 	public static Biome makeDefaultHotBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting, Supplier<SoundEvent> soundEvent) {
 		FrostBiomeDefaultFeatures.addDefaultCarvers(builder);
 		FrostBiomeDefaultFeatures.addDefaultOres(builder);
 		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
 
 		return fullDefinition(
-				1.2F,
+                1.0F,
 				0.6F,
 				new BiomeSpecialEffects.Builder()
 						.fogColor(4630224)

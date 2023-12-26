@@ -2,22 +2,19 @@ package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.capability.FrostWeatherManager;
-import baguchan.frostrealm.registry.FrostSounds;
+import baguchan.frostrealm.client.sounds.FrostAmbientSoundsHandler;
 import baguchan.frostrealm.registry.FrostWeathers;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.ParticleStatus;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
@@ -28,16 +25,15 @@ import java.util.Random;
 
 public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     private static final ResourceLocation AURORA_LOCATION = new ResourceLocation(FrostRealm.MODID, "textures/environment/aurora.png");
-
-    private static final ResourceLocation RAIN_TEXTURES = new ResourceLocation("textures/environment/rain.png");
-    private static final ResourceLocation SNOW_TEXTURES = new ResourceLocation("textures/environment/snow.png");
+	private static final ResourceLocation SNOW_TEXTURES = new ResourceLocation("textures/environment/snow.png");
     private final float[] rainxs = new float[1024];
     private final float[] rainzs = new float[1024];
-    private int rainSoundTime;
     private int rendererUpdateCount;
+	private final FrostAmbientSoundsHandler soundsHandler;
 
     public FrostRealmRenderInfo(float cloudHeight, boolean placebo, SkyType fogType, boolean brightenLightMap, boolean entityLightingBottomsLit) {
         super(cloudHeight, placebo, fogType, brightenLightMap, entityLightingBottomsLit);
+		soundsHandler = new FrostAmbientSoundsHandler(Minecraft.getInstance().getSoundManager());
         for (int i = 0; i < 32; ++i) {
             for (int j = 0; j < 32; ++j) {
 				float f = j - 16;
@@ -216,34 +212,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 	@Override
 	public boolean tickRain(ClientLevel level, int ticks, Camera camera) {
-		if (FrostWeatherManager.getPrevFrostWeather() == FrostWeathers.BLIZZARD.get()) {
-			float f2 = FrostWeatherManager.getWeatherLevel(1.0F) / (Minecraft.useFancyGraphics() ? 1.0F : 2.0F);
-			if (!(f2 <= 0.0F)) {
-				Random random = new Random((long) ticks * 312987231L);
-				LevelReader levelreader = level;
-				BlockPos blockpos = new BlockPos(camera.getBlockPosition());
-				BlockPos blockpos1 = null;
-				int i = (int) (100.0F * f2 * f2) / (Minecraft.getInstance().options.particles().get() == ParticleStatus.DECREASED ? 2 : 1);
-
-				for (int j = 0; j < i; ++j) {
-					int k = random.nextInt(21) - 10;
-					int l = random.nextInt(21) - 10;
-					BlockPos blockpos2 = levelreader.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos.offset(k, 0, l));
-					if (blockpos2.getY() > levelreader.getMinBuildHeight() && blockpos2.getY() <= blockpos.getY() + 10 && blockpos2.getY() >= blockpos.getY() - 10) {
-						blockpos1 = blockpos2.below();
-					}
-				}
-
-				if (blockpos1 != null && random.nextInt(5) + 5 < this.rainSoundTime++) {
-					this.rainSoundTime = 0;
-					if (blockpos1.getY() > blockpos.getY() + 1 && levelreader.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos).getY() > Mth.floor((float) blockpos.getY())) {
-						level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT.get(), SoundSource.WEATHER, 0.5F, 0.5F, false);
-					} else {
-						level.playLocalSound(blockpos1, FrostSounds.BLIZZARD_AMBIENT.get(), SoundSource.WEATHER, 2.0F, 1.0F, false);
-					}
-				}
-			}
-		}
+		soundsHandler.tick();
 		return true;
 	}
 }

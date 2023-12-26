@@ -11,6 +11,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import static net.minecraft.resources.ResourceKey.createRegistryKey;
@@ -22,9 +23,9 @@ public class FrostWeathers {
 
 	public static final DeferredRegister<FrostWeather> FROST_WEATHER = DeferredRegister.create(new ResourceLocation(FrostRealm.MODID, "frost_weather"), FrostRealm.MODID);
 
-	public static final Supplier<FrostWeather> NOPE = FROST_WEATHER.register("nope", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(1.0F, 1.0F, 1.0F, 0.9F))));
-    public static final Supplier<FrostWeather> BLIZZARD = FROST_WEATHER.register("blizzard", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(0.9F, 0.9F, 0.9F, 0.25F))));
-    public static final Supplier<FrostWeather> PURPLE_FOG = FROST_WEATHER.register("purple_fog", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(0.6F, 0.0F, 0.6F, 0.385F))));
+    public static final Supplier<FrostWeather> NOPE = FROST_WEATHER.register("nope", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(1.0F, 1.0F, 1.0F, 0.9F), Optional.empty())));
+    public static final Supplier<FrostWeather> BLIZZARD = FROST_WEATHER.register("blizzard", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(0.9F, 0.9F, 0.9F, 0.25F), Optional.of(FrostSounds.BLIZZARD_AMBIENT.get()))));
+    public static final Supplier<FrostWeather> PURPLE_FOG = FROST_WEATHER.register("purple_fog", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(0.6F, 0.0F, 0.6F, 0.385F), Optional.empty())));
 
     private static Registry<FrostWeather> registry;
 

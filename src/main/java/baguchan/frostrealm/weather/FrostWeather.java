@@ -1,6 +1,9 @@
 package baguchan.frostrealm.weather;
 
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
+
+import java.util.Optional;
 
 public class FrostWeather {
 	private final Properties properties;
@@ -12,7 +15,7 @@ public class FrostWeather {
 	}
 
 	public FrostWeather() {
-		this.properties = new Properties(new FogProperties(0, 0, 0, 0));
+		this.properties = new Properties(new FogProperties(0, 0, 0, 0), Optional.empty());
 		this.useFog = false;
 	}
 
@@ -36,15 +39,21 @@ public class FrostWeather {
 		return properties.fogProperties.density;
 	}
 
+	public Optional<SoundEvent> getSoundEvents() {
+		return properties.sounds;
+	}
+
 	public boolean isUseFog() {
 		return useFog;
 	}
 
 	public static class Properties {
 		private final FogProperties fogProperties;
+		private final Optional<SoundEvent> sounds;
 
-		public Properties(FogProperties fogProperties) {
+		public Properties(FogProperties fogProperties, Optional<SoundEvent> sounds) {
 			this.fogProperties = fogProperties;
+			this.sounds = sounds;
 		}
 	}
 

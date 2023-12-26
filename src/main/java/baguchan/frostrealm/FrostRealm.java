@@ -51,7 +51,6 @@ public class FrostRealm {
 	public FrostRealm(IEventBus modBus) {
 
 		IEventBus forgeBus = NeoForge.EVENT_BUS;
-		FrostWeathers.FROST_WEATHER.register(modBus);
 		FrostFeatures.FEATURES.register(modBus);
 		FrostSounds.SOUND_EVENTS.register(modBus);
 		FrostMenuTypes.MENU_TYPES.register(modBus);
@@ -68,6 +67,7 @@ public class FrostRealm {
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
 		FrostAttachs.ATTACHMENT_TYPES.register(modBus);
         FrostChunkGenerators.CHUNK_GENERATOR.register(modBus);
+        FrostWeathers.FROST_WEATHER.register(modBus);
 		modBus.addListener(this::setup);
 		modBus.addListener(this::dataSetup);
 		NeoForge.EVENT_BUS.addListener(this::registerCommands);
