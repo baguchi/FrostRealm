@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.Block;
 
 public class FrostTags {
     public static class Biomes {
-        public static final TagKey<Biome> SKY_BIOME = tag("sky_biome");
+		public static final TagKey<Biome> HOT_BIOME = tag("hot_biome");
 
         private static TagKey<Biome> tag(String name) {
             return TagKey.create(Registries.BIOME, new ResourceLocation(FrostRealm.MODID, name));

@@ -4,6 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.capability.FrostWeatherManager;
 import baguchan.frostrealm.client.sounds.FrostAmbientSoundsHandler;
 import baguchan.frostrealm.registry.FrostWeathers;
+import baguchan.frostrealm.weather.FrostWeather;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
@@ -57,7 +58,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 	@Override
 	public boolean isFoggyAt(int p_108874_, int p_108875_) {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -109,8 +110,12 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 	@Override
     public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, LightTexture lightTexture, double camX, double camY, double camZ) {
-		if (FrostWeatherManager.getPrevFrostWeather() == FrostWeathers.BLIZZARD.get()) {
+		FrostWeather frostWeather = FrostWeatherManager.getPrevFrostWeather();
+		if (frostWeather.getNonAffectableBiome().isEmpty() || frostWeather.getNonAffectableBiome().isPresent() && level.getBiome(new BlockPos((int) camX, (int) camY, (int) camZ)).is(frostWeather.getNonAffectableBiome().get())) {
+
+			if (FrostWeatherManager.getPrevFrostWeather() == FrostWeathers.BLIZZARD.get()) {
 			this.renderBrizzardWeather(lightTexture, level, Minecraft.getInstance(), partialTick, camX, camY, camZ);
+			}
 		}
 
         return true;

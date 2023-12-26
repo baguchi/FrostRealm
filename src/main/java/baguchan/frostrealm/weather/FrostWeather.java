@@ -1,7 +1,9 @@
 package baguchan.frostrealm.weather;
 
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.biome.Biome;
 
 import java.util.Optional;
 
@@ -15,7 +17,7 @@ public class FrostWeather {
 	}
 
 	public FrostWeather() {
-		this.properties = new Properties(new FogProperties(0, 0, 0, 0), Optional.empty());
+		this.properties = new Properties(new FogProperties(1, 1, 1, 0.9F), Optional.empty(), Optional.empty());
 		this.useFog = false;
 	}
 
@@ -43,6 +45,10 @@ public class FrostWeather {
 		return properties.sounds;
 	}
 
+	public Optional<TagKey<Biome>> getNonAffectableBiome() {
+		return properties.biomeTagKey;
+	}
+
 	public boolean isUseFog() {
 		return useFog;
 	}
@@ -50,10 +56,12 @@ public class FrostWeather {
 	public static class Properties {
 		private final FogProperties fogProperties;
 		private final Optional<SoundEvent> sounds;
+		private final Optional<TagKey<Biome>> biomeTagKey;
 
-		public Properties(FogProperties fogProperties, Optional<SoundEvent> sounds) {
+		public Properties(FogProperties fogProperties, Optional<SoundEvent> sounds, Optional<TagKey<Biome>> biomeTagKey) {
 			this.fogProperties = fogProperties;
 			this.sounds = sounds;
+			this.biomeTagKey = biomeTagKey;
 		}
 	}
 

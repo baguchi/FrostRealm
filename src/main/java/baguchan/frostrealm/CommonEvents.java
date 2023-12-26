@@ -116,26 +116,27 @@ public class CommonEvents {
                                     if (!chunkManager.getPlayersCloseForSpawning(chunkPos).isEmpty()) {
                                         BlockPos pos = serverLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, serverLevel.getBlockRandomPos(chunkPos.getMinBlockX(), 0, chunkPos.getMinBlockZ(), 15));
                                         BlockPos posDown = pos.below();
-
-                                        if (serverLevel.isAreaLoaded(posDown, 1)) {
-                                            BlockState snowState = serverLevel.getBlockState(pos);
-                                            BlockState snowStateBelow = serverLevel.getBlockState(pos.below());
-                                            if (snowState.getBlock() instanceof CropBlock) {
-                                                if (!snowState.is(FrostTags.Blocks.NON_FREEZE_CROP)) {
+                                        if (!event.level.getBiome(pos).is(FrostTags.Biomes.HOT_BIOME)) {
+                                            if (serverLevel.isAreaLoaded(posDown, 1)) {
+                                                BlockState snowState = serverLevel.getBlockState(pos);
+                                                BlockState snowStateBelow = serverLevel.getBlockState(pos.below());
+                                                if (snowState.getBlock() instanceof CropBlock) {
+                                                    if (!snowState.is(FrostTags.Blocks.NON_FREEZE_CROP)) {
+                                                        serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                                                    }
+                                                } else if (snowState.getBlock() == Blocks.FIRE) {
                                                     serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                                                } else if (snowStateBelow.hasProperty(BlockStateProperties.LIT) && snowStateBelow.getValue(BlockStateProperties.LIT)) {
+                                                    makeParticles(serverLevel, pos.below());
+                                                    serverLevel.setBlockAndUpdate(pos.below(), snowStateBelow.setValue(BlockStateProperties.LIT, false));
+                                                } else if (snowState.getBlock() == Blocks.SNOW.defaultBlockState().getBlock()) {
+                                                    int layers = snowState.getValue(SnowLayerBlock.LAYERS);
+                                                    if (layers < 2) {
+                                                        serverLevel.setBlockAndUpdate(pos, snowState.setValue(SnowLayerBlock.LAYERS, ++layers));
+                                                    }
+                                                } else if (canPlaceSnowLayer(serverLevel, pos)) {
+                                                    serverLevel.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
                                                 }
-                                            } else if (snowState.getBlock() == Blocks.FIRE) {
-                                                serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-                                            } else if (snowStateBelow.hasProperty(BlockStateProperties.LIT) && snowStateBelow.getValue(BlockStateProperties.LIT)) {
-                                                makeParticles(serverLevel, pos.below());
-                                                serverLevel.setBlockAndUpdate(pos.below(), snowStateBelow.setValue(BlockStateProperties.LIT, false));
-                                            } else if (snowState.getBlock() == Blocks.SNOW.defaultBlockState().getBlock()) {
-                                                int layers = snowState.getValue(SnowLayerBlock.LAYERS);
-                                                if (layers < 2) {
-                                                    serverLevel.setBlockAndUpdate(pos, snowState.setValue(SnowLayerBlock.LAYERS, ++layers));
-                                                }
-                                            } else if (canPlaceSnowLayer(serverLevel, pos)) {
-                                                serverLevel.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
                                             }
                                         }
                                     }

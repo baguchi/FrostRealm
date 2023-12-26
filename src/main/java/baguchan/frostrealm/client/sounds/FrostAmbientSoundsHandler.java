@@ -49,21 +49,27 @@ public class FrostAmbientSoundsHandler implements AmbientSoundHandler {
                 }
             }
         }
-        if (frostWeather != this.previousWeather || this.loopSounds.values().isEmpty()) {
+        BlockPos blockpos = Minecraft.getInstance().player.blockPosition();
+        if (frostWeather.getNonAffectableBiome().isPresent() && Minecraft.getInstance().level.getBiome(blockpos).is(frostWeather.getNonAffectableBiome().get())) {
             this.previousWeather = frostWeather;
             this.loopSounds.values().forEach(FrostAmbientSoundsHandler.LoopSoundInstance::fadeOut);
-            frostWeather.getSoundEvents().ifPresent(soundEvent -> {
-                this.loopSounds.compute(frostWeather, (p_174924_, p_174925_) -> {
-                    if (p_174925_ == null) {
-                        p_174925_ = new FrostAmbientSoundsHandler.LoopSoundInstance((SoundEvent) soundEvent);
-                        this.soundManager.play(p_174925_);
-                    }
+        } else {
+            if (frostWeather != this.previousWeather || this.loopSounds.values().isEmpty()) {
+                this.previousWeather = frostWeather;
+                this.loopSounds.values().forEach(FrostAmbientSoundsHandler.LoopSoundInstance::fadeOut);
+                frostWeather.getSoundEvents().ifPresent(soundEvent -> {
+                    this.loopSounds.compute(frostWeather, (p_174924_, p_174925_) -> {
+                        if (p_174925_ == null) {
+                            p_174925_ = new FrostAmbientSoundsHandler.LoopSoundInstance((SoundEvent) soundEvent);
+                            this.soundManager.play(p_174925_);
+                        }
 
-                    p_174925_.fadeIn();
-                    return p_174925_;
+                        p_174925_.fadeIn();
+                        return p_174925_;
+                    });
                 });
-            });
 
+            }
         }
     }
 
