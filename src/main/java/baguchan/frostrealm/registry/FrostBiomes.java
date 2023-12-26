@@ -27,7 +27,7 @@ public class FrostBiomes {
 	public static final ResourceKey<Biome> FROST_RIVER = register("frost_river");
 
 	public static final ResourceKey<Biome> CRYSTAL_FALL = register("crystal_fall");
-
+	public static final ResourceKey<Biome> SHERBET_DESERT = register("sherbet_desert");
 	public static final ResourceKey<Biome> ICE_CAVE = register("ice_cave");
 	public static final ResourceKey<Biome> DEEP_UNDERGROUND = register("deep_underground");
 
@@ -47,6 +47,7 @@ public class FrostBiomes {
 		context.register(FROZEN_BEACH, FrostBiomeBuilders.beachBiome(placedFeatures, vanillaConfiguredCarvers));
 		context.register(FROST_RIVER, FrostBiomeBuilders.riverBiome(placedFeatures, vanillaConfiguredCarvers));
 		context.register(CRYSTAL_FALL, FrostBiomeBuilders.waterFallBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(SHERBET_DESERT, FrostBiomeBuilders.sherbetDesert(placedFeatures, vanillaConfiguredCarvers));
 		context.register(ICE_CAVE, FrostBiomeBuilders.iceBiome(placedFeatures, vanillaConfiguredCarvers));
 		context.register(DEEP_UNDERGROUND, FrostBiomeBuilders.undergroundBiome(placedFeatures, vanillaConfiguredCarvers));
 	}

@@ -15,6 +15,8 @@ public class FrostSurfaceRuleData {
 	private static final SurfaceRules.RuleSource FROZEN_GRASS_BLOCK = makeStateRule(FrostBlocks.FROZEN_GRASS_BLOCK.get());
 	private static final SurfaceRules.RuleSource FROZEN_DIRT = makeStateRule(FrostBlocks.FROZEN_DIRT.get());
 	private static final SurfaceRules.RuleSource FRIGID_STONE = makeStateRule(FrostBlocks.FRIGID_STONE.get());
+	private static final SurfaceRules.RuleSource SHERBET_SAND = makeStateRule(FrostBlocks.SHERBET_SAND.get());
+	private static final SurfaceRules.RuleSource SHERBET_SANDSTONE = makeStateRule(FrostBlocks.SHERBET_SANDSTONE.get());
 
 	private static final SurfaceRules.RuleSource POWDER_SNOW = makeStateRule(Blocks.POWDER_SNOW);
 	private static final SurfaceRules.RuleSource SNOW_BLOCK = makeStateRule(Blocks.SNOW_BLOCK);
@@ -48,17 +50,28 @@ public class FrostSurfaceRuleData {
                 SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, surface),
                 SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, FROZEN_DIRT)
         ));
-		SurfaceRules.RuleSource overworldLike = SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.FRIGID_FOREST, FrostBiomes.TUNDRA), SurfaceRules.sequence(
+		SurfaceRules.RuleSource grassLike = SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.FRIGID_FOREST, FrostBiomes.TUNDRA), SurfaceRules.sequence(
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, surface),
 				SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, FROZEN_DIRT)
 		));
 
+		SurfaceRules.RuleSource sandRule = SurfaceRules.sequence(
+				SurfaceRules.ifTrue(
+						SurfaceRules.ON_FLOOR, SHERBET_SAND),
+				SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, SHERBET_SAND),
+				SurfaceRules.ifTrue(SurfaceRules.DEEP_UNDER_FLOOR, SHERBET_SANDSTONE),
+				SurfaceRules.ifTrue(SurfaceRules.VERY_DEEP_UNDER_FLOOR, SHERBET_SANDSTONE)
+		);
 
-        SurfaceRules.RuleSource surfacerules$rulesource9 = SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), overworldLike);
+
+		SurfaceRules.RuleSource sandLike = SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.SHERBET_DESERT), sandRule));
+
+		SurfaceRules.RuleSource surfacerules$rulesource9 = SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), grassLike);
         SurfaceRules.RuleSource surfacerules$rulesource10 = SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), skyLike);
 
 		builder.add(surfacerules$rulesource9);
         builder.add(surfacerules$rulesource10);
+		builder.add(sandLike);
 		builder.add(powderSnow);
 
 		return SurfaceRules.sequence(builder.build().toArray((p_198379_) -> {

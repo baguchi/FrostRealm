@@ -50,6 +50,9 @@
       "frostrealm:frostroot_tree_plains",
       "frostrealm:patch_artic_poppy_sky",
       "frostrealm:patch_tundra_grass_sky"
+    ],
+    [
+      "minecraft:freeze_top_layer"
     ]
   ],
   "has_precipitation": true,
@@ -84,5 +87,5 @@
     "water_ambient": [],
     "water_creature": []
   },
-  "temperature": 0.4
+  "temperature": 0.3
 }

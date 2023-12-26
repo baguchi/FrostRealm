@@ -28,9 +28,7 @@
     [],
     [],
     [],
-    [
-      "frostrealm:delta"
-    ],
+    [],
     [],
     [
       "frostrealm:astrium_ore_upper",
@@ -43,7 +41,8 @@
     ],
     [],
     [
-      "frostrealm:spring_lava_hotrock_extra"
+      "frostrealm:spring_water",
+      "frostrealm:spring_lava"
     ],
     [],
     [
@@ -57,7 +56,20 @@
     "axolotls": [],
     "creature": [],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "frostrealm:frost_wraith",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 100
+      },
+      {
+        "type": "frostrealm:clust_wraith",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 80
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

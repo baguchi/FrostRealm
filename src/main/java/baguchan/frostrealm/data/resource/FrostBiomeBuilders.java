@@ -50,6 +50,14 @@ public class FrostBiomeBuilders {
         return makeSkyBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
 	}
 
+	public static Biome sherbetDesert(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
+		BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
+		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
+		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
+		return makeDefaultHotBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
+	}
+
 	public static Biome hotrockBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
 		BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
