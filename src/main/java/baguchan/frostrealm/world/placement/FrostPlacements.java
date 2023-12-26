@@ -55,7 +55,7 @@ public class FrostPlacements {
 	public static final ResourceKey<PlacedFeature> SPRING_LAVA_HOTROCK_EXTRA = registerKey("spring_lava_hotrock_extra");
 	public static final ResourceKey<PlacedFeature> SPRING_WATER = registerKey("spring_water");
 	public static final ResourceKey<PlacedFeature> SPRING_WATER_EXTRA = registerKey("spring_water_extra");
-	public static final ResourceKey<PlacedFeature> WATER_DELTA = registerKey("water_delta");
+	public static final ResourceKey<PlacedFeature> HOT_SPRING_DELTA = registerKey("hot_spring_delta");
 
 	public static final ResourceKey<PlacedFeature> ICE_CLUSTER = registerKey("ice_cluster");
 	public static final ResourceKey<PlacedFeature> LARGE_ICE = registerKey("large_ice");
@@ -101,7 +101,7 @@ public class FrostPlacements {
         PlacementUtils.register(context, STONE_SPIKE, configuredFeature.getOrThrow(FrostConfiguredFeatures.STONE_SPIKE), RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
 		PlacementUtils.register(context, LAVA_DELTA, configuredFeature.getOrThrow(NetherFeatures.DELTA), CountOnEveryLayerPlacement.of(8), BiomeFilter.biome());
-		PlacementUtils.register(context, WATER_DELTA, configuredFeature.getOrThrow(FrostConfiguredFeatures.WATER_DELTA), CountOnEveryLayerPlacement.of(4), BiomeFilter.biome());
+		PlacementUtils.register(context, HOT_SPRING_DELTA, configuredFeature.getOrThrow(FrostConfiguredFeatures.HOT_SPRING_DELTA), CountOnEveryLayerPlacement.of(4), BiomeFilter.biome());
 
 		PlacementUtils.register(context, SPRING_LAVA, configuredFeature.getOrThrow(FrostConfiguredFeatures.SPRING_LAVA), CountPlacement.of(20), InSquarePlacement.spread(), HeightRangePlacement.of(VeryBiasedToBottomHeight.of(VerticalAnchor.bottom(), VerticalAnchor.belowTop(8), 8)), BiomeFilter.biome());
 		PlacementUtils.register(context, SPRING_LAVA_HOTROCK_EXTRA, configuredFeature.getOrThrow(FrostConfiguredFeatures.SPRING_LAVA), CountPlacement.of(10), InSquarePlacement.spread(), HeightRangePlacement.of(VeryBiasedToBottomHeight.of(VerticalAnchor.aboveBottom(64), VerticalAnchor.top(), 8)), BiomeFilter.biome());

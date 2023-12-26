@@ -54,6 +54,8 @@ public class FrostRealm {
 		FrostFeatures.FEATURES.register(modBus);
 		FrostSounds.SOUND_EVENTS.register(modBus);
 		FrostMenuTypes.MENU_TYPES.register(modBus);
+		FrostFluidTypes.FLUID_TYPES.register(modBus);
+		FrostFluids.FLUIDS.register(modBus);
 		FrostBlocks.BLOCKS.register(modBus);
 		FrostSensors.SENSOR_TYPES.register(modBus);
 		FrostMemoryModuleType.MEMORY_MODULE_TYPES.register(modBus);
@@ -82,6 +84,7 @@ public class FrostRealm {
 
 	public void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
+			FrostInteractionInformations.init();
 			FrostBlocks.burnables();
             this.setupMessages();
 			FrostBiomes.addBiomeTypes();

@@ -43,7 +43,7 @@ public class FrostBiomeBuilders {
 		BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
 		FrostBiomeDefaultFeatures.addWaterSpringOnlyFeatures(builder);
-        FrostBiomeDefaultFeatures.addWaterDelta(builder);
+		FrostBiomeDefaultFeatures.addHotSpringDelta(builder);
 		FrostBiomeDefaultFeatures.addCrystalFallPlantsFeatures(builder);
 		FrostBiomeDefaultFeatures.crystalFallCreatureSpawns(builder1);
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);

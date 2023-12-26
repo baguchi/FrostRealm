@@ -1,4 +1,5 @@
 {
+  "block.frostrealm.hot_spring": "Hot Spring",
   "block.frostrealm.frigid_stone": "Frigid Stone",
   "block.frostrealm.frigid_stone_brick": "Frigid Stone Brick",
   "block.frostrealm.frigid_stone_brick_slab": "Frigid Stone Brick Slab",
@@ -174,8 +175,6 @@
   "aurora_power.frostrealm.aurora_protection": "Aurora Protection",
   "aurora_power.frostrealm.aurora_shaper": "Aurora Shaper",
   "aurora_power.frostrealm.light_slasher": "Light Slasher",
-  "frost_archive.frostrealm.first_step": "First Step",
-  "frost_archive.frostrealm.first_step.page.0": "Fortunately, I was able to visit a dimension called frostrealm thanks to Frost Catalyst. I decided to write down those events just in case something happened.",
-  "frost_archive.frostrealm.first_step.page.1": "frostrealm, as the name suggests, is a cold dimension.\n The air seems to be unstable, snow storms are likely to occur, purple fog occurs, and unpleasant monsters spawn depending on the weather.\n I quickly devised a countermeasure.",
-  "frost_archive.frostrealm.first_step.page.2": "First of all, I decided to gather campfires to keep warm. However, if you put it outside, the fire will go out when a snowstorm comes.\n Luckily, I found a way to counter them with the crystals in this dimension. Items I call frost crystals have the power to generate energy. succeeded in"
+  "fluid.frostrealm.hot_spring": "Hot Spring",
+  "fluid_type.frostrealm.hot_spring": "Hot Spring"
 }

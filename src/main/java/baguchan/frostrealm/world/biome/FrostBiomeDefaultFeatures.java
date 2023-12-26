@@ -89,8 +89,8 @@ public class FrostBiomeDefaultFeatures {
 		p_194721_.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, FrostPlacements.SPRING_WATER);
 	}
 
-	public static void addWaterDelta(BiomeGenerationSettings.Builder p_194721_) {
-		p_194721_.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FrostPlacements.WATER_DELTA);
+	public static void addHotSpringDelta(BiomeGenerationSettings.Builder p_194721_) {
+		p_194721_.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FrostPlacements.HOT_SPRING_DELTA);
 	}
 
 	public static void addHotRockFeatures(BiomeGenerationSettings.Builder p_194721_) {

@@ -128,6 +128,14 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 				tempAffect *= 0.8F;
 			if (entity.isInWaterOrRain())
 				tempAffect *= 2.0F;
+			if (entity.isInFluidType(FrostFluidTypes.HOT_SPRING.get())) {
+				tempAffect *= 0.1F;
+				if (entity.tickCount % 80 == 0) {
+					this.temperatureSaturation = Math.min(this.temperatureSaturation + 0.05F, 1.0F);
+					this.temperature = Math.min(this.temperature + 1, 20);
+				}
+			}
+
 			if (this.hotSource == null) {
 				FrostWeatherSavedData cap = FrostWeatherSavedData.get(entity.level());
 				if (cap != null) {
@@ -138,7 +146,7 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 			}
 			Biome biome = entity.level().getBiome(entity.blockPosition()).value();
 
-			if (biome.getModifiedClimateSettings().temperature() < 1.0F) {
+			if (biome.getModifiedClimateSettings().temperature() < 0.4F) {
 				if (this.hotSource == null) {
 					addExhaustion(tempAffect * 0.002F);
 					if (this.exhaustionLevel > 4.0F) {
