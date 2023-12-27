@@ -18,7 +18,6 @@ public class FrostBiomeDefaultFeatures {
 
 	public static void monsterSpawns(MobSpawnSettings.Builder p_126813_) {
 		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WRAITH.get(), 100, 2, 3));
-		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.CLUST_WRAITH.get(), 80, 1, 2));
 	}
 
 	public static void plainCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
