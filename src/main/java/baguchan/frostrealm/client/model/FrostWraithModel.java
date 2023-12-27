@@ -7,14 +7,15 @@ import baguchan.frostrealm.entity.FrostWraith;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
-public class FrostWraithModel<T extends FrostWraith> extends EntityModel<T> {
+public class FrostWraithModel<T extends FrostWraith> extends EntityModel<T> implements HeadedModel {
 	private final ModelPart head;
-	private final ModelPart body;
+	public final ModelPart body;
 	private final ModelPart arm_left;
 	private final ModelPart arm_right;
 	private final ModelPart leg_left_front;
@@ -22,7 +23,7 @@ public class FrostWraithModel<T extends FrostWraith> extends EntityModel<T> {
 	private final ModelPart leg_left_hind;
 	private final ModelPart leg_right_hind;
 
-	private final ModelPart main;
+	public final ModelPart main;
 
 	public FrostWraithModel(ModelPart root) {
 		this.main = root.getChild("main");
@@ -104,5 +105,10 @@ public class FrostWraithModel<T extends FrostWraith> extends EntityModel<T> {
 		this.leg_left_front.xRot += 0.45F * limbSwingAmount;
 		this.leg_right_hind.xRot += 0.45F * limbSwingAmount;
 		this.leg_left_hind.xRot += 0.45F * limbSwingAmount;
+	}
+
+	@Override
+	public ModelPart getHead() {
+		return this.head;
 	}
 }

@@ -1,7 +1,9 @@
 package baguchan.frostrealm.entity;
 
+import baguchan.frostrealm.utils.LookUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -54,7 +56,7 @@ public class FrostWraith extends FrozenMonster {
 
 	@Override
 	protected boolean isSunBurnTick() {
-		return super.isSunBurnTick();
+		return true;
 	}
 
 	private void calculateFlapping() {
@@ -63,6 +65,11 @@ public class FrostWraith extends FrozenMonster {
 			this.setDeltaMovement(vec3.multiply(1.0D, 0.6D, 1.0D));
 		}
 
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
 	}
 
 	@Override
@@ -91,5 +98,17 @@ public class FrostWraith extends FrozenMonster {
 	}
 
 	protected void checkFallDamage(double p_29370_, boolean p_29371_, BlockState p_29372_, BlockPos p_29373_) {
+	}
+
+	@Override
+	public boolean hasLineOfSight(Entity p_147185_) {
+		if (p_147185_.level() == this.level() && !LookUtils.isLookingAtYouTest(this, p_147185_)) {
+			return false;
+		}
+		return super.hasLineOfSight(p_147185_);
+	}
+
+	public int getHeadRotSpeed() {
+		return 2;
 	}
 }
