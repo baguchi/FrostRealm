@@ -57,6 +57,7 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.FROSTORM_DRAGON.get(), FrostormDragonRenderer::new);
         event.registerEntityRenderer(FrostEntities.STRAY_WARRIOR.get(), StrayWarriorRenderer::new);
         event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
+        event.registerEntityRenderer(FrostEntities.MIND_VINE.get(), MindVineRenderer::new);
 	}
 
 	@SubscribeEvent
@@ -77,6 +78,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.FROSTROM_DRAGON, FrostormDragonModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.STRAY_WARRIOR, StrayWarriorModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SEAL, SealModel::createBodyLayer);
+        event.registerLayerDefinition(FrostModelLayers.MIND_VINE, MindVineModel::createBodyLayer);
 
         event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
         event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_OUTER, () -> YetiFurArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION));

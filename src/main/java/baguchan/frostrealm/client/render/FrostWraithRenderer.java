@@ -9,6 +9,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
@@ -35,7 +36,11 @@ public class FrostWraithRenderer<T extends FrostWraith> extends MobRenderer<T, F
 		});
 	}
 
-	@Override
+    public boolean shouldRender(T p_114169_, Frustum p_114170_, double p_114171_, double p_114172_, double p_114173_) {
+        return true;
+    }
+
+    @Override
 	public void render(T p_115455_, float p_115456_, float p_115457_, PoseStack p_115458_, MultiBufferSource p_115459_, int p_115460_) {
 		super.render(p_115455_, p_115456_, p_115457_, p_115458_, p_115459_, p_115460_);
 

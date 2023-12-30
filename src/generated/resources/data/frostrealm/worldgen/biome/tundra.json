@@ -88,8 +88,7 @@
         "weight": 8
       }
     ],
-    "misc": [],
-    "monster": [
+    "frostrealm_surface_monster": [
       {
         "type": "frostrealm:frost_wraith",
         "maxCount": 3,
@@ -97,6 +96,8 @@
         "weight": 100
       }
     ],
+    "misc": [],
+    "monster": [],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

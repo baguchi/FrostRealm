@@ -1,6 +1,7 @@
 package baguchan.frostrealm.world.biome;
 
 import baguchan.frostrealm.registry.FrostEntities;
+import baguchan.frostrealm.registry.FrostMobCategory;
 import baguchan.frostrealm.world.caver.FrostConfiguredWorldCarvers;
 import baguchan.frostrealm.world.placement.FrostOrePlacements;
 import baguchan.frostrealm.world.placement.FrostPlacements;
@@ -17,7 +18,7 @@ public class FrostBiomeDefaultFeatures {
 	}
 
 	public static void monsterSpawns(MobSpawnSettings.Builder p_126813_) {
-		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WRAITH.get(), 100, 2, 3));
+        p_126813_.addSpawn(FrostMobCategory.FROSTREALM_SURFACE_MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WRAITH.get(), 100, 2, 3));
 	}
 
 	public static void plainCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
