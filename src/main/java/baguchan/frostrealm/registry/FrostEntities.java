@@ -23,6 +23,7 @@ import java.util.function.Supplier;
 public class FrostEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, FrostRealm.MODID);
 
+    public static final Supplier<EntityType<BushBug>> BUSH_BUG = ENTITIES.register("bush_bug", () -> EntityType.Builder.of(BushBug::new, MobCategory.CREATURE).sized(0.6F, 0.6F).build(prefix("bush_bug")));
 
     public static final Supplier<EntityType<Marmot>> MARMOT = ENTITIES.register("marmot", () -> EntityType.Builder.of(Marmot::new, MobCategory.CREATURE).sized(0.65F, 0.6F).build(prefix("marmot")));
     public static final Supplier<EntityType<SnowPileQuail>> SNOWPILE_QUAIL = ENTITIES.register("snowpile_quail", () -> EntityType.Builder.of(SnowPileQuail::new, MobCategory.CREATURE).sized(0.6F, 0.6F).build(prefix("snowpile_quail")));
@@ -52,6 +53,7 @@ public class FrostEntities {
         event.put(CRYSTAL_FOX.get(), CrystalFox.createAttributes().build());
         event.put(SNOW_MOLE.get(), SnowMole.createAttributes().build());
         event.put(SEAL.get(), Seal.createAttributes().build());
+        event.put(BUSH_BUG.get(), BushBug.createAttributes().build());
 
         event.put(YETI.get(), Yeti.createAttributeMap().build());
         event.put(FROST_WRAITH.get(), FrostWraith.createAttributes().build());
@@ -71,6 +73,7 @@ public class FrostEntities {
         event.register(CRYSTAL_FOX.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalFox::checkFrostAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(SNOW_MOLE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowMole::checkSnowMoleSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(SEAL.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seal::checkSealSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(BUSH_BUG.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostAnimal::checkFrostAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 
 
         event.register(YETI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);

@@ -83,5 +83,6 @@ public class FrostItems {
     public static final Supplier<Item> SEAL_SPAWNEGG = ITEMS.register("seal_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.SEAL, 0xFFFFFF, 0xFFFFFF, (new Item.Properties())));
     public static final Supplier<Item> STRAY_WARRIOR_SPAWNEGG = ITEMS.register("stray_warrior_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.STRAY_WARRIOR, 6387319, 14543594, (new Item.Properties())));
     public static final Supplier<Item> MIND_VINE_SPAWNEGG = ITEMS.register("mind_vine_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.MIND_VINE, 0x495E27, 0x6C8031, (new Item.Properties())));
+    public static final Supplier<Item> BUSH_BUG_SPAWNEGG = ITEMS.register("bush_bug_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.BUSH_BUG, 0x888888, 0x5F5593, (new Item.Properties())));
 
 }

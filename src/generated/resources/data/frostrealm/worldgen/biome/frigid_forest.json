@@ -64,6 +64,12 @@
         "maxCount": 6,
         "minCount": 4,
         "weight": 10
+      },
+      {
+        "type": "frostrealm:bush_bug",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
       }
     ],
     "frostrealm_surface_monster": [
