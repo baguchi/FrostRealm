@@ -91,7 +91,7 @@ public class BushBug extends Animal implements IShearable {
         } else if (this.eatAnimationTick >= 4 && this.eatAnimationTick <= 36) {
             return 1.0F;
         } else {
-            return this.eatAnimationTick < 4 ? ((float) this.eatAnimationTick - p_29881_) / 4.0F : -((float) (this.eatAnimationTick - 40) - p_29881_) / 4.0F;
+            return this.eatAnimationTick < 4 ? (float) this.eatAnimationTick / 4 : ((float) 4 / (this.eatAnimationTick - 36));
         }
     }
 

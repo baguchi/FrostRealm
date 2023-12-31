@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 
 public class EatFrostGrassBlockGoal extends TimeConditionGoal {
     private static final UniformInt TIME_BETWEEN = UniformInt.of(400, 600);
-    private static final UniformInt TIME_BETWEEN_COOLDOWN = UniformInt.of(600, 800);
+    private static final UniformInt TIME_BETWEEN_COOLDOWN = UniformInt.of(400, 600);
 
 
     private static final Predicate<BlockState> IS_TALL_GRASS = BlockStatePredicate.forBlock(FrostBlocks.COLD_GRASS.get());
@@ -57,10 +57,6 @@ public class EatFrostGrassBlockGoal extends TimeConditionGoal {
     @Override
     public boolean canContinueToUse() {
         return this.eatAnimationTick > 0;
-    }
-
-    public int getEatAnimationTick() {
-        return this.eatAnimationTick;
     }
 
     @Override
