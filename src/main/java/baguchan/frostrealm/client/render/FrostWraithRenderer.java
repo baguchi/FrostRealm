@@ -14,7 +14,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Matrix4f;
@@ -36,31 +37,52 @@ public class FrostWraithRenderer<T extends FrostWraith> extends MobRenderer<T, F
 		});
 	}
 
-    public boolean shouldRender(T p_114169_, Frustum p_114170_, double p_114171_, double p_114172_, double p_114173_) {
-        return true;
+	public boolean shouldRender(T p_114491_, Frustum p_114492_, double p_114493_, double p_114494_, double p_114495_) {
+		if (!p_114491_.shouldRender(p_114493_, p_114494_, p_114495_)) {
+			return false;
+		} else if (p_114491_.noCulling) {
+			return true;
+		} else {
+
+			Vec3 vec31 = p_114491_.getLookAngle();
+			double range = 16F;
+			AABB aabb = p_114491_.getBoundingBoxForCulling().inflate(0.5);
+			if (aabb.hasNaN() || aabb.getSize() == 0.0) {
+				aabb = new AABB(
+						p_114491_.getX() - 2.0,
+						p_114491_.getY() - 2.0,
+						p_114491_.getZ() - 2.0,
+						p_114491_.getX() + 2.0,
+						p_114491_.getY() + 2.0,
+						p_114491_.getZ() + 2.0
+				);
+			}
+
+			return p_114492_.isVisible(aabb.expandTowards(vec31.x() * (range), vec31.y() * (range), vec31.z() * (range)));
+		}
     }
 
     @Override
 	public void render(T p_115455_, float p_115456_, float p_115457_, PoseStack p_115458_, MultiBufferSource p_115459_, int p_115460_) {
 		super.render(p_115455_, p_115456_, p_115457_, p_115458_, p_115459_, p_115460_);
 
-		float f3 = 18.0F;
+		float f3 = 16.0F;
 		float f4 = 2.0F + 1.0F;
 		int j = (int) (255.0F * (1F));
 		p_115458_.pushPose();
 		VertexConsumer vertexconsumer2 = p_115459_.getBuffer(RenderType.lightning());
 
-		float f = Mth.rotLerp(p_115457_, p_115455_.yBodyRotO, p_115455_.yBodyRot);
-		float f1 = Mth.rotLerp(p_115457_, p_115455_.yHeadRotO, p_115455_.yHeadRot);
-		float f2 = f1 - f;
+		float f1 = (float) p_115455_.getYHeadRot();
 		p_115458_.translate(0, 2.1F * 0.85F, 0);
+
 		p_115458_.mulPose(Axis.YP.rotationDegrees(-f1 - 90.0F));
-		p_115458_.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(p_115457_, p_115455_.xRotO, p_115455_.getXRot()) + 90.0F));
+		p_115458_.mulPose(Axis.ZP.rotationDegrees((float) -p_115455_.getXRot() + 90.0F));
+
+
+		p_115458_.scale(-1.0F, -1.0F, 1.0F);
 		this.getModel().main.translateAndRotate(p_115458_);
 		this.getModel().body.translateAndRotate(p_115458_);
 		this.getModel().getHead().translateAndRotate(p_115458_);
-
-		p_115458_.scale(-1.0F, -1.0F, 1.0F);
 
 		Matrix4f matrix4f = p_115458_.last().pose();
 		vertex01(vertexconsumer2, matrix4f, j);
