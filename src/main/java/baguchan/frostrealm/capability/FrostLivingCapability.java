@@ -1,6 +1,5 @@
 package baguchan.frostrealm.capability;
 
-import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.*;
 import net.minecraft.client.Minecraft;
@@ -184,7 +183,7 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 		}
 		if (entity.tickCount % 20 == 0 && !entity.level().isClientSide()) {
 			ChangedColdMessage message = new ChangedColdMessage(entity, this.temperature, this.temperatureSaturation);
-			FrostRealm.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> entity), message);
+			PacketDistributor.TRACKING_ENTITY_AND_SELF.with(entity).send(message);
 		}
 	}
 

@@ -11,6 +11,7 @@ import baguchan.frostrealm.registry.*;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
@@ -22,9 +23,9 @@ import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.util.thread.EffectiveSide;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
-import net.neoforged.neoforge.network.NetworkRegistry;
-import net.neoforged.neoforge.network.PlayNetworkDirection;
-import net.neoforged.neoforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
+import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import org.apache.logging.log4j.LogManager;
@@ -41,12 +42,6 @@ public class FrostRealm {
 
 	public static final String NETWORK_PROTOCOL = "2";
 
-
-	public static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(MODID, "net"))
-			.networkProtocolVersion(() -> NETWORK_PROTOCOL)
-			.clientAcceptedVersions(NETWORK_PROTOCOL::equals)
-			.serverAcceptedVersions(NETWORK_PROTOCOL::equals)
-			.simpleChannel();
 
 	public FrostRealm(IEventBus modBus) {
 
@@ -72,6 +67,7 @@ public class FrostRealm {
         FrostWeathers.FROST_WEATHER.register(modBus);
 		modBus.addListener(this::setup);
 		modBus.addListener(this::dataSetup);
+		modBus.addListener(this::setupPackets);
 		NeoForge.EVENT_BUS.addListener(this::registerCommands);
 
 		if (FMLEnvironment.dist == Dist.CLIENT) {
@@ -86,7 +82,6 @@ public class FrostRealm {
 		event.enqueueWork(() -> {
 			FrostInteractionInformations.init();
 			FrostBlocks.burnables();
-            this.setupMessages();
 			FrostBiomes.addBiomeTypes();
 			Map<ResourceLocation, MultiNoiseBiomeSourceParameterList.Preset> map = Maps.newHashMap();
 			map.putAll(Map.copyOf(MultiNoiseBiomeSourceParameterList.Preset.BY_NAME));
@@ -95,30 +90,22 @@ public class FrostRealm {
 		});
 	}
 
-	public static <MSG> void sendMSGToAll(MSG message) {
+	public static void sendMSGToAll(CustomPacketPayload message) {
 		for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
 			sendNonLocal(message, player);
 		}
 	}
 
-	public static <MSG> void sendNonLocal(MSG msg, ServerPlayer player) {
-		CHANNEL.sendTo(msg, player.connection.connection, PlayNetworkDirection.PLAY_TO_CLIENT);
+	public static void sendNonLocal(CustomPacketPayload msg, ServerPlayer player) {
+		PacketDistributor.PLAYER.with(player).send(msg);
 	}
 
-	private void setupMessages() {
-		CHANNEL.messageBuilder(ChangedColdMessage.class, 0)
-				.encoder(ChangedColdMessage::writeToPacket).decoder(ChangedColdMessage::readFromPacket)
-                .consumerMainThread(ChangedColdMessage::handle)
-                .add();
-		CHANNEL.messageBuilder(ChangeWeatherMessage.class, 1)
-                .encoder(ChangeWeatherMessage::writeToPacket).decoder(ChangeWeatherMessage::readFromPacket)
-                .consumerMainThread(ChangeWeatherMessage::handle)
-                .add();
-		CHANNEL.messageBuilder(HurtMultipartMessage.class, 2)
-                .encoder(HurtMultipartMessage::write).decoder(HurtMultipartMessage::read)
-				.consumerMainThread(HurtMultipartMessage::handle)
-                .add();
-    }
+	public void setupPackets(RegisterPayloadHandlerEvent event) {
+		IPayloadRegistrar registrar = event.registrar(MODID).versioned("1.0.0").optional();
+		registrar.play(ChangedColdMessage.ID, ChangedColdMessage::new, payload -> payload.client(ChangedColdMessage::handle));
+		registrar.play(ChangeWeatherMessage.ID, ChangeWeatherMessage::new, payload -> payload.client(ChangeWeatherMessage::handle));
+		registrar.play(HurtMultipartMessage.ID, HurtMultipartMessage::new, payload -> payload.server(HurtMultipartMessage::handle));
+	}
 
 	public static ResourceLocation prefix(String name) {
 		return new ResourceLocation(FrostRealm.MODID, name.toLowerCase(Locale.ROOT));

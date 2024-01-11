@@ -1,6 +1,5 @@
 package baguchan.frostrealm.capability;
 
-import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.weather.FrostWeather;
@@ -100,7 +99,7 @@ public class FrostWeatherSavedData extends SavedData {
             data.frostWeather = FrostWeathers.NOPE.get();
 		}
         ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
-        FrostRealm.CHANNEL.send(PacketDistributor.DIMENSION.with(p_300199_::dimension), message);
+		PacketDistributor.DIMENSION.with(p_300199_.dimension()).send(message);
 		return data;
 	}
 

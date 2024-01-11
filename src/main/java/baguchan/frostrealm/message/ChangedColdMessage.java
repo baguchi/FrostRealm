@@ -1,14 +1,17 @@
 package baguchan.frostrealm.message;
 
+import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.registry.FrostAttachs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.neoforged.fml.LogicalSide;
-import net.neoforged.neoforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.PlayPayloadContext;
 
-public class ChangedColdMessage {
+public class ChangedColdMessage implements CustomPacketPayload {
+	public static final ResourceLocation ID = new ResourceLocation(FrostRealm.MODID, "changed_cold");
 	private final int entityId;
 
 	private final int temperature;
@@ -27,27 +30,29 @@ public class ChangedColdMessage {
 		this.temperatureSaturation = temperatureSaturation;
 	}
 
-	public static void writeToPacket(ChangedColdMessage packet, FriendlyByteBuf buf) {
-		buf.writeInt(packet.entityId);
-		buf.writeInt(packet.temperature);
-		buf.writeFloat(packet.temperatureSaturation);
+	public void write(FriendlyByteBuf buf) {
+		buf.writeInt(this.entityId);
+		buf.writeInt(this.temperature);
+		buf.writeFloat(this.temperatureSaturation);
 	}
 
-	public static ChangedColdMessage readFromPacket(FriendlyByteBuf buf) {
-		return new ChangedColdMessage(buf.readInt(), buf.readInt(), buf.readFloat());
+	@Override
+	public ResourceLocation id() {
+		return ID;
 	}
 
-    public void handle(NetworkEvent.Context context) {
-		if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT)
-			context.enqueueWork(() -> {
-                Entity entity = Minecraft.getInstance().level.getEntity(entityId);
+	public ChangedColdMessage(FriendlyByteBuf buf) {
+		this(buf.readInt(), buf.readInt(), buf.readFloat());
+	}
+
+	public static void handle(ChangedColdMessage message, PlayPayloadContext context) {
+		context.workHandler().execute(() -> {
+			Entity entity = Minecraft.getInstance().level.getEntity(message.entityId);
 				if (entity != null && entity instanceof net.minecraft.world.entity.LivingEntity) {
 					FrostLivingCapability frostLivingCapability = entity.getData(FrostAttachs.FROST_LIVING);
-					frostLivingCapability.setTemperatureLevel(temperature);
-					frostLivingCapability.setSaturation(temperatureSaturation);
+					frostLivingCapability.setTemperatureLevel(message.temperature);
+					frostLivingCapability.setSaturation(message.temperatureSaturation);
 				}
 			});
-
-        context.setPacketHandled(true);
 	}
 }

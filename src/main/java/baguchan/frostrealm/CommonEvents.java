@@ -60,7 +60,7 @@ public class CommonEvents {
                 if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
                     FrostWeatherSavedData cap = FrostWeatherSavedData.get(serverworld);
                     ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
-                    FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+                    PacketDistributor.ALL.noArg().send(message);
 
                 }
             }
@@ -78,7 +78,7 @@ public class CommonEvents {
 
                     FrostWeatherSavedData cap = FrostWeatherSavedData.get(serverworld);
                     ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
-                    FrostRealm.CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+                    PacketDistributor.ALL.noArg().send(message);
                 }
             }
         }

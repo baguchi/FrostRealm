@@ -1,6 +1,5 @@
 package baguchan.frostrealm.capability;
 
-import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostWeathers;
@@ -41,7 +40,7 @@ public class FrostWeatherManager {
 
                             frostWeatherData.setFrostWeather(frostWeather);
                             ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
-                            FrostRealm.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), message);
+                            PacketDistributor.DIMENSION.with(level.dimension()).send(message);
 
                             frostWeatherData.setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
                             frostWeatherData.setDirty();
@@ -52,7 +51,7 @@ public class FrostWeatherManager {
                         frostWeatherData.setWetherTime(((level.random.nextInt(5) + 10) * 60) * 20);
                         frostWeatherData.setFrostWeather(FrostWeathers.NOPE.get());
                         ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
-                        FrostRealm.CHANNEL.send(PacketDistributor.DIMENSION.with(level::dimension), message);
+                        PacketDistributor.DIMENSION.with(level.dimension()).send(message);
                         frostWeatherData.setDirty();
                     }
                 }

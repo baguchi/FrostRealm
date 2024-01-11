@@ -1,6 +1,5 @@
 package baguchan.frostrealm.command;
 
-import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.capability.FrostWeatherSavedData;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.registry.FrostDimensions;
@@ -54,7 +53,7 @@ public class FrostWeatherCommand {
 			cap.setFrostWeather(FrostWeathers.NOPE.get());
 			cap.setWetherTime(p_139174_);
 			ChangeWeatherMessage message = new ChangeWeatherMessage(FrostWeathers.NOPE.get());
-			FrostRealm.CHANNEL.send(PacketDistributor.DIMENSION.with(p_139173_.getLevel()::dimension), message);
+			PacketDistributor.DIMENSION.with(p_139173_.getLevel().dimension()).send(message);
 
 			p_139173_.sendSuccess(() -> Component.translatable("commands.frostrealm.frost_weather.clear"), true);
 		}
@@ -90,7 +89,7 @@ public class FrostWeatherCommand {
 
 					cap.setWetherTime(p_139179_);
 					ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather.get());
-					FrostRealm.CHANNEL.send(PacketDistributor.DIMENSION.with(p_139178_.getLevel()::dimension), message);
+					PacketDistributor.DIMENSION.with(p_139178_.getLevel().dimension()).send(message);
 					p_139178_.sendSuccess(() -> Component.translatable("commands.frostrealm.frost_weather.set"), true);
 					return p_139179_;
 				}
