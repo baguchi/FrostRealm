@@ -5,6 +5,7 @@
     "minecraft:magma_block",
     "minecraft:furnace",
     "minecraft:blast_furnace",
-    "minecraft:smoker"
+    "minecraft:smoker",
+    "frostrealm:hot_spring"
   ]
 }
