@@ -23,54 +23,6 @@
     ],
     "subtitle": "subtitles.ambient.blizzard"
   },
-  "entity.gokkur.idle": {
-    "sounds": [
-      {
-        "name": "frostrealm:entity/gokkur/gokkur_idle"
-      }
-    ],
-    "subtitle": "subtitles.entity.gokkur.idle"
-  },
-  "entity.gokkur.hurt": {
-    "sounds": [
-      {
-        "name": "frostrealm:entity/gokkur/gokkur_hurt"
-      }
-    ],
-    "subtitle": "subtitles.entity.gokkur.hurt"
-  },
-  "entity.gokkur.death": {
-    "sounds": [
-      {
-        "name": "frostrealm:entity/gokkur/gokkur_death"
-      }
-    ],
-    "subtitle": "subtitles.entity.gokkur.death"
-  },
-  "entity.gokkudillo.idle": {
-    "sounds": [
-      {
-        "name": "frostrealm:entity/gokkudillo/gokkudillo_idle"
-      }
-    ],
-    "subtitle": "subtitles.entity.gokkudillo.idle"
-  },
-  "entity.gokkudillo.hurt": {
-    "sounds": [
-      {
-        "name": "frostrealm:entity/gokkudillo/gokkudillo_hurt"
-      }
-    ],
-    "subtitle": "subtitles.entity.gokkudillo.hurt"
-  },
-  "entity.gokkudillo.death": {
-    "sounds": [
-      {
-        "name": "frostrealm:entity/gokkudillo/gokkudillo_death"
-      }
-    ],
-    "subtitle": "subtitles.entity.gokkudillo.death"
-  },
   "entity.marmot.idle": {
     "sounds": [
       {

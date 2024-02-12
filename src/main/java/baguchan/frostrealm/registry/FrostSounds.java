@@ -15,12 +15,6 @@ public class FrostSounds {
     public static final Supplier<SoundEvent> FROST_MOON_BGM = register("music.frost_moon");
     public static final Supplier<SoundEvent> CALM_NIGHT_BGM = register("music.calm_night");
     public static final Supplier<SoundEvent> BLIZZARD_AMBIENT = register("ambient.blizzard");
-    public static final Supplier<SoundEvent> GOKKUR_IDLE = register("entity.gokkur.idle");
-    public static final Supplier<SoundEvent> GOKKUR_HURT = register("entity.gokkur.hurt");
-    public static final Supplier<SoundEvent> GOKKUR_DEATH = register("entity.gokkur.death");
-    public static final Supplier<SoundEvent> GOKKUDILLO_IDLE = register("entity.gokkudillo.idle");
-    public static final Supplier<SoundEvent> GOKKUDILLO_HURT = register("entity.gokkudillo.hurt");
-    public static final Supplier<SoundEvent> GOKKUDILLO_DEATH = register("entity.gokkudillo.death");
     public static final Supplier<SoundEvent> MARMOT_IDLE = register("entity.marmot.idle");
     public static final Supplier<SoundEvent> MARMOT_HURT = register("entity.marmot.hurt");
     public static final Supplier<SoundEvent> MARMOT_DEATH = register("entity.marmot.death");

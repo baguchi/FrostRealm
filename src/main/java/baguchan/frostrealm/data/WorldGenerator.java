@@ -1,6 +1,7 @@
 package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.data.resource.FrostDensityFunctions;
 import baguchan.frostrealm.data.resource.FrostNoises;
 import baguchan.frostrealm.data.resource.ModConfiguredFeatures;
 import baguchan.frostrealm.registry.FrostBiomeSources;
@@ -25,6 +26,7 @@ public class WorldGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, FrostBiomeSources::bootstrapPreset)
             .add(Registries.CONFIGURED_CARVER, FrostConfiguredWorldCarvers::bootstrap)
             .add(Registries.NOISE_SETTINGS, FrostDimensionSettings::bootstrapNoise)
+			.add(Registries.DENSITY_FUNCTION, FrostDensityFunctions::bootstrap)
             .add(Registries.DIMENSION_TYPE, FrostDimensionSettings::bootstrapDimensionType)
             .add(Registries.BIOME, FrostBiomes::bootstrap)
             .add(Registries.LEVEL_STEM, FrostDimensionSettings::bootstrapLevelStem);
