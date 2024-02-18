@@ -70,8 +70,8 @@
     "creature": [
       {
         "type": "frostrealm:seal",
-        "maxCount": 5,
-        "minCount": 4,
+        "maxCount": 6,
+        "minCount": 5,
         "weight": 10
       }
     ],
