@@ -6,6 +6,7 @@ import baguchan.frostrealm.entity.goal.CounterGoal;
 import baguchan.frostrealm.entity.goal.GuardAndCounterAnimationGoal;
 import baguchan.frostrealm.entity.utils.GuardHandler;
 import baguchan.frostrealm.registry.FrostItems;
+import baguchan.frostrealm.utils.LookUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -33,8 +34,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
-    private static final EntityDataAccessor<Boolean> DATA_GUARD = SynchedEntityData.defineId(StrayWarrior.class, EntityDataSerializers.BOOLEAN);
+public class Seeker extends AbstractSkeleton implements IGuardMob {
+    private static final EntityDataAccessor<Boolean> DATA_GUARD = SynchedEntityData.defineId(Seeker.class, EntityDataSerializers.BOOLEAN);
 
     public int attackAnimationTick;
     private final int attackAnimationLength = (int) (20 * 1.75);
@@ -51,7 +52,7 @@ public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
     public GuardAndCounterAnimationGoal guardAnimationGoal;
     public CounterGoal counterGoal;
 
-    public StrayWarrior(EntityType<? extends StrayWarrior> p_32133_, Level p_32134_) {
+    public Seeker(EntityType<? extends Seeker> p_32133_, Level p_32134_) {
         super(p_32133_, p_32134_);
         this.xpReward = 10;
     }
@@ -232,7 +233,7 @@ public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
         return false;
     }
 
-    public static boolean checkStraySpawnRules(EntityType<StrayWarrior> p_219121_, ServerLevelAccessor p_219122_, MobSpawnType p_219123_, BlockPos p_219124_, RandomSource p_219125_) {
+    public static boolean checkStraySpawnRules(EntityType<Seeker> p_219121_, ServerLevelAccessor p_219122_, MobSpawnType p_219123_, BlockPos p_219124_, RandomSource p_219125_) {
         BlockPos blockpos = p_219124_;
 
         do {
@@ -268,7 +269,15 @@ public class StrayWarrior extends AbstractSkeleton implements IGuardMob {
     }
 
     @Override
+    public boolean hasLineOfSight(Entity p_147185_) {
+        if (p_147185_.level() == this.level() && !LookUtils.isLookingAtYouTest(this, p_147185_)) {
+            return false;
+        }
+        return super.hasLineOfSight(p_147185_);
+    }
+
+    @Override
     protected AABB getAttackBoundingBox() {
-        return this.getMainHandItem().is(FrostItems.FROST_SPEAR.get()) ? super.getAttackBoundingBox().inflate(0.5F, 0, 0.5F) : super.getAttackBoundingBox();
+        return this.getMainHandItem().is(FrostItems.FROST_SPEAR.get()) ? super.getAttackBoundingBox().inflate(1F, 0, 1F) : super.getAttackBoundingBox();
     }
 }

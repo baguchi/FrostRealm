@@ -63,19 +63,19 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 	@Override
 	public boolean renderSky(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
-		renderAurora(poseStack, FrostWeatherManager.getWeatherLevel(partialTick), partialTick, ticks, Minecraft.getInstance());
+        renderAurora(poseStack, FrostWeatherManager.getWeatherLevel(partialTick), FrostWeatherManager.getAuroraLevel());
 
 		return true;
 	}
 
-	private void renderAurora(PoseStack p_109781_, float weatherLevel, float partialTick, int ticks, Minecraft minecraft) {
+    private void renderAurora(PoseStack p_109781_, float weatherLevel, float auroraLevel) {
 		BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
 		RenderSystem.disableCull();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		p_109781_.pushPose();
-		float f11 = (1.0F - weatherLevel);
+        float f11 = Mth.clamp(1.0F * auroraLevel - weatherLevel, 0F, 1F);
 		FogRenderer.levelFogColor();
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f11);
 

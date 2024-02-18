@@ -6,9 +6,11 @@ import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.*;
 import baguchan.frostrealm.client.render.*;
 import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
+import baguchan.frostrealm.client.screen.AuroraInfuserScreen;
 import baguchan.frostrealm.registry.FrostBlockEntitys;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
+import baguchan.frostrealm.registry.FrostMenuTypes;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -30,6 +32,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterShadersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
@@ -55,7 +58,7 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.FROST_BOAR.get(), FrostBoarRenderer::new);
         event.registerEntityRenderer(FrostEntities.WARPED_CRYSTAL_SHARD.get(), WarpedCrystalRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROSTORM_DRAGON.get(), FrostormDragonRenderer::new);
-        event.registerEntityRenderer(FrostEntities.STRAY_WARRIOR.get(), StrayWarriorRenderer::new);
+        event.registerEntityRenderer(FrostEntities.SEEKER.get(), SeekerRenderer::new);
         event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
         event.registerEntityRenderer(FrostEntities.MIND_VINE.get(), MindVineRenderer::new);
         event.registerEntityRenderer(FrostEntities.BUSH_BUG.get(), BushBugRender::new);
@@ -77,7 +80,7 @@ public class ClientRegistrar {
         event.registerLayerDefinition(FrostModelLayers.ASTRA_BALL, AstraBallModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.FROST_BOAR, FrostBoarModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.FROSTROM_DRAGON, FrostormDragonModel::createBodyLayer);
-        event.registerLayerDefinition(FrostModelLayers.STRAY_WARRIOR, StrayWarriorModel::createBodyLayer);
+        event.registerLayerDefinition(FrostModelLayers.SEEKER, SeekerModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SEAL, SealModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.MIND_VINE, MindVineModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.BUSH_BUG, BushBugModel::createBodyLayer);
@@ -149,6 +152,11 @@ public class ClientRegistrar {
 		FrostRealmRenderInfo renderInfo = new FrostRealmRenderInfo(192.0F, true, DimensionSpecialEffects.SkyType.NORMAL, false, false);
 		event.register(FrostRealm.prefix("renderer"), renderInfo);
 	}
+
+    @SubscribeEvent
+    public static void screenEvent(RegisterMenuScreensEvent event) {
+        event.register(FrostMenuTypes.AURORA_INFUSER.get(), AuroraInfuserScreen::new);
+    }
 
     @SubscribeEvent
     public static void registerShaders(final RegisterShadersEvent event) {

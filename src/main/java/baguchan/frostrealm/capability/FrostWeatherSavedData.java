@@ -1,11 +1,13 @@
 package baguchan.frostrealm.capability;
 
+import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.weather.FrostWeather;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
@@ -21,6 +23,7 @@ public class FrostWeatherSavedData extends SavedData {
 	private int weatherTime;
 
 	private float unstableLevel;
+	private float auroraLevel = 1.0F;
 	private final ServerLevel serverLevel;
 	private static Map<Level, FrostWeatherSavedData> dataMap = new HashMap<>();
 
@@ -31,7 +34,10 @@ public class FrostWeatherSavedData extends SavedData {
 	}
 
 	public void setUnstableLevel(float unstableLevel) {
-		this.unstableLevel = unstableLevel;
+		this.unstableLevel = Mth.clamp(unstableLevel, 0, 1F);
+		if (this.unstableLevel != unstableLevel) {
+			this.setDirty();
+		}
 	}
 
 	public float getUnstableLevel() {
@@ -39,7 +45,16 @@ public class FrostWeatherSavedData extends SavedData {
 	}
 
 
+	public void setAuroraLevel(float auroraLevel) {
+		this.auroraLevel = Mth.clamp(auroraLevel, 0, 1F);
+		if (this.auroraLevel != auroraLevel) {
+			this.setDirty();
+		}
+	}
 
+	public float getAuroraLevel() {
+		return auroraLevel;
+	}
 
 	public boolean isWeatherActive() {
 		return weatherTime > 0;
@@ -92,6 +107,7 @@ public class FrostWeatherSavedData extends SavedData {
 		FrostWeatherSavedData data = new FrostWeatherSavedData(p_300199_);
 		data.weatherTime = nbt.getInt("WeatherTime");
 		data.unstableLevel = nbt.getFloat("UnstableLevel");
+		data.auroraLevel = nbt.getFloat("AuroraLevel");
 		FrostWeather frostWeather = FrostWeathers.getRegistry().get(ResourceLocation.tryParse(nbt.getString("FrostWeather")));
 		if (frostWeather != null) {
 			data.frostWeather = frostWeather;
@@ -100,6 +116,9 @@ public class FrostWeatherSavedData extends SavedData {
 		}
         ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
 		PacketDistributor.DIMENSION.with(p_300199_.dimension()).send(message);
+
+		ChangeAuroraMessage message2 = new ChangeAuroraMessage(data.auroraLevel);
+		PacketDistributor.DIMENSION.with(p_300199_.dimension()).send(message2);
 		return data;
 	}
 
@@ -109,6 +128,7 @@ public class FrostWeatherSavedData extends SavedData {
 
 		nbt.putInt("WeatherTime", this.weatherTime);
 		nbt.putFloat("UnstableLevel", this.unstableLevel);
+		nbt.putFloat("AuroraLevel", this.auroraLevel);
 		if (this.frostWeather != null) {
 			nbt.putString("FrostWeather", FrostWeathers.getRegistry().getKey(this.frostWeather).toString());
 		}

@@ -22,8 +22,6 @@ public class FrostItems {
     public static final Supplier<Item> ASTRIUM_RAW = ITEMS.register("astrium_raw", () -> new Item((new Item.Properties())));
     public static final Supplier<Item> ASTRIUM_INGOT = ITEMS.register("astrium_ingot", () -> new Item((new Item.Properties())));
     public static final Supplier<Item> STARDUST_CRYSTAL = ITEMS.register("stardust_crystal", () -> new Item((new Item.Properties())));
-    public static final Supplier<Item> AURORA_GEM = ITEMS.register("aurora_gem", () -> new Item((new Item.Properties().stacksTo(1))));
-
     public static final Supplier<Item> FROZEN_FRUIT = ITEMS.register("frozen_fruit", () -> new Item((new Item.Properties()).food(FrostFoods.FROZEN_FRUIT)));
     public static final Supplier<Item> MELTED_FRUIT = ITEMS.register("melted_fruit", () -> new Item((new Item.Properties()).food(FrostFoods.MELTED_FRUIT)));
     public static final Supplier<Item> SUGARBEET = ITEMS.register("sugarbeet", () -> new Item((new Item.Properties()).food(FrostFoods.SUGARBEET)));
@@ -81,7 +79,7 @@ public class FrostItems {
     public static final Supplier<Item> FROST_BOAR_SPAWNEGG = ITEMS.register("frost_boar_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.FROST_BOAR, 0x031822, 0x296B89, (new Item.Properties())));
     public static final Supplier<Item> FROSTORM_DRAGON_SPAWNEGG = ITEMS.register("frostorm_dragon_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.FROSTORM_DRAGON, 0x031822, 0x296B89, (new Item.Properties())));
     public static final Supplier<Item> SEAL_SPAWNEGG = ITEMS.register("seal_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.SEAL, 0xFFFFFF, 0xFFFFFF, (new Item.Properties())));
-    public static final Supplier<Item> STRAY_WARRIOR_SPAWNEGG = ITEMS.register("stray_warrior_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.STRAY_WARRIOR, 6387319, 14543594, (new Item.Properties())));
+    public static final Supplier<Item> STRAY_WARRIOR_SPAWNEGG = ITEMS.register("seeker_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.SEEKER, 6387319, 14543594, (new Item.Properties())));
     public static final Supplier<Item> MIND_VINE_SPAWNEGG = ITEMS.register("mind_vine_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.MIND_VINE, 0x495E27, 0x6C8031, (new Item.Properties())));
     public static final Supplier<Item> BUSH_BUG_SPAWNEGG = ITEMS.register("bush_bug_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.BUSH_BUG, 0x888888, 0x5F5593, (new Item.Properties())));
 

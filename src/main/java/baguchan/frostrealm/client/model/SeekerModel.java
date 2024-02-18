@@ -5,7 +5,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.7.4
 
 import bagu_chan.bagus_lib.client.layer.IArmor;
 import baguchan.frostrealm.client.animation.SpearAttackAnimations;
-import baguchan.frostrealm.entity.StrayWarrior;
+import baguchan.frostrealm.entity.Seeker;
 import baguchan.frostrealm.mixin.client.HierarchicalModelAccessor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -19,10 +19,10 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class StrayWarriorModel<T extends StrayWarrior> extends HierarchicalModel<T> implements IArmor, ArmedModel {
-    private final ModelPart root;
-    private final ModelPart body;
-    private final ModelPart head;
+public class SeekerModel<T extends Seeker> extends HierarchicalModel<T> implements IArmor, ArmedModel {
+    public final ModelPart root;
+    public final ModelPart body;
+    public final ModelPart head;
     private final ModelPart right_arm;
     private final ModelPart left_arm;
 
@@ -31,7 +31,7 @@ public class StrayWarriorModel<T extends StrayWarrior> extends HierarchicalModel
     private final ModelPart right_leg;
     private final ModelPart left_leg;
 
-    public StrayWarriorModel(ModelPart root) {
+    public SeekerModel(ModelPart root) {
         this.root = root;
         this.body = root.getChild("body");
         this.head = root.getChild("head");

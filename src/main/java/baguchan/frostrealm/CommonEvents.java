@@ -2,23 +2,19 @@ package baguchan.frostrealm;
 
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherSavedData;
+import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.registry.*;
-import baguchan.frostrealm.utils.ModifierUtils;
+import baguchan.frostrealm.utils.aurorapower.AuroraCombatRules;
+import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import baguchan.frostrealm.world.FrostLevelData;
-import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.server.level.ChunkMap;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -34,21 +30,18 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.ToolAction;
 import net.neoforged.neoforge.common.ToolActions;
-import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-import java.util.Map;
 import java.util.Optional;
 
 @Mod.EventBusSubscriber(modid = FrostRealm.MODID)
 public class CommonEvents {
-
-
 
     @SubscribeEvent
     public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
@@ -61,7 +54,8 @@ public class CommonEvents {
                     FrostWeatherSavedData cap = FrostWeatherSavedData.get(serverworld);
                     ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
                     PacketDistributor.ALL.noArg().send(message);
-
+                    ChangeAuroraMessage message2 = new ChangeAuroraMessage(cap.getAuroraLevel());
+                    PacketDistributor.ALL.noArg().send(message2);
                 }
             }
         }
@@ -164,22 +158,6 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
-    public static void modifier(ItemAttributeModifierEvent event) {
-        ItemStack stack = event.getItemStack();
-        if (!stack.isEmpty() && !stack.is(FrostItems.AURORA_GEM.get())) {
-
-            if (event.getSlotType() == EquipmentSlot.MAINHAND || (stack.getItem() instanceof ArmorItem) && ((ArmorItem) stack.getItem()).getEquipmentSlot() == event.getSlotType()) {
-                Multimap<Attribute, AttributeModifier> multimap = ModifierUtils.getAttributeModifiers(stack, event.getSlotType());
-                if (!multimap.isEmpty()) {
-                    for (Map.Entry<Attribute, AttributeModifier> entry : multimap.entries()) {
-                        event.addModifier(entry.getKey(), entry.getValue());
-                    }
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
     public static void blockToolInteractions(BlockEvent.BlockToolModificationEvent event) {
         ToolAction action = event.getToolAction();
         BlockState state = event.getState();
@@ -195,6 +173,34 @@ public class CommonEvents {
                     event.setFinalState(FrostBlocks.FROZEN_FARMLAND.get().defaultBlockState());
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityHurt(LivingHurtEvent event) {
+        LivingEntity livingEntity = event.getEntity();
+
+        if (event.getSource().getEntity() instanceof LivingEntity) {
+            LivingEntity attacker = (LivingEntity) event.getSource().getEntity();
+
+            int auroraShaper = AuroraPowerUtils.getAuroraPowerLevel(AuroraPowers.AURORA_SHAPER.get(), attacker);
+
+            if (event.getAmount() > 0) {
+                event.setAmount(AuroraCombatRules.getDamageAddition(event.getAmount(), auroraShaper));
+            }
+
+            int crystalSlasher = AuroraPowerUtils.getAuroraPowerLevel(AuroraPowers.CRYSTAL_SLASHER.get(), attacker);
+
+            float armor = livingEntity.getArmorValue();
+
+            if (event.getAmount() > 0 && armor > 0) {
+                event.setAmount(AuroraCombatRules.getDamageAdditionWithExtra(event.getAmount(), crystalSlasher, armor));
+            }
+        }
+        int auroraProtection = AuroraPowerUtils.getAuroraPowerLevel(AuroraPowers.AURORA_PROTECTION.get(), livingEntity);
+
+        if (event.getAmount() > 0) {
+            event.setAmount(AuroraCombatRules.getDamageReduction(event.getAmount(), auroraProtection));
         }
     }
 }

@@ -10,7 +10,6 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
 
@@ -110,8 +109,6 @@ public class CraftingGenerator extends CraftingDataHelper {
         pickaxeItem(consumer, "astrium_pickaxe", FrostItems.ASTRIUM_PICKAXE.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
         shovelItem(consumer, "astrium_shovel", FrostItems.ASTRIUM_SHOVEL.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
 
-        smithingCrystal(consumer, Ingredient.of(FrostItems.STARDUST_CRYSTAL.get()), FrostItems.AURORA_GEM.get(), RecipeCategory.COMBAT);
-
         makeFrostTorch(consumer, FrostBlocks.FROST_TORCH.get().asItem());
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_CHEST.get(), 1)
                 .pattern("SSS")
@@ -170,6 +167,15 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.pattern("WWW")
 				.define('W', FrostItems.RYE.get())
 				.unlockedBy("has_item", has(FrostItems.RYE.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, FrostBlocks.AURORA_INFUSER.get(), 1)
+                .pattern("ASA")
+                .pattern("TST")
+                .pattern("TTT")
+                .define('T', FrostBlocks.FRIGID_STONE_SMOOTH.get())
+                .define('S', FrostItems.STARDUST_CRYSTAL.get())
+                .define('A', FrostItems.ASTRIUM_INGOT.get())
+                .unlockedBy("has_item", has(FrostItems.STARDUST_CRYSTAL.get())).save(consumer);
 
 	}
 }

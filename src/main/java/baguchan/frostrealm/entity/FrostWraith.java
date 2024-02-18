@@ -28,7 +28,7 @@ public class FrostWraith extends FrozenMonster {
 
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
-		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.05F, false));
+		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.05F, true));
 		this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 0.95D));
 		this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
@@ -45,11 +45,10 @@ public class FrostWraith extends FrozenMonster {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Monster.createMobAttributes().add(Attributes.MAX_HEALTH, 24.0D).add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.ARMOR, 4.0F).add(Attributes.FLYING_SPEED, 0.24F).add(Attributes.MOVEMENT_SPEED, 0.21F).add(Attributes.FOLLOW_RANGE, 16.0F);
+		return Monster.createMobAttributes().add(Attributes.MAX_HEALTH, 24.0D).add(Attributes.ATTACK_DAMAGE, 4.0F).add(Attributes.ARMOR, 4.0F).add(Attributes.FLYING_SPEED, 0.24F).add(Attributes.MOVEMENT_SPEED, 0.21F).add(Attributes.FOLLOW_RANGE, 12.0F);
 	}
 
 	public void aiStep() {
-
 		super.aiStep();
 		this.calculateFlapping();
 	}
@@ -108,7 +107,8 @@ public class FrostWraith extends FrozenMonster {
 		return super.hasLineOfSight(p_147185_);
 	}
 
+
 	public int getHeadRotSpeed() {
-		return 2;
+		return 1;
 	}
 }

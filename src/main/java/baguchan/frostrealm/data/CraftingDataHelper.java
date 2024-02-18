@@ -1,7 +1,6 @@
 package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.data.builder.CrystalSmithingRecipeBuilder;
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -172,10 +171,6 @@ public abstract class CraftingDataHelper extends RecipeProvider {
                 .define('C', FrostItems.FROST_CRYSTAL.get())
                 .define('M', Tags.Items.RODS_WOODEN)
                 .unlockedBy("has_" + BuiltInRegistries.ITEM.getKey(FrostItems.FROST_CRYSTAL.get()).getPath(), has(FrostItems.FROST_CRYSTAL.get())).save(consumer);
-    }
-
-    protected static void smithingCrystal(RecipeOutput p_251614_, Ingredient template, Item addtinal, RecipeCategory p_248986_) {
-        CrystalSmithingRecipeBuilder.smithing(template, Ingredient.of(addtinal), p_248986_).save(p_251614_, getItemName(addtinal) + "_crystal_smithing");
     }
 
     protected final ResourceLocation locEquip(String name) {

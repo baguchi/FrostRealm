@@ -17,6 +17,7 @@ public class FrostWeatherManager {
     private static float oWeatherLevel;
 
     private static float unstableLevel;
+    private static float auroraLevel;
     private static FrostWeather frostWeather = FrostWeathers.NOPE.get();
     private static FrostWeather prevFrostWeather = FrostWeathers.NOPE.get();
 
@@ -36,6 +37,7 @@ public class FrostWeatherManager {
                         frostWeatherData.setFrostWeather(FrostWeathers.NOPE.get());
                         if (frostWeatherData.getWeatherTime() <= 0) {
                             frostWeatherData.setUnstableLevel((float) (frostWeatherData.getUnstableLevel() + level.random.nextDouble() * 0.1F));
+                            frostWeatherData.setAuroraLevel((float) (frostWeatherData.getAuroraLevel() + 0.1F + level.random.nextDouble() * 0.1F));
                             FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.random, frostWeatherData.getUnstableLevel());
 
                             frostWeatherData.setFrostWeather(frostWeather);
@@ -91,6 +93,15 @@ public class FrostWeatherManager {
     @OnlyIn(Dist.CLIENT)
     public static float getWeatherLevel() {
         return weatherLevel;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void setAuroraLevel(float auroraLevel) {
+        FrostWeatherManager.auroraLevel = auroraLevel;
+    }
+
+    public static float getAuroraLevel() {
+        return auroraLevel;
     }
 
     @OnlyIn(Dist.CLIENT)

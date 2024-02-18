@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -45,7 +46,7 @@ public class FrostWraithRenderer<T extends FrostWraith> extends MobRenderer<T, F
 		} else {
 
 			Vec3 vec31 = p_114491_.getLookAngle();
-			double range = 16F;
+            double range = p_114491_.getAttribute(Attributes.FOLLOW_RANGE) != null ? p_114491_.getAttributeValue(Attributes.FOLLOW_RANGE) : 16F;
 			AABB aabb = p_114491_.getBoundingBoxForCulling().inflate(0.5);
 			if (aabb.hasNaN() || aabb.getSize() == 0.0) {
 				aabb = new AABB(

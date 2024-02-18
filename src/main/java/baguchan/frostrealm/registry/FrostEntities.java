@@ -32,8 +32,8 @@ public class FrostEntities {
     public static final Supplier<EntityType<Seal>> SEAL = ENTITIES.register("seal", () -> EntityType.Builder.of(Seal::new, MobCategory.CREATURE).sized(0.95F, 0.8F).clientTrackingRange(10).build(prefix("seal")));
 
     public static final Supplier<EntityType<Yeti>> YETI = ENTITIES.register("yeti", () -> EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).build(prefix("yeti")));
-    public static final Supplier<EntityType<FrostWraith>> FROST_WRAITH = ENTITIES.register("frost_wraith", () -> EntityType.Builder.of(FrostWraith::new, FrostMobCategory.FROSTREALM_SURFACE_MONSTER).sized(0.6F, 2.1F).build(prefix("frost_wraith")));
-    public static final Supplier<EntityType<StrayWarrior>> STRAY_WARRIOR = ENTITIES.register("stray_warrior", () -> EntityType.Builder.of(StrayWarrior::new, MobCategory.MONSTER).sized(0.6F, 1.99F).immuneTo(Blocks.POWDER_SNOW).clientTrackingRange(8).build(prefix("stray_warrior")));
+    public static final Supplier<EntityType<FrostWraith>> FROST_WRAITH = ENTITIES.register("frost_wraith", () -> EntityType.Builder.of(FrostWraith::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(0.6F, 2.1F).build(prefix("frost_wraith")));
+    public static final Supplier<EntityType<Seeker>> SEEKER = ENTITIES.register("seeker", () -> EntityType.Builder.of(Seeker::new, MobCategory.MONSTER).sized(0.6F, 1.99F).immuneTo(Blocks.POWDER_SNOW).clientTrackingRange(8).build(prefix("seeker")));
     public static final Supplier<EntityType<MindVine>> MIND_VINE = ENTITIES.register("mind_vine", () -> EntityType.Builder.of(MindVine::new, MobCategory.MONSTER).sized(0.5F, 2.375F).clientTrackingRange(8).build(prefix("mind_vine")));
 
     public static final Supplier<EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).build(prefix("astra_ball")));
@@ -57,7 +57,7 @@ public class FrostEntities {
 
         event.put(YETI.get(), Yeti.createAttributeMap().build());
         event.put(FROST_WRAITH.get(), FrostWraith.createAttributes().build());
-        event.put(STRAY_WARRIOR.get(), StrayWarrior.createAttributes().build());
+        event.put(SEEKER.get(), Seeker.createAttributes().build());
         event.put(MIND_VINE.get(), MindVine.createAttributes().build());
         event.put(ASTRA_BALL.get(), AstraBall.createAttributes().build());
         event.put(FROST_BOAR.get(), FrostBoar.createAttributes().build());
@@ -78,9 +78,9 @@ public class FrostEntities {
 
         event.register(YETI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 
-        event.register(FROST_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(FROST_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrozenMonster::checkFrozenMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 
-        event.register(STRAY_WARRIOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, StrayWarrior::checkStraySpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(SEEKER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seeker::checkStraySpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(ASTRA_BALL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(FROST_BOAR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBoar::checkFrostAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
     }

@@ -147,50 +147,6 @@
           ],
           "name": "frostrealm:frost_boar_fur",
           "weight": 8
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "name": "frostrealm:aurora_gem",
-          "functions": [
-            {
-              "function": "frostrealm:random_gem_function",
-              "modifiers": [
-                {
-                  "attribute": "minecraft:generic.max_health",
-                  "amount": {
-                    "min": 2,
-                    "max": 4
-                  },
-                  "armor": true
-                },
-                {
-                  "attribute": "minecraft:generic.attack_damage",
-                  "amount": {
-                    "min": 1,
-                    "max": 2
-                  },
-                  "armor": false
-                },
-                {
-                  "attribute": "minecraft:generic.armor",
-                  "amount": {
-                    "min": 1,
-                    "max": 2
-                  },
-                  "armor": true
-                },
-                {
-                  "attribute": "minecraft:generic.armor_toughness",
-                  "amount": {
-                    "min": 0.5,
-                    "max": 2
-                  },
-                  "armor": true
-                }
-              ]
-            }
-          ]
         }
       ],
       "rolls": 1

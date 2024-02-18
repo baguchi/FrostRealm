@@ -133,6 +133,7 @@ public class FrostBlocks {
     public static final Supplier<Block> FROST_CAMPFIRE = register("frost_campfire", () -> new FrostCampfireBlock(BlockBehaviour.Properties.of().strength(2.0F).noOcclusion().lightLevel(litBlockEmission(13)).sound(SoundType.WOOD)));
 
     public static final Supplier<Block> FROSTROOT_CHEST = register("frostroot_chest", () -> new FrostChestBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD), FrostBlockEntitys.FROST_CHEST::get));
+    public static final Supplier<Block> AURORA_INFUSER = register("aurora_infuser", () -> new AuroraInfuserBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(2.0F, 3.0F).sound(SoundType.METAL)));
 
 	private static ToIntFunction<BlockState> litBlockEmission(int p_50760_) {
 		return (p_50763_) -> {

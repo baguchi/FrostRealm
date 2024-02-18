@@ -18,7 +18,11 @@ public class FrostBiomeDefaultFeatures {
 	}
 
 	public static void monsterSpawns(MobSpawnSettings.Builder p_126813_) {
-        p_126813_.addSpawn(FrostMobCategory.FROSTREALM_SURFACE_MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WRAITH.get(), 100, 2, 3));
+		purpleFogMonsterSpawns(p_126813_);
+	}
+
+	public static void purpleFogMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
+		p_126813_.addSpawn(FrostMobCategory.FROSTREALM_WEATHER_MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WRAITH.get(), 100, 2, 3));
 	}
 
 	public static void plainCreatureSpawns(MobSpawnSettings.Builder p_126813_) {

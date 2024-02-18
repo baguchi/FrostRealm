@@ -4,6 +4,7 @@ package baguchan.frostrealm;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.command.FrostWeatherCommand;
 import baguchan.frostrealm.command.TemperatureCommand;
+import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.message.HurtMultipartMessage;
@@ -65,6 +66,8 @@ public class FrostRealm {
 		FrostAttachs.ATTACHMENT_TYPES.register(modBus);
         FrostChunkGenerators.CHUNK_GENERATOR.register(modBus);
         FrostWeathers.FROST_WEATHER.register(modBus);
+        AuroraPowers.AURORA_POWER.register(modBus);
+
 		modBus.addListener(this::setup);
 		modBus.addListener(this::dataSetup);
 		modBus.addListener(this::setupPackets);
@@ -104,6 +107,7 @@ public class FrostRealm {
 		IPayloadRegistrar registrar = event.registrar(MODID).versioned("1.0.0").optional();
 		registrar.play(ChangedColdMessage.ID, ChangedColdMessage::new, payload -> payload.client(ChangedColdMessage::handle));
 		registrar.play(ChangeWeatherMessage.ID, ChangeWeatherMessage::new, payload -> payload.client(ChangeWeatherMessage::handle));
+        registrar.play(ChangeAuroraMessage.ID, ChangeAuroraMessage::new, payload -> payload.client(ChangeAuroraMessage::handle));
 		registrar.play(HurtMultipartMessage.ID, HurtMultipartMessage::new, payload -> payload.server(HurtMultipartMessage::handle));
 	}
 
