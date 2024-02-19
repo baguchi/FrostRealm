@@ -18,8 +18,7 @@ public class AuroraCombatRules {
     }
 
     public static float getDamageReduction(float damage, int mobEnchantLevel) {
-        float f1 = 0.5F * mobEnchantLevel;
-        float f2 = Math.max(f1 * 0.1F, (f1) * 0.1F);
+        float f2 = mobEnchantLevel * 0.5F;
         damage *= (1.0F - f2);
         return damage;
     }

@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
-public class FrostWraith extends FrozenMonster {
+public class FrostWraith extends WarpedMonster {
 	public FrostWraith(EntityType<? extends FrostWraith> p_33002_, Level p_33003_) {
 		super(p_33002_, p_33003_);
 		this.moveControl = new FlyingMoveControl(this, 10, false);
@@ -51,11 +51,6 @@ public class FrostWraith extends FrozenMonster {
 	public void aiStep() {
 		super.aiStep();
 		this.calculateFlapping();
-	}
-
-	@Override
-	protected boolean isSunBurnTick() {
-		return true;
 	}
 
 	private void calculateFlapping() {

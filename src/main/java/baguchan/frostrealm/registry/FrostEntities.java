@@ -40,6 +40,9 @@ public class FrostEntities {
     public static final Supplier<EntityType<FrostBoar>> FROST_BOAR = ENTITIES.register("frost_boar", () -> EntityType.Builder.of(FrostBoar::new, MobCategory.CREATURE).sized(1.8F, 1.95F).build(prefix("frost_boar")));
     public static final Supplier<EntityType<FrostormDragon>> FROSTORM_DRAGON = ENTITIES.register("frostorm_dragon", () -> EntityType.Builder.of(FrostormDragon::new, MobCategory.MONSTER).sized(3.25F, 3.0F).build(prefix("frostorm_dragon")));
     public static final Supplier<EntityType<WarpedCrystalShard>> WARPED_CRYSTAL_SHARD = ENTITIES.register("warped_crystal", () -> EntityType.Builder.<WarpedCrystalShard>of(WarpedCrystalShard::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(prefix("warped_crystal")));
+    public static final Supplier<EntityType<WarpedInsect>> WARPED_INSECT = ENTITIES.register("warped_insect", () -> EntityType.Builder.of(WarpedInsect::new, MobCategory.MONSTER).sized(1.1F, 1.1F).build(prefix("warped_insect")));
+    public static final Supplier<EntityType<WarpedInsectPart>> WARPED_INSECT_PART = ENTITIES.register("warped_insect_part", () -> EntityType.Builder.<WarpedInsectPart>of(WarpedInsectPart::new, MobCategory.MONSTER).sized(1.0F, 1.0F).build(prefix("warped_insect_part")));
+
 
     private static String prefix(String path) {
         return FrostRealm.MODID + "." + path;
@@ -62,6 +65,9 @@ public class FrostEntities {
         event.put(ASTRA_BALL.get(), AstraBall.createAttributes().build());
         event.put(FROST_BOAR.get(), FrostBoar.createAttributes().build());
         event.put(FROSTORM_DRAGON.get(), FrostormDragon.createAttributes().build());
+
+        event.put(WARPED_INSECT.get(), WarpedInsect.createAttributes().build());
+        event.put(WARPED_INSECT_PART.get(), WarpedInsectPart.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -74,11 +80,12 @@ public class FrostEntities {
         event.register(SNOW_MOLE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowMole::checkSnowMoleSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(SEAL.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seal::checkSealSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(BUSH_BUG.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostAnimal::checkFrostAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(WARPED_INSECT.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WarpedMonster::checkFrozenMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 
 
         event.register(YETI.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 
-        event.register(FROST_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrozenMonster::checkFrozenMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(FROST_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WarpedMonster::checkFrozenMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 
         event.register(SEEKER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seeker::checkStraySpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(ASTRA_BALL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);

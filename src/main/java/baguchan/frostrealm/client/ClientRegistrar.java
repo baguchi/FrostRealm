@@ -62,6 +62,8 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
         event.registerEntityRenderer(FrostEntities.MIND_VINE.get(), MindVineRenderer::new);
         event.registerEntityRenderer(FrostEntities.BUSH_BUG.get(), BushBugRender::new);
+		event.registerEntityRenderer(FrostEntities.WARPED_INSECT.get(), WarpedInsectRenderer::new);
+		event.registerEntityRenderer(FrostEntities.WARPED_INSECT_PART.get(), WarpedInsectPartRenderer::new);
 	}
 
 	@SubscribeEvent
@@ -85,7 +87,11 @@ public class ClientRegistrar {
         event.registerLayerDefinition(FrostModelLayers.MIND_VINE, MindVineModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.BUSH_BUG, BushBugModel::createBodyLayer);
 
-        event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
+		event.registerLayerDefinition(FrostModelLayers.WARPED_INSECT, WarpedInsectModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.WARPED_INSECT_PART, WarpedInsectPartModel::createBodyLayer);
+
+
+		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
         event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_OUTER, () -> YetiFurArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION));
 
         event.registerLayerDefinition(FrostModelLayers.FROST_BEASTER_INNER_ARMOR, () -> layerdefinition3);
