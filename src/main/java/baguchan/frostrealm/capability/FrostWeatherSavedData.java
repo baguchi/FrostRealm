@@ -2,7 +2,9 @@ package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
+import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostWeathers;
+import baguchan.frostrealm.utils.BlizzardUtils;
 import baguchan.frostrealm.weather.FrostWeather;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -21,6 +23,7 @@ public class FrostWeatherSavedData extends SavedData {
 
 	private static final String IDENTIFIER = "frost_weather_data";
 	private int weatherTime;
+	private int weatherCooldown = 20000;
 
 	private float unstableLevel;
 	private float auroraLevel = 1.0F;
@@ -79,7 +82,7 @@ public class FrostWeatherSavedData extends SavedData {
 
 	public static FrostWeatherSavedData get(Level world) {
 		if (world instanceof ServerLevel serverLevel) {
-			ServerLevel overworld = world.getServer().getLevel(Level.OVERWORLD);
+			ServerLevel overworld = world.getServer().getLevel(FrostDimensions.FROSTREALM_LEVEL);
 			FrostWeatherSavedData fromMap = dataMap.get(overworld);
 			if (fromMap == null) {
 				DimensionDataStorage storage = overworld.getDataStorage();
@@ -122,6 +125,42 @@ public class FrostWeatherSavedData extends SavedData {
 		return data;
 	}
 
+	public void tick(Level level) {
+		if (!level.isClientSide()) {
+			if (level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+				if (isWeatherActive()) {
+					if (frostWeather == FrostWeathers.PURPLE_FOG.get()) {
+						unstableLevel = 0;
+					}
+					//If weather active
+					setWetherTime(getWeatherTime() - 1);
+				} else {
+					if (isWeatherCooldownActive()) {
+						//If weather not active and cooldown active
+						setWeatherCooldown(getWeatherCooldown() - 1);
+						if (getWeatherCooldown() <= 0) {
+							unstableLevel += (float) (level.random.nextDouble() * 0.1F);
+							FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.random, this.unstableLevel);
+
+							setFrostWeather(frostWeather);
+							ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
+							PacketDistributor.DIMENSION.with(level.dimension()).send(message);
+
+							setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
+						}
+					} else {
+
+						//If wether not active and cooldown not active too
+						setWeatherCooldown(((level.random.nextInt(5) + 10) * 60) * 20);
+						setFrostWeather(FrostWeathers.NOPE.get());
+						ChangeWeatherMessage message2 = new ChangeWeatherMessage(FrostWeathers.NOPE.get());
+						PacketDistributor.DIMENSION.with(level.dimension()).send(message2);
+					}
+				}
+			}
+		}
+	}
+
 	@Override
 	public CompoundTag save(CompoundTag p_77763_) {
 		CompoundTag nbt = new CompoundTag();
@@ -133,6 +172,14 @@ public class FrostWeatherSavedData extends SavedData {
 			nbt.putString("FrostWeather", FrostWeathers.getRegistry().getKey(this.frostWeather).toString());
 		}
 		return nbt;
+	}
+
+	public void setWeatherCooldown(int weatherCooldown) {
+		this.weatherCooldown = weatherCooldown;
+	}
+
+	public int getWeatherCooldown() {
+		return weatherCooldown;
 	}
 
 	public boolean isWeatherCooldownActive() {

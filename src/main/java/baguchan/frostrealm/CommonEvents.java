@@ -62,6 +62,13 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
+    public static void onLevelUpdate(TickEvent.LevelTickEvent event) {
+        if (FrostWeatherSavedData.get(event.level) != null) {
+            FrostWeatherSavedData.get(event.level).tick(event.level);
+        }
+    }
+
+    @SubscribeEvent
     public static void onDimensionChangeEvent(PlayerEvent.PlayerChangedDimensionEvent event) {
         if (event.getEntity() != null && event.getEntity().level() instanceof ServerLevel) {
             ServerLevel world = (ServerLevel) event.getEntity().level();
