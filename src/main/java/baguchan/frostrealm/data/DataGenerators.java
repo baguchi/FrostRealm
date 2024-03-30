@@ -32,6 +32,6 @@ public class DataGenerators {
 		event.getGenerator().addProvider(event.includeServer(), LootGenerator.create(packOutput));
 
         event.getGenerator().addProvider(event.includeServer(), new CraftingGenerator(packOutput));
-		event.getGenerator().addProvider(event.includeServer(), new WorldGenerator(packOutput, lookupProvider));
+		event.getGenerator().addProvider(event.includeServer(), new RegistryDataGenerator(packOutput, lookupProvider));
 	}
 }

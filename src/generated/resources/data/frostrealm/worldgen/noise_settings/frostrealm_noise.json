@@ -24,9 +24,9 @@
       "xz_scale": 1.0,
       "y_scale": 0.5
     },
-    "continents": "minecraft:overworld/continents",
-    "depth": "minecraft:overworld/depth",
-    "erosion": "minecraft:overworld/erosion",
+    "continents": "frostrealm:deep_cliff/continents",
+    "depth": "frostrealm:deep_cliff/depth",
+    "erosion": "frostrealm:deep_cliff/erosion",
     "final_density": {
       "type": "minecraft:min",
       "argument1": {
@@ -226,10 +226,10 @@
                         "type": "minecraft:quarter_negative",
                         "argument": {
                           "type": "minecraft:mul",
-                          "argument1": "minecraft:overworld/depth",
+                          "argument1": "frostrealm:deep_cliff/depth",
                           "argument2": {
                             "type": "minecraft:cache_2d",
-                            "argument": "minecraft:overworld/factor"
+                            "argument": "frostrealm:deep_cliff/factor"
                           }
                         }
                       }

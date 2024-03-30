@@ -17,7 +17,7 @@ import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public class WorldGenerator extends DatapackBuiltinEntriesProvider {
+public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
 
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
             .add(Registries.NOISE, FrostNoises::bootstrap)
@@ -33,7 +33,7 @@ public class WorldGenerator extends DatapackBuiltinEntriesProvider {
 	;
 
 
-	public WorldGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+	public RegistryDataGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, BUILDER, Set.of("minecraft", FrostRealm.MODID));
 	}
 
