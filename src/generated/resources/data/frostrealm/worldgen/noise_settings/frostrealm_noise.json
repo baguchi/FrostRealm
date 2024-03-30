@@ -24,9 +24,9 @@
       "xz_scale": 1.0,
       "y_scale": 0.5
     },
-    "continents": "frostrealm:deep_cliff/continents",
-    "depth": "frostrealm:deep_cliff/depth",
-    "erosion": "frostrealm:deep_cliff/erosion",
+    "continents": "frostrealm:frostrelam/continents",
+    "depth": "frostrealm:frostrelam/depth",
+    "erosion": "frostrealm:frostrelam/erosion",
     "final_density": {
       "type": "minecraft:min",
       "argument1": {
@@ -70,12 +70,12 @@
                           "argument1": 0.078125,
                           "argument2": {
                             "type": "minecraft:range_choice",
-                            "input": "minecraft:overworld/sloped_cheese",
+                            "input": "minecraft:frostrelam/sloped_cheese",
                             "max_exclusive": 1.5625,
                             "min_inclusive": -1000000.0,
                             "when_in_range": {
                               "type": "minecraft:min",
-                              "argument1": "minecraft:overworld/sloped_cheese",
+                              "argument1": "minecraft:frostrelam/sloped_cheese",
                               "argument2": {
                                 "type": "minecraft:mul",
                                 "argument1": 5.0,
@@ -226,10 +226,10 @@
                         "type": "minecraft:quarter_negative",
                         "argument": {
                           "type": "minecraft:mul",
-                          "argument1": "frostrealm:deep_cliff/depth",
+                          "argument1": "frostrealm:frostrelam/depth",
                           "argument2": {
                             "type": "minecraft:cache_2d",
-                            "argument": "frostrealm:deep_cliff/factor"
+                            "argument": "frostrealm:frostrelam/factor"
                           }
                         }
                       }

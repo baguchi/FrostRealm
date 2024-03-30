@@ -25,9 +25,9 @@ public class FrostDensityFunctions {
     public static void bootstrap(BootstapContext<DensityFunction> context) {
         HolderGetter<NormalNoise.NoiseParameters> noiseHolderGetter = context.lookup(Registries.NOISE);
         HolderGetter<DensityFunction> density = context.lookup(Registries.DENSITY_FUNCTION);
-
-        context.register(UNDERGROUND, FrostNoiseRouterData.underground(density, noiseHolderGetter, getFunction(density, FrostNoiseRouterData.SLOPED_CHEESE)));
         FrostNoiseRouterData.bootstrapDensity(context);
+        context.register(UNDERGROUND, FrostNoiseRouterData.underground(density, noiseHolderGetter, getFunction(density, FrostNoiseRouterData.SLOPED_CHEESE)));
+
     }
 
 

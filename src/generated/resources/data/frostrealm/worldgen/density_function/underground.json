@@ -44,7 +44,7 @@
               "argument2": {
                 "type": "minecraft:mul",
                 "argument1": -0.64,
-                "argument2": "minecraft:overworld/sloped_cheese"
+                "argument2": "minecraft:frostrelam/sloped_cheese"
               }
             },
             "max": 0.5,

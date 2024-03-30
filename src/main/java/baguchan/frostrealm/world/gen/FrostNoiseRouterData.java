@@ -26,24 +26,24 @@ public class FrostNoiseRouterData {
 	private static final ResourceKey<DensityFunction> Y = createKey("y");
 	private static final ResourceKey<DensityFunction> SHIFT_X = createKey("shift_x");
 	private static final ResourceKey<DensityFunction> SHIFT_Z = createKey("shift_z");
-	public static final ResourceKey<DensityFunction> CONTINENTS = createModKey("deep_cliff/continents");
-	public static final ResourceKey<DensityFunction> EROSION = createModKey("deep_cliff/erosion");
+	public static final ResourceKey<DensityFunction> CONTINENTS = createModKey("frostrelam/continents");
+	public static final ResourceKey<DensityFunction> EROSION = createModKey("frostrelam/erosion");
 	public static final ResourceKey<DensityFunction> RIDGES = createKey("overworld/ridges");
-	public static final ResourceKey<DensityFunction> FACTOR = createModKey("deep_cliff/factor");
-	public static final ResourceKey<DensityFunction> DEPTH = createModKey("deep_cliff/depth");
+	public static final ResourceKey<DensityFunction> FACTOR = createModKey("frostrelam/factor");
+	public static final ResourceKey<DensityFunction> DEPTH = createModKey("frostrelam/depth");
 	private static final ResourceKey<DensityFunction> BASE_3D_NOISE_END = createKey("end/base_3d_noise");
 	public static final ResourceKey<DensityFunction> RIDGES_FOLDED = createKey("overworld/ridges_folded");
-	public static final ResourceKey<DensityFunction> OFFSET = createModKey("deep_cliff/offset");
-	public static final ResourceKey<DensityFunction> JAGGEDNESS = createModKey("deep_cliff/jaggedness");
+	public static final ResourceKey<DensityFunction> OFFSET = createModKey("frostrelam/offset");
+	public static final ResourceKey<DensityFunction> JAGGEDNESS = createModKey("frostrelam/jaggedness");
 
-	public static final ResourceKey<DensityFunction> SLOPED_CHEESE = createKey("overworld/sloped_cheese");
+	public static final ResourceKey<DensityFunction> SLOPED_CHEESE = createKey("frostrelam/sloped_cheese");
 	private static final ResourceKey<DensityFunction> SPAGHETTI_ROUGHNESS_FUNCTION = createKey("overworld/caves/spaghetti_roughness_function");
 	private static final ResourceKey<DensityFunction> ENTRANCES = createKey("overworld/caves/entrances");
 	private static final ResourceKey<DensityFunction> NOODLE = createKey("overworld/caves/noodle");
 	private static final ResourceKey<DensityFunction> PILLARS = createKey("overworld/caves/pillars");
 	private static final ResourceKey<DensityFunction> SPAGHETTI_2D = createKey("overworld/caves/spaghetti_2d");
 
-	private static final ResourceKey<DensityFunction> BASE_3D_NOISE_DEEP_CLIFF = createModKey("deep_cliff/base_3d_noise");
+	private static final ResourceKey<DensityFunction> BASE_3D_NOISE_DEEP_CLIFF = createModKey("frostrelam/base_3d_noise");
 
 
 	private final Climate.Parameter deepOceanContinentalness = Climate.Parameter.span(-1.05F, -0.455F);

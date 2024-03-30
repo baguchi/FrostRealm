@@ -32,7 +32,7 @@
           "argument2": {
             "type": "minecraft:spline",
             "spline": {
-              "coordinate": "frostrealm:deep_cliff/continents",
+              "coordinate": "frostrealm:frostrelam/continents",
               "points": [
                 {
                   "derivative": 0.0,
@@ -63,7 +63,7 @@
                   "derivative": 0.0,
                   "location": -0.16,
                   "value": {
-                    "coordinate": "frostrealm:deep_cliff/erosion",
+                    "coordinate": "frostrealm:frostrelam/erosion",
                     "points": [
                       {
                         "derivative": 0.0,
@@ -285,7 +285,7 @@
                   "derivative": 0.0,
                   "location": -0.15,
                   "value": {
-                    "coordinate": "frostrealm:deep_cliff/erosion",
+                    "coordinate": "frostrealm:frostrelam/erosion",
                     "points": [
                       {
                         "derivative": 0.0,
@@ -507,7 +507,7 @@
                   "derivative": 0.0,
                   "location": -0.1,
                   "value": {
-                    "coordinate": "frostrealm:deep_cliff/erosion",
+                    "coordinate": "frostrealm:frostrelam/erosion",
                     "points": [
                       {
                         "derivative": 0.0,
@@ -729,7 +729,7 @@
                   "derivative": 0.0,
                   "location": 0.25,
                   "value": {
-                    "coordinate": "frostrealm:deep_cliff/erosion",
+                    "coordinate": "frostrealm:frostrelam/erosion",
                     "points": [
                       {
                         "derivative": 0.0,
@@ -1120,7 +1120,7 @@
                   "derivative": 0.0,
                   "location": 1.0,
                   "value": {
-                    "coordinate": "frostrealm:deep_cliff/erosion",
+                    "coordinate": "frostrealm:frostrelam/erosion",
                     "points": [
                       {
                         "derivative": 0.0,

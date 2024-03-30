@@ -9,10 +9,10 @@
         "type": "minecraft:mul",
         "argument1": {
           "type": "minecraft:add",
-          "argument1": "frostrealm:deep_cliff/depth",
+          "argument1": "frostrealm:frostrelam/depth",
           "argument2": {
             "type": "minecraft:mul",
-            "argument1": "frostrealm:deep_cliff/jaggedness",
+            "argument1": "frostrealm:frostrelam/jaggedness",
             "argument2": {
               "type": "minecraft:half_negative",
               "argument": {
@@ -24,9 +24,9 @@
             }
           }
         },
-        "argument2": "frostrealm:deep_cliff/factor"
+        "argument2": "frostrealm:frostrelam/factor"
       }
     }
   },
-  "argument2": "frostrealm:deep_cliff/base_3d_noise"
+  "argument2": "frostrealm:frostrelam/base_3d_noise"
 }
