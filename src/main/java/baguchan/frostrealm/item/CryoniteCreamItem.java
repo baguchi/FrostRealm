@@ -36,7 +36,7 @@ public class CryoniteCreamItem extends Item {
         if (p_151211_ instanceof Player player) {
             player.awardStat(Stats.ITEM_USED.get(this));
         }
-        p_151211_.addEffect(new MobEffectInstance(FrostEffects.COLD_RESISTANCE.get(), 4200 * 2));
+        p_151211_.addEffect(new MobEffectInstance(FrostEffects.COLD_RESISTANCE.get(), 1200 * 2));
         p_151209_.shrink(1);
         return p_151209_;
     }
