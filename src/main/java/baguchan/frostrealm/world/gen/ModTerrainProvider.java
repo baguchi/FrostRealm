@@ -19,9 +19,9 @@ public class ModTerrainProvider {
         ToFloatFunction<Float> toFloatFunction4 = bl ? AMPLIFIED_OFFSET : NO_TRANSFORM;
         //TODO CHANGE THOSE VALVE
         CubicSpline<C, I> cubicSpline = ModTerrainProvider.buildErosionOffsetSpline(toFloatFunction2, toFloatFunction3, 0.05f, 0.0f, 0.0f, 0.1f, 0.0f, -0.03f, false, false, toFloatFunction4);
-        CubicSpline<C, I> cubicSpline2 = ModTerrainProvider.buildErosionOffsetSpline(toFloatFunction2, toFloatFunction3, 0.1f, 0.03f, 0.1f, 0.1f, 0.01f, -0.03f, false, false, toFloatFunction4);
-        CubicSpline<C, I> cubicSpline3 = ModTerrainProvider.buildErosionOffsetSpline(toFloatFunction2, toFloatFunction3, 0.1f, 0.03f, 0.1f, 0.7f, 0.01f, -0.03f, true, true, toFloatFunction4);
-        CubicSpline<C, I> cubicSpline4 = ModTerrainProvider.buildErosionOffsetSpline(toFloatFunction2, toFloatFunction3, 0.15f, 0.03f, 0.1f, 1.0f, 0.01f, 0.01f, true, true, toFloatFunction4);
+        CubicSpline<C, I> cubicSpline2 = ModTerrainProvider.buildErosionOffsetSpline(toFloatFunction2, toFloatFunction3, 0.15f, 0.03f, 0.1f, 0.1f, 0.01f, -0.03f, false, false, toFloatFunction4);
+        CubicSpline<C, I> cubicSpline3 = ModTerrainProvider.buildErosionOffsetSpline(toFloatFunction2, toFloatFunction3, 0.15f, 0.03f, 0.1f, 0.7f, 0.01f, -0.03f, true, true, toFloatFunction4);
+        CubicSpline<C, I> cubicSpline4 = ModTerrainProvider.buildErosionOffsetSpline(toFloatFunction2, toFloatFunction3, 0.2f, 0.03f, 0.1f, 1.0f, 0.01f, 0.01f, true, true, toFloatFunction4);
         return CubicSpline.builder(toFloatFunction, toFloatFunction4).addPoint(-1.1f, 0.044f).addPoint(-1.02f, -0.2222f).addPoint(-0.51f, -0.2222f).addPoint(-0.44f, -0.12f).addPoint(-0.18f, -0.12f).addPoint(-0.16f, cubicSpline).addPoint(-0.15f, cubicSpline).addPoint(-0.1f, cubicSpline2).addPoint(0.25f, cubicSpline3).addPoint(1.0f, cubicSpline4).build();
     }
 

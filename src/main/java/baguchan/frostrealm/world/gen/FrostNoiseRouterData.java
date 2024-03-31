@@ -60,8 +60,8 @@ public class FrostNoiseRouterData {
 		DensityFunction $$5 = getFunction($$2, SHIFT_X);
 		DensityFunction $$6 = getFunction($$2, SHIFT_Z);
 		p_256220_.register(BASE_3D_NOISE_DEEP_CLIFF, BlendedNoise.createUnseeded(0.25, 0.125, 80.0, 160.0, 8.0));
-		Holder<DensityFunction> $$7 = p_256220_.register(CONTINENTS, DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d($$5, $$6, 0.75, $$1.getOrThrow(Noises.CONTINENTALNESS))));
-		Holder<DensityFunction> $$8 = p_256220_.register(EROSION, DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d($$5, $$6, 0.75, $$1.getOrThrow(Noises.EROSION))));
+        Holder<DensityFunction> $$7 = p_256220_.register(CONTINENTS, DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d($$5, $$6, 0.5, $$1.getOrThrow(Noises.CONTINENTALNESS))));
+        Holder<DensityFunction> $$8 = p_256220_.register(EROSION, DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d($$5, $$6, 0.5, $$1.getOrThrow(Noises.EROSION))));
 		DensityFunction $$9 = getFunction($$2, RIDGES);
 		DensityFunction $$10 = DensityFunctions.noise($$1.getOrThrow(Noises.JAGGED), 1500.0, 0.0);
 		registerTerrainNoises(p_256220_, $$2, $$10, $$7, $$8, OFFSET, FACTOR, JAGGEDNESS, DEPTH, SLOPED_CHEESE, false);

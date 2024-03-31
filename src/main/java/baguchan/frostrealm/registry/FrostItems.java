@@ -16,6 +16,7 @@ public class FrostItems {
     public static final Supplier<Item> FROST_CRYSTAL = ITEMS.register("frost_crystal", () -> new Item((new Item.Properties())));
 
     public static final Supplier<Item> CRYONITE = ITEMS.register("cryonite", () -> new Item((new Item.Properties())));
+    public static final Supplier<Item> CRYONITE_CREAM = ITEMS.register("cryonite_cream", () -> new GlimmerRockItem((new Item.Properties())));
 
     public static final Supplier<Item> WARPED_CRYSTAL = ITEMS.register("warped_crystal", () -> new Item((new Item.Properties())));
     public static final Supplier<Item> GLIMMERROCK = ITEMS.register("glimmerrock", () -> new GlimmerRockItem((new Item.Properties())));
