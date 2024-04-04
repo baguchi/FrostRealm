@@ -78,7 +78,6 @@ public class FrostItems {
     public static final Supplier<Item> SNOW_MOLE_SPAWNEGG = ITEMS.register("snow_mole_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.SNOW_MOLE, 0xE4E5E6, 0xB6A7A7, (new Item.Properties())));
     public static final Supplier<Item> ASTRA_BALL_SPAWNEGG = ITEMS.register("astra_ball_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.ASTRA_BALL, 0x9352CC, 0xE3A6FF, (new Item.Properties())));
     public static final Supplier<Item> FROST_BOAR_SPAWNEGG = ITEMS.register("frost_boar_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.FROST_BOAR, 0x031822, 0x296B89, (new Item.Properties())));
-    public static final Supplier<Item> FROSTORM_DRAGON_SPAWNEGG = ITEMS.register("frostorm_dragon_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.FROSTORM_DRAGON, 0x031822, 0x296B89, (new Item.Properties())));
     public static final Supplier<Item> SEAL_SPAWNEGG = ITEMS.register("seal_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.SEAL, 0xFFFFFF, 0xFFFFFF, (new Item.Properties())));
     public static final Supplier<Item> STRAY_WARRIOR_SPAWNEGG = ITEMS.register("seeker_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.SEEKER, 6387319, 14543594, (new Item.Properties())));
     public static final Supplier<Item> MIND_VINE_SPAWNEGG = ITEMS.register("mind_vine_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.MIND_VINE, 0x495E27, 0x6C8031, (new Item.Properties())));

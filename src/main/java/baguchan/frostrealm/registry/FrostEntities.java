@@ -38,7 +38,6 @@ public class FrostEntities {
 
     public static final Supplier<EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).build(prefix("astra_ball")));
     public static final Supplier<EntityType<FrostBoar>> FROST_BOAR = ENTITIES.register("frost_boar", () -> EntityType.Builder.of(FrostBoar::new, MobCategory.CREATURE).sized(1.8F, 1.95F).build(prefix("frost_boar")));
-    public static final Supplier<EntityType<FrostormDragon>> FROSTORM_DRAGON = ENTITIES.register("frostorm_dragon", () -> EntityType.Builder.of(FrostormDragon::new, MobCategory.MONSTER).sized(3.25F, 3.0F).build(prefix("frostorm_dragon")));
     public static final Supplier<EntityType<WarpedCrystalShard>> WARPED_CRYSTAL_SHARD = ENTITIES.register("warped_crystal", () -> EntityType.Builder.<WarpedCrystalShard>of(WarpedCrystalShard::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(prefix("warped_crystal")));
     public static final Supplier<EntityType<WarpedInsect>> WARPED_INSECT = ENTITIES.register("warped_insect", () -> EntityType.Builder.of(WarpedInsect::new, MobCategory.MONSTER).sized(1.1F, 1.1F).build(prefix("warped_insect")));
     public static final Supplier<EntityType<WarpedInsectPart>> WARPED_INSECT_PART = ENTITIES.register("warped_insect_part", () -> EntityType.Builder.<WarpedInsectPart>of(WarpedInsectPart::new, MobCategory.MONSTER).sized(1.0F, 1.0F).build(prefix("warped_insect_part")));
@@ -64,7 +63,6 @@ public class FrostEntities {
         event.put(MIND_VINE.get(), MindVine.createAttributes().build());
         event.put(ASTRA_BALL.get(), AstraBall.createAttributes().build());
         event.put(FROST_BOAR.get(), FrostBoar.createAttributes().build());
-        event.put(FROSTORM_DRAGON.get(), FrostormDragon.createAttributes().build());
 
         event.put(WARPED_INSECT.get(), WarpedInsect.createAttributes().build());
         event.put(WARPED_INSECT_PART.get(), WarpedInsectPart.createAttributes().build());
