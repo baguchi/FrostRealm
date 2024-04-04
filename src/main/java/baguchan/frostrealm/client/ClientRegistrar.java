@@ -170,7 +170,7 @@ public class ClientRegistrar {
     public static void registerShaders(final RegisterShadersEvent event) {
         try {
             event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(FrostRealm.MODID, "rendertype_aurora"), DefaultVertexFormat.POSITION_TEX), FrostShaders::setRenderTypeAuroraShader);
-			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(FrostRealm.MODID, "rendertype_crystal_entity"), DefaultVertexFormat.NEW_ENTITY), FrostShaders::setRenderTypeCrystalEntityShader);
+			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(FrostRealm.MODID, "rendertype_ghost"), DefaultVertexFormat.NEW_ENTITY), FrostShaders::setRenderTypeGhostShader);
 		} catch (IOException exception) {
             exception.printStackTrace();
         }

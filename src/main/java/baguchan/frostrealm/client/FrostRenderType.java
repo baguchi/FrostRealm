@@ -11,17 +11,17 @@ import java.util.function.BiFunction;
 
 public class FrostRenderType extends RenderType {
 
-    private static final BiFunction<ResourceLocation, Boolean, RenderType> CRYSTAL_ENTITY = Util.memoize(
+    private static final BiFunction<ResourceLocation, Boolean, RenderType> GHOST = Util.memoize(
             (p_286156_, p_286157_) -> {
                 RenderType.CompositeState rendertype$compositestate = RenderType.CompositeState.builder()
-                        .setShaderState(new ShaderStateShard(FrostShaders::getRenderTypeCrystalEntityShader))
+                        .setShaderState(new ShaderStateShard(FrostShaders::getRenderTypeGhostShader))
                         .setTextureState(new RenderStateShard.TextureStateShard(p_286156_, false, false))
                         .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                         .setCullState(NO_CULL)
                         .setLightmapState(LIGHTMAP)
                         .setOverlayState(OVERLAY)
                         .createCompositeState(p_286157_);
-                return create("frostrealm:crystal_entity", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, true, true, rendertype$compositestate);
+                return create("frostrealm:ghost", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 1536, true, true, rendertype$compositestate);
             }
     );
 
@@ -30,7 +30,7 @@ public class FrostRenderType extends RenderType {
     }
 
     public static RenderType crystalEntity(ResourceLocation p_110455_, boolean p_110456_) {
-        return CRYSTAL_ENTITY.apply(p_110455_, p_110456_);
+        return GHOST.apply(p_110455_, p_110456_);
     }
 
     public static RenderType crystalEntity(ResourceLocation p_110474_) {

@@ -13,7 +13,7 @@ void main() {
     float distFromCenter = distance(texCoord0, vec2(0.5, 0.5));
     vec4 color = texture(Sampler0, texCoord0) * ColorModulator;
     color.a -= distFromCenter * 1.5;
-    color.a *= 2;
+    color.a *= 4;
     if (color.a == 0.0) {
         discard;
     }

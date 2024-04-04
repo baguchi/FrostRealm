@@ -4,8 +4,8 @@
     "srcrgb": "srcalpha",
     "dstrgb": "1-srcalpha"
   },
-  "vertex": "frostrealm:rendertype_crystal_entity",
-  "fragment": "frostrealm:rendertype_crystal_entity",
+  "vertex": "frostrealm:rendertype_ghost",
+  "fragment": "frostrealm:rendertype_ghost",
   "attributes": [
     "Position",
     "UV0"

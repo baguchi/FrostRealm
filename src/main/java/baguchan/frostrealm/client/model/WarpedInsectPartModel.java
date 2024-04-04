@@ -3,6 +3,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.7.2
 // Paste this class into your mod and generate all required imports
 
 
+import baguchan.frostrealm.client.FrostRenderType;
 import baguchan.frostrealm.entity.WarpedInsectPart;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -21,6 +22,7 @@ public class WarpedInsectPartModel<T extends WarpedInsectPart> extends EntityMod
     private final ModelPart rightWing;
 
     public WarpedInsectPartModel(ModelPart root) {
+        super(FrostRenderType::crystalEntity);
         this.core = root.getChild("core");
         this.body = this.core.getChild("body");
         this.leftWingBase = this.body.getChild("wingL");
