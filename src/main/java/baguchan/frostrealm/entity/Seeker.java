@@ -1,7 +1,7 @@
 package baguchan.frostrealm.entity;
 
 import bagu_chan.bagus_lib.entity.AnimationScale;
-import bagu_chan.bagus_lib.entity.goal.AnimatedAttackGoal;
+import bagu_chan.bagus_lib.entity.goal.AnimateAttackGoal;
 import baguchan.frostrealm.entity.goal.CounterGoal;
 import baguchan.frostrealm.entity.goal.GuardAndCounterAnimationGoal;
 import baguchan.frostrealm.entity.utils.GuardHandler;
@@ -39,10 +39,10 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
 
     public int attackAnimationTick;
     private final int attackAnimationLength = (int) (20 * 1.75);
-    private final int attackAnimationLeftActionPoint = (int) ((int) attackAnimationLength - (20 * 0.655));
+    private final int attackAnimationActionPoint = (int) ((int) (20 * 0.655));
     public int counterAnimationTick;
     private final int counterAnimationLength = (int) (20 * 0.5F);
-    private final int counterAnimationLeftActionPoint = (int) ((int) counterAnimationLength - (20 * 0.1f));
+    private final int counterAnimationActionPoint = (int) (counterAnimationLength - (int) (20 * 0.1f));
 
 
     public final AnimationState attackAnimationState = new AnimationState();
@@ -60,7 +60,7 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        counterGoal = new CounterGoal(this, counterAnimationLeftActionPoint, counterAnimationLength) {
+        counterGoal = new CounterGoal(this, counterAnimationActionPoint, counterAnimationLength) {
             @Override
             protected void doTheAnimation() {
                 this.attacker.level().broadcastEntityEvent(this.attacker, (byte) 61);
@@ -75,7 +75,7 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
         };
         this.goalSelector.addGoal(1, counterGoal);
         this.goalSelector.addGoal(2, guardAnimationGoal);
-        this.goalSelector.addGoal(4, new AnimatedAttackGoal(this, 1.2D, attackAnimationLeftActionPoint, attackAnimationLength) {
+        this.goalSelector.addGoal(4, new AnimateAttackGoal(this, 1.2D, attackAnimationActionPoint, attackAnimationLength) {
             @Override
             public boolean canUse() {
                 return !isGuard() && super.canUse();

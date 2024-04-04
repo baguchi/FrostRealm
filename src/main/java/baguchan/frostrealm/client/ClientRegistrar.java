@@ -142,10 +142,12 @@ public class ClientRegistrar {
 		}, FrostBlocks.COLD_TALL_GRASS.get());
 
 
+
 	}
 
 
 	public static void setup(FMLCommonSetupEvent event) {
+		FrostRenderType.init();
         NeoForge.EVENT_BUS.register(new ClientColdHUDEvent());
         NeoForge.EVENT_BUS.register(new ClientFogEvent());
 		FrostArmPoses.init();
@@ -168,8 +170,11 @@ public class ClientRegistrar {
     public static void registerShaders(final RegisterShadersEvent event) {
         try {
             event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(FrostRealm.MODID, "rendertype_aurora"), DefaultVertexFormat.POSITION_TEX), FrostShaders::setRenderTypeAuroraShader);
-        } catch (IOException exception) {
+			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(FrostRealm.MODID, "rendertype_crystal_entity"), DefaultVertexFormat.NEW_ENTITY), FrostShaders::setRenderTypeCrystalEntityShader);
+		} catch (IOException exception) {
             exception.printStackTrace();
         }
     }
+
+
 }
