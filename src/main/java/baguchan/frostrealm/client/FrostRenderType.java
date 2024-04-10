@@ -29,14 +29,13 @@ public class FrostRenderType extends RenderType {
         super(p_173178_, p_173179_, p_173180_, p_173181_, p_173182_, p_173183_, p_173184_, p_173185_);
     }
 
-    public static RenderType crystalEntity(ResourceLocation p_110455_, boolean p_110456_) {
+    public static RenderType ghostEntity(ResourceLocation p_110455_, boolean p_110456_) {
         return GHOST.apply(p_110455_, p_110456_);
     }
 
-    public static RenderType crystalEntity(ResourceLocation p_110474_) {
-        return crystalEntity(p_110474_, true);
+    public static RenderType ghostEntity(ResourceLocation p_110474_) {
+        return ghostEntity(p_110474_, true);
     }
-
     public static void init() {
 
     }

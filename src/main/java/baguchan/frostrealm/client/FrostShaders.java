@@ -6,7 +6,6 @@ import org.jetbrains.annotations.Nullable;
 public class FrostShaders {
     private static ShaderInstance renderTypeAuroraShader;
     private static ShaderInstance renderTypeGhostShader;
-
     @Nullable
     public static ShaderInstance getRenderTypeAuroraShader() {
         return renderTypeAuroraShader;
@@ -24,5 +23,4 @@ public class FrostShaders {
     public static void setRenderTypeGhostShader(ShaderInstance instance) {
         renderTypeGhostShader = instance;
     }
-
 }

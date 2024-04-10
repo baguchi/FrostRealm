@@ -100,7 +100,7 @@ public class MindVine extends Monster implements IMindVine {
 
     private void findNewAttachment() {
         Direction direction = this.findAttachableSurface(this.blockPosition());
-        if (direction != null) {
+        if (direction != null && this.tickCount < 5) {
             this.setAttachFace(direction);
         } else {
             this.kill();
@@ -251,7 +251,7 @@ public class MindVine extends Monster implements IMindVine {
 
     @Override
     protected float getStandingEyeHeight(Pose p_33438_, EntityDimensions p_33439_) {
-        return 0.3F;
+        return 0.25F;
     }
 
 
