@@ -9,7 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.NetherFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -75,7 +75,7 @@ public class FrostPlacements {
 		return ResourceKey.create(Registries.PLACED_FEATURE, FrostRealm.prefix(name));
 	}
 
-	public static void bootstrap(BootstapContext<PlacedFeature> context) {
+    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		HolderGetter<ConfiguredFeature<?, ?>> configuredFeature = context.lookup(Registries.CONFIGURED_FEATURE);
 
 		PlacementUtils.register(context, FROSTROOT_TREES_FOREST, configuredFeature.getOrThrow(FrostConfiguredFeatures.FROSTROOT_TREE), treePlacement(PlacementUtils.countExtra(10, 0.1F, 1), FrostBlocks.FROSTROOT_SAPLING.get()));

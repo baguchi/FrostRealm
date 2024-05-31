@@ -5,7 +5,7 @@ import baguchan.frostrealm.data.resource.FrostDensityFunctions;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.SurfaceRuleData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -52,7 +52,7 @@ public class FrostNoiseRouterData {
 		return ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation(p_209537_));
 	}
 
-	public static void bootstrapDensity(BootstapContext<DensityFunction> p_256220_) {
+    public static void bootstrapDensity(BootstrapContext<DensityFunction> p_256220_) {
 		HolderGetter<NormalNoise.NoiseParameters> $$1 = p_256220_.lookup(Registries.NOISE);
 		HolderGetter<DensityFunction> $$2 = p_256220_.lookup(Registries.DENSITY_FUNCTION);
 		int $$3 = DimensionType.MIN_Y * 2;
@@ -67,7 +67,7 @@ public class FrostNoiseRouterData {
 		registerTerrainNoises(p_256220_, $$2, $$10, $$7, $$8, OFFSET, FACTOR, JAGGEDNESS, DEPTH, SLOPED_CHEESE, false);
 	}
 
-	private static void registerTerrainNoises(BootstapContext<DensityFunction> p_256336_, HolderGetter<DensityFunction> p_256393_, DensityFunction p_224476_, Holder<DensityFunction> p_224477_, Holder<DensityFunction> p_224478_, ResourceKey<DensityFunction> p_224479_, ResourceKey<DensityFunction> p_224480_, ResourceKey<DensityFunction> p_224481_, ResourceKey<DensityFunction> p_224482_, ResourceKey<DensityFunction> p_224483_, boolean p_224484_) {
+    private static void registerTerrainNoises(BootstrapContext<DensityFunction> p_256336_, HolderGetter<DensityFunction> p_256393_, DensityFunction p_224476_, Holder<DensityFunction> p_224477_, Holder<DensityFunction> p_224478_, ResourceKey<DensityFunction> p_224479_, ResourceKey<DensityFunction> p_224480_, ResourceKey<DensityFunction> p_224481_, ResourceKey<DensityFunction> p_224482_, ResourceKey<DensityFunction> p_224483_, boolean p_224484_) {
 		DensityFunctions.Spline.Coordinate $$11 = new DensityFunctions.Spline.Coordinate(p_224477_);
 		DensityFunctions.Spline.Coordinate $$12 = new DensityFunctions.Spline.Coordinate(p_224478_);
 		DensityFunctions.Spline.Coordinate $$13 = new DensityFunctions.Spline.Coordinate(p_256393_.getOrThrow(RIDGES));
@@ -86,11 +86,11 @@ public class FrostNoiseRouterData {
 		return DensityFunctions.flatCache(DensityFunctions.cache2d(densityfunction));
 	}
 
-	private static DensityFunction registerAndWrap(BootstapContext<DensityFunction> p_256149_, ResourceKey<DensityFunction> p_255905_, DensityFunction p_255856_) {
+    private static DensityFunction registerAndWrap(BootstrapContext<DensityFunction> p_256149_, ResourceKey<DensityFunction> p_255905_, DensityFunction p_255856_) {
 		return new DensityFunctions.HolderHolder(p_256149_.register(p_255905_, p_255856_));
 	}
 
-	public static NoiseGeneratorSettings frostrealm(BootstapContext<NoiseGeneratorSettings> p_256478_) {
+    public static NoiseGeneratorSettings frostrealm(BootstrapContext<NoiseGeneratorSettings> p_256478_) {
 		return new NoiseGeneratorSettings(new NoiseSettings(-64, 384, 1, 2), Blocks.STONE.defaultBlockState(), Blocks.WATER.defaultBlockState(), FrostNoiseRouterData.frostrealm(p_256478_.lookup(Registries.DENSITY_FUNCTION), p_256478_.lookup(Registries.NOISE)), SurfaceRuleData.overworld(), List.of(), 63, false, true, false, false);
 	}
 

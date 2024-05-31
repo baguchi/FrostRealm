@@ -63,9 +63,9 @@ public class Marmot extends FrostAnimal {
 		return new FrostPathNavigation(this, p_33348_);
 	}
 
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(IS_STANDING, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(IS_STANDING, false);
 	}
 
 	public void setStanding(boolean standing) {

@@ -14,7 +14,8 @@
       "translate": "advancement.frostrealm.enter_frostrealm.desc"
     },
     "icon": {
-      "item": "frostrealm:frozen_grass_block"
+      "count": 1,
+      "id": "frostrealm:frozen_grass_block"
     },
     "title": {
       "translate": "advancement.frostrealm.enter_frostrealm"

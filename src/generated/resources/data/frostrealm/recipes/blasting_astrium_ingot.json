@@ -6,5 +6,8 @@
   "ingredient": {
     "item": "frostrealm:astrium_raw"
   },
-  "result": "frostrealm:astrium_ingot"
+  "result": {
+    "count": 1,
+    "id": "frostrealm:astrium_ingot"
+  }
 }

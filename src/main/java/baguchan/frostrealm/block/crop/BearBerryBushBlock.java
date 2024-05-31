@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -61,9 +62,9 @@ public class BearBerryBushBlock extends BushBlock implements BonemealableBlock {
 
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		int i = state.getValue(AGE);
-        if (i < 3 && level.getRawBrightness(pos.above(), 0) >= 9 && CommonHooks.onCropsGrowPre(level, pos, state, random.nextInt(5) == 0)) {
+		if (i < 3 && level.getRawBrightness(pos.above(), 0) >= 9 && CommonHooks.canCropGrow(level, pos, state, random.nextInt(5) == 0)) {
 			level.setBlock(pos, state.setValue(AGE, Integer.valueOf(i + 1)), 2);
-            CommonHooks.onCropsGrowPost(level, pos, state);
+			CommonHooks.fireCropGrowPost(level, pos, state);
 		}
 	}
 
@@ -73,19 +74,20 @@ public class BearBerryBushBlock extends BushBlock implements BonemealableBlock {
 		}
 	}
 
-	public InteractionResult use(BlockState p_57275_, Level p_57276_, BlockPos p_57277_, Player p_57278_, InteractionHand p_57279_, BlockHitResult p_57280_) {
+
+	protected ItemInteractionResult useItemOn(ItemStack p_316304_, BlockState p_57275_, Level p_57276_, BlockPos p_57277_, Player p_57278_, InteractionHand p_57279_, BlockHitResult p_57280_) {
 		int i = p_57275_.getValue(AGE);
 		boolean flag = i == 3;
 		if (!flag && p_57278_.getItemInHand(p_57279_).is(Items.BONE_MEAL)) {
-			return InteractionResult.PASS;
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		} else if (i > 2) {
 			int j = 1 + p_57276_.random.nextInt(2);
 			popResource(p_57276_, p_57277_, new ItemStack(FrostItems.BEARBERRY.get(), j));
 			p_57276_.playSound(null, p_57277_, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + p_57276_.random.nextFloat() * 0.4F);
 			p_57276_.setBlock(p_57277_, p_57275_.setValue(AGE, Integer.valueOf(1)), 2);
-			return InteractionResult.sidedSuccess(p_57276_.isClientSide);
+			return ItemInteractionResult.sidedSuccess(p_57276_.isClientSide);
 		} else {
-			return super.use(p_57275_, p_57276_, p_57277_, p_57278_, p_57279_, p_57280_);
+			return super.useItemOn(p_316304_, p_57275_, p_57276_, p_57277_, p_57278_, p_57279_, p_57280_);
 		}
 	}
 

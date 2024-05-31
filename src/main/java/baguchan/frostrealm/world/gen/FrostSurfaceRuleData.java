@@ -15,6 +15,7 @@ public class FrostSurfaceRuleData {
 	private static final SurfaceRules.RuleSource FROZEN_GRASS_BLOCK = makeStateRule(FrostBlocks.FROZEN_GRASS_BLOCK.get());
 	private static final SurfaceRules.RuleSource FROZEN_DIRT = makeStateRule(FrostBlocks.FROZEN_DIRT.get());
 	private static final SurfaceRules.RuleSource FRIGID_STONE = makeStateRule(FrostBlocks.FRIGID_STONE.get());
+    private static final SurfaceRules.RuleSource FRIGID_STONE_GRASS = makeStateRule(FrostBlocks.FRIGID_GRASS_BLOCK.get());
 	private static final SurfaceRules.RuleSource SHERBET_SAND = makeStateRule(FrostBlocks.SHERBET_SAND.get());
 	private static final SurfaceRules.RuleSource SHERBET_SANDSTONE = makeStateRule(FrostBlocks.SHERBET_SANDSTONE.get());
 
@@ -46,9 +47,11 @@ public class FrostSurfaceRuleData {
 
 
 		SurfaceRules.RuleSource surface = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0), FROZEN_GRASS_BLOCK), FROZEN_DIRT);
+
+        SurfaceRules.RuleSource surfaceStone = SurfaceRules.sequence(SurfaceRules.ifTrue(SurfaceRules.waterBlockCheck(-1, 0), FRIGID_STONE_GRASS));
+
         SurfaceRules.RuleSource skyLike = SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.CRYSTAL_FALL), SurfaceRules.sequence(
-                SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, surface),
-                SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, FROZEN_DIRT)
+                SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, surfaceStone)
         ));
 		SurfaceRules.RuleSource grassLike = SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.FRIGID_FOREST, FrostBiomes.TUNDRA), SurfaceRules.sequence(
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, surface),

@@ -55,9 +55,9 @@ public class MindVine extends Monster implements IMindVine {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_ATTACH_FACE_ID, Direction.DOWN);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_ATTACH_FACE_ID, Direction.DOWN);
     }
 
     @Override
@@ -249,17 +249,12 @@ public class MindVine extends Monster implements IMindVine {
         }
     }
 
-    @Override
-    protected float getStandingEyeHeight(Pose p_33438_, EntityDimensions p_33439_) {
-        return 0.25F;
-    }
-
 
     private void clientDiggingParticles() {
         BlockState blockstate = this.getBlockStateOn();
         RandomSource randomsource = this.getRandom();
 
-        float size = this.getDimensions(this.getPose()).width / 2;
+        float size = this.getDimensions(this.getPose()).width() / 2;
         if (blockstate.getRenderShape() != RenderShape.INVISIBLE) {
             SoundType soundType = blockstate.getSoundType();
 

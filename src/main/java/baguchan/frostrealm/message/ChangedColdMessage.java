@@ -5,13 +5,16 @@ import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.registry.FrostAttachs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.protocol.common.custom.GameTestClearMarkersDebugPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class ChangedColdMessage implements CustomPacketPayload {
-	public static final ResourceLocation ID = new ResourceLocation(FrostRealm.MODID, "changed_cold");
+    public static final StreamCodec<FriendlyByteBuf, ChangedColdMessage> STREAM_CODEC = CustomPacketPayload.codec(ChangedColdMessage::write, ChangedColdMessage::new);
+    public static final CustomPacketPayload.Type<ChangedColdMessage> TYPE = CustomPacketPayload.createType("frostrealm:changed_cold");
 	private final int entityId;
 
 	private final int temperature;
@@ -36,17 +39,12 @@ public class ChangedColdMessage implements CustomPacketPayload {
 		buf.writeFloat(this.temperatureSaturation);
 	}
 
-	@Override
-	public ResourceLocation id() {
-		return ID;
-	}
-
 	public ChangedColdMessage(FriendlyByteBuf buf) {
 		this(buf.readInt(), buf.readInt(), buf.readFloat());
 	}
 
-	public static void handle(ChangedColdMessage message, PlayPayloadContext context) {
-		context.workHandler().execute(() -> {
+    public static void handle(ChangedColdMessage message, IPayloadContext context) {
+        context.enqueueWork(() -> {
 			Entity entity = Minecraft.getInstance().level.getEntity(message.entityId);
 				if (entity != null && entity instanceof net.minecraft.world.entity.LivingEntity) {
 					FrostLivingCapability frostLivingCapability = entity.getData(FrostAttachs.FROST_LIVING);
@@ -55,4 +53,9 @@ public class ChangedColdMessage implements CustomPacketPayload {
 				}
 			});
 	}
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
+    }
 }

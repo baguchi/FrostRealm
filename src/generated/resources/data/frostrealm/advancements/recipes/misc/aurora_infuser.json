@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "frostrealm:stardust_crystal"
-            ]
+            "items": "frostrealm:stardust_crystal"
           }
         ]
       },

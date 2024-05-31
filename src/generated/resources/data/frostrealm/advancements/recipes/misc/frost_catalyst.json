@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "frostrealm:stray_necklace_part"
-            ]
+            "items": "frostrealm:stray_necklace_part"
           }
         ]
       },

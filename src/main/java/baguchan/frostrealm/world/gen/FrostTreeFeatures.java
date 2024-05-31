@@ -3,7 +3,7 @@ package baguchan.frostrealm.world.gen;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.ConstantInt;
@@ -31,7 +31,7 @@ public class FrostTreeFeatures {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, FrostRealm.prefix(name));
 	}
 
-	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
 		FeatureUtils.register(context, FROST_TREE, Feature.TREE, createFrostRoot().build());
 		FeatureUtils.register(context, FROST_TREE_BIG, Feature.TREE, createFancyFrostRoot().build());
 	}

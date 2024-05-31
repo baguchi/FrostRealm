@@ -6,5 +6,8 @@
   "ingredient": {
     "item": "frostrealm:cryonite"
   },
-  "result": "frostrealm:cryonite_cream"
+  "result": {
+    "count": 1,
+    "id": "frostrealm:cryonite_cream"
+  }
 }

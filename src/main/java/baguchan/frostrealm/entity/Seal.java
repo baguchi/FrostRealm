@@ -5,7 +5,6 @@ import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
@@ -31,7 +30,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,11 +49,10 @@ public class Seal extends Animal {
         super(p_27557_, p_27558_);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.4F, 0.9F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.DOOR_IRON_CLOSED, -1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DOOR_WOOD_CLOSED, -1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DOOR_OPEN, -1.0F);
-        this.setMaxUpStep(1.0F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.DOOR_IRON_CLOSED, -1.0F);
+        this.setPathfindingMalus(PathType.DOOR_WOOD_CLOSED, -1.0F);
+        this.setPathfindingMalus(PathType.DOOR_OPEN, -1.0F);
     }
 
     @Override
@@ -130,7 +128,7 @@ public class Seal extends Animal {
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28332_, DifficultyInstance p_28333_, MobSpawnType p_28334_, @javax.annotation.Nullable SpawnGroupData p_28335_, @javax.annotation.Nullable CompoundTag p_28336_) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28332_, DifficultyInstance p_28333_, MobSpawnType p_28334_, @javax.annotation.Nullable SpawnGroupData p_28335_) {
         boolean flag = false;
         if (p_28335_ instanceof AgeableMobGroupData) {
             if (((AgeableMobGroupData) p_28335_).getGroupSize() >= 2) {
@@ -146,7 +144,7 @@ public class Seal extends Animal {
 
         this.setAirSupply(this.getMaxAirSupply());
         this.setXRot(0.0F);
-        return super.finalizeSpawn(p_28332_, p_28333_, p_28334_, p_28335_, p_28336_);
+        return super.finalizeSpawn(p_28332_, p_28333_, p_28334_, p_28335_);
     }
 
     public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
@@ -180,7 +178,7 @@ public class Seal extends Animal {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 16.0D).add(Attributes.ATTACK_DAMAGE, 3.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.24D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 16.0D).add(Attributes.ATTACK_DAMAGE, 3.0D).add(Attributes.STEP_HEIGHT, 1.0F).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.24D);
     }
 
     @Nullable
@@ -211,9 +209,5 @@ public class Seal extends Animal {
 
     protected int increaseAirSupply(int p_28389_) {
         return this.getMaxAirSupply();
-    }
-
-    protected float getStandingEyeHeight(Pose p_28352_, EntityDimensions p_28353_) {
-        return p_28353_.height * 0.5F;
     }
 }

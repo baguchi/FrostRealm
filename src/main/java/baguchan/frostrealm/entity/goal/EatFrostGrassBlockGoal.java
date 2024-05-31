@@ -65,7 +65,7 @@ public class EatFrostGrassBlockGoal extends TimeConditionGoal {
         if (this.eatAnimationTick == this.adjustedTickDelay(4)) {
             BlockPos blockpos = this.mob.blockPosition();
             if (IS_TALL_GRASS.test(this.level.getBlockState(blockpos))) {
-                if (net.neoforged.neoforge.event.EventHooks.getMobGriefingEvent(this.level, this.mob)) {
+                if (net.neoforged.neoforge.event.EventHooks.canEntityGrief(this.level, this.mob)) {
                     this.level.destroyBlock(blockpos, false);
                 }
 
@@ -73,7 +73,7 @@ public class EatFrostGrassBlockGoal extends TimeConditionGoal {
             } else {
                 BlockPos blockpos1 = blockpos.below();
                 if (this.level.getBlockState(blockpos1).is(FrostBlocks.FROZEN_GRASS_BLOCK.get())) {
-                    if (net.neoforged.neoforge.event.EventHooks.getMobGriefingEvent(this.level, this.mob)) {
+                    if (net.neoforged.neoforge.event.EventHooks.canEntityGrief(this.level, this.mob)) {
                         this.level.levelEvent(2001, blockpos1, Block.getId(FrostBlocks.FROZEN_GRASS_BLOCK.get().defaultBlockState()));
                         this.level.setBlock(blockpos1, FrostBlocks.FROZEN_DIRT.get().defaultBlockState(), 2);
                     }

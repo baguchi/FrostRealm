@@ -6,5 +6,8 @@
   "ingredient": {
     "item": "frostrealm:frost_boar_meat"
   },
-  "result": "frostrealm:cooked_frost_boar_meat"
+  "result": {
+    "count": 1,
+    "id": "frostrealm:cooked_frost_boar_meat"
+  }
 }

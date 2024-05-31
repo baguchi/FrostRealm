@@ -20,8 +20,8 @@ public class MindVineRenderer<T extends MindVine> extends MobRenderer<T, MindVin
         super(p_173952_, new MindVineModel<>(p_173952_.bakeLayer(FrostModelLayers.MIND_VINE)), 0.35F);
     }
 
-    protected void setupRotations(T p_115907_, PoseStack p_115908_, float p_115909_, float p_115910_, float p_115911_) {
-        super.setupRotations(p_115907_, p_115908_, p_115909_, p_115910_ + 180.0F, p_115911_);
+    protected void setupRotations(T p_115907_, PoseStack p_115908_, float p_115319_, float p_115909_, float p_115910_, float p_115911_) {
+        super.setupRotations(p_115907_, p_115908_, p_115319_, p_115909_, p_115910_ + 180.0F, p_115911_);
 
         p_115908_.mulPose(Axis.YP.rotationDegrees(p_115910_));
         p_115908_.translate(0.0, 0.5, 0.0);

@@ -21,8 +21,7 @@ public class SnowMoleRenderer<T extends SnowMole> extends MobRenderer<T, SnowMol
 
 	@Override
 	protected void scale(T p_115314_, PoseStack p_115315_, float p_115316_) {
-		float size = p_115314_.getScale();
-		p_115315_.scale(size, size, size);
+		p_115315_.scale(p_115314_.getAgeScale(), p_115314_.getAgeScale(), p_115314_.getAgeScale());
 		super.scale(p_115314_, p_115315_, p_115316_);
 	}
 

@@ -4,9 +4,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "frostrealm:stray_necklace_part"
-            ]
+            "items": "frostrealm:stray_necklace_part"
           }
         ]
       },
@@ -18,7 +16,8 @@
       "translate": "advancement.frostrealm.warriors_lost_item.desc"
     },
     "icon": {
-      "item": "frostrealm:stray_necklace_part"
+      "count": 1,
+      "id": "frostrealm:stray_necklace_part"
     },
     "title": {
       "translate": "advancement.frostrealm.warriors_lost_item"

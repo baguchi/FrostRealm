@@ -59,7 +59,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 	public AnimationState cheerAnimation = new AnimationState();
 
 	public static final Predicate<? super ItemEntity> ALLOWED_ITEMS = (p_213616_0_) -> {
-		return p_213616_0_.getItem().getItem().getFoodProperties() != null && p_213616_0_.getItem().getItem() != Items.SPIDER_EYE && p_213616_0_.getItem().getItem() != Items.PUFFERFISH || p_213616_0_.getItem().is(FrostTags.Items.YETI_CURRENCY) || p_213616_0_.getItem().is(FrostTags.Items.YETI_BIG_CURRENCY);
+		return p_213616_0_.getItem().getItem() != Items.SPIDER_EYE && p_213616_0_.getItem().getItem() != Items.PUFFERFISH || p_213616_0_.getItem().is(FrostTags.Items.YETI_CURRENCY) || p_213616_0_.getItem().is(FrostTags.Items.YETI_BIG_CURRENCY);
 	};
 
 
@@ -67,7 +67,6 @@ public class Yeti extends AgeableMob implements HuntMob {
 		super(p_21683_, p_21684_);
 		this.getNavigation().setCanFloat(true);
 		this.setCanPickUpLoot(true);
-		this.setMaxUpStep(1.25F);
 	}
 
 	@Override
@@ -98,11 +97,11 @@ public class Yeti extends AgeableMob implements HuntMob {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(DATA_STATE, State.IDLING.name());
-		this.entityData.define(HUNT_ID, false);
-		this.entityData.define(HUNT_LEADER_ID, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(DATA_STATE, State.IDLING.name());
+		builder.define(HUNT_ID, false);
+		builder.define(HUNT_LEADER_ID, false);
 	}
 
 
@@ -163,8 +162,8 @@ public class Yeti extends AgeableMob implements HuntMob {
 			if (!this.useItem.isEmpty() && this.isUsingItem()) {
 				ItemStack copy = this.useItem.copy();
 
-				if (copy.getItem().getFoodProperties() != null) {
-					this.heal(copy.getItem().getFoodProperties().getNutrition());
+				if (copy.getFoodProperties(this) != null) {
+					this.heal(copy.getFoodProperties(this).nutrition());
 				}
 			}
 		}
@@ -211,7 +210,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 	private ItemStack findFood() {
 		for (int i = 0; i < this.inventory.getContainerSize(); ++i) {
 			ItemStack itemstack = this.inventory.getItem(i);
-			if (!itemstack.isEmpty() && itemstack.getItem().getFoodProperties() != null) {
+			if (!itemstack.isEmpty() && itemstack.getFoodProperties(this) != null) {
 				return itemstack.split(1);
 			}
 		}
@@ -220,7 +219,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 
 
 	public boolean wantsToPickUp(ItemStack p_34777_) {
-		return EventHooks.getMobGriefingEvent(this.level(), this) && this.canPickUpLoot() && YetiAi.wantsToPickup(this, p_34777_);
+		return EventHooks.canEntityGrief(this.level(), this) && this.canPickUpLoot() && YetiAi.wantsToPickup(this, p_34777_);
 	}
 
 	@Override
@@ -238,7 +237,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 				itemstack.setCount(itemstack.getCount());
 			}
 			this.holdTime = 200;
-		} else if (item.getFoodProperties() != null) {
+		} else if (itemstack.getFoodProperties(this) != null) {
 			this.onItemPickup(p_175445_1_);
 			this.take(p_175445_1_, itemstack.getCount());
 			ItemStack itemstack1 = this.inventory.addItem(itemstack);
@@ -271,7 +270,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 	}
 
 	private boolean wantsFood(ItemStack p_213672_1_) {
-		return p_213672_1_.getItem().getFoodProperties() != null;
+		return p_213672_1_.getFoodProperties(this) != null;
 	}
 
 
@@ -299,7 +298,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 		ListTag listnbt = p_29541_.getList("Inventory", 10);
 
 		for (int i = 0; i < listnbt.size(); ++i) {
-			ItemStack itemstack = ItemStack.of(listnbt.getCompound(i));
+			ItemStack itemstack = ItemStack.parse(this.registryAccess(), listnbt.getCompound(i)).orElse(ItemStack.EMPTY);
 			if (!itemstack.isEmpty()) {
 				this.inventory.addItem(itemstack);
 			}
@@ -318,7 +317,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 		for (int i = 0; i < this.inventory.getContainerSize(); ++i) {
 			ItemStack itemstack = this.inventory.getItem(i);
 			if (!itemstack.isEmpty()) {
-				listnbt.add(itemstack.save(new CompoundTag()));
+				listnbt.add(itemstack.save(this.registryAccess(), new CompoundTag()));
 			}
 		}
 
@@ -330,7 +329,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 		p_29548_.putString("State", this.getState());
 	}
 
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_29533_, DifficultyInstance p_29534_, MobSpawnType p_29535_, @Nullable SpawnGroupData p_29536_, @Nullable CompoundTag p_29537_) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_29533_, DifficultyInstance p_29534_, MobSpawnType p_29535_, @Nullable SpawnGroupData p_29536_) {
 		if (p_29536_ == null) {
 
 			if (p_29535_ == MobSpawnType.PATROL) {
@@ -350,7 +349,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 		this.populateDefaultEquipmentSlots(p_29533_.getRandom(), p_29534_);
 		this.populateDefaultEquipmentEnchantments(p_29533_.getRandom(), p_29534_);
 
-		return super.finalizeSpawn(p_29533_, p_29534_, p_29535_, p_29536_, p_29537_);
+		return super.finalizeSpawn(p_29533_, p_29534_, p_29535_, p_29536_);
 	}
 
 	protected void populateDefaultEquipmentSlots(RandomSource p_219165_, DifficultyInstance p_219166_) {

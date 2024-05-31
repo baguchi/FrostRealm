@@ -101,9 +101,4 @@ public class AstraBall extends Monster {
         LivingEntityFlyingSoundInstance.playSound(this, FrostSounds.MORTAR.get());
     }
 
-    @Override
-    protected float getStandingEyeHeight(Pose p_21131_, EntityDimensions p_21132_) {
-        return p_21132_.height * 0.5F;
-    }
-
 }

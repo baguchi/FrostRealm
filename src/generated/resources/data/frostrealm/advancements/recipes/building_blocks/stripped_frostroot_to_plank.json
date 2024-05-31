@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "frostrealm:stripped_frostroot_log"
-            ]
+            "items": "frostrealm:stripped_frostroot_log"
           }
         ]
       },

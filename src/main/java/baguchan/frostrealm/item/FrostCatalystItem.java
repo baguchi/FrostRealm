@@ -19,15 +19,10 @@ public class FrostCatalystItem extends Item {
 		if (context.getLevel().getBlockState(context.getClickedPos()).getBlock() == Blocks.SNOW_BLOCK &&
 				FrostBlocks.FROST_PORTAL.get().trySpawnPortal(context.getLevel(), context.getClickedPos().above())) {
 			if (!context.getPlayer().isCreative())
-				context.getItemInHand().hurtAndBreak(1, (LivingEntity) context.getPlayer(), p_213625_1_ -> p_213625_1_.broadcastBreakEvent(context.getHand()));
+                context.getItemInHand().hurtAndBreak(1, (LivingEntity) context.getPlayer(), LivingEntity.getSlotForHand(context.getHand()));
 			return InteractionResult.SUCCESS;
 		}
 		return super.useOn(context);
-	}
-
-	@Override
-	public Rarity getRarity(ItemStack p_77613_1_) {
-		return Rarity.RARE;
 	}
 
 	@Override

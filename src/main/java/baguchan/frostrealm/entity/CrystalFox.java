@@ -102,11 +102,11 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.3F).add(Attributes.MAX_HEALTH, 10.0D).add(Attributes.FOLLOW_RANGE, 32.0D).add(Attributes.ATTACK_DAMAGE, 2.0D);
 	}
 
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(SHEARABLE, true);
-		this.entityData.define(DATA_TRUSTED_ID_0, Optional.empty());
-		this.entityData.define(DATA_TRUSTED_ID_1, Optional.empty());
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(SHEARABLE, true);
+		builder.define(DATA_TRUSTED_ID_0, Optional.empty());
+		builder.define(DATA_TRUSTED_ID_1, Optional.empty());
 	}
 
 	@Override
@@ -224,11 +224,11 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 	public boolean canHoldItem(ItemStack p_28578_) {
 		Item item = p_28578_.getItem();
 		ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-		return itemstack.isEmpty() || this.ticksSinceEaten > 0 && (item.isEdible() || item == FrostItems.BEARBERRY.get()) && !itemstack.getItem().isEdible() && !itemstack.is(FrostItems.BEARBERRY.get());
+		return itemstack.isEmpty() || this.ticksSinceEaten > 0 && (p_28578_.getFoodProperties(this) != null || item == FrostItems.BEARBERRY.get()) && p_28578_.getFoodProperties(this) == null && !itemstack.is(FrostItems.BEARBERRY.get());
 	}
 
 	private boolean canEat(ItemStack p_28598_) {
-		return (p_28598_.getItem().isEdible() || p_28598_.is(FrostItems.BEARBERRY.get())) && this.getTarget() == null && this.onGround() && !this.isSleeping();
+		return (p_28598_.getFoodProperties(this) != null || p_28598_.is(FrostItems.BEARBERRY.get())) && this.getTarget() == null && this.onGround() && !this.isSleeping();
 	}
 
 	@javax.annotation.Nonnull
@@ -333,7 +333,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 
 				this.level().broadcastEntityEvent(this, (byte) 5);
 				this.playSound(SoundEvents.FOX_EAT, 1.0F, 1.0F);
-				this.heal(item.getFoodProperties() != null ? (float) item.getFoodProperties().getNutrition() : 1);
+				this.heal(itemstack.getFoodProperties(this) != null ? (float) itemstack.getFoodProperties(this).nutrition() : 1);
 				this.gameEvent(GameEvent.ENTITY_INTERACT, this);
 				return InteractionResult.SUCCESS;
 			}
@@ -450,7 +450,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		}
 
 		protected void onReachedTarget() {
-			if (EventHooks.getMobGriefingEvent(CrystalFox.this.level(), CrystalFox.this)) {
+			if (EventHooks.canEntityGrief(CrystalFox.this.level(), CrystalFox.this)) {
 				BlockState blockstate = CrystalFox.this.level().getBlockState(this.blockPos);
 				if (blockstate.is(FrostBlocks.BEARBERRY_BUSH.get())) {
 					this.pickBearBerry(blockstate);

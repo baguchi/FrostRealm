@@ -4,7 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.world.gen.FrostNoiseRouterData;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.DensityFunction;
@@ -22,7 +22,7 @@ public class FrostDensityFunctions {
         return ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation(FrostRealm.MODID, name));
     }
 
-    public static void bootstrap(BootstapContext<DensityFunction> context) {
+    public static void bootstrap(BootstrapContext<DensityFunction> context) {
         HolderGetter<NormalNoise.NoiseParameters> noiseHolderGetter = context.lookup(Registries.NOISE);
         HolderGetter<DensityFunction> density = context.lookup(Registries.DENSITY_FUNCTION);
         FrostNoiseRouterData.bootstrapDensity(context);

@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
@@ -23,6 +24,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.jetbrains.annotations.UnknownNullability;
 
 public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 
@@ -108,7 +110,7 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 		/*
 		 *  Body temperature stuff
 		 */
-		if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL && (!entity.getType().is(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE) && !((entity instanceof Player && ((Player) entity).isCreative()) || entity.isSpectator())) && !entity.hasEffect(FrostEffects.COLD_RESISTANCE.get())) {
+		if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL && (!entity.getType().is(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE) && !((entity instanceof Player && ((Player) entity).isCreative()) || entity.isSpectator())) && !entity.hasEffect(FrostEffects.COLD_RESISTANCE)) {
 			Difficulty difficulty = entity.level().getDifficulty();
 			this.lastTemperate = this.temperature;
 			hotSourceTick(entity);
@@ -183,7 +185,7 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 		}
 		if (entity.tickCount % 20 == 0 && !entity.level().isClientSide()) {
 			ChangedColdMessage message = new ChangedColdMessage(entity, this.temperature, this.temperatureSaturation);
-			PacketDistributor.TRACKING_ENTITY_AND_SELF.with(entity).send(message);
+			PacketDistributor.sendToPlayersTrackingEntityAndSelf(entity, message);
 		}
 	}
 
@@ -271,7 +273,7 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 		return this.temperature < 12;
 	}
 
-	public CompoundTag serializeNBT() {
+	public CompoundTag serializeNBT(HolderLookup.Provider provider) {
 		CompoundTag nbt = new CompoundTag();
 
 		nbt.putInt("Temperature", this.temperature);
@@ -281,7 +283,7 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 		return nbt;
 	}
 
-	public void deserializeNBT(CompoundTag nbt) {
+	public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
 		this.temperature = nbt.getInt("Temperature");
 		this.temperatureSaturation = nbt.getInt("TemperatureSaturation");
 		this.exhaustionLevel = nbt.getInt("TemperatureExhaustion");

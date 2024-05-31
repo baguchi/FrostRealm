@@ -5,12 +5,14 @@ import baguchan.frostrealm.capability.FrostWeatherManager;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.weather.FrostWeather;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class ChangeWeatherMessage implements CustomPacketPayload {
-	public static final ResourceLocation ID = new ResourceLocation(FrostRealm.MODID, "changed_weather");
+    public static final StreamCodec<FriendlyByteBuf, ChangeWeatherMessage> STREAM_CODEC = CustomPacketPayload.codec(ChangeWeatherMessage::write, ChangeWeatherMessage::new);
+    public static final CustomPacketPayload.Type<ChangeWeatherMessage> TYPE = CustomPacketPayload.createType("frostrealm:change_weather");
 
 	private final FrostWeather weather;
 
@@ -19,8 +21,8 @@ public class ChangeWeatherMessage implements CustomPacketPayload {
 	}
 
 	@Override
-	public ResourceLocation id() {
-		return ID;
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
 	}
 
 	public void write(FriendlyByteBuf buf) {
@@ -31,8 +33,8 @@ public class ChangeWeatherMessage implements CustomPacketPayload {
 		this(FrostWeathers.getRegistry().get(buf.readResourceLocation()));
 	}
 
-	public static void handle(ChangeWeatherMessage message, PlayPayloadContext context) {
-		context.workHandler().execute(() -> {
+    public static void handle(ChangeWeatherMessage message, IPayloadContext context) {
+        context.enqueueWork(() -> {
 			FrostWeatherManager.setFrostWeather(message.weather);
 			});
 	}

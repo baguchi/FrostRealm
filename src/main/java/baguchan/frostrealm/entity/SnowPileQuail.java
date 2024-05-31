@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -73,10 +74,10 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 		this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
 	}
 
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		this.entityData.define(ANGRY, false);
-		this.entityData.define(HAS_EGG, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(ANGRY, false);
+		builder.define(HAS_EGG, false);
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
@@ -84,9 +85,9 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	}
 
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_) {
 		this.populateDefaultEquipmentSlots(p_146746_.getRandom(), p_146747_);
-		return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
+		return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_);
 	}
 
 	@Override
@@ -209,21 +210,16 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	public boolean canHoldItem(ItemStack p_28578_) {
 		Item item = p_28578_.getItem();
 		ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-		return itemstack.isEmpty() || this.ticksSinceEaten > 0 && item.isEdible() && !item.getFoodProperties().isMeat() && !itemstack.getItem().isEdible();
+		return itemstack.isEmpty() || this.ticksSinceEaten > 0 && p_28578_.getFoodProperties(this) != null && !p_28578_.is(ItemTags.MEAT) && itemstack.getFoodProperties(this) == null;
 	}
 
 	private boolean canEat(ItemStack p_28598_) {
-		return p_28598_.getItem().isEdible() && !p_28598_.getItem().getFoodProperties().isMeat() && this.getTarget() == null && this.onGround() && !this.isSleeping();
+		return p_28598_.getFoodProperties(this) != null && !p_28598_.is(ItemTags.MEAT) && this.getTarget() == null && this.onGround() && !this.isSleeping();
 	}
 
 	@Override
 	public boolean isFood(ItemStack p_28271_) {
 		return FOOD_ITEMS.test(p_28271_);
-	}
-
-	@Override
-	protected float getStandingEyeHeight(Pose p_21131_, EntityDimensions p_21132_) {
-		return p_21132_.height * 0.45F;
 	}
 
 	@Override
@@ -239,7 +235,7 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	public void readAdditionalSaveData(CompoundTag compoundTag) {
 		super.readAdditionalSaveData(compoundTag);
 		if (compoundTag.contains("HomeTarget")) {
-			this.homeTarget = NbtUtils.readBlockPos(compoundTag.getCompound("HomeTarget"));
+			this.homeTarget = NbtUtils.readBlockPos(compoundTag, "HomeTarget").orElse(null);
 		}
 		this.setHasEgg(compoundTag.getBoolean("HasEgg"));
 	}

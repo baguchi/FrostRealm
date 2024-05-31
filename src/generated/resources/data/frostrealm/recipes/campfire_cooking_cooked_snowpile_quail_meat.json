@@ -6,5 +6,8 @@
   "ingredient": {
     "item": "frostrealm:snowpile_quail_meat"
   },
-  "result": "frostrealm:cooked_snowpile_quail_meat"
+  "result": {
+    "count": 1,
+    "id": "frostrealm:cooked_snowpile_quail_meat"
+  }
 }

@@ -10,6 +10,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -361,7 +363,7 @@ public class YetiAi {
             return isNotHoldingLovedItemInOffHand(p_34858_);
         } else {
             boolean flag = p_34858_.canAddToInventory(p_34859_);
-            if (isFood(p_34859_)) {
+            if (isFood(p_34858_, p_34859_)) {
                 return flag;
             } else if (!isLovedItem(p_34859_)) {
                 return false;
@@ -379,19 +381,19 @@ public class YetiAi {
         return p_149966_.is(FrostTags.Items.YETI_LOVED);
     }
 
-    protected static boolean isFood(ItemStack p_149966_) {
-        return p_149966_.getItem().getFoodProperties() != null;
+    protected static boolean isFood(Yeti yeti, ItemStack p_149966_) {
+        return p_149966_.getFoodProperties(yeti) != null;
     }
 
 
     private static List<ItemStack> getBarterResponseItems(Yeti p_34997_) {
-        LootTable loottable = p_34997_.level().getServer().getLootData().getLootTable(FrostLoots.YETI_BARTERING);
+        LootTable loottable = p_34997_.level().getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FrostLoots.YETI_BARTERING));
         List<ItemStack> list = loottable.getRandomItems((new LootParams.Builder((ServerLevel) p_34997_.level())).withParameter(LootContextParams.THIS_ENTITY, p_34997_).create(LootContextParamSets.PIGLIN_BARTER));
         return list;
     }
 
     private static List<ItemStack> getBigBarterResponseItems(Yeti p_34997_) {
-        LootTable loottable = p_34997_.level().getServer().getLootData().getLootTable(FrostLoots.YETI_BIG_BARTERING);
+        LootTable loottable = p_34997_.level().getServer().reloadableRegistries().getLootTable(ResourceKey.create(Registries.LOOT_TABLE, FrostLoots.YETI_BIG_BARTERING));
         List<ItemStack> list = loottable.getRandomItems((new LootParams.Builder((ServerLevel) p_34997_.level())).withParameter(LootContextParams.THIS_ENTITY, p_34997_).create(LootContextParamSets.PIGLIN_BARTER));
         return list;
     }

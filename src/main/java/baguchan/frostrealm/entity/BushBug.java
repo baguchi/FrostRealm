@@ -41,9 +41,9 @@ public class BushBug extends Animal implements IShearable {
         super(p_27557_, p_27558_);
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(SHEARABLE, true);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SHEARABLE, true);
     }
 
     @Override

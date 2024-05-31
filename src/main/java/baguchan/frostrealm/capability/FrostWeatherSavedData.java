@@ -6,6 +6,7 @@ import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.utils.BlizzardUtils;
 import baguchan.frostrealm.weather.FrostWeather;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -101,7 +102,7 @@ public class FrostWeatherSavedData extends SavedData {
 	public static SavedData.Factory<FrostWeatherSavedData> factory(ServerLevel p_300199_) {
 		return new SavedData.Factory<>(() -> {
 			return new FrostWeatherSavedData(p_300199_);
-		}, (p_296865_) -> {
+		}, (p_296865_, t) -> {
 			return load(p_300199_, p_296865_);
 		}, DataFixTypes.SAVED_DATA_RAIDS);
 	}
@@ -118,15 +119,15 @@ public class FrostWeatherSavedData extends SavedData {
             data.frostWeather = FrostWeathers.NOPE.get();
 		}
         ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
-		PacketDistributor.DIMENSION.with(p_300199_.dimension()).send(message);
+		PacketDistributor.sendToPlayersInDimension(p_300199_, message);
 
 		ChangeAuroraMessage message2 = new ChangeAuroraMessage(data.auroraLevel);
-		PacketDistributor.DIMENSION.with(p_300199_.dimension()).send(message2);
+		PacketDistributor.sendToPlayersInDimension(p_300199_, message2);
 		return data;
 	}
 
 	public void tick(Level level) {
-		if (!level.isClientSide()) {
+		if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
 			if (level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 				if (isWeatherActive()) {
 					if (frostWeather == FrostWeathers.PURPLE_FOG.get()) {
@@ -144,7 +145,7 @@ public class FrostWeatherSavedData extends SavedData {
 
 							setFrostWeather(frostWeather);
 							ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
-							PacketDistributor.DIMENSION.with(level.dimension()).send(message);
+							PacketDistributor.sendToPlayersInDimension(serverLevel, message);
 
 							setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
 						}
@@ -154,7 +155,7 @@ public class FrostWeatherSavedData extends SavedData {
 						setWeatherCooldown(((level.random.nextInt(5) + 10) * 60) * 20);
 						setFrostWeather(FrostWeathers.NOPE.get());
 						ChangeWeatherMessage message2 = new ChangeWeatherMessage(FrostWeathers.NOPE.get());
-						PacketDistributor.DIMENSION.with(level.dimension()).send(message2);
+						PacketDistributor.sendToPlayersInDimension(serverLevel, message2);
 					}
 				}
 			}
@@ -162,7 +163,7 @@ public class FrostWeatherSavedData extends SavedData {
 	}
 
 	@Override
-	public CompoundTag save(CompoundTag p_77763_) {
+	public CompoundTag save(CompoundTag p_77763_, HolderLookup.Provider p_323640_) {
 		CompoundTag nbt = new CompoundTag();
 
 		nbt.putInt("WeatherTime", this.weatherTime);

@@ -178,7 +178,7 @@ public class SnowPileQuailEggBlock extends Block {
 			if (!(p_57769_ instanceof LivingEntity)) {
 				return false;
 			} else {
-				return p_57769_ instanceof Player || EventHooks.getMobGriefingEvent(p_57768_, p_57769_);
+				return p_57769_ instanceof Player || EventHooks.canEntityGrief(p_57768_, p_57769_);
 			}
 		} else {
 			return false;

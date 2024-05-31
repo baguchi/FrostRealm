@@ -9,6 +9,7 @@ import baguchan.frostrealm.utils.aurorapower.AuroraPowerInstance;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -158,7 +159,9 @@ public class AuroraInfuserMenu extends AbstractContainerMenu {
                             FrostWeatherSavedData.get(p_39481_).setAuroraLevel(FrostWeatherSavedData.get(p_39481_).getAuroraLevel() - this.costs[p_39466_] * 0.01F);
                             FrostWeatherSavedData.get(p_39481_).setUnstableLevel(FrostWeatherSavedData.get(p_39481_).getUnstableLevel() + this.costs[p_39466_] * 0.01F);
                             ChangeAuroraMessage message2 = new ChangeAuroraMessage(FrostWeatherSavedData.get(p_39481_).getAuroraLevel());
-                            PacketDistributor.DIMENSION.with(p_39481_.dimension()).send(message2);
+                            if (p_39481_ instanceof ServerLevel serverLevel) {
+                                PacketDistributor.sendToPlayersInDimension(serverLevel, message2);
+                            }
                             this.enchantSlots.setItem(1, ItemStack.EMPTY);
                         }
 

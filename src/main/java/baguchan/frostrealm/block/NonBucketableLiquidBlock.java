@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 
 public class NonBucketableLiquidBlock extends LiquidBlock {
     public NonBucketableLiquidBlock(Supplier<? extends FlowingFluid> fluid, Properties p_54695_) {
-        super(fluid, p_54695_);
+        super(fluid.get(), p_54695_);
     }
 
     @Override

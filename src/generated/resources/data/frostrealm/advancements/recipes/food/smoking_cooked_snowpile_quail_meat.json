@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "frostrealm:snowpile_quail_meat"
-            ]
+            "items": "frostrealm:snowpile_quail_meat"
           }
         ]
       },

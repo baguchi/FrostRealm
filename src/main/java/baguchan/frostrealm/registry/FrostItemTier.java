@@ -1,13 +1,17 @@
 package baguchan.frostrealm.registry;
 
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
 
 import java.util.function.Supplier;
 
 public enum FrostItemTier implements Tier {
-	ASTRIUM(2, 320, 6.0F, 2.0F, 16, () -> Ingredient.of(FrostItems.ASTRIUM_INGOT.get()));
+	ASTRIUM(BlockTags.INCORRECT_FOR_IRON_TOOL, 2, 320, 6.0F, 2.0F, 16, () -> Ingredient.of(FrostItems.ASTRIUM_INGOT.get()));
+	private final TagKey<Block> incorrectBlocksForDrops;
 	private final int level;
 
 	private final int uses;
@@ -20,7 +24,8 @@ public enum FrostItemTier implements Tier {
 
 	private final LazyLoadedValue<Ingredient> repairIngredient;
 
-	FrostItemTier(int p_i48458_3_, int p_i48458_4_, float p_i48458_5_, float p_i48458_6_, int p_i48458_7_, Supplier<Ingredient> p_i48458_8_) {
+	FrostItemTier(TagKey<Block> p_336171_, int p_i48458_3_, int p_i48458_4_, float p_i48458_5_, float p_i48458_6_, int p_i48458_7_, Supplier<Ingredient> p_i48458_8_) {
+		this.incorrectBlocksForDrops = p_336171_;
 		this.level = p_i48458_3_;
 		this.uses = p_i48458_4_;
 		this.speed = p_i48458_5_;
@@ -39,6 +44,11 @@ public enum FrostItemTier implements Tier {
 
 	public float getAttackDamageBonus() {
 		return this.damage;
+	}
+
+	@Override
+	public TagKey<Block> getIncorrectBlocksForDrops() {
+		return this.incorrectBlocksForDrops;
 	}
 
 	public int getLevel() {

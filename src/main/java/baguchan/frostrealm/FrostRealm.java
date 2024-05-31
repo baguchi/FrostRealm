@@ -7,7 +7,6 @@ import baguchan.frostrealm.command.TemperatureCommand;
 import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.message.ChangedColdMessage;
-import baguchan.frostrealm.message.HurtMultipartMessage;
 import baguchan.frostrealm.registry.*;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
@@ -18,6 +17,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -25,8 +25,8 @@ import net.neoforged.fml.util.thread.EffectiveSide;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
-import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import org.apache.logging.log4j.LogManager;
@@ -44,7 +44,7 @@ public class FrostRealm {
 	public static final String NETWORK_PROTOCOL = "2";
 
 
-	public FrostRealm(IEventBus modBus) {
+	public FrostRealm(ModContainer modContainer, IEventBus modBus) {
 
 		IEventBus forgeBus = NeoForge.EVENT_BUS;
 		FrostFeatures.FEATURES.register(modBus);
@@ -58,6 +58,7 @@ public class FrostRealm {
 		FrostEntities.ENTITIES.register(modBus);
 		FrostCreativeTabs.CREATIVE_MODE_TABS.register(modBus);
 		FrostItems.ITEMS.register(modBus);
+		FrostArmorMaterials.ARMOR_MATERIALS.register(modBus);
 		FrostLootFunctions.LOOT_REIGSTER.register(modBus);
 		FrostEffects.MOB_EFFECTS.register(modBus);
 		FrostEffects.POTION.register(modBus);
@@ -67,6 +68,7 @@ public class FrostRealm {
         FrostChunkGenerators.CHUNK_GENERATOR.register(modBus);
         FrostWeathers.FROST_WEATHER.register(modBus);
         AuroraPowers.AURORA_POWER.register(modBus);
+		FrostDataCompnents.DATA_COMPONENT_TYPES.register(modBus);
 
 		modBus.addListener(this::setup);
 		modBus.addListener(this::dataSetup);
@@ -100,15 +102,14 @@ public class FrostRealm {
 	}
 
 	public static void sendNonLocal(CustomPacketPayload msg, ServerPlayer player) {
-		PacketDistributor.PLAYER.with(player).send(msg);
+		PacketDistributor.sendToPlayer(player, msg);
 	}
 
-	public void setupPackets(RegisterPayloadHandlerEvent event) {
-		IPayloadRegistrar registrar = event.registrar(MODID).versioned("1.0.0").optional();
-		registrar.play(ChangedColdMessage.ID, ChangedColdMessage::new, payload -> payload.client(ChangedColdMessage::handle));
-		registrar.play(ChangeWeatherMessage.ID, ChangeWeatherMessage::new, payload -> payload.client(ChangeWeatherMessage::handle));
-        registrar.play(ChangeAuroraMessage.ID, ChangeAuroraMessage::new, payload -> payload.client(ChangeAuroraMessage::handle));
-		registrar.play(HurtMultipartMessage.ID, HurtMultipartMessage::new, payload -> payload.server(HurtMultipartMessage::handle));
+	public void setupPackets(RegisterPayloadHandlersEvent event) {
+		PayloadRegistrar registrar = event.registrar(MODID).versioned("1.0.0").optional();
+		registrar.playBidirectional(ChangedColdMessage.TYPE, ChangedColdMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
+		registrar.playBidirectional(ChangeWeatherMessage.TYPE, ChangeWeatherMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
+		registrar.playBidirectional(ChangeAuroraMessage.TYPE, ChangeAuroraMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
 	}
 
 	public static ResourceLocation prefix(String name) {

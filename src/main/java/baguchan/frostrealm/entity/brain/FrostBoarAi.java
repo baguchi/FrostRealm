@@ -69,7 +69,7 @@ public class FrostBoarAi {
     }
 
     private static void initIdleActivity(Brain<FrostBoar> p_149309_) {
-        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(0, new AnimalMakeLove(FrostEntities.FROST_BOAR.get(), 0.75F)), Pair.of(1, new FollowTemptation(FrostBoarAi::getSpeedModifier)), Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F))), ImmutableSet.of());
+        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(0, new AnimalMakeLove(FrostEntities.FROST_BOAR.get(), 0.75F, 4)), Pair.of(1, new FollowTemptation(FrostBoarAi::getSpeedModifier)), Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F))), ImmutableSet.of());
     }
 
     private static void initRetreatActivity(Brain<FrostBoar> p_34616_) {
@@ -95,7 +95,7 @@ public class FrostBoarAi {
             int j = p_34623_.getBrain().getMemory(FrostMemoryModuleType.FROST_BOAR_COUNT.get()).orElse(0) + 1;
             int i = p_34623_.getBrain().getMemory(FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get()).orElse(0);
 
-            return j > i + 2 || (p_34623_.getHealth() > p_34623_.getMaxHealth() / 2);
+            return j > i + 2 && (p_34623_.getHealth() > p_34623_.getMaxHealth() / 2);
         }
     }
 

@@ -4,7 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.world.gen.FrostConfiguredFeatures;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
@@ -35,7 +35,7 @@ public class FrostOrePlacements {
 		return ResourceKey.create(Registries.PLACED_FEATURE, FrostRealm.prefix(name));
 	}
 
-	public static void bootstrap(BootstapContext<PlacedFeature> context) {
+    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		HolderGetter<ConfiguredFeature<?, ?>> configuredFeature = context.lookup(Registries.CONFIGURED_FEATURE);
 
 		PlacementUtils.register(context, FROST_CRYSTAL_ORE_UPPER, configuredFeature.getOrThrow(FrostConfiguredFeatures.ORE_FROST_CRYSTAL), commonOrePlacement(30, HeightRangePlacement.uniform(VerticalAnchor.absolute(92), VerticalAnchor.top())));

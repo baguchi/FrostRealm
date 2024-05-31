@@ -205,13 +205,13 @@ public class FrostChestBlock extends AbstractChestBlock<FrostChestBlockEntity> i
 	}
 
 	public void setPlacedBy(Level p_51503_, BlockPos p_51504_, BlockState p_51505_, LivingEntity p_51506_, ItemStack p_51507_) {
-		if (p_51507_.hasCustomHoverName()) {
+		/*if (p_51507_.has) {
 			BlockEntity blockentity = p_51503_.getBlockEntity(p_51504_);
 			if (blockentity instanceof FrostChestBlockEntity) {
 				((FrostChestBlockEntity) blockentity).setCustomName(p_51507_.getHoverName());
 			}
 		}
-
+*/
 	}
 
 	public void onRemove(BlockState p_51538_, Level p_51539_, BlockPos p_51540_, BlockState p_51541_, boolean p_51542_) {

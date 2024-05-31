@@ -5,6 +5,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -12,7 +13,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
 
-@Mod.EventBusSubscriber(modid = FrostRealm.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = FrostRealm.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent event) {
@@ -29,9 +30,9 @@ public class DataGenerators {
         event.getGenerator().addProvider(event.includeServer(), new ItemTagGenerator(packOutput, lookupProvider, blocktags.contentsGetter(), event.getExistingFileHelper()));
         event.getGenerator().addProvider(event.includeServer(), new EntityTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
 		event.getGenerator().addProvider(event.includeServer(), new FluidTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
-		event.getGenerator().addProvider(event.includeServer(), LootGenerator.create(packOutput));
+		event.getGenerator().addProvider(event.includeServer(), LootGenerator.create(packOutput, lookupProvider));
 
-        event.getGenerator().addProvider(event.includeServer(), new CraftingGenerator(packOutput));
+		event.getGenerator().addProvider(event.includeServer(), new CraftingGenerator(packOutput, lookupProvider));
 		event.getGenerator().addProvider(event.includeServer(), new RegistryDataGenerator(packOutput, lookupProvider));
 	}
 }

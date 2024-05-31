@@ -6,6 +6,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
@@ -16,7 +17,7 @@ import java.util.function.Supplier;
 
 import static net.minecraft.resources.ResourceKey.createRegistryKey;
 
-@Mod.EventBusSubscriber(modid = FrostRealm.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = FrostRealm.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class FrostWeathers {
 	public static final ResourceKey<Registry<FrostWeather>> WEATHER_RESOURCE_KEY = createRegistryKey(new ResourceLocation(FrostRealm.MODID, "frost_weather"));
 

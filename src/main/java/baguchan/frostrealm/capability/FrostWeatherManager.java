@@ -6,6 +6,7 @@ import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.utils.BlizzardUtils;
 import baguchan.frostrealm.weather.FrostWeather;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
@@ -42,7 +43,7 @@ public class FrostWeatherManager {
 
                             frostWeatherData.setFrostWeather(frostWeather);
                             ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
-                            PacketDistributor.DIMENSION.with(level.dimension()).send(message);
+                            PacketDistributor.sendToPlayersInDimension((ServerLevel) level, message);
 
                             frostWeatherData.setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
                             frostWeatherData.setDirty();
@@ -53,7 +54,7 @@ public class FrostWeatherManager {
                         frostWeatherData.setWetherTime(((level.random.nextInt(5) + 10) * 60) * 20);
                         frostWeatherData.setFrostWeather(FrostWeathers.NOPE.get());
                         ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
-                        PacketDistributor.DIMENSION.with(level.dimension()).send(message);
+                        PacketDistributor.sendToPlayersInDimension((ServerLevel) level, message);
                         frostWeatherData.setDirty();
                     }
                 }

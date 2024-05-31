@@ -9,6 +9,7 @@ import baguchan.frostrealm.registry.FrostSensors;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.monster.hoglin.HoglinAi;
 import net.minecraft.world.entity.monster.hoglin.HoglinBase;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -76,6 +78,31 @@ public class FrostBoar extends FrostAnimal {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.ATTACK_DAMAGE, 5.0F).add(Attributes.MAX_HEALTH, 50.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.KNOCKBACK_RESISTANCE, 0.7F).add(Attributes.ATTACK_KNOCKBACK, 0.5D).add(Attributes.MOVEMENT_SPEED, 0.3D);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return this.level().isClientSide ? null : FrostBoarAi.getSoundForCurrentActivity(this).orElse(null);
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_34548_) {
+        return SoundEvents.HOGLIN_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.HOGLIN_DEATH;
+    }
+
+    @Override
+    protected SoundEvent getSwimSound() {
+        return SoundEvents.HOSTILE_SWIM;
+    }
+
+    @Override
+    protected SoundEvent getSwimSplashSound() {
+        return SoundEvents.HOSTILE_SPLASH;
     }
 
     @Override

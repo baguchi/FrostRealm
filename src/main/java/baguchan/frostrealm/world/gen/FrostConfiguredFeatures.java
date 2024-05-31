@@ -7,7 +7,7 @@ import baguchan.frostrealm.registry.FrostFeatures;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -79,7 +79,7 @@ public class FrostConfiguredFeatures {
 		return ResourceKey.create(Registries.CONFIGURED_FEATURE, FrostRealm.prefix(name));
 	}
 
-	public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
 		HolderGetter<ConfiguredFeature<?, ?>> holdergetter = context.lookup(Registries.CONFIGURED_FEATURE);
 
 		FeatureUtils.register(context, ORE_FROST_CRYSTAL, Feature.ORE, new OreConfiguration(ORE_FROST_CRYSTAL_TARGET_LIST, 20));

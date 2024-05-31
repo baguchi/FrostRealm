@@ -22,9 +22,9 @@ import net.minecraft.world.entity.Entity;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.client.event.RenderGuiOverlayEvent;
-import net.neoforged.neoforge.client.gui.overlay.ExtendedGui;
-import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 
 import java.util.Random;
 
@@ -36,7 +36,7 @@ public class ClientColdHUDEvent {
 
 	public static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation(FrostRealm.MODID, "textures/gui/icons.png");
 
-	public static void renderPortalOverlay(RenderGuiOverlayEvent.Post event, Minecraft mc, Window window, Entity livingEntity) {
+    public static void renderPortalOverlay(RenderGuiLayerEvent.Post event, Minecraft mc, Window window, Entity livingEntity) {
 		FrostLivingCapability cap = livingEntity.getData(FrostAttachs.FROST_LIVING);
 			float timeInPortal = Mth.lerp(event.getPartialTick(), cap.getPrevPortalAnimTime(), cap.getPortalAnimTime());
 
@@ -70,13 +70,13 @@ public class ClientColdHUDEvent {
 	}
 
 	@SubscribeEvent
-	public void renderHudEvent(RenderGuiOverlayEvent.Post event) {
+    public void renderHudEvent(RenderGuiLayerEvent.Post event) {
 		GuiGraphics guiGraphics = event.getGuiGraphics();
 		Minecraft mc = Minecraft.getInstance();
 		Entity entity = mc.getCameraEntity();
 		int screenWidth = mc.getWindow().getGuiScaledWidth();
-		int screenHeight = mc.getWindow().getGuiScaledHeight() - ((ExtendedGui) mc.gui).rightHeight;
-		if (entity != null && entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL && event.getOverlay() == VanillaGuiOverlay.FOOD_LEVEL.type()) {
+        int screenHeight = mc.getWindow().getGuiScaledHeight() - (mc.gui).rightHeight;
+        if (entity != null && entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL && event.getLayer() == VanillaGuiLayers.FOOD_LEVEL) {
 			this.random.setSeed((this.tickCount * 312871));
 			RenderSystem.enableBlend();
 			FrostLivingCapability cap = entity.getData(FrostAttachs.FROST_LIVING);
@@ -102,11 +102,11 @@ public class ClientColdHUDEvent {
 					}
 				}
 			RenderSystem.disableBlend();
-			((ExtendedGui) mc.gui).rightHeight += 10;
+            (mc.gui).rightHeight += 10;
 			this.tickCount++;
 		}
 
-		if (event.getOverlay() == VanillaGuiOverlay.PORTAL.type()) {
+        if (event.getLayer() == VanillaGuiLayers.CAMERA_OVERLAYS) {
 			Entity entity2 = mc.getCameraEntity();
 			renderPortalOverlay(event, mc, mc.getWindow(), entity2);
 		}

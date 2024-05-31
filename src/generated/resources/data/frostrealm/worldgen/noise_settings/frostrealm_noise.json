@@ -462,36 +462,14 @@
                       "then_run": {
                         "type": "minecraft:block",
                         "result_state": {
-                          "Name": "frostrealm:frozen_grass_block",
+                          "Name": "frostrealm:frigid_grass_block",
                           "Properties": {
                             "snowy": "false"
                           }
                         }
                       }
-                    },
-                    {
-                      "type": "minecraft:block",
-                      "result_state": {
-                        "Name": "frostrealm:frozen_dirt"
-                      }
                     }
                   ]
-                }
-              },
-              {
-                "type": "minecraft:condition",
-                "if_true": {
-                  "type": "minecraft:stone_depth",
-                  "add_surface_depth": true,
-                  "offset": 0,
-                  "secondary_depth_range": 0,
-                  "surface_type": "floor"
-                },
-                "then_run": {
-                  "type": "minecraft:block",
-                  "result_state": {
-                    "Name": "frostrealm:frozen_dirt"
-                  }
                 }
               }
             ]

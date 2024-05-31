@@ -5,7 +5,7 @@ import baguchan.frostrealm.registry.FrostBiomes;
 import baguchan.frostrealm.registry.FrostBlocks;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Suppliers;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
@@ -28,7 +28,7 @@ import net.minecraft.world.level.levelgen.blending.Blender;
 import java.util.function.Supplier;
 
 public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
-    public static final Codec<FrostChunkGenerator> FROST_CODEC = RecordCodecBuilder.create(
+    public static final MapCodec<FrostChunkGenerator> FROST_CODEC = RecordCodecBuilder.mapCodec(
             p_255585_ -> p_255585_.group(
                             BiomeSource.CODEC.fieldOf("biome_source").forGetter(p_255584_ -> p_255584_.biomeSource),
                             NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter(p_224278_ -> p_224278_.settings)
@@ -47,7 +47,7 @@ public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
     }
 
     @Override
-    protected Codec<? extends ChunkGenerator> codec() {
+    protected MapCodec<? extends ChunkGenerator> codec() {
         return FROST_CODEC;
     }
 
@@ -112,26 +112,16 @@ public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
                     islandsBottom -= noise;
                     islandsTop -= noise2;
                     BlockState baseBlock = FrostBlocks.FRIGID_STONE.get().defaultBlockState();
-                    BlockState topBlock = FrostBlocks.FRIGID_GRASS_BLOCK.get().defaultBlockState();
 
-                    if (!stony_islands) {
-                        baseBlock = FrostBlocks.FROZEN_DIRT.get().defaultBlockState();
-                        topBlock = FrostBlocks.FROZEN_GRASS_BLOCK.get().defaultBlockState();
-                    }
-
-                    for (int y = islandsBottom; y < islandsTop; y++) {
-                        if (y < islandsTop - 1) {
-                            primer.setBlock(pos.atY(y), baseBlock, 3);
-                        } else {
-                            primer.setBlock(pos.atY(y), topBlock, 3);
-                        }
-                    }
-
-                    // What are you gonna do, call the cops?
                     forceHeightMapLevel(chunk, Heightmap.Types.WORLD_SURFACE_WG, pos, dY);
                     forceHeightMapLevel(chunk, Heightmap.Types.WORLD_SURFACE, pos, dY);
                     forceHeightMapLevel(chunk, Heightmap.Types.OCEAN_FLOOR_WG, pos, oceanFloor);
                     forceHeightMapLevel(chunk, Heightmap.Types.OCEAN_FLOOR, pos, oceanFloor);
+
+                    for (int y = islandsBottom; y < islandsTop; y++) {
+                        primer.setBlock(pos.atY(y), baseBlock, 3);
+                    }
+
                 }
             }
         }
@@ -167,6 +157,8 @@ public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
     ) {
         NoiseChunk noisechunk = p_224262_.getOrCreateNoiseChunk(p_224321_ -> this.createNoiseChunk(p_224321_, p_224265_, p_224268_, p_224264_));
         NoiseGeneratorSettings noisegeneratorsettings = this.settings.value();
+        this.addIslands(worldGenRegion, p_224262_, p_224264_, 64);
+
         p_224264_.surfaceSystem()
                 .buildSurface(
                         p_224264_,
@@ -178,7 +170,6 @@ public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
                         noisechunk,
                         noisegeneratorsettings.surfaceRule()
                 );
-        this.addIslands(worldGenRegion, p_224262_, p_224264_, 64);
 
     }
 

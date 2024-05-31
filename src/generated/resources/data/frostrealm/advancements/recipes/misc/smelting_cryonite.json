@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "frostrealm:cryonite"
-            ]
+            "items": "frostrealm:cryonite"
           }
         ]
       },

@@ -62,10 +62,10 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 	}
 
 	@Override
-	public boolean renderSky(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
-        renderAurora(poseStack, FrostWeatherManager.getWeatherLevel(partialTick), FrostWeatherManager.getAuroraLevel());
+	public boolean renderSky(ClientLevel level, int ticks, float partialTick, Matrix4f modelViewMatrix, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
+		renderAurora(new PoseStack(), FrostWeatherManager.getWeatherLevel(partialTick), FrostWeatherManager.getAuroraLevel());
 
-		return true;
+		return super.renderSky(level, ticks, partialTick, modelViewMatrix, camera, projectionMatrix, isFoggy, setupFog);
 	}
 
     private void renderAurora(PoseStack p_109781_, float weatherLevel, float auroraLevel) {
@@ -104,7 +104,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 	}
 
 	@Override
-	public boolean renderClouds(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, double camX, double camY, double camZ, Matrix4f projectionMatrix) {
+	public boolean renderClouds(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, double camX, double camY, double camZ, Matrix4f modelViewMatrix, Matrix4f projectionMatrix) {
 		return true;
 	}
 

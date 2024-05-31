@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "frostrealm:frost_boar_fur"
-            ]
+            "items": "frostrealm:frost_boar_fur"
           }
         ]
       },

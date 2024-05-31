@@ -1,11 +1,16 @@
 package baguchan.frostrealm.utils.aurorapower;
 
 import baguchan.frostrealm.aurorapower.AuroraPower;
+import baguchan.frostrealm.item.component.ItemAuroraPower;
 import baguchan.frostrealm.registry.AuroraPowers;
+import baguchan.frostrealm.registry.FrostDataCompnents;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
@@ -17,6 +22,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
@@ -29,29 +35,9 @@ public class AuroraPowerUtils {
     private static final String TAG_ENCH_LEVEL = "lvl";
     private static final float SWIFT_SNEAK_EXTRA_FACTOR = 0.15F;
 
-    public static CompoundTag storeAuroraPower(@Nullable ResourceLocation p_182444_, int p_182445_) {
-        CompoundTag compoundtag = new CompoundTag();
-        compoundtag.putString("id", String.valueOf((Object) p_182444_));
-        compoundtag.putShort("lvl", (short) p_182445_);
-        return compoundtag;
-    }
-
-    public static void setAuroraPowerLevel(CompoundTag p_182441_, int p_182442_) {
-        p_182441_.putShort("lvl", (short) p_182442_);
-    }
-
-    public static int getAuroraPowerLevel(CompoundTag p_182439_) {
-        return Mth.clamp(p_182439_.getInt("lvl"), 0, 255);
-    }
-
     @Nullable
-    public static ResourceLocation getAuroraPowerId(CompoundTag p_182447_) {
-        return ResourceLocation.tryParse(p_182447_.getString("id"));
-    }
-
-    @Nullable
-    public static ResourceLocation getAuroraPowerId(AuroraPower p_182433_) {
-        return AuroraPowers.getRegistry().getKey(p_182433_);
+    public static int getAuroraPowerLevel(ItemAuroraPower itemAuroraPower, AuroraPower auroraPower) {
+        return itemAuroraPower.getLevel(auroraPower);
     }
 
     /**
@@ -69,81 +55,44 @@ public class AuroraPowerUtils {
         if (p_44845_.isEmpty()) {
             return 0;
         } else {
-            ResourceLocation resourcelocation = getAuroraPowerId(p_44844_);
-            ListTag listtag = getAuroraPowersRaw(p_44845_);
 
-            for (int i = 0; i < listtag.size(); ++i) {
-                CompoundTag compoundtag = listtag.getCompound(i);
-                ResourceLocation resourcelocation1 = getAuroraPowerId(compoundtag);
-                if (resourcelocation1 != null && resourcelocation1.equals(resourcelocation)) {
-                    return getAuroraPowerLevel(compoundtag);
-                }
+
+            ItemAuroraPower auroraPower = getAuroraPowersRaw(p_44845_);
+
+            for (int i = 0; i < auroraPower.size(); ++i) {
+                return getAuroraPowerLevel(auroraPower, p_44844_);
             }
 
             return 0;
         }
     }
 
-    public static ListTag getAuroraPowersRaw(ItemStack p_41164_) {
-        CompoundTag compoundtag = p_41164_.getTag();
-        return compoundtag != null ? compoundtag.getList("StoredAuroraPowers", 10) : new ListTag();
+    public static ItemAuroraPower getAuroraPowersRaw(ItemStack p_41164_) {
+        ItemAuroraPower auroraPower = p_41164_.getOrDefault(FrostDataCompnents.AURORA_POWER, ItemAuroraPower.EMPTY);
+        return auroraPower;
     }
 
-    public static Map<AuroraPower, Integer> getAuroraPowers(ItemStack p_44832_) {
-        ListTag listtag = getAuroraPowersRaw(p_44832_);
-        return deserializeAuroraPowers(listtag);
-    }
-
-    public static Map<AuroraPower, Integer> deserializeAuroraPowers(ListTag p_44883_) {
-        Map<AuroraPower, Integer> map = Maps.newLinkedHashMap();
-
-        for (int i = 0; i < p_44883_.size(); ++i) {
-            CompoundTag compoundtag = p_44883_.getCompound(i);
-
-            AuroraPower auroraPower = AuroraPowers.getRegistry().get(getAuroraPowerId(compoundtag));
-
-            if (auroraPower != null) {
-                map.put(auroraPower, getAuroraPowerLevel(compoundtag));
-            }
-        }
-
-        return map;
-    }
-
-    public static void setAuroraPowers(Map<AuroraPower, Integer> p_44866_, ItemStack p_44867_) {
-        ListTag listtag = new ListTag();
-
-        for (Map.Entry<AuroraPower, Integer> entry : p_44866_.entrySet()) {
-            AuroraPower auroraPower = entry.getKey();
-            if (auroraPower != null) {
-                int i = entry.getValue();
-                listtag.add(storeAuroraPower(getAuroraPowerId(auroraPower), i));
-            }
-        }
-
-        if (listtag.isEmpty()) {
-            p_44867_.removeTagKey("StoredAuroraPowers");
-        }
-
+    public static ItemAuroraPower getAuroraPowers(ItemStack p_44832_) {
+        ItemAuroraPower auroraPower = getAuroraPowersRaw(p_44832_);
+        return auroraPower;
     }
 
     private static void runIterationOnItem(AuroraPowerVisitor p_44851_, ItemStack p_44852_) {
         if (!p_44852_.isEmpty()) {
             if (true) { // forge: redirect auroraPower logic to allow non-NBT enchants
-                for (Map.Entry<AuroraPower, Integer> entry : getAuroraPowers(p_44852_).entrySet()) {
-                    p_44851_.accept(entry.getKey(), entry.getValue());
+                for (Object2IntMap.Entry<Holder<AuroraPower>> entry : getAuroraPowers(p_44852_).entrySet()) {
+                    p_44851_.accept(entry.getKey().value(), entry.getValue());
                 }
                 return;
             }
 
-            ListTag listtag = getAuroraPowersRaw(p_44852_);
+            ItemAuroraPower itemAuroraPower = getAuroraPowersRaw(p_44852_);
 
-            for (int i = 0; i < listtag.size(); ++i) {
-                CompoundTag compoundtag = listtag.getCompound(i);
-                AuroraPower auroraPower = AuroraPowers.getRegistry().get(getAuroraPowerId(compoundtag));
+            for (Object2IntMap.Entry<Holder<AuroraPower>> entry : itemAuroraPower.entrySet()) {
+                AuroraPower auroraPower = entry.getKey().value();
 
                 if (auroraPower != null) {
-                    p_44851_.accept(auroraPower, getAuroraPowerLevel(compoundtag));
+                    p_44851_.accept(auroraPower, entry.getIntValue());
                 }
             }
 
@@ -232,13 +181,16 @@ public class AuroraPowerUtils {
     }
 
     public static void auroraInfusion(ItemStack stack, AuroraPower p_41664_, int p_41665_) {
-        stack.getOrCreateTag();
-        if (!stack.getTag().contains("StoredAuroraPowers", 9)) {
-            stack.getTag().put("StoredAuroraPowers", new ListTag());
-        }
+        ItemAuroraPower itemAuroraPower = stack.getOrDefault(FrostDataCompnents.AURORA_POWER, ItemAuroraPower.EMPTY);
 
-        ListTag listtag = stack.getTag().getList("StoredAuroraPowers", 10);
-        listtag.add(storeAuroraPower(getAuroraPowerId(p_41664_), (byte) p_41665_));
+        ItemAuroraPower.Mutable mutable = new ItemAuroraPower.Mutable(itemAuroraPower);
+
+        mutable.upgrade(p_41664_, (byte) p_41665_);
+        stack.set(FrostDataCompnents.AURORA_POWER, mutable.toImmutable());
+    }
+
+    private static ResourceLocation getAuroraPowerId(AuroraPower p41664) {
+        return AuroraPowers.getRegistry().getKey(p41664);
     }
 
     public static List<AuroraPowerInstance> selectAuroraPower(RandomSource p_220298_, ItemStack p_220299_, int p_220300_, boolean p_220301_) {

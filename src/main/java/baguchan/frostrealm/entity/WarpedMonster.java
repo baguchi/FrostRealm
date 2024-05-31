@@ -56,7 +56,7 @@ public abstract class WarpedMonster extends Monster {
                 }
 
                 if (flag) {
-                    this.setSecondsOnFire(8);
+                    this.igniteForSeconds(8);
                 }
             }
         }

@@ -6,7 +6,7 @@
       "item": "frostrealm:frost_crystal"
     },
     "M": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     }
   },
   "pattern": [
@@ -15,6 +15,6 @@
   ],
   "result": {
     "count": 4,
-    "item": "frostrealm:frost_torch"
+    "id": "frostrealm:frost_torch"
   }
 }

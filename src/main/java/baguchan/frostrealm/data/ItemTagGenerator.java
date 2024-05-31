@@ -9,6 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -46,5 +47,19 @@ public class ItemTagGenerator extends ItemTagsProvider {
                 .add(FrostItems.ASTRIUM_HELMET.get(), FrostItems.ASTRIUM_CHESTPLATE.get(), FrostItems.ASTRIUM_LEGGINGS.get(), FrostItems.ASTRIUM_BOOTS.get());
         tag(ItemTags.VILLAGER_PLANTABLE_SEEDS).add(FrostItems.RYE_SEEDS.get());
         tag(Tags.Items.SEEDS).add(FrostItems.RYE_SEEDS.get());
+
+        this.tag(ItemTags.FOOT_ARMOR).add(FrostItems.FROST_BOAR_FUR_BOOTS.get()).add(FrostItems.YETI_FUR_BOOTS.get()).add(FrostItems.ASTRIUM_BOOTS.get());
+
+        this.tag(ItemTags.LEG_ARMOR).add(FrostItems.FROST_BOAR_FUR_LEGGINGS.get()).add(FrostItems.YETI_FUR_LEGGINGS.get()).add(FrostItems.ASTRIUM_LEGGINGS.get());
+        this.tag(ItemTags.CHEST_ARMOR).add(FrostItems.FROST_BOAR_FUR_CHESTPLATE.get()).add(FrostItems.YETI_FUR_CHESTPLATE.get()).add(FrostItems.ASTRIUM_CHESTPLATE.get());
+        this.tag(ItemTags.HEAD_ARMOR).add(FrostItems.FROST_BOAR_FUR_HELMET.get()).add(FrostItems.YETI_FUR_HELMET.get()).add(FrostItems.ASTRIUM_HELMET.get());
+
+        this.tag(ItemTags.SWORDS).add(FrostItems.ASTRIUM_SWORD.get());
+        this.tag(ItemTags.PICKAXES).add(FrostItems.ASTRIUM_PICKAXE.get());
+        this.tag(ItemTags.AXES).add(FrostItems.ASTRIUM_AXE.get());
+        this.tag(ItemTags.SHOVELS).add(FrostItems.ASTRIUM_SHOVEL.get());
+        this.tag(ItemTags.HOES).add(FrostItems.ASTRIUM_HOE.get());
+        this.tag(ItemTags.MEAT).add(FrostItems.COOKED_FROST_BOAR_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get())
+                .add(FrostItems.FROST_BOAR_MEAT.get()).add(FrostItems.SNOWPILE_QUAIL_MEAT.get());
     }
 }

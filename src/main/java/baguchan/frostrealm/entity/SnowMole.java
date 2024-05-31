@@ -15,11 +15,12 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,8 +29,7 @@ public class SnowMole extends Animal {
 		super(p_27557_, p_27558_);
 		this.moveControl = new SnowMoveControl(this, 85, 10, 3.0F);
 		this.lookControl = new SmoothSwimmingLookControl(this, 10);
-		this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 0.0F);
-		this.setMaxUpStep(1.0F);
+        this.setPathfindingMalus(PathType.POWDER_SNOW, 0.0F);
 	}
 
 	@Override
@@ -43,6 +43,11 @@ public class SnowMole extends Animal {
 	public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
 		return p_27574_.getBlockState(p_27573_).is(Blocks.POWDER_SNOW) ? 10.0F : super.getWalkTargetValue(p_27573_, p_27574_);
 	}
+
+    @Override
+    public boolean isFood(ItemStack itemStack) {
+        return false;
+    }
 
 	protected PathNavigation createNavigation(Level p_27480_) {
 		return new SnowPathNavigation(this, p_27480_);
@@ -59,7 +64,7 @@ public class SnowMole extends Animal {
 	}
 
 	public static AttributeSupplier.Builder createAttributes() {
-		return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.24D);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.STEP_HEIGHT, 1.0F).add(Attributes.MOVEMENT_SPEED, 0.24D);
 	}
 
 	public static boolean checkSnowMoleSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
@@ -74,9 +79,5 @@ public class SnowMole extends Animal {
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
         return FrostEntities.SNOW_MOLE.get().create(p_146743_);
-    }
-
-    protected float getStandingEyeHeight(Pose p_28352_, EntityDimensions p_28353_) {
-        return p_28353_.height * 0.5F;
     }
 }

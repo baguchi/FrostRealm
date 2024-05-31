@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "frostrealm:sherbet_sand"
-            ]
+            "items": "frostrealm:sherbet_sand"
           }
         ]
       },

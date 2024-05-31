@@ -6,5 +6,8 @@
   "ingredient": {
     "item": "frostrealm:frozen_fruit"
   },
-  "result": "frostrealm:melted_fruit"
+  "result": {
+    "count": 1,
+    "id": "frostrealm:melted_fruit"
+  }
 }

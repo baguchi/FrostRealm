@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -40,7 +41,7 @@ import java.io.IOException;
 
 
 @OnlyIn(Dist.CLIENT)
-@Mod.EventBusSubscriber(modid = FrostRealm.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = FrostRealm.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 public class ClientRegistrar {
 	public static final CubeDeformation OUTER_ARMOR_DEFORMATION = new CubeDeformation(1.0F);
 	public static final CubeDeformation INNER_ARMOR_DEFORMATION = new CubeDeformation(0.5F);
@@ -162,7 +163,6 @@ public class ClientRegistrar {
     public static void registerShaders(final RegisterShadersEvent event) {
         try {
             event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(FrostRealm.MODID, "rendertype_aurora"), DefaultVertexFormat.POSITION_TEX), FrostShaders::setRenderTypeAuroraShader);
-			event.registerShader(new ShaderInstance(event.getResourceProvider(), new ResourceLocation(FrostRealm.MODID, "rendertype_ghost"), DefaultVertexFormat.NEW_ENTITY), FrostShaders::setRenderTypeGhostShader);
 		} catch (IOException exception) {
             exception.printStackTrace();
         }

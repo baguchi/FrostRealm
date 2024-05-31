@@ -35,7 +35,7 @@ public class TemperatureCommand {
                     frostLivingCapability.setSaturation(saturation);
 
                 ChangedColdMessage message = new ChangedColdMessage(entity, temperature, saturation);
-                PacketDistributor.TRACKING_ENTITY_AND_SELF.with(entity).send(message);
+                PacketDistributor.sendToPlayersTrackingEntityAndSelf(entity, message);
 
 
                 commandStack.sendSuccess(() -> Component.translatable("commands.frostrelam.temperature.set", entity.getDisplayName()), true);

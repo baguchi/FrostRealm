@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
@@ -17,7 +18,7 @@ import net.neoforged.neoforge.registries.RegistryBuilder;
 
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(modid = FrostRealm.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = FrostRealm.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class AuroraPowers {
     public static final ResourceKey<Registry<AuroraPower>> AURORA_POWER_KEY = ResourceKey.createRegistryKey(new ResourceLocation(FrostRealm.MODID, "aurora_power"));
 

@@ -6,10 +6,11 @@ import baguchan.frostrealm.world.gen.FrostChunkGenerator;
 import baguchan.frostrealm.world.gen.FrostNoiseRouterData;
 import baguchan.frostrealm.world.gen.FrostSurfaceRuleData;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -35,20 +36,20 @@ public class FrostDimensionSettings {
 	public static final ResourceKey<LevelStem> FROSTREALM_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, FrostRealm.prefix("frostrealm"));
 
 
-	public static NoiseGeneratorSettings frostrealmNoise(BootstapContext<NoiseGeneratorSettings> p_256365_) {
+	public static NoiseGeneratorSettings frostrealmNoise(BootstrapContext<NoiseGeneratorSettings> p_256365_) {
 		return new NoiseGeneratorSettings(FROST_NOISE_SETTINGS, FrostBlocks.FRIGID_STONE.get().defaultBlockState(), Blocks.WATER.defaultBlockState(), FrostNoiseRouterData.frostrealm(p_256365_.lookup(Registries.DENSITY_FUNCTION), p_256365_.lookup(Registries.NOISE)), FrostSurfaceRuleData.frostrealm(), (new FrostrealmBiomeBuilder()).spawnTarget(), 63, false, true, false, false);
 	}
 
-	public static void bootstrapNoise(BootstapContext<NoiseGeneratorSettings> p_256365_) {
+	public static void bootstrapNoise(BootstrapContext<NoiseGeneratorSettings> p_256365_) {
 		p_256365_.register(FROSTREALM_NOISE, frostrealmNoise(p_256365_));
 	}
 
-	public static void bootstrapDimensionType(BootstapContext<DimensionType> p_256376_) {
+	public static void bootstrapDimensionType(BootstrapContext<DimensionType> p_256376_) {
 		p_256376_.register(FrostDimensions.FROSTREALM_TYPE, frostDimType());
 	}
 
-	public static void bootstrapLevelStem(BootstapContext<LevelStem> context) {
-        HolderGetter<Codec<? extends ChunkGenerator>> chunk = context.lookup(Registries.CHUNK_GENERATOR);
+	public static void bootstrapLevelStem(BootstrapContext<LevelStem> context) {
+		HolderGetter<MapCodec<? extends ChunkGenerator>> chunk = context.lookup(Registries.CHUNK_GENERATOR);
 		HolderGetter<DimensionType> dimTypes = context.lookup(Registries.DIMENSION_TYPE);
 		HolderGetter<NoiseGeneratorSettings> noiseGenSettings = context.lookup(Registries.NOISE_SETTINGS);
 

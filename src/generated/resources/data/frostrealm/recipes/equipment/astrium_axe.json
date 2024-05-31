@@ -6,7 +6,7 @@
       "item": "frostrealm:astrium_ingot"
     },
     "X": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     }
   },
   "pattern": [
@@ -15,6 +15,7 @@
     " X"
   ],
   "result": {
-    "item": "frostrealm:astrium_axe"
+    "count": 1,
+    "id": "frostrealm:astrium_axe"
   }
 }

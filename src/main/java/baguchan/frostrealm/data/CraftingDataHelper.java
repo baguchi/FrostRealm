@@ -2,6 +2,7 @@ package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
@@ -12,9 +13,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 
+import java.util.concurrent.CompletableFuture;
+
 public abstract class CraftingDataHelper extends RecipeProvider {
-    public CraftingDataHelper(PackOutput generator) {
-        super(generator);
+    public CraftingDataHelper(PackOutput generator, CompletableFuture<HolderLookup.Provider> p_323846_) {
+        super(generator, p_323846_);
     }
 
     protected final void foodCooking(Item material, Item result, float xp, RecipeOutput consumer) {

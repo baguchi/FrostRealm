@@ -93,9 +93,9 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_GUARD, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_GUARD, false);
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_219422_) {

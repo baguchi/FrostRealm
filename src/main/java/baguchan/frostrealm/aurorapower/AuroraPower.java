@@ -5,6 +5,7 @@ import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -90,8 +91,8 @@ public class AuroraPower {
     }
 
     public final boolean isCompatibleWith(ItemStack itemStack) {
-        for (AuroraPower auroraPower : AuroraPowerUtils.getAuroraPowers(itemStack).keySet()) {
-            if (!this.canApplyTogether(auroraPower) || !auroraPower.canApplyTogether(this)) {
+        for (Holder<AuroraPower> auroraPower : AuroraPowerUtils.getAuroraPowers(itemStack).keySet()) {
+            if (!this.canApplyTogether(auroraPower.value()) || !auroraPower.value().canApplyTogether(this)) {
                 return false;
             }
         }

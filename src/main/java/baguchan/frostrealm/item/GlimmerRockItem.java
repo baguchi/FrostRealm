@@ -36,7 +36,7 @@ public class GlimmerRockItem extends Item {
 		if (p_151211_ instanceof Player player) {
 			player.awardStat(Stats.ITEM_USED.get(this));
 		}
-		FrostLivingCapability cap = p_151209_.getData(FrostAttachs.FROST_LIVING);
+		FrostLivingCapability cap = p_151211_.getData(FrostAttachs.FROST_LIVING.get());
 		cap.setTemperatureLevel(cap.getTemperatureLevel() + 1);
 		cap.setSaturation(cap.getSaturationLevel() + 0.05F);
         p_151209_.shrink(1);

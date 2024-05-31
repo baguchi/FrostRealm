@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "frostrealm:glimmerrock"
-            ]
+            "items": "frostrealm:glimmerrock"
           }
         ]
       },
@@ -19,7 +17,8 @@
       "translate": "advancement.frostrealm.hot_source.desc"
     },
     "icon": {
-      "item": "frostrealm:glimmerrock"
+      "count": 1,
+      "id": "frostrealm:glimmerrock"
     },
     "title": {
       "translate": "advancement.frostrealm.hot_source"

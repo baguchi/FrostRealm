@@ -6,5 +6,8 @@
   "ingredient": {
     "item": "frostrealm:bearberry"
   },
-  "result": "frostrealm:bearberry_cooked"
+  "result": {
+    "count": 1,
+    "id": "frostrealm:bearberry_cooked"
+  }
 }
