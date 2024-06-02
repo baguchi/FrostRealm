@@ -73,6 +73,8 @@ public class WarpyShoot extends Behavior<Warpy> {
         if (livingentity != null && !brain.hasMemoryValue(FrostMemoryModuleType.SHOOT.get())) {
             warpy.lookAt(EntityAnchorArgument.Anchor.EYES, livingentity.position());
             if (isFacingTarget(warpy, livingentity)) {
+                warpy.playSound(SoundEvents.ARROW_SHOOT, 1.5F, 1.0F);
+
                 for (int i = 0; i < 6; i++) {
                     double d0 = warpy.distanceToSqr(livingentity);
                     double d4 = Math.sqrt(Math.sqrt(d0)) * 0.25;
@@ -80,7 +82,6 @@ public class WarpyShoot extends Behavior<Warpy> {
                     double d2 = livingentity.getY(0.3) - warpy.getY(0.5);
                     double d3 = livingentity.getZ() - warpy.getZ();
                     WarpedCrystalShard projectile = new WarpedCrystalShard(p_312907_, warpy);
-                    warpy.playSound(SoundEvents.ARROW_SHOOT, 1.5F, 1.0F);
                     projectile.setXRot(projectile.getXRot() - -20.0F);
                     projectile.shoot(warpy.getRandom().triangle(d1, 2.297 * d4), d2, warpy.getRandom().triangle(d3, 2.297 * d4), 1.2F, (float) (5 - p_312907_.getDifficulty().getId() * 4));
                     p_312907_.addFreshEntity(projectile);

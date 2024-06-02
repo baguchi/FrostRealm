@@ -4,6 +4,7 @@ import baguchan.frostrealm.entity.brain.WarpyAi;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class Warpy extends WarpedMonster {
@@ -51,9 +53,15 @@ public class Warpy extends WarpedMonster {
                 .map(p_321468_ -> (LivingEntity) p_321468_);
     }
 
-    public boolean withinInnerCircleRange(Vec3 p_312331_) {
-        Vec3 vec3 = this.blockPosition().getCenter();
-        return p_312331_.closerThan(vec3, 4.0, 10.0);
+    @Nullable
+    @Override
+    public LivingEntity getTarget() {
+        return this.getTargetFromBrain();
+    }
+
+    @Override
+    public boolean canAttackType(EntityType<?> p_312806_) {
+        return p_312806_ == EntityType.PLAYER || p_312806_ == EntityType.IRON_GOLEM;
     }
 
     @Override
@@ -96,7 +104,13 @@ public class Warpy extends WarpedMonster {
 
     @Override
     public boolean isFlapping() {
-        return (float) this.tickCount % 20.0F == 0.0F;
+        return (float) this.tickCount % 10.0F == 0.0F;
+    }
+
+    @Override
+    protected void onFlap() {
+        super.onFlap();
+        this.playSound(SoundEvents.ENDER_DRAGON_FLAP, 0.15F, 1.0F);
     }
 
     protected PathNavigation createNavigation(Level p_29417_) {
@@ -123,7 +137,7 @@ public class Warpy extends WarpedMonster {
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.5D));
             } else {
-                this.moveRelative(this.getSpeed() * 0.21F, p_21280_);
+                this.moveRelative(this.getSpeed(), p_21280_);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 this.setDeltaMovement(this.getDeltaMovement().scale((double) 0.91F));
             }
