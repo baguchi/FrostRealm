@@ -70,6 +70,12 @@
         "maxCount": 3,
         "minCount": 2,
         "weight": 100
+      },
+      {
+        "type": "frostrealm:warpy",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 10
       }
     ],
     "misc": [],

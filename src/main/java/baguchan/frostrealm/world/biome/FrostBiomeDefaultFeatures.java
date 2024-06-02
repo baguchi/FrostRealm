@@ -23,6 +23,7 @@ public class FrostBiomeDefaultFeatures {
 
 	public static void purpleFogMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
 		p_126813_.addSpawn(FrostMobCategory.FROSTREALM_WEATHER_MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WRAITH.get(), 100, 2, 3));
+		p_126813_.addSpawn(FrostMobCategory.FROSTREALM_WEATHER_MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.WARPY.get(), 10, 1, 2));
 	}
 
 	public static void plainCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
