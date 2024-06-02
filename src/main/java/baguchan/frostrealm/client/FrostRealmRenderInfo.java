@@ -63,31 +63,33 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 	@Override
 	public boolean renderSky(ClientLevel level, int ticks, float partialTick, Matrix4f modelViewMatrix, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
-		renderAurora(new PoseStack(), FrostWeatherManager.getWeatherLevel(partialTick), FrostWeatherManager.getAuroraLevel());
+		PoseStack poseStack = new PoseStack();
+		poseStack.mulPose(modelViewMatrix);
+		renderAurora(poseStack, FrostWeatherManager.getWeatherLevel(partialTick));
 
-		return super.renderSky(level, ticks, partialTick, modelViewMatrix, camera, projectionMatrix, isFoggy, setupFog);
+		return false;
 	}
 
-    private void renderAurora(PoseStack p_109781_, float weatherLevel, float auroraLevel) {
+	private void renderAurora(PoseStack p_109781_, float weatherLevel) {
 		BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
 		RenderSystem.disableCull();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		p_109781_.pushPose();
-        float f11 = Mth.clamp(1.0F * auroraLevel - weatherLevel, 0F, 1F);
+		float f11 = (1.0F - weatherLevel);
 		FogRenderer.levelFogColor();
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f11);
 
 		Matrix4f matrix4f1 = p_109781_.last().pose();
 		float f12 = 160.0F;
-        float f13 = (float) (100.0F);
+		float f13 = (float) (100.0F);
 		float u1 = 0;
 		float v1 = 0;
 		float u2 = 1F;
 		float v2 = 1F;
 
-        RenderSystem.setShader(FrostShaders::getRenderTypeAuroraShader);
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, AURORA_LOCATION);
 		bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		bufferbuilder.vertex(matrix4f1, -f12, (float) f13, -f12).uv(u1, v1).endVertex();

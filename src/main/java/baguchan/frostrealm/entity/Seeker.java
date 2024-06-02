@@ -30,7 +30,6 @@ import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -234,13 +233,7 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
     }
 
     public static boolean checkStraySpawnRules(EntityType<Seeker> p_219121_, ServerLevelAccessor p_219122_, MobSpawnType p_219123_, BlockPos p_219124_, RandomSource p_219125_) {
-        BlockPos blockpos = p_219124_;
-
-        do {
-            blockpos = blockpos.above();
-        } while (p_219122_.getBlockState(blockpos).is(Blocks.POWDER_SNOW));
-
-        return checkMonsterSpawnRules(p_219121_, p_219122_, p_219123_, p_219124_, p_219125_) && (p_219123_ == MobSpawnType.SPAWNER || p_219122_.canSeeSky(blockpos.below()));
+        return checkMonsterSpawnRules(p_219121_, p_219122_, p_219123_, p_219124_, p_219125_) && (p_219123_ == MobSpawnType.SPAWNER || p_219122_.canSeeSky(p_219124_));
     }
 
     protected SoundEvent getAmbientSound() {
