@@ -15,6 +15,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 public abstract class WarpedMonster extends Monster {
@@ -32,9 +33,14 @@ public abstract class WarpedMonster extends Monster {
 		return super.hurt(p_21016_, p_21017_);
 	}
 
+    @Override
+    public boolean checkSpawnRules(LevelAccessor p_21686_, MobSpawnType p_21687_) {
+        return true;
+    }
+
     public static boolean checkWarpedMonsterSpawnRules(EntityType<? extends WarpedMonster> p_27578_, ServerLevelAccessor p_27579_, MobSpawnType p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
 		return p_27579_.getDifficulty() != Difficulty.PEACEFUL
-                && (MobSpawnType.ignoresLightRequirements(p_27580_) || FrostWeatherSavedData.get(p_27579_.getLevel()).isWeatherActive() && FrostWeatherSavedData.get(p_27579_.getLevel()).getFrostWeather() == FrostWeathers.PURPLE_FOG.get() && BlizzardUtils.isAffectWeather(p_27579_, p_27581_) && checkMonsterSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_));
+                && (MobSpawnType.ignoresLightRequirements(p_27580_) || FrostWeatherSavedData.get(p_27579_.getLevel()).isWeatherActive() && FrostWeatherSavedData.get(p_27579_.getLevel()).getFrostWeather() == FrostWeathers.PURPLE_FOG.get() && BlizzardUtils.isAffectWeather(p_27579_, p_27581_) && checkMobSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_));
 	}
 
     @Override

@@ -79,10 +79,9 @@ public class WarpyShoot extends Behavior<Warpy> {
                     double d0 = warpy.distanceToSqr(livingentity);
                     double d4 = Math.sqrt(Math.sqrt(d0)) * 0.25;
                     double d1 = livingentity.getX() - warpy.getX();
-                    double d2 = livingentity.getY(0.3) - warpy.getY(0.5);
+                    double d2 = livingentity.getEyeY() - warpy.getEyeY();
                     double d3 = livingentity.getZ() - warpy.getZ();
                     WarpedCrystalShard projectile = new WarpedCrystalShard(p_312907_, warpy);
-                    projectile.setXRot(projectile.getXRot() - -20.0F);
                     projectile.shoot(warpy.getRandom().triangle(d1, 2.297 * d4), d2, warpy.getRandom().triangle(d3, 2.297 * d4), 1.2F, (float) (5 - p_312907_.getDifficulty().getId() * 4));
                     p_312907_.addFreshEntity(projectile);
                     brain.setMemoryWithExpiry(FrostMemoryModuleType.SHOOT_COOLDOWN.get(), Unit.INSTANCE, 100);
