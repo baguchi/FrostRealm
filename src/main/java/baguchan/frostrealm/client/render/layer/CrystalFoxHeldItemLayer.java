@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.render.layer;
 
 import baguchan.frostrealm.client.model.CrystalFoxModel;
-import baguchan.frostrealm.entity.CrystalFox;
+import baguchan.frostrealm.entity.animal.CrystalFox;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.ItemInHandRenderer;

@@ -1,4 +1,4 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.animal;
 
 import baguchan.frostrealm.block.crop.BearBerryBushBlock;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
@@ -53,6 +53,9 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 public class CrystalFox extends FrostAnimal implements IShearable {
+	private static final EntityDimensions BABY_DIMENSIONS = FrostEntities.CRYSTAL_FOX.get().getDimensions().scale(0.5F).withEyeHeight(0.2F);
+
+
 	private static final EntityDataAccessor<Boolean> SHEARABLE = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.BOOLEAN);
 
 
@@ -76,6 +79,11 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 	public CrystalFox(EntityType<? extends Animal> p_27557_, Level p_27558_) {
 		super(p_27557_, p_27558_);
 		this.setCanPickUpLoot(true);
+	}
+
+	@Override
+	public EntityDimensions getDefaultDimensions(Pose p_316516_) {
+		return this.isBaby() ? BABY_DIMENSIONS : super.getDefaultDimensions(p_316516_);
 	}
 
 	protected void registerGoals() {

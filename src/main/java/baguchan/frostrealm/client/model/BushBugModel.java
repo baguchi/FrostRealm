@@ -4,7 +4,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.9.2
 
 
 import baguchan.frostrealm.client.animation.BushBugAnimations;
-import baguchan.frostrealm.entity.BushBug;
+import baguchan.frostrealm.entity.animal.BushBug;
 import net.minecraft.client.model.ColorableHierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

@@ -1,7 +1,8 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.hostile;
 
 import bagu_chan.bagus_lib.entity.AnimationScale;
 import bagu_chan.bagus_lib.entity.goal.AnimateAttackGoal;
+import baguchan.frostrealm.entity.IGuardMob;
 import baguchan.frostrealm.entity.goal.CounterGoal;
 import baguchan.frostrealm.entity.goal.GuardAndCounterAnimationGoal;
 import baguchan.frostrealm.entity.utils.GuardHandler;

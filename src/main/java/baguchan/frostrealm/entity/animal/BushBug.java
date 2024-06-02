@@ -1,4 +1,4 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.animal;
 
 import baguchan.frostrealm.entity.goal.EatFrostGrassBlockGoal;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
@@ -12,9 +12,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -31,6 +29,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BushBug extends Animal implements IShearable {
+    private static final EntityDimensions BABY_DIMENSIONS = FrostEntities.BUSH_BUG.get().getDimensions().scale(0.5F).withEyeHeight(0.15F);
+
     private static final EntityDataAccessor<Boolean> SHEARABLE = SynchedEntityData.defineId(BushBug.class, EntityDataSerializers.BOOLEAN);
 
     public static final Ingredient FOOD_ITEMS = Ingredient.of(Tags.Items.SEEDS);
@@ -44,6 +44,11 @@ public class BushBug extends Animal implements IShearable {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(SHEARABLE, true);
+    }
+
+    @Override
+    public EntityDimensions getDefaultDimensions(Pose p_316516_) {
+        return this.isBaby() ? BABY_DIMENSIONS : super.getDefaultDimensions(p_316516_);
     }
 
     @Override

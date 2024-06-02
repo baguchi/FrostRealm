@@ -1,4 +1,4 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.animal;
 
 import bagu_chan.bagus_lib.entity.goal.TimeConditionGoal;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
@@ -13,9 +13,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -30,6 +28,8 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class Marmot extends FrostAnimal {
+	private static final EntityDimensions BABY_DIMENSIONS = FrostEntities.MARMOT.get().getDimensions().scale(0.5F).withEyeHeight(0.2F);
+
 	public static final Ingredient FOOD_ITEMS = Ingredient.of(ItemTags.SMALL_FLOWERS);
 	private static final UniformInt TIME_BETWEEN_STANDS = UniformInt.of(300, 600);
 	private static final UniformInt TIME_BETWEEN_STANDS_COOLDOWN = UniformInt.of(600, 1200);
@@ -51,6 +51,11 @@ public class Marmot extends FrostAnimal {
 		this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.1F));
 		this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+	}
+
+	@Override
+	public EntityDimensions getDefaultDimensions(Pose p_316516_) {
+		return this.isBaby() ? BABY_DIMENSIONS : super.getDefaultDimensions(p_316516_);
 	}
 
 	@Override

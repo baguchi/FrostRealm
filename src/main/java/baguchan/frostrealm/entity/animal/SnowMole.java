@@ -1,4 +1,4 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.animal;
 
 import baguchan.frostrealm.entity.goal.RandomMoveGoal;
 import baguchan.frostrealm.entity.movecontrol.SnowMoveControl;
@@ -25,11 +25,18 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class SnowMole extends Animal {
+	private static final EntityDimensions BABY_DIMENSIONS = FrostEntities.SNOW_MOLE.get().getDimensions().scale(0.5F).withEyeHeight(0.15F);
+
 	public SnowMole(EntityType<? extends SnowMole> p_27557_, Level p_27558_) {
 		super(p_27557_, p_27558_);
 		this.moveControl = new SnowMoveControl(this, 85, 10, 3.0F);
 		this.lookControl = new SmoothSwimmingLookControl(this, 10);
         this.setPathfindingMalus(PathType.POWDER_SNOW, 0.0F);
+	}
+
+	@Override
+	public EntityDimensions getDefaultDimensions(Pose p_316516_) {
+		return this.isBaby() ? BABY_DIMENSIONS : super.getDefaultDimensions(p_316516_);
 	}
 
 	@Override

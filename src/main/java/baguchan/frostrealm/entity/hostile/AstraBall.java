@@ -1,4 +1,4 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.hostile;
 
 import baguchan.frostrealm.client.LivingEntityFlyingSoundInstance;
 import baguchan.frostrealm.entity.goal.MoveAttackerGoal;
@@ -6,7 +6,10 @@ import baguchan.frostrealm.registry.FrostSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;

@@ -1,6 +1,9 @@
 package baguchan.frostrealm.registry;
 
-import baguchan.frostrealm.item.*;
+import baguchan.frostrealm.item.FrostCatalystItem;
+import baguchan.frostrealm.item.FrostSpearItem;
+import baguchan.frostrealm.item.GlimmerRockItem;
+import baguchan.frostrealm.item.YetiFurArmorItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.*;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
@@ -73,6 +76,7 @@ public class FrostItems {
     public static final Supplier<Item> SNOWPILE_QUAIL_SPAWNEGG = ITEMS.register("snowpile_quail_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.SNOWPILE_QUAIL, 0xFFFFFF, 0xFFFFFF, (new Item.Properties())));
     public static final Supplier<Item> YETI_SPAWNEGG = ITEMS.register("yeti_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.YETI, 0xD4D7DB, 0x403656, (new Item.Properties())));
     public static final Supplier<Item> FROST_WRAITH_SPAWNEGG = ITEMS.register("frost_wraith_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.FROST_WRAITH, 0x895D7B, 0xD15EBE, (new Item.Properties())));
+    public static final Supplier<Item> WARPY_SPAWNEGG = ITEMS.register("warpy_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.WARPY, 0x895D7B, 0xD15EBE, (new Item.Properties())));
     public static final Supplier<Item> CRYSTAL_FOX_SPAWNEGG = ITEMS.register("crystal_fox_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.CRYSTAL_FOX, 0xF7FFFB, 0x90D3E8, (new Item.Properties())));
     public static final Supplier<Item> SNOW_MOLE_SPAWNEGG = ITEMS.register("snow_mole_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.SNOW_MOLE, 0xE4E5E6, 0xB6A7A7, (new Item.Properties())));
     public static final Supplier<Item> ASTRA_BALL_SPAWNEGG = ITEMS.register("astra_ball_spawn_egg", () -> new DeferredSpawnEggItem(FrostEntities.ASTRA_BALL, 0x9352CC, 0xE3A6FF, (new Item.Properties())));

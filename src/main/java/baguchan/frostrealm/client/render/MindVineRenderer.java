@@ -3,7 +3,7 @@ package baguchan.frostrealm.client.render;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.MindVineModel;
-import baguchan.frostrealm.entity.MindVine;
+import baguchan.frostrealm.entity.hostile.MindVine;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

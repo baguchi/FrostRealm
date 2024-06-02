@@ -25,6 +25,6 @@ public class EntityTagGenerator extends EntityTypeTagsProvider {
                 .add(FrostEntities.SEEKER.get());
         tag(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE).addTag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.MARMOT.get(), FrostEntities.FROST_BOAR.get(), FrostEntities.BUSH_BUG.get(), FrostEntities.MIND_VINE.get());
         tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS);
-		tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(FrostEntities.ASTRA_BALL.get());
+		tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(FrostEntities.ASTRA_BALL.get()).add(FrostEntities.SNOWPILE_QUAIL.get()).add(FrostEntities.BUSH_BUG.get()).add(FrostEntities.WARPY.get());
 	}
 }

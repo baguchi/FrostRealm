@@ -3,7 +3,7 @@ package baguchan.frostrealm.client.render;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.AstraBallModel;
-import baguchan.frostrealm.entity.AstraBall;
+import baguchan.frostrealm.entity.hostile.AstraBall;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;

@@ -1,5 +1,6 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.hostile;
 
+import baguchan.frostrealm.entity.IMindVine;
 import baguchan.frostrealm.entity.brain.MindVineAi;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;

@@ -1,4 +1,4 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.animal;
 
 import baguchan.frostrealm.entity.goal.RandomMoveGoal;
 import baguchan.frostrealm.registry.FrostEntities;
@@ -35,6 +35,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class Seal extends Animal {
+    private static final EntityDimensions BABY_DIMENSIONS = FrostEntities.SEAL.get().getDimensions().scale(0.5F).withEyeHeight(0.25F);
 
     public static final Ingredient FOOD_ITEMS = Ingredient.of(ItemTags.FISHES);
 
@@ -53,6 +54,11 @@ public class Seal extends Animal {
         this.setPathfindingMalus(PathType.DOOR_IRON_CLOSED, -1.0F);
         this.setPathfindingMalus(PathType.DOOR_WOOD_CLOSED, -1.0F);
         this.setPathfindingMalus(PathType.DOOR_OPEN, -1.0F);
+    }
+
+    @Override
+    public EntityDimensions getDefaultDimensions(Pose p_316516_) {
+        return this.isBaby() ? BABY_DIMENSIONS : super.getDefaultDimensions(p_316516_);
     }
 
     @Override

@@ -3,7 +3,7 @@ package baguchan.frostrealm.client.render;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.FrostWraithModel;
-import baguchan.frostrealm.entity.FrostWraith;
+import baguchan.frostrealm.entity.hostile.FrostWraith;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;

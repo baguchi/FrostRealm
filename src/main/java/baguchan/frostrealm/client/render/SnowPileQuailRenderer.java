@@ -4,7 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.SnowPileQuailModel;
 import baguchan.frostrealm.client.render.layer.QuailHeldItemLayer;
-import baguchan.frostrealm.entity.SnowPileQuail;
+import baguchan.frostrealm.entity.animal.SnowPileQuail;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

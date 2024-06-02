@@ -1,9 +1,9 @@
 package baguchan.frostrealm.entity.brain;
 
 import bagu_chan.bagus_lib.register.ModSensors;
-import baguchan.frostrealm.entity.MindVine;
 import baguchan.frostrealm.entity.brain.behavior.AttackAnimationWithoutWalk;
 import baguchan.frostrealm.entity.brain.behavior.StartAttackingNoWalking;
+import baguchan.frostrealm.entity.hostile.MindVine;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.entity.LivingEntity;

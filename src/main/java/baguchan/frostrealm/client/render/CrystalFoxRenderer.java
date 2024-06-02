@@ -4,7 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.CrystalFoxModel;
 import baguchan.frostrealm.client.render.layer.CrystalFoxHeldItemLayer;
-import baguchan.frostrealm.entity.CrystalFox;
+import baguchan.frostrealm.entity.animal.CrystalFox;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;

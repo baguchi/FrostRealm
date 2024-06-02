@@ -2,6 +2,7 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.entity.brain.sensor.EnemySensor;
+import baguchan.frostrealm.entity.brain.sensor.FlyingAttackEntitySensor;
 import baguchan.frostrealm.entity.brain.sensor.FrostBoarSensor;
 import baguchan.frostrealm.entity.brain.sensor.YetiSensor;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -19,4 +20,6 @@ public class FrostSensors {
             () -> new SensorType<>(YetiSensor::new));
     public static final Supplier<SensorType<EnemySensor>> ENEMY_SENSOR = SENSOR_TYPES.register("enemy_sensor",
             () -> new SensorType<>(EnemySensor::new));
+    public static final Supplier<SensorType<FlyingAttackEntitySensor>> FLYING_ATTACK_ENTITY_SENSOR = SENSOR_TYPES.register("flying_attack_entity_sensor",
+            () -> new SensorType<>(FlyingAttackEntitySensor::new));
 }

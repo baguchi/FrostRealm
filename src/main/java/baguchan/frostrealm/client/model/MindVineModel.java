@@ -4,7 +4,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.9.2
 
 
 import baguchan.frostrealm.client.animation.MindVineAnimations;
-import baguchan.frostrealm.entity.MindVine;
+import baguchan.frostrealm.entity.hostile.MindVine;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

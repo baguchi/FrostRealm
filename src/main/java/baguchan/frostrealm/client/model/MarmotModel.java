@@ -3,7 +3,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.0.5
 // Paste this class into your mod and generate all required imports
 
 
-import baguchan.frostrealm.entity.Marmot;
+import baguchan.frostrealm.entity.animal.Marmot;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;

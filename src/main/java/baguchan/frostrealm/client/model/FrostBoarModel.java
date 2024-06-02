@@ -4,7 +4,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.7.2
 
 
 import baguchan.frostrealm.client.animation.FrostBoarAnimations;
-import baguchan.frostrealm.entity.FrostBoar;
+import baguchan.frostrealm.entity.animal.FrostBoar;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;

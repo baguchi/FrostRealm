@@ -1,6 +1,6 @@
 package baguchan.frostrealm.entity.brain;
 
-import baguchan.frostrealm.entity.FrostBoar;
+import baguchan.frostrealm.entity.animal.FrostBoar;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostMemoryModuleType;
 import com.google.common.collect.ImmutableList;

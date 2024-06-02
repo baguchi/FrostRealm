@@ -1,6 +1,6 @@
 package baguchan.frostrealm.entity.goal;
 
-import baguchan.frostrealm.entity.SnowPileQuail;
+import baguchan.frostrealm.entity.animal.SnowPileQuail;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;

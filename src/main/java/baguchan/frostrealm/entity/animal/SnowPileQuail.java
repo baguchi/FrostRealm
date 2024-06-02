@@ -1,6 +1,7 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.animal;
 
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
+import baguchan.frostrealm.entity.IHasEgg;
 import baguchan.frostrealm.entity.goal.BreedAndEggGoal;
 import baguchan.frostrealm.entity.goal.QuailAngryGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
@@ -42,6 +43,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 
 public class SnowPileQuail extends FrostAnimal implements IHasEgg {
+	private static final EntityDimensions BABY_DIMENSIONS = FrostEntities.SNOWPILE_QUAIL.get().getDimensions().scale(0.5F).withEyeHeight(0.2F);
 	private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> HAS_EGG = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 
@@ -55,6 +57,11 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	public SnowPileQuail(EntityType<? extends Animal> p_27557_, Level p_27558_) {
 		super(p_27557_, p_27558_);
 		this.setCanPickUpLoot(true);
+	}
+
+	@Override
+	public EntityDimensions getDefaultDimensions(Pose p_316516_) {
+		return this.isBaby() ? BABY_DIMENSIONS : super.getDefaultDimensions(p_316516_);
 	}
 
 	protected void registerGoals() {

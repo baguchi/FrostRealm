@@ -50,6 +50,7 @@ public class ClientRegistrar {
 
         event.registerEntityRenderer(FrostEntities.YETI.get(), YetiRenderer::new);
         event.registerEntityRenderer(FrostEntities.FROST_WRAITH.get(), FrostWraithRenderer::new);
+		event.registerEntityRenderer(FrostEntities.WARPY.get(), WarpyRenderer::new);
 		event.registerEntityRenderer(FrostEntities.ASTRA_BALL.get(), AstraBallRenderer::new);
         event.registerEntityRenderer(FrostEntities.FROST_BOAR.get(), FrostBoarRenderer::new);
         event.registerEntityRenderer(FrostEntities.WARPED_CRYSTAL_SHARD.get(), WarpedCrystalRenderer::new);
@@ -66,6 +67,7 @@ public class ClientRegistrar {
 
 		event.registerLayerDefinition(FrostModelLayers.YETI, YetiModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.FROST_WRAITH, FrostWraithModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.WARPY, WarpyModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.MARMOT, MarmotModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SNOWPILE_QUAIL, SnowPileQuailModel::createBodyLayer);

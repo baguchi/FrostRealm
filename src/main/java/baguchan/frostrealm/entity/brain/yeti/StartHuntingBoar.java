@@ -1,7 +1,7 @@
 package baguchan.frostrealm.entity.brain.yeti;
 
-import baguchan.frostrealm.entity.FrostBoar;
 import baguchan.frostrealm.entity.Yeti;
+import baguchan.frostrealm.entity.animal.FrostBoar;
 import baguchan.frostrealm.entity.brain.YetiAi;
 import baguchan.frostrealm.registry.FrostMemoryModuleType;
 import net.minecraft.world.entity.ai.behavior.OneShot;

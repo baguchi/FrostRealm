@@ -4,7 +4,7 @@ import bagu_chan.bagus_lib.client.layer.CustomArmorLayer;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.SeekerModel;
-import baguchan.frostrealm.entity.Seeker;
+import baguchan.frostrealm.entity.hostile.Seeker;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;

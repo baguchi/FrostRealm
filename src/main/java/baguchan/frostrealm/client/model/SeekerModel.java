@@ -5,7 +5,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.7.4
 
 import bagu_chan.bagus_lib.client.layer.IArmor;
 import baguchan.frostrealm.client.animation.SpearAttackAnimations;
-import baguchan.frostrealm.entity.Seeker;
+import baguchan.frostrealm.entity.hostile.Seeker;
 import baguchan.frostrealm.mixin.client.HierarchicalModelAccessor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;

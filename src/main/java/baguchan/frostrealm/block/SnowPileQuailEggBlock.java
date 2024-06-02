@@ -1,6 +1,6 @@
 package baguchan.frostrealm.block;
 
-import baguchan.frostrealm.entity.SnowPileQuail;
+import baguchan.frostrealm.entity.animal.SnowPileQuail;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.BlockPos;

@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.render.layer;
 
 import baguchan.frostrealm.client.model.SnowPileQuailModel;
-import baguchan.frostrealm.entity.SnowPileQuail;
+import baguchan.frostrealm.entity.animal.SnowPileQuail;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;

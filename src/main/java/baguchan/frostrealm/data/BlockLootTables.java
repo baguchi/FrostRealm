@@ -3,7 +3,10 @@ package baguchan.frostrealm.data;
 import baguchan.frostrealm.block.crop.BearBerryBushBlock;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
+import net.minecraft.advancements.critereon.BlockPredicate;
+import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.BlockPos;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -12,14 +15,16 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.BeetrootBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.fml.util.ObfuscationReflectionHelper;
@@ -101,8 +106,8 @@ public class BlockLootTables extends BlockLootSubProvider {
         this.dropSelf(FrostBlocks.ARCTIC_POPPY.get());
         this.dropSelf(FrostBlocks.ARCTIC_WILLOW.get());
 
-        this.registerEmpty(FrostBlocks.COLD_GRASS.get());
-        this.registerEmpty(FrostBlocks.COLD_TALL_GRASS.get());
+		this.add(FrostBlocks.COLD_GRASS.get(), this.createFrostGrassDrops(FrostBlocks.COLD_GRASS.get()));
+		this.add(FrostBlocks.COLD_TALL_GRASS.get(), this.createDoublePlantWithFrostSeedDrops(FrostBlocks.COLD_TALL_GRASS.get(), FrostBlocks.COLD_GRASS.get()));
         this.add(FrostBlocks.BEARBERRY_BUSH.get(), (p_124096_) -> {
 			return applyExplosionDecay(p_124096_, LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 3))).add(LootItem.lootTableItem(FrostItems.BEARBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.FORTUNE))).withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 2))).add(LootItem.lootTableItem(FrostItems.BEARBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.FORTUNE))));
         });
@@ -128,6 +133,68 @@ public class BlockLootTables extends BlockLootSubProvider {
         this.dropSelf(FrostBlocks.AURORA_INFUSER.get());
 		this.dropSelf(FrostBlocks.SNOWPILE_QUAIL_EGG.get());
 	}
+
+	protected LootTable.Builder createFrostGrassDrops(Block p_252139_) {
+		return createShearsDispatchTable(
+				p_252139_,
+				(LootPoolEntryContainer.Builder<?>) this.applyExplosionDecay(
+						p_252139_,
+						LootItem.lootTableItem(FrostItems.RYE_SEEDS.get())
+								.when(LootItemRandomChanceCondition.randomChance(0.125F))
+								.apply(ApplyBonusCount.addUniformBonusCount(Enchantments.FORTUNE, 2))
+				)
+		);
+	}
+
+	protected LootTable.Builder createDoublePlantWithFrostSeedDrops(Block p_248590_, Block p_248735_) {
+		LootPoolEntryContainer.Builder<?> builder = LootItem.lootTableItem(p_248735_)
+				.apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))
+				.when(HAS_SHEARS)
+				.otherwise(
+						((LootPoolSingletonContainer.Builder) this.applyExplosionCondition(p_248590_, LootItem.lootTableItem(FrostItems.RYE_SEEDS.get())))
+								.when(LootItemRandomChanceCondition.randomChance(0.125F))
+				);
+		return LootTable.lootTable()
+				.withPool(
+						LootPool.lootPool()
+								.add(builder)
+								.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(p_248590_)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+								)
+								.when(
+										LocationCheck.checkLocation(
+												LocationPredicate.Builder.location()
+														.setBlock(
+																BlockPredicate.Builder.block()
+																		.of(p_248590_)
+																		.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))
+														),
+												new BlockPos(0, 1, 0)
+										)
+								)
+				)
+				.withPool(
+						LootPool.lootPool()
+								.add(builder)
+								.when(
+										LootItemBlockStatePropertyCondition.hasBlockStateProperties(p_248590_)
+												.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER))
+								)
+								.when(
+										LocationCheck.checkLocation(
+												LocationPredicate.Builder.location()
+														.setBlock(
+																BlockPredicate.Builder.block()
+																		.of(p_248590_)
+																		.setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))
+														),
+												new BlockPos(0, -1, 0)
+										)
+								)
+				);
+	}
+
 
 	private void registerSlab(Block b) {
 		add(b, createSlabItemTable(b));

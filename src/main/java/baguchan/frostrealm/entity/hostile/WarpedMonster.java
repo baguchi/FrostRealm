@@ -1,4 +1,4 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.hostile;
 
 import baguchan.frostrealm.capability.FrostWeatherSavedData;
 import baguchan.frostrealm.registry.FrostWeathers;

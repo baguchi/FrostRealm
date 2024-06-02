@@ -4,7 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.BushBugModel;
 import baguchan.frostrealm.client.render.layer.BushBugBushLayer;
-import baguchan.frostrealm.entity.BushBug;
+import baguchan.frostrealm.entity.animal.BushBug;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.MultiBufferSource;

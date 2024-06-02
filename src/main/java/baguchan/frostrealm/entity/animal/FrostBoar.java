@@ -1,4 +1,4 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.animal;
 
 import bagu_chan.bagus_lib.register.ModSensors;
 import baguchan.frostrealm.entity.brain.FrostBoarAi;
@@ -20,7 +20,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
-import net.minecraft.world.entity.monster.hoglin.HoglinAi;
 import net.minecraft.world.entity.monster.hoglin.HoglinBase;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -30,6 +29,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 public class FrostBoar extends FrostAnimal {
+    private static final EntityDimensions BABY_DIMENSIONS = FrostEntities.FROST_BOAR.get().getDimensions().scale(0.5F).withEyeHeight(0.75F);
+
+
     public static final Ingredient TEMPTATION_ITEM = Ingredient.of(FrostItems.RYE.get());
     protected static final ImmutableList<? extends SensorType<? extends Sensor<? super FrostBoar>>> SENSOR_TYPES = ImmutableList.of(ModSensors.SMART_NEAREST_LIVING_ENTITY_SENSOR.get(), SensorType.NEAREST_ADULT, SensorType.HURT_BY
             , FrostSensors.FROST_BOAR_SENSOR.get(), FrostSensors.ENEMY_SENSOR.get());
@@ -42,6 +44,11 @@ public class FrostBoar extends FrostAnimal {
     public FrostBoar(EntityType<? extends FrostBoar> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
         this.getNavigation().setCanFloat(true);
+    }
+
+    @Override
+    public EntityDimensions getDefaultDimensions(Pose p_316516_) {
+        return this.isBaby() ? BABY_DIMENSIONS : super.getDefaultDimensions(p_316516_);
     }
 
     @Override

@@ -2,7 +2,7 @@ package baguchan.frostrealm.client.render.layer;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.model.BushBugModel;
-import baguchan.frostrealm.entity.BushBug;
+import baguchan.frostrealm.entity.animal.BushBug;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;

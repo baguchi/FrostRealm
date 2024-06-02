@@ -3,7 +3,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.0.4
 // Paste this class into your mod and generate all required imports
 
 
-import baguchan.frostrealm.entity.FrostWraith;
+import baguchan.frostrealm.entity.hostile.FrostWraith;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;

@@ -3,7 +3,7 @@ package baguchan.frostrealm.client.render;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.SealModel;
-import baguchan.frostrealm.entity.Seal;
+import baguchan.frostrealm.entity.animal.Seal;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;

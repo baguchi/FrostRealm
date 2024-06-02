@@ -1,8 +1,6 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.hostile;
 
 import baguchan.frostrealm.utils.LookUtils;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
@@ -17,13 +15,12 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 public class FrostWraith extends WarpedMonster {
 	public FrostWraith(EntityType<? extends FrostWraith> p_33002_, Level p_33003_) {
 		super(p_33002_, p_33003_);
-		this.moveControl = new FlyingMoveControl(this, 10, false);
+		this.moveControl = new FlyingMoveControl(this, 10, true);
 	}
 
 	protected void registerGoals() {
@@ -50,15 +47,6 @@ public class FrostWraith extends WarpedMonster {
 
 	public void aiStep() {
 		super.aiStep();
-		this.calculateFlapping();
-	}
-
-	private void calculateFlapping() {
-		Vec3 vec3 = this.getDeltaMovement();
-		if (!this.onGround() && vec3.y < 0.0D) {
-			this.setDeltaMovement(vec3.multiply(1.0D, 0.6D, 1.0D));
-		}
-
 	}
 
 	@Override
@@ -86,13 +74,6 @@ public class FrostWraith extends WarpedMonster {
 
         this.calculateEntityAnimation(false);
     }
-
-	public boolean causeFallDamage(float p_148989_, float p_148990_, DamageSource p_148991_) {
-		return false;
-	}
-
-	protected void checkFallDamage(double p_29370_, boolean p_29371_, BlockState p_29372_, BlockPos p_29373_) {
-	}
 
 	@Override
 	public boolean hasLineOfSight(Entity p_147185_) {
