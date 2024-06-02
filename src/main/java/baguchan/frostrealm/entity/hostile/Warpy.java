@@ -110,7 +110,7 @@ public class Warpy extends WarpedMonster {
     @Override
     protected void onFlap() {
         super.onFlap();
-        this.playSound(SoundEvents.ENDER_DRAGON_FLAP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.ENDER_DRAGON_FLAP, 0.25F, 1.0F);
     }
 
     protected PathNavigation createNavigation(Level p_29417_) {
