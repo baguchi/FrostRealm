@@ -80,8 +80,8 @@ public class FrostEntities {
 
         event.register(YETI.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 
-        event.register(FROST_WRAITH.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WarpedMonster::checkFrozenMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
-        event.register(WARPY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WarpedMonster::checkFrozenMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(FROST_WRAITH.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WarpedMonster::checkWarpedMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(WARPY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WarpedMonster::checkWarpedMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
 
         event.register(SEEKER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seeker::checkStraySpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
         event.register(ASTRA_BALL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.REPLACE);
