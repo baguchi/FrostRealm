@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": "#forge:is_cold/overworld",
+  "biomes": "#c:is_cold/overworld",
   "spawners": {
     "type": "frostrealm:seeker",
     "weight": 10,
