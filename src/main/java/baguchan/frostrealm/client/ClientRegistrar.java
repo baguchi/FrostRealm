@@ -1,9 +1,10 @@
 package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.client.event.ClientColdHUDEvent;
 import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.*;
+import baguchan.frostrealm.client.overlay.FrostOverlay;
+import baguchan.frostrealm.client.overlay.FrostPortalOverlay;
 import baguchan.frostrealm.client.render.*;
 import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
 import baguchan.frostrealm.client.screen.AuroraInfuserScreen;
@@ -28,10 +29,8 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.client.event.RegisterShadersEvent;
+import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
 
 
@@ -138,11 +137,16 @@ public class ClientRegistrar {
 
 	public static void setup(FMLCommonSetupEvent event) {
 		FrostRenderType.init();
-        NeoForge.EVENT_BUS.register(new ClientColdHUDEvent());
         NeoForge.EVENT_BUS.register(new ClientFogEvent());
 		FrostArmPoses.init();
 		renderTileEntity();
 		renderBlockColor();
+	}
+
+	@SubscribeEvent
+	public static void renderHudEvent(RegisterGuiLayersEvent event) {
+		event.registerBelow(VanillaGuiLayers.CAMERA_OVERLAYS, FrostRealm.prefix("frost_overlay"), new FrostOverlay());
+		event.registerBelow(VanillaGuiLayers.CAMERA_OVERLAYS, FrostRealm.prefix("frost_portal_overlay"), new FrostPortalOverlay());
 	}
 
 	@SubscribeEvent
