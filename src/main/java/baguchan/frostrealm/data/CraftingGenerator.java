@@ -50,6 +50,21 @@ public class CraftingGenerator extends CraftingDataHelper {
 		makeSlab(consumer, FrostBlocks.SHERBET_SANDSTONE_SLAB.get(), FrostBlocks.SHERBET_SANDSTONE.get());
 		makeStairs(consumer, FrostBlocks.SHERBET_SANDSTONE_STAIRS.get(), FrostBlocks.SHERBET_SANDSTONE.get());
 
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.PERMA_SLATE_BRICK.get(), 4)
+				.pattern("BB")
+				.pattern("BB")
+				.define('B', FrostBlocks.PERMA_SLATE.get())
+				.unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(FrostBlocks.PERMA_SLATE.get()).getPath(), has(FrostBlocks.PERMA_SLATE.get())).save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.PERMA_SLATE_SMOOTH.get(), 4)
+				.pattern("BB")
+				.pattern("BB")
+				.define('B', FrostBlocks.PERMA_SLATE_BRICK.get())
+				.unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(FrostBlocks.PERMA_SLATE_BRICK.get()).getPath(), has(FrostBlocks.PERMA_SLATE_BRICK.get())).save(consumer);
+
+
+		makeSlab(consumer, FrostBlocks.PERMA_SLATE_BRICK_SLAB.get(), FrostBlocks.PERMA_SLATE_BRICK.get());
+		makeStairs(consumer, FrostBlocks.PERMA_SLATE_BRICK_STAIRS.get(), FrostBlocks.PERMA_SLATE_BRICK.get());
+
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FRIGID_STONE_BRICK.get(), 4)
                 .pattern("BB")

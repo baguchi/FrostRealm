@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "frostrealm:block/perma_slate_brick_slab"
+    },
+    "type=double": {
+      "model": "frostrealm:block/perma_slate_brick"
+    },
+    "type=top": {
+      "model": "frostrealm:block/perma_slate_brick_slab_top"
+    }
+  }
+}

@@ -12,6 +12,15 @@
           "block": "frostrealm:frigid_stone",
           "predicate_type": "minecraft:block_match"
         }
+      },
+      {
+        "state": {
+          "Name": "frostrealm:frost_crystal_slate_ore"
+        },
+        "target": {
+          "block": "frostrealm:perma_slate",
+          "predicate_type": "minecraft:block_match"
+        }
       }
     ]
   }

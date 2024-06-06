@@ -53,8 +53,13 @@ public class FrostBlocks {
 
     public static final Supplier<Block> POINTED_ICE = register("pointed_ice", () -> new PointedIceBlock(BlockBehaviour.Properties.of().friction(0.98F).randomTicks().strength(0.5F).dynamicShape().sound(SoundType.GLASS)));
 
+	public static final Supplier<Block> PERMA_SLATE = register("perma_slate", () -> new Block(BlockBehaviour.Properties.of().strength(1.75F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+	public static final Supplier<Block> PERMA_SLATE_SMOOTH = register("perma_slate_smooth", () -> new Block(BlockBehaviour.Properties.of().strength(1.75F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+	public static final Supplier<Block> PERMA_SLATE_BRICK = register("perma_slate_brick", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE_BRICKS)));
+	public static final Supplier<SlabBlock> PERMA_SLATE_BRICK_SLAB = register("perma_slate_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE_BRICKS)));
+	public static final Supplier<StairBlock> PERMA_SLATE_BRICK_STAIRS = register("perma_slate_brick_stairs", () -> new StairBlock(PERMA_SLATE_BRICK.get().defaultBlockState(), BlockBehaviour.Properties.of().strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE_BRICKS)));
 
-    public static final Supplier<Block> FRIGID_STONE = register("frigid_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
+	public static final Supplier<Block> FRIGID_STONE = register("frigid_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
 	public static final Supplier<Block> FRIGID_GRASS_BLOCK = register("frigid_grass_block", () -> new FrostGrassBlock(BlockBehaviour.Properties.of().randomTicks().strength(1.5F, 6.0F).sound(SoundType.NYLIUM), FrostBlocks.FRIGID_STONE));
 
 	public static final Supplier<SlabBlock> FRIGID_STONE_SLAB = register("frigid_stone_slab", () -> new SlabBlock(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
@@ -113,8 +118,11 @@ public class FrostBlocks {
 	//ORE
 	public static final Supplier<Block> FROST_CRYSTAL_ORE = register("frost_crystal_ore", () -> new DropExperienceBlock(UniformInt.of(1, 2), BlockBehaviour.Properties.of().strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
 	public static final Supplier<Block> GLIMMERROCK_ORE = register("glimmerrock_ore", () -> new DropExperienceBlock(UniformInt.of(1, 3), BlockBehaviour.Properties.of().strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
-    public static final Supplier<Block> ASTRIUM_ORE = register("astrium_ore", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
-    public static final Supplier<Block> ASTRIUM_BLOCK = register("astrium_block", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
+	public static final Supplier<Block> ASTRIUM_ORE = register("astrium_ore", () -> new Block(BlockBehaviour.Properties.of().strength(3.2F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+	public static final Supplier<Block> FROST_CRYSTAL_SLATE_ORE = register("frost_crystal_slate_ore", () -> new DropExperienceBlock(UniformInt.of(1, 2), BlockBehaviour.Properties.of().strength(3.2F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+	public static final Supplier<Block> GLIMMERROCK_SLATE_ORE = register("glimmerrock_slate_ore", () -> new DropExperienceBlock(UniformInt.of(1, 3), BlockBehaviour.Properties.of().strength(3.2F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+	public static final Supplier<Block> ASTRIUM_SLATE_ORE = register("astrium_slate_ore", () -> new Block(BlockBehaviour.Properties.of().strength(3.2F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
+	public static final Supplier<Block> ASTRIUM_BLOCK = register("astrium_block", () -> new Block(BlockBehaviour.Properties.of().strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 
 	public static final Supplier<Block> STARDUST_CRYSTAL_ORE = register("stardust_crystal_ore", () -> new DropExperienceBlock(UniformInt.of(2, 4), BlockBehaviour.Properties.of().strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
     public static final Supplier<Block> STARDUST_CRYSTAL_CLUSTER = register("stardust_crystal_cluster", () -> new StarDustCrystalBlock(BlockBehaviour.Properties.of().isSuffocating(FrostBlocks::never).requiresCorrectToolForDrops().lightLevel((state) -> {

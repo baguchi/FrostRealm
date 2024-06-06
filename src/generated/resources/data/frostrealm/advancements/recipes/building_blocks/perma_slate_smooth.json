@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_perma_slate_brick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "frostrealm:perma_slate_brick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "frostrealm:perma_slate_smooth"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_perma_slate_brick"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "frostrealm:perma_slate_smooth"
+    ]
+  }
+}

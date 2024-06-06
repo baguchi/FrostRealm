@@ -1,0 +1,8 @@
+{
+  "parent": "frostrealm:block/glow_cube",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "cube": "frostrealm:block/frost_crystal_slate_ore",
+    "glow": "frostrealm:block/frost_crystal_ore_glow"
+  }
+}

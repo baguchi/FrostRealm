@@ -31,6 +31,13 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.simpleBlock(FrostBlocks.FROST_PORTAL.get());
 		this.simpleBlock(FrostBlocks.FROZEN_DIRT.get());
 
+		this.simpleBlock(FrostBlocks.PERMA_SLATE.get());
+		this.simpleBlock(FrostBlocks.PERMA_SLATE_BRICK.get());
+		this.simpleBlock(FrostBlocks.PERMA_SLATE_SMOOTH.get());
+		this.slab(FrostBlocks.PERMA_SLATE_BRICK_SLAB.get(), FrostBlocks.PERMA_SLATE_BRICK.get());
+		this.stairs(FrostBlocks.PERMA_SLATE_BRICK_STAIRS.get(), FrostBlocks.PERMA_SLATE_BRICK.get());
+
+
 		this.simpleBlock(FrostBlocks.FRIGID_STONE.get());
 		this.slab(FrostBlocks.FRIGID_STONE_SLAB.get(), FrostBlocks.FRIGID_STONE.get());
 		this.stairs(FrostBlocks.FRIGID_STONE_STAIRS.get(), FrostBlocks.FRIGID_STONE.get());
@@ -85,11 +92,22 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.glowBlock(FrostBlocks.FROST_CRYSTAL_ORE.get());
 		this.glowBlock(FrostBlocks.GLIMMERROCK_ORE.get());
 		this.simpleBlock(FrostBlocks.ASTRIUM_ORE.get());
+		this.glowBlockWithOrigin(FrostBlocks.FROST_CRYSTAL_SLATE_ORE.get(), FrostBlocks.FROST_CRYSTAL_ORE.get());
+		this.glowBlockWithOrigin(FrostBlocks.GLIMMERROCK_SLATE_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get());
+		this.simpleBlock(FrostBlocks.ASTRIUM_SLATE_ORE.get());
 		this.simpleBlock(FrostBlocks.ASTRIUM_BLOCK.get());
 		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
 		this.translucentBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.translucentBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
 		this.doorBlock(FrostBlocks.FROSTROOT_DOOR.get(), texture("frostroot_door_bottom"), texture("frostroot_door_top"));
+	}
+
+	public void glowBlockWithOrigin(Block block, Block origin) {
+		ModelFile glow_column = models().withExistingParent(name(block), FrostRealm.prefix("block/glow_cube"))
+				.texture("cube", blockTexture(block))
+				.texture("glow", suffix(blockTexture(origin), "_glow")).renderType("minecraft:cutout");
+		simpleBlock(block,
+				glow_column);
 	}
 
 	public void glowBlock(Block block) {

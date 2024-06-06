@@ -14,6 +14,10 @@
     "frostrealm:frigid_stone_brick_stairs",
     "frostrealm:frigid_stone_brick_slab",
     "frostrealm:chiseled_frigid_stone_brick",
+    "frostrealm:perma_slate_smooth",
+    "frostrealm:perma_slate_brick",
+    "frostrealm:perma_slate_brick_stairs",
+    "frostrealm:perma_slate_brick_slab",
     "frostrealm:sherbet_sandstone",
     "frostrealm:sherbet_sandstone_stairs",
     "frostrealm:sherbet_sandstone_slab",
@@ -24,8 +28,12 @@
     "frostrealm:astrium_block",
     "frostrealm:stardust_crystal_ore",
     "frostrealm:stardust_crystal_cluster",
+    "frostrealm:frost_crystal_slate_ore",
+    "frostrealm:glimmerrock_slate_ore",
+    "frostrealm:astrium_slate_ore",
     "frostrealm:warped_crystal_block",
     "frostrealm:aurora_infuser",
-    "frostrealm:frigid_grass_block"
+    "frostrealm:frigid_grass_block",
+    "frostrealm:perma_slate"
   ]
 }

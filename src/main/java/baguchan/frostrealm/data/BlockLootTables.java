@@ -66,7 +66,14 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.dropOther(FrostBlocks.FROZEN_FARMLAND.get(), FrostBlocks.FROZEN_DIRT.get());
 		this.dropSelf(FrostBlocks.POINTED_ICE.get());
 
+		this.dropSelf(FrostBlocks.PERMA_SLATE.get());
+		this.dropSelf(FrostBlocks.PERMA_SLATE_BRICK.get());
+		this.dropSelf(FrostBlocks.PERMA_SLATE_SMOOTH.get());
+		this.add(FrostBlocks.PERMA_SLATE_BRICK_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(FrostBlocks.PERMA_SLATE_BRICK_STAIRS.get());
+
 		this.dropSelf(FrostBlocks.FRIGID_STONE.get());
+
 		this.add(FrostBlocks.FRIGID_STONE_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(FrostBlocks.FRIGID_STONE_STAIRS.get());
 		this.dropSelf(FrostBlocks.FRIGID_STONE_BRICK.get());
@@ -120,6 +127,11 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.add(FrostBlocks.FROST_CRYSTAL_ORE.get(), this::createFrostCrystalOreDrops);
 		this.add(FrostBlocks.GLIMMERROCK_ORE.get(), this::createGlimmerRockOreDrops);
 		this.add(FrostBlocks.ASTRIUM_ORE.get(), this::createAstriumOreDrops);
+
+		this.add(FrostBlocks.FROST_CRYSTAL_SLATE_ORE.get(), this::createFrostCrystalOreDrops);
+		this.add(FrostBlocks.GLIMMERROCK_SLATE_ORE.get(), this::createGlimmerRockOreDrops);
+		this.add(FrostBlocks.ASTRIUM_SLATE_ORE.get(), this::createAstriumOreDrops);
+
 		this.dropSelf(FrostBlocks.ASTRIUM_BLOCK.get());
 		this.add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), this::createStardustCrystalOreDrops);
 		this.dropSelf(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "frostrealm:block/perma_slate_brick",
+    "side": "frostrealm:block/perma_slate_brick",
+    "top": "frostrealm:block/perma_slate_brick"
+  }
+}

@@ -19,6 +19,7 @@ public class FrostSurfaceRuleData {
 	private static final SurfaceRules.RuleSource SHERBET_SAND = makeStateRule(FrostBlocks.SHERBET_SAND.get());
 	private static final SurfaceRules.RuleSource SHERBET_SANDSTONE = makeStateRule(FrostBlocks.SHERBET_SANDSTONE.get());
 
+	private static final SurfaceRules.RuleSource DEEPSLATE = makeStateRule(FrostBlocks.PERMA_SLATE.get());
 	private static final SurfaceRules.RuleSource POWDER_SNOW = makeStateRule(Blocks.POWDER_SNOW);
 	private static final SurfaceRules.RuleSource SNOW_BLOCK = makeStateRule(Blocks.SNOW_BLOCK);
 
@@ -76,6 +77,7 @@ public class FrostSurfaceRuleData {
         builder.add(surfacerules$rulesource10);
 		builder.add(sandLike);
 		builder.add(powderSnow);
+		builder.add(SurfaceRules.ifTrue(SurfaceRules.verticalGradient("deepslate", VerticalAnchor.absolute(0), VerticalAnchor.absolute(8)), DEEPSLATE));
 
 		return SurfaceRules.sequence(builder.build().toArray((p_198379_) -> {
 			return new SurfaceRules.RuleSource[p_198379_];

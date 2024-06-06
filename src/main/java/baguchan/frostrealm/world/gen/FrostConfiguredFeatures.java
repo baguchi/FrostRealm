@@ -31,10 +31,12 @@ import java.util.List;
 
 public class FrostConfiguredFeatures {
 	public static final RuleTest FRIGID_ORE_REPLACEABLES = new BlockMatchTest(FrostBlocks.FRIGID_STONE.get());
+	public static final RuleTest SLATE_REPLACEABLES = new BlockMatchTest(FrostBlocks.PERMA_SLATE.get());
 
-	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_FROST_CRYSTAL_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.FROST_CRYSTAL_ORE.get().defaultBlockState()));
-	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_GLIMMERROCK_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.GLIMMERROCK_ORE.get().defaultBlockState()));
-	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_ASTRIUM_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.ASTRIUM_ORE.get().defaultBlockState()));
+
+	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_FROST_CRYSTAL_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.FROST_CRYSTAL_ORE.get().defaultBlockState()), OreConfiguration.target(SLATE_REPLACEABLES, FrostBlocks.FROST_CRYSTAL_SLATE_ORE.get().defaultBlockState()));
+	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_GLIMMERROCK_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.GLIMMERROCK_ORE.get().defaultBlockState()), OreConfiguration.target(SLATE_REPLACEABLES, FrostBlocks.GLIMMERROCK_SLATE_ORE.get().defaultBlockState()));
+	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_ASTRIUM_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.ASTRIUM_ORE.get().defaultBlockState()), OreConfiguration.target(SLATE_REPLACEABLES, FrostBlocks.ASTRIUM_SLATE_ORE.get().defaultBlockState()));
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_STARDUST_CRYSRTAL_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.STARDUST_CRYSTAL_ORE.get().defaultBlockState()));
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_FROST_CRYSTAL = registerKey("ore_frost_crystal");
