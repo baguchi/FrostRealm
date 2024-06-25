@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.AABB;
@@ -62,55 +63,56 @@ public class SeekerRenderer<T extends Seeker> extends MobRenderer<T, SeekerModel
     }
 
     @Override
-    public void render(T p_115455_, float p_115456_, float p_115457_, PoseStack p_115458_, MultiBufferSource p_115459_, int p_115460_) {
-        super.render(p_115455_, p_115456_, p_115457_, p_115458_, p_115459_, p_115460_);
+    public void render(T p_115455_, float p_115456_, float p_115457_, PoseStack poseStack, MultiBufferSource p_115459_, int p_115460_) {
+        super.render(p_115455_, p_115456_, p_115457_, poseStack, p_115459_, p_115460_);
 
-        float f3 = 16.0F;
-        float f4 = 2.0F + 1.0F;
+        float length = 16.0F;
+        float range = 2.0F + 1.0F;
         int j = (int) (255.0F * (1F));
-        p_115458_.pushPose();
+        poseStack.pushPose();
         VertexConsumer vertexconsumer2 = p_115459_.getBuffer(RenderType.lightning());
 
         float f1 = (float) p_115455_.getYHeadRot();
-        p_115458_.translate(0, 2.1F * 0.85F, 0);
+        poseStack.translate(0, 2.1F * 0.85F, 0);
 
-        p_115458_.mulPose(Axis.YP.rotationDegrees(-f1 - 90.0F));
-        p_115458_.mulPose(Axis.ZP.rotationDegrees((float) -p_115455_.getXRot() + 90.0F));
+        poseStack.mulPose(Axis.YP.rotationDegrees(-f1 - 90.0F));
+        poseStack.mulPose(Axis.ZP.rotationDegrees((float) -p_115455_.getXRot() + 90.0F));
 
 
-        p_115458_.scale(-1.0F, -1.0F, 1.0F);
-        this.getModel().root.translateAndRotate(p_115458_);
-        this.getModel().head.translateAndRotate(p_115458_);
+        poseStack.scale(-1.0F, -1.0F, 1.0F);
+        this.getModel().root.translateAndRotate(poseStack);
+        this.getModel().head.translateAndRotate(poseStack);
 
-        Matrix4f matrix4f = p_115458_.last().pose();
-        vertex01(vertexconsumer2, matrix4f, j);
-        vertex2(vertexconsumer2, matrix4f, f3, f4);
-        vertex3(vertexconsumer2, matrix4f, f3, f4);
-        vertex01(vertexconsumer2, matrix4f, j);
-        vertex3(vertexconsumer2, matrix4f, f3, f4);
-        vertex4(vertexconsumer2, matrix4f, f3, f4);
-        vertex01(vertexconsumer2, matrix4f, j);
-        vertex4(vertexconsumer2, matrix4f, f3, f4);
-        vertex2(vertexconsumer2, matrix4f, f3, f4);
-        p_115458_.popPose();
+        for (int i = 0; i < 4; ++i) {
+
+            poseStack.pushPose();
+            poseStack.mulPose(Axis.YP.rotationDegrees((float) -90.0F * i));
+
+            poseStack.mulPose(Axis.XP.rotationDegrees(i % 2 == 0 ? -range * 360.0F : range * 360.0F));
+
+            Matrix4f matrix4f = poseStack.last().pose();
+            PoseStack.Pose pose = poseStack.last();
+
+            originVertex(vertexconsumer2, matrix4f, pose, 255);
+            leftVertex(vertexconsumer2, matrix4f, pose, length, range);
+            rightVertex(vertexconsumer2, matrix4f, pose, length, range);
+            leftVertex(vertexconsumer2, matrix4f, pose, length, range);
+            poseStack.popPose();
+        }
+        poseStack.popPose();
     }
 
-    private static void vertex01(VertexConsumer p_254498_, Matrix4f p_253891_, int p_254278_) {
-        p_254498_.vertex(p_253891_, 0.0F, 0.0F, 0.0F).color(255, 255, 255, p_254278_).endVertex();
+    private static void originVertex(VertexConsumer p_254498_, Matrix4f p_253891_, PoseStack.Pose p_114092_, int p_254278_) {
+        p_254498_.vertex(p_253891_, 0.0F, 0.0F, 0.0F).color(255, 255, 255, p_254278_).uv(0 + 0.5F, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(p_114092_, 0.0F, 1.0F, 0.0F).endVertex();
     }
 
-    private static void vertex2(VertexConsumer p_253956_, Matrix4f p_254053_, float p_253704_, float p_253701_) {
-        p_253956_.vertex(p_254053_, -HALF_SQRT_3 * p_253701_, p_253704_, -0.5F * p_253701_).color(0, 0, 255, 0).endVertex();
+    private static void leftVertex(VertexConsumer p_253956_, Matrix4f p_254053_, PoseStack.Pose p_114092_, float p_253704_, float p_253701_) {
+        p_253956_.vertex(p_254053_, -HALF_SQRT_3 * p_253701_, p_253704_, 0).color(0, 0, 255, 0).uv(0, 0 + 1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(p_114092_, 0.0F, -1.0F, 0.0F).endVertex();
     }
 
-    private static void vertex3(VertexConsumer p_253850_, Matrix4f p_254379_, float p_253729_, float p_254030_) {
-        p_253850_.vertex(p_254379_, HALF_SQRT_3 * p_254030_, p_253729_, -0.5F * p_254030_).color(0, 0, 255, 0).endVertex();
+    private static void rightVertex(VertexConsumer p_253850_, Matrix4f p_254379_, PoseStack.Pose p_114092_, float p_253729_, float p_254030_) {
+        p_253850_.vertex(p_254379_, HALF_SQRT_3 * p_254030_, p_253729_, 0).color(0, 0, 255, 0).uv(0 + 1, 0 + 1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(p_114092_, 0.0F, -1.0F, 0.0F).endVertex();
     }
-
-    private static void vertex4(VertexConsumer p_254184_, Matrix4f p_254082_, float p_253649_, float p_253694_) {
-        p_254184_.vertex(p_254082_, 0.0F, p_253649_, 0.5F * p_253694_).color(0, 0, 255, 0).endVertex();
-    }
-
 
 
     @Override
