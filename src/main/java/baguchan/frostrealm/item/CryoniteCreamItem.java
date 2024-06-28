@@ -54,7 +54,7 @@ public class CryoniteCreamItem extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack p_41454_) {
+    public int getUseDuration(ItemStack p_41454_, LivingEntity p_344979_) {
         return 40;
     }
 
@@ -74,7 +74,7 @@ public class CryoniteCreamItem extends Item {
 
         @Override
         public HumanoidModel.@Nullable ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
-            return FrostArmPoses.RUB_HAND;
+            return FrostArmPoses.RUB_HAND.getValue();
         }
 
         @Override
@@ -100,7 +100,7 @@ public class CryoniteCreamItem extends Item {
 
         private void applyEatTransform(PoseStack p_109331_, LocalPlayer player, float p_109332_, HumanoidArm p_109333_, ItemStack p_109334_) {
             float f = (float) player.getUseItemRemainingTicks() - p_109332_ + 1.0F;
-            float f1 = f / (float) p_109334_.getUseDuration();
+            float f1 = f / (float) p_109334_.getUseDuration(player);
             if (f1 < 0.8F) {
                 float f2 = Mth.abs(Mth.cos(f / 4.0F * (float) Math.PI) * 0.1F);
                 p_109331_.translate(0.0F, f2, 0.0F);

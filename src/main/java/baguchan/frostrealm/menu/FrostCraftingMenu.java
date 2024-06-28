@@ -9,15 +9,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 
-public class FrostCraftingMenu extends RecipeBookMenu<CraftingContainer> {
+public class FrostCraftingMenu extends RecipeBookMenu<CraftingInput, CraftingRecipe> {
     public static final int RESULT_SLOT = 0;
     private static final int CRAFT_SLOT_START = 1;
     private static final int CRAFT_SLOT_END = 10;
@@ -59,7 +59,7 @@ public class FrostCraftingMenu extends RecipeBookMenu<CraftingContainer> {
     }
 
     protected static void slotChangedCraftingGrid(
-            AbstractContainerMenu p_150547_, Level p_150548_, Player p_150549_, CraftingContainer p_150550_, ResultContainer p_150551_
+            AbstractContainerMenu p_150547_, Level p_150548_, Player p_150549_, CraftingInput p_150550_, ResultContainer p_150551_
     ) {
         if (!p_150548_.isClientSide) {
             ServerPlayer serverplayer = (ServerPlayer) p_150549_;
@@ -84,7 +84,7 @@ public class FrostCraftingMenu extends RecipeBookMenu<CraftingContainer> {
 
     public void slotsChanged(Container p_39366_) {
         this.access.execute((p_39386_, p_39387_) -> {
-            slotChangedCraftingGrid(this, p_39386_, this.player, this.craftSlots, this.resultSlots);
+            slotChangedCraftingGrid(this, p_39386_, this.player, CraftingInput.of(3, 3, this.craftSlots.getItems()), this.resultSlots);
         });
     }
 
@@ -98,12 +98,8 @@ public class FrostCraftingMenu extends RecipeBookMenu<CraftingContainer> {
     }
 
     @Override
-    public boolean recipeMatches(RecipeHolder<? extends Recipe<CraftingContainer>> p_301144_) {
-        return false;
-    }
-
-    public boolean recipeMatches(Recipe<? super CraftingContainer> p_39384_) {
-        return p_39384_.matches(this.craftSlots, this.player.level());
+    public boolean recipeMatches(RecipeHolder p_301144_) {
+        return p_301144_.value().matches(CraftingInput.of(3, 3, this.craftSlots.getItems()), this.player.level());
     }
 
     public void removed(Player p_39389_) {

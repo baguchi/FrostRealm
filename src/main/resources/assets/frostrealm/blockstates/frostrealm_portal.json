@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=z": {
+      "model": "frostrealm:block/frostrealm_portal_ew"
+    },
+    "axis=x": {
+      "model": "frostrealm:block/frostrealm_portal_ns"
+    }
+  }
+}

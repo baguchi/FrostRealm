@@ -14,7 +14,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class MindVineRenderer<T extends MindVine> extends MobRenderer<T, MindVineModel<T>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/mind_vine.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/mind_vine.png");
 
     public MindVineRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new MindVineModel<>(p_173952_.bakeLayer(FrostModelLayers.MIND_VINE)), 0.35F);

@@ -20,9 +20,9 @@ import java.util.function.Supplier;
 
 @EventBusSubscriber(modid = FrostRealm.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class AuroraPowers {
-    public static final ResourceKey<Registry<AuroraPower>> AURORA_POWER_KEY = ResourceKey.createRegistryKey(new ResourceLocation(FrostRealm.MODID, "aurora_power"));
+    public static final ResourceKey<Registry<AuroraPower>> AURORA_POWER_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "aurora_power"));
 
-    public static final DeferredRegister<AuroraPower> AURORA_POWER = DeferredRegister.create(new ResourceLocation(FrostRealm.MODID, "aurora_power"), FrostRealm.MODID);
+    public static final DeferredRegister<AuroraPower> AURORA_POWER = DeferredRegister.create(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "aurora_power"), FrostRealm.MODID);
 
     public static final Supplier<AuroraPower> AURORA_PROTECTION = AURORA_POWER.register("aurora_protection", () -> new ArmorPower(new AuroraPower.Properties(AuroraPower.Rarity.COMMON, 3), new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}));
 

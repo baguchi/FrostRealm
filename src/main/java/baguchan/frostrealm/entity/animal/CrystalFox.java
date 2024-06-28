@@ -44,7 +44,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.neoforge.common.IShearable;
 import net.neoforged.neoforge.event.EventHooks;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -118,7 +117,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 	}
 
 	@Override
-	public boolean isShearable(@NotNull ItemStack item, Level level, BlockPos pos) {
+	public boolean isShearable(@Nullable Player player, ItemStack item, Level level, BlockPos pos) {
 		return this.readyForShearing();
 	}
 
@@ -239,13 +238,12 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		return (p_28598_.getFoodProperties(this) != null || p_28598_.is(FrostItems.BEARBERRY.get())) && this.getTarget() == null && this.onGround() && !this.isSleeping();
 	}
 
-	@javax.annotation.Nonnull
 	@Override
-	public java.util.List<ItemStack> onSheared(@javax.annotation.Nullable Player player, @javax.annotation.Nonnull ItemStack item, Level world, BlockPos pos, int fortune) {
+	public List<ItemStack> onSheared(@Nullable Player player, ItemStack item, Level level, BlockPos pos) {
 		if (player == null || this.trusts(player.getUUID())) {
-			world.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
+			level.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
 			this.gameEvent(GameEvent.SHEAR, player);
-			if (!world.isClientSide) {
+			if (!level.isClientSide) {
 				this.setShearable(false);
 				int i = 1 + this.random.nextInt(3);
 

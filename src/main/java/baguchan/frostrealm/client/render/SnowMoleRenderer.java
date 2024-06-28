@@ -13,7 +13,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class SnowMoleRenderer<T extends SnowMole> extends MobRenderer<T, SnowMoleModel<T>> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/snow_mole.png");
+	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/snow_mole.png");
 
 	public SnowMoleRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new SnowMoleModel<>(p_173952_.bakeLayer(FrostModelLayers.SNOW_MOLE)), 0.4F);

@@ -42,12 +42,12 @@ public class YetiFurArmorModel<T extends LivingEntity> extends HumanoidModel<T> 
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		head.render(poseStack, buffer, packedLight, packedOverlay);
-		body.render(poseStack, buffer, packedLight, packedOverlay);
-		leftArm.render(poseStack, buffer, packedLight, packedOverlay);
-		rightArm.render(poseStack, buffer, packedLight, packedOverlay);
-		leftLeg.render(poseStack, buffer, packedLight, packedOverlay);
-		rightLeg.render(poseStack, buffer, packedLight, packedOverlay);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+		head.render(poseStack, buffer, packedLight, packedOverlay, color);
+		body.render(poseStack, buffer, packedLight, packedOverlay, color);
+		leftArm.render(poseStack, buffer, packedLight, packedOverlay, color);
+		rightArm.render(poseStack, buffer, packedLight, packedOverlay, color);
+		leftLeg.render(poseStack, buffer, packedLight, packedOverlay, color);
+		rightLeg.render(poseStack, buffer, packedLight, packedOverlay, color);
 	}
 }

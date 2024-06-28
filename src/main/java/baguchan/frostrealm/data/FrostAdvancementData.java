@@ -45,7 +45,7 @@ public class FrostAdvancementData extends AdvancementProvider {
 					.display(FrostBlocks.FROZEN_GRASS_BLOCK.get(),
 							Component.translatable("advancement.frostrealm.enter_frostrealm"),
 							Component.translatable("advancement.frostrealm.enter_frostrealm.desc"),
-							new ResourceLocation(FrostRealm.MODID, "textures/block/frozen_dirt.png"),
+							ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/block/frozen_dirt.png"),
 							AdvancementType.TASK, true, true, false)
 					.addCriterion("enter_frostrealm", ChangeDimensionTrigger.TriggerInstance.changedDimensionTo(FrostDimensions.FROSTREALM_LEVEL))
 					.save(consumer, "frostrealm:enter_frostrealm");

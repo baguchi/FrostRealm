@@ -15,7 +15,7 @@ public class FrostTags {
 		public static final TagKey<Biome> HOT_BIOME = tag("hot_biome");
 
         private static TagKey<Biome> tag(String name) {
-            return TagKey.create(Registries.BIOME, new ResourceLocation(FrostRealm.MODID, name));
+			return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name));
         }
     }
 	public static class Blocks {
@@ -28,7 +28,7 @@ public class FrostTags {
 		public static final TagKey<Block> ANIMAL_SPAWNABLE = tag("frost_animal_spawnable");
 
 		private static TagKey<Block> tag(String name) {
-			return BlockTags.create(new ResourceLocation(FrostRealm.MODID, name));
+			return BlockTags.create(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name));
 		}
 	}
 
@@ -40,7 +40,7 @@ public class FrostTags {
         public static final TagKey<Item> YETI_BIG_CURRENCY = tag("yeti_big_currency");
 
         private static TagKey<Item> tag(String p_203849_) {
-            return TagKey.create(Registries.ITEM, new ResourceLocation(FrostRealm.MODID, p_203849_));
+			return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_203849_));
         }
     }
 
@@ -48,7 +48,7 @@ public class FrostTags {
 		public static final TagKey<EntityType<?>> COLD_WEATHER_IMMUNE = tag("cold_weather_immune");
 
 		private static TagKey<EntityType<?>> tag(String p_203849_) {
-			return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(FrostRealm.MODID, p_203849_));
+			return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_203849_));
 		}
 	}
 }

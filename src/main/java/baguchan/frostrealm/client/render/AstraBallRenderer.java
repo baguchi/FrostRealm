@@ -12,7 +12,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class AstraBallRenderer<T extends AstraBall> extends MobRenderer<T, AstraBallModel<T>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/astra_ball.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/astra_ball.png");
 
     public AstraBallRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new AstraBallModel<>(p_173952_.bakeLayer(FrostModelLayers.ASTRA_BALL)), 0.5F);

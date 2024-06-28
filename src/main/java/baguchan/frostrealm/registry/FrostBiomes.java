@@ -53,7 +53,7 @@ public class FrostBiomes {
 	}
 
 	private static ResourceKey<Biome> register(String p_48229_) {
-		return ResourceKey.create(Registries.BIOME, new ResourceLocation(FrostRealm.MODID, p_48229_));
+		return ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_48229_));
 	}
 
 	public static void addBiomeTypes() {

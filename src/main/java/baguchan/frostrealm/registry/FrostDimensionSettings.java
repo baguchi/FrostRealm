@@ -5,7 +5,6 @@ import baguchan.frostrealm.world.biome.FrostrealmBiomeBuilder;
 import baguchan.frostrealm.world.gen.FrostChunkGenerator;
 import baguchan.frostrealm.world.gen.FrostNoiseRouterData;
 import baguchan.frostrealm.world.gen.FrostSurfaceRuleData;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -27,11 +26,11 @@ import net.minecraft.world.level.levelgen.NoiseSettings;
 import java.util.OptionalLong;
 
 public class FrostDimensionSettings {
-	public static final ResourceLocation EFFECTS = new ResourceLocation(FrostRealm.MODID, "renderer");
+	public static final ResourceLocation EFFECTS = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "renderer");
 
 	static final NoiseSettings FROST_NOISE_SETTINGS = create(-80, 384, 1, 2);
 
-	public static final ResourceKey<NoiseGeneratorSettings> FROSTREALM_NOISE = ResourceKey.create(Registries.NOISE_SETTINGS, new ResourceLocation(FrostRealm.MODID, "frostrealm_noise"));
+	public static final ResourceKey<NoiseGeneratorSettings> FROSTREALM_NOISE = ResourceKey.create(Registries.NOISE_SETTINGS, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frostrealm_noise"));
 
 	public static final ResourceKey<LevelStem> FROSTREALM_LEVEL_STEM = ResourceKey.create(Registries.LEVEL_STEM, FrostRealm.prefix("frostrealm"));
 

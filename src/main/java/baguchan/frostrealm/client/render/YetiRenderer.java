@@ -18,9 +18,9 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiModel<T>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/yeti/yeti.png");
-    private static final ResourceLocation JAKT_TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/yeti/jakt_yeti.png");
-    private static final RenderType YETI_GLOW = RenderType.eyes(new ResourceLocation(FrostRealm.MODID, "textures/entity/yeti/yeti_glow.png"));
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/yeti.png");
+    private static final ResourceLocation JAKT_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/jakt_yeti.png");
+    private static final RenderType YETI_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/yeti_glow.png"));
 
 	public YetiRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new YetiModel<>(p_173952_.bakeLayer(FrostModelLayers.YETI)), 0.75F);

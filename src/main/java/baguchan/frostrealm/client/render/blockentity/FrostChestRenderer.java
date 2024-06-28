@@ -20,7 +20,7 @@ public class FrostChestRenderer<T extends BlockEntity & LidBlockEntity> extends 
 	}
 
 	private static Material chestMaterial(String p_110779_) {
-		return new Material(Sheets.CHEST_SHEET, new ResourceLocation(FrostRealm.MODID, "entity/chest/" + p_110779_));
+		return new Material(Sheets.CHEST_SHEET, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "entity/chest/" + p_110779_));
 	}
 
 	protected net.minecraft.client.resources.model.Material getMaterial(T blockEntity, ChestType chestType) {

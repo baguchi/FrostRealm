@@ -18,13 +18,13 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
 public class AuroraInfuserScreen extends AbstractContainerScreen<AuroraInfuserMenu> {
-    private static final ResourceLocation[] ENABLED_LEVEL_SPRITES = new ResourceLocation[]{new ResourceLocation("container/enchanting_table/level_1"), new ResourceLocation("container/enchanting_table/level_2"), new ResourceLocation("container/enchanting_table/level_3")};
-    private static final ResourceLocation[] DISABLED_LEVEL_SPRITES = new ResourceLocation[]{new ResourceLocation("container/enchanting_table/level_1_disabled"), new ResourceLocation("container/enchanting_table/level_2_disabled"), new ResourceLocation("container/enchanting_table/level_3_disabled")};
-    private static final ResourceLocation ENCHANTMENT_SLOT_DISABLED_SPRITE = new ResourceLocation("container/enchanting_table/enchantment_slot_disabled");
-    private static final ResourceLocation ENCHANTMENT_SLOT_HIGHLIGHTED_SPRITE = new ResourceLocation("container/enchanting_table/enchantment_slot_highlighted");
-    private static final ResourceLocation ENCHANTMENT_SLOT_SPRITE = new ResourceLocation("container/enchanting_table/enchantment_slot");
-    private static final ResourceLocation ENCHANTING_TABLE_LOCATION = new ResourceLocation(FrostRealm.MODID, "textures/gui/container/aurora_infuser.png");
-    private static final ResourceLocation ALT_FONT = new ResourceLocation("minecraft", "alt");
+    private static final ResourceLocation[] ENABLED_LEVEL_SPRITES = new ResourceLocation[]{ResourceLocation.withDefaultNamespace("container/enchanting_table/level_1"), ResourceLocation.withDefaultNamespace("container/enchanting_table/level_2"), ResourceLocation.withDefaultNamespace("container/enchanting_table/level_3")};
+    private static final ResourceLocation[] DISABLED_LEVEL_SPRITES = new ResourceLocation[]{ResourceLocation.withDefaultNamespace("container/enchanting_table/level_1_disabled"), ResourceLocation.withDefaultNamespace("container/enchanting_table/level_2_disabled"), ResourceLocation.withDefaultNamespace("container/enchanting_table/level_3_disabled")};
+    private static final ResourceLocation ENCHANTMENT_SLOT_DISABLED_SPRITE = ResourceLocation.withDefaultNamespace("container/enchanting_table/enchantment_slot_disabled");
+    private static final ResourceLocation ENCHANTMENT_SLOT_HIGHLIGHTED_SPRITE = ResourceLocation.withDefaultNamespace("container/enchanting_table/enchantment_slot_highlighted");
+    private static final ResourceLocation ENCHANTMENT_SLOT_SPRITE = ResourceLocation.withDefaultNamespace("container/enchanting_table/enchantment_slot");
+    private static final ResourceLocation ENCHANTING_TABLE_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/gui/container/aurora_infuser.png");
+    private static final ResourceLocation ALT_FONT = ResourceLocation.fromNamespaceAndPath("minecraft", "alt");
     private static final Style ROOT_STYLE = Style.EMPTY.withFont(ALT_FONT);
 
     public int time;
@@ -118,7 +118,7 @@ public class AuroraInfuserScreen extends AbstractContainerScreen<AuroraInfuserMe
     }
 
     public void render(GuiGraphics p_283462_, int p_282491_, int p_281953_, float p_282182_) {
-        p_282182_ = this.minecraft.getFrameTime();
+        p_282182_ = this.minecraft.getTimer().getGameTimeDeltaTicks();
         super.render(p_283462_, p_282491_, p_281953_, p_282182_);
         this.renderTooltip(p_283462_, p_282491_, p_281953_);
         boolean flag = this.minecraft.player.getAbilities().instabuild;

@@ -30,7 +30,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.neoforged.neoforge.event.EventHooks;
@@ -263,8 +262,8 @@ public class Yeti extends AgeableMob implements HuntMob {
 		return this.inventory.canAddItem(p_34781_);
 	}
 
-	public boolean canReplaceCurrentItem(ItemStack p_34788_) {
-		EquipmentSlot equipmentslot = Mob.getEquipmentSlotForItem(p_34788_);
+	protected boolean canReplaceCurrentItem(ItemStack p_34788_) {
+		EquipmentSlot equipmentslot = this.getEquipmentSlotForItem(p_34788_);
 		ItemStack itemstack = this.getItemBySlot(equipmentslot);
 		return this.canReplaceCurrentItem(p_34788_, itemstack);
 	}
@@ -276,14 +275,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 
 	protected void dropEquipment() {
 		super.dropEquipment();
-		if (this.inventory != null) {
-			for (int i = 0; i < this.inventory.getContainerSize(); ++i) {
-				ItemStack itemstack = this.inventory.getItem(i);
-				if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
-					this.spawnAtLocation(itemstack);
-				}
-			}
-		}
+		this.inventory.removeAllItems().forEach(this::spawnAtLocation);
 	}
 	public void setHoldTime(int holdTime) {
 		this.holdTime = holdTime;
@@ -347,7 +339,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 		}
 
 		this.populateDefaultEquipmentSlots(p_29533_.getRandom(), p_29534_);
-		this.populateDefaultEquipmentEnchantments(p_29533_.getRandom(), p_29534_);
+		this.populateDefaultEquipmentEnchantments(p_29533_, p_29533_.getRandom(), p_29534_);
 
 		return super.finalizeSpawn(p_29533_, p_29534_, p_29535_, p_29536_);
 	}

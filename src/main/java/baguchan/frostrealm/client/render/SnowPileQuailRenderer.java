@@ -14,7 +14,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class SnowPileQuailRenderer<T extends SnowPileQuail> extends MobRenderer<T, SnowPileQuailModel<T>> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/snowpile_quail.png");
+	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/snowpile_quail.png");
 
 	public SnowPileQuailRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new SnowPileQuailModel<>(p_173952_.bakeLayer(FrostModelLayers.SNOWPILE_QUAIL)), 0.4F);

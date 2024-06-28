@@ -49,7 +49,7 @@ public class FrostNoiseRouterData {
 	private final Climate.Parameter deepOceanContinentalness = Climate.Parameter.span(-1.05F, -0.455F);
 
 	private static ResourceKey<DensityFunction> createKey(String p_209537_) {
-		return ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation(p_209537_));
+		return ResourceKey.create(Registries.DENSITY_FUNCTION, ResourceLocation.withDefaultNamespace(p_209537_));
 	}
 
     public static void bootstrapDensity(BootstrapContext<DensityFunction> p_256220_) {
@@ -96,7 +96,7 @@ public class FrostNoiseRouterData {
 
 
 	private static ResourceKey<DensityFunction> createModKey(String p_209537_) {
-		return ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation(FrostRealm.MODID, p_209537_));
+		return ResourceKey.create(Registries.DENSITY_FUNCTION, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_209537_));
 	}
 
 	public static DensityFunction underground(HolderGetter<DensityFunction> p_256548_, HolderGetter<NormalNoise.NoiseParameters> p_256236_, DensityFunction p_256658_) {

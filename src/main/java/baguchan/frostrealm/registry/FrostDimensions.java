@@ -9,10 +9,10 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 
 public class FrostDimensions {
-	public static final ResourceKey<DimensionType> FROSTREALM_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE, new ResourceLocation(FrostRealm.MODID, "frostrealm"));
+	public static final ResourceKey<DimensionType> FROSTREALM_TYPE = ResourceKey.create(Registries.DIMENSION_TYPE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frostrealm"));
 
-	public static final ResourceKey<Level> FROSTREALM_LEVEL = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(FrostRealm.MODID, "frostrealm"));
+	public static final ResourceKey<Level> FROSTREALM_LEVEL = ResourceKey.create(Registries.DIMENSION, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frostrealm"));
 
 
-	public static final ResourceKey<LevelStem> FROSTREALM_LEVELSTEM = ResourceKey.create(Registries.LEVEL_STEM, new ResourceLocation(FrostRealm.MODID, "frostrealm"));
+	public static final ResourceKey<LevelStem> FROSTREALM_LEVELSTEM = ResourceKey.create(Registries.LEVEL_STEM, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frostrealm"));
 }

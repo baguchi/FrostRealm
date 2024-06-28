@@ -8,9 +8,10 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 
 public class BushBugBushLayer<T extends BushBug> extends RenderLayer<T, BushBugModel<T>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/bush_bug/bush_bug_overlay.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/bush_bug/bush_bug_overlay.png");
 
     public BushBugBushLayer(RenderLayerParent<T, BushBugModel<T>> p_117707_) {
         super(p_117707_);
@@ -29,8 +30,8 @@ public class BushBugBushLayer<T extends BushBug> extends RenderLayer<T, BushBugM
             float p_117729_
     ) {
         if (p_117723_.isShearableWithoutConditions()) {
-            this.getParentModel().setColor(1, 1, 1);
-            renderColoredCutoutModel(this.getParentModel(), TEXTURE, p_117720_, p_117721_, p_117722_, p_117723_, 1, 1, 1);
+            this.getParentModel().setColor(FastColor.ARGB32.color(1, 1, 1, 1));
+            renderColoredCutoutModel(this.getParentModel(), TEXTURE, p_117720_, p_117721_, p_117722_, p_117723_, FastColor.ARGB32.colorFromFloat(1, 1, 1, 1));
         }
     }
 }

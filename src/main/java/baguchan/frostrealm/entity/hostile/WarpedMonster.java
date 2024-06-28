@@ -53,7 +53,7 @@ public abstract class WarpedMonster extends Monster {
                     if (itemstack.isDamageableItem()) {
                         itemstack.setDamageValue(itemstack.getDamageValue() + this.random.nextInt(2));
                         if (itemstack.getDamageValue() >= itemstack.getMaxDamage()) {
-                            this.broadcastBreakEvent(EquipmentSlot.HEAD);
+                            this.onEquippedItemBroken(itemstack.getItem(), EquipmentSlot.HEAD);
                             this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
                         }
                     }

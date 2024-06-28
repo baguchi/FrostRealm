@@ -46,7 +46,7 @@ public class FrostItems {
 
     public static final Supplier<Item> YETI_FUR = ITEMS.register("yeti_fur", () -> new Item((new Item.Properties())));
     public static final Supplier<Item> FROST_BOAR_FUR = ITEMS.register("frost_boar_fur", () -> new Item((new Item.Properties())));
-    public static final Supplier<Item> FROST_SPEAR = ITEMS.register("frost_spear", () -> new FrostSpearItem((new Item.Properties().durability(521))));
+    public static final Supplier<Item> FROST_SPEAR = ITEMS.register("frost_spear", () -> new FrostSpearItem((new Item.Properties().attributes(FrostSpearItem.createAttributes()).durability(521))));
 
     public static final Supplier<Item> ASTRIUM_SWORD = ITEMS.register("astrium_sword", () -> new SwordItem(FrostItemTier.ASTRIUM, (new Item.Properties().attributes(SwordItem.createAttributes(FrostItemTier.ASTRIUM, 3, -2.3F)))));
     public static final Supplier<Item> ASTRIUM_AXE = ITEMS.register("astrium_axe", () -> new AxeItem(FrostItemTier.ASTRIUM, (new Item.Properties().attributes(AxeItem.createAttributes(FrostItemTier.ASTRIUM, 5.5F, -3.0F)))));

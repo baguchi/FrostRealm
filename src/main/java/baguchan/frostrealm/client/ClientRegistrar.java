@@ -4,7 +4,6 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.*;
 import baguchan.frostrealm.client.overlay.FrostOverlay;
-import baguchan.frostrealm.client.overlay.FrostPortalOverlay;
 import baguchan.frostrealm.client.render.*;
 import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
 import baguchan.frostrealm.client.screen.AuroraInfuserScreen;
@@ -88,7 +87,7 @@ public class ClientRegistrar {
 	}
 
 	private static ModelLayerLocation createLocation(String p_171301_, String p_171302_) {
-		return new ModelLayerLocation(new ResourceLocation(FrostRealm.MODID, p_171301_), p_171302_);
+		return new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_171301_), p_171302_);
 	}
 
 	public static void renderTileEntity() {
@@ -138,15 +137,12 @@ public class ClientRegistrar {
 	public static void setup(FMLCommonSetupEvent event) {
 		FrostRenderType.init();
         NeoForge.EVENT_BUS.register(new ClientFogEvent());
-		FrostArmPoses.init();
-		renderTileEntity();
 		renderBlockColor();
 	}
 
 	@SubscribeEvent
 	public static void renderHudEvent(RegisterGuiLayersEvent event) {
 		event.registerBelow(VanillaGuiLayers.CAMERA_OVERLAYS, FrostRealm.prefix("frost_overlay"), new FrostOverlay());
-		event.registerBelow(VanillaGuiLayers.CAMERA_OVERLAYS, FrostRealm.prefix("frost_portal_overlay"), new FrostPortalOverlay());
 	}
 
 	@SubscribeEvent

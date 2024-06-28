@@ -11,7 +11,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +20,6 @@ import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -78,7 +76,7 @@ public class FrostCampfireBlock extends Block implements SimpleWaterloggedBlock 
 	}
 
 	public void entityInside(BlockState p_51269_, Level p_51270_, BlockPos p_51271_, Entity p_51272_) {
-		if (p_51269_.getValue(LIT) && p_51272_ instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity) p_51272_)) {
+		if (p_51269_.getValue(LIT) && p_51272_ instanceof LivingEntity) {
 			p_51272_.hurt(p_51272_.damageSources().freeze(), 2.0F);
 		}
 

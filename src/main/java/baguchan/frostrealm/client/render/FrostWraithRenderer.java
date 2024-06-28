@@ -24,8 +24,8 @@ import org.joml.Matrix4f;
 
 @OnlyIn(Dist.CLIENT)
 public class FrostWraithRenderer<T extends FrostWraith> extends MobRenderer<T, FrostWraithModel<T>> {
-	private static final ResourceLocation WRAITH = new ResourceLocation(FrostRealm.MODID, "textures/entity/frost_wraith/frost_wraith.png");
-	private static final RenderType WRAITH_GLOW = RenderType.eyes(new ResourceLocation(FrostRealm.MODID, "textures/entity/frost_wraith/frost_wraith_glow.png"));
+	private static final ResourceLocation WRAITH = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/frost_wraith/frost_wraith.png");
+	private static final RenderType WRAITH_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/frost_wraith/frost_wraith_glow.png"));
 
 	private static final float HALF_SQRT_3 = (float) (Math.sqrt(30.0) / 2.0);
 
@@ -105,15 +105,15 @@ public class FrostWraithRenderer<T extends FrostWraith> extends MobRenderer<T, F
 	}
 
 	private static void originVertex(VertexConsumer p_254498_, Matrix4f p_253891_, PoseStack.Pose p_114092_, int p_254278_) {
-		p_254498_.vertex(p_253891_, 0.0F, 0.0F, 0.0F).color(255, 255, 255, p_254278_).uv(0 + 0.5F, 0).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(p_114092_, 0.0F, 1.0F, 0.0F).endVertex();
+		p_254498_.addVertex(p_253891_, 0.0F, 0.0F, 0.0F).setColor(255, 255, 255, p_254278_).setUv(0 + 0.5F, 0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(240).setNormal(p_114092_, 0.0F, 1.0F, 0.0F);
 	}
 
 	private static void leftVertex(VertexConsumer p_253956_, Matrix4f p_254053_, PoseStack.Pose p_114092_, float p_253704_, float p_253701_) {
-		p_253956_.vertex(p_254053_, -HALF_SQRT_3 * p_253701_, p_253704_, 0).color(0, 0, 255, 0).uv(0, 0 + 1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(p_114092_, 0.0F, -1.0F, 0.0F).endVertex();
+		p_253956_.addVertex(p_254053_, -HALF_SQRT_3 * p_253701_, p_253704_, 0).setColor(0, 0, 255, 0).setUv(0, 0 + 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(240).setNormal(p_114092_, 0.0F, -1.0F, 0.0F);
 	}
 
 	private static void rightVertex(VertexConsumer p_253850_, Matrix4f p_254379_, PoseStack.Pose p_114092_, float p_253729_, float p_254030_) {
-		p_253850_.vertex(p_254379_, HALF_SQRT_3 * p_254030_, p_253729_, 0).color(0, 0, 255, 0).uv(0 + 1, 0 + 1).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(p_114092_, 0.0F, -1.0F, 0.0F).endVertex();
+		p_253850_.addVertex(p_254379_, HALF_SQRT_3 * p_254030_, p_253729_, 0).setColor(0, 0, 255, 0).setUv(0 + 1, 0 + 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(240).setNormal(p_114092_, 0.0F, -1.0F, 0.0F);
 	}
 
 	@Override

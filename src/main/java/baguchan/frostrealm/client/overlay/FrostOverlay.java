@@ -5,6 +5,7 @@ import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.registry.FrostAttachs;
 import baguchan.frostrealm.registry.FrostDimensions;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
@@ -15,14 +16,14 @@ import net.minecraft.world.entity.Entity;
 import java.util.Random;
 
 public class FrostOverlay implements LayeredDraw.Layer {
-    public static final ResourceLocation GUI_ICONS_LOCATION = new ResourceLocation(FrostRealm.MODID, "textures/gui/icons.png");
+    public static final ResourceLocation GUI_ICONS_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/gui/icons.png");
 
     protected final Random random = new Random();
 
     protected int tickCount;
 
     @Override
-    public void render(GuiGraphics guiGraphics, float p_316643_) {
+    public void render(GuiGraphics guiGraphics, DeltaTracker p_316643_) {
         Minecraft mc = Minecraft.getInstance();
         Entity entity = mc.getCameraEntity();
         int screenWidth = mc.getWindow().getGuiScaledWidth();

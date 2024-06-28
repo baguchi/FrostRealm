@@ -33,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 public class Seeker extends AbstractSkeleton implements IGuardMob {
     private static final EntityDataAccessor<Boolean> DATA_GUARD = SynchedEntityData.defineId(Seeker.class, EntityDataSerializers.BOOLEAN);
@@ -253,8 +254,10 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
         return SoundEvents.STRAY_STEP;
     }
 
-    protected AbstractArrow getArrow(ItemStack p_33846_, float p_33847_) {
-        AbstractArrow abstractarrow = super.getArrow(p_33846_, p_33847_);
+
+    @Override
+    protected AbstractArrow getArrow(ItemStack p_32156_, float p_32157_, @Nullable ItemStack p_346155_) {
+        AbstractArrow abstractarrow = super.getArrow(p_32156_, p_32157_, p_346155_);
         if (abstractarrow instanceof Arrow) {
             ((Arrow) abstractarrow).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 600));
         }

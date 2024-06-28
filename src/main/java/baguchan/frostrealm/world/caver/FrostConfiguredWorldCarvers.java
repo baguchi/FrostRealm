@@ -23,7 +23,7 @@ public class FrostConfiguredWorldCarvers {
 
 
 	private static ResourceKey<ConfiguredWorldCarver<?>> createKey(String p_256085_) {
-		return ResourceKey.create(Registries.CONFIGURED_CARVER, new ResourceLocation(FrostRealm.MODID, p_256085_));
+		return ResourceKey.create(Registries.CONFIGURED_CARVER, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_256085_));
 	}
 
     public static void bootstrap(BootstrapContext<ConfiguredWorldCarver<?>> p_255626_) {

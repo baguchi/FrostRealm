@@ -7,10 +7,13 @@ import net.minecraft.advancements.critereon.BlockPredicate;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.BeetrootBlock;
@@ -41,8 +44,8 @@ public class BlockLootTables extends BlockLootSubProvider {
 	private static final Set<Item> EXPLOSION_RESISTANT = Set.of();
 
 
-	protected BlockLootTables() {
-		super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags());
+	protected BlockLootTables(HolderLookup.Provider p_344943_) {
+		super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags(), p_344943_);
 	}
 
 	@Override
@@ -53,6 +56,8 @@ public class BlockLootTables extends BlockLootSubProvider {
 
 	@Override
 	protected void generate() {
+		HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
 		registerEmpty(FrostBlocks.FROST_PORTAL.get());
 
 		this.dropSelf(FrostBlocks.FROZEN_DIRT.get());
@@ -116,7 +121,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.add(FrostBlocks.COLD_GRASS.get(), this.createFrostGrassDrops(FrostBlocks.COLD_GRASS.get()));
 		this.add(FrostBlocks.COLD_TALL_GRASS.get(), this.createDoublePlantWithFrostSeedDrops(FrostBlocks.COLD_TALL_GRASS.get(), FrostBlocks.COLD_GRASS.get()));
         this.add(FrostBlocks.BEARBERRY_BUSH.get(), (p_124096_) -> {
-			return applyExplosionDecay(p_124096_, LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 3))).add(LootItem.lootTableItem(FrostItems.BEARBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.FORTUNE))).withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 2))).add(LootItem.lootTableItem(FrostItems.BEARBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.FORTUNE))));
+			return applyExplosionDecay(p_124096_, LootTable.lootTable().withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 3))).add(LootItem.lootTableItem(FrostItems.BEARBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F))).apply(ApplyBonusCount.addUniformBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))).withPool(LootPool.lootPool().when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.BEARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BearBerryBushBlock.AGE, 2))).add(LootItem.lootTableItem(FrostItems.BEARBERRY.get())).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addUniformBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))));
         });
 		LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.SUGARBEET.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BeetrootBlock.AGE, 3));
 		this.add(FrostBlocks.SUGARBEET.get(), createCropDrops(FrostBlocks.SUGARBEET.get(), FrostItems.SUGARBEET.get(), FrostItems.SUGARBEET.get(), lootitemcondition$builder));
@@ -147,13 +152,15 @@ public class BlockLootTables extends BlockLootSubProvider {
 	}
 
 	protected LootTable.Builder createFrostGrassDrops(Block p_252139_) {
+		HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
 		return createShearsDispatchTable(
 				p_252139_,
 				(LootPoolEntryContainer.Builder<?>) this.applyExplosionDecay(
 						p_252139_,
 						LootItem.lootTableItem(FrostItems.RYE_SEEDS.get())
 								.when(LootItemRandomChanceCondition.randomChance(0.125F))
-								.apply(ApplyBonusCount.addUniformBonusCount(Enchantments.FORTUNE, 2))
+								.apply(ApplyBonusCount.addUniformBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE), 2))
 				)
 		);
 	}
@@ -215,29 +222,41 @@ public class BlockLootTables extends BlockLootSubProvider {
 
 	// [VanillaCopy] super.droppingWithChancesAndSticks, but non-silk touch parameter can be an item instead of a block
 	private LootTable.Builder silkAndStick(Block block, ItemLike nonSilk, float... nonSilkFortune) {
+		HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
 		LootItemCondition.Builder NOT_SILK_TOUCH_OR_SHEARS = ObfuscationReflectionHelper.getPrivateValue(BlockLootSubProvider.class, null, "HAS_NO_SHEARS_OR_SILK_TOUCH");
-		return createSilkTouchOrShearsDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(nonSilk.asItem())).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, nonSilkFortune))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).when(NOT_SILK_TOUCH_OR_SHEARS).add(applyExplosionDecay(block, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, 0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F))));
+		return createSilkTouchOrShearsDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(nonSilk.asItem())).when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), nonSilkFortune))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).when(NOT_SILK_TOUCH_OR_SHEARS).add(applyExplosionDecay(block, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))).when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), 0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F))));
 	}
 
 	protected LootTable.Builder createFrostLeavesDrops(Block p_124264_, Block p_124265_, float... p_124266_) {
+		HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
 		LootItemCondition.Builder NOT_SILK_TOUCH_OR_SHEARS = ObfuscationReflectionHelper.getPrivateValue(BlockLootSubProvider.class, null, "HAS_NO_SHEARS_OR_SILK_TOUCH");
-		return createLeavesDrops(p_124264_, p_124265_, p_124266_).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(NOT_SILK_TOUCH_OR_SHEARS).add(applyExplosionCondition(p_124264_, LootItem.lootTableItem(FrostItems.FROZEN_FRUIT.get())).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
+		return createLeavesDrops(p_124264_, p_124265_, p_124266_).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(NOT_SILK_TOUCH_OR_SHEARS).add(applyExplosionCondition(p_124264_, LootItem.lootTableItem(FrostItems.FROZEN_FRUIT.get())).when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
 	}
 
 	protected LootTable.Builder createFrostCrystalOreDrops(Block p_176049_) {
-		return createSilkTouchDispatchTable(p_176049_, applyExplosionCondition(p_176049_, LootItem.lootTableItem(FrostItems.FROST_CRYSTAL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.FORTUNE))));
+		HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
+		return createSilkTouchDispatchTable(p_176049_, applyExplosionCondition(p_176049_, LootItem.lootTableItem(FrostItems.FROST_CRYSTAL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))));
 	}
 
 	protected LootTable.Builder createGlimmerRockOreDrops(Block p_176049_) {
-		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.GLIMMERROCK.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.FORTUNE))));
+		HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
+		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.GLIMMERROCK.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))).apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))));
 	}
 
 	protected LootTable.Builder createAstriumOreDrops(Block p_176049_) {
-		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.ASTRIUM_RAW.get()).apply(ApplyBonusCount.addOreBonusCount(Enchantments.FORTUNE))));
+		HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
+		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.ASTRIUM_RAW.get()).apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))));
 	}
 
 	protected LootTable.Builder createStardustCrystalOreDrops(Block p_176049_) {
-		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.STARDUST_CRYSTAL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(ApplyBonusCount.addOreBonusCount(Enchantments.FORTUNE))));
+		HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
+		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.STARDUST_CRYSTAL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))).apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))));
 	}
 
 

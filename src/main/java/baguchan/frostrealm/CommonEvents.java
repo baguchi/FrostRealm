@@ -29,19 +29,15 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.ToolAction;
 import net.neoforged.neoforge.common.ToolActions;
-import net.neoforged.neoforge.event.entity.living.LivingEvent;
-import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
-
-import java.util.Optional;
 
 @EventBusSubscriber(modid = FrostRealm.MODID)
 public class CommonEvents {
@@ -190,7 +186,7 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
-    public static void onEntityHurt(LivingHurtEvent event) {
+    public static void onEntityHurt(LivingIncomingDamageEvent event) {
         LivingEntity livingEntity = event.getEntity();
 
         if (event.getSource().getEntity() instanceof LivingEntity) {

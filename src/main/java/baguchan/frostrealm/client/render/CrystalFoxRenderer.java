@@ -17,11 +17,11 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxModel<CrystalFox>> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox.png");
-	private static final ResourceLocation SHEARED_TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sheared.png");
+	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox.png");
+	private static final ResourceLocation SHEARED_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sheared.png");
 
-	private static final RenderType FOX_GLOW = RenderType.eyes(new ResourceLocation(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_glow.png"));
-	private static final RenderType FOX_EYES_GLOW = RenderType.eyes(new ResourceLocation(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_eyes_glow.png"));
+	private static final RenderType FOX_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_glow.png"));
+	private static final RenderType FOX_EYES_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_eyes_glow.png"));
 
 	public CrystalFoxRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new CrystalFoxModel<>(p_173952_.bakeLayer(FrostModelLayers.CRYSTAL_FOX)), 0.5F);

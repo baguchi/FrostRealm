@@ -13,8 +13,8 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class MarmotRenderer<T extends Marmot> extends MobRenderer<T, MarmotModel<T>> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/marmot/marmot.png");
-	private static final ResourceLocation ANGRY_TEXTURE = new ResourceLocation(FrostRealm.MODID, "textures/entity/marmot/marmot_angry.png");
+	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/marmot/marmot.png");
+	private static final ResourceLocation ANGRY_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/marmot/marmot_angry.png");
 
 
 	public MarmotRenderer(EntityRendererProvider.Context p_173952_) {

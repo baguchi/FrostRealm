@@ -57,7 +57,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 
 		this.simpleBlock(FrostBlocks.SHERBET_SAND.get());
 
-		ModelFile sandstone = models().withExistingParent(name(FrostBlocks.SHERBET_SANDSTONE.get()), new ResourceLocation("block/orientable"))
+		ModelFile sandstone = models().withExistingParent(name(FrostBlocks.SHERBET_SANDSTONE.get()), ResourceLocation.withDefaultNamespace("block/orientable"))
 				.texture("top", suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_top"))
 				.texture("side", blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()))
 				.texture("front", blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()))
@@ -119,7 +119,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 	}
 
 	private ResourceLocation suffix(ResourceLocation rl, String suffix) {
-		return new ResourceLocation(rl.getNamespace(), rl.getPath() + suffix);
+		return ResourceLocation.fromNamespaceAndPath(rl.getNamespace(), rl.getPath() + suffix);
 	}
 
 	public void translucentBlock(Block block) {

@@ -29,7 +29,7 @@ public class FrostSounds {
     public static final Supplier<SoundEvent> MORTAR = register("ambient.mortar.moving");
 
     private static Supplier<SoundEvent> register(String sound) {
-		ResourceLocation name = new ResourceLocation(FrostRealm.MODID, sound);
+        ResourceLocation name = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, sound);
 		return SOUND_EVENTS.register(sound, () -> SoundEvent.createVariableRangeEvent(name));
 	}
 }

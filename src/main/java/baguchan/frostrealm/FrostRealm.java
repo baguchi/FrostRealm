@@ -65,6 +65,7 @@ public class FrostRealm {
 		FrostRecipes.RECIPE_SERIALIZERS.register(modBus);
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
 		FrostAttachs.ATTACHMENT_TYPES.register(modBus);
+		FrostPoiTypes.POI_TYPES.register(modBus);
         FrostChunkGenerators.CHUNK_GENERATOR.register(modBus);
         FrostWeathers.FROST_WEATHER.register(modBus);
         AuroraPowers.AURORA_POWER.register(modBus);
@@ -90,7 +91,7 @@ public class FrostRealm {
 			FrostBiomes.addBiomeTypes();
 			Map<ResourceLocation, MultiNoiseBiomeSourceParameterList.Preset> map = Maps.newHashMap();
 			map.putAll(Map.copyOf(MultiNoiseBiomeSourceParameterList.Preset.BY_NAME));
-			map.put(new ResourceLocation(FrostRealm.MODID, "frostrealm"), FrostBiomeSources.FROSTREALM_PRESET);
+			map.put(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frostrealm"), FrostBiomeSources.FROSTREALM_PRESET);
 			MultiNoiseBiomeSourceParameterList.Preset.BY_NAME = map;
 		});
 	}
@@ -113,7 +114,7 @@ public class FrostRealm {
 	}
 
 	public static ResourceLocation prefix(String name) {
-		return new ResourceLocation(FrostRealm.MODID, name.toLowerCase(Locale.ROOT));
+		return ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name.toLowerCase(Locale.ROOT));
 	}
 
 	public static String prefixOnString(String name) {

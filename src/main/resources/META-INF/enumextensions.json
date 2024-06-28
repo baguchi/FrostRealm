@@ -1,0 +1,37 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "FROSTREALM_RUB_HAND",
+      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "baguchan/frostrealm/client/FrostArmoPoses",
+        "field": "RUB_HAND"
+      }
+    },
+    {
+      "enum": "net/minecraft/world/entity/MobCategory",
+      "name": "FROSTREALM_SURFACE_MONSTER",
+      "constructor": "(Ljava/lang/String;IZZI)V",
+      "parameters": [
+        "frostrealm:surface_monster",
+        30,
+        false,
+        false,
+        128
+      ]
+    },
+    {
+      "enum": "net/minecraft/world/entity/MobCategory",
+      "name": "FROSTREALM_WEATHER_MONSTER",
+      "constructor": "(Ljava/lang/String;IZZI)V",
+      "parameters": [
+        "frostrealm:frostrealm_weather_monster",
+        20,
+        false,
+        false,
+        128
+      ]
+    }
+  ]
+}

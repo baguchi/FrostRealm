@@ -1,46 +1,40 @@
 package baguchan.frostrealm.item;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.NeoForgeMod;
-
-import java.util.UUID;
 
 public class FrostSpearItem extends Item {
-	private final float attackDamage;
-	private final ItemAttributeModifiers defaultModifiers;
+	public static final ResourceLocation BASE_ENTITY_RANGE = ResourceLocation.withDefaultNamespace("base_entity_range");
+	public static final ResourceLocation BASE_BLOCK_RANGE = ResourceLocation.withDefaultNamespace("base_block_range");
 
 	public FrostSpearItem(Properties properties) {
 		super(properties);
-		this.attackDamage = 5.0F;
-		ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-		builder.add(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
-		builder.add(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", -2.6F, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
-		builder.add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(UUID.fromString("358accd2-f9a8-912b-2397-6356e2043b68"), "Weapon modifier", 1.0F, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
-		builder.add(Attributes.BLOCK_INTERACTION_RANGE, new AttributeModifier(UUID.fromString("2460a516-b2ef-b8a4-a6bc-33c4566d8a90"), "Weapon modifier", 1.0F, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
-
-		this.defaultModifiers = builder.build();
 	}
 
-	public float getDamage() {
-		return this.attackDamage;
+	public static ItemAttributeModifiers createAttributes() {
+		return ItemAttributeModifiers.builder()
+				.add(
+						Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, 5.0, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND
+				)
+				.add(
+						Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, -2.6F, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND
+				)
+				.add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(BASE_ENTITY_RANGE, 1F, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+				.add(Attributes.BLOCK_INTERACTION_RANGE, new AttributeModifier(BASE_BLOCK_RANGE, 1F, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
+				.build();
 	}
 
 	public boolean canAttackBlock(BlockState p_43291_, Level p_43292_, BlockPos p_43293_, Player p_43294_) {
@@ -71,15 +65,10 @@ public class FrostSpearItem extends Item {
 		return true;
 	}
 
-	public boolean isCorrectToolForDrops(BlockState p_43298_) {
+	@Override
+	public boolean isCorrectToolForDrops(ItemStack p_336002_, BlockState p_41450_) {
 		return false;
 	}
-
-	@Override
-	public ItemAttributeModifiers getDefaultAttributeModifiers() {
-		return this.defaultModifiers;
-	}
-
 	@Override
 	public int getEnchantmentValue() {
 		return 20;

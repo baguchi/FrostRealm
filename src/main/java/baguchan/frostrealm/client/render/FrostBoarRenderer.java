@@ -13,7 +13,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class FrostBoarRenderer<T extends FrostBoar> extends MobRenderer<T, FrostBoarModel<T>> {
-    private static final ResourceLocation BOAR = new ResourceLocation(FrostRealm.MODID, "textures/entity/frost_boar.png");
+    private static final ResourceLocation BOAR = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/frost_boar.png");
 
 
     public FrostBoarRenderer(EntityRendererProvider.Context p_173952_) {

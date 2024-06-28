@@ -92,12 +92,12 @@ public class MarmotModel<T extends Marmot> extends EntityModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		head.render(poseStack, buffer, packedLight, packedOverlay);
-		body.render(poseStack, buffer, packedLight, packedOverlay);
-		handR.render(poseStack, buffer, packedLight, packedOverlay);
-		handL.render(poseStack, buffer, packedLight, packedOverlay);
-		legR.render(poseStack, buffer, packedLight, packedOverlay);
-		legL.render(poseStack, buffer, packedLight, packedOverlay);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int color) {
+		head.render(poseStack, buffer, packedLight, packedOverlay, color);
+		body.render(poseStack, buffer, packedLight, packedOverlay, color);
+		handR.render(poseStack, buffer, packedLight, packedOverlay, color);
+		handL.render(poseStack, buffer, packedLight, packedOverlay, color);
+		legR.render(poseStack, buffer, packedLight, packedOverlay, color);
+		legL.render(poseStack, buffer, packedLight, packedOverlay, color);
 	}
 }

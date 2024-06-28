@@ -14,8 +14,8 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class WarpyRenderer<T extends Warpy> extends MobRenderer<T, WarpyModel<T>> {
-    private static final ResourceLocation WRAITH = new ResourceLocation(FrostRealm.MODID, "textures/entity/warpy/warpy.png");
-    private static final RenderType WRAITH_GLOW = RenderType.eyes(new ResourceLocation(FrostRealm.MODID, "textures/entity/warpy/warpy_glow.png"));
+    private static final ResourceLocation WRAITH = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/warpy/warpy.png");
+    private static final RenderType WRAITH_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/warpy/warpy_glow.png"));
 
     public WarpyRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new WarpyModel<>(p_173952_.bakeLayer(FrostModelLayers.WARPY)), 0.5F);

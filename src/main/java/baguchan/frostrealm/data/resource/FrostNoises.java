@@ -12,7 +12,7 @@ public class FrostNoises {
     public static final ResourceKey<NormalNoise.NoiseParameters> ISLANDS_BOTTOM_HEIGHT = createKey("islands_bottom_height");
 
     private static ResourceKey<NormalNoise.NoiseParameters> createKey(String name) {
-        return ResourceKey.create(Registries.NOISE, new ResourceLocation(FrostRealm.MODID, name));
+        return ResourceKey.create(Registries.NOISE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name));
     }
 
     public static void bootstrap(BootstrapContext<NormalNoise.NoiseParameters> ctx) {

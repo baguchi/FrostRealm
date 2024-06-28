@@ -11,22 +11,24 @@ import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.client.renderer.FogRenderer;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.Level;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
-import java.util.Random;
-
-;
+import static net.minecraft.client.renderer.LevelRenderer.getLightColor;
 
 public class FrostRealmRenderInfo extends DimensionSpecialEffects {
-    private static final ResourceLocation AURORA_LOCATION = new ResourceLocation(FrostRealm.MODID, "textures/environment/aurora.png");
-	private static final ResourceLocation SNOW_TEXTURES = new ResourceLocation("textures/environment/snow.png");
+	private static final ResourceLocation AURORA_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png");
+	private static final ResourceLocation SNOW_TEXTURES = ResourceLocation.withDefaultNamespace("textures/environment/snow.png");
     private final float[] rainxs = new float[1024];
     private final float[] rainzs = new float[1024];
     private int rendererUpdateCount;
@@ -71,7 +73,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 	}
 
 	private void renderAurora(PoseStack p_109781_, float weatherLevel) {
-		BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+		BufferBuilder bufferbuilder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		RenderSystem.disableCull();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
@@ -91,12 +93,11 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, AURORA_LOCATION);
-		bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		bufferbuilder.vertex(matrix4f1, -f12, (float) f13, -f12).uv(u1, v1).endVertex();
-		bufferbuilder.vertex(matrix4f1, f12, (float) f13, -f12).uv(u2, v1).endVertex();
-		bufferbuilder.vertex(matrix4f1, f12, (float) f13, f12).uv(u2, v2).endVertex();
-		bufferbuilder.vertex(matrix4f1, -f12, (float) f13, f12).uv(u1, v2).endVertex();
-		BufferUploader.drawWithShader(bufferbuilder.end());
+		bufferbuilder.addVertex(matrix4f1, -f12, (float) f13, -f12).setUv(u1, v1);
+		bufferbuilder.addVertex(matrix4f1, f12, (float) f13, -f12).setUv(u2, v1);
+		bufferbuilder.addVertex(matrix4f1, f12, (float) f13, f12).setUv(u2, v2);
+		bufferbuilder.addVertex(matrix4f1, -f12, (float) f13, f12).setUv(u1, v2);
+		BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
 		p_109781_.popPose();
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.disableBlend();
@@ -116,27 +117,24 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 		if (frostWeather.getNonAffectableBiome().isEmpty() || frostWeather.getNonAffectableBiome().isPresent() && level.getBiome(new BlockPos((int) camX, (int) camY, (int) camZ)).is(frostWeather.getNonAffectableBiome().get())) {
 
 			if (FrostWeatherManager.getPrevFrostWeather() == FrostWeathers.BLIZZARD.get()) {
-			this.renderBrizzardWeather(lightTexture, level, Minecraft.getInstance(), partialTick, camX, camY, camZ);
+				this.renderBrizzardWeather(lightTexture, level, partialTick, camX, camY, camZ);
 			}
 		}
 
         return true;
     }
 
-	private void renderBrizzardWeather(LightTexture lightmap, ClientLevel world, Minecraft mc, float ticks, double x, double y, double z) {
-        ++this.rendererUpdateCount;
-		float f = FrostWeatherManager.getWeatherLevel(ticks);
+	private void renderBrizzardWeather(LightTexture lightTexture, ClientLevel level, float partialTick, double camX, double camY, double camZ) {
+		float f = FrostWeatherManager.getWeatherLevel(partialTick);
         if (!(f <= 0.0F)) {
-            lightmap.turnOnLightLayer();
-            Level level = Minecraft.getInstance().level;
-            int i = Mth.floor(x);
-            int j = Mth.floor(y);
-            int k = Mth.floor(z);
+			lightTexture.turnOnLightLayer();
+			int i = Mth.floor(camX);
+			int j = Mth.floor(camY);
+			int k = Mth.floor(camZ);
             Tesselator tesselator = Tesselator.getInstance();
-            BufferBuilder bufferbuilder = tesselator.getBuilder();
+			BufferBuilder bufferbuilder = null;
 			RenderSystem.disableCull();
 			RenderSystem.enableBlend();
-			RenderSystem.defaultBlendFunc();
 			RenderSystem.enableDepthTest();
 			int l = 5;
 			if (Minecraft.useFancyGraphics()) {
@@ -145,75 +143,97 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 			RenderSystem.depthMask(Minecraft.useShaderTransparency());
 			int i1 = -1;
-			float f1 = (float) rendererUpdateCount + ticks;
+			float f1 = (float) this.rendererUpdateCount + partialTick;
 			RenderSystem.setShader(GameRenderer::getParticleShader);
-			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
-			for (int j1 = k - l; j1 <= k + l; ++j1) {
-				for (int k1 = i - l; k1 <= i + l; ++k1) {
+			for (int j1 = k - l; j1 <= k + l; j1++) {
+				for (int k1 = i - l; k1 <= i + l; k1++) {
 					int l1 = (j1 - k + 16) * 32 + k1 - i + 16;
-					double d0 = (double) this.rainxs[l1] * 0.5D;
-					double d1 = (double) this.rainzs[l1] * 0.5D;
-					blockpos$mutableblockpos.set(k1, 0, j1);
+					double d0 = (double) this.rainxs[l1] * 0.5;
+					double d1 = (double) this.rainzs[l1] * 0.5;
+					blockpos$mutableblockpos.set((double) k1, camY, (double) j1);
+					Biome biome = level.getBiome(blockpos$mutableblockpos).value();
+					if (biome.hasPrecipitation()) {
+						int i2 = level.getHeight(Heightmap.Types.MOTION_BLOCKING, k1, j1);
+						int j2 = j - l;
+						int k2 = j + l;
+						if (j2 < i2) {
+							j2 = i2;
+						}
 
-					int i2 = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, blockpos$mutableblockpos).getY();
-					int j2 = j - l;
-					int k2 = j + l;
-					if (j2 < i2) {
-						j2 = i2;
-					}
+						if (k2 < i2) {
+							k2 = i2;
+						}
 
-					if (k2 < i2) {
-						k2 = i2;
-					}
+						int l2 = i2;
+						if (i2 < j) {
+							l2 = j;
+						}
 
-					int l2 = i2;
-					if (i2 < j) {
-						l2 = j;
-					}
-
-					if (j2 != k2) {
-						Random random = new Random((long) k1 * k1 * 3121 + k1 * 45238971L ^ (long) j1 * j1 * 418711 + j1 * 13761L);
-						blockpos$mutableblockpos.set(k1, j2, j1);
+						if (j2 != k2) {
+							RandomSource randomsource = RandomSource.create((long) (k1 * k1 * 3121 + k1 * 45238971 ^ j1 * j1 * 418711 + j1 * 13761));
+							blockpos$mutableblockpos.set(k1, j2, j1);
+							Biome.Precipitation biome$precipitation = biome.getPrecipitationAt(blockpos$mutableblockpos);
 						if (i1 != 1) {
 							if (i1 >= 0) {
-								tesselator.end();
+								BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
 							}
 
 							i1 = 1;
 							RenderSystem.setShaderTexture(0, SNOW_TEXTURES);
-							bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+							bufferbuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 						}
 
-						float f6 = -((float) (rendererUpdateCount & 511) + ticks) / 324.0F;
-						float f7 = (float) (random.nextDouble() + (double) f1 * 0.01D * (double) ((float) random.nextGaussian()));
-						float f8 = (float) (random.nextDouble() + (double) (f1 * (float) random.nextGaussian()) * 0.001D);
-						double d3 = (double) k1 + 0.5D - x;
-						double d5 = (double) j1 + 0.5D - z;
-						float f9 = (float) Math.sqrt(d3 * d3 + d5 * d5) / (float) l;
-						float f10 = ((1.0F - f9 * f9) * 0.3F + 0.5F) * f;
-						blockpos$mutableblockpos.set(k1, l2, j1);
-						int k3 = LevelRenderer.getLightColor(level, blockpos$mutableblockpos);
-						int l3 = k3 >> 16 & '\uffff';
-						int i4 = k3 & '\uffff';
-						int j4 = (l3 * 3 + 240) / 4;
-						int k4 = (i4 * 3 + 240) / 4;
-						bufferbuilder.vertex((double) k1 - x - d0 + 0.5D, (double) k2 - y, (double) j1 - z - d1 + 0.5D).uv(0.0F + f7, (float) j2 * 0.25F + f6 + f8).color(1.0F, 1.0F, 1.0F, f10).uv2(k4, j4).endVertex();
-						bufferbuilder.vertex((double) k1 - x + d0 + 0.5D, (double) k2 - y, (double) j1 - z + d1 + 0.5D).uv(1.0F + f7, (float) j2 * 0.25F + f6 + f8).color(1.0F, 1.0F, 1.0F, f10).uv2(k4, j4).endVertex();
-						bufferbuilder.vertex((double) k1 - x + d0 + 0.5D, (double) j2 - y, (double) j1 - z + d1 + 0.5D).uv(1.0F + f7, (float) k2 * 0.25F + f6 + f8).color(1.0F, 1.0F, 1.0F, f10).uv2(k4, j4).endVertex();
-						bufferbuilder.vertex((double) k1 - x - d0 + 0.5D, (double) j2 - y, (double) j1 - z - d1 + 0.5D).uv(0.0F + f7, (float) k2 * 0.25F + f6 + f8).color(1.0F, 1.0F, 1.0F, f10).uv2(k4, j4).endVertex();
+							float f8 = -((float) (this.rendererUpdateCount & 211) + partialTick) / 212.0F;
+							float f9 = (float) (randomsource.nextDouble() + (double) f1 * 0.01 * (double) ((float) randomsource.nextGaussian()));
+							float f10 = (float) (randomsource.nextDouble() + (double) (f1 * (float) randomsource.nextGaussian()) * 0.001);
+							double d4 = (double) k1 + 0.5 - camX;
+							double d5 = (double) j1 + 0.5 - camZ;
+							float f11 = (float) Math.sqrt(d4 * d4 + d5 * d5) / (float) l;
+							float f5 = ((1.0F - f11 * f11) * 0.3F + 0.5F) * f;
+							blockpos$mutableblockpos.set(k1, l2, j1);
+							int j4 = getLightColor(level, blockpos$mutableblockpos);
+							int k4 = j4 >> 16 & 65535;
+							int l4 = j4 & 65535;
+							int l3 = (k4 * 3 + 240) / 4;
+							int i4 = (l4 * 3 + 240) / 4;
+							bufferbuilder.addVertex(
+											(float) ((double) k1 - camX - d0 + 0.5), (float) ((double) k2 - camY), (float) ((double) j1 - camZ - d1 + 0.5)
+									)
+									.setUv(0.0F + f9, (float) j2 * 0.25F + f8 + f10)
+									.setColor(1.0F, 1.0F, 1.0F, f5)
+									.setUv2(i4, l3);
+							bufferbuilder.addVertex(
+											(float) ((double) k1 - camX + d0 + 0.5), (float) ((double) k2 - camY), (float) ((double) j1 - camZ + d1 + 0.5)
+									)
+									.setUv(1.0F + f9, (float) j2 * 0.25F + f8 + f10)
+									.setColor(1.0F, 1.0F, 1.0F, f5)
+									.setUv2(i4, l3);
+							bufferbuilder.addVertex(
+											(float) ((double) k1 - camX + d0 + 0.5), (float) ((double) j2 - camY), (float) ((double) j1 - camZ + d1 + 0.5)
+									)
+									.setUv(1.0F + f9, (float) k2 * 0.25F + f8 + f10)
+									.setColor(1.0F, 1.0F, 1.0F, f5)
+									.setUv2(i4, l3);
+							bufferbuilder.addVertex(
+											(float) ((double) k1 - camX - d0 + 0.5), (float) ((double) j2 - camY), (float) ((double) j1 - camZ - d1 + 0.5)
+									)
+									.setUv(0.0F + f9, (float) k2 * 0.25F + f8 + f10)
+									.setColor(1.0F, 1.0F, 1.0F, f5)
+									.setUv2(i4, l3);
+						}
 					}
 				}
 			}
 
 			if (i1 >= 0) {
-				tesselator.end();
+				BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
 			}
 
 			RenderSystem.enableCull();
 			RenderSystem.disableBlend();
-			lightmap.turnOffLightLayer();
+			lightTexture.turnOffLightLayer();
 		}
 	}
 

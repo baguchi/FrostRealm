@@ -28,6 +28,8 @@ import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class BushBug extends Animal implements IShearable {
     private static final EntityDimensions BABY_DIMENSIONS = FrostEntities.BUSH_BUG.get().getDimensions().scale(0.5F).withEyeHeight(0.15F);
 
@@ -52,7 +54,7 @@ public class BushBug extends Animal implements IShearable {
     }
 
     @Override
-    public boolean isShearable(@NotNull ItemStack item, Level level, BlockPos pos) {
+    public boolean isShearable(@Nullable Player player, ItemStack item, Level level, BlockPos pos) {
         return this.readyForShearing();
     }
 
@@ -138,14 +140,12 @@ public class BushBug extends Animal implements IShearable {
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
         return FrostEntities.BUSH_BUG.get().create(p_146743_);
     }
-
-    @javax.annotation.Nonnull
     @Override
-    public java.util.List<ItemStack> onSheared(@javax.annotation.Nullable Player player, @javax.annotation.Nonnull ItemStack item, Level world, BlockPos pos, int fortune) {
+    public List<ItemStack> onSheared(@Nullable Player player, ItemStack item, Level level, BlockPos pos) {
 
-        world.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
+        level.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
         this.gameEvent(GameEvent.SHEAR, player);
-        if (!world.isClientSide) {
+        if (!level.isClientSide) {
             this.setShearable(false);
             this.makingCount = 0;
             int i = 1;

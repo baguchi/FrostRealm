@@ -15,11 +15,11 @@ public class FrostDensityFunctions {
 
     public static final ResourceKey<DensityFunction> UNDERGROUND = createKey("underground");
     private static ResourceKey<DensityFunction> createVannilaKey(String name) {
-        return ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation(name));
+        return ResourceKey.create(Registries.DENSITY_FUNCTION, ResourceLocation.withDefaultNamespace(name));
     }
 
     private static ResourceKey<DensityFunction> createKey(String name) {
-        return ResourceKey.create(Registries.DENSITY_FUNCTION, new ResourceLocation(FrostRealm.MODID, name));
+        return ResourceKey.create(Registries.DENSITY_FUNCTION, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name));
     }
 
     public static void bootstrap(BootstrapContext<DensityFunction> context) {
