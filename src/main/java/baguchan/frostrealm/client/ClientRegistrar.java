@@ -18,7 +18,6 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.GrassColor;
@@ -56,6 +55,8 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
         event.registerEntityRenderer(FrostEntities.MIND_VINE.get(), MindVineRenderer::new);
         event.registerEntityRenderer(FrostEntities.BUSH_BUG.get(), BushBugRender::new);
+		event.registerBlockEntityRenderer(FrostBlockEntitys.FROST_CHEST.get(), FrostChestRenderer::new);
+
 	}
 
 	@SubscribeEvent
@@ -91,7 +92,6 @@ public class ClientRegistrar {
 	}
 
 	public static void renderTileEntity() {
-		BlockEntityRenderers.register(FrostBlockEntitys.FROST_CHEST.get(), FrostChestRenderer::new);
 	}
 
 	public static void renderBlockColor() {
@@ -142,7 +142,7 @@ public class ClientRegistrar {
 
 	@SubscribeEvent
 	public static void renderHudEvent(RegisterGuiLayersEvent event) {
-		event.registerBelow(VanillaGuiLayers.CAMERA_OVERLAYS, FrostRealm.prefix("frost_overlay"), new FrostOverlay());
+		event.registerAbove(VanillaGuiLayers.FOOD_LEVEL, FrostRealm.prefix("frost_overlay"), new FrostOverlay());
 	}
 
 	@SubscribeEvent

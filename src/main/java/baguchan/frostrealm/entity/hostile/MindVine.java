@@ -8,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -43,6 +44,12 @@ public class MindVine extends Monster implements IMindVine {
     public MindVine(EntityType<? extends MindVine> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
         this.setAttachFace(Direction.DOWN);
+    }
+
+    public void recreateFromPacket(ClientboundAddEntityPacket p_219067_) {
+        super.recreateFromPacket(p_219067_);
+        this.yBodyRot = 0.0F;
+        this.yBodyRotO = 0.0F;
     }
 
     @Override

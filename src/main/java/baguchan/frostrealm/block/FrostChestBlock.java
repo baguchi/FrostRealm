@@ -226,15 +226,16 @@ public class FrostChestBlock extends AbstractChestBlock<FrostChestBlockEntity> i
 		}
 	}
 
-	public InteractionResult use(BlockState p_51531_, Level p_51532_, BlockPos p_51533_, Player p_51534_, InteractionHand p_51535_, BlockHitResult p_51536_) {
-		if (p_51532_.isClientSide) {
+    @Override
+    protected InteractionResult useWithoutItem(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, BlockHitResult p_60508_) {
+        if (p_60504_.isClientSide) {
 			return InteractionResult.SUCCESS;
 		} else {
-			MenuProvider menuprovider = this.getMenuProvider(p_51531_, p_51532_, p_51533_);
+            MenuProvider menuprovider = this.getMenuProvider(p_60503_, p_60504_, p_60505_);
 			if (menuprovider != null) {
-				p_51534_.openMenu(menuprovider);
-				p_51534_.awardStat(this.getOpenChestStat());
-				PiglinAi.angerNearbyPiglins(p_51534_, true);
+                p_60506_.openMenu(menuprovider);
+                p_60506_.awardStat(this.getOpenChestStat());
+                PiglinAi.angerNearbyPiglins(p_60506_, true);
 			}
 
 			return InteractionResult.CONSUME;

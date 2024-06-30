@@ -16,7 +16,7 @@
                     "predicates": {
                       "minecraft:enchantments": [
                         {
-                          "enchantment": "minecraft:silk_touch",
+                          "enchantments": "minecraft:silk_touch",
                           "levels": {
                             "min": 1
                           }
@@ -26,16 +26,21 @@
                   }
                 }
               ],
-              "name": "frostrealm:frigid_grass_block"
+              "name": "frostrealm:astrium_slate_ore"
             },
             {
               "type": "minecraft:item",
-              "conditions": [
+              "functions": [
                 {
-                  "condition": "minecraft:survives_explosion"
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops",
+                  "function": "minecraft:apply_bonus"
+                },
+                {
+                  "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "frostrealm:frigid_stone"
+              "name": "frostrealm:astrium_raw"
             }
           ]
         }
@@ -43,5 +48,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "frostrealm:blocks/frigid_grass_block"
+  "random_sequence": "frostrealm:blocks/astrium_slate_ore"
 }

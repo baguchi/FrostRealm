@@ -55,6 +55,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
         tag(Tags.Blocks.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.get());
 
         tag(BlockTags.CROPS).add(FrostBlocks.SUGARBEET.get(), FrostBlocks.RYE.get());
+        tag(BlockTags.MAINTAINS_FARMLAND).add(FrostBlocks.SUGARBEET.get(), FrostBlocks.RYE.get());
         tag(BlockTags.BEE_GROWABLES).add(FrostBlocks.SUGARBEET.get(), FrostBlocks.RYE.get());
 
         tag(FrostTags.Blocks.BASE_STONE_FROSTREALM).add(FrostBlocks.FRIGID_STONE.get(), FrostBlocks.PERMA_SLATE.get());

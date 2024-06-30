@@ -7,12 +7,11 @@ import baguchan.frostrealm.weather.FrostWeather;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class ChangeWeatherMessage implements CustomPacketPayload {
     public static final StreamCodec<FriendlyByteBuf, ChangeWeatherMessage> STREAM_CODEC = CustomPacketPayload.codec(ChangeWeatherMessage::write, ChangeWeatherMessage::new);
-    public static final CustomPacketPayload.Type<ChangeWeatherMessage> TYPE = CustomPacketPayload.createType("frostrealm:change_weather");
+    public static final CustomPacketPayload.Type<ChangeWeatherMessage> TYPE = new Type<>(FrostRealm.prefix("change_weather"));
 
 	private final FrostWeather weather;
 

@@ -28,7 +28,6 @@ public class BlockstateGenerator extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
-		this.simpleBlock(FrostBlocks.FROST_PORTAL.get());
 		this.simpleBlock(FrostBlocks.FROZEN_DIRT.get());
 
 		this.simpleBlock(FrostBlocks.PERMA_SLATE.get());

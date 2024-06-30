@@ -5,7 +5,6 @@ import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.MindVineModel;
 import baguchan.frostrealm.entity.hostile.MindVine;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -20,14 +19,9 @@ public class MindVineRenderer<T extends MindVine> extends MobRenderer<T, MindVin
         super(p_173952_, new MindVineModel<>(p_173952_.bakeLayer(FrostModelLayers.MIND_VINE)), 0.35F);
     }
 
-    protected void setupRotations(T p_115907_, PoseStack p_115908_, float p_115319_, float p_115909_, float p_115910_, float p_115911_) {
-        super.setupRotations(p_115907_, p_115908_, p_115319_, p_115909_, p_115910_ + 180.0F, p_115911_);
-
-        p_115908_.mulPose(Axis.YP.rotationDegrees(p_115910_));
-        p_115908_.translate(0.0, 0.5, 0.0);
-        p_115908_.mulPose(p_115907_.getAttachFace().getOpposite().getRotation());
-        p_115908_.translate(0.0, -0.5, 0.0);
-
+    protected void setupRotations(T p_320913_, PoseStack p_115891_, float p_115892_, float p_115893_, float p_115894_, float p_319950_) {
+        super.setupRotations(p_320913_, p_115891_, p_115892_, p_115893_ + 180.0F, p_115894_, p_319950_);
+        p_115891_.rotateAround(p_320913_.getAttachFace().getOpposite().getRotation(), 0.0F, 0.5F, 0.0F);
     }
 
     protected float getFlipDegrees(T p_115337_) {

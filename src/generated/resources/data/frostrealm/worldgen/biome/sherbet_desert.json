@@ -55,8 +55,7 @@
     "ambient": [],
     "axolotls": [],
     "creature": [],
-    "frostrealm_surface_monster": [],
-    "frostrealm_weather_monster": [
+    "frostrealm:frostrealm_weather_monster": [
       {
         "type": "frostrealm:frost_wraith",
         "maxCount": 3,
@@ -70,6 +69,7 @@
         "weight": 10
       }
     ],
+    "frostrealm:surface_monster": [],
     "misc": [],
     "monster": [],
     "underground_water_creature": [],

@@ -16,7 +16,7 @@
                     "predicates": {
                       "minecraft:enchantments": [
                         {
-                          "enchantment": "minecraft:silk_touch",
+                          "enchantments": "minecraft:silk_touch",
                           "levels": {
                             "min": 1
                           }
@@ -26,15 +26,10 @@
                   }
                 }
               ],
-              "name": "frostrealm:frost_crystal_slate_ore"
+              "name": "frostrealm:stardust_crystal_ore"
             },
             {
               "type": "minecraft:item",
-              "conditions": [
-                {
-                  "condition": "minecraft:survives_explosion"
-                }
-              ],
               "functions": [
                 {
                   "add": false,
@@ -49,9 +44,12 @@
                   "enchantment": "minecraft:fortune",
                   "formula": "minecraft:ore_drops",
                   "function": "minecraft:apply_bonus"
+                },
+                {
+                  "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "frostrealm:frost_crystal"
+              "name": "frostrealm:stardust_crystal"
             }
           ]
         }
@@ -59,5 +57,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "frostrealm:blocks/frost_crystal_slate_ore"
+  "random_sequence": "frostrealm:blocks/stardust_crystal_ore"
 }

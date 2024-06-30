@@ -120,6 +120,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 				this.renderBrizzardWeather(lightTexture, level, partialTick, camX, camY, camZ);
 			}
 		}
+		this.rendererUpdateCount++;
 
         return true;
     }

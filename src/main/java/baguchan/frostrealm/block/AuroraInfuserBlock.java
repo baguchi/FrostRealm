@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
@@ -56,11 +55,12 @@ public class AuroraInfuserBlock extends Block {
         return RenderShape.MODEL;
     }
 
-    public InteractionResult use(BlockState p_52974_, Level p_52975_, BlockPos p_52976_, Player p_52977_, InteractionHand p_52978_, BlockHitResult p_52979_) {
-        if (p_52975_.isClientSide) {
+    @Override
+    protected InteractionResult useWithoutItem(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, BlockHitResult p_60508_) {
+        if (p_60504_.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {
-            p_52977_.openMenu(p_52974_.getMenuProvider(p_52975_, p_52976_));
+            p_60506_.openMenu(p_60503_.getMenuProvider(p_60504_, p_60505_));
             return InteractionResult.CONSUME;
         }
     }

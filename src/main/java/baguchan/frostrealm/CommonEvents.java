@@ -29,8 +29,8 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.ToolAction;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -168,16 +168,16 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void blockToolInteractions(BlockEvent.BlockToolModificationEvent event) {
-        ToolAction action = event.getToolAction();
+        ItemAbility action = event.getItemAbility();
         BlockState state = event.getState();
         UseOnContext context = event.getContext();
         if (!event.isSimulated()) {
-            if (action == ToolActions.AXE_STRIP) {
+            if (action == ItemAbilities.AXE_STRIP) {
                 if (state.is(FrostBlocks.FROSTROOT_LOG.get())) {
                     event.setFinalState(FrostBlocks.STRIPPED_FROSTROOT_LOG.get().withPropertiesOf(state));
                 }
             }
-            if (action == ToolActions.HOE_TILL && (context.getClickedFace() != Direction.DOWN && context.getLevel().getBlockState(context.getClickedPos().above()).isAir())) {
+            if (action == ItemAbilities.HOE_TILL && (context.getClickedFace() != Direction.DOWN && context.getLevel().getBlockState(context.getClickedPos().above()).isAir())) {
                 if (state.is(FrostBlocks.FROZEN_DIRT.get()) || state.is(FrostBlocks.FROZEN_GRASS_BLOCK.get())) {
                     event.setFinalState(FrostBlocks.FROZEN_FARMLAND.get().defaultBlockState());
                 }

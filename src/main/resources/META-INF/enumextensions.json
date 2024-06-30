@@ -5,7 +5,7 @@
       "name": "FROSTREALM_RUB_HAND",
       "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
       "parameters": {
-        "class": "baguchan/frostrealm/client/FrostArmoPoses",
+        "class": "baguchan/frostrealm/client/FrostArmPoses",
         "field": "RUB_HAND"
       }
     },

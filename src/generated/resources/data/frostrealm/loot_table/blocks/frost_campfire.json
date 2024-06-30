@@ -16,7 +16,7 @@
                     "predicates": {
                       "minecraft:enchantments": [
                         {
-                          "enchantment": "minecraft:silk_touch",
+                          "enchantments": "minecraft:silk_touch",
                           "levels": {
                             "min": 1
                           }
@@ -26,30 +26,23 @@
                   }
                 }
               ],
-              "name": "frostrealm:stardust_crystal_ore"
+              "name": "frostrealm:frost_campfire"
             },
             {
               "type": "minecraft:item",
+              "conditions": [
+                {
+                  "condition": "minecraft:survives_explosion"
+                }
+              ],
               "functions": [
                 {
                   "add": false,
-                  "count": {
-                    "type": "minecraft:uniform",
-                    "max": 3.0,
-                    "min": 1.0
-                  },
+                  "count": 2.0,
                   "function": "minecraft:set_count"
-                },
-                {
-                  "enchantment": "minecraft:fortune",
-                  "formula": "minecraft:ore_drops",
-                  "function": "minecraft:apply_bonus"
-                },
-                {
-                  "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "frostrealm:stardust_crystal"
+              "name": "frostrealm:frost_crystal"
             }
           ]
         }
@@ -57,5 +50,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "frostrealm:blocks/stardust_crystal_ore"
+  "random_sequence": "frostrealm:blocks/frost_campfire"
 }
