@@ -60,6 +60,14 @@ public class CorruptedWalker extends Monster {
     }
 
     @Override
+    public void setZza(float p_21565_) {
+    }
+
+    @Override
+    public void setXxa(float p_21571_) {
+    }
+
+    @Override
     public void setId(int id) {
         super.setId(id);
         for (int i = 0; i < this.partArray.length; i++) // Forge: Fix MC-158205: Set part ids to successors of parent mob id
@@ -71,7 +79,7 @@ public class CorruptedWalker extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributeMap() {
-        return Monster.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double) 0.0F).add(Attributes.MAX_HEALTH, 50.0D).add(Attributes.KNOCKBACK_RESISTANCE, 1.0F).add(Attributes.SAFE_FALL_DISTANCE, 12.0F).add(Attributes.FOLLOW_RANGE, 24.0D).add(Attributes.ATTACK_DAMAGE, 3.0F);
+        return Monster.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double) 0.3F).add(Attributes.MAX_HEALTH, 50.0D).add(Attributes.KNOCKBACK_RESISTANCE, 1.0F).add(Attributes.SAFE_FALL_DISTANCE, 12.0F).add(Attributes.FOLLOW_RANGE, 24.0D).add(Attributes.ATTACK_DAMAGE, 3.0F);
     }
 
     @Override
@@ -113,7 +121,9 @@ public class CorruptedWalker extends Monster {
         }
         if (!this.level().isClientSide()) {
             if (!this.getNavigation().isDone()) {
-                if (this.tickCount % 15 == 0) {
+
+                double speed = 6 / this.getSpeed();
+                if (this.tickCount % speed == 0) {
                     if (this.movingPartIndex == 3) {
                         this.movingPartIndex = -1;
                     }
