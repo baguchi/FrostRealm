@@ -178,6 +178,7 @@ public class CorruptedWalkerPartContainer {
         float xRotation = this.getCurrentPartXRotation();
         float yRotation = this.getCurrentPartYRotation();
 
+        float speed = parent.getSpeed() / 0.3F;
 
         boolean flag = !this.stuckMode && Mth.abs(Mth.degreesDifference(parent.getYRot() + yRotation, this.parent.yBodyRot + yRotation)) != 0;
 
@@ -185,18 +186,18 @@ public class CorruptedWalkerPartContainer {
         if (flag) {
             Vec3 vector = offset.yRot((-(this.parent.yBodyRot) * Mth.PI) / 180.0F);
 
-            dx = (this.parent.getX() + vector.x - this.parentPart.getX()) * 0.25;
-            dy = (this.parent.getY() + vector.y - this.parentPart.getY()) * 0.25;
-            dz = (this.parent.getZ() + vector.z - this.parentPart.getZ()) * 0.25;
+            dx = (this.parent.getX() + vector.x - this.parentPart.getX()) * 0.2 * speed;
+            dy = (this.parent.getY() + vector.y - this.parentPart.getY()) * 0.2 * speed;
+            dz = (this.parent.getZ() + vector.z - this.parentPart.getZ()) * 0.2 * speed;
         }
 
         float f = this.connectPartNum * 0.3F;
         if (this.targetMove) {
             Vec3 vector = offset.yRot((-(this.parent.yBodyRot) * Mth.PI) / 180.0F);
 
-            dx += (targetX + vector.x - this.parentPart.getX()) * 0.25;
-            dy += (targetY + vector.y - this.parentPart.getY()) * 0.25;
-            dz += (targetZ + vector.z - this.parentPart.getZ()) * 0.25;
+            dx += (targetX + vector.x - this.parentPart.getX()) * 0.2 * speed;
+            dy += (targetY + vector.y - this.parentPart.getY()) * 0.2 * speed;
+            dz += (targetZ + vector.z - this.parentPart.getZ()) * 0.2 * speed;
 
         } else if (this.parentPart.distanceToSqr(new Vec3(this.parent.getX() + this.offset.x, this.parent.getY() + this.offset.y, this.parent.getZ() + this.offset.z)) > f * f + 4 * 4) {
             this.stuckMode = true;
@@ -214,9 +215,9 @@ public class CorruptedWalkerPartContainer {
             if (this.parentPart.distanceToSqr(this.parent) > f * f * 1.0F) {
                 Vec3 vector = offset.yRot((-(this.parent.yBodyRot) * Mth.PI) / 180.0F);
 
-                dx = (this.parent.getX() + vector.x - this.parentPart.getX()) * 0.25;
-                dy = (this.parent.getY() + vector.y - this.parentPart.getY()) * 0.25;
-                dz = (this.parent.getZ() + vector.z - this.parentPart.getZ()) * 0.25;
+                dx = (this.parent.getX() + vector.x - this.parentPart.getX()) * 0.2 * speed;
+                dy = (this.parent.getY() + vector.y - this.parentPart.getY()) * 0.2 * speed;
+                dz = (this.parent.getZ() + vector.z - this.parentPart.getZ()) * 0.2 * speed;
 
             } else {
                 this.stuckMode = false;

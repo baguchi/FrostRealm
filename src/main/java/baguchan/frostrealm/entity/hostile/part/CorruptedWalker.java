@@ -2,6 +2,7 @@ package baguchan.frostrealm.entity.hostile.part;
 
 import baguchan.frostrealm.entity.goal.MoveAttackerAndLookGoal;
 import baguchan.frostrealm.entity.path.MultiLegPathNavigation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -123,7 +124,7 @@ public class CorruptedWalker extends Monster {
             if (!this.getNavigation().isDone()) {
 
                 double speed = 6 / this.getSpeed();
-                if (this.tickCount % speed == 0) {
+                if (this.tickCount % Mth.floor(speed) == 0) {
                     if (this.movingPartIndex == 3) {
                         this.movingPartIndex = -1;
                     }
