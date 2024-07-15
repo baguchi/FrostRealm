@@ -55,7 +55,7 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
         event.registerEntityRenderer(FrostEntities.MIND_VINE.get(), MindVineRenderer::new);
         event.registerEntityRenderer(FrostEntities.BUSH_BUG.get(), BushBugRender::new);
-        event.registerEntityRenderer(FrostEntities.CORRUPTED_WALKER.get(), MultiPartRenderer::new);
+		event.registerEntityRenderer(FrostEntities.CORRUPTED_WALKER.get(), CorruptedWalkerRenderer::new);
 		event.registerBlockEntityRenderer(FrostBlockEntitys.FROST_CHEST.get(), FrostChestRenderer::new);
 
 	}
@@ -80,6 +80,11 @@ public class ClientRegistrar {
         event.registerLayerDefinition(FrostModelLayers.SEAL, SealModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.MIND_VINE, MindVineModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.BUSH_BUG, BushBugModel::createBodyLayer);
+
+		event.registerLayerDefinition(FrostModelLayers.CORRUPTED_WALKER, CorruptedWalkerModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.CORRUPTED_WALKER_FOOT, CorruptedWalkerFootModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.CORRUPTED_WALKER_PART, CorruptedWalkerPartModel::createBodyLayer);
+
 
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
         event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_OUTER, () -> YetiFurArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION));

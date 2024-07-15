@@ -20,6 +20,11 @@ public class FrostModelLayers {
     public static final ModelLayerLocation FROST_BOAR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_boar"), "frost_boar");
     public static final ModelLayerLocation SEEKER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "seeker"), "main");
 
+    public static final ModelLayerLocation CORRUPTED_WALKER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker"), "main");
+    public static final ModelLayerLocation CORRUPTED_WALKER_FOOT = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker_foot"), "main");
+    public static final ModelLayerLocation CORRUPTED_WALKER_PART = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker_part"), "main");
+
+
     public static final ModelLayerLocation GOKKUDILLO = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "gokkudillo"), "main");
     public static final ModelLayerLocation SEAL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "seal"), "main");
     public static final ModelLayerLocation MIND_VINE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "mind_vine"), "main");

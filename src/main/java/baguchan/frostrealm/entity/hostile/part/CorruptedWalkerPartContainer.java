@@ -151,18 +151,10 @@ public class CorruptedWalkerPartContainer {
         Vec3 vector;
         double dx, dy, dz;
 
-        // parentPart1 is above
-        // parentPart2 is to the right
-        // parentPart3 is to the left
-        //setupStateRotations(); // temporary, for debugging
-
         float partLength = this.getCurrentPartLength();
         float xRotation = this.getCurrentPartXRotation();
         float yRotation = this.getCurrentPartYRotation();
 
-        /*if (this.isDead()) {
-            xSwing = ySwing = 0;
-        }*/
 
         vector = new Vec3(0, 0, partLength); // -53 = 3.3125
         vector = vector.xRot((xRotation * Mth.PI) / 180.0F);
@@ -186,6 +178,18 @@ public class CorruptedWalkerPartContainer {
         float xRotation = this.getCurrentPartXRotation();
         float yRotation = this.getCurrentPartYRotation();
 
+
+        boolean flag = !this.stuckMode && Mth.abs(Mth.degreesDifference(parent.getYRot() + yRotation, this.parent.yBodyRot + yRotation)) != 0;
+
+        //if segment rotate is wrong. change position
+        if (flag) {
+            Vec3 vector = offset.yRot((-(this.parent.yBodyRot) * Mth.PI) / 180.0F);
+
+            dx = (this.parent.getX() + vector.x - this.parentPart.getX()) * 0.25;
+            dy = (this.parent.getY() + vector.y - this.parentPart.getY()) * 0.25;
+            dz = (this.parent.getZ() + vector.z - this.parentPart.getZ()) * 0.25;
+        }
+
         float f = this.connectPartNum * 0.3F;
         if (this.targetMove) {
             Vec3 vector = offset.yRot((-(this.parent.yBodyRot) * Mth.PI) / 180.0F);
@@ -204,17 +208,8 @@ public class CorruptedWalkerPartContainer {
             this.targetMove = false;
         }
 
-        boolean flag = !this.stuckMode && Mth.abs(Mth.degreesDifference(parent.getYRot() + yRotation, this.parent.yBodyRot + yRotation)) > 20;
 
-        //if segment rotate is wrong. change position
-        if (flag) {
-            Vec3 vector = offset.yRot((-(this.parent.yBodyRot) * Mth.PI) / 180.0F);
-
-            dx = (this.parent.getX() + vector.x - this.parentPart.getX()) * 0.25;
-            dy = (this.parent.getY() + vector.y - this.parentPart.getY()) * 0.25;
-            dz = (this.parent.getZ() + vector.z - this.parentPart.getZ()) * 0.25;
-        }
-
+        //If stuck. start moving segment
         if (this.stuckMode) {
             if (this.parentPart.distanceToSqr(this.parent) > f * f * 1.0F) {
                 Vec3 vector = offset.yRot((-(this.parent.yBodyRot) * Mth.PI) / 180.0F);
@@ -351,8 +346,6 @@ public class CorruptedWalkerPartContainer {
             this.stuckMode = false;
             this.targetMove = false;
         }
-
-        this.stateLength[this.parentPartNum] = Mth.clamp(this.stateLength[this.parentPartNum] + 0.1F, 0.1F, this.connectPartNum * 0.3F);
     }
 
     private static BlockPos getTopNonCollidingPos(LevelReader p_47066_, int x, int y, int z, Vec3 target) {

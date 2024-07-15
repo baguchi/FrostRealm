@@ -1,5 +1,6 @@
 package baguchan.frostrealm.entity.hostile.part;
 
+import baguchan.frostrealm.entity.goal.MoveAttackerAndLookGoal;
 import baguchan.frostrealm.entity.path.MultiLegPathNavigation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -7,7 +8,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -44,6 +48,8 @@ public class CorruptedWalker extends Monster {
             Collections.addAll(parts, this.ec[i].getParts());
         }
 
+        this.noCulling = true;
+        this.xpReward = 50;
         this.partArray = parts.toArray(new CorruptedWalkerPart[0]);
         this.setId(ENTITY_COUNTER.getAndAdd(this.partArray.length + 1) + 1); // Forge: Fix MC-158205: Make sure part ids are successors of parent mob id
     }
@@ -65,14 +71,14 @@ public class CorruptedWalker extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributeMap() {
-        return Monster.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double) 0.0F).add(Attributes.MAX_HEALTH, 40.0D).add(Attributes.KNOCKBACK_RESISTANCE, 1.0F).add(Attributes.SAFE_FALL_DISTANCE, 7.0F).add(Attributes.FOLLOW_RANGE, 30.0D).add(Attributes.ATTACK_DAMAGE, 3.0F);
+        return Monster.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double) 0.0F).add(Attributes.MAX_HEALTH, 50.0D).add(Attributes.KNOCKBACK_RESISTANCE, 1.0F).add(Attributes.SAFE_FALL_DISTANCE, 12.0F).add(Attributes.FOLLOW_RANGE, 24.0D).add(Attributes.ATTACK_DAMAGE, 3.0F);
     }
 
     @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0F, true));
+        this.goalSelector.addGoal(1, new MoveAttackerAndLookGoal(this));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
@@ -95,10 +101,10 @@ public class CorruptedWalker extends Monster {
             if (this.tickCount > 5) {
                 CorruptedWalkerPart part = this.ec[i].getParentPart();
 
-                if (this.getY() > part.getY() + 0.15 && this.getY() + 2F < part.getY()) {
+                if (this.getY() > part.getY() + 1.5 && this.getY() + 2F < part.getY()) {
                     yDiff = 0.05F;
                 } else if (this.getY() > part.getY() + 2F && this.getY() + 2.5F < part.getY()) {
-                    yDiff = 0.05F;
+                    yDiff -= 0.05F;
                 }
                 xDiff += (part.getX() - this.getX()) * 0.15F;
                 yDiff += (part.getY() - this.getY()) * 0.15F;

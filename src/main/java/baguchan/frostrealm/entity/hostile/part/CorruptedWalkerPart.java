@@ -153,7 +153,7 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
         }
 */
         if (this.level() instanceof ServerLevel serverlevel && p_20991_ && this.fallDistance > 0.0F) {
-            double d7 = 1F; //fall Distance
+            double d7 = 2F; //fall Distance
             if ((double) this.fallDistance > d7 && !p_20992_.isAir()) {
                 double d0 = this.getX();
                 double d1 = this.getY();
@@ -170,7 +170,7 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
                 float f = (float) Mth.ceil((double) this.fallDistance - d7);
                 double d4 = Math.min((double) (0.2F + f / 15.0F), 2.5);
                 int i = (int) (150.0 * d4);
-                if (this.fallDistance >= 3F) {
+                if (this.fallDistance > 5F) {
                     SoundEvent soundevent = this.fallDistance > 5.0F ? SoundEvents.MACE_SMASH_GROUND_HEAVY : SoundEvents.MACE_SMASH_GROUND;
                     serverlevel.playSound(
                             null, this.getX(), this.getY(), this.getZ(), soundevent, this.getSoundSource(), 1.5F, 1.0F
@@ -178,6 +178,12 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
                     //make big earth shake
                     knockback(serverlevel, this);
                 }
+
+                serverlevel.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox(), knockbackPredicate(this))
+                        .forEach(p_347296_ -> {
+                            p_347296_.hurt(this.damageSources().mobAttack(this.parentMob), (float) this.fallDistance * 2);
+                            this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK);
+                        });
                 if (!p_20992_.addLandingEffects((ServerLevel) this.level(), p_20993_, p_20992_, this.parentMob, i))
                     ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, p_20992_).setPos(p_20993_), d0, d1, d2, i, 0.0, 0.0, 0.0, 0.15F);
             }
@@ -242,7 +248,7 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
     private static double getKnockbackPower(CorruptedWalkerPart p_338265_, LivingEntity p_338630_, Vec3 p_338866_) {
         return (3.5 - p_338866_.length())
                 * 0.5F
-                * (double) (p_338265_.fallDistance > 5.0F ? 2 : 1)
+                * (double) (p_338265_.fallDistance > 10.0F ? 2 : 1)
                 * (1.0 - p_338630_.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
     }
 
