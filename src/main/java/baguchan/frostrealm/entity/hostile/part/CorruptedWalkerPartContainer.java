@@ -171,7 +171,7 @@ public class CorruptedWalkerPartContainer {
     protected void movePosition() {
         double dx, dy, dz;
         dx = 0;
-        dy = this.parentPart.noPhysics ? 0 : -this.parent.getAttributeValue(Attributes.GRAVITY) * 6F;
+        dy = this.parentPart.noPhysics ? 0 : -this.parent.getAttributeValue(Attributes.GRAVITY) * 8F;
         dz = 0;
 
         float partLength = this.getCurrentPartLength();
