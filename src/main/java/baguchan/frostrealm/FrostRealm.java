@@ -7,6 +7,7 @@ import baguchan.frostrealm.command.TemperatureCommand;
 import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.message.ChangedColdMessage;
+import baguchan.frostrealm.message.UpdateMultipartPacket;
 import baguchan.frostrealm.registry.*;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
@@ -111,6 +112,7 @@ public class FrostRealm {
 		registrar.playBidirectional(ChangedColdMessage.TYPE, ChangedColdMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
 		registrar.playBidirectional(ChangeWeatherMessage.TYPE, ChangeWeatherMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
 		registrar.playBidirectional(ChangeAuroraMessage.TYPE, ChangeAuroraMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
+        registrar.playBidirectional(UpdateMultipartPacket.TYPE, UpdateMultipartPacket.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
 	}
 
 	public static ResourceLocation prefix(String name) {

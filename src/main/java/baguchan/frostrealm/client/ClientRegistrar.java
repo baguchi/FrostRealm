@@ -55,6 +55,7 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
         event.registerEntityRenderer(FrostEntities.MIND_VINE.get(), MindVineRenderer::new);
         event.registerEntityRenderer(FrostEntities.BUSH_BUG.get(), BushBugRender::new);
+        event.registerEntityRenderer(FrostEntities.CORRUPTED_WALKER.get(), MultiPartRenderer::new);
 		event.registerBlockEntityRenderer(FrostBlockEntitys.FROST_CHEST.get(), FrostChestRenderer::new);
 
 	}

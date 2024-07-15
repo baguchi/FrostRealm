@@ -6,7 +6,8 @@
   "refmap": "frostrealm.refmap.json",
   "mixins": [
     "LivingEntityMixin",
-    "MobMixin"
+    "MobMixin",
+    "ServerEntityMixin"
   ],
   "client": [
     "client.HierarchicalModelAccessor",
