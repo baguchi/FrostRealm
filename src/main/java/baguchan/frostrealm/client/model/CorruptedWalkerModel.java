@@ -24,7 +24,7 @@ public class CorruptedWalkerModel<T extends CorruptedWalker> extends Hierarchica
     public CorruptedWalkerModel(ModelPart root) {
         this.realroot = root;
         this.root = root.getChild("root");
-        this.body = root.getChild("body");
+        this.body = this.root.getChild("body");
         this.plate = this.body.getChild("plate");
         this.plate2 = this.body.getChild("plate2");
         this.plate3 = this.body.getChild("plate3");
