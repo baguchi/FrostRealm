@@ -8,6 +8,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
@@ -28,9 +30,11 @@ import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforged.neoforge.entity.PartEntity<T> {
+
+    private static final EntityDataAccessor<Float> DATA_SCALE = SynchedEntityData.defineId(CorruptedWalkerPart.class, EntityDataSerializers.FLOAT);
+
     public final CorruptedWalker parentMob;
     private EntityDimensions size;
-
     protected int newPosRotationIncrements;
     protected double interpTargetX;
     protected double interpTargetY;
@@ -44,6 +48,7 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
     protected double targetX;
     protected double targetY;
     protected double targetZ;
+    private float appliedScale = 1.0F;
 
     public CorruptedWalkerPart(T p_31014_, float width, float height) {
         super(p_31014_);
@@ -52,6 +57,18 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
         this.parentMob = p_31014_;
     }
 
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder p_325943_) {
+        p_325943_.define(DATA_SCALE, 1.0F);
+    }
+
+    public float getScale() {
+        return this.entityData.get(DATA_SCALE);
+    }
+
+    public void setScale(float scale) {
+        this.entityData.set(DATA_SCALE, scale);
+    }
 
     protected void setSize(EntityDimensions size) {
         this.size = size;
@@ -59,7 +76,11 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
     }
 
     public EntityDimensions getSize() {
-        return size;
+        if (parentMob == null) {
+            return size;
+        }
+
+        return size.scale(getScale());
     }
 
     public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements) {
@@ -96,8 +117,10 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
         while (getXRot() - this.xRotO < -180F) this.xRotO -= 360F;
         while (getXRot() - this.xRotO >= 180F) this.xRotO += 360F;
 
-        if (this.onGround()) {
-
+        float f6 = this.getScale();
+        if (f6 != this.appliedScale) {
+            this.appliedScale = f6;
+            this.refreshDimensions();
         }
     }
 
@@ -108,9 +131,6 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
         this.tickCount++;
     }
 
-    @Override
-    protected void defineSynchedData(SynchedEntityData.Builder p_325943_) {
-    }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag p_31025_) {

@@ -22,8 +22,8 @@ import net.minecraft.world.entity.Pose;
 
 public class CorruptedWalkerRenderer extends MobRenderer<CorruptedWalker, CorruptedWalkerModel<CorruptedWalker>> {
     private static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/corrupted_walker/corrupted_walker.png");
-    private static final ResourceLocation FOOT_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/corrupted_walker/corrupted_foot.png");
-    private static final ResourceLocation PART_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/corrupted_walker/corrupted_part.png");
+    private static final ResourceLocation FOOT_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/corrupted_walker/corrupted_walker_foot.png");
+    private static final ResourceLocation PART_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/corrupted_walker/corrupted_walker_part.png");
 
     private final CorruptedWalkerFootModel footModel;
     private final CorruptedWalkerPartModel partModel;
@@ -54,9 +54,10 @@ public class CorruptedWalkerRenderer extends MobRenderer<CorruptedWalker, Corrup
 
         float f = entity.getXRot();
         float f8 = entity.parentMob.getScale();
+        poseStack.translate(-x, -y, -z);
+
         poseStack.scale(f8, f8, f8);
         this.setupPartRotations(entity, poseStack, this.getBob(entity.parentMob, partialTick), f, partialTick, f8);
-        poseStack.translate(x, -y, z);
 
         poseStack.scale(-1.0F, -1.0F, 1.0F);
 
@@ -84,10 +85,10 @@ public class CorruptedWalkerRenderer extends MobRenderer<CorruptedWalker, Corrup
 
         float f = entity.getXRot();
         float f8 = entity.parentMob.getScale();
+        poseStack.translate(-x, -y, -z);
 
         poseStack.scale(f8, f8, f8);
         this.setupPartRotations(entity, poseStack, this.getBob(entity.parentMob, partialTick), f, partialTick, f8);
-        poseStack.translate(x, -y, z);
 
         poseStack.scale(-1.0F, -1.0F, 1.0F);
         this.scale(entity.parentMob, poseStack, partialTick);

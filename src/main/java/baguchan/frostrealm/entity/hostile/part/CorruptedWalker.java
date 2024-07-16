@@ -56,6 +56,24 @@ public class CorruptedWalker extends Monster {
     }
 
     @Override
+    public void refreshDimensions() {
+        super.refreshDimensions();
+        for (CorruptedWalkerPartContainer container : this.ec) {
+            container.getParentPart().setScale(this.getScale());
+            container.getParentPart().setSize(container.getParentPart().getSize());
+            for (CorruptedWalkerPart part : container.getParts()) {
+                part.setScale(this.getScale());
+                part.setSize(part.getSize());
+            }
+        }
+    }
+
+    @Override
+    public float sanitizeScale(float p_320290_) {
+        return super.sanitizeScale(p_320290_);
+    }
+
+    @Override
     protected PathNavigation createNavigation(Level p_21480_) {
         return new MultiLegPathNavigation(this, p_21480_);
     }
@@ -80,7 +98,7 @@ public class CorruptedWalker extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributeMap() {
-        return Monster.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double) 0.3F).add(Attributes.MAX_HEALTH, 50.0D).add(Attributes.KNOCKBACK_RESISTANCE, 1.0F).add(Attributes.SAFE_FALL_DISTANCE, 12.0F).add(Attributes.FOLLOW_RANGE, 24.0D).add(Attributes.ATTACK_DAMAGE, 3.0F);
+        return Monster.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double) 0.3D).add(Attributes.MAX_HEALTH, 50.0D).add(Attributes.KNOCKBACK_RESISTANCE, 1.0D).add(Attributes.SAFE_FALL_DISTANCE, 12.0D).add(Attributes.FOLLOW_RANGE, 24.0D).add(Attributes.ARMOR, 5.0D).add(Attributes.ATTACK_DAMAGE, 3.0F);
     }
 
     @Override
@@ -111,7 +129,7 @@ public class CorruptedWalker extends Monster {
                 CorruptedWalkerPart part = this.ec[i].getParentPart();
 
                 if (this.getY() > part.getY() + 1.5 && this.getY() + 2F < part.getY()) {
-                    yDiff = 0.05F;
+                    yDiff += 0.05F;
                 } else if (this.getY() > part.getY() + 2F && this.getY() + 2.5F < part.getY()) {
                     yDiff -= 0.05F;
                 }

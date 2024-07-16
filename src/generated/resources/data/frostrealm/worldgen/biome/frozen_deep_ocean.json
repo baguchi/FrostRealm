@@ -87,6 +87,12 @@
         "maxCount": 2,
         "minCount": 1,
         "weight": 10
+      },
+      {
+        "type": "frostrealm:corruped_walker",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 1
       }
     ],
     "frostrealm:surface_monster": [],
