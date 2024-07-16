@@ -25,12 +25,12 @@ public class CorruptedWalkerModel<T extends CorruptedWalker> extends Hierarchica
         this.realroot = root;
         this.root = root.getChild("root");
         this.body = root.getChild("body");
-        this.plate = root.getChild("plate");
-        this.plate2 = root.getChild("plate2");
-        this.plate3 = root.getChild("plate3");
-        this.plate4 = root.getChild("plate4");
-        this.body2 = root.getChild("body2");
-        this.head = root.getChild("head");
+        this.plate = this.body.getChild("plate");
+        this.plate2 = this.body.getChild("plate2");
+        this.plate3 = this.body.getChild("plate3");
+        this.plate4 = this.body.getChild("plate4");
+        this.body2 = this.body.getChild("body2");
+        this.head = this.body2.getChild("head");
     }
 
     public static LayerDefinition createBodyLayer() {
