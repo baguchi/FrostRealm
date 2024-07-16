@@ -4,6 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.animal.*;
 import baguchan.frostrealm.entity.hostile.*;
+import baguchan.frostrealm.entity.hostile.part.CorruptedWalker;
 import baguchan.frostrealm.entity.projectile.WarpedCrystalShard;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -41,6 +42,7 @@ public class FrostEntities {
 
     public static final Supplier<EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).eyeHeight(0.25F).build(prefix("astra_ball")));
     public static final Supplier<EntityType<FrostBoar>> FROST_BOAR = ENTITIES.register("frost_boar", () -> EntityType.Builder.of(FrostBoar::new, MobCategory.CREATURE).sized(1.8F, 1.95F).eyeHeight(1.5F).build(prefix("frost_boar")));
+    public static final Supplier<EntityType<CorruptedWalker>> CORRUPTED_WALKER = ENTITIES.register("corruped_walker", () -> EntityType.Builder.of(CorruptedWalker::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(2.0F, 1.0F).eyeHeight(0.8F).build(prefix("corruped_walker")));
 
     public static final Supplier<EntityType<WarpedCrystalShard>> WARPED_CRYSTAL_SHARD = ENTITIES.register("warped_crystal", () -> EntityType.Builder.<WarpedCrystalShard>of(WarpedCrystalShard::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(prefix("warped_crystal")));
 
@@ -66,6 +68,7 @@ public class FrostEntities {
         event.put(MIND_VINE.get(), MindVine.createAttributes().build());
         event.put(ASTRA_BALL.get(), AstraBall.createAttributes().build());
         event.put(FROST_BOAR.get(), FrostBoar.createAttributes().build());
+        event.put(CORRUPTED_WALKER.get(), CorruptedWalker.createAttributeMap().build());
     }
 
     @SubscribeEvent
