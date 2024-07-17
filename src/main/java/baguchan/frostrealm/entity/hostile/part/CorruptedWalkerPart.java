@@ -23,7 +23,9 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -190,8 +192,8 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
                 float f = (float) Mth.ceil((double) this.fallDistance - d7);
                 double d4 = Math.min((double) (0.2F + f / 15.0F), 2.5);
                 int i = (int) (150.0 * d4);
-                if (this.fallDistance > 5F) {
-                    SoundEvent soundevent = this.fallDistance > 5.0F ? SoundEvents.MACE_SMASH_GROUND_HEAVY : SoundEvents.MACE_SMASH_GROUND;
+                if (this.fallDistance > 10F) {
+                    SoundEvent soundevent = this.fallDistance > 20.0F ? SoundEvents.MACE_SMASH_GROUND_HEAVY : SoundEvents.MACE_SMASH_GROUND;
                     serverlevel.playSound(
                             null, this.getX(), this.getY(), this.getZ(), soundevent, this.getSoundSource(), 1.5F, 1.0F
                     );
@@ -204,12 +206,47 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
                             p_347296_.hurt(this.damageSources().mobAttack(this.parentMob), (float) this.fallDistance * 2);
                             this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK);
                         });
-                if (!p_20992_.addLandingEffects((ServerLevel) this.level(), p_20993_, p_20992_, this.parentMob, i))
+                if (!p_20992_.addLandingEffects((ServerLevel) this.level(), p_20993_, p_20992_, this.parentMob, (int) (i * getScale())))
                     ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, p_20992_).setPos(p_20993_), d0, d1, d2, i, 0.0, 0.0, 0.0, 0.15F);
             }
+            BlockPos blockpos1 = this.getOnPos();
+            BlockState blockstate1 = this.level().getBlockState(blockpos1);
+
+            this.vibrationAndSoundEffectsFromBlock(blockpos1, blockstate1, true, this.getMovementEmission().emitsEvents());
         }
 
         super.checkFallDamage(p_20990_, p_20991_, p_20992_, p_20993_);
+    }
+
+    private boolean vibrationAndSoundEffectsFromBlock(BlockPos p_286221_, BlockState p_286549_, boolean p_286708_, boolean p_286543_) {
+        if (p_286549_.isAir()) {
+            return false;
+        } else {
+            boolean flag = false;
+            if ((this.onGround() || flag || this.isOnRails()) && !this.isSwimming()) {
+                if (p_286708_) {
+                    this.walkingStepSound(p_286221_, p_286549_);
+                }
+
+                if (p_286543_) {
+                    this.level().gameEvent(GameEvent.STEP, this.position(), GameEvent.Context.of(this, p_286549_));
+                }
+
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    private void walkingStepSound(BlockPos p_281828_, BlockState p_282118_) {
+        this.playStepSound(p_281828_, p_282118_);
+    }
+
+    protected void playStepSound(BlockPos p_20135_, BlockState p_20136_) {
+        this.playSound(SoundEvents.STONE_STEP, (float) (1.0F + 0.25F * getScale()), 1.0F);
+        SoundType soundtype = p_20136_.getSoundType(this.level(), p_20135_, this);
+        this.playSound(soundtype.getStepSound(), soundtype.getVolume() * 1.0F + 0.25F * getScale(), soundtype.getPitch());
     }
 
     private static void knockback(Level p_335716_, CorruptedWalkerPart part) {

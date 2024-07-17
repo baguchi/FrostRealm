@@ -16,12 +16,14 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
 
 public class CorruptedWalkerRenderer extends MobRenderer<CorruptedWalker, CorruptedWalkerModel<CorruptedWalker>> {
     private static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/corrupted_walker/corrupted_walker.png");
+    private static final ResourceLocation EYE_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/corrupted_walker/corrupted_walker_eye.png");
     private static final ResourceLocation FOOT_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/corrupted_walker/corrupted_walker_foot.png");
     private static final ResourceLocation PART_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/corrupted_walker/corrupted_walker_part.png");
 
@@ -32,6 +34,12 @@ public class CorruptedWalkerRenderer extends MobRenderer<CorruptedWalker, Corrup
         super(context, new CorruptedWalkerModel<>(context.bakeLayer(FrostModelLayers.CORRUPTED_WALKER)), 0.5F);
         this.footModel = new CorruptedWalkerFootModel(context.bakeLayer(FrostModelLayers.CORRUPTED_WALKER_FOOT));
         this.partModel = new CorruptedWalkerPartModel(context.bakeLayer(FrostModelLayers.CORRUPTED_WALKER_PART));
+        this.addLayer(new EyesLayer<>(this) {
+            @Override
+            public RenderType renderType() {
+                return RenderType.eyes(EYE_LOCATION);
+            }
+        });
     }
 
     @Override
