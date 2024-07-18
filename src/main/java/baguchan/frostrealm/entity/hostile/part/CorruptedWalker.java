@@ -98,7 +98,7 @@ public class CorruptedWalker extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributeMap() {
-        return Monster.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double) 0.3D).add(Attributes.MAX_HEALTH, 50.0D).add(Attributes.KNOCKBACK_RESISTANCE, 1.0D).add(Attributes.SAFE_FALL_DISTANCE, 12.0D).add(Attributes.FOLLOW_RANGE, 24.0D).add(Attributes.ARMOR, 5.0D).add(Attributes.ATTACK_DAMAGE, 3.0F);
+        return Monster.createMobAttributes().add(Attributes.MOVEMENT_SPEED, (double) 0.24D).add(Attributes.MAX_HEALTH, 50.0D).add(Attributes.KNOCKBACK_RESISTANCE, 1.0D).add(Attributes.SAFE_FALL_DISTANCE, 8.0D).add(Attributes.STEP_HEIGHT, 3.0F).add(Attributes.FOLLOW_RANGE, 24.0D).add(Attributes.ARMOR, 5.0D).add(Attributes.ATTACK_DAMAGE, 3.0F);
     }
 
     @Override
@@ -140,8 +140,7 @@ public class CorruptedWalker extends Monster {
         }
         if (!this.level().isClientSide()) {
             if (!this.getNavigation().isDone()) {
-
-                double speed = 6 / this.getSpeed();
+                float speed = 20 * (0.2F / this.getSpeed());
                 if (this.tickCount % Mth.floor(speed) == 0) {
                     if (this.movingPartIndex == 3) {
                         this.movingPartIndex = -1;

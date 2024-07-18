@@ -175,7 +175,7 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
         }
 */
         if (this.level() instanceof ServerLevel serverlevel && p_20991_ && this.fallDistance > 0.0F) {
-            double d7 = 2F; //fall Distance
+            double d7 = 1F; //fall Distance
             if ((double) this.fallDistance > d7 && !p_20992_.isAir()) {
                 double d0 = this.getX();
                 double d1 = this.getY();
@@ -201,9 +201,11 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
                     knockback(serverlevel, this);
                 }
 
+                float speed = this.parentMob.getSpeed() / 0.3F;
+
                 serverlevel.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox(), knockbackPredicate(this))
                         .forEach(p_347296_ -> {
-                            p_347296_.hurt(this.damageSources().mobAttack(this.parentMob), (float) this.fallDistance * 2);
+                            p_347296_.hurt(this.damageSources().mobAttack(this.parentMob), (float) this.fallDistance * 2 * speed);
                             this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK);
                         });
                 if (!p_20992_.addLandingEffects((ServerLevel) this.level(), p_20993_, p_20992_, this.parentMob, (int) (i * getScale())))
@@ -211,8 +213,9 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends net.neoforge
             }
             BlockPos blockpos1 = this.getOnPos();
             BlockState blockstate1 = this.level().getBlockState(blockpos1);
-
-            this.vibrationAndSoundEffectsFromBlock(blockpos1, blockstate1, true, this.getMovementEmission().emitsEvents());
+            if (this.fallDistance > 0.5F) {
+                this.vibrationAndSoundEffectsFromBlock(blockpos1, blockstate1, true, this.getMovementEmission().emitsEvents());
+            }
         }
 
         super.checkFallDamage(p_20990_, p_20991_, p_20992_, p_20993_);

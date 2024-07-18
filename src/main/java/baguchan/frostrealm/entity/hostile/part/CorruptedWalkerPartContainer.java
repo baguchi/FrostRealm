@@ -191,7 +191,7 @@ public class CorruptedWalkerPartContainer {
         float xRotation = this.getCurrentPartXRotation();
         float yRotation = this.getCurrentPartYRotation();
 
-        float speed = parent.getSpeed() / 0.3F;
+        float speed = parent.getSpeed() / 0.2F;
         float scale = this.getParentPart().getScale();
 
         boolean flag = Mth.abs(Mth.degreesDifference(parent.getYRot() + yRotation, this.parent.yBodyRot + yRotation)) != 0;
@@ -207,9 +207,9 @@ public class CorruptedWalkerPartContainer {
 
         float f = this.connectPartNum * 0.3F * scale;
         if (this.targetMove) {
-            dx += (targetX + vector.x - this.parentPart.getX()) * 0.2 * speed;
-            dy += (targetY + vector.y - this.parentPart.getY()) * 0.2 * speed;
-            dz += (targetZ + vector.z - this.parentPart.getZ()) * 0.2 * speed;
+            dx += (targetX - this.parentPart.getX()) * 0.2 * speed;
+            dy += (targetY - this.parentPart.getY()) * 0.2 * speed;
+            dz += (targetZ - this.parentPart.getZ()) * 0.2 * speed;
 
         } else if (this.parentPart.distanceToSqr(new Vec3(this.parent.getX() + this.offset.x, this.parent.getY() + this.offset.y, this.parent.getZ() + this.offset.z)) > f * f + 4 * 4) {
             this.stuckMode = true;
@@ -353,9 +353,9 @@ public class CorruptedWalkerPartContainer {
         if (!this.parent.getNavigation().isDone() && this.parent.getNavigation().getPath() != null && this.parent.movingPartIndex == parentPartNum) {
             Vec3 vec3 = this.parent.getNavigation().getPath().getNextNodePos().getCenter().add(offset);
 
-            BlockPos blockPos = getTopNonCollidingPos(parent.level(), (int) vec3.x, (int) vec3.y + 1, (int) vec3.z);
+            BlockPos blockPos = getTopNonCollidingPos(parent.level(), (int) vec3.x, (int) vec3.y, (int) vec3.z);
 
-            this.setTarget(blockPos.getCenter());
+            this.setTarget(blockPos.getCenter().add(0, -0.5F, 0));
         } else if (this.parent.movingPartIndex != parentPartNum) {
             this.parentPart.noPhysics = false;
             this.stuckMode = false;
@@ -366,11 +366,12 @@ public class CorruptedWalkerPartContainer {
     private static BlockPos getTopNonCollidingPos(LevelReader p_47066_, int x, int y, int z) {
         int count = 0;
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(x, y, z);
-        do {
-            blockpos$mutableblockpos.move(Direction.UP);
-            count++;
-        } while (!p_47066_.getBlockState(blockpos$mutableblockpos).isAir() && count < 4);
-
+        if (!p_47066_.getBlockState(blockpos$mutableblockpos).isAir()) {
+            do {
+                blockpos$mutableblockpos = blockpos$mutableblockpos.move(Direction.UP);
+                count++;
+            } while (!p_47066_.getBlockState(blockpos$mutableblockpos).isAir() && count < 4);
+        }
         return blockpos$mutableblockpos.immutable();
     }
 
