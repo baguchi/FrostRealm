@@ -28,7 +28,7 @@ public class FrostCatalystItem extends Item {
         Player player = context.getPlayer();
         BlockPos pos = context.getClickedPos();
         if (inPortalDimension(level)) {
-            Optional<FrostPortalShape> optional = FrostPortalShape.findEmptyPortalShape(level, pos.offset(context.getClickedFace().getNormal()), Direction.Axis.X);
+            Optional<FrostPortalShape> optional = FrostPortalShape.findEmptyPortalShape(level, pos.offset(context.getClickedFace().getOpposite().getNormal()), Direction.Axis.X);
             if (optional.isPresent()) {
                 optional.get().createPortalBlocks();
                 if (!player.isCreative()) {
