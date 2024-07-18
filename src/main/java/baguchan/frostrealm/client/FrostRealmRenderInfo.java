@@ -139,7 +139,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
             RenderSystem.depthMask(Minecraft.useShaderTransparency());
             int i1 = -1;
-            float f1 = (float) ticks + partialTick;
+            float combinedTicks = (float) ticks + partialTick;
             RenderSystem.setShader(GameRenderer::getParticleShader);
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 
@@ -181,9 +181,10 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
                                 bufferbuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
                             }
 
-                            float f8 = -((float) (ticks & 511) + partialTick) / 512.0F;
-                            float f9 = (float) (randomsource.nextDouble() + (double) f1 * 0.01 * (double) ((float) randomsource.nextGaussian()));
-                            float f10 = (float) (randomsource.nextDouble() + (double) (f1 * (float) randomsource.nextGaussian()) * 0.001);
+                            float speed = 5F;
+                            float f8 = ((float) (ticks & 511) + partialTick) / 512.0F;
+                            float uFactor = randomsource.nextFloat() + combinedTicks * 0.1F * (float) randomsource.nextGaussian();
+                            float vFactor = randomsource.nextFloat() * speed + combinedTicks * 0.005F * (float) randomsource.nextGaussian();
                             double d4 = (double) k1 + 0.5 - camX;
                             double d5 = (double) j1 + 0.5 - camZ;
                             float f11 = (float) Math.sqrt(d4 * d4 + d5 * d5) / (float) l;
@@ -197,25 +198,25 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
                             bufferbuilder.addVertex(
                                             (float) ((double) k1 - camX - d0 + 0.5), (float) ((double) k2 - camY), (float) ((double) j1 - camZ - d1 + 0.5)
                                     )
-                                    .setUv(0.0F + f9, (float) j2 * 0.25F + f8 + f10)
+                                    .setUv(0.0F + uFactor, (float) j2 * 0.25F + f8 + vFactor)
                                     .setColor(1.0F, 1.0F, 1.0F, f5)
                                     .setUv2(i4, l3);
                             bufferbuilder.addVertex(
                                             (float) ((double) k1 - camX + d0 + 0.5), (float) ((double) k2 - camY), (float) ((double) j1 - camZ + d1 + 0.5)
                                     )
-                                    .setUv(1.0F + f9, (float) j2 * 0.25F + f8 + f10)
+                                    .setUv(1.0F + uFactor, (float) j2 * 0.25F + f8 + vFactor)
                                     .setColor(1.0F, 1.0F, 1.0F, f5)
                                     .setUv2(i4, l3);
                             bufferbuilder.addVertex(
                                             (float) ((double) k1 - camX + d0 + 0.5), (float) ((double) j2 - camY), (float) ((double) j1 - camZ + d1 + 0.5)
                                     )
-                                    .setUv(1.0F + f9, (float) k2 * 0.25F + f8 + f10)
+                                    .setUv(1.0F + uFactor, (float) k2 * 0.25F + f8 + vFactor)
                                     .setColor(1.0F, 1.0F, 1.0F, f5)
                                     .setUv2(i4, l3);
                             bufferbuilder.addVertex(
                                             (float) ((double) k1 - camX - d0 + 0.5), (float) ((double) j2 - camY), (float) ((double) j1 - camZ - d1 + 0.5)
                                     )
-                                    .setUv(0.0F + f9, (float) k2 * 0.25F + f8 + f10)
+                                    .setUv(0.0F + uFactor, (float) k2 * 0.25F + f8 + vFactor)
                                     .setColor(1.0F, 1.0F, 1.0F, f5)
                                     .setUv2(i4, l3);
 
@@ -232,6 +233,31 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
             RenderSystem.disableBlend();
             lightTexture.turnOffLightLayer();
         }
+    }
+
+    private static void renderEffect(BufferBuilder bufferBuilder, double rainX, double rainZ, int minY, int maxY, Vec3 camera, int dx, int dz, float countFactor, float uFactor, float vFactor, float[] color, int light) {
+        int blockLight = light >> 16 & 65535;
+        int skyLight = light & 65535;
+        bufferBuilder
+                .addVertex((float) (dx - camera.x() - rainX + 0.5F), (float) (minY - camera.y()), (float) (dz - camera.z() - rainZ + 0.5F))
+                .setUv(0.0F + uFactor, minY * 0.25F + countFactor + vFactor)
+                .setColor(color[0], color[1], color[2], color[3])
+                .setUv2(blockLight, skyLight);
+        bufferBuilder
+                .addVertex((float) (dx - camera.x() + rainX + 0.5F), (float) (minY - camera.y()), (float) (dz - camera.z() + rainZ + 0.5F))
+                .setUv(1.0F + uFactor, minY * 0.25F + countFactor + vFactor)
+                .setColor(color[0], color[1], color[2], color[3])
+                .setUv2(blockLight, skyLight);
+        bufferBuilder
+                .addVertex((float) (dx - camera.x() + rainX + 0.5F), (float) (maxY - camera.y()), (float) (dz - camera.z() + rainZ + 0.5F))
+                .setUv(1.0F + uFactor, maxY * 0.25F + countFactor + vFactor)
+                .setColor(color[0], color[1], color[2], color[3])
+                .setUv2(blockLight, skyLight);
+        bufferBuilder
+                .addVertex((float) (dx - camera.x() - rainX + 0.5F), (float) (maxY - camera.y()), (float) (dz - camera.z() - rainZ + 0.5F))
+                .setUv(0.0F + uFactor, maxY * 0.25F + countFactor + vFactor)
+                .setColor(color[0], color[1], color[2], color[3])
+                .setUv2(blockLight, skyLight);
     }
 
     @Override
