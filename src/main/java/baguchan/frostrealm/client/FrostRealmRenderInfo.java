@@ -112,7 +112,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
     @Override
     public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, LightTexture lightTexture, double camX, double camY, double camZ) {
-        if (FrostWeatherManager.getPrevFrostWeather() == FrostWeathers.BLIZZARD.get()) {
+        if (FrostWeatherManager.getPrevFrostWeather() == FrostWeathers.BLIZZARD.get() && FrostWeatherManager.getFrostWeather() == FrostWeathers.NOPE.get() || FrostWeatherManager.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
             this.renderBrizzardWeather(lightTexture, level, ticks, partialTick, camX, camY, camZ);
         }
 
@@ -181,41 +181,43 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
                                 bufferbuilder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
                             }
 
-                            int i3 = ticks & 12071;
-                            int j3 = k1 * k1 * 3121 + k1 * 45238971 + j1 * j1 * 418711 + j1 * 13761 & 0xFF;
-                            float f2 = 3.0F + randomsource.nextFloat();
-                            float f3 = -((float) (i3 + j3) + partialTick) / 32.0F * f2;
-                            float f4 = f3 % 32.0F;
-                            double d2 = (double) k1 + 0.5 - camX;
-                            double d3 = (double) j1 + 0.5 - camZ;
-                            float f6 = (float) Math.sqrt(d2 * d2 + d3 * d3) / (float) l;
-                            float f7 = ((1.0F - f6 * f6) * 0.5F + 0.5F) * f;
+                            float f8 = -((float) (ticks & 511) + partialTick) / 512.0F;
+                            float f9 = (float) (randomsource.nextDouble() + (double) f1 * 0.01 * (double) ((float) randomsource.nextGaussian()));
+                            float f10 = (float) (randomsource.nextDouble() + (double) (f1 * (float) randomsource.nextGaussian()) * 0.001);
+                            double d4 = (double) k1 + 0.5 - camX;
+                            double d5 = (double) j1 + 0.5 - camZ;
+                            float f11 = (float) Math.sqrt(d4 * d4 + d5 * d5) / (float) l;
+                            float f5 = ((1.0F - f11 * f11) * 0.3F + 0.5F) * f;
                             blockpos$mutableblockpos.set(k1, l2, j1);
-                            int k3 = getLightColor(level, blockpos$mutableblockpos);
+                            int j4 = getLightColor(level, blockpos$mutableblockpos);
+                            int k4 = j4 >> 16 & 65535;
+                            int l4 = j4 & 65535;
+                            int l3 = (k4 * 3 + 240) / 4;
+                            int i4 = (l4 * 3 + 240) / 4;
                             bufferbuilder.addVertex(
                                             (float) ((double) k1 - camX - d0 + 0.5), (float) ((double) k2 - camY), (float) ((double) j1 - camZ - d1 + 0.5)
                                     )
-                                    .setUv(0.0F, (float) j2 * 0.25F + f4)
-                                    .setColor(1.0F, 1.0F, 1.0F, f7)
-                                    .setLight(k3);
+                                    .setUv(0.0F + f9, (float) j2 * 0.25F + f8 + f10)
+                                    .setColor(1.0F, 1.0F, 1.0F, f5)
+                                    .setUv2(i4, l3);
                             bufferbuilder.addVertex(
                                             (float) ((double) k1 - camX + d0 + 0.5), (float) ((double) k2 - camY), (float) ((double) j1 - camZ + d1 + 0.5)
                                     )
-                                    .setUv(1.0F, (float) j2 * 0.25F + f4)
-                                    .setColor(1.0F, 1.0F, 1.0F, f7)
-                                    .setLight(k3);
+                                    .setUv(1.0F + f9, (float) j2 * 0.25F + f8 + f10)
+                                    .setColor(1.0F, 1.0F, 1.0F, f5)
+                                    .setUv2(i4, l3);
                             bufferbuilder.addVertex(
                                             (float) ((double) k1 - camX + d0 + 0.5), (float) ((double) j2 - camY), (float) ((double) j1 - camZ + d1 + 0.5)
                                     )
-                                    .setUv(1.0F, (float) k2 * 0.25F + f4)
-                                    .setColor(1.0F, 1.0F, 1.0F, f7)
-                                    .setLight(k3);
+                                    .setUv(1.0F + f9, (float) k2 * 0.25F + f8 + f10)
+                                    .setColor(1.0F, 1.0F, 1.0F, f5)
+                                    .setUv2(i4, l3);
                             bufferbuilder.addVertex(
                                             (float) ((double) k1 - camX - d0 + 0.5), (float) ((double) j2 - camY), (float) ((double) j1 - camZ - d1 + 0.5)
                                     )
-                                    .setUv(0.0F, (float) k2 * 0.25F + f4)
-                                    .setColor(1.0F, 1.0F, 1.0F, f7)
-                                    .setLight(k3);
+                                    .setUv(0.0F + f9, (float) k2 * 0.25F + f8 + f10)
+                                    .setColor(1.0F, 1.0F, 1.0F, f5)
+                                    .setUv2(i4, l3);
 
                         }
                     }
