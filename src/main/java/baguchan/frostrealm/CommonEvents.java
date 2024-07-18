@@ -2,6 +2,7 @@ package baguchan.frostrealm;
 
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherSavedData;
+import baguchan.frostrealm.entity.FrostPart;
 import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.registry.*;
@@ -31,6 +32,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
+import net.neoforged.neoforge.entity.PartEntity;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -55,6 +58,17 @@ public class CommonEvents {
                     PacketDistributor.sendToAllPlayers(message);
                     ChangeAuroraMessage message2 = new ChangeAuroraMessage(cap.getAuroraLevel());
                     PacketDistributor.sendToAllPlayers(message2);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityJoin(EntityJoinLevelEvent event) {
+        if (event.getEntity().isMultipartEntity()) {
+            for (PartEntity<?> partEntity : event.getEntity().getParts()) {
+                if (partEntity instanceof FrostPart<?> part) {
+                    part.moveTo(event.getEntity().position());
                 }
             }
         }
@@ -194,7 +208,7 @@ public class CommonEvents {
 
             int auroraShaper = AuroraPowerUtils.getAuroraPowerLevel(AuroraPowers.AURORA_SHAPER.get(), attacker);
 
-            if (event.getAmount() > 0) {
+            if (event.getAmount() > 0 && auroraShaper > 0) {
                 event.setAmount(AuroraCombatRules.getDamageAddition(event.getAmount(), auroraShaper));
             }
 
@@ -202,7 +216,7 @@ public class CommonEvents {
 
             float armor = livingEntity.getArmorValue();
 
-            if (event.getAmount() > 0 && armor > 0) {
+            if (event.getAmount() > 0 && armor > 0 && crystalSlasher > 0) {
                 event.setAmount(AuroraCombatRules.getDamageAdditionWithExtra(event.getAmount(), crystalSlasher, armor));
             }
         }

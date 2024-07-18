@@ -9,7 +9,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
@@ -53,6 +52,7 @@ public class CorruptedWalker extends Monster {
         this.xpReward = 50;
         this.partArray = parts.toArray(new CorruptedWalkerPart[0]);
         this.setId(ENTITY_COUNTER.getAndAdd(this.partArray.length + 1) + 1); // Forge: Fix MC-158205: Make sure part ids are successors of parent mob id
+        this.getNavigation().setCanFloat(false);
     }
 
     @Override
@@ -104,7 +104,6 @@ public class CorruptedWalker extends Monster {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MoveAttackerAndLookGoal(this));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
