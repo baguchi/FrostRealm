@@ -9,8 +9,7 @@
     "ServerEntityMixin"
   ],
   "client": [
-    "client.HierarchicalModelAccessor",
-    "client.MinecraftMixin"
+    "client.HierarchicalModelAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

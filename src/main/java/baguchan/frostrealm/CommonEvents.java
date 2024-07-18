@@ -9,17 +9,21 @@ import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.utils.aurorapower.AuroraCombatRules;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import baguchan.frostrealm.world.FrostLevelData;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ChunkHolder;
 import net.minecraft.server.level.ChunkMap;
 import net.minecraft.server.level.ChunkResult;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.Musics;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
@@ -30,6 +34,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.SelectMusicEvent;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.entity.PartEntity;
@@ -59,6 +64,16 @@ public class CommonEvents {
                     ChangeAuroraMessage message2 = new ChangeAuroraMessage(cap.getAuroraLevel());
                     PacketDistributor.sendToAllPlayers(message2);
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMusicPlayed(SelectMusicEvent event) {
+        if (Minecraft.getInstance().level != null && Minecraft.getInstance().player != null) {
+            Holder<Biome> biome = Minecraft.getInstance().player.level().getBiome(Minecraft.getInstance().player.blockPosition());
+            if (Minecraft.getInstance().level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+                event.setMusic(biome.value().getBackgroundMusic().orElse(Musics.GAME));
             }
         }
     }
