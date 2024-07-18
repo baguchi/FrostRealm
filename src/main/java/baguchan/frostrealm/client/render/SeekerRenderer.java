@@ -107,11 +107,11 @@ public class SeekerRenderer<T extends Seeker> extends MobRenderer<T, SeekerModel
     }
 
     private static void leftVertex(VertexConsumer p_253956_, Matrix4f p_254053_, PoseStack.Pose p_114092_, float p_253704_, float p_253701_) {
-        p_253956_.addVertex(p_254053_, -HALF_SQRT_3 * p_253701_, p_253704_, 0).setColor(0, 0, 255, 0).setUv(0, 0 + 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(240).setNormal(p_114092_, 0.0F, -1.0F, 0.0F);
+        p_253956_.addVertex(p_254053_, -HALF_SQRT_3 * p_253701_, p_253704_, 0).setColor(255, 0, 255, 0).setUv(0, 0 + 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(240).setNormal(p_114092_, 0.0F, -1.0F, 0.0F);
     }
 
     private static void rightVertex(VertexConsumer p_253850_, Matrix4f p_254379_, PoseStack.Pose p_114092_, float p_253729_, float p_254030_) {
-        p_253850_.addVertex(p_254379_, HALF_SQRT_3 * p_254030_, p_253729_, 0).setColor(0, 0, 255, 0).setUv(0 + 1, 0 + 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(240).setNormal(p_114092_, 0.0F, -1.0F, 0.0F);
+        p_253850_.addVertex(p_254379_, HALF_SQRT_3 * p_254030_, p_253729_, 0).setColor(255, 0, 255, 0).setUv(0 + 1, 0 + 1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(240).setNormal(p_114092_, 0.0F, -1.0F, 0.0F);
     }
 
 
