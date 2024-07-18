@@ -1,7 +1,7 @@
 package baguchan.frostrealm.message;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.entity.hostile.part.CorruptedWalkerPart;
+import baguchan.frostrealm.entity.FrostPart;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -29,7 +29,7 @@ public record UpdateMultipartPacket(int entityId, @Nullable Entity entity,
     }
 
     public UpdateMultipartPacket(Entity entity) {
-        this(-1, entity, Arrays.stream(entity.getParts()).filter(part -> part instanceof CorruptedWalkerPart).map(part -> (CorruptedWalkerPart<?>) part).collect(Collectors.toMap(CorruptedWalkerPart::getId, CorruptedWalkerPart::writeData)));
+        this(-1, entity, Arrays.stream(entity.getParts()).filter(part -> part instanceof FrostPart<?>).map(part -> (FrostPart<?>) part).collect(Collectors.toMap(FrostPart::getId, FrostPart::writeData)));
     }
 
     public void write(RegistryFriendlyByteBuf buf) {
@@ -59,11 +59,11 @@ public record UpdateMultipartPacket(int entityId, @Nullable Entity entity,
                 if (parts == null)
                     return;
                 for (PartEntity<?> part : parts) {
-                    if (part instanceof CorruptedWalkerPart<?> tfPart) {
+                    if (part instanceof FrostPart<?> tfPart) {
                         if (message.data == null && message.entity != null) // Account for Singleplayer
                             Arrays.stream(message.entity.getParts())
-                                    .filter(p -> p instanceof CorruptedWalkerPart<?> && p.getId() == part.getId())
-                                    .map(p -> (CorruptedWalkerPart<?>) p)
+                                    .filter(p -> p instanceof FrostPart<?> && p.getId() == part.getId())
+                                    .map(p -> (FrostPart<?>) p)
                                     .findFirst().ifPresent(p -> tfPart.readData(p.writeData()));
                         else if (message.data != null) {
                             PartDataHolder data = message.data.get(tfPart.getId());
