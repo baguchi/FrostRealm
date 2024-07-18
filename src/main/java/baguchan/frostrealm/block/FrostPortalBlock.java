@@ -220,9 +220,4 @@ public class FrostPortalBlock extends Block implements Portal {
 		Vec3 vec32 = FrostPortalShape.findCollisionFreePosition(vec31, p_350955_, p_350578_, entitydimensions);
 		return new DimensionTransition(p_350955_, vec32, vec3, p_350648_ + (float) i, p_350338_, p_352441_);
 	}
-
-	@Override
-	public Portal.Transition getLocalTransition() {
-		return Transition.CONFUSION;
-	}
 }

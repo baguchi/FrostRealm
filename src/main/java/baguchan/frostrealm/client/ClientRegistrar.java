@@ -1,24 +1,29 @@
 package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.*;
 import baguchan.frostrealm.client.overlay.FrostOverlay;
 import baguchan.frostrealm.client.render.*;
 import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
 import baguchan.frostrealm.client.screen.AuroraInfuserScreen;
-import baguchan.frostrealm.registry.FrostBlockEntitys;
-import baguchan.frostrealm.registry.FrostBlocks;
-import baguchan.frostrealm.registry.FrostEntities;
-import baguchan.frostrealm.registry.FrostMenuTypes;
+import baguchan.frostrealm.registry.*;
+import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -149,6 +154,37 @@ public class ClientRegistrar {
 	@SubscribeEvent
 	public static void renderHudEvent(RegisterGuiLayersEvent event) {
 		event.registerAbove(VanillaGuiLayers.FOOD_LEVEL, FrostRealm.prefix("frost_overlay"), new FrostOverlay());
+		event.registerAboveAll(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_portal_overlay"), (guiGraphics, partialTicks) -> {
+			Minecraft minecraft = Minecraft.getInstance();
+			Window window = minecraft.getWindow();
+			LocalPlayer player = minecraft.player;
+			if (player != null) {
+				renderTofuPortalOverlay(guiGraphics, minecraft, window, player.getData(FrostAttachs.FROST_LIVING.get()), partialTicks);
+			}
+		});
+	}
+
+
+	private static void renderTofuPortalOverlay(GuiGraphics guiGraphics, Minecraft minecraft, Window window, FrostLivingCapability handler, DeltaTracker partialTicks) {
+		float timeInPortal = Mth.lerp(partialTicks.getGameTimeDeltaPartialTick(false), handler.getPrevPortalAnimTime(), handler.getPortalAnimTime());
+		if (timeInPortal > 0.0F) {
+			if (timeInPortal < 1.0F) {
+				timeInPortal *= timeInPortal;
+				timeInPortal *= timeInPortal;
+				timeInPortal = timeInPortal * 0.8F + 0.2F;
+			}
+
+			RenderSystem.disableDepthTest();
+			RenderSystem.depthMask(false);
+			RenderSystem.enableBlend();
+			guiGraphics.setColor(1.0F, 1.0F, 1.0F, timeInPortal);
+			TextureAtlasSprite textureatlassprite = minecraft.getBlockRenderer().getBlockModelShaper().getParticleIcon(FrostBlocks.FROST_PORTAL.get().defaultBlockState());
+			guiGraphics.blit(0, 0, -90, guiGraphics.guiWidth(), guiGraphics.guiHeight(), textureatlassprite);
+			RenderSystem.disableBlend();
+			RenderSystem.depthMask(true);
+			RenderSystem.enableDepthTest();
+			guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+		}
 	}
 
 	@SubscribeEvent

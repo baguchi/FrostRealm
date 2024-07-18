@@ -2,8 +2,11 @@ package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.*;
+import baguchan.frostrealm.utils.ClientUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.ContainerScreen;
+import net.minecraft.client.gui.screens.DeathScreen;
+import net.minecraft.client.gui.screens.WinScreen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -24,15 +27,13 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.network.PacketDistributor;
-import org.jetbrains.annotations.UnknownNullability;
 
 public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 
-	public boolean isInFrostPortal = false;
-	public int frostPortalTimer = 0;
-	public int frostPortalCooldown = 200;
-	public float prevPortalAnimTime, portalAnimTime = 0.0F;
-
+	public boolean isInsidePortal = false;
+	public int portalTimer = 0;
+	public float portalAnimTime = 0;
+	public float prevPortalAnimTime = 0;
 
 	protected int temperature = 20;
 	protected float temperatureSaturation = 1.0F;
@@ -58,53 +59,8 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 	}
 
 	public void tick(LivingEntity entity) {
-		/*
-		 *  portal timer
-		 */
-		if (entity.level().isClientSide) {
-			this.prevPortalAnimTime = this.portalAnimTime;
-			Minecraft mc = Minecraft.getInstance();
-			if (this.isInFrostPortal) {
-				if (mc.screen != null && !mc.screen.isPauseScreen()) {
-					if (mc.screen instanceof ContainerScreen && mc.player != null) {
-						mc.player.closeContainer();
-					}
-
-					mc.setScreen(null);
-				}
-
-				if (this.portalAnimTime == 0.0F) {
-					playPortalSound(mc);
-				}
-			}
-		}
-
-		if (this.frostPortalCooldown > 0) {
-			--this.frostPortalCooldown;
-		}
-
-		if (this.isInFrostPortal) {
-			++this.frostPortalTimer;
-			if (entity.level().isClientSide) {
-				this.portalAnimTime += 0.0125F;
-				if (this.portalAnimTime > 1.0F) {
-					this.portalAnimTime = 1.0F;
-				}
-			}
-			this.isInFrostPortal = false;
-		} else {
-			if (entity.level().isClientSide) {
-				if (this.portalAnimTime > 0.0F) {
-					this.portalAnimTime -= 0.05F;
-				}
-
-				if (this.portalAnimTime < 0.0F) {
-					this.portalAnimTime = 0.0F;
-				}
-			}
-			if (this.frostPortalTimer > 0) {
-				this.frostPortalTimer -= 4;
-			}
+		if (entity instanceof Player player) {
+			this.handlePortal(player);
 		}
 
 		/*
@@ -245,20 +201,20 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 		}
 	}
 
-	public boolean isInPortal() {
-		return this.isInFrostPortal;
+	public void setInPortal(boolean inPortal) {
+		this.isInsidePortal = inPortal;
 	}
 
-	public void setInPortal(boolean inPortal) {
-		this.isInFrostPortal = inPortal;
+	public boolean isInsidePortal() {
+		return this.isInsidePortal;
 	}
 
 	public void setPortalTimer(int timer) {
-		this.frostPortalTimer = timer;
+		this.portalTimer = timer;
 	}
 
 	public int getPortalTimer() {
-		return this.frostPortalTimer;
+		return this.portalTimer;
 	}
 
 	public float getPortalAnimTime() {
@@ -267,6 +223,52 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 
 	public float getPrevPortalAnimTime() {
 		return this.prevPortalAnimTime;
+	}
+
+	public void handlePortal(Player player) {
+		if (player.level().isClientSide()) {
+			this.prevPortalAnimTime = this.portalAnimTime;
+			if (this.isInsidePortal()) {
+				if (Minecraft.getInstance().screen != null
+						&& !Minecraft.getInstance().screen.isPauseScreen()
+						&& !(Minecraft.getInstance().screen instanceof DeathScreen)
+						&& !(Minecraft.getInstance().screen instanceof WinScreen)) {
+					if (Minecraft.getInstance().screen instanceof AbstractContainerScreen) {
+						player.closeContainer();
+					}
+
+					Minecraft.getInstance().setScreen(null);
+				}
+
+				if (this.portalAnimTime == 0.0F) {
+					ClientUtils.playPortalSound(player);
+				}
+			}
+		}
+
+		if (this.isInsidePortal()) {
+			++this.portalTimer;
+			if (player.level().isClientSide()) {
+				this.portalAnimTime += 0.0125F;
+				if (this.getPortalAnimTime() > 1.0F) {
+					this.portalAnimTime = 1.0F;
+				}
+			}
+			this.isInsidePortal = false;
+		} else {
+			if (player.level().isClientSide()) {
+				if (this.getPortalAnimTime() > 0.0F) {
+					this.portalAnimTime -= 0.05F;
+				}
+
+				if (this.getPortalAnimTime() < 0.0F) {
+					this.portalAnimTime = 0.0F;
+				}
+			}
+			if (this.getPortalTimer() > 0) {
+				this.portalTimer -= 4;
+			}
+		}
 	}
 
 	public boolean isColdBody() {
