@@ -65,9 +65,10 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     @Override
     public boolean renderSky(ClientLevel level, int ticks, float partialTick, Matrix4f modelViewMatrix, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
         PoseStack poseStack = new PoseStack();
+        poseStack.pushPose();
         poseStack.mulPose(modelViewMatrix);
         renderAurora(poseStack, FrostWeatherManager.getWeatherLevel(partialTick));
-
+        poseStack.popPose();
         return false;
     }
 
@@ -233,31 +234,6 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
             RenderSystem.disableBlend();
             lightTexture.turnOffLightLayer();
         }
-    }
-
-    private static void renderEffect(BufferBuilder bufferBuilder, double rainX, double rainZ, int minY, int maxY, Vec3 camera, int dx, int dz, float countFactor, float uFactor, float vFactor, float[] color, int light) {
-        int blockLight = light >> 16 & 65535;
-        int skyLight = light & 65535;
-        bufferBuilder
-                .addVertex((float) (dx - camera.x() - rainX + 0.5F), (float) (minY - camera.y()), (float) (dz - camera.z() - rainZ + 0.5F))
-                .setUv(0.0F + uFactor, minY * 0.25F + countFactor + vFactor)
-                .setColor(color[0], color[1], color[2], color[3])
-                .setUv2(blockLight, skyLight);
-        bufferBuilder
-                .addVertex((float) (dx - camera.x() + rainX + 0.5F), (float) (minY - camera.y()), (float) (dz - camera.z() + rainZ + 0.5F))
-                .setUv(1.0F + uFactor, minY * 0.25F + countFactor + vFactor)
-                .setColor(color[0], color[1], color[2], color[3])
-                .setUv2(blockLight, skyLight);
-        bufferBuilder
-                .addVertex((float) (dx - camera.x() + rainX + 0.5F), (float) (maxY - camera.y()), (float) (dz - camera.z() + rainZ + 0.5F))
-                .setUv(1.0F + uFactor, maxY * 0.25F + countFactor + vFactor)
-                .setColor(color[0], color[1], color[2], color[3])
-                .setUv2(blockLight, skyLight);
-        bufferBuilder
-                .addVertex((float) (dx - camera.x() - rainX + 0.5F), (float) (maxY - camera.y()), (float) (dz - camera.z() - rainZ + 0.5F))
-                .setUv(0.0F + uFactor, maxY * 0.25F + countFactor + vFactor)
-                .setColor(color[0], color[1], color[2], color[3])
-                .setUv2(blockLight, skyLight);
     }
 
     @Override

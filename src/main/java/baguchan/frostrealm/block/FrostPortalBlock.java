@@ -1,5 +1,6 @@
 package baguchan.frostrealm.block;
 
+import baguchan.frostrealm.registry.FrostAttachs;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.world.FrostPortalForcer;
 import baguchan.frostrealm.world.FrostPortalShape;
@@ -85,6 +86,7 @@ public class FrostPortalBlock extends Block implements Portal {
 	protected void entityInside(BlockState p_54915_, Level p_54916_, BlockPos p_54917_, Entity p_54918_) {
 		if (p_54918_.canUsePortal(false)) {
 			p_54918_.setAsInsidePortal(this, p_54917_);
+			p_54918_.getData(FrostAttachs.FROST_LIVING.get()).setInPortal(true);
 		}
 
 	}

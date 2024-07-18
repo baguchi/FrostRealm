@@ -102,6 +102,7 @@ public class FrostWraithRenderer<T extends FrostWraith> extends MobRenderer<T, F
 			leftVertex(vertexconsumer2, matrix4f, pose, length, range);
 			poseStack.popPose();
 		}
+		poseStack.popPose();
 	}
 
 	private static void originVertex(VertexConsumer p_254498_, Matrix4f p_253891_, PoseStack.Pose p_114092_, int p_254278_) {

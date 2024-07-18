@@ -22,10 +22,10 @@ public class ClientFogEvent {
             float weatherLevel = FrostWeatherManager.getWeatherLevel(partialTicks);
 
             if (weatherLevel > 0F) {
-                float fogDensity = Mth.lerp(1F, (float) FrostWeatherManager.getPrevFrostWeather().getDensity(), (float) FrostWeatherManager.getFrostWeather().getDensity());
+                float fogDensity = Mth.lerp((1.0F - weatherLevel), (float) FrostWeatherManager.getPrevFrostWeather().getDensity(), (float) FrostWeatherManager.getFrostWeather().getDensity());
 
-                event.setNearPlaneDistance(20.0F * (fogDensity / weatherLevel));
-                event.setFarPlaneDistance(160.0F * (fogDensity / weatherLevel));
+                event.setNearPlaneDistance(20.0F * (fogDensity));
+                event.setFarPlaneDistance(160.0F * (fogDensity));
                 RenderSystem.setShaderFogStart(event.getNearPlaneDistance());
                 RenderSystem.setShaderFogEnd(event.getFarPlaneDistance());
                 event.setCanceled(true);
@@ -55,13 +55,13 @@ public class ClientFogEvent {
                 float blue2 = FrostWeatherManager.getFrostWeather().getBlue();
 
 
-                float redTotal = Mth.lerp(1F, (float) red, (float) red2);
-                float greenTotal = Mth.lerp(1F, (float) green, (float) green2);
-                float blueTotal = Mth.lerp(1F, (float) blue, (float) blue2);
+                float redTotal = Mth.lerp((1.0F - weatherLevel), (float) red, (float) red2);
+                float greenTotal = Mth.lerp((1.0F - weatherLevel), (float) green, (float) green2);
+                float blueTotal = Mth.lerp((1.0F - weatherLevel), (float) blue, (float) blue2);
 
-                fogRed = fogRed * (1.0F - weatherLevel) + fogRed * redTotal * weatherLevel;
-                fogGreen = fogGreen * (1.0F - weatherLevel) + fogGreen * greenTotal * weatherLevel;
-                fogBlue = fogBlue * (1.0F - weatherLevel) + fogBlue * blueTotal * weatherLevel;
+                fogRed = fogRed * (1.0F - weatherLevel) + fogRed * redTotal;
+                fogGreen = fogGreen * (1.0F - weatherLevel) + fogGreen * greenTotal;
+                fogBlue = fogBlue * (1.0F - weatherLevel) + fogBlue * blueTotal;
 
                 event.setRed(fogRed);
                 event.setGreen(fogGreen);
