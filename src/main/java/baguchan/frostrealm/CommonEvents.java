@@ -87,6 +87,10 @@ public class CommonEvents {
                 }
             }
         }
+        if (event.getEntity() instanceof final PolarBear bear) {
+            bear.targetSelector.addGoal(1,
+                    new NearestAttackableTargetGoal<>(bear, Seal.class, 45, true, true, null));
+        }
     }
 
     @SubscribeEvent
