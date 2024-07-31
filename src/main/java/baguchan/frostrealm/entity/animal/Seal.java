@@ -80,6 +80,7 @@ public class Seal extends Animal {
         this.goalSelector.addGoal(6, randomStrollGoal);
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new AvoidEntityGoal<>(this, PolarBear.class, 8));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractFish.class, true));
 
     }
