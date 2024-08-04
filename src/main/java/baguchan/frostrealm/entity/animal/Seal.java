@@ -240,7 +240,6 @@ public class Seal extends Animal {
 
         if (this.verticalCollision && this.isInWater()) {
             if (this.destroyBlocksTick == 0 && EventHooks.canEntityGrief(this.level(), this)) {
-                if (net.neoforged.neoforge.event.EventHooks.canEntityGrief(this.level(), this)) {
                     boolean flag = false;
                     AABB aabb = this.getBoundingBox().inflate(0.2);
 
@@ -256,7 +255,7 @@ public class Seal extends Animal {
                             this.level().setBlockAndUpdate(blockpos, Blocks.WATER.defaultBlockState());
                         }
                     }
-                }
+
                 this.destroyBlocksTick = 20;
             }
         }
