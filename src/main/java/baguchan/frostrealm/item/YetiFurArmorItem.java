@@ -18,26 +18,18 @@ import net.neoforged.neoforge.client.ClientHooks;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Consumer;
-
 public class YetiFurArmorItem extends ArmorItem {
 	public YetiFurArmorItem(Holder<ArmorMaterial> p_40386_, Type p_40387_, Properties p_40388_) {
         super(p_40386_, p_40387_, p_40388_);
     }
 
 	@Override
-	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-		super.initializeClient(consumer);
-		consumer.accept(ArmorRender.INSTANCE);
-	}
-
-	@Override
 	public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
 		return stack.is(FrostItems.YETI_FUR_BOOTS.get()) || stack.is(FrostItems.FROST_BOAR_FUR_BOOTS.get());
 	}
 
-	private static final class ArmorRender implements IClientItemExtensions {
-		private static final ArmorRender INSTANCE = new ArmorRender();
+	public static final class ArmorRender implements IClientItemExtensions {
+		public static final ArmorRender INSTANCE = new ArmorRender();
 
 
 		@Override
