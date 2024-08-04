@@ -1,6 +1,7 @@
 package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.blockentity.FrostChestBlockEntity;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.*;
@@ -8,10 +9,12 @@ import baguchan.frostrealm.client.overlay.FrostOverlay;
 import baguchan.frostrealm.client.render.*;
 import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
 import baguchan.frostrealm.client.screen.AuroraInfuserScreen;
+import baguchan.frostrealm.item.GlimmerRockItem;
 import baguchan.frostrealm.item.YetiFurArmorItem;
 import baguchan.frostrealm.registry.*;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -20,12 +23,14 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
@@ -34,9 +39,14 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
+import org.joml.Matrix4f;
+
+import javax.annotation.Nonnull;
 
 
 @OnlyIn(Dist.CLIENT)
@@ -47,8 +57,77 @@ public class ClientRegistrar {
 
 	@SubscribeEvent
 	public static void registerClientExtend(RegisterClientExtensionsEvent event) {
+		event.registerItem(new IClientItemExtensions() {
+			BlockEntityWithoutLevelRenderer myRenderer;
+
+
+			@Override
+			public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+				if (Minecraft.getInstance().getEntityRenderDispatcher() != null && myRenderer == null) {
+					myRenderer = new BlockEntityWithoutLevelRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()) {
+						private FrostChestBlockEntity blockEntity;
+
+						@Override
+						public void renderByItem(@Nonnull ItemStack stack, @Nonnull ItemDisplayContext transformType, @Nonnull PoseStack matrix, @Nonnull MultiBufferSource buffer, int x, int y) {
+							if (blockEntity == null) {
+								blockEntity = new FrostChestBlockEntity(BlockPos.ZERO, FrostBlocks.FROSTROOT_CHEST.get().defaultBlockState());
+							}
+							Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(blockEntity, matrix, buffer, x, y);
+						}
+					};
+				}
+
+				return myRenderer;
+			}
+		}, FrostBlocks.FROSTROOT_CHEST.get().asItem());
+
+		event.registerItem(new GlimmerRockItem.ItemRender(), FrostItems.GLIMMERROCK.get(), FrostItems.CRYONITE_CREAM.get());
 		event.registerItem(YetiFurArmorItem.ArmorRender.INSTANCE, FrostItems.YETI_FUR_BOOTS.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_HELMET.get());
 		event.registerItem(YetiFurArmorItem.ArmorRender.INSTANCE, FrostItems.FROST_BOAR_FUR_BOOTS.get(), FrostItems.FROST_BOAR_FUR_LEGGINGS.get(), FrostItems.FROST_BOAR_FUR_CHESTPLATE.get(), FrostItems.FROST_BOAR_FUR_HELMET.get());
+		event.registerFluidType(new IClientFluidTypeExtensions() {
+			private static final ResourceLocation TEXTURE_STILL = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "block/hot_spring_still");
+			private static final ResourceLocation TEXTURE_FLOW = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "block/hot_spring_flow");
+			private static final ResourceLocation TEXTURE_OVERLAY = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/block/hot_spring_still.png");
+
+			@Override
+			public ResourceLocation getStillTexture() {
+				return TEXTURE_STILL;
+			}
+
+			@Override
+			public ResourceLocation getFlowingTexture() {
+				return TEXTURE_FLOW;
+			}
+
+			@Override
+			public ResourceLocation getRenderOverlayTexture(Minecraft mc) {
+				return TEXTURE_OVERLAY;
+			}
+
+
+			@Override
+			public void renderOverlay(Minecraft mc, PoseStack stack) {
+				ResourceLocation texture = this.getRenderOverlayTexture(mc);
+				if (texture == null) return;
+				RenderSystem.setShader(GameRenderer::getPositionTexShader);
+				RenderSystem.setShaderTexture(0, texture);
+				BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+				BlockPos playerEyePos = BlockPos.containing(mc.player.getX(), mc.player.getEyeY(), mc.player.getZ());
+				float brightness = LightTexture.getBrightness(mc.player.level().dimensionType(), mc.player.level().getMaxLocalRawBrightness(playerEyePos));
+				RenderSystem.enableBlend();
+				RenderSystem.defaultBlendFunc();
+				RenderSystem.setShaderColor(brightness, brightness, brightness, 0.65F);
+				float uOffset = -mc.player.getYRot() / 64.0F;
+				float vOffset = mc.player.getXRot() / 64.0F;
+				Matrix4f pose = stack.last().pose();
+				buffer.addVertex(pose, -1.0F, -1.0F, -0.5F).setUv(4.0F + uOffset, 4.0F + vOffset);
+				buffer.addVertex(pose, 1.0F, -1.0F, -0.5F).setUv(uOffset, 4.0F + vOffset);
+				buffer.addVertex(pose, 1.0F, 1.0F, -0.5F).setUv(uOffset, vOffset);
+				buffer.addVertex(pose, -1.0F, 1.0F, -0.5F).setUv(4.0F + uOffset, vOffset);
+				BufferUploader.drawWithShader(buffer.buildOrThrow());
+				RenderSystem.disableBlend();
+			}
+		}, FrostFluidTypes.HOT_SPRING.get());
 	}
 
 	@SubscribeEvent

@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.PolarBear;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -29,9 +31,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class Seal extends Animal {
@@ -45,6 +51,7 @@ public class Seal extends Animal {
 
     public final AnimationState fartAnimationState = new AnimationState();
     public int gasTick;
+    private int destroyBlocksTick;
 
     public Seal(EntityType<? extends Seal> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
@@ -76,11 +83,12 @@ public class Seal extends Animal {
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.15D, FOOD_ITEMS, false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25D));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.25F, true));
-        this.goalSelector.addGoal(6, randomStrollGoal);
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(9, new AvoidEntityGoal<>(this, PolarBear.class, 8));
+        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, PolarBear.class, 8F, 1.25F, 1.35F));
+
+        this.goalSelector.addGoal(6, new MeleeAttackGoal(this, 1.25F, true));
+        this.goalSelector.addGoal(7, randomStrollGoal);
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8));
+        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractFish.class, true));
 
     }
@@ -105,10 +113,21 @@ public class Seal extends Animal {
         }
     }
 
+    public void playAmbientSound() {
+        if (this.random.nextInt(6) == 0) {
+            this.makeSound(FrostSounds.SEAL_FART.get());
+            if (!this.level().isClientSide()) {
+                this.level().broadcastEntityEvent(this, (byte) 61);
+            }
+        } else {
+            this.makeSound(this.getAmbientSound());
+        }
+    }
+
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.random.nextInt(6) == 0 ? FrostSounds.SEAL_FART.get() : FrostSounds.SEAL_IDLE.get();
+        return FrostSounds.SEAL_IDLE.get();
     }
 
     @Nullable
@@ -128,7 +147,7 @@ public class Seal extends Animal {
     public void handleEntityEvent(byte p_27562_) {
         if (p_27562_ == 61) {
             this.fartAnimationState.start(this.tickCount);
-            this.gasTick = 110;
+            this.gasTick = 80;
         } else {
             super.handleEntityEvent(p_27562_);
         }
@@ -202,10 +221,43 @@ public class Seal extends Animal {
                 if (this.randomStrollGoal != null) {
                     this.randomStrollGoal.setInterval(10);
                 }
+
             } else {
                 if (this.randomStrollGoal != null) {
                     this.randomStrollGoal.setInterval(180);
                 }
+            }
+        }
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        super.customServerAiStep();
+        int l;
+        if (this.destroyBlocksTick > 0) {
+            --this.destroyBlocksTick;
+        }
+
+        if (this.verticalCollision && this.isInWater()) {
+            if (this.destroyBlocksTick == 0 && EventHooks.canEntityGrief(this.level(), this)) {
+                if (net.neoforged.neoforge.event.EventHooks.canEntityGrief(this.level(), this)) {
+                    boolean flag = false;
+                    AABB aabb = this.getBoundingBox().inflate(0.2);
+
+                    for (BlockPos blockpos : BlockPos.betweenClosed(
+                            Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ), Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ)
+                    )) {
+                        BlockState blockstate = this.level().getBlockState(blockpos);
+                        Block block = blockstate.getBlock();
+                        if (blockstate.is(Blocks.ICE)) {
+                            flag = this.level().destroyBlock(blockpos, true, this) || flag;
+                        }
+                        if (flag) {
+                            this.level().setBlockAndUpdate(blockpos, Blocks.WATER.defaultBlockState());
+                        }
+                    }
+                }
+                this.destroyBlocksTick = 20;
             }
         }
     }

@@ -23,8 +23,6 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Consumer;
-
 public class GlimmerRockItem extends Item {
 
 	public GlimmerRockItem(Item.Properties properties) {
@@ -65,13 +63,8 @@ public class GlimmerRockItem extends Item {
 		return UseAnim.CUSTOM;
 	}
 
-	@Override
-	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-		super.initializeClient(consumer);
-		consumer.accept(new ItemRender());
-	}
 
-	private static final class ItemRender implements IClientItemExtensions {
+    public static final class ItemRender implements IClientItemExtensions {
 		private static final ItemRender INSTANCE = new ItemRender();
 
 		@Override

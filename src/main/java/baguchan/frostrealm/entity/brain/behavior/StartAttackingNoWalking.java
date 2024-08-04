@@ -33,10 +33,10 @@ public class StartAttackingNoWalking {
                                         return false;
                                     } else {
                                         net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent changeTargetEvent = net.neoforged.neoforge.common.CommonHooks.onLivingChangeTarget(p_258774_, livingentity, net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent.LivingTargetType.BEHAVIOR_TARGET);
-                                        if (changeTargetEvent.isCanceled())
+                                        if (changeTargetEvent.isCanceled() || changeTargetEvent.getNewAboutToBeSetTarget() == null)
                                             return false;
 
-                                        p_258778_.set(changeTargetEvent.getNewTarget());
+                                        p_258778_.set(changeTargetEvent.getNewAboutToBeSetTarget());
                                         return true;
                                     }
                                 }

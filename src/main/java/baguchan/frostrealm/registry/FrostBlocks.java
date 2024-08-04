@@ -5,18 +5,16 @@ import baguchan.frostrealm.block.*;
 import baguchan.frostrealm.block.crop.BearBerryBushBlock;
 import baguchan.frostrealm.block.crop.RyeBlock;
 import baguchan.frostrealm.block.crop.SugarBeetBlock;
-import baguchan.frostrealm.blockentity.FrostChestBlockEntity;
 import baguchan.frostrealm.world.tree.FrostTrees;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DoubleHighBlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -27,12 +25,9 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import javax.annotation.Nonnull;
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
@@ -188,34 +183,7 @@ public class FrostBlocks {
     private static <T extends Block> Supplier<BlockItem> registerBlockItem(final Supplier<T> block) {
 		return () -> {
 			if (Objects.requireNonNull(block.get()) == FROSTROOT_CHEST.get()) {
-				return new BlockItem(FROSTROOT_CHEST.get(), (new Item.Properties())) {
-					@Override
-					public void initializeClient(@Nonnull Consumer<IClientItemExtensions> consumer) {
-						consumer.accept(new IClientItemExtensions() {
-							BlockEntityWithoutLevelRenderer myRenderer;
-
-
-							@Override
-							public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-								if (Minecraft.getInstance().getEntityRenderDispatcher() != null && myRenderer == null) {
-									myRenderer = new BlockEntityWithoutLevelRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()) {
-										private FrostChestBlockEntity blockEntity;
-
-										@Override
-										public void renderByItem(@Nonnull ItemStack stack, @Nonnull ItemDisplayContext transformType, @Nonnull PoseStack matrix, @Nonnull MultiBufferSource buffer, int x, int y) {
-											if (blockEntity == null) {
-												blockEntity = new FrostChestBlockEntity(BlockPos.ZERO, FrostBlocks.FROSTROOT_CHEST.get().defaultBlockState());
-											}
-											Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(blockEntity, matrix, buffer, x, y);
-										}
-									};
-								}
-
-								return myRenderer;
-							}
-						});
-					}
-				};
+				return new BlockItem(FROSTROOT_CHEST.get(), (new Item.Properties()));
 			} else if (Objects.requireNonNull(block.get()) instanceof DoublePlantBlock || Objects.requireNonNull(block.get()) instanceof DoorBlock) {
 				return new DoubleHighBlockItem(Objects.requireNonNull(block.get()), new Item.Properties());
 			} else if (Objects.requireNonNull(block.get()) == FrostBlocks.FROST_TORCH.get()) {

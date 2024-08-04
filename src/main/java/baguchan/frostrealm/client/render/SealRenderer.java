@@ -24,9 +24,9 @@ public class SealRenderer<T extends Seal> extends MobRenderer<T, SealModel<T>> {
 
     @Override
     public ResourceLocation getTextureLocation(T p_110775_1_) {
-        /*if(p_110775_1_.fartAnimationState.isStarted()){
+        if (p_110775_1_.fartAnimationState.isStarted()) {
             return p_110775_1_.isBaby() ? TEXTURE_BABY_CLOSE_EYE : TEXTURE_CLOSE_EYE;
-        }*/
+        }
         return p_110775_1_.isBaby() ? TEXTURE_BABY : TEXTURE;
     }
 }
