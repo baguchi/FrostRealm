@@ -124,6 +124,9 @@ public class FrostBiomeBuilders {
 		FrostBiomeDefaultFeatures.mountainCreatureSpawns(builder1);
 		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
+		
+		builder1.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SNOW_LEOPARD.get(), 7, 2, 1));
+
 		return makeDefaultBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
 	}
 
