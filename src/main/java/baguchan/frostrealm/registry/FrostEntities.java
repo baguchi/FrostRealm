@@ -31,6 +31,7 @@ public class FrostEntities {
     public static final Supplier<EntityType<Marmot>> MARMOT = ENTITIES.register("marmot", () -> EntityType.Builder.of(Marmot::new, MobCategory.CREATURE).sized(0.65F, 0.6F).eyeHeight(0.4F).build(prefix("marmot")));
     public static final Supplier<EntityType<SnowPileQuail>> SNOWPILE_QUAIL = ENTITIES.register("snowpile_quail", () -> EntityType.Builder.of(SnowPileQuail::new, MobCategory.CREATURE).sized(0.6F, 0.6F).eyeHeight(0.4F).build(prefix("snowpile_quail")));
     public static final Supplier<EntityType<CrystalFox>> CRYSTAL_FOX = ENTITIES.register("crystal_fox", () -> EntityType.Builder.of(CrystalFox::new, MobCategory.CREATURE).sized(0.6F, 0.7F).eyeHeight(0.4F).clientTrackingRange(8).build(prefix("crystal_fox")));
+    public static final Supplier<EntityType<SnowLeopard>> SNOW_LEOPARD = ENTITIES.register("snow_leopard", () -> EntityType.Builder.of(SnowLeopard::new, MobCategory.CREATURE).sized(0.7F, 0.7F).eyeHeight(0.4F).clientTrackingRange(8).immuneTo(Blocks.POWDER_SNOW).immuneTo(Blocks.POWDER_SNOW_CAULDRON).build(prefix("snow_leopard")));
     public static final Supplier<EntityType<SnowMole>> SNOW_MOLE = ENTITIES.register("snow_mole", () -> EntityType.Builder.of(SnowMole::new, MobCategory.CREATURE).sized(0.6F, 0.6F).eyeHeight(0.3F).clientTrackingRange(8).immuneTo(Blocks.POWDER_SNOW).immuneTo(Blocks.POWDER_SNOW_CAULDRON).build(prefix("snow_mole")));
     public static final Supplier<EntityType<Seal>> SEAL = ENTITIES.register("seal", () -> EntityType.Builder.of(Seal::new, MobCategory.CREATURE).sized(0.95F, 0.8F).eyeHeight(0.45F).clientTrackingRange(10).build(prefix("seal")));
 
@@ -57,6 +58,7 @@ public class FrostEntities {
         event.put(MARMOT.get(), Marmot.createAttributes().build());
         event.put(SNOWPILE_QUAIL.get(), SnowPileQuail.createAttributes().build());
         event.put(CRYSTAL_FOX.get(), CrystalFox.createAttributes().build());
+        event.put(SNOW_LEOPARD.get(), SnowLeopard.createAttributes().build());
         event.put(SNOW_MOLE.get(), SnowMole.createAttributes().build());
         event.put(SEAL.get(), Seal.createAttributes().build());
         event.put(BUSH_BUG.get(), BushBug.createAttributes().build());
