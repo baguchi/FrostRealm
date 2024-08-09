@@ -2,6 +2,7 @@ package baguchan.frostrealm.block;
 
 import baguchan.frostrealm.registry.FrostAttachs;
 import baguchan.frostrealm.registry.FrostDimensions;
+import baguchan.frostrealm.registry.FrostParticleTypes;
 import baguchan.frostrealm.world.FrostPortalForcer;
 import baguchan.frostrealm.world.FrostPortalShape;
 import net.minecraft.BlockUtil;
@@ -33,8 +34,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.Optional;
 
@@ -91,23 +90,38 @@ public class FrostPortalBlock extends Block implements Portal {
 
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public void animateTick(BlockState stateIn, Level worldIn, BlockPos pos, RandomSource rand) {
-		int random = rand.nextInt(100);
-		if (random == 0) {
-			worldIn.playLocalSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, SoundEvents.PORTAL_AMBIENT, SoundSource.BLOCKS, 0.5F, rand.nextFloat() * 0.4F + 0.8F, false);
+    @Override
+    public void animateTick(BlockState p_221794_, Level p_221795_, BlockPos p_221796_, RandomSource p_221797_) {
+        if (p_221797_.nextInt(100) == 0) {
+            p_221795_.playLocalSound(
+                    (double) p_221796_.getX() + 0.5,
+                    (double) p_221796_.getY() + 0.5,
+                    (double) p_221796_.getZ() + 0.5,
+                    SoundEvents.PORTAL_AMBIENT,
+                    SoundSource.BLOCKS,
+                    0.5F,
+                    p_221797_.nextFloat() * 0.4F + 0.8F,
+                    false
+            );
 		}
 
-		for (int i = 0; i < 4; ++i) {
-			double d0 = (double) pos.getX() + rand.nextDouble();
-			double d1 = (double) pos.getY() + rand.nextDouble();
-			double d2 = (double) pos.getZ() + rand.nextDouble();
-			double d3 = ((double) rand.nextFloat() - 0.5D) * 0.5D;
-			double d4 = ((double) rand.nextFloat() - 0.5D) * 0.5D;
-			double d5 = ((double) rand.nextFloat() - 0.5D) * 0.5D;
-			int j = rand.nextInt(2) * 2 - 1;
+        for (int i = 0; i < 4; i++) {
+            double d0 = (double) p_221796_.getX() + p_221797_.nextDouble();
+            double d1 = (double) p_221796_.getY() + p_221797_.nextDouble();
+            double d2 = (double) p_221796_.getZ() + p_221797_.nextDouble();
+            double d3 = ((double) p_221797_.nextFloat() - 0.5) * 0.5;
+            double d4 = ((double) p_221797_.nextFloat() - 0.5) * 0.5;
+            double d5 = ((double) p_221797_.nextFloat() - 0.5) * 0.5;
+            int j = p_221797_.nextInt(2) * 2 - 1;
+            if (!p_221795_.getBlockState(p_221796_.west()).is(this) && !p_221795_.getBlockState(p_221796_.east()).is(this)) {
+                d0 = (double) p_221796_.getX() + 0.5 + 0.25 * (double) j;
+                d3 = (double) (p_221797_.nextFloat() * 2.0F * (float) j);
+            } else {
+                d2 = (double) p_221796_.getZ() + 0.5 + 0.25 * (double) j;
+                d5 = (double) (p_221797_.nextFloat() * 2.0F * (float) j);
+            }
 
-			//worldIn.addParticle(FrostParticleTypes.TOFU_PORTAL.get(), d0, d1, d2, d3, d4, d5);
+            p_221795_.addParticle(FrostParticleTypes.FROST_PORTAL.get(), d0, d1, d2, d3, d4, d5);
 		}
 	}
 

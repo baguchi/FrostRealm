@@ -9,7 +9,8 @@
     "ServerEntityMixin"
   ],
   "client": [
-    "client.HierarchicalModelAccessor"
+    "client.HierarchicalModelAccessor",
+    "client.ItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

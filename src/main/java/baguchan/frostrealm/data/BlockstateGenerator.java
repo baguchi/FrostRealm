@@ -67,6 +67,8 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.slabBlock(FrostBlocks.SHERBET_SANDSTONE_SLAB.get(), texture(name(FrostBlocks.SHERBET_SANDSTONE.get())), texture(name(FrostBlocks.SHERBET_SANDSTONE.get())), suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_bottom"), suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_top"));
 		this.stairsBlock(FrostBlocks.SHERBET_SANDSTONE_STAIRS.get(), blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_bottom"), suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_top"));
 
+		this.simpleBlock(FrostBlocks.GLACINIUM.get());
+		this.simpleBlock(FrostBlocks.GLACINIUM_BLOCK.get());
 
 		this.logBlock(FrostBlocks.FROSTROOT_LOG.get());
 		this.logBlock(FrostBlocks.STRIPPED_FROSTROOT_LOG.get());

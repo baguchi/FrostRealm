@@ -31,6 +31,10 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.ASTRIUM_RAW);
 		this.singleTex(FrostItems.ASTRIUM_INGOT);
         this.singleTex(FrostItems.STARDUST_CRYSTAL);
+		this.singleTex(FrostItems.GLACINIUM_CRYSTAL);
+		this.singleTex(FrostItems.GLACINIUM_INGOT);
+
+
         this.singleTex(FrostItems.FROZEN_FRUIT);
         this.singleTex(FrostItems.MELTED_FRUIT);
         this.singleTex(FrostItems.SUGARBEET);
@@ -120,6 +124,9 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.SHERBET_SANDSTONE);
 		this.toBlock(FrostBlocks.SHERBET_SANDSTONE_STAIRS);
 		this.toBlock(FrostBlocks.SHERBET_SANDSTONE_SLAB);
+
+		this.toBlock(FrostBlocks.GLACINIUM);
+		this.toBlock(FrostBlocks.GLACINIUM_BLOCK);
 
 		this.toBlock(FrostBlocks.FROSTROOT_LOG);
 		this.toBlock(FrostBlocks.STRIPPED_FROSTROOT_LOG);

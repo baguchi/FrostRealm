@@ -63,6 +63,7 @@ public class FrostRealm {
 		FrostLootFunctions.LOOT_REIGSTER.register(modBus);
 		FrostEffects.MOB_EFFECTS.register(modBus);
 		FrostEffects.POTION.register(modBus);
+        FrostParticleTypes.PARTICLE_TYPES.register(modBus);
 		FrostRecipes.RECIPE_SERIALIZERS.register(modBus);
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
 		FrostAttachs.ATTACHMENT_TYPES.register(modBus);

@@ -36,6 +36,8 @@ public class BlockTagGenerator extends BlockTagsProvider {
                 , FrostBlocks.AURORA_INFUSER.get()
                 , FrostBlocks.FRIGID_GRASS_BLOCK.get()
                 , FrostBlocks.PERMA_SLATE.get()
+                , FrostBlocks.GLACINIUM.get()
+                , FrostBlocks.GLACINIUM_BLOCK.get()
         );
         tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_PLANKS.get(), FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_FENCE_GATE.get()
                         , FrostBlocks.FROSTROOT_CHEST.get(), FrostBlocks.FROSTROOT_CRAFTING_TABLE.get())
@@ -45,6 +47,8 @@ public class BlockTagGenerator extends BlockTagsProvider {
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.ASTRIUM_ORE.get(), FrostBlocks.GLIMMERROCK_SLATE_ORE.get(), FrostBlocks.ASTRIUM_SLATE_ORE.get(), FrostBlocks.ASTRIUM_BLOCK.get());
+
+        tag(BlockTags.NEEDS_IRON_TOOL).add(FrostBlocks.GLACINIUM.get(), FrostBlocks.GLACINIUM_BLOCK.get());
 
         tag(BlockTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get());
         tag(BlockTags.LEAVES).add(FrostBlocks.FROSTROOT_LEAVES.get());

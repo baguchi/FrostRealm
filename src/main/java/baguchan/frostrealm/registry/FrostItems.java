@@ -26,6 +26,10 @@ public class FrostItems {
     public static final Supplier<Item> ASTRIUM_RAW = ITEMS.register("astrium_raw", () -> new Item((new Item.Properties())));
     public static final Supplier<Item> ASTRIUM_INGOT = ITEMS.register("astrium_ingot", () -> new Item((new Item.Properties())));
     public static final Supplier<Item> STARDUST_CRYSTAL = ITEMS.register("stardust_crystal", () -> new Item((new Item.Properties())));
+    public static final Supplier<Item> GLACINIUM_CRYSTAL = ITEMS.register("glacinium_crystal", () -> new Item((new Item.Properties())));
+    public static final Supplier<Item> GLACINIUM_INGOT = ITEMS.register("glacinium_ingot", () -> new Item((new Item.Properties())));
+
+
     public static final Supplier<Item> FROZEN_FRUIT = ITEMS.register("frozen_fruit", () -> new Item((new Item.Properties()).food(FrostFoods.FROZEN_FRUIT)));
     public static final Supplier<Item> MELTED_FRUIT = ITEMS.register("melted_fruit", () -> new Item((new Item.Properties()).food(FrostFoods.MELTED_FRUIT)));
     public static final Supplier<Item> SUGARBEET = ITEMS.register("sugarbeet", () -> new Item((new Item.Properties()).food(FrostFoods.SUGARBEET)));

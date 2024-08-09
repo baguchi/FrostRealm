@@ -38,7 +38,10 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
@@ -283,10 +286,6 @@ public class ClientRegistrar {
     @SubscribeEvent
     public static void screenEvent(RegisterMenuScreensEvent event) {
         event.register(FrostMenuTypes.AURORA_INFUSER.get(), AuroraInfuserScreen::new);
-    }
-
-    @SubscribeEvent
-    public static void registerShaders(final RegisterShadersEvent event) {
     }
 
 

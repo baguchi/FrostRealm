@@ -75,7 +75,7 @@ public class ItemAuroraPower implements TooltipProvider {
                 AuroraPower holder = var6.next();
                 int i = this.enchantments.getInt(holder);
                 if (i > 0) {
-                    p_331119_.accept(((AuroraPower) holder).getFullname(i));
+                    p_331119_.accept(holder.getFullname(i));
                 }
             }
 
@@ -83,9 +83,9 @@ public class ItemAuroraPower implements TooltipProvider {
 
             while (var9.hasNext()) {
                 Object2IntMap.Entry<Holder<AuroraPower>> entry = (Object2IntMap.Entry) var9.next();
-                Holder<AuroraPower> holder1 = (Holder) entry.getKey();
-                if (!holderset.containsValue(holder1.value())) {
-                    p_331119_.accept(((AuroraPower) holder1.value()).getFullname(entry.getIntValue()));
+                Holder<AuroraPower> holder1 = entry.getKey();
+                if (holderset.containsValue(holder1.value())) {
+                    p_331119_.accept(holder1.value().getFullname(entry.getIntValue()));
                 }
             }
         }
@@ -96,7 +96,7 @@ public class ItemAuroraPower implements TooltipProvider {
         if (p_341186_ != null) {
             Optional<HolderSet.Named<T>> optional = p_341186_.lookupOrThrow(p_341113_).get(p_341409_);
             if (optional.isPresent()) {
-                return (HolderSet) optional.get();
+                return optional.get();
             }
         }
 
@@ -128,8 +128,7 @@ public class ItemAuroraPower implements TooltipProvider {
             return true;
         } else {
             boolean var10000;
-            if (p_331697_ instanceof ItemAuroraPower) {
-                ItemAuroraPower itemenchantments = (ItemAuroraPower) p_331697_;
+            if (p_331697_ instanceof ItemAuroraPower itemenchantments) {
                 var10000 = this.showInTooltip == itemenchantments.showInTooltip && this.enchantments.equals(itemenchantments.enchantments);
             } else {
                 var10000 = false;
