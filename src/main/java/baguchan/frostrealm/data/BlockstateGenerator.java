@@ -2,6 +2,7 @@ package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
@@ -12,10 +13,7 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
-import net.neoforged.neoforge.client.model.generators.ModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import javax.annotation.Nonnull;
@@ -90,33 +88,19 @@ public class BlockstateGenerator extends BlockStateProvider {
         this.ageThreeCrossBlock(FrostBlocks.SUGARBEET.get());
 		this.ageSevenCrossBlock(FrostBlocks.RYE.get());
 
-		this.glowBlock(FrostBlocks.FROST_CRYSTAL_ORE.get());
-		this.glowBlock(FrostBlocks.GLIMMERROCK_ORE.get());
+		this.make2LayerCubeAllSidesSame(FrostBlocks.FROST_CRYSTAL_ORE.get(), ResourceLocation.withDefaultNamespace("cutout"), 0, 15, false);
+		this.make2LayerCubeAllSidesSame(FrostBlocks.GLIMMERROCK_ORE.get(), ResourceLocation.withDefaultNamespace("cutout"), 0, 15, false);
+
 		this.simpleBlock(FrostBlocks.ASTRIUM_ORE.get());
-		this.glowBlockWithOrigin(FrostBlocks.FROST_CRYSTAL_SLATE_ORE.get(), FrostBlocks.FROST_CRYSTAL_ORE.get());
-		this.glowBlockWithOrigin(FrostBlocks.GLIMMERROCK_SLATE_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get());
+
+		this.make2LayerCubeAllSidesSame(FrostBlocks.FROST_CRYSTAL_SLATE_ORE.get(), ResourceLocation.withDefaultNamespace("cutout"), 0, 15, false);
+		this.make2LayerCubeAllSidesSame(FrostBlocks.GLIMMERROCK_SLATE_ORE.get(), ResourceLocation.withDefaultNamespace("cutout"), 0, 15, false);
 		this.simpleBlock(FrostBlocks.ASTRIUM_SLATE_ORE.get());
 		this.simpleBlock(FrostBlocks.ASTRIUM_BLOCK.get());
 		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
 		this.translucentBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.translucentBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
 		this.doorBlock(FrostBlocks.FROSTROOT_DOOR.get(), texture("frostroot_door_bottom"), texture("frostroot_door_top"));
-	}
-
-	public void glowBlockWithOrigin(Block block, Block origin) {
-		ModelFile glow_column = models().withExistingParent(name(block), FrostRealm.prefix("block/glow_cube"))
-				.texture("cube", blockTexture(block))
-				.texture("glow", suffix(blockTexture(origin), "_glow")).renderType("minecraft:cutout");
-		simpleBlock(block,
-				glow_column);
-	}
-
-	public void glowBlock(Block block) {
-		ModelFile glow_column = models().withExistingParent(name(block), FrostRealm.prefix("block/glow_cube"))
-				.texture("cube", blockTexture(block))
-				.texture("glow", suffix(blockTexture(block), "_glow")).renderType("minecraft:cutout");
-		simpleBlock(block,
-				glow_column);
 	}
 
 	private ResourceLocation suffix(ResourceLocation rl, String suffix) {
@@ -267,6 +251,46 @@ public class BlockstateGenerator extends BlockStateProvider {
 					.rotationY(yRot)
 					.build();
 		}, DoorBlock.POWERED);
+	}
+
+	protected VariantBlockStateBuilder make2LayerCubeAllSidesSame(Block block, Block block2, ResourceLocation renderType, int layer1em, int layer2em, boolean shade) {
+		return this.make2LayerCube(block, block2, renderType,
+				layer1em, layer1em, layer1em, layer1em, layer1em, layer1em,
+				layer2em, layer2em, layer2em, layer2em, layer2em, layer2em, shade);
+	}
+
+	protected VariantBlockStateBuilder make2LayerCubeAllSidesSame(Block block, ResourceLocation renderType, int layer1em, int layer2em, boolean shade) {
+		return this.make2LayerCube(block, block, renderType,
+				layer1em, layer1em, layer1em, layer1em, layer1em, layer1em,
+				layer2em, layer2em, layer2em, layer2em, layer2em, layer2em, shade);
+	}
+
+	protected VariantBlockStateBuilder make2LayerCube(Block block, Block block2, ResourceLocation renderType,
+													  int layer1emN, int layer1emS, int layer1emW, int layer1emE, int layer1emU, int layer1emD,
+													  int layer2emN, int layer2emS, int layer2emW, int layer2emE, int layer2emU, int layer2emD, boolean shade) {
+		BlockModelBuilder builder = models().withExistingParent(blockTexture(block).getPath(), "minecraft:block/block").renderType(renderType).texture("particle", "#bottom")
+				.element().from(0.0F, 0.0F, 0.0F).to(16.0F, 16.0F, 16.0F).shade(shade)
+				.face(Direction.NORTH).texture("#north").cullface(Direction.NORTH).emissivity(layer1emN, layer1emN).end()
+				.face(Direction.EAST).texture("#east").cullface(Direction.EAST).emissivity(layer1emE, layer1emE).end()
+				.face(Direction.SOUTH).texture("#south").cullface(Direction.SOUTH).emissivity(layer1emS, layer1emS).end()
+				.face(Direction.WEST).texture("#west").cullface(Direction.WEST).emissivity(layer1emW, layer1emW).end()
+				.face(Direction.UP).texture("#top").cullface(Direction.UP).emissivity(layer1emU, layer1emU).end()
+				.face(Direction.DOWN).texture("#bottom").cullface(Direction.DOWN).emissivity(layer1emD, layer1emD).end().end()
+				.element().from(0.0F, 0.0F, 0.0F).to(16.0F, 16.0F, 16.0F)
+				.face(Direction.NORTH).texture("#north2").cullface(Direction.NORTH).emissivity(layer2emN, layer2emN).tintindex(0).end()
+				.face(Direction.EAST).texture("#east2").cullface(Direction.EAST).emissivity(layer2emE, layer2emE).tintindex(0).end()
+				.face(Direction.SOUTH).texture("#south2").cullface(Direction.SOUTH).emissivity(layer2emS, layer2emS).tintindex(0).end()
+				.face(Direction.WEST).texture("#west2").cullface(Direction.WEST).emissivity(layer2emW, layer2emW).tintindex(0).end()
+				.face(Direction.UP).texture("#top2").cullface(Direction.UP).emissivity(layer2emU, layer2emU).tintindex(0).end()
+				.face(Direction.DOWN).texture("#bottom2").cullface(Direction.DOWN).emissivity(layer2emD, layer2emD).tintindex(0).end().end()
+				.texture("north", "#all").texture("south", "#all").texture("east", "#all")
+				.texture("west", "#all").texture("top", "#all").texture("bottom", "#all")
+				.texture("north2", "#all2").texture("south2", "#all2").texture("east2", "#all2")
+				.texture("west2", "#all2").texture("top2", "#all2").texture("bottom2", "#all2")
+				.texture("all", blockTexture(block2))
+				.texture("all2", suffix(blockTexture(block), "_glow"));
+
+		return this.getVariantBuilder(block).partialState().modelForState().modelFile(builder).addModel();
 	}
 
 	protected ResourceLocation texture(String name) {

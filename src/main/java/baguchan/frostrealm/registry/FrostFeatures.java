@@ -2,6 +2,7 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.world.gen.feature.*;
+import baguchan.frostrealm.world.gen.feature.config.FloatingRockConfiguration;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
@@ -22,4 +23,5 @@ public class FrostFeatures {
     public static final Supplier<Feature<BlockStateConfiguration>> SHAPE_CRYSTAL = FEATURES.register("shape_crystal", () -> new ShapeCrystalFeature(BlockStateConfiguration.CODEC));
 
     public static final Supplier<Feature<NoneFeatureConfiguration>> STONE_SPIKE = FEATURES.register("stone_spike", () -> new StoneSpikeFeature(NoneFeatureConfiguration.CODEC));
+    public static final Supplier<Feature<FloatingRockConfiguration>> FLOATING_ROCK = FEATURES.register("floating_rock", () -> new FloatingRockFeature(FloatingRockConfiguration.CODEC));
 }

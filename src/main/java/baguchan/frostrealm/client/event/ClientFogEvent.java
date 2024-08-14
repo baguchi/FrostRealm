@@ -21,7 +21,7 @@ public class ClientFogEvent {
         if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
             float weatherLevel = FrostWeatherManager.getWeatherLevel(partialTicks);
 
-            if (weatherLevel > 0F) {
+            if (weatherLevel > 0F && (FrostWeatherManager.getFrostWeather().isUseFog() || FrostWeatherManager.getPrevFrostWeather().isUseFog())) {
                 float fogDensity = Mth.lerp((1.0F - weatherLevel), (float) FrostWeatherManager.getPrevFrostWeather().getDensity(), (float) FrostWeatherManager.getFrostWeather().getDensity());
 
                 event.setNearPlaneDistance(20.0F * (fogDensity));

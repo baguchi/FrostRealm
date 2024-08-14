@@ -1,0 +1,19 @@
+{
+  "type": "frostrealm:floating_rock",
+  "config": {
+    "additional_radius": {
+      "max_inclusive": 10,
+      "min_inclusive": 5
+    },
+    "base_radius": {
+      "max_exclusive": 8.0,
+      "min_inclusive": 5.0
+    },
+    "block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "frostrealm:frigid_stone"
+      }
+    }
+  }
+}

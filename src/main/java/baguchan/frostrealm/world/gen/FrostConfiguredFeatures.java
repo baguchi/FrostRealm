@@ -4,6 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.block.crop.BearBerryBushBlock;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostFeatures;
+import baguchan.frostrealm.world.gen.feature.config.FloatingRockConfiguration;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
@@ -38,6 +39,7 @@ public class FrostConfiguredFeatures {
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_GLIMMERROCK_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.GLIMMERROCK_ORE.get().defaultBlockState()), OreConfiguration.target(SLATE_REPLACEABLES, FrostBlocks.GLIMMERROCK_SLATE_ORE.get().defaultBlockState()));
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_ASTRIUM_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.ASTRIUM_ORE.get().defaultBlockState()), OreConfiguration.target(SLATE_REPLACEABLES, FrostBlocks.ASTRIUM_SLATE_ORE.get().defaultBlockState()));
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_STARDUST_CRYSRTAL_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.STARDUST_CRYSTAL_ORE.get().defaultBlockState()));
+    public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_GLACINIUM_TARGET_LIST = ImmutableList.of(OreConfiguration.target(SLATE_REPLACEABLES, FrostBlocks.GLACINIUM.get().defaultBlockState()));
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_FROST_CRYSTAL = registerKey("ore_frost_crystal");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_FROST_CRYSTAL_BURIED = registerKey("ore_frost_crystal_buried");
@@ -46,6 +48,8 @@ public class FrostConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ASTRIUM = registerKey("ore_astrium");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_ASTRIUM_SMALL = registerKey("ore_astrium_small");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_STARDUST_CRYSTAL = registerKey("ore_stardust_crystal");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GLACINIUM = registerKey("ore_glacinium");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GLACINIUM_SMALL = registerKey("ore_glacinium_small");
 
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TUNDRA_GRASS = registerKey("patch_tundra_grass");
@@ -63,6 +67,7 @@ public class FrostConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> STAR_DUST_CLUSTER = registerKey("star_dust_cluster");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> STONE_SPIKE = registerKey("stone_spike");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FLOATING_ROCK = registerKey("floating_rock");
 
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SPRING_LAVA = registerKey("spring_lava_hot_rock");
@@ -91,7 +96,8 @@ public class FrostConfiguredFeatures {
 		FeatureUtils.register(context, ORE_ASTRIUM, Feature.ORE, new OreConfiguration(ORE_ASTRIUM_TARGET_LIST, 12));
 		FeatureUtils.register(context, ORE_ASTRIUM_SMALL, Feature.ORE, new OreConfiguration(ORE_ASTRIUM_TARGET_LIST, 4));
 		FeatureUtils.register(context, ORE_STARDUST_CRYSTAL, Feature.ORE, new OreConfiguration(ORE_STARDUST_CRYSRTAL_TARGET_LIST, 8));
-
+        FeatureUtils.register(context, ORE_GLACINIUM, Feature.ORE, new OreConfiguration(ORE_GLACINIUM_TARGET_LIST, 8, 0.5F));
+        FeatureUtils.register(context, ORE_GLACINIUM_SMALL, Feature.ORE, new OreConfiguration(ORE_GLACINIUM_TARGET_LIST, 4));
 
 		FeatureUtils.register(context, PATCH_TUNDRA_GRASS, Feature.RANDOM_PATCH, grassPatch(BlockStateProvider.simple(FrostBlocks.COLD_GRASS.get()), 32));
 
@@ -108,6 +114,8 @@ public class FrostConfiguredFeatures {
 		FeatureUtils.register(context, STAR_DUST_CLUSTER, FrostFeatures.SHAPE_CRYSTAL.get(), new BlockStateConfiguration(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get().defaultBlockState()));
 
         FeatureUtils.register(context, STONE_SPIKE, FrostFeatures.STONE_SPIKE.get());
+        FeatureUtils.register(context, FLOATING_ROCK, FrostFeatures.FLOATING_ROCK.get(), new FloatingRockConfiguration(BlockStateProvider.simple(FrostBlocks.FRIGID_STONE.get()), UniformFloat.of(5, 8), UniformInt.of(5, 10)));
+
 
 		FeatureUtils.register(context, SPRING_LAVA, Feature.SPRING, new SpringConfiguration(Fluids.LAVA.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, FrostBlocks.FRIGID_STONE.get())));
 		FeatureUtils.register(context, SPRING_WATER, Feature.SPRING, new SpringConfiguration(Fluids.WATER.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, FrostBlocks.FRIGID_STONE.get())));

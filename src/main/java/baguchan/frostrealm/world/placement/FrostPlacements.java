@@ -47,6 +47,7 @@ public class FrostPlacements {
 	public static final ResourceKey<PlacedFeature> PATCH_TUNDRA_MOSSY_ROCK = registerKey("patch_tundra_mossy_rock");
 
     public static final ResourceKey<PlacedFeature> STONE_SPIKE = registerKey("stone_spike");
+    public static final ResourceKey<PlacedFeature> FLOATING_ROCK = registerKey("floating_rock");
 
 
 	public static final ResourceKey<PlacedFeature> LAVA_DELTA = registerKey("delta");
@@ -99,6 +100,7 @@ public class FrostPlacements {
 		PlacementUtils.register(context, PATCH_TUNDRA_MOSSY_ROCK, configuredFeature.getOrThrow(FrostConfiguredFeatures.TUNDRA_MOSSY_ROCK), RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
         PlacementUtils.register(context, STONE_SPIKE, configuredFeature.getOrThrow(FrostConfiguredFeatures.STONE_SPIKE), RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+        PlacementUtils.register(context, FLOATING_ROCK, configuredFeature.getOrThrow(FrostConfiguredFeatures.FLOATING_ROCK), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.belowTop(128), VerticalAnchor.belowTop(64)), BiomeFilter.biome());
 
 		PlacementUtils.register(context, LAVA_DELTA, configuredFeature.getOrThrow(NetherFeatures.DELTA), CountOnEveryLayerPlacement.of(8), BiomeFilter.biome());
 		PlacementUtils.register(context, HOT_SPRING_DELTA, configuredFeature.getOrThrow(FrostConfiguredFeatures.HOT_SPRING_DELTA), CountOnEveryLayerPlacement.of(4), BiomeFilter.biome());

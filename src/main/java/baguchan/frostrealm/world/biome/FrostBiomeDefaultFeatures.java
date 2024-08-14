@@ -91,6 +91,11 @@ public class FrostBiomeDefaultFeatures {
 	}
 
 
+    public static void addWarpedCliffFeatures(BiomeGenerationSettings.Builder p_194721_) {
+        p_194721_.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FrostPlacements.FLOATING_ROCK);
+    }
+
+
 	public static void addWaterSpringOnlyFeatures(BiomeGenerationSettings.Builder p_194721_) {
 		p_194721_.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, FrostPlacements.SPRING_WATER);
 	}

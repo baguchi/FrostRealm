@@ -118,6 +118,16 @@ public class FrostBiomeBuilders {
 		return makeOceanBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
 	}
 
+    public static Biome warpedCliffBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
+        BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+        MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
+        FrostBiomeDefaultFeatures.addWarpedCliffFeatures(builder);
+        FrostBiomeDefaultFeatures.addSpringFeatures(builder);
+        FrostBiomeDefaultFeatures.mountainCreatureSpawns(builder1);
+        FrostBiomeDefaultFeatures.monsterSpawns(builder1);
+        return makeDefaultBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
+    }
+
 	public static Biome mountainBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
 		BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();

@@ -28,7 +28,9 @@
     [],
     [],
     [],
-    [],
+    [
+      "frostrealm:floating_rock"
+    ],
     [],
     [
       "frostrealm:astrium_ore_upper",
