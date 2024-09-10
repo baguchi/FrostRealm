@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
+  "loader": "frostrealm:aurora_loader",
   "textures": {
     "layer0": "frostrealm:item/astrium_axe"
   }

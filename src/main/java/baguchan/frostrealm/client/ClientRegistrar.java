@@ -5,6 +5,7 @@ import baguchan.frostrealm.blockentity.FrostChestBlockEntity;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.*;
+import baguchan.frostrealm.client.model.item.AuroraGeometryLoader;
 import baguchan.frostrealm.client.overlay.FrostOverlay;
 import baguchan.frostrealm.client.render.*;
 import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
@@ -38,10 +39,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
@@ -58,6 +56,11 @@ public class ClientRegistrar {
 	public static final CubeDeformation OUTER_ARMOR_DEFORMATION = new CubeDeformation(1.0F);
 	public static final CubeDeformation INNER_ARMOR_DEFORMATION = new CubeDeformation(0.5F);
 
+
+	@SubscribeEvent
+	public static void registerModel(ModelEvent.RegisterGeometryLoaders event) {
+		event.register(AuroraGeometryLoader.ID, AuroraGeometryLoader.INSTANCE);
+	}
 
 	@SubscribeEvent
 	public static void registerClientExtend(RegisterClientExtensionsEvent event) {

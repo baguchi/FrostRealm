@@ -183,6 +183,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		for (int i = 0; i < layers.length; i++) {
 			builder = builder.texture("layer" + i, layers[i]);
 		}
+		builder = builder.customLoader(AuroraLoaderBuilder::new).end();
 		return builder;
 	}
 
