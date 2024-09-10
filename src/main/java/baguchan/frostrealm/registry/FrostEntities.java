@@ -36,7 +36,6 @@ public class FrostEntities {
 
     public static final Supplier<EntityType<Yeti>> YETI = ENTITIES.register("yeti", () -> EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).eyeHeight(1.75F).build(prefix("yeti")));
     public static final Supplier<EntityType<FrostWraith>> FROST_WRAITH = ENTITIES.register("frost_wraith", () -> EntityType.Builder.of(FrostWraith::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(0.6F, 2.1F).build(prefix("frost_wraith")));
-    public static final Supplier<EntityType<Warpy>> WARPY = ENTITIES.register("warpy", () -> EntityType.Builder.of(Warpy::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(1.0F, 1.5F).eyeHeight(1.0F).build(prefix("warpy")));
     public static final Supplier<EntityType<Seeker>> SEEKER = ENTITIES.register("seeker", () -> EntityType.Builder.of(Seeker::new, MobCategory.MONSTER).sized(0.6F, 1.99F).immuneTo(Blocks.POWDER_SNOW).clientTrackingRange(8).build(prefix("seeker")));
     public static final Supplier<EntityType<MindVine>> MIND_VINE = ENTITIES.register("mind_vine", () -> EntityType.Builder.of(MindVine::new, MobCategory.MONSTER).sized(0.5F, 2.375F).eyeHeight(0.35F).clientTrackingRange(8).build(prefix("mind_vine")));
 
@@ -63,7 +62,6 @@ public class FrostEntities {
 
         event.put(YETI.get(), Yeti.createAttributeMap().build());
         event.put(FROST_WRAITH.get(), FrostWraith.createAttributes().build());
-        event.put(WARPY.get(), Warpy.createAttributes().build());
         event.put(SEEKER.get(), Seeker.createAttributes().build());
         event.put(MIND_VINE.get(), MindVine.createAttributes().build());
         event.put(ASTRA_BALL.get(), AstraBall.createAttributes().build());
@@ -85,7 +83,6 @@ public class FrostEntities {
         event.register(YETI.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
 
         event.register(FROST_WRAITH.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WarpedMonster::checkWarpedMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
-        event.register(WARPY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WarpedMonster::checkWarpedMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
 
         event.register(SEEKER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seeker::checkStraySpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(ASTRA_BALL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);

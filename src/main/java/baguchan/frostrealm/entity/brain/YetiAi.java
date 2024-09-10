@@ -1,10 +1,8 @@
 package baguchan.frostrealm.entity.brain;
 
 import baguchan.frostrealm.entity.Yeti;
-import baguchan.frostrealm.entity.animal.FrostBoar;
 import baguchan.frostrealm.entity.brain.behavior.StartAdmiringItemIfSeen;
 import baguchan.frostrealm.entity.brain.behavior.StopAdmiringIfItemTooFarAway;
-import baguchan.frostrealm.entity.brain.yeti.StartHuntingBoar;
 import baguchan.frostrealm.registry.*;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -86,7 +84,7 @@ public class YetiAi {
     }
 
     private static void initIdleActivity(Brain<Yeti> p_149309_) {
-        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F)), Pair.of(2, StrollToPoi.create(MemoryModuleType.HOME, 0.85F, 3, 600)), Pair.of(0, BehaviorBuilder.triggerIf(livingEntity -> true, StartHuntingBoar.create()))), ImmutableSet.of());
+        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F)), Pair.of(2, StrollToPoi.create(MemoryModuleType.HOME, 0.85F, 3, 600))), ImmutableSet.of());
     }
 
     private static void initAdmireItemActivity(Brain<Yeti> p_34941_) {
@@ -194,14 +192,13 @@ public class YetiAi {
 
     private static void maybeRetaliate(Yeti p_34625_, LivingEntity p_34626_) {
         if (!p_34625_.getBrain().isActive(Activity.AVOID) || p_34626_.getType() != FrostEntities.YETI.get()) {
-            if (p_34626_.getType() != FrostEntities.FROST_BOAR.get()) {
-                if (!BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(p_34625_, p_34626_, 4.0D)) {
+            if (!BehaviorUtils.isOtherTargetMuchFurtherAwayThanCurrentAttackTarget(p_34625_, p_34626_, 4.0D)) {
                     if (Sensor.isEntityAttackable(p_34625_, p_34626_)) {
                         setAttackTarget(p_34625_, p_34626_);
                         broadcastAttackTarget(p_34625_, p_34626_);
                     }
                 }
-            }
+
         }
     }
 
@@ -253,9 +250,6 @@ public class YetiAi {
         if (YetiAi.isEntityAttackableIgnoringLineOfSight(p_34925_, p_34926_)) {
             p_34925_.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
             p_34925_.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, p_34926_.getUUID(), 600L);
-            if (p_34926_ instanceof FrostBoar) {
-                dontKillAnyMoreBoarForAWhile(p_34925_);
-            }
 
             if (p_34926_.getType() == EntityType.PLAYER && p_34925_.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
                 p_34925_.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
@@ -275,10 +269,6 @@ public class YetiAi {
             GlobalPos globalpos = GlobalPos.of(p_219206_.level().dimension(), p_219206_.blockPosition());
             p_219206_.getBrain().setMemory(MemoryModuleType.HOME, globalpos);
         }
-    }
-
-    public static void dontKillAnyMoreBoarForAWhile(Yeti p_34923_) {
-        p_34923_.getBrain().setMemoryWithExpiry(MemoryModuleType.HUNTED_RECENTLY, true, (long) TIME_BETWEEN_HUNTS.sample(p_34923_.level().random));
     }
 
     private static void broadcastAttackTarget(Yeti p_34635_, LivingEntity p_34636_) {

@@ -46,8 +46,6 @@ public class YetiSensor extends Sensor<Yeti> {
         }
         brain.setMemory(FrostMemoryModuleType.NEAREST_YETIS.get(), list);
         brain.setMemory(FrostMemoryModuleType.YETI_COUNT.get(), list.size());
-        brain.setMemory(FrostMemoryModuleType.NEAREST_FROST_BOARS.get(), list2);
-        brain.setMemory(FrostMemoryModuleType.FROST_BOAR_COUNT.get(), list2.size());
         if (!list3.isEmpty()) {
             if (!brain.hasMemoryValue(MemoryModuleType.AVOID_TARGET)) {
                 brain.setMemoryWithExpiry(MemoryModuleType.AVOID_TARGET, list3.get(p_26660_.getRandom().nextInt(list3.size())), (long) YetiAi.RETREAT_DURATION.sample(p_26660_.getRandom()));

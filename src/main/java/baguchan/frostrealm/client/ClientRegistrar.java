@@ -5,7 +5,6 @@ import baguchan.frostrealm.blockentity.FrostChestBlockEntity;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.*;
-import baguchan.frostrealm.client.model.item.AuroraModel;
 import baguchan.frostrealm.client.overlay.FrostOverlay;
 import baguchan.frostrealm.client.render.*;
 import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
@@ -39,7 +38,10 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.event.*;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
@@ -56,10 +58,6 @@ public class ClientRegistrar {
 	public static final CubeDeformation OUTER_ARMOR_DEFORMATION = new CubeDeformation(1.0F);
 	public static final CubeDeformation INNER_ARMOR_DEFORMATION = new CubeDeformation(0.5F);
 
-	@SubscribeEvent
-	public static void registerModel(ModelEvent.ModifyBakingResult event) {
-		event.getModels().forEach((modelResourceLocation, bakedModel) -> event.getModels().put(modelResourceLocation, new AuroraModel(event.getModelBakery(), bakedModel)));
-	}
 
 	@SubscribeEvent
 	public static void registerClientExtend(RegisterClientExtensionsEvent event) {
@@ -145,7 +143,6 @@ public class ClientRegistrar {
 
         event.registerEntityRenderer(FrostEntities.YETI.get(), YetiRenderer::new);
         event.registerEntityRenderer(FrostEntities.FROST_WRAITH.get(), FrostWraithRenderer::new);
-		event.registerEntityRenderer(FrostEntities.WARPY.get(), WarpyRenderer::new);
 		event.registerEntityRenderer(FrostEntities.ASTRA_BALL.get(), AstraBallRenderer::new);
         event.registerEntityRenderer(FrostEntities.FROST_BOAR.get(), FrostBoarRenderer::new);
         event.registerEntityRenderer(FrostEntities.WARPED_CRYSTAL_SHARD.get(), WarpedCrystalRenderer::new);
@@ -165,7 +162,6 @@ public class ClientRegistrar {
 
 		event.registerLayerDefinition(FrostModelLayers.YETI, YetiModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.FROST_WRAITH, FrostWraithModel::createBodyLayer);
-		event.registerLayerDefinition(FrostModelLayers.WARPY, WarpyModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.MARMOT, MarmotModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SNOWPILE_QUAIL, SnowPileQuailModel::createBodyLayer);
