@@ -83,46 +83,35 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 			f = 1.0F;
 		}
 
-		this.rightArm.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 2.0F * limbSwingAmount * 0.5F / f;
-		this.leftArm.xRot = Mth.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F / f;
-		this.rightArm.zRot = 0.0F;
-		this.leftArm.zRot = 0.0F;
-		this.rightLeg.xRot = Mth.cos(limbSwing * 0.6662F) * 0.7F * limbSwingAmount / f;
-		this.leftLeg.xRot = Mth.cos(limbSwing * 0.6662F + (float) Math.PI) * 0.7F * limbSwingAmount / f;
-		this.rightLeg.yRot = 0.0F;
-		this.leftLeg.yRot = 0.0F;
-		this.rightLeg.zRot = 0.0F;
-		this.leftLeg.zRot = 0.0F;
-
 		float f1 = attackTime;
-
-		float f2 = ageInTicks - entity.tickCount;
-
 		if (entity.isTrade()) {
 			this.head.xRot = 30F * ((float) Math.PI / 180F);
 			this.head.yRot = 0.0F;
 			if (entity.getMainArm() == HumanoidArm.LEFT) {
-                this.rightArm.xRot = -42.5f * ((float) Math.PI / 180F);
-                this.rightArm.yRot = -52.5F * ((float) Math.PI / 180F);
-            } else {
-                this.leftArm.xRot = -42.5f * ((float) Math.PI / 180F);
-                this.leftArm.yRot = 52.5F * ((float) Math.PI / 180F);
-            }
+				this.applyStatic(YetiAnimations.holding_right);
+			} else {
+				this.applyStatic(YetiAnimations.holding_left);
+			}
 		}
 
 		if (f1 > 0) {
 			if (entity.getMainArm() == HumanoidArm.RIGHT) {
+				this.rightArm.xRot = 0.0F;
 				this.rightArm.zRot -= Mth.sin((float) Math.PI * f1) * 0.75F;
 				this.rightArm.xRot -= Mth.sin((float) Math.PI * f1) * 0.5F;
 			} else {
+				this.leftArm.xRot = 0.0F;
 				this.leftArm.zRot += Mth.sin((float) Math.PI * f1) * 0.75F;
 				this.leftArm.xRot -= Mth.sin((float) Math.PI * f1) * 0.5F;
 			}
 		}
-
-
-		this.animateWalk(YetiAnimations.IDLE, ageInTicks, 1.0F, 0.1F, 0.1F);
-		this.animate(entity.warmingAnimation, YetiAnimations.WARMING, ageInTicks);
+		if (entity.sitPoseAnimationState.isStarted() || entity.sitAnimationState.isStarted() || entity.sitUpAnimationState.isStarted()) {
+			this.animate(entity.sitAnimationState, YetiAnimations.sit_start, ageInTicks);
+			this.animate(entity.sitPoseAnimationState, YetiAnimations.sit, ageInTicks);
+			this.animate(entity.sitUpAnimationState, YetiAnimations.sit_stop, ageInTicks);
+		} else {
+			this.animateWalk(YetiAnimations.walk, limbSwing, limbSwingAmount, 1.0F, 1.0F);
+		}
 	}
 
 	private HumanoidArm getAttackArm(T p_102857_) {

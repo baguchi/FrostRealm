@@ -19,7 +19,6 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiModel<T>> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/yeti.png");
-    private static final ResourceLocation JAKT_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/jakt_yeti.png");
     private static final RenderType YETI_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/yeti_glow.png"));
 
 	public YetiRenderer(EntityRendererProvider.Context p_173952_) {
@@ -42,6 +41,6 @@ public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiModel<T>> {
 
 	@Override
 	public ResourceLocation getTextureLocation(T p_110775_1_) {
-        return p_110775_1_.isHuntLeader() ? JAKT_TEXTURE : TEXTURE;
+        return TEXTURE;
 	}
 }

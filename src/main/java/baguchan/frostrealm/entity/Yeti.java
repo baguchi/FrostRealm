@@ -4,6 +4,7 @@ import bagu_chan.bagus_lib.register.ModSensors;
 import baguchan.frostrealm.entity.brain.YetiAi;
 import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.*;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.GlobalPos;
@@ -32,16 +33,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
-public class Yeti extends AgeableMob implements HuntMob {
-	private static final EntityDataAccessor<Boolean> HUNT_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
-	private static final EntityDataAccessor<Boolean> HUNT_LEADER_ID = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.BOOLEAN);
-
+public class Yeti extends AgeableMob {
 	private static final EntityDataAccessor<String> DATA_STATE = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.STRING);
+	public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.LONG);
 
 	protected static final ImmutableList<? extends SensorType<? extends Sensor<? super Yeti>>> SENSOR_TYPES = ImmutableList.of(ModSensors.SMART_NEAREST_LIVING_ENTITY_SENSOR.get(), SensorType.NEAREST_ADULT, SensorType.HURT_BY
 			, FrostSensors.YETI_SENSOR.get(), FrostSensors.ENEMY_SENSOR.get(), SensorType.NEAREST_ITEMS);
@@ -51,10 +51,16 @@ public class Yeti extends AgeableMob implements HuntMob {
 			, MemoryModuleType.ADMIRING_ITEM, MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM, MemoryModuleType.ADMIRING_DISABLED, MemoryModuleType.DISABLE_WALK_TO_ADMIRE_ITEM
 			, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS);
 
+	private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(FrostEntities.YETI.get().getWidth(), FrostEntities.YETI.get().getHeight() - 0.35F)
+			.withEyeHeight(1.4F);
+
 	private final SimpleContainer inventory = new SimpleContainer(5);
 	private int holdTime;
 
-	public AnimationState talkingAnimation = new AnimationState();
+	public final AnimationState sitAnimationState = new AnimationState();
+	public final AnimationState sitPoseAnimationState = new AnimationState();
+
+	public final AnimationState sitUpAnimationState = new AnimationState();
 
 	public static final Predicate<? super ItemEntity> ALLOWED_ITEMS = (p_213616_0_) -> {
 		return p_213616_0_.getItem().getItem() != Items.SPIDER_EYE && p_213616_0_.getItem().getItem() != Items.PUFFERFISH || p_213616_0_.getItem().is(FrostTags.Items.YETI_CURRENCY) || p_213616_0_.getItem().is(FrostTags.Items.YETI_BIG_CURRENCY);
@@ -98,8 +104,70 @@ public class Yeti extends AgeableMob implements HuntMob {
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(DATA_STATE, State.IDLING.name());
-		builder.define(HUNT_ID, false);
-		builder.define(HUNT_LEADER_ID, false);
+		builder.define(LAST_POSE_CHANGE_TICK, 0L);
+	}
+
+	public boolean isYetiSitting() {
+		return this.entityData.get(LAST_POSE_CHANGE_TICK) < 0L;
+	}
+
+	public boolean isYetiVisuallySitting() {
+		return this.getPoseTime() < 0L != this.isYetiSitting();
+	}
+
+	public boolean isInPoseTransition() {
+		long i = this.getPoseTime();
+		return i < (long) (this.isYetiSitting() ? 40 : 52);
+	}
+
+	private boolean isVisuallySittingDown() {
+		return this.isYetiSitting() && this.getPoseTime() < 40L && this.getPoseTime() >= 0L;
+	}
+
+	public void sitDown() {
+		if (!this.isYetiSitting()) {
+			//this.makeSound(SoundEvents.CAMEL_SIT);
+			this.setPose(Pose.SITTING);
+			this.gameEvent(GameEvent.ENTITY_ACTION);
+			this.resetLastPoseChangeTick(-this.level().getGameTime());
+		}
+	}
+
+	public void standUp() {
+		if (this.isYetiSitting()) {
+			//this.makeSound(SoundEvents.CAMEL_STAND);
+			this.setPose(Pose.STANDING);
+			this.gameEvent(GameEvent.ENTITY_ACTION);
+			this.resetLastPoseChangeTick(this.level().getGameTime());
+		}
+	}
+
+	public void standUpInstantly() {
+		this.setPose(Pose.STANDING);
+		this.gameEvent(GameEvent.ENTITY_ACTION);
+		this.resetLastPoseChangeTickToFullStand(this.level().getGameTime());
+	}
+
+	@VisibleForTesting
+	public void resetLastPoseChangeTick(long p_248642_) {
+		this.entityData.set(LAST_POSE_CHANGE_TICK, p_248642_);
+	}
+
+	private void resetLastPoseChangeTickToFullStand(long p_265447_) {
+		this.resetLastPoseChangeTick(Math.max(0L, p_265447_ - 52L - 1L));
+	}
+
+	public long getPoseTime() {
+		return this.level().getGameTime() - Math.abs(this.entityData.get(LAST_POSE_CHANGE_TICK));
+	}
+
+
+	public boolean canYetiChangePose() {
+		return this.wouldNotSuffocateAtTargetPose(this.isYetiSitting() ? Pose.STANDING : Pose.SITTING) && this.getState().equals(State.IDLING.name()) && this.getTarget() == null;
+	}
+
+	public boolean refuseToMove() {
+		return this.isYetiSitting() || this.isInPoseTransition();
 	}
 
 
@@ -112,27 +180,12 @@ public class Yeti extends AgeableMob implements HuntMob {
 		return State.get(this.entityData.get(DATA_STATE)) == State.CHEER;
 	}
 
-	public void setHunt(boolean hunt) {
-		this.entityData.set(HUNT_ID, hunt);
-	}
-
-	public boolean isHunt() {
-		return this.entityData.get(HUNT_ID);
-	}
-
-	public void setHuntLeader(boolean leader) {
-		this.entityData.set(HUNT_LEADER_ID, leader);
-	}
-
-	public boolean isHuntLeader() {
-		return this.entityData.get(HUNT_LEADER_ID);
-	}
-
 	public boolean isPanic() {
 		return State.get(this.entityData.get(DATA_STATE)) == State.PANIC;
 	}
 
 	public void setState(State state) {
+		this.standUpInstantly();
 		this.entityData.set(DATA_STATE, state.name());
 	}
 
@@ -168,9 +221,37 @@ public class Yeti extends AgeableMob implements HuntMob {
 		super.completeUsingItem();
 	}
 
+
 	@Override
 	public void tick() {
 		super.tick();
+
+		if (this.level().isClientSide()) {
+			this.setupAnimationStates();
+		}
+
+		if (this.isYetiSitting() && this.isInWater()) {
+			this.standUpInstantly();
+		}
+	}
+
+	private void setupAnimationStates() {
+
+		if (this.isYetiVisuallySitting()) {
+			this.sitUpAnimationState.stop();
+			if (this.isVisuallySittingDown()) {
+				this.sitAnimationState.startIfStopped(this.tickCount);
+				this.sitPoseAnimationState.stop();
+			} else {
+				this.sitAnimationState.stop();
+				this.sitPoseAnimationState.startIfStopped(this.tickCount);
+			}
+		} else {
+			this.sitAnimationState.stop();
+			this.sitPoseAnimationState.stop();
+			;
+			this.sitUpAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
+		}
 	}
 
 	@Override
@@ -224,7 +305,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 	public void pickUpItem(ItemEntity p_175445_1_) {
 		ItemStack itemstack = p_175445_1_.getItem();
 		Item item = itemstack.getItem();
-		if (itemstack.is(FrostTags.Items.YETI_CURRENCY)) {
+		if (itemstack.is(FrostTags.Items.YETI_CURRENCY) && this.isAdult()) {
 			this.onItemPickup(p_175445_1_);
 			this.take(p_175445_1_, 1);
 			YetiAi.holdInOffHand(this, itemstack.split(1));
@@ -294,9 +375,6 @@ public class Yeti extends AgeableMob implements HuntMob {
 				this.inventory.addItem(itemstack);
 			}
 		}
-
-		this.setHunt(p_29541_.getBoolean("Hunt"));
-		this.setHuntLeader(p_29541_.getBoolean("HuntLeader"));
 		this.setHoldTime(p_29541_.getInt("HoldTime"));
 		this.setStateName(p_29541_.getString("State"));
 	}
@@ -313,9 +391,6 @@ public class Yeti extends AgeableMob implements HuntMob {
 		}
 
 		p_29548_.put("Inventory", listnbt);
-
-		p_29548_.putBoolean("Hunt", this.isHunt());
-		p_29548_.putBoolean("HuntLeader", this.isHuntLeader());
 		p_29548_.putInt("HoldTime", holdTime);
 		p_29548_.putString("State", this.getState());
 	}
@@ -332,6 +407,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 		this.inventory.addItem(new ItemStack(Items.SALMON, 4));
 		YetiAi.initMemories(this, p_29533_.getRandom(), p_29535_);
 
+		this.resetLastPoseChangeTickToFullStand(p_29533_.getLevel().getGameTime());
 		if (p_29535_ == MobSpawnType.STRUCTURE) {
 			GlobalPos globalpos = GlobalPos.of(p_29533_.getLevel().dimension(), this.blockPosition());
 			this.getBrain().setMemory(MemoryModuleType.HOME, globalpos);
@@ -344,23 +420,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 	}
 
 	protected void populateDefaultEquipmentSlots(RandomSource p_219165_, DifficultyInstance p_219166_) {
-		boolean flag = false;
-		boolean flag2 = false;
-
-		if (this.isHuntLeader()) {
-			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(FrostItems.ASTRIUM_AXE.get()));
-			flag = true;
-		}
-
-		if (!this.isHuntLeader() && this.isHunt()) {
-			this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(FrostItems.ASTRIUM_SWORD.get()));
-			flag2 = true;
-		}
-
-		if (flag) {
-			this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(FrostItems.ASTRIUM_HELMET.get()));
-		}
-		if (flag2) {
+		if (p_219165_.nextFloat() < 0.1F) {
 			this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(FrostItems.FROST_BOAR_FUR_HELMET.get()));
 		}
 	}
@@ -379,6 +439,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 		if (this.level().isClientSide) {
 			return false;
 		} else {
+			this.standUpInstantly();
 			YetiAi.stopHoldingOffHandItem(this, false);
 			if (flag && p_34503_.getEntity() instanceof LivingEntity) {
 				YetiAi.wasHurtBy(this, (LivingEntity) p_34503_.getEntity());
@@ -386,6 +447,11 @@ public class Yeti extends AgeableMob implements HuntMob {
 
 			return flag;
 		}
+	}
+
+	@Override
+	public EntityDimensions getDefaultDimensions(Pose p_316664_) {
+		return p_316664_ == Pose.SITTING ? SITTING_DIMENSIONS.scale(this.getAgeScale()) : super.getDefaultDimensions(p_316664_);
 	}
 
 	@Nullable
@@ -396,7 +462,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 
 	@Override
 	public boolean removeWhenFarAway(double p_21542_) {
-		return this.isHunt();
+		return false;
 	}
 
 	public boolean isAdult() {
@@ -406,6 +472,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 	public boolean canAttack(LivingEntity p_186270_) {
 		return p_186270_ instanceof Yeti ? false : super.canAttack(p_186270_);
 	}
+
 
 	public static class YetiGroupData extends AgeableMobGroupData {
 		public final boolean isHunt;
@@ -422,8 +489,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 		IDLING,
 		TRADE,
 		PANIC,
-		CHEER,
-		EATING;
+		CHEER;
 
 		public static State get(String nameIn) {
 			for (State role : values()) {

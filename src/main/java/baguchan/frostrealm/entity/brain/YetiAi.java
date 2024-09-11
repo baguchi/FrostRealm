@@ -5,6 +5,7 @@ import baguchan.frostrealm.entity.brain.behavior.StartAdmiringItemIfSeen;
 import baguchan.frostrealm.entity.brain.behavior.StopAdmiringIfItemTooFarAway;
 import baguchan.frostrealm.registry.*;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.GlobalPos;
@@ -43,8 +44,9 @@ import net.minecraft.world.phys.Vec3;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
-public class YetiAi {
+public class YetiAi<E extends Yeti> {
     private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(6, 16);
     public static final UniformInt RETREAT_DURATION = TimeUtil.rangeOfSeconds(10, 30);
     protected static final UniformInt TIME_BETWEEN_HUNTS = TimeUtil.rangeOfSeconds(30, 120);
@@ -100,7 +102,7 @@ public class YetiAi {
     }
 
     private static RunOne<Yeti> createIdleMovementBehaviors() {
-        return new RunOne<>(ImmutableList.of(Pair.of(RandomStroll.stroll(0.8F), 2), Pair.of(SetWalkTargetFromLookTarget.create(0.8F, 3), 2), Pair.of(new DoNothing(30, 60), 1)));
+        return new RunOne<>(ImmutableList.of(Pair.of(new RandomSitting(30), 2), Pair.of(BehaviorBuilder.triggerIf(Predicate.not(Yeti::refuseToMove), RandomStroll.stroll(0.8F)), 2), Pair.of(BehaviorBuilder.triggerIf(Predicate.not(Yeti::refuseToMove), SetWalkTargetFromLookTarget.create(0.8F, 3)), 2), Pair.of(new DoNothing(30, 60), 1)));
     }
 
     private static boolean wantsToStopFleeing(Yeti p_34618_) {
@@ -238,21 +240,22 @@ public class YetiAi {
         return BehaviorUtils.getLivingEntityFromUUIDMemory(p_34976_, MemoryModuleType.ANGRY_AT);
     }
 
-    private static void setAngerTargetIfCloserThanCurrent(Yeti p_34963_, LivingEntity p_34964_) {
-        Optional<LivingEntity> optional = getAngerTarget(p_34963_);
-        LivingEntity livingentity = BehaviorUtils.getNearestTarget(p_34963_, optional, p_34964_);
+    private static void setAngerTargetIfCloserThanCurrent(Yeti yeti, LivingEntity target) {
+        Optional<LivingEntity> optional = getAngerTarget(yeti);
+        LivingEntity livingentity = BehaviorUtils.getNearestTarget(yeti, optional, target);
         if (!optional.isPresent() || optional.get() != livingentity) {
-            setAngerTarget(p_34963_, livingentity);
+            setAngerTarget(yeti, livingentity);
         }
     }
 
-    protected static void setAngerTarget(Yeti p_34925_, LivingEntity p_34926_) {
-        if (YetiAi.isEntityAttackableIgnoringLineOfSight(p_34925_, p_34926_)) {
-            p_34925_.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-            p_34925_.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, p_34926_.getUUID(), 600L);
+    protected static void setAngerTarget(Yeti yeti, LivingEntity target) {
+        if (YetiAi.isEntityAttackableIgnoringLineOfSight(yeti, target)) {
+            yeti.standUpInstantly();
+            yeti.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
+            yeti.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
 
-            if (p_34926_.getType() == EntityType.PLAYER && p_34925_.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
-                p_34925_.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
+            if (target.getType() == EntityType.PLAYER && yeti.level().getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+                yeti.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
             }
 
         }
@@ -271,20 +274,20 @@ public class YetiAi {
         }
     }
 
-    private static void broadcastAttackTarget(Yeti p_34635_, LivingEntity p_34636_) {
-        getVisibleAdultYetis(p_34635_).forEach((p_34574_) -> {
-            setAttackTargetIfCloserThanCurrent(p_34574_, p_34636_);
+    private static void broadcastAttackTarget(Yeti yeti, LivingEntity target) {
+        getVisibleAdultYetis(yeti).forEach((p_34574_) -> {
+            setAttackTargetIfCloserThanCurrent(p_34574_, target);
         });
     }
 
-    public static List<Yeti> getVisibleAdultYetis(LivingEntity p_34874_) {
-        return p_34874_.getBrain().getMemory(FrostMemoryModuleType.NEAREST_YETIS.get()).orElse(ImmutableList.of());
+    public static List<Yeti> getVisibleAdultYetis(LivingEntity living) {
+        return living.getBrain().getMemory(FrostMemoryModuleType.NEAREST_YETIS.get()).orElse(ImmutableList.of());
     }
 
-    private static void setAttackTargetIfCloserThanCurrent(Yeti p_34640_, LivingEntity p_34641_) {
-        Optional<LivingEntity> optional = p_34640_.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
-        LivingEntity livingentity = BehaviorUtils.getNearestTarget(p_34640_, optional, p_34641_);
-        setAttackTarget(p_34640_, livingentity);
+    private static void setAttackTargetIfCloserThanCurrent(Yeti yeti, LivingEntity target) {
+        Optional<LivingEntity> optional = yeti.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET);
+        LivingEntity livingentity = BehaviorUtils.getNearestTarget(yeti, optional, target);
+        setAttackTarget(yeti, livingentity);
     }
 
     public static Optional<SoundEvent> getSoundForCurrentActivity(Yeti boar) {
@@ -449,5 +452,32 @@ public class YetiAi {
         }
 
         return false;
+    }
+
+    public static class RandomSitting extends Behavior<Yeti> {
+        private final int minimalPoseTicks;
+
+        public RandomSitting(int p_251207_) {
+            super(ImmutableMap.of());
+            this.minimalPoseTicks = p_251207_ * 20;
+        }
+
+        protected boolean checkExtraStartConditions(ServerLevel p_249520_, Yeti p_250322_) {
+            return !p_250322_.isInWater()
+                    && p_250322_.getPoseTime() >= (long) this.minimalPoseTicks
+                    && !p_250322_.isLeashed()
+                    && p_250322_.onGround()
+                    && !p_250322_.hasControllingPassenger()
+                    && p_250322_.canYetiChangePose();
+        }
+
+        protected void start(ServerLevel p_250901_, Yeti p_250345_, long p_248515_) {
+            p_250345_.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
+            if (p_250345_.isYetiSitting()) {
+                p_250345_.standUp();
+            } else if (!p_250345_.isPanicking()) {
+                p_250345_.sitDown();
+            }
+        }
     }
 }
