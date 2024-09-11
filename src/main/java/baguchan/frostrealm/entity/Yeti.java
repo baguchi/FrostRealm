@@ -203,7 +203,7 @@ public class Yeti extends AgeableMob {
 	}
 
 	public static AttributeSupplier.Builder createAttributeMap() {
-		return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.24F).add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.FOLLOW_RANGE, 30.0D).add(Attributes.ATTACK_DAMAGE, 6.0F);
+		return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.26F).add(Attributes.MAX_HEALTH, 30.0D).add(Attributes.FOLLOW_RANGE, 30.0D).add(Attributes.ATTACK_DAMAGE, 6.0F);
 	}
 
 	@Override

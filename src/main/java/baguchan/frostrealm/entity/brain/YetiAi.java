@@ -473,6 +473,7 @@ public class YetiAi<E extends Yeti> {
 
         protected void start(ServerLevel p_250901_, Yeti p_250345_, long p_248515_) {
             p_250345_.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
+            p_250345_.getNavigation().stop();
             if (p_250345_.isYetiSitting()) {
                 p_250345_.standUp();
             } else if (!p_250345_.isPanicking()) {

@@ -23,6 +23,17 @@
     ],
     "subtitle": "subtitles.ambient.blizzard"
   },
+  "entity.yeti.idle": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/yeti/yeti_idle"
+      },
+      {
+        "name": "frostrealm:entity/yeti/yeti_idle2"
+      }
+    ],
+    "subtitle": "subtitles.entity.yeti.idle"
+  },
   "entity.marmot.idle": {
     "sounds": [
       {

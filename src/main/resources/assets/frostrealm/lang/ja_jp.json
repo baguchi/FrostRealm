@@ -7,6 +7,14 @@
   "aurora_power.frostrealm.aurora_shaper": "オーロラの鋭さ",
   "aurora_power.frostrealm.crystal_slasher": "クリスタルスラッシャー",
   "aurora_power.frostrealm.when_aurora_infusion": "When Aurora Infusion",
+  "block.frostrealm.perma_slate": "永久凍石",
+  "block.frostrealm.perma_slate_brick": "永久凍石のレンガ",
+  "block.frostrealm.perma_slate_brick_stairs": "永久凍石レンガの階段",
+  "block.frostrealm.perma_slate_brick_slab": "永久凍石レンガのハーフブロック",
+  "block.frostrealm.perma_slate_smooth_brick": "滑らかな永久凍石レンガ",
+  "block.frostrealm.frost_crystal_slate_ore": "永久凍石のフロストクリスタル鉱石",
+  "block.frostrealm.glimmerrock_slate_ore": "永久凍石のグリマーロック鉱石",
+  "block.frostrealm.astrium_slate_ore": "Astrium Slate Ore",
   "block.frostrealm.arctic_poppy": "Arctic Poppy",
   "block.frostrealm.arctic_willow": "Arctic Willow",
   "block.frostrealm.astrium_block": "アストリウムブロック",
@@ -181,5 +189,6 @@
   "subtitles.entity.seal.idle": "あざらしが泣く",
   "subtitles.entity.snowpile_quail.death": "Snow Pile Quail Death",
   "subtitles.entity.snowpile_quail.hurt": "Snow Pile Quail Hurt",
-  "subtitles.entity.snowpile_quail.idle": "Snow Pile Quail Crows"
+  "subtitles.entity.snowpile_quail.idle": "Snow Pile Quail Crows",
+  "subtitles.entity.yeti.idle": "イエティーがうめく"
 }
