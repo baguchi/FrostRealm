@@ -102,7 +102,7 @@ public class YetiAi<E extends Yeti> {
     }
 
     private static RunOne<Yeti> createIdleMovementBehaviors() {
-        return new RunOne<>(ImmutableList.of(Pair.of(new RandomSitting(30), 2), Pair.of(BehaviorBuilder.triggerIf(Predicate.not(Yeti::refuseToMove), RandomStroll.stroll(0.8F)), 2), Pair.of(BehaviorBuilder.triggerIf(Predicate.not(Yeti::refuseToMove), SetWalkTargetFromLookTarget.create(0.8F, 3)), 2), Pair.of(new DoNothing(30, 60), 1)));
+        return new RunOne<>(ImmutableList.of(Pair.of(new RandomSitting(60), 2), Pair.of(BehaviorBuilder.triggerIf(Predicate.not(Yeti::refuseToMove), RandomStroll.stroll(0.8F)), 2), Pair.of(BehaviorBuilder.triggerIf(Predicate.not(Yeti::refuseToMove), SetWalkTargetFromLookTarget.create(0.8F, 3)), 2), Pair.of(new DoNothing(30, 60), 1)));
     }
 
     private static boolean wantsToStopFleeing(Yeti p_34618_) {

@@ -377,6 +377,12 @@ public class Yeti extends AgeableMob {
 		}
 		this.setHoldTime(p_29541_.getInt("HoldTime"));
 		this.setStateName(p_29541_.getString("State"));
+		long i = p_29541_.getLong("LastPoseTick");
+		if (i < 0L) {
+			this.setPose(Pose.SITTING);
+		}
+
+		this.resetLastPoseChangeTick(i);
 	}
 
 	public void addAdditionalSaveData(CompoundTag p_29548_) {
@@ -393,6 +399,8 @@ public class Yeti extends AgeableMob {
 		p_29548_.put("Inventory", listnbt);
 		p_29548_.putInt("HoldTime", holdTime);
 		p_29548_.putString("State", this.getState());
+		p_29548_.putLong("LastPoseTick", this.entityData.get(LAST_POSE_CHANGE_TICK));
+
 	}
 
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_29533_, DifficultyInstance p_29534_, MobSpawnType p_29535_, @Nullable SpawnGroupData p_29536_) {
