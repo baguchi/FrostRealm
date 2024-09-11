@@ -3,7 +3,6 @@ package baguchan.frostrealm.entity.animal;
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
 import baguchan.frostrealm.entity.IHasEgg;
 import baguchan.frostrealm.entity.goal.BreedAndEggGoal;
-import baguchan.frostrealm.entity.goal.QuailAngryGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostItems;
@@ -67,11 +66,10 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
-		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, CrystalFox.class, 8.0F, 1.45D, 1.4D));
-		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Wolf.class, 8.0F, 1.45D, 1.4D, (p_28590_) -> {
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, CrystalFox.class, 8.0F, 1.55D, 1.45D));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Wolf.class, 8.0F, 1.55D, 1.45D, (p_28590_) -> {
 			return !((Wolf) p_28590_).isTame();
 		}));
-		this.goalSelector.addGoal(3, new QuailAngryGoal(this));
         this.goalSelector.addGoal(4, new BreedAndEggGoal<>(this, 1.0D));
 		this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, FOOD_ITEMS, false));
 		this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
@@ -280,18 +278,9 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	}
 
 	@Override
-	public boolean causeFallDamage(float p_147105_, float p_147106_, DamageSource p_147107_) {
-		return false;
-	}
-
-	@Override
 	protected void checkFallDamage(double p_20809_, boolean p_20810_, BlockState p_20811_, BlockPos p_20812_) {
 	}
 
-	@Override
-	public void tick() {
-		super.tick();
-	}
 
 	class MoveToGoal extends Goal {
 		final SnowPileQuail quail;

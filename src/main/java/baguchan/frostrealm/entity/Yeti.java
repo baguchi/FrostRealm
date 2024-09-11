@@ -54,8 +54,7 @@ public class Yeti extends AgeableMob implements HuntMob {
 	private final SimpleContainer inventory = new SimpleContainer(5);
 	private int holdTime;
 
-	public AnimationState warmingAnimation = new AnimationState();
-	public AnimationState cheerAnimation = new AnimationState();
+	public AnimationState talkingAnimation = new AnimationState();
 
 	public static final Predicate<? super ItemEntity> ALLOWED_ITEMS = (p_213616_0_) -> {
 		return p_213616_0_.getItem().getItem() != Items.SPIDER_EYE && p_213616_0_.getItem().getItem() != Items.PUFFERFISH || p_213616_0_.getItem().is(FrostTags.Items.YETI_CURRENCY) || p_213616_0_.getItem().is(FrostTags.Items.YETI_BIG_CURRENCY);

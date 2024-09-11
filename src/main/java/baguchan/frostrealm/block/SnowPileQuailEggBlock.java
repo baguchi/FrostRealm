@@ -10,8 +10,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -28,10 +26,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 public class SnowPileQuailEggBlock extends Block {
 	public static final int MAX_HATCH_LEVEL = 2;
@@ -70,13 +66,8 @@ public class SnowPileQuailEggBlock extends Block {
 	}
 
 	private void destroyEgg(Level p_154851_, BlockState p_154852_, BlockPos p_154853_, Entity p_154854_, int p_154855_) {
-		if (this.canDestroyEgg(p_154851_, p_154854_)) {
-			if (!p_154851_.isClientSide && p_154851_.random.nextInt(p_154855_) == 0 && p_154852_.is(FrostBlocks.SNOWPILE_QUAIL_EGG.get())) {
-				this.decreaseEggs(p_154851_, p_154853_, p_154852_);
-			}
-			if (p_154854_ instanceof LivingEntity) {
-				angerNearbyQuail((LivingEntity) p_154854_);
-			}
+		if (!p_154851_.isClientSide && p_154851_.random.nextInt(p_154855_) == 0 && p_154852_.is(FrostBlocks.SNOWPILE_QUAIL_EGG.get())) {
+			this.decreaseEggs(p_154851_, p_154853_, p_154852_);
 		}
 	}
 
@@ -94,18 +85,7 @@ public class SnowPileQuailEggBlock extends Block {
 	@Override
 	public BlockState playerWillDestroy(Level p_49852_, BlockPos p_49853_, BlockState p_49854_, Player p_49855_) {
 		super.playerWillDestroy(p_49852_, p_49853_, p_49854_, p_49855_);
-		angerNearbyQuail(p_49855_);
 		return p_49854_;
-	}
-
-	public static void angerNearbyQuail(LivingEntity p_34874_) {
-		List<SnowPileQuail> list = p_34874_.level().getEntitiesOfClass(SnowPileQuail.class, p_34874_.getBoundingBox().inflate(8.0D));
-		list.stream().filter((p_34881_) -> {
-			return p_34881_.hasLineOfSight(p_34874_);
-		}).forEach((p_34872_) -> {
-			p_34872_.setTarget(p_34874_);
-			p_34872_.setAngry(true);
-		});
 	}
 
 	public void tick(BlockState p_221194_, ServerLevel p_221195_, BlockPos p_221196_, RandomSource p_221197_) {
@@ -171,17 +151,5 @@ public class SnowPileQuailEggBlock extends Block {
 
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_57799_) {
 		p_57799_.add(HATCH, EGGS);
-	}
-
-	private boolean canDestroyEgg(Level p_57768_, Entity p_57769_) {
-		if (!(p_57769_ instanceof SnowPileQuail) && !(p_57769_ instanceof Bat)) {
-			if (!(p_57769_ instanceof LivingEntity)) {
-				return false;
-			} else {
-				return p_57769_ instanceof Player || EventHooks.canEntityGrief(p_57768_, p_57769_);
-			}
-		} else {
-			return false;
-		}
 	}
 }

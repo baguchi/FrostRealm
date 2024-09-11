@@ -214,6 +214,7 @@ public class FrostChestBlock extends AbstractChestBlock<FrostChestBlockEntity> i
 */
 	}
 
+	@Override
 	public void onRemove(BlockState p_51538_, Level p_51539_, BlockPos p_51540_, BlockState p_51541_, boolean p_51542_) {
 		if (!p_51538_.is(p_51541_.getBlock())) {
 			BlockEntity blockentity = p_51539_.getBlockEntity(p_51540_);
@@ -291,6 +292,7 @@ public class FrostChestBlock extends AbstractChestBlock<FrostChestBlockEntity> i
 		};
 	}
 
+	@Override
 	public BlockEntity newBlockEntity(BlockPos p_153064_, BlockState p_153065_) {
 		return new FrostChestBlockEntity(p_153064_, p_153065_);
 	}
