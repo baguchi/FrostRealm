@@ -164,7 +164,7 @@ public class CommonEvents {
                                                     }
                                                 } else if (snowState.getBlock() == Blocks.FIRE) {
                                                     serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-                                                } else if (snowStateBelow.hasProperty(BlockStateProperties.LIT) && snowStateBelow.getValue(BlockStateProperties.LIT)) {
+                                                } else if (snowStateBelow.getBlock() == Blocks.CAMPFIRE) {
                                                     makeParticles(serverLevel, pos.below());
                                                     serverLevel.setBlockAndUpdate(pos.below(), snowStateBelow.setValue(BlockStateProperties.LIT, false));
                                                 } else if (snowState.getBlock() == Blocks.SNOW.defaultBlockState().getBlock()) {
