@@ -39,8 +39,8 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
     private static final EntityDataAccessor<Boolean> DATA_GUARD = SynchedEntityData.defineId(Seeker.class, EntityDataSerializers.BOOLEAN);
 
     public int attackAnimationTick;
-    private final int attackAnimationLength = (int) (20 * 1.75);
-    private final int attackAnimationActionPoint = (int) ((int) (20 * 0.655));
+    private final int attackAnimationLength = (int) (20 * 1.25);
+    private final int attackAnimationActionPoint = (int) ((int) (20 * 0.5));
     public int counterAnimationTick;
     private final int counterAnimationLength = (int) (20 * 0.5F);
     private final int counterAnimationActionPoint = (int) (counterAnimationLength - (int) (20 * 0.1f));

@@ -86,29 +86,29 @@ public class SeekerModel<T extends Seeker> extends HierarchicalModel<T> implemen
 
         if (!entity.attackAnimationState.isStarted() && !entity.counterAnimationState.isStarted() && entity.guardAnimationScale.getAnimationScale(f) <= 0) {
             if (entity.getMainArm() == HumanoidArm.RIGHT) {
-                this.applyStatic(SpearAttackAnimations.IDLE_RIGHT);
+                this.applyStatic(SpearAttackAnimations.idle_right);
             } else {
-                this.applyStatic(SpearAttackAnimations.IDLE_LEFT);
+                this.applyStatic(SpearAttackAnimations.idle_left);
             }
         }
 
         if (entity.getMainArm() == HumanoidArm.RIGHT) {
-            this.animate(entity.attackAnimationState, SpearAttackAnimations.SPIN_SPEAR_ATTACK_RIGHT, ageInTicks);
+            this.animate(entity.attackAnimationState, SpearAttackAnimations.spear_attack_right, ageInTicks);
         } else {
-            this.animate(entity.attackAnimationState, SpearAttackAnimations.SPIN_SPEAR_ATTACK_LEFT, ageInTicks);
+            this.animate(entity.attackAnimationState, SpearAttackAnimations.spear_attack_left, ageInTicks);
         }
 
         if (entity.getMainArm() == HumanoidArm.RIGHT) {
-            this.animate(entity.counterAnimationState, SpearAttackAnimations.COUNTER_RIGHT, ageInTicks);
+            this.animate(entity.counterAnimationState, SpearAttackAnimations.counter_right, ageInTicks);
         } else {
-            this.animate(entity.counterAnimationState, SpearAttackAnimations.COUNTER_LEFT, ageInTicks);
+            this.animate(entity.counterAnimationState, SpearAttackAnimations.counter_left, ageInTicks);
         }
 
         if (!entity.counterAnimationState.isStarted()) {
             if (entity.getMainArm() == HumanoidArm.RIGHT) {
-                this.applyStaticWithScale(SpearAttackAnimations.GUARD_RIGHT, entity.guardAnimationScale.getAnimationScale(f));
+                this.applyStaticWithScale(SpearAttackAnimations.guard_right, entity.guardAnimationScale.getAnimationScale(f));
             } else {
-                this.applyStaticWithScale(SpearAttackAnimations.GUARD_LEFT, entity.guardAnimationScale.getAnimationScale(f));
+                this.applyStaticWithScale(SpearAttackAnimations.guard_left, entity.guardAnimationScale.getAnimationScale(f));
             }
         }
     }

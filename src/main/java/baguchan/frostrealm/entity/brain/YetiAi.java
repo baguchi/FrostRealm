@@ -85,7 +85,7 @@ public class YetiAi<E extends Yeti> {
     }
 
     private static void initIdleActivity(Brain<Yeti> p_149309_) {
-        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F)), Pair.of(2, StrollToPoi.create(MemoryModuleType.HOME, 0.85F, 3, 600))), ImmutableSet.of());
+        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(1, new RandomSitting(20)), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F)), Pair.of(2, StrollToPoi.create(MemoryModuleType.HOME, 0.85F, 3, 600))), ImmutableSet.of());
     }
 
     private static void initAdmireItemActivity(Brain<Yeti> p_34941_) {
@@ -101,7 +101,7 @@ public class YetiAi<E extends Yeti> {
     }
 
     private static RunOne<Yeti> createIdleMovementBehaviors() {
-        return new RunOne<>(ImmutableList.of(Pair.of(new RandomSitting(60), 2), Pair.of(BehaviorBuilder.triggerIf(Predicate.not(Yeti::refuseToMove), RandomStroll.stroll(0.8F)), 2), Pair.of(BehaviorBuilder.triggerIf(Predicate.not(Yeti::refuseToMove), SetWalkTargetFromLookTarget.create(0.8F, 3)), 2), Pair.of(new DoNothing(30, 60), 1)));
+        return new RunOne<>(ImmutableList.of(Pair.of(BehaviorBuilder.triggerIf(Predicate.not(Yeti::refuseToMove), RandomStroll.stroll(0.8F)), 2), Pair.of(BehaviorBuilder.triggerIf(Predicate.not(Yeti::refuseToMove), SetWalkTargetFromLookTarget.create(0.8F, 3)), 2), Pair.of(new DoNothing(30, 60), 1)));
     }
 
     private static boolean wantsToStopFleeing(Yeti p_34618_) {

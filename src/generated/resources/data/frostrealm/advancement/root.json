@@ -12,6 +12,7 @@
     }
   },
   "display": {
+    "background": "frostrealm:textures/block/frigid_stone.png",
     "description": {
       "translate": "advancement.frostrealm.warriors_lost_item.desc"
     },

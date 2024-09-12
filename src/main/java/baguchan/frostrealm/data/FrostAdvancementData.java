@@ -32,16 +32,16 @@ public class FrostAdvancementData extends AdvancementProvider {
 		@Override
         public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
 
-            AdvancementHolder warriors_lost_item = Advancement.Builder.advancement()
+			AdvancementHolder root = Advancement.Builder.advancement()
 					.display(FrostItems.STRAY_NECKLACE_PART.get(),
 							Component.translatable("advancement.frostrealm.warriors_lost_item"),
 							Component.translatable("advancement.frostrealm.warriors_lost_item.desc"),
-							null,
-							AdvancementType.TASK, true, true, false)
+							ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/block/frigid_stone.png"),
+							AdvancementType.TASK, false, false, false)
 					.addCriterion("warriors_lost_item", InventoryChangeTrigger.TriggerInstance.hasItems(FrostItems.STRAY_NECKLACE_PART.get()))
-					.save(consumer, "frostrealm:warriors_lost_item");
+					.save(consumer, "frostrealm:root");
             AdvancementHolder enterFrostrealm = Advancement.Builder.advancement()
-					.parent(warriors_lost_item)
+					.parent(root)
 					.display(FrostBlocks.FROZEN_GRASS_BLOCK.get(),
 							Component.translatable("advancement.frostrealm.enter_frostrealm"),
 							Component.translatable("advancement.frostrealm.enter_frostrealm.desc"),

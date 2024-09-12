@@ -170,7 +170,7 @@ public class Yeti extends AgeableMob {
 
 
 	public boolean canYetiChangePose() {
-		return this.wouldNotSuffocateAtTargetPose(this.isYetiSitting() ? Pose.STANDING : Pose.SITTING) && this.getState().equals(State.IDLING.name()) && this.getTarget() == null;
+		return this.wouldNotSuffocateAtTargetPose(this.isYetiSitting() ? Pose.STANDING : Pose.SITTING) && State.get(this.getState()) == State.IDLING && this.getTarget() == null;
 	}
 
 	public boolean refuseToMove() {

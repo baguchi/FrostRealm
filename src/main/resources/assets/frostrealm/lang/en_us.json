@@ -164,6 +164,8 @@
   "subtitles.entity.seal.fart": "Seal Fart",
   "subtitles.entity.yeti.idle": "Yeti is growl",
   "subtitles.ambient.gravity_moving": "Gravity Moving",
+  "advancement.frostrealm.warriors_lost_item": "Warriors Treasure",
+  "advancement.frostrealm.warriors_lost_item.desc": "Obtain the Stray Necklace",
   "advancement.frostrealm.enter_frostrealm": "Enter the Frostrealm",
   "advancement.frostrealm.enter_frostrealm.desc": "Step into an unexplored frozen place",
   "advancement.frostrealm.hot_source": "Small but Hot topic",

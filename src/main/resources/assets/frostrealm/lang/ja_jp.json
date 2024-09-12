@@ -1,8 +1,10 @@
 {
-  "advancement.frostrealm.enter_frostrealm": "Enter the Frostrealm",
-  "advancement.frostrealm.enter_frostrealm.desc": "Step into an unexplored frozen place",
+  "advancement.frostrealm.enter_frostrealm": "フロストリアムに入る",
+  "advancement.frostrealm.enter_frostrealm.desc": "誰も訪れたことがない凍った場所に訪れる",
   "advancement.frostrealm.hot_source": "Small but Hot topic",
   "advancement.frostrealm.hot_source.desc": "Obtain the Glimmerrock",
+  "advancement.frostrealm.warriors_lost_item": "フロストリアム",
+  "advancement.frostrealm.warriors_lost_item.desc": "ストレイネックレスを手に入れる",
   "aurora_power.frostrealm.aurora_protection": "オーロラの守り",
   "aurora_power.frostrealm.aurora_shaper": "オーロラの鋭さ",
   "aurora_power.frostrealm.crystal_slasher": "クリスタルスラッシャー",
