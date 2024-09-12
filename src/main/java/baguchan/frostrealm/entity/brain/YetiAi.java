@@ -13,7 +13,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -299,12 +298,12 @@ public class YetiAi<E extends Yeti> {
     private static SoundEvent getSoundForActivity(Yeti p_34583_, Activity p_34584_) {
         if (p_34584_ != Activity.AVOID) {
             if (p_34584_ == Activity.FIGHT) {
-                return SoundEvents.HOGLIN_ANGRY;
+                return FrostSounds.YETI_IDLE.get();
             } else {
-                return SoundEvents.HOGLIN_AMBIENT;
+                return FrostSounds.YETI_IDLE.get();
             }
         } else {
-            return SoundEvents.HOGLIN_RETREAT;
+            return FrostSounds.YETI_IDLE.get();
         }
     }
 

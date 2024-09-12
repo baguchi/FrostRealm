@@ -25,6 +25,8 @@ public class FrostSounds {
     public static final Supplier<SoundEvent> SEAL_HURT = register("entity.seal.hurt");
     public static final Supplier<SoundEvent> SEAL_DEATH = register("entity.seal.death");
     public static final Supplier<SoundEvent> SEAL_FART = register("entity.seal.fart");
+    public static final Supplier<SoundEvent> YETI_IDLE = register("entity.yeti.idle");
+
 
     public static final Supplier<SoundEvent> MORTAR = register("ambient.mortar.moving");
 

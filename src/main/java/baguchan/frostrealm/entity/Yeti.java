@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -105,6 +106,12 @@ public class Yeti extends AgeableMob {
 		super.defineSynchedData(builder);
 		builder.define(DATA_STATE, State.IDLING.name());
 		builder.define(LAST_POSE_CHANGE_TICK, 0L);
+	}
+
+	@org.jetbrains.annotations.Nullable
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return FrostSounds.YETI_IDLE.get();
 	}
 
 	public boolean isYetiSitting() {
