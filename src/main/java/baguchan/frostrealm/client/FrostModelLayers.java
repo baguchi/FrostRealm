@@ -24,6 +24,8 @@ public class FrostModelLayers {
     public static final ModelLayerLocation CORRUPTED_WALKER_FOOT = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker_foot"), "main");
     public static final ModelLayerLocation CORRUPTED_WALKER_PART = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker_part"), "main");
 
+    public static final ModelLayerLocation VENOM_BALL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "venom_ball"), "main");
+
 
     public static final ModelLayerLocation GOKKUDILLO = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "gokkudillo"), "main");
     public static final ModelLayerLocation SEAL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "seal"), "main");

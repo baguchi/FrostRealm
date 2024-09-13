@@ -5,6 +5,7 @@ import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.animal.*;
 import baguchan.frostrealm.entity.hostile.*;
 import baguchan.frostrealm.entity.hostile.part.CorruptedWalker;
+import baguchan.frostrealm.entity.projectile.VenomBall;
 import baguchan.frostrealm.entity.projectile.WarpedCrystalShard;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -44,6 +45,7 @@ public class FrostEntities {
     public static final Supplier<EntityType<CorruptedWalker>> CORRUPTED_WALKER = ENTITIES.register("corruped_walker", () -> EntityType.Builder.of(CorruptedWalker::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(1.0F, 1.0F).eyeHeight(0.8F).fireImmune().build(prefix("corruped_walker")));
 
     public static final Supplier<EntityType<WarpedCrystalShard>> WARPED_CRYSTAL_SHARD = ENTITIES.register("warped_crystal", () -> EntityType.Builder.<WarpedCrystalShard>of(WarpedCrystalShard::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).build(prefix("warped_crystal")));
+    public static final Supplier<EntityType<VenomBall>> VENOM_BALL = ENTITIES.register("venom_ball", () -> EntityType.Builder.<VenomBall>of(VenomBall::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(8).updateInterval(30).build(prefix("venom_ball")));
 
 
     private static String prefix(String path) {
