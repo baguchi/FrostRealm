@@ -12,6 +12,7 @@
     }
   },
   "display": {
+    "announce_to_chat": false,
     "background": "frostrealm:textures/block/frigid_stone.png",
     "description": {
       "translate": "advancement.frostrealm.warriors_lost_item.desc"
@@ -20,6 +21,7 @@
       "count": 1,
       "id": "frostrealm:stray_necklace_part"
     },
+    "show_toast": false,
     "title": {
       "translate": "advancement.frostrealm.warriors_lost_item"
     }

@@ -82,7 +82,14 @@
     ],
     "frostrealm:surface_monster": [],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "frostrealm:venochem",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 10
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

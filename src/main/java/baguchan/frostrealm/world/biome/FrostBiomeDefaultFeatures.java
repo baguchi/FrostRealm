@@ -18,7 +18,12 @@ public class FrostBiomeDefaultFeatures {
 	}
 
 	public static void monsterSpawns(MobSpawnSettings.Builder p_126813_) {
+		defaultMonsterSpawns(p_126813_);
 		purpleFogMonsterSpawns(p_126813_);
+	}
+
+	public static void defaultMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
+		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.VENOCHEM.get(), 10, 1, 2));
 	}
 
 	public static void purpleFogMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
