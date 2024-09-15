@@ -2,7 +2,9 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.particle.FrostPortalParticle;
+import baguchan.frostrealm.client.particle.VenomBubbleParticle;
 import net.minecraft.client.particle.SuspendedParticle;
+import net.minecraft.client.particle.WhiteSmokeParticle;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -21,10 +23,14 @@ public class FrostParticleTypes {
 
     public static final Supplier<SimpleParticleType> FROST_PORTAL = PARTICLE_TYPES.register("frost_portal", () -> new SimpleParticleType(false));
     public static final Supplier<SimpleParticleType> CRYSTAL_SPORE = PARTICLE_TYPES.register("crystal_spore", () -> new SimpleParticleType(false));
+    public static final Supplier<SimpleParticleType> VENOM_BUBBLE = PARTICLE_TYPES.register("venom_bubble", () -> new SimpleParticleType(false));
+    public static final Supplier<SimpleParticleType> VENOM_CLOUD = PARTICLE_TYPES.register("venom_cloud", () -> new SimpleParticleType(false));
 
     @SubscribeEvent
     public static void registerFactories(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(FrostParticleTypes.FROST_PORTAL.get(), FrostPortalParticle.Provider::new);
         event.registerSpriteSet(FrostParticleTypes.CRYSTAL_SPORE.get(), SuspendedParticle.SporeBlossomAirProvider::new);
+        event.registerSpriteSet(FrostParticleTypes.VENOM_BUBBLE.get(), VenomBubbleParticle.Provider::new);
+        event.registerSpriteSet(FrostParticleTypes.VENOM_CLOUD.get(), WhiteSmokeParticle.Provider::new);
     }
 }

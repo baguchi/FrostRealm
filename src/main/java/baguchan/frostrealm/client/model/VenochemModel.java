@@ -4,7 +4,6 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.10.4
 
 
 import baguchan.frostrealm.client.animation.VenochemAnimation;
-import baguchan.frostrealm.client.animation.YetiAnimations;
 import baguchan.frostrealm.entity.hostile.Venochem;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -81,7 +80,7 @@ public class VenochemModel<T extends Venochem> extends HierarchicalModel<T> {
         this.animate(entity.attackAnimationState, VenochemAnimation.attack, ageInTicks);
         this.animate(entity.shootAnimationState, VenochemAnimation.spit, ageInTicks);
 
-        this.animateWalk(YetiAnimations.walk, limbSwing, limbSwingAmount, 1.0F, 2.0F);
+        this.animateWalk(VenochemAnimation.walk, limbSwing, limbSwingAmount, 1.0F, 2.0F);
     }
 
     @Override

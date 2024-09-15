@@ -14,7 +14,7 @@ public class ShootProjectileAnimationGoal extends Goal {
     private final RangedAttackMob rangedAttackMob;
     @Nullable
     private LivingEntity target;
-    private int attackTime = -1;
+    private int attackTime = -10;
     private final double speedModifier;
     private final int attackIntervalMin;
     private final int attackIntervalMax;
@@ -56,7 +56,7 @@ public class ShootProjectileAnimationGoal extends Goal {
     @Override
     public void stop() {
         this.target = null;
-        this.attackTime = -1;
+        this.attackTime = -10;
     }
 
     @Override
@@ -67,11 +67,9 @@ public class ShootProjectileAnimationGoal extends Goal {
     @Override
     public void tick() {
         double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
-        boolean flag = this.mob.getSensing().hasLineOfSight(this.target);
-        this.mob.getNavigation().moveTo(this.target, this.speedModifier);
+        boolean flag = this.mob.getSensing().hasLineOfSight(this.target) & d0 < this.attackRadius * this.attackRadius;
 
 
-        this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
         if (flag) {
 
             float f = (float) Math.sqrt(d0) / this.attackRadius;
@@ -83,16 +81,20 @@ public class ShootProjectileAnimationGoal extends Goal {
                 if (this.isTimeToAttack()) {
                     this.rangedAttackMob.performRangedAttack(this.target, f1);
                 }
-                if (this.attackTime == 20 * Mth.floor(3.375)) {
+                if (this.attackTime == 20 * Mth.floor(2)) {
                     this.attackTime = -Mth.floor(f * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
                 }
             }
+            this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+            this.mob.getNavigation().stop();
+        } else {
+            this.mob.getNavigation().moveTo(this.target, this.speedModifier);
         }
     }
 
     private boolean isTimeToAttack() {
         int i = attackTime;
 
-        return i == Mth.floor(1.25 * 20F) || i == Mth.floor(1.85 * 20) || i == Mth.floor(2.42 * 20) || i == Mth.floor(2.67 * 20);
+        return i == Mth.floor(0.63 * 20F);
     }
 }
