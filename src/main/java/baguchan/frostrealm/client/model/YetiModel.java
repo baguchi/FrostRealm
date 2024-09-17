@@ -110,7 +110,7 @@ public class YetiModel<T extends Yeti> extends HierarchicalModel<T> implements H
 			this.animate(entity.sitPoseAnimationState, YetiAnimations.sit, ageInTicks);
 			this.animate(entity.sitUpAnimationState, YetiAnimations.sit_stop, ageInTicks);
 		} else {
-			this.animateWalk(YetiAnimations.walk, limbSwing, limbSwingAmount, 1.0F, 1.0F);
+			this.animateWalk(YetiAnimations.walk, limbSwing, limbSwingAmount, 1.0F, 3.0F);
 		}
 	}
 
