@@ -80,7 +80,7 @@ public class VenochemModel<T extends Venochem> extends HierarchicalModel<T> {
         this.animate(entity.attackAnimationState, VenochemAnimation.attack, ageInTicks);
         this.animate(entity.shootAnimationState, VenochemAnimation.spit, ageInTicks);
 
-        this.animateWalk(VenochemAnimation.walk, limbSwing, limbSwingAmount, 4.0F, 2.0F);
+        this.animateWalk(VenochemAnimation.walk, limbSwing, limbSwingAmount, 4.0F, 3.0F);
     }
 
     @Override
