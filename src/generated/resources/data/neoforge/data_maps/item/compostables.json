@@ -1,0 +1,22 @@
+{
+  "values": {
+    "frostrealm:bearberry": {
+      "chance": 0.5
+    },
+    "frostrealm:rye": {
+      "chance": 0.5
+    },
+    "frostrealm:rye_bread": {
+      "chance": 0.6
+    },
+    "frostrealm:rye_seeds": {
+      "chance": 0.3
+    },
+    "frostrealm:sugarbeet": {
+      "chance": 0.5
+    },
+    "frostrealm:sugarbeet_seeds": {
+      "chance": 0.3
+    }
+  }
+}

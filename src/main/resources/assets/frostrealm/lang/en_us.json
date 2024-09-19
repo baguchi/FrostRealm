@@ -206,5 +206,7 @@
   "aurora_power.frostrealm.aurora_shaper": "Aurora Shaper",
   "aurora_power.frostrealm.crystal_slasher": "Crystal Slasher",
   "fluid.frostrealm.hot_spring": "Hot Spring",
-  "fluid_type.frostrealm.hot_spring": "Hot Spring"
+  "fluid_type.frostrealm.hot_spring": "Hot Spring",
+  "death.attack.venom": "%1$s was Infected Venom",
+  "death.attack.venom_ball": "%1$s was Infected Venom by %2$s 's %3$s"
 }

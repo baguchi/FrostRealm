@@ -6,6 +6,7 @@ import baguchan.frostrealm.data.resource.FrostNoises;
 import baguchan.frostrealm.data.resource.ModConfiguredFeatures;
 import baguchan.frostrealm.registry.FrostBiomeSources;
 import baguchan.frostrealm.registry.FrostBiomes;
+import baguchan.frostrealm.registry.FrostDamageSources;
 import baguchan.frostrealm.registry.FrostDimensionSettings;
 import baguchan.frostrealm.world.caver.FrostConfiguredWorldCarvers;
 import net.minecraft.core.HolderLookup;
@@ -20,6 +21,7 @@ import java.util.concurrent.CompletableFuture;
 public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
 
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
+			.add(Registries.DAMAGE_TYPE, FrostDamageSources::bootstrap)
             .add(Registries.NOISE, FrostNoises::bootstrap)
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrapConfiguredFeature)
             .add(Registries.PLACED_FEATURE, ModConfiguredFeatures::bootstrapPlacedFeature)

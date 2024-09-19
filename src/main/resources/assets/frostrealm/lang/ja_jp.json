@@ -206,5 +206,7 @@
   "subtitles.entity.snowpile_quail.death": "Snow Pile Quail Death",
   "subtitles.entity.snowpile_quail.hurt": "Snow Pile Quail Hurt",
   "subtitles.entity.snowpile_quail.idle": "Snow Pile Quail Crows",
-  "subtitles.entity.yeti.idle": "イエティーがうめく"
+  "subtitles.entity.yeti.idle": "イエティーがうめく",
+  "death.attack.venom": "%1$sは猛毒にさらされた",
+  "death.attack.venom_ball": "%1$sは%2$sの%3$sに猛毒にさらされた"
 }
