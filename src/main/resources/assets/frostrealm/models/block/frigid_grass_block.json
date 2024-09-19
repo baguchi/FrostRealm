@@ -4,8 +4,8 @@
   "textures": {
     "particle": "frostrealm:block/frigid_stone",
     "bottom": "frostrealm:block/frigid_stone",
-    "top": "frostrealm:block/frigid_grass_block_top",
-    "side": "frostrealm:block/frigid_stone"
+    "top": "frostrealm:block/frigid_grass_stone_top",
+    "side": "frostrealm:block/frigid_grass_stone"
   },
   "elements": [
     {
@@ -38,8 +38,7 @@
             16
           ],
           "texture": "#top",
-          "cullface": "up",
-          "tintindex": 0
+          "cullface": "up"
         },
         "north": {
           "uv": [
