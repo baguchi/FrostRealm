@@ -27,8 +27,6 @@ import java.util.function.Supplier;
 public class FrostEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, FrostRealm.MODID);
 
-    public static final Supplier<EntityType<BushBug>> BUSH_BUG = ENTITIES.register("bush_bug", () -> EntityType.Builder.of(BushBug::new, MobCategory.CREATURE).sized(0.6F, 0.6F).eyeHeight(0.3F).build(prefix("bush_bug")));
-
     public static final Supplier<EntityType<Marmot>> MARMOT = ENTITIES.register("marmot", () -> EntityType.Builder.of(Marmot::new, MobCategory.CREATURE).sized(0.65F, 0.6F).eyeHeight(0.4F).build(prefix("marmot")));
     public static final Supplier<EntityType<SnowPileQuail>> SNOWPILE_QUAIL = ENTITIES.register("snowpile_quail", () -> EntityType.Builder.of(SnowPileQuail::new, MobCategory.CREATURE).sized(0.6F, 0.6F).eyeHeight(0.4F).build(prefix("snowpile_quail")));
     public static final Supplier<EntityType<CrystalFox>> CRYSTAL_FOX = ENTITIES.register("crystal_fox", () -> EntityType.Builder.of(CrystalFox::new, MobCategory.CREATURE).sized(0.6F, 0.7F).eyeHeight(0.4F).clientTrackingRange(8).build(prefix("crystal_fox")));
@@ -61,8 +59,6 @@ public class FrostEntities {
         event.put(CRYSTAL_FOX.get(), CrystalFox.createAttributes().build());
         event.put(SNOW_MOLE.get(), SnowMole.createAttributes().build());
         event.put(SEAL.get(), Seal.createAttributes().build());
-        event.put(BUSH_BUG.get(), BushBug.createAttributes().build());
-
         event.put(YETI.get(), Yeti.createAttributeMap().build());
         event.put(FROST_WRAITH.get(), FrostWraith.createAttributes().build());
         event.put(SEEKER.get(), Seeker.createAttributes().build());
@@ -81,7 +77,6 @@ public class FrostEntities {
         event.register(CRYSTAL_FOX.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalFox::checkFrostAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(SNOW_MOLE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowMole::checkSnowMoleSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(SEAL.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seal::checkSealSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
-        event.register(BUSH_BUG.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostAnimal::checkFrostAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
 
         event.register(YETI.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
 

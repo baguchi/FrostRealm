@@ -148,7 +148,6 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.SEEKER.get(), SeekerRenderer::new);
         event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
         event.registerEntityRenderer(FrostEntities.MIND_VINE.get(), MindVineRenderer::new);
-        event.registerEntityRenderer(FrostEntities.BUSH_BUG.get(), BushBugRender::new);
         event.registerEntityRenderer(FrostEntities.CORRUPTED_WALKER.get(), CorruptedWalkerRenderer::new);
         event.registerEntityRenderer(FrostEntities.VENOM_BALL.get(), VenomBallRenderer::new);
 		event.registerEntityRenderer(FrostEntities.VENOCHEM.get(), VenochemRenderer::new);
@@ -174,7 +173,6 @@ public class ClientRegistrar {
         event.registerLayerDefinition(FrostModelLayers.SEEKER, SeekerModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SEAL, SealModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.MIND_VINE, MindVineModel::createBodyLayer);
-        event.registerLayerDefinition(FrostModelLayers.BUSH_BUG, BushBugModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.VENOCHEM, VenochemModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.VENOM_BALL, VenomBallModel::createBodyLayer);

@@ -29,10 +29,8 @@ public class FrostModelLayers {
     public static final ModelLayerLocation VENOM_BALL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "venom_ball"), "main");
 
 
-    public static final ModelLayerLocation GOKKUDILLO = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "gokkudillo"), "main");
     public static final ModelLayerLocation SEAL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "seal"), "main");
     public static final ModelLayerLocation MIND_VINE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "mind_vine"), "main");
-    public static final ModelLayerLocation BUSH_BUG = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "bush_bug"), "main");
     public static final ModelLayerLocation YETI_FUR_ARMOR_INNER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "yeti_fur_armor_inner"), "yeti_fur_armor_inner");
     public static final ModelLayerLocation YETI_FUR_ARMOR_OUTER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "yeti_fur_armor_outer"), "yeti_fur_armor_outer");
 

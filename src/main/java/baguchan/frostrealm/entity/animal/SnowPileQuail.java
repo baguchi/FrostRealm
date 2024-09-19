@@ -262,14 +262,6 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 		this.entityData.set(HAS_EGG, hasEgg);
 	}
 
-	public boolean isAngry() {
-		return this.entityData.get(ANGRY);
-	}
-
-	public void setAngry(boolean angry) {
-		this.entityData.set(ANGRY, angry);
-	}
-
 
 	@Nullable
 	@Override
