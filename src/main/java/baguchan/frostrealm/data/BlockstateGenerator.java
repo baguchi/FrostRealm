@@ -90,6 +90,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 
 		this.make2LayerCubeAllSidesSame(FrostBlocks.FROST_CRYSTAL_ORE.get(), ResourceLocation.withDefaultNamespace("cutout"), 0, 15, false);
 		this.make2LayerCubeAllSidesSame(FrostBlocks.GLIMMERROCK_ORE.get(), ResourceLocation.withDefaultNamespace("cutout"), 0, 15, false);
+		this.simpleBlock(FrostBlocks.FROST_CRYSTAL_BLOCK.get());
 
 		this.simpleBlock(FrostBlocks.ASTRIUM_ORE.get());
 

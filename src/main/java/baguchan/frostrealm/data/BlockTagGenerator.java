@@ -30,6 +30,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
                 , FrostBlocks.PERMA_SLATE_SMOOTH.get(), FrostBlocks.PERMA_SLATE_BRICK.get(), FrostBlocks.PERMA_SLATE_BRICK_STAIRS.get(), FrostBlocks.PERMA_SLATE_BRICK_SLAB.get()
                 , FrostBlocks.SHERBET_SANDSTONE.get(), FrostBlocks.SHERBET_SANDSTONE_STAIRS.get(), FrostBlocks.SHERBET_SANDSTONE_SLAB.get()
                 , FrostBlocks.POINTED_ICE.get()
+                , FrostBlocks.FROST_CRYSTAL_BLOCK.get()
                 , FrostBlocks.FROST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.ASTRIUM_ORE.get(), FrostBlocks.ASTRIUM_BLOCK.get(), FrostBlocks.RAW_ASTRIUM_BLOCK.get(), FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get()
                 , FrostBlocks.FROST_CRYSTAL_SLATE_ORE.get(), FrostBlocks.GLIMMERROCK_SLATE_ORE.get(), FrostBlocks.ASTRIUM_SLATE_ORE.get()
                 , FrostBlocks.WARPED_CRYSTAL_BLOCK.get()
