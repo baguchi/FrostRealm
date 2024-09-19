@@ -1,7 +1,11 @@
 {
   "values": [
+    "frostrealm:astrium_ore",
     "frostrealm:stardust_crystal_ore",
     "frostrealm:glimmerrock_ore",
-    "frostrealm:frost_crystal_ore"
+    "frostrealm:frost_crystal_ore",
+    "frostrealm:astrium_slate_ore",
+    "frostrealm:glimmerrock_slate_ore",
+    "frostrealm:frost_crystal_slate_ore"
   ]
 }

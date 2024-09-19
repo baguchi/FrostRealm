@@ -177,6 +177,18 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.requires(FrostBlocks.RAW_ASTRIUM_BLOCK.get())
 				.unlockedBy("has_item", has(FrostItems.ASTRIUM_RAW.get())).save(consumer, prefix("astrium_raw_from_block"));
 
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.GLIMMERROCK_BLOCK.get(), 1)
+				.pattern("AAA")
+				.pattern("AAA")
+				.pattern("AAA")
+				.define('A', FrostItems.GLIMMERROCK.get())
+				.unlockedBy("has_item", has(FrostItems.GLIMMERROCK.get())).save(consumer);
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostItems.GLIMMERROCK.get(), 9)
+				.requires(FrostBlocks.GLIMMERROCK_BLOCK.get())
+				.unlockedBy("has_item", has(FrostItems.GLIMMERROCK.get())).save(consumer, prefix("glimmer_rock_from_block"));
+
+
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROST_CRYSTAL_BLOCK.get(), 1)
 				.pattern("AAA")
 				.pattern("AAA")

@@ -50,12 +50,6 @@ public class SnowPileQuailModel<T extends SnowPileQuail> extends EntityModel<T> 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-	public void animate(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.head.xRot = 0.0F;
-		this.head.zRot = 0.0F;
-		this.body.xRot = 0.0F;
-	}
-
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.head.xRot = headPitch * ((float) Math.PI / 180F);
@@ -65,12 +59,10 @@ public class SnowPileQuailModel<T extends SnowPileQuail> extends EntityModel<T> 
 		this.wingR.zRot = 0.0F;
 		this.wingL.zRot = -0.0F;
 
-		if (!entity.onGround() || entity.isAngry()) {
+		if (!entity.onGround()) {
 			this.wingR.zRot = 0.6F + 0.8F * Mth.sin(2.4F * ageInTicks);
 			this.wingL.zRot = -0.6F + -0.8F * Mth.sin(2.4F * ageInTicks);
 		}
-
-		animate(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 	}
 
 	@Override

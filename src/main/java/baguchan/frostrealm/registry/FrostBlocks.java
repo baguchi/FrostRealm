@@ -122,6 +122,8 @@ public class FrostBlocks {
 	public static final Supplier<Block> ASTRIUM_BLOCK = register("astrium_block", () -> new Block(BlockBehaviour.Properties.of().strength(5.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 	public static final Supplier<Block> RAW_ASTRIUM_BLOCK = register("raw_astrium_block", () -> new Block(BlockBehaviour.Properties.of().strength(5.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 
+	public static final Supplier<Block> GLIMMERROCK_BLOCK = register("glimmerrock_block", () -> new Block(BlockBehaviour.Properties.of().strength(5.0F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.METAL)));
+
 
 	public static final Supplier<Block> GLACINIUM_ORE = register("glacinium_ore", () -> new Block(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops()
 			.strength(10.0F, 100.0F).sound(SoundType.DEEPSLATE)));
