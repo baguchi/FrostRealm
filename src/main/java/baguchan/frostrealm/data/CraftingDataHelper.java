@@ -124,6 +124,28 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 				.save(consumer, locEquip(name));
 	}
 
+	protected final void hoeItem(RecipeOutput consumer, String name, Item result, Item material, TagKey<Item> handle) {
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
+				.pattern("##")
+				.pattern("X ")
+				.pattern("X ")
+				.define('#', material)
+				.define('X', handle)
+				.unlockedBy("has_item", has(material))
+				.save(consumer, locEquip(name));
+	}
+
+	protected final void sickleItem(RecipeOutput consumer, String name, Item result, Item material, TagKey<Item> handle) {
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, result)
+				.pattern("###")
+				.pattern("X  ")
+				.pattern("X  ")
+				.define('#', material)
+				.define('X', handle)
+				.unlockedBy("has_item", has(material))
+				.save(consumer, locEquip(name));
+	}
+
     public void makeStairs(RecipeOutput consumer, Block stairsOut, Block blockIn) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, stairsOut, 4)
 				.pattern("M  ")

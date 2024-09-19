@@ -38,6 +38,7 @@ public class FrostTags {
         public static final TagKey<Item> YETI_CURRENCY = tag("yeti_currency");
         public static final TagKey<Item> YETI_SCARED = tag("yeti_scared");
         public static final TagKey<Item> YETI_BIG_CURRENCY = tag("yeti_big_currency");
+		public static final TagKey<Item> SICKLE = tag("sickle");
 
         private static TagKey<Item> tag(String p_203849_) {
 			return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_203849_));

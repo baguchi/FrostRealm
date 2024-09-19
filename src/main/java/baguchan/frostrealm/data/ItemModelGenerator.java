@@ -61,6 +61,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTexTool(FrostItems.ASTRIUM_PICKAXE);
 		this.singleTexTool(FrostItems.ASTRIUM_SHOVEL);
 		this.singleTexTool(FrostItems.ASTRIUM_HOE);
+		this.singleTexTool(FrostItems.ASTRIUM_SICKLE);
 
 		this.singleTex(FrostItems.YETI_FUR_HELMET);
 		this.singleTex(FrostItems.YETI_FUR_CHESTPLATE);

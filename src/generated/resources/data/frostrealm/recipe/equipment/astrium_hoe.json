@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "frostrealm:astrium_ingot"
+    },
+    "X": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "pattern": [
+    "##",
+    "X ",
+    "X "
+  ],
+  "result": {
+    "count": 1,
+    "id": "frostrealm:astrium_hoe"
+  }
+}

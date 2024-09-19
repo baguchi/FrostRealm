@@ -16,7 +16,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class FrostSpearItem extends Item {
@@ -42,14 +41,6 @@ public class FrostSpearItem extends Item {
 
 	public boolean canAttackBlock(BlockState p_43291_, Level p_43292_, BlockPos p_43293_, Player p_43294_) {
 		return !p_43294_.isCreative();
-	}
-
-	public float getDestroySpeed(ItemStack p_43288_, BlockState p_43289_) {
-		if (p_43289_.is(Blocks.COBWEB)) {
-			return 0.1F;
-		} else {
-			return super.getDestroySpeed(p_43288_, p_43289_);
-		}
 	}
 
 	@Override
@@ -80,10 +71,6 @@ public class FrostSpearItem extends Item {
 		return true;
 	}
 
-	@Override
-	public boolean isCorrectToolForDrops(ItemStack p_336002_, BlockState p_41450_) {
-		return false;
-	}
 	@Override
 	public int getEnchantmentValue() {
 		return 20;

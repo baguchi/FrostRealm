@@ -64,6 +64,8 @@ public class FrostBiomeDefaultFeatures {
 		p_194721_.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FrostOrePlacements.GLIMMER_ORE_LOWER);
 		p_194721_.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FrostOrePlacements.GLIMMER_ORE_EXTRA);
 		p_194721_.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FrostOrePlacements.GLIMMER_ORE_SMALL);
+		p_194721_.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FrostOrePlacements.GLACINIUM_ORE);
+		p_194721_.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, FrostOrePlacements.GLACINIUM_ORE_SMALL);
 	}
 
 	public static void addForestFeatures(BiomeGenerationSettings.Builder p_194721_) {
