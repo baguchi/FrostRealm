@@ -154,6 +154,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.GLIMMERROCK_SLATE_ORE);
 		this.toBlock(FrostBlocks.ASTRIUM_SLATE_ORE);
 
+
+		this.toBlock(FrostBlocks.GLIMMERROCK_BLOCK);
 		this.toBlock(FrostBlocks.FROST_CRYSTAL_BLOCK);
 		this.toBlock(FrostBlocks.ASTRIUM_BLOCK);
 		this.toBlock(FrostBlocks.RAW_ASTRIUM_BLOCK);
