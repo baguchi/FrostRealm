@@ -99,7 +99,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.add(FrostBlocks.SHERBET_SANDSTONE_SLAB.get(), this::createSlabItemTable);
 		this.dropSelf(FrostBlocks.SHERBET_SANDSTONE_STAIRS.get());
 
-		this.add(FrostBlocks.GLACINIUM.get(), this::createGlaciniumDrops);
+		this.add(FrostBlocks.GLACINIUM_ORE.get(), this::createGlaciniumDrops);
 		this.dropSelf(FrostBlocks.GLACINIUM_BLOCK.get());
 
 		this.dropSelf(FrostBlocks.FROSTROOT_LOG.get());
@@ -140,6 +140,8 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.add(FrostBlocks.ASTRIUM_SLATE_ORE.get(), this::createAstriumOreDrops);
 
 		this.dropSelf(FrostBlocks.ASTRIUM_BLOCK.get());
+		this.dropSelf(FrostBlocks.RAW_ASTRIUM_BLOCK.get());
+
 		this.add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), this::createStardustCrystalOreDrops);
 		this.dropSelf(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.dropSelf(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
@@ -264,7 +266,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 	protected LootTable.Builder createGlaciniumDrops(Block p_176049_) {
 		HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
 
-		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.GLACINIUM_CRYSTAL.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))).apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))));
+		return createSilkTouchDispatchTable(p_176049_, applyExplosionDecay(p_176049_, LootItem.lootTableItem(FrostItems.GLACINIUM_CRYSTAL.get()).apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))));
 	}
 
 

@@ -125,7 +125,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.SHERBET_SANDSTONE_STAIRS);
 		this.toBlock(FrostBlocks.SHERBET_SANDSTONE_SLAB);
 
-		this.toBlock(FrostBlocks.GLACINIUM);
+		this.toBlock(FrostBlocks.GLACINIUM_ORE);
 		this.toBlock(FrostBlocks.GLACINIUM_BLOCK);
 
 		this.toBlock(FrostBlocks.FROSTROOT_LOG);
@@ -153,8 +153,9 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.FROST_CRYSTAL_SLATE_ORE);
 		this.toBlock(FrostBlocks.GLIMMERROCK_SLATE_ORE);
 		this.toBlock(FrostBlocks.ASTRIUM_SLATE_ORE);
-
 		this.toBlock(FrostBlocks.ASTRIUM_BLOCK);
+		this.toBlock(FrostBlocks.RAW_ASTRIUM_BLOCK);
+
 		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_ORE);
 		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER);
 		this.toBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK);

@@ -5,6 +5,7 @@
     "frostrealm:astrium_ore",
     "frostrealm:glimmerrock_slate_ore",
     "frostrealm:astrium_slate_ore",
-    "frostrealm:astrium_block"
+    "frostrealm:astrium_block",
+    "frostrealm:raw_astrium_block"
   ]
 }

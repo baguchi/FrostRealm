@@ -26,6 +26,7 @@
     "frostrealm:glimmerrock_ore",
     "frostrealm:astrium_ore",
     "frostrealm:astrium_block",
+    "frostrealm:raw_astrium_block",
     "frostrealm:stardust_crystal_ore",
     "frostrealm:stardust_crystal_cluster",
     "frostrealm:frost_crystal_slate_ore",
@@ -35,7 +36,7 @@
     "frostrealm:aurora_infuser",
     "frostrealm:frigid_grass_block",
     "frostrealm:perma_slate",
-    "frostrealm:glacinium",
+    "frostrealm:glacinium_ore",
     "frostrealm:glacinium_block"
   ]
 }

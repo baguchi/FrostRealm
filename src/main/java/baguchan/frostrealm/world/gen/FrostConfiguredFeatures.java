@@ -39,7 +39,7 @@ public class FrostConfiguredFeatures {
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_GLIMMERROCK_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.GLIMMERROCK_ORE.get().defaultBlockState()), OreConfiguration.target(SLATE_REPLACEABLES, FrostBlocks.GLIMMERROCK_SLATE_ORE.get().defaultBlockState()));
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_ASTRIUM_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.ASTRIUM_ORE.get().defaultBlockState()), OreConfiguration.target(SLATE_REPLACEABLES, FrostBlocks.ASTRIUM_SLATE_ORE.get().defaultBlockState()));
 	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_STARDUST_CRYSRTAL_TARGET_LIST = ImmutableList.of(OreConfiguration.target(FRIGID_ORE_REPLACEABLES, FrostBlocks.STARDUST_CRYSTAL_ORE.get().defaultBlockState()));
-    public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_GLACINIUM_TARGET_LIST = ImmutableList.of(OreConfiguration.target(SLATE_REPLACEABLES, FrostBlocks.GLACINIUM.get().defaultBlockState()));
+	public static final ImmutableList<OreConfiguration.TargetBlockState> ORE_GLACINIUM_TARGET_LIST = ImmutableList.of(OreConfiguration.target(SLATE_REPLACEABLES, FrostBlocks.GLACINIUM_ORE.get().defaultBlockState()));
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_FROST_CRYSTAL = registerKey("ore_frost_crystal");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_FROST_CRYSTAL_BURIED = registerKey("ore_frost_crystal_buried");

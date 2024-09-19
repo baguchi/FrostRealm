@@ -6,7 +6,7 @@
     "targets": [
       {
         "state": {
-          "Name": "frostrealm:glacinium"
+          "Name": "frostrealm:glacinium_ore"
         },
         "target": {
           "block": "frostrealm:perma_slate",

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "frostrealm:block/glacinium"
+    "all": "frostrealm:block/glacinium_ore"
   }
 }

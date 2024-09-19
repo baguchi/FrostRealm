@@ -26,20 +26,11 @@
                   }
                 }
               ],
-              "name": "frostrealm:glacinium"
+              "name": "frostrealm:glacinium_ore"
             },
             {
               "type": "minecraft:item",
               "functions": [
-                {
-                  "add": false,
-                  "count": {
-                    "type": "minecraft:uniform",
-                    "max": 2.0,
-                    "min": 1.0
-                  },
-                  "function": "minecraft:set_count"
-                },
                 {
                   "enchantment": "minecraft:fortune",
                   "formula": "minecraft:ore_drops",
@@ -57,5 +48,5 @@
       "rolls": 1.0
     }
   ],
-  "random_sequence": "frostrealm:blocks/glacinium"
+  "random_sequence": "frostrealm:blocks/glacinium_ore"
 }

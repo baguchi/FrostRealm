@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "frostrealm:raw_astrium_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "frostrealm:astrium_raw"
+  }
+}

@@ -65,7 +65,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.slabBlock(FrostBlocks.SHERBET_SANDSTONE_SLAB.get(), texture(name(FrostBlocks.SHERBET_SANDSTONE.get())), texture(name(FrostBlocks.SHERBET_SANDSTONE.get())), suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_bottom"), suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_top"));
 		this.stairsBlock(FrostBlocks.SHERBET_SANDSTONE_STAIRS.get(), blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_bottom"), suffix(blockTexture(FrostBlocks.SHERBET_SANDSTONE.get()), "_top"));
 
-		this.simpleBlock(FrostBlocks.GLACINIUM.get());
+		this.simpleBlock(FrostBlocks.GLACINIUM_ORE.get());
 		this.simpleBlock(FrostBlocks.GLACINIUM_BLOCK.get());
 
 		this.logBlock(FrostBlocks.FROSTROOT_LOG.get());
@@ -97,6 +97,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.make2LayerCubeAllSidesSame(FrostBlocks.GLIMMERROCK_SLATE_ORE.get(), ResourceLocation.withDefaultNamespace("cutout"), 0, 15, false);
 		this.simpleBlock(FrostBlocks.ASTRIUM_SLATE_ORE.get());
 		this.simpleBlock(FrostBlocks.ASTRIUM_BLOCK.get());
+		this.simpleBlock(FrostBlocks.RAW_ASTRIUM_BLOCK.get());
 		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
 		this.translucentBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.translucentBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
