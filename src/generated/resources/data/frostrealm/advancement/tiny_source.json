@@ -1,0 +1,33 @@
+{
+  "parent": "frostrealm:enter_frostrealm",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "frostrealm:frost_campfire"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.frostrealm.tiny_source.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "frostrealm:frost_campfire"
+    },
+    "title": {
+      "translate": "advancement.frostrealm.tiny_source"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

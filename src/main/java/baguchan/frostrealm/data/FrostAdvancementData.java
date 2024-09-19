@@ -49,6 +49,15 @@ public class FrostAdvancementData extends AdvancementProvider {
 							AdvancementType.TASK, true, true, false)
 					.addCriterion("enter_frostrealm", ChangeDimensionTrigger.TriggerInstance.changedDimensionTo(FrostDimensions.FROSTREALM_LEVEL))
 					.save(consumer, "frostrealm:enter_frostrealm");
+			AdvancementHolder tiny_source = Advancement.Builder.advancement()
+					.parent(enterFrostrealm)
+					.display(FrostBlocks.FROST_CAMPFIRE.get(),
+							Component.translatable("advancement.frostrealm.tiny_source"),
+							Component.translatable("advancement.frostrealm.tiny_source.desc"),
+							null,
+							AdvancementType.TASK, true, true, false)
+					.addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(FrostBlocks.FROST_CAMPFIRE.get()))
+					.save(consumer, "frostrealm:tiny_source");
             AdvancementHolder getRock = Advancement.Builder.advancement()
 					.parent(enterFrostrealm)
 					.display(FrostItems.GLIMMERROCK.get(),
@@ -58,6 +67,15 @@ public class FrostAdvancementData extends AdvancementProvider {
 							AdvancementType.TASK, true, true, false)
 					.addCriterion("hot_source", InventoryChangeTrigger.TriggerInstance.hasItems(FrostItems.GLIMMERROCK.get()))
 					.save(consumer, "frostrealm:get_glimmerrock");
+			AdvancementHolder alternatives = Advancement.Builder.advancement()
+					.parent(getRock)
+					.display(FrostItems.CRYONITE_CREAM.get(),
+							Component.translatable("advancement.frostrealm.alternatives"),
+							Component.translatable("advancement.frostrealm.alternatives.desc"),
+							null,
+							AdvancementType.GOAL, true, true, false)
+					.addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(FrostItems.CRYONITE_CREAM.get()))
+					.save(consumer, "frostrealm:alternatives");
 		}
 	}
 }
