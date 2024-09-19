@@ -242,13 +242,13 @@ public class ClientRegistrar {
 			Window window = minecraft.getWindow();
 			LocalPlayer player = minecraft.player;
 			if (player != null) {
-				renderTofuPortalOverlay(guiGraphics, minecraft, window, player.getData(FrostAttachs.FROST_LIVING.get()), partialTicks);
+				renderPortalOverlay(guiGraphics, minecraft, window, player.getData(FrostAttachs.FROST_LIVING.get()), partialTicks);
 			}
 		});
 	}
 
 
-	private static void renderTofuPortalOverlay(GuiGraphics guiGraphics, Minecraft minecraft, Window window, FrostLivingCapability handler, DeltaTracker partialTicks) {
+	private static void renderPortalOverlay(GuiGraphics guiGraphics, Minecraft minecraft, Window window, FrostLivingCapability handler, DeltaTracker partialTicks) {
 		float timeInPortal = Mth.lerp(partialTicks.getGameTimeDeltaPartialTick(false), handler.getPrevPortalAnimTime(), handler.getPortalAnimTime());
 		if (timeInPortal > 0.0F) {
 			if (timeInPortal < 1.0F) {
