@@ -76,6 +76,25 @@ public class FrostAdvancementData extends AdvancementProvider {
 							AdvancementType.GOAL, true, true, false)
 					.addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(FrostItems.CRYONITE_CREAM.get()))
 					.save(consumer, "frostrealm:alternatives");
+
+			AdvancementHolder astrium_age = Advancement.Builder.advancement()
+					.parent(enterFrostrealm)
+					.display(FrostItems.ASTRIUM_INGOT.get(),
+							Component.translatable("advancement.frostrealm.astrium_age"),
+							Component.translatable("advancement.frostrealm.astrium_age.desc"),
+							null,
+							AdvancementType.TASK, true, true, false)
+					.addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(FrostItems.ASTRIUM_INGOT.get()))
+					.save(consumer, "frostrealm:astrium_age");
+			AdvancementHolder combined_strength = Advancement.Builder.advancement()
+					.parent(astrium_age)
+					.display(FrostItems.GLACINIUM_INGOT.get(),
+							Component.translatable("advancement.frostrealm.combined_strength"),
+							Component.translatable("advancement.frostrealm.combined_strength.desc"),
+							null,
+							AdvancementType.TASK, true, true, false)
+					.addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(FrostItems.GLACINIUM_INGOT.get()))
+					.save(consumer, "frostrealm:combined_strength");
 		}
 	}
 }

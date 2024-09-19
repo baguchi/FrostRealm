@@ -54,7 +54,7 @@ public class FrostItems {
     public static final Supplier<Item> ASTRIUM_PICKAXE = ITEMS.register("astrium_pickaxe", () -> new PickaxeItem(FrostItemTier.ASTRIUM, (new Item.Properties().attributes(PickaxeItem.createAttributes(FrostItemTier.ASTRIUM, 1, -2.7F)))));
     public static final Supplier<Item> ASTRIUM_SHOVEL = ITEMS.register("astrium_shovel", () -> new ShovelItem(FrostItemTier.ASTRIUM, (new Item.Properties().attributes(ShovelItem.createAttributes(FrostItemTier.ASTRIUM, 1.5F, -2.9F)))));
     public static final Supplier<Item> ASTRIUM_HOE = ITEMS.register("astrium_hoe", () -> new HoeItem(FrostItemTier.ASTRIUM, (new Item.Properties().attributes(HoeItem.createAttributes(FrostItemTier.ASTRIUM, -2, -1.0F)))));
-    public static final Supplier<Item> ASTRIUM_SICKLE = ITEMS.register("astrium_sickle", () -> new SickleItem(FrostItemTier.ASTRIUM, (new Item.Properties().attributes(SickleItem.createAttributes(FrostItemTier.ASTRIUM, 7.0F, -3.3F)))));
+    public static final Supplier<Item> ASTRIUM_SICKLE = ITEMS.register("astrium_sickle", () -> new SickleItem(FrostItemTier.ASTRIUM, (new Item.Properties().attributes(SickleItem.createAttributes(FrostItemTier.ASTRIUM, 7.0F, -3.3F)).rarity(Rarity.UNCOMMON))));
 
 
     public static final Supplier<Item> YETI_FUR_HELMET = ITEMS.register("yeti_fur_helmet", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorItem.Type.HELMET, (new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(20)))));

@@ -1,0 +1,33 @@
+{
+  "parent": "frostrealm:astrium_age",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "frostrealm:glacinium_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.frostrealm.combined_strength.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "frostrealm:glacinium_ingot"
+    },
+    "title": {
+      "translate": "advancement.frostrealm.combined_strength"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
