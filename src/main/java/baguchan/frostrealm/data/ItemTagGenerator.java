@@ -53,7 +53,7 @@ public class ItemTagGenerator extends ItemTagsProvider {
         this.tag(ItemTags.CHEST_ARMOR).add(FrostItems.FROST_BOAR_FUR_CHESTPLATE.get()).add(FrostItems.YETI_FUR_CHESTPLATE.get()).add(FrostItems.ASTRIUM_CHESTPLATE.get());
         this.tag(ItemTags.HEAD_ARMOR).add(FrostItems.FROST_BOAR_FUR_HELMET.get()).add(FrostItems.YETI_FUR_HELMET.get()).add(FrostItems.ASTRIUM_HELMET.get());
 
-        this.tag(ItemTags.SWORDS).add(FrostItems.ASTRIUM_SWORD.get());
+        this.tag(ItemTags.SWORDS).add(FrostItems.ASTRIUM_SWORD.get()).add(FrostItems.SILVER_MOON.get());
         this.tag(ItemTags.PICKAXES).add(FrostItems.ASTRIUM_PICKAXE.get());
         this.tag(ItemTags.AXES).add(FrostItems.ASTRIUM_AXE.get());
         this.tag(ItemTags.SHOVELS).add(FrostItems.ASTRIUM_SHOVEL.get());

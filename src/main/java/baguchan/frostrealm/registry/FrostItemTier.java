@@ -10,7 +10,8 @@ import net.minecraft.world.level.block.Block;
 import java.util.function.Supplier;
 
 public enum FrostItemTier implements Tier {
-	ASTRIUM(BlockTags.INCORRECT_FOR_IRON_TOOL, 2, 320, 6.0F, 2.0F, 16, () -> Ingredient.of(FrostItems.ASTRIUM_INGOT.get()));
+	ASTRIUM(BlockTags.INCORRECT_FOR_IRON_TOOL, 2, 320, 6.0F, 2.0F, 16, () -> Ingredient.of(FrostItems.ASTRIUM_INGOT.get())),
+	SILVER_MOON(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 3, 560, 7.0F, 3.0F, 20, () -> Ingredient.of());
 	private final TagKey<Block> incorrectBlocksForDrops;
 	private final int level;
 
