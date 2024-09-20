@@ -44,7 +44,7 @@ public class ClientEvents {
     @SubscribeEvent
     public static void animationEvent(BagusModelEvent.Init bagusModelEvent) {
         IRootModel rootModel = bagusModelEvent.getRootModel();
-        if (rootModel != null) {
+        if (bagusModelEvent.isSupportedAnimateModel()) {
             rootModel.getBagusRoot().getAllParts().forEach(ModelPart::resetPose);
         }
     }
@@ -53,7 +53,7 @@ public class ClientEvents {
     public static void animationEvent(BagusModelEvent.PostAnimate bagusModelEvent) {
         IRootModel rootModel = bagusModelEvent.getRootModel();
         BaguAnimationController animationController = AnimationUtil.getAnimationController(bagusModelEvent.getEntity());
-        if (rootModel != null && animationController != null && bagusModelEvent.getEntity() instanceof Player livingEntity) {
+        if (bagusModelEvent.isSupportedAnimateModel() && animationController != null && bagusModelEvent.getEntity() instanceof Player livingEntity) {
             if (livingEntity.getItemBySlot(EquipmentSlot.MAINHAND).is(FrostItems.FROST_SPEAR.get())) {
                 if (livingEntity.getMainArm() == HumanoidArm.RIGHT) {
                     rootModel.getBagusRoot().getChild("right_arm").resetPose();

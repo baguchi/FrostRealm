@@ -238,8 +238,9 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 
 	private static void spawnFallingStalactite(BlockState p_154098_, ServerLevel p_154099_, BlockPos p_154100_) {
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = p_154100_.mutable();
+		BlockState blockstate = p_154098_;
 
-		for (BlockState blockstate = p_154098_; isStalactite(blockstate); blockstate = p_154099_.getBlockState(blockpos$mutableblockpos)) {
+		while (isStalactite(blockstate)) {
 			FallingBlockEntity fallingblockentity = FallingBlockEntity.fall(p_154099_, blockpos$mutableblockpos, blockstate);
 			if (isTip(blockstate, true)) {
 				int i = Math.max(1 + p_154100_.getY() - blockpos$mutableblockpos.getY(), 6);
@@ -249,9 +250,9 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 			}
 
 			blockpos$mutableblockpos.move(Direction.DOWN);
+			blockstate = p_154099_.getBlockState(blockpos$mutableblockpos);
 		}
 	}
-
 	@VisibleForTesting
 	public static void growStalactiteOrStalagmiteIfPossible(BlockState p_154226_, ServerLevel p_154227_, BlockPos p_154228_, RandomSource p_154229_) {
 		BlockState blockstate = p_154227_.getBlockState(p_154228_.above(1));
