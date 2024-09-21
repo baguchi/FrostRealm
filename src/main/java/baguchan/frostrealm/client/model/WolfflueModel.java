@@ -50,8 +50,8 @@ public class WolfflueModel<T extends Wolfflue> extends HierarchicalModel<T> {
         PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-6.0F, -22.0F, -5.0F, 12.0F, 10.0F, 17.0F, cubeDeformation)
                 .texOffs(0, 27).addBox(-7.0F, -24.0F, -16.0F, 14.0F, 14.0F, 12.0F, cubeDeformation), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(40, 27).addBox(-0.5F, -20.0F, 12.0F, 1.0F, 1.0F, 11.0F, cubeDeformation)
-                .texOffs(58, 15).addBox(-2.0F, -20.5F, 23.0F, 4.0F, 2.0F, 5.0F, cubeDeformation), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(40, 27).addBox(-0.5F, -1.0F, 1.0F, 1.0F, 1.0F, 11.0F, cubeDeformation)
+                .texOffs(58, 15).addBox(-2.0F, -1.5F, 12.0F, 4.0F, 2.0F, 5.0F, cubeDeformation), PartPose.offset(0.0F, -19.0F, 11.0F));
 
         PartDefinition rightLeg = all.addOrReplaceChild("rightLeg", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
@@ -77,6 +77,7 @@ public class WolfflueModel<T extends Wolfflue> extends HierarchicalModel<T> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
         this.head.xRot = headPitch * ((float) Math.PI / 180F);
+        this.tail.xRot = entity.getTailAngle();
         if (entity.isBaby()) {
             this.applyStatic(WolfflueAnimations.baby);
         }

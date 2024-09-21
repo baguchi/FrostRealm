@@ -70,6 +70,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
     public final AnimationState idleSit2AnimationState = new AnimationState();
 
     private int idleAnimationTimeout = 0;
+    private int idleAnimationRemainTick = 0;
 
     public Wolfflue(EntityType<? extends Wolfflue> p_30369_, Level p_30370_) {
         super(p_30369_, p_30370_);
@@ -105,16 +106,38 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
 
     private void setupAnimationStates() {
         if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
+            this.idleAnimationTimeout = this.random.nextInt(80) + 80;
             if (this.isInSittingPose()) {
                 if (this.random.nextBoolean()) {
+                    this.stopAllAnimation();
                     this.idleSitAnimationState.start(this.tickCount);
+                    this.idleAnimationRemainTick = 20 * 2;
                 } else {
+                    this.stopAllAnimation();
                     this.idleSit2AnimationState.start(this.tickCount);
+                    this.idleAnimationRemainTick = (int) (20 * 1.75F);
                 }
             }
         } else {
             this.idleAnimationTimeout--;
+        }
+
+        if (this.idleAnimationRemainTick <= 0) {
+            this.stopAllAnimation();
+        } else {
+            this.idleAnimationRemainTick--;
+        }
+        if (!this.isInSittingPose()) {
+            this.stopAllAnimation();
+        }
+    }
+
+    protected void stopAllAnimation() {
+        if (this.idleSitAnimationState.isStarted()) {
+            this.idleSitAnimationState.stop();
+        }
+        if (this.idleSit2AnimationState.isStarted()) {
+            this.idleSit2AnimationState.stop();
         }
     }
 
@@ -169,7 +192,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
         if (this.isAngry()) {
             return SoundEvents.WOLF_GROWL;
         } else if (this.random.nextInt(3) == 0) {
-            return this.isTame() && this.getHealth() < 20.0F ? SoundEvents.WOLF_WHINE : SoundEvents.WOLF_PANT;
+            return this.isTame() && this.getHealth() < 40.0F ? SoundEvents.WOLF_WHINE : SoundEvents.WOLF_PANT;
         } else {
             return SoundEvents.WOLF_AMBIENT;
         }
@@ -287,7 +310,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
 
     @Override
     protected void hurtArmor(DamageSource p_332118_, float p_330593_) {
-        this.doHurtEquipment(p_332118_, p_330593_, new EquipmentSlot[]{EquipmentSlot.BODY});
+        this.doHurtEquipment(p_332118_, p_330593_, EquipmentSlot.BODY);
     }
 
     @Override
@@ -299,7 +322,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
                 if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                     FoodProperties foodproperties = itemstack.getFoodProperties(this);
                     float f = foodproperties != null ? (float) foodproperties.nutrition() : 1.0F;
-                    this.heal(2.0F * f);
+                    this.heal(4.0F * f);
                     itemstack.consume(1, p_30412_);
                     this.gameEvent(GameEvent.EAT); // Neo: add EAT game event
                     return InteractionResult.sidedSuccess(this.level().isClientSide());
@@ -393,9 +416,9 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
         } else if (this.isTame()) {
             float f = this.getMaxHealth();
             float f1 = (f - this.getHealth()) / f;
-            return (0.55F - f1 * 0.4F) * (float) Math.PI;
+            return 0.2F - (f1 * 0.4F) * (float) Math.PI;
         } else {
-            return (float) (Math.PI / 5);
+            return (float) (0.0F);
         }
     }
 
@@ -481,7 +504,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
         } else if (!wolf.isTame()) {
             return false;
         } else {
-            return wolf.isInSittingPose() ? false : this.isInLove() && wolf.isInLove();
+            return !wolf.isInSittingPose() && this.isInLove() && wolf.isInLove();
         }
     }
 
@@ -504,11 +527,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
                 return false;
             }
 
-            if (p_30389_ instanceof TamableAnimal tamableanimal && tamableanimal.isTame()) {
-                return false;
-            }
-
-            return true;
+            return !(p_30389_ instanceof TamableAnimal tamableanimal) || !tamableanimal.isTame();
         }
     }
 
@@ -519,7 +538,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
 
     @Override
     public Vec3 getLeashOffset() {
-        return new Vec3(0.0, (double) (0.6F * this.getEyeHeight()), (double) (this.getBbWidth() * 0.4F));
+        return new Vec3(0.0, 0.6F * this.getEyeHeight(), this.getBbWidth() * 0.4F);
     }
 
     public static boolean checkWolfSpawnRules(
