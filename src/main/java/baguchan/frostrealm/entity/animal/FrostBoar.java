@@ -3,9 +3,9 @@ package baguchan.frostrealm.entity.animal;
 import bagu_chan.bagus_lib.register.ModSensors;
 import baguchan.frostrealm.entity.brain.FrostBoarAi;
 import baguchan.frostrealm.registry.FrostEntities;
-import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostMemoryModuleType;
 import baguchan.frostrealm.registry.FrostSensors;
+import baguchan.frostrealm.registry.FrostTags;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.server.level.ServerLevel;
@@ -32,7 +32,7 @@ public class FrostBoar extends FrostAnimal {
     private static final EntityDimensions BABY_DIMENSIONS = FrostEntities.FROST_BOAR.get().getDimensions().scale(0.5F).withEyeHeight(0.75F);
 
 
-    public static final Ingredient TEMPTATION_ITEM = Ingredient.of(FrostItems.RYE.get());
+    private static final Ingredient FOOD_ITEMS = Ingredient.of(FrostTags.Items.FROST_BOAR_FOODS);
     protected static final ImmutableList<? extends SensorType<? extends Sensor<? super FrostBoar>>> SENSOR_TYPES = ImmutableList.of(ModSensors.SMART_NEAREST_LIVING_ENTITY_SENSOR.get(), SensorType.NEAREST_ADULT, SensorType.HURT_BY
             , FrostSensors.FROST_BOAR_SENSOR.get(), FrostSensors.ENEMY_SENSOR.get());
     protected static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.BREED_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.ANGRY_AT, MemoryModuleType.NEAREST_ATTACKABLE, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED, MemoryModuleType.HAS_HUNTING_COOLDOWN, MemoryModuleType.IS_PANICKING
@@ -53,7 +53,7 @@ public class FrostBoar extends FrostAnimal {
 
     @Override
     public boolean isFood(ItemStack p_248671_) {
-        return TEMPTATION_ITEM.test(p_248671_);
+        return FOOD_ITEMS.test(p_248671_);
     }
 
     @Override

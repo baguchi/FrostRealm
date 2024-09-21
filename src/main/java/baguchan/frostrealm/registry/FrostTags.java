@@ -40,7 +40,13 @@ public class FrostTags {
         public static final TagKey<Item> YETI_BIG_CURRENCY = tag("yeti_big_currency");
 		public static final TagKey<Item> SICKLE = tag("sickle");
 
-        private static TagKey<Item> tag(String p_203849_) {
+		public static final TagKey<Item> WOLFFLUE_FOODS = tag("wolfflue_foods");
+		public static final TagKey<Item> SNOWPILE_FOODS = tag("snowpile_foods");
+		public static final TagKey<Item> FROST_BOAR_FOODS = tag("frost_boar_foods");
+		public static final TagKey<Item> CRYSTAL_FOX_FOODS = tag("crystal_fox_foods");
+
+
+		private static TagKey<Item> tag(String p_203849_) {
 			return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_203849_));
         }
     }

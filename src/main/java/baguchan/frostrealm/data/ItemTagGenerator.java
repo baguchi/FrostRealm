@@ -53,6 +53,13 @@ public class ItemTagGenerator extends ItemTagsProvider {
         this.tag(ItemTags.CHEST_ARMOR).add(FrostItems.FROST_BOAR_FUR_CHESTPLATE.get()).add(FrostItems.YETI_FUR_CHESTPLATE.get()).add(FrostItems.ASTRIUM_CHESTPLATE.get());
         this.tag(ItemTags.HEAD_ARMOR).add(FrostItems.FROST_BOAR_FUR_HELMET.get()).add(FrostItems.YETI_FUR_HELMET.get()).add(FrostItems.ASTRIUM_HELMET.get());
 
+        this.tag(ItemTags.MEAT).add(FrostItems.FROST_BOAR_MEAT.get()).add(FrostItems.COOKED_FROST_BOAR_MEAT.get()).add(FrostItems.SNOWPILE_QUAIL_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get());
+
+        this.tag(FrostTags.Items.CRYSTAL_FOX_FOODS).add(FrostItems.BEARBERRY.get());
+        this.tag(FrostTags.Items.FROST_BOAR_FOODS).add(FrostItems.RYE.get());
+        this.tag(FrostTags.Items.SNOWPILE_FOODS).add(FrostItems.SUGARBEET_SEEDS.get()).add(FrostItems.RYE_SEEDS.get());
+        this.tag(FrostTags.Items.WOLFFLUE_FOODS).addTag(ItemTags.WOLF_FOOD);
+
         this.tag(ItemTags.SWORDS).add(FrostItems.ASTRIUM_SWORD.get()).add(FrostItems.SILVER_MOON.get());
         this.tag(ItemTags.PICKAXES).add(FrostItems.ASTRIUM_PICKAXE.get());
         this.tag(ItemTags.AXES).add(FrostItems.ASTRIUM_AXE.get());

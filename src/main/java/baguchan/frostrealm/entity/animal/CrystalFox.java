@@ -5,6 +5,7 @@ import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostItems;
+import baguchan.frostrealm.registry.FrostTags;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
@@ -69,8 +70,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		return !p_28463_.isDiscrete() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p_28463_);
 	};
 
-	public static final Ingredient FOOD_ITEMS = Ingredient.of(FrostItems.BEARBERRY.get().asItem());
-
+	private static final Ingredient FOOD_ITEMS = Ingredient.of(FrostTags.Items.CRYSTAL_FOX_FOODS);
 	public final AnimationState eatAnimationState = new AnimationState();
 
 	private int ticksSinceEaten;

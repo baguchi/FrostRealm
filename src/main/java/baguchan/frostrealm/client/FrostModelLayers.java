@@ -12,8 +12,6 @@ public class FrostModelLayers {
 
     public static final ModelLayerLocation MARMOT = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "marmot"), "main");
     public static final ModelLayerLocation SNOWPILE_QUAIL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "main"), "main");
-    public static final ModelLayerLocation FROST_WOLF = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_wolf"), "main");
-    public static final ModelLayerLocation WOLFESTER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfester"), "main");
 
     public static final ModelLayerLocation CRYSTAL_FOX = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "crystal_fox"), "main");
     public static final ModelLayerLocation SNOW_MOLE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "snow_mole"), "main");
@@ -23,6 +21,8 @@ public class FrostModelLayers {
     public static final ModelLayerLocation CORRUPTED_WALKER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker"), "main");
     public static final ModelLayerLocation CORRUPTED_WALKER_FOOT = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker_foot"), "main");
     public static final ModelLayerLocation CORRUPTED_WALKER_PART = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker_part"), "main");
+
+    public static final ModelLayerLocation WOLFFLUE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue"), "main");
 
     public static final ModelLayerLocation VENOCHEM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "venchem"), "main");
 

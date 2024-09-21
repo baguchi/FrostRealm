@@ -3,10 +3,7 @@ package baguchan.frostrealm.entity.animal;
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
 import baguchan.frostrealm.entity.IHasEgg;
 import baguchan.frostrealm.entity.goal.BreedAndEggGoal;
-import baguchan.frostrealm.registry.FrostBlocks;
-import baguchan.frostrealm.registry.FrostEntities;
-import baguchan.frostrealm.registry.FrostItems;
-import baguchan.frostrealm.registry.FrostSounds;
+import baguchan.frostrealm.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -46,7 +43,7 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	private static final EntityDataAccessor<Boolean> ANGRY = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Boolean> HAS_EGG = SynchedEntityData.defineId(SnowPileQuail.class, EntityDataSerializers.BOOLEAN);
 
-	private static final Ingredient FOOD_ITEMS = Ingredient.of(FrostItems.RYE.get(), Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS, FrostItems.SUGARBEET_SEEDS.get());
+	private static final Ingredient FOOD_ITEMS = Ingredient.of(FrostTags.Items.SNOWPILE_FOODS);
 
 	@Nullable
 	private BlockPos homeTarget;
