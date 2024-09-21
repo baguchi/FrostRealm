@@ -82,9 +82,12 @@ public class WolfflueModel<T extends Wolfflue> extends HierarchicalModel<T> {
         }
 
         if (entity.isInSittingPose()) {
-            this.animate(entity.idleSitAnimationState, WolfflueAnimations.sit_idle, ageInTicks);
-            this.animate(entity.idleSit2AnimationState, WolfflueAnimations.sit_idle2, ageInTicks);
-            this.applyStatic(WolfflueAnimations.sit);
+            if (entity.idleSitAnimationState.isStarted() || entity.idleSit2AnimationState.isStarted()) {
+                this.animate(entity.idleSitAnimationState, WolfflueAnimations.sit_idle, ageInTicks);
+                this.animate(entity.idleSit2AnimationState, WolfflueAnimations.sit_idle2, ageInTicks);
+            } else {
+                this.applyStatic(WolfflueAnimations.sit);
+            }
         } else {
             this.animateWalk(WolfflueAnimations.walk, limbSwing, limbSwingAmount, 2.0F, 4.0F);
         }
