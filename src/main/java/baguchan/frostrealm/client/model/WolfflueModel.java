@@ -5,12 +5,12 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.10.4
 
 import baguchan.frostrealm.client.animation.WolfflueAnimations;
 import baguchan.frostrealm.entity.animal.Wolfflue;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.AgeableHierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class WolfflueModel<T extends Wolfflue> extends HierarchicalModel<T> {
+public class WolfflueModel<T extends Wolfflue> extends AgeableHierarchicalModel<T> {
     public final ModelPart all;
     public final ModelPart head;
     private final ModelPart body;
@@ -23,6 +23,7 @@ public class WolfflueModel<T extends Wolfflue> extends HierarchicalModel<T> {
     private final ModelPart leftLeg3;
 
     public WolfflueModel(ModelPart root) {
+        super(0.5F, 24.0F);
         this.all = root.getChild("all");
         this.head = this.all.getChild("head");
         this.body = this.all.getChild("body");
@@ -78,9 +79,6 @@ public class WolfflueModel<T extends Wolfflue> extends HierarchicalModel<T> {
         this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
         this.head.xRot = headPitch * ((float) Math.PI / 180F);
         this.tail.xRot = entity.getTailAngle();
-        if (entity.isBaby()) {
-            this.applyStatic(WolfflueAnimations.baby);
-        }
 
         if (entity.isInSittingPose()) {
             if (entity.idleSitAnimationState.isStarted() || entity.idleSit2AnimationState.isStarted()) {
@@ -91,6 +89,10 @@ public class WolfflueModel<T extends Wolfflue> extends HierarchicalModel<T> {
             }
         } else {
             this.animateWalk(WolfflueAnimations.walk, limbSwing, limbSwingAmount, 2.0F, 4.0F);
+        }
+
+        if (this.young) {
+            this.applyStatic(WolfflueAnimations.baby);
         }
     }
 

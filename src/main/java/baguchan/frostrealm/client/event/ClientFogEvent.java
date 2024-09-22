@@ -24,8 +24,15 @@ public class ClientFogEvent {
             if (weatherLevel > 0F && (FrostWeatherManager.getFrostWeather().isUseFog() || FrostWeatherManager.getPrevFrostWeather().isUseFog())) {
                 float fogDensity = Mth.lerp((1.0F - weatherLevel), (float) FrostWeatherManager.getPrevFrostWeather().getDensity(), (float) FrostWeatherManager.getFrostWeather().getDensity());
 
-                event.setNearPlaneDistance(20.0F * (fogDensity));
-                event.setFarPlaneDistance(160.0F * (fogDensity));
+                float near = event.getNearPlaneDistance();
+                float far = event.getNearPlaneDistance();
+
+                near = near * (1.0F - weatherLevel) + near * fogDensity;
+                far = far * (1.0F - weatherLevel) + far * fogDensity;
+
+
+                event.setNearPlaneDistance(20.0F * (near));
+                event.setFarPlaneDistance(160.0F * (far));
                 RenderSystem.setShaderFogStart(event.getNearPlaneDistance());
                 RenderSystem.setShaderFogEnd(event.getFarPlaneDistance());
                 event.setCanceled(true);
@@ -40,12 +47,13 @@ public class ClientFogEvent {
             float partialTicks = (float) event.getPartialTick();
             float weatherLevel = FrostWeatherManager.getWeatherLevel(partialTicks);
             if (weatherLevel > 0F) {
+
+
                 float fogRed = event.getRed();
                 float fogGreen = event.getGreen();
                 float fogBlue = event.getBlue();
 
                 float red = FrostWeatherManager.getPrevFrostWeather().getRed();
-                ;
                 float green = FrostWeatherManager.getPrevFrostWeather().getGreen();
                 float blue = FrostWeatherManager.getPrevFrostWeather().getBlue();
 
