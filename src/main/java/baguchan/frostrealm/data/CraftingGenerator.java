@@ -118,6 +118,13 @@ public class CraftingGenerator extends CraftingDataHelper {
 		leggingsItem(consumer, "frost_boar_fur_leggings", FrostItems.FROST_BOAR_FUR_LEGGINGS.get(), FrostItems.FROST_BOAR_FUR.get());
 		bootsItem(consumer, "frost_boar_fur_boots", FrostItems.FROST_BOAR_FUR_BOOTS.get(), FrostItems.FROST_BOAR_FUR.get());
 
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, FrostItems.WOLFFLUE_ASTRIUM_ARMOR.get(), 1)
+				.pattern("AAA")
+				.pattern("SAA")
+				.pattern("  S")
+				.define('S', FrostItems.ASTRIUM_INGOT.get())
+				.unlockedBy("has_item", has(FrostItems.ASTRIUM_INGOT.get())).save(consumer);
+
 
         helmetItem(consumer, "astrium_helmet", FrostItems.ASTRIUM_HELMET.get(), FrostItems.ASTRIUM_INGOT.get());
         chestplateItem(consumer, "astrium_chestplate", FrostItems.ASTRIUM_CHESTPLATE.get(), FrostItems.ASTRIUM_INGOT.get());

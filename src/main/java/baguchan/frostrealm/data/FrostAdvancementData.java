@@ -3,12 +3,15 @@ package baguchan.frostrealm.data;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostDimensions;
+import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.critereon.ChangeDimensionTrigger;
+import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.TameAnimalTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
@@ -95,6 +98,16 @@ public class FrostAdvancementData extends AdvancementProvider {
 							AdvancementType.TASK, true, true, false)
 					.addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(FrostItems.GLACINIUM_INGOT.get()))
 					.save(consumer, "frostrealm:combined_strength");
+
+			AdvancementHolder tame_wolfflue = Advancement.Builder.advancement()
+					.parent(enterFrostrealm)
+					.display(FrostItems.ASTRIUM_INGOT.get(),
+							Component.translatable("advancement.frostrealm.tame_wolfflue"),
+							Component.translatable("advancement.frostrealm.tame_wolfflue.desc"),
+							null,
+							AdvancementType.TASK, true, true, false)
+					.addCriterion("has_item", TameAnimalTrigger.TriggerInstance.tamedAnimal(EntityPredicate.Builder.entity().of(FrostEntities.WOLFFLUE.get())))
+					.save(consumer, "frostrealm:tame_wolfflue");
 		}
 	}
 }

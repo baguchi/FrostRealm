@@ -83,10 +83,11 @@ public class WolfflueModel<T extends Wolfflue> extends AgeableHierarchicalModel<
 
     @Override
     public void setupAnim(Wolfflue entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
         this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
         this.head.xRot = headPitch * ((float) Math.PI / 180F);
         this.tail.xRot = entity.getTailAngle();
+
+        float f = ageInTicks - (float) entity.tickCount;
 
         if (entity.isInSittingPose()) {
             if (entity.idleSitAnimationState.isStarted() || entity.idleSit2AnimationState.isStarted()) {
@@ -96,7 +97,12 @@ public class WolfflueModel<T extends Wolfflue> extends AgeableHierarchicalModel<
                 this.applyStatic(WolfflueAnimations.sit);
             }
         } else {
-            this.animateWalk(WolfflueAnimations.walk, limbSwing, limbSwingAmount, 2.0F, 4.0F);
+            if (entity.jumpAnimationState.isStarted()) {
+                this.animate(entity.jumpAnimationState, WolfflueAnimations.jump, ageInTicks);
+            } else {
+                this.animateWalk(WolfflueAnimations.run, limbSwing, limbSwingAmount * (entity.getRunningScale(f)), 1.0F, 2.5F);
+                this.animateWalk(WolfflueAnimations.walk, limbSwing, limbSwingAmount * (1.0F - entity.getRunningScale(f)), 1.0F, 5.0F);
+            }
         }
 
         if (this.young) {

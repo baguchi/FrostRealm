@@ -1,0 +1,37 @@
+{
+  "parent": "frostrealm:enter_frostrealm",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "frostrealm:wolfflue"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:tame_animal"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.frostrealm.tame_wolfflue.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "frostrealm:astrium_ingot"
+    },
+    "title": {
+      "translate": "advancement.frostrealm.tame_wolfflue"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

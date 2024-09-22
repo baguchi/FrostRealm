@@ -167,6 +167,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.MARMOT, MarmotModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SNOWPILE_QUAIL, SnowPileQuailModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.0F)));
+		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_ARMOR, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.2F)));
 
         event.registerLayerDefinition(FrostModelLayers.CRYSTAL_FOX, CrystalFoxModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SNOW_MOLE, SnowMoleModel::createBodyLayer);

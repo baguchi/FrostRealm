@@ -50,7 +50,8 @@ public class ItemTagGenerator extends ItemTagsProvider {
         this.tag(ItemTags.FOOT_ARMOR).add(FrostItems.FROST_BOAR_FUR_BOOTS.get()).add(FrostItems.YETI_FUR_BOOTS.get()).add(FrostItems.ASTRIUM_BOOTS.get());
 
         this.tag(ItemTags.LEG_ARMOR).add(FrostItems.FROST_BOAR_FUR_LEGGINGS.get()).add(FrostItems.YETI_FUR_LEGGINGS.get()).add(FrostItems.ASTRIUM_LEGGINGS.get());
-        this.tag(ItemTags.CHEST_ARMOR).add(FrostItems.FROST_BOAR_FUR_CHESTPLATE.get()).add(FrostItems.YETI_FUR_CHESTPLATE.get()).add(FrostItems.ASTRIUM_CHESTPLATE.get());
+        this.tag(ItemTags.CHEST_ARMOR).add(FrostItems.FROST_BOAR_FUR_CHESTPLATE.get()).add(FrostItems.YETI_FUR_CHESTPLATE.get()).add(FrostItems.ASTRIUM_CHESTPLATE.get())
+                .add(FrostItems.WOLFFLUE_ASTRIUM_ARMOR.get());
         this.tag(ItemTags.HEAD_ARMOR).add(FrostItems.FROST_BOAR_FUR_HELMET.get()).add(FrostItems.YETI_FUR_HELMET.get()).add(FrostItems.ASTRIUM_HELMET.get());
 
         this.tag(ItemTags.MEAT).add(FrostItems.FROST_BOAR_MEAT.get()).add(FrostItems.COOKED_FROST_BOAR_MEAT.get()).add(FrostItems.SNOWPILE_QUAIL_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get());

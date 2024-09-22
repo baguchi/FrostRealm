@@ -23,6 +23,7 @@ public class FrostModelLayers {
     public static final ModelLayerLocation CORRUPTED_WALKER_PART = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker_part"), "main");
 
     public static final ModelLayerLocation WOLFFLUE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue"), "main");
+    public static final ModelLayerLocation WOLFFLUE_ARMOR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_armor"), "main");
 
     public static final ModelLayerLocation VENOCHEM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "venchem"), "main");
 

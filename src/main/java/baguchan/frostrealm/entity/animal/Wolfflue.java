@@ -1,7 +1,10 @@
 package baguchan.frostrealm.entity.animal;
 
+import baguchan.frostrealm.entity.goal.LeapAtTargetWolfflueGoal;
 import baguchan.frostrealm.entity.goal.WolfflueBegGoal;
+import baguchan.frostrealm.item.WolfflueArmorItem;
 import baguchan.frostrealm.registry.FrostEntities;
+import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -37,6 +40,8 @@ import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -45,6 +50,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -69,9 +76,13 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
 
     public final AnimationState idleSitAnimationState = new AnimationState();
     public final AnimationState idleSit2AnimationState = new AnimationState();
+    public final AnimationState jumpAnimationState = new AnimationState();
 
     private int idleAnimationTimeout = 0;
     private int idleAnimationRemainTick = 0;
+
+    private float runningScale;
+    private float runningScaleO;
 
     public Wolfflue(EntityType<? extends Wolfflue> p_30369_, Level p_30370_) {
         super(p_30369_, p_30370_);
@@ -81,15 +92,30 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
     }
 
     @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> p_312373_) {
+        if (this.level().isClientSide() && DATA_POSE.equals(p_312373_)) {
+            this.stopAllAnimation();
+            Pose pose = this.getPose();
+            switch (pose) {
+                case LONG_JUMPING:
+                    this.jumpAnimationState.startIfStopped(this.tickCount);
+                    break;
+            }
+        }
+
+        super.onSyncedDataUpdated(p_312373_);
+    }
+
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(1, new TamableAnimal.TamableAnimalPanicGoal(1.5, DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
-        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0, true));
+        this.goalSelector.addGoal(4, new LeapAtTargetWolfflueGoal(this, 2.0F));
+        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.2F, true));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F));
         this.goalSelector.addGoal(7, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.8F));
         this.goalSelector.addGoal(9, new WolfflueBegGoal(this, 8.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
@@ -102,7 +128,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.3F).add(Attributes.MAX_HEALTH, 20.0).add(Attributes.FOLLOW_RANGE, 18.0F).add(Attributes.ATTACK_DAMAGE, 5.0);
+        return Mob.createMobAttributes().add(Attributes.MOVEMENT_SPEED, 0.3F).add(Attributes.MAX_HEALTH, 20.0).add(Attributes.SAFE_FALL_DISTANCE, 6.0).add(Attributes.FOLLOW_RANGE, 18.0F).add(Attributes.ATTACK_DAMAGE, 5.0);
     }
 
     private void setupAnimationStates() {
@@ -110,11 +136,11 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
             this.idleAnimationTimeout = this.random.nextInt(80) + 80;
             if (this.isInSittingPose()) {
                 if (this.random.nextBoolean()) {
-                    this.stopAllAnimation();
+                    this.stopIdleAnimation();
                     this.idleSitAnimationState.start(this.tickCount);
                     this.idleAnimationRemainTick = 20 * 2;
                 } else {
-                    this.stopAllAnimation();
+                    this.stopIdleAnimation();
                     this.idleSit2AnimationState.start(this.tickCount);
                     this.idleAnimationRemainTick = (int) (20 * 1.75F);
                 }
@@ -124,22 +150,52 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
         }
 
         if (this.idleAnimationRemainTick <= 0) {
-            this.stopAllAnimation();
+            this.stopIdleAnimation();
         } else {
             this.idleAnimationRemainTick--;
         }
         if (!this.isInSittingPose()) {
-            this.stopAllAnimation();
+            this.stopIdleAnimation();
+        }
+
+        runningScaleO = runningScale;
+        if (this.isMoving()) {
+
+            if (isDashing()) {
+                runningScale = Mth.clamp(runningScale + 0.1F, 0, 1);
+            } else {
+                runningScale = Mth.clamp(runningScale - 0.1F, 0, 1);
+            }
+        } else {
+            //idleAnimationState.startIfStopped(this.tickCount);
         }
     }
 
-    protected void stopAllAnimation() {
+
+    private boolean isDashing() {
+        return this.getDeltaMovement().horizontalDistanceSqr() > 0.02D;
+    }
+
+    private boolean isMoving() {
+        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public float getRunningScale(float p_29570_) {
+        return Mth.lerp(p_29570_, this.runningScaleO, this.runningScale);
+    }
+
+    protected void stopIdleAnimation() {
         if (this.idleSitAnimationState.isStarted()) {
             this.idleSitAnimationState.stop();
         }
         if (this.idleSit2AnimationState.isStarted()) {
             this.idleSit2AnimationState.stop();
         }
+    }
+
+    protected void stopAllAnimation() {
+        this.jumpAnimationState.stop();
     }
 
     @Override
@@ -296,7 +352,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
     }
 
     private boolean canArmorAbsorb(DamageSource p_331524_) {
-        return this.hasArmor() && !p_331524_.is(DamageTypeTags.BYPASSES_WOLF_ARMOR);
+        return false;
     }
 
     @Override
@@ -339,7 +395,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
                         return super.mobInteract(p_30412_, p_30413_);
                     }
 
-                    /*if (itemstack.is(Items.WOLF_ARMOR) && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
+                    if (itemstack.is(FrostItems.WOLFFLUE_ASTRIUM_ARMOR.get()) && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
                         this.setBodyArmorItem(itemstack.copyWithCount(1));
                         itemstack.consume(1, p_30412_);
                         return InteractionResult.SUCCESS;
@@ -353,18 +409,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
                         this.setBodyArmorItem(ItemStack.EMPTY);
                         this.spawnAtLocation(itemstack1);
                         return InteractionResult.SUCCESS;
-                    } else if (ArmorMaterials.ARMADILLO.value().repairIngredient().get().test(itemstack)
-                            && this.isInSittingPose()
-                            && this.hasArmor()
-                            && this.isOwnedBy(p_30412_)
-                            && this.getBodyArmorItem().isDamaged()) {
-                        itemstack.shrink(1);
-                        this.playSound(SoundEvents.WOLF_ARMOR_REPAIR);
-                        ItemStack itemstack2 = this.getBodyArmorItem();
-                        int i = (int)((float)itemstack2.getMaxDamage() * 0.125F);
-                        itemstack2.setDamageValue(Math.max(0, itemstack2.getDamageValue() - i));
-                        return InteractionResult.SUCCESS;
-                    } else {*/
+                    } else {
                     InteractionResult interactionresult = super.mobInteract(p_30412_, p_30413_);
                     if (!interactionresult.consumesAction() && this.isOwnedBy(p_30412_)) {
                         this.setOrderedToSit(!this.isOrderedToSit());
@@ -375,7 +420,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
                     } else {
                         return interactionresult;
                     }
-                    //}
+                    }
                 }
             } else if (this.isFood(itemstack) && !this.isAngry()) {
                 itemstack.consume(1, p_30412_);
@@ -464,7 +509,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
     }
 
     public boolean hasArmor() {
-        return this.getBodyArmorItem().is(Items.WOLF_ARMOR);
+        return this.getBodyArmorItem().getItem() instanceof WolfflueArmorItem;
     }
 
     private void setCollarColor(DyeColor p_30398_) {
