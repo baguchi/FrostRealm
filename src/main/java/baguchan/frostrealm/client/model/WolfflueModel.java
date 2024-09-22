@@ -74,8 +74,16 @@ public class WolfflueModel<T extends Wolfflue> extends AgeableHierarchicalModel<
     }
 
     @Override
-    public void setupAnim(Wolfflue entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void prepareMobModel(T entity, float p_102615_, float p_102616_, float p_102617_) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        super.prepareMobModel(entity, p_102615_, p_102616_, p_102617_);
+
+        this.head.zRot = entity.getHeadRollAngle(p_102617_);
+    }
+
+    @Override
+    public void setupAnim(Wolfflue entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+
         this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
         this.head.xRot = headPitch * ((float) Math.PI / 180F);
         this.tail.xRot = entity.getTailAngle();

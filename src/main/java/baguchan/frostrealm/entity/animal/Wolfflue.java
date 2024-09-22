@@ -1,5 +1,6 @@
 package baguchan.frostrealm.entity.animal;
 
+import baguchan.frostrealm.entity.goal.WolfflueBegGoal;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.BlockPos;
@@ -89,7 +90,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F));
         this.goalSelector.addGoal(7, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0));
-        //this.goalSelector.addGoal(9, new BegGoal(this, 8.0F));
+        this.goalSelector.addGoal(9, new WolfflueBegGoal(this, 8.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
