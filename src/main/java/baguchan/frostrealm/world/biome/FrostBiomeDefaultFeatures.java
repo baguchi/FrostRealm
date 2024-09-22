@@ -43,6 +43,7 @@ public class FrostBiomeDefaultFeatures {
 
 	public static void forestCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
 		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL.get(), 10, 4, 6));
+		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.WOLFFLUE.get(), 5, 4, 4));
 	}
 
 	public static void mountainCreatureSpawns(MobSpawnSettings.Builder p_126813_) {

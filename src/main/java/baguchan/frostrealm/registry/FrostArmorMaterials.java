@@ -3,13 +3,9 @@ package baguchan.frostrealm.registry;
 import baguchan.frostrealm.FrostRealm;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.LazyLoadedValue;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -27,18 +23,21 @@ public class FrostArmorMaterials {
 		p_266652_.put(ArmorItem.Type.LEGGINGS, 5);
 		p_266652_.put(ArmorItem.Type.CHESTPLATE, 6);
 		p_266652_.put(ArmorItem.Type.HELMET, 2);
+		p_266652_.put(ArmorItem.Type.BODY, 5);
 	}), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0F, 0.0F, () -> Ingredient.of(FrostItems.YETI_FUR.get()));
 	public static final Holder<ArmorMaterial> FROST_BOAR_FUR = register("frost_boar_fur", Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266652_) -> {
 		p_266652_.put(ArmorItem.Type.BOOTS, 2);
 		p_266652_.put(ArmorItem.Type.LEGGINGS, 5);
 		p_266652_.put(ArmorItem.Type.CHESTPLATE, 6);
 		p_266652_.put(ArmorItem.Type.HELMET, 2);
+		p_266652_.put(ArmorItem.Type.BODY, 5);
 	}), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 1.0F, 0.0F, () -> Ingredient.of(FrostItems.FROST_BOAR_FUR.get()));
 	public static final Holder<ArmorMaterial> ASTRIUM = register("astrium", Util.make(new EnumMap<>(ArmorItem.Type.class), (p_266654_) -> {
         p_266654_.put(ArmorItem.Type.BOOTS, 2);
         p_266654_.put(ArmorItem.Type.LEGGINGS, 5);
         p_266654_.put(ArmorItem.Type.CHESTPLATE, 6);
         p_266654_.put(ArmorItem.Type.HELMET, 2);
+		p_266654_.put(ArmorItem.Type.BODY, 5);
 	}), 12, SoundEvents.ARMOR_EQUIP_IRON, 1.5F, 0.0F, () -> Ingredient.of(FrostItems.ASTRIUM_INGOT.get()));
 
 	private static Holder<ArmorMaterial> register(
