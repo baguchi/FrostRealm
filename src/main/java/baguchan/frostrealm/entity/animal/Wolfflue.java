@@ -32,7 +32,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.WolfVariant;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Creeper;
@@ -232,15 +231,6 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_332775_, DifficultyInstance p_332793_, MobSpawnType p_332761_, @Nullable SpawnGroupData p_332782_) {
         Holder<Biome> holder = p_332775_.getBiome(this.blockPosition());
-    /*    Holder<WolfVariant> holder1;
-        if (p_332782_ instanceof Wolf.WolfPackData wolf$wolfpackdata) {
-            holder1 = wolf$wolfpackdata.type;
-        } else {
-            holder1 = WolfVariants.getSpawnVariant(this.registryAccess(), holder);
-            p_332782_ = new Wolf.WolfPackData(holder1);
-        }
-
-        this.setVariant(holder1);*/
         return super.finalizeSpawn(p_332775_, p_332793_, p_332761_, p_332782_);
     }
 
@@ -593,12 +583,4 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
         return p_218293_.getBlockState(p_218295_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE) && isBrightEnoughToSpawn(p_218293_, p_218295_);
     }
 
-    public static class WolfPackData extends AgeableMob.AgeableMobGroupData {
-        public final Holder<WolfVariant> type;
-
-        public WolfPackData(Holder<WolfVariant> p_332792_) {
-            super(false);
-            this.type = p_332792_;
-        }
-    }
 }

@@ -32,7 +32,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -92,8 +91,8 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.6D, 1.4D, (p_28596_) -> {
 			return AVOID_PLAYERS.test(p_28596_) && !this.trusts(p_28596_.getUUID());
 		}));
-		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Wolf.class, 8.0F, 1.6D, 1.4D, (p_28590_) -> {
-			return !((Wolf) p_28590_).isTame();
+		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Wolfflue.class, 8.0F, 1.55D, 1.45D, (p_28590_) -> {
+			return !((Wolfflue) p_28590_).isTame();
 		}));
 		this.goalSelector.addGoal(5, new FoxMeleeAttackGoal(1.2F, true));
 		this.goalSelector.addGoal(6, new FoxEatBerriesGoal(1.25D, 8, 4));
