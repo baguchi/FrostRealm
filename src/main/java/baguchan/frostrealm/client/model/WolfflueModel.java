@@ -41,11 +41,11 @@ public class WolfflueModel<T extends Wolfflue> extends HierarchicalModel<T> {
 
         PartDefinition all = partdefinition.addOrReplaceChild("all", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        PartDefinition head = all.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 27).addBox(1.0F, -12.0F, 4.0F, 3.0F, 5.0F, 2.0F, cubeDeformation)
-                .texOffs(40, 27).addBox(-4.0F, -12.0F, 4.0F, 3.0F, 5.0F, 2.0F, cubeDeformation), PartPose.offset(0.0F, -19.0F, -20.0F));
+        PartDefinition head = all.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 27).addBox(1.0F, -11.0F, -3.0F, 3.0F, 5.0F, 2.0F, cubeDeformation)
+                .texOffs(40, 27).addBox(-4.0F, -11.0F, -3.0F, 3.0F, 5.0F, 2.0F, cubeDeformation), PartPose.offset(0.0F, -20.0F, -13.0F));
 
         PartDefinition head_r1 = head.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(52, 39).addBox(-2.0F, -5.0F, -15.0F, 4.0F, 4.0F, 5.0F, cubeDeformation)
-                .texOffs(41, 0).addBox(-4.0F, -8.0F, -10.0F, 8.0F, 7.0F, 8.0F, cubeDeformation), PartPose.offsetAndRotation(0.0F, 0.0F, 10.0F, 0.1745F, 0.0F, 0.0F));
+                .texOffs(41, 0).addBox(-4.0F, -8.0F, -10.0F, 8.0F, 7.0F, 8.0F, cubeDeformation), PartPose.offsetAndRotation(0.0F, 1.0F, 3.0F, 0.1745F, 0.0F, 0.0F));
 
         PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-6.0F, -22.0F, -5.0F, 12.0F, 10.0F, 17.0F, cubeDeformation)
                 .texOffs(0, 27).addBox(-7.0F, -24.0F, -16.0F, 14.0F, 14.0F, 12.0F, cubeDeformation), PartPose.offset(0.0F, 0.0F, 0.0F));
