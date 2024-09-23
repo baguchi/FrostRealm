@@ -1,10 +1,12 @@
 package baguchan.frostrealm.entity.goal;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -12,7 +14,7 @@ import java.util.EnumSet;
 public class RollGoal extends Goal {
     private final Mob mob;
     @Nullable
-    private LivingEntity target;
+    private BlockPos target;
     private int cooldown = 0;
     private int attackTime = -20;
     private final int attackIntervalMin;
@@ -38,7 +40,8 @@ public class RollGoal extends Goal {
         LivingEntity livingentity = this.mob.getTarget();
         if (this.cooldown <= 0) {
             if (livingentity != null && livingentity.isAlive() && this.mob.getSensing().hasLineOfSight(livingentity)) {
-                this.target = livingentity;
+                Vec3 vec3 = calculateViewVector(0.0F, -livingentity.getYHeadRot()).scale(5.0F);
+                this.target = BlockPos.containing(vec3.add(livingentity.position()));
                 this.cooldown = 120;
                 return true;
             }
@@ -47,6 +50,16 @@ public class RollGoal extends Goal {
             ;
         }
         return false;
+    }
+
+    protected Vec3 calculateViewVector(float p_20172_, float p_20173_) {
+        float f = p_20172_ * (float) (Math.PI / 180.0);
+        float f1 = -p_20173_ * (float) (Math.PI / 180.0);
+        float f2 = Mth.cos(f1);
+        float f3 = Mth.sin(f1);
+        float f4 = Mth.cos(f);
+        float f5 = Mth.sin(f);
+        return new Vec3((double) (f3 * f4), (double) (-f5), (double) (f2 * f4));
     }
 
     @Override
@@ -89,6 +102,8 @@ public class RollGoal extends Goal {
 
                 this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
             } else {
+                Vec3 vec3 = this.calculateViewVector(0.0F, this.getYHeadRot());
+
                 this.mob.getMoveControl().setWantedPosition(this.target.getX(), this.target.getY(), this.target.getZ(), 1.5F);
             }
             if (this.attackTime == 20 * 6) {

@@ -104,7 +104,7 @@ public class Gokkur extends Monster {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new RollGoal(this, 20, 60));
+        this.goalSelector.addGoal(1, new RollGoal(this, 20, 30));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.1F, false));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.6));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
@@ -115,10 +115,10 @@ public class Gokkur extends Monster {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 22.0)
+                .add(Attributes.MAX_HEALTH, 16.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.24)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1.0)
-                .add(Attributes.ATTACK_DAMAGE, 2.5)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5)
+                .add(Attributes.ATTACK_DAMAGE, 2)
                 .add(Attributes.STEP_HEIGHT, 1.0);
     }
 
