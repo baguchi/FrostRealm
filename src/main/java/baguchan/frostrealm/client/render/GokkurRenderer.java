@@ -10,13 +10,17 @@ import net.minecraft.resources.ResourceLocation;
 
 public class GokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurModel<T>> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/gokkur.png");
+    private static final ResourceLocation GRASS_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/gokkur_grass.png");
 
     public GokkurRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(FrostModelLayers.GOKKUR)), 0.5F);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(T p_110775_1_) {
+    public ResourceLocation getTextureLocation(T entity) {
+        if (entity.isGrass()) {
+            return GRASS_TEXTURE;
+        }
         return TEXTURE;
     }
 }

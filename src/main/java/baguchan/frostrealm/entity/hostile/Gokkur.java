@@ -4,11 +4,14 @@ import bagu_chan.bagus_lib.client.camera.CameraCore;
 import bagu_chan.bagus_lib.client.camera.holder.CameraHolder;
 import bagu_chan.bagus_lib.util.GlobalVec3;
 import baguchan.frostrealm.entity.goal.RollGoal;
+import baguchan.frostrealm.registry.FrostTags;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -23,11 +26,12 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import org.jetbrains.annotations.Nullable;
 
 public class Gokkur extends Monster {
-    protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.BYTE);
+    protected static final EntityDataAccessor<Boolean> GRASS = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.BOOLEAN);
 
     private static final EntityDimensions SPIN_DIMENSIONS = EntityDimensions.scalable(1.0F, 1.0F)
             .withEyeHeight(0.5F);
@@ -60,33 +64,52 @@ public class Gokkur extends Monster {
         super.onSyncedDataUpdated(p_312373_);
     }
 
-    private void stopAllAnimation() {
-        this.rollAnimationState.stop();
-        this.startRollAnimationState.stop();
-    }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder p_326192_) {
         super.defineSynchedData(p_326192_);
-        p_326192_.define(DATA_FLAGS_ID, (byte) 0);
+        p_326192_.define(GRASS, false);
     }
 
+    public void setGrass(boolean grass) {
+        this.entityData.set(GRASS, grass);
+    }
+
+    public boolean isGrass() {
+        return this.entityData.get(GRASS);
+    }
+
+    private void stopAllAnimation() {
+        this.rollAnimationState.stop();
+        this.startRollAnimationState.stop();
+    }
     @Override
     public EntityDimensions getDefaultDimensions(Pose p_316664_) {
         return p_316664_ == Pose.SPIN_ATTACK ? SPIN_DIMENSIONS.scale(this.getAgeScale()) : super.getDefaultDimensions(p_316664_);
     }
 
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putBoolean("Grass", this.isGrass());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.setGrass(tag.getBoolean("Grass"));
+    }
 
     @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new RollGoal(this, 60));
+        this.goalSelector.addGoal(1, new RollGoal(this, 20, 60));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.1F, false));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.6));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this, Raider.class).setAlertOthers());
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true).setUnseenMemoryTicks(300));
     }
 
@@ -95,7 +118,7 @@ public class Gokkur extends Monster {
                 .add(Attributes.MAX_HEALTH, 22.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.24)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0)
-                .add(Attributes.ATTACK_DAMAGE, 2.0)
+                .add(Attributes.ATTACK_DAMAGE, 2.5)
                 .add(Attributes.STEP_HEIGHT, 1.0);
     }
 
@@ -108,7 +131,7 @@ public class Gokkur extends Monster {
             double d2 = this.getZ() - livingentity.getZ();
             double d3 = livingentity.getX() - this.getX();
             double d4 = livingentity.getZ() - this.getZ();
-            if (livingentity.hurt(this.damageSources().mobAttack(this), Mth.floor(getAttackDamage() * 1.25F))) {
+            if (livingentity.hurt(this.damageSources().mobAttack(this), Mth.floor(getAttackDamage() * 1.5F))) {
                 this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 livingentity.knockback(f2 * f1, d1, d2);
             }
@@ -153,5 +176,14 @@ public class Gokkur extends Monster {
     @Override
     public boolean canBeAffected(MobEffectInstance effect) {
         return effect.getEffect() != MobEffects.POISON && super.canBeAffected(effect);
+    }
+
+    @Override
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance p_21435_, MobSpawnType p_21436_, @Nullable SpawnGroupData p_21437_) {
+        if (serverLevelAccessor.getBiome(this.blockPosition()).is(FrostTags.Biomes.GRASS_FROST_BIOME)) {
+            this.setGrass(true);
+        }
+
+        return super.finalizeSpawn(serverLevelAccessor, p_21435_, p_21436_, p_21437_);
     }
 }

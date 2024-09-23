@@ -38,7 +38,7 @@ public class GokkurAnimations {
             ))
             .build();
 
-    public static final AnimationDefinition roll_start = AnimationDefinition.Builder.withLength(0.25F).looping()
+    public static final AnimationDefinition roll_start = AnimationDefinition.Builder.withLength(0.25F)
             .addAnimation("right_leg", new AnimationChannel(AnimationChannel.Targets.POSITION,
                     new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.LINEAR),
                     new Keyframe(0.25F, KeyframeAnimations.posVec(0.0F, 5.0F, 0.0F), AnimationChannel.Interpolations.LINEAR)

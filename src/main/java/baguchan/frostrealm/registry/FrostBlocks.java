@@ -101,8 +101,8 @@ public class FrostBlocks {
 	public static final Supplier<Block> ARCTIC_POPPY = register("arctic_poppy", () -> new FlowerBlock(FrostEffects.COLD_RESISTANCE, 200, BlockBehaviour.Properties.of().noOcclusion().noCollission().sound(SoundType.GRASS)));
 	public static final Supplier<Block> ARCTIC_WILLOW = register("arctic_willow", () -> new FlowerBlock(FrostEffects.COLD_RESISTANCE, 200, BlockBehaviour.Properties.of().noOcclusion().noCollission().sound(SoundType.GRASS)));
 
-    public static final Supplier<Block> COLD_GRASS = register("cold_grass", () -> new ColdTallGrassBlock(BlockBehaviour.Properties.of().noOcclusion().noCollission().sound(SoundType.GRASS)));
-    public static final Supplier<DoublePlantBlock> COLD_TALL_GRASS = register("cold_tall_grass", () -> new DoublePlantBlock(BlockBehaviour.Properties.of().noOcclusion().noCollission().sound(SoundType.GRASS)));
+	public static final Supplier<Block> COLD_GRASS = register("cold_grass", () -> new ColdTallGrassBlock(BlockBehaviour.Properties.of().noOcclusion().noCollission().replaceable().sound(SoundType.GRASS)));
+	public static final Supplier<DoublePlantBlock> COLD_TALL_GRASS = register("cold_tall_grass", () -> new DoublePlantBlock(BlockBehaviour.Properties.of().noOcclusion().noCollission().replaceable().sound(SoundType.GRASS)));
 
     public static final Supplier<Block> BEARBERRY_BUSH = noItemRegister("bearberry_bush", () -> new BearBerryBushBlock(BlockBehaviour.Properties.of().noOcclusion().noCollission().sound(SoundType.GRASS)));
 	//CROP

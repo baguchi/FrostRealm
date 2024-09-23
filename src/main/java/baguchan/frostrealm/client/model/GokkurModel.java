@@ -49,7 +49,7 @@ public class GokkurModel<T extends Gokkur> extends HierarchicalModel<T> {
             this.animate(entity.rollAnimationState, GokkurAnimations.roll, ageInTicks);
             this.animate(entity.startRollAnimationState, GokkurAnimations.roll_start, ageInTicks);
         } else {
-            this.animateWalk(GokkurAnimations.walk, limbSwing, limbSwingAmount, 1.0F, 2.5F);
+            this.animateWalk(GokkurAnimations.walk, limbSwing, limbSwingAmount, 1.0F, 4.0F);
         }
     }
 

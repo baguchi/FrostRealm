@@ -14,7 +14,7 @@ public class RollGoal extends Goal {
     @Nullable
     private LivingEntity target;
     private int cooldown = 0;
-    private int attackTime = -40;
+    private int attackTime = -20;
     private final int attackIntervalMin;
     private final int attackIntervalMax;
 
@@ -51,7 +51,7 @@ public class RollGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.canUse() && this.mob.getPose() != Pose.STANDING;
+        return this.mob.getPose() != Pose.STANDING;
     }
 
     @Override
@@ -63,8 +63,8 @@ public class RollGoal extends Goal {
     @Override
     public void stop() {
         this.target = null;
-        if (this.attackTime > -40) {
-            this.attackTime = -40;
+        if (this.attackTime > -20) {
+            this.attackTime = -20;
         }
         this.mob.setPose(Pose.STANDING);
     }
@@ -91,7 +91,7 @@ public class RollGoal extends Goal {
             } else {
                 this.mob.getMoveControl().setWantedPosition(this.target.getX(), this.target.getY(), this.target.getZ(), 1.5F);
             }
-            if (this.attackTime == 20 * Mth.floor(10)) {
+            if (this.attackTime == 20 * 6) {
                 this.mob.setPose(Pose.STANDING);
                 this.attackTime = -Mth.floor(f * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
             }
