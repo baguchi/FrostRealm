@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "frostrealm:astrium_ingot"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "SAA",
+    "  S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frostrealm:wolfflue_astrium_armor"
+  }
+}

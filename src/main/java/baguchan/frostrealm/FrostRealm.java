@@ -1,9 +1,11 @@
 package baguchan.frostrealm;
 
 
+import baguchan.frostrealm.api.entity.WolfflueVariant;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.command.FrostWeatherCommand;
 import baguchan.frostrealm.command.TemperatureCommand;
+import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
 import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.message.ChangedColdMessage;
@@ -48,6 +50,9 @@ public class FrostRealm {
 	public FrostRealm(ModContainer modContainer, IEventBus modBus) {
 
 		IEventBus forgeBus = NeoForge.EVENT_BUS;
+
+		modBus.addListener(DataPackRegistryEvent.NewRegistry.class, event -> event.dataPackRegistry(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, WolfflueVariant.DIRECT_CODEC, WolfflueVariant.DIRECT_CODEC));
+
 		FrostFeatures.FEATURES.register(modBus);
 		FrostSounds.SOUND_EVENTS.register(modBus);
 		FrostMenuTypes.MENU_TYPES.register(modBus);
@@ -56,6 +61,7 @@ public class FrostRealm {
 		FrostBlocks.BLOCKS.register(modBus);
 		FrostSensors.SENSOR_TYPES.register(modBus);
 		FrostMemoryModuleType.MEMORY_MODULE_TYPES.register(modBus);
+		FrostEntityDatas.ENTITIE_DATAS.register(modBus);
 		FrostEntities.ENTITIES.register(modBus);
 		FrostCreativeTabs.CREATIVE_MODE_TABS.register(modBus);
 		FrostItems.ITEMS.register(modBus);

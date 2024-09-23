@@ -122,7 +122,8 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.pattern("AAA")
 				.pattern("SAA")
 				.pattern("  S")
-				.define('S', FrostItems.ASTRIUM_INGOT.get())
+				.define('A', FrostItems.ASTRIUM_INGOT.get())
+				.define('S', Items.STRING)
 				.unlockedBy("has_item", has(FrostItems.ASTRIUM_INGOT.get())).save(consumer);
 
 

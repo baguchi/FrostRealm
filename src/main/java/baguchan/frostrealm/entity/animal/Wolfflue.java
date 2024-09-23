@@ -1,19 +1,26 @@
 package baguchan.frostrealm.entity.animal;
 
+import baguchan.frostrealm.api.entity.WolfflueVariant;
+import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
 import baguchan.frostrealm.entity.goal.LeapAtTargetWolfflueGoal;
 import baguchan.frostrealm.entity.goal.WolfflueBegGoal;
 import baguchan.frostrealm.item.WolfflueArmorItem;
 import baguchan.frostrealm.registry.FrostEntities;
+import baguchan.frostrealm.registry.FrostEntityDatas;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -53,13 +60,17 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Wolfflue extends TamableAnimal implements NeutralMob {
+public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder<Holder<WolfflueVariant>> {
     private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_COLLAR_COLOR = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Holder<WolfflueVariant>> DATA_VARIANT_ID = SynchedEntityData.defineId(Wolfflue.class, FrostEntityDatas.WOLFFLUE_VARIANT.get());
+
+
     public static final Predicate<LivingEntity> PREY_SELECTOR = p_348295_ -> {
         EntityType<?> entitytype = p_348295_.getType();
         return entitytype == FrostEntities.CRYSTAL_FOX || entitytype == FrostEntities.SNOWPILE_QUAIL || entitytype == EntityType.FOX;
@@ -203,7 +214,29 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
         p_326027_.define(DATA_INTERESTED_ID, false);
         p_326027_.define(DATA_COLLAR_COLOR, DyeColor.RED.getId());
         p_326027_.define(DATA_REMAINING_ANGER_TIME, 0);
+        RegistryAccess registryaccess = this.registryAccess();
+        Registry<WolfflueVariant> registry = registryaccess.registryOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY);
+        p_326027_.define(DATA_VARIANT_ID, registry.getHolder(WolfflueVariants.DEFAULT).or(registry::getAny).orElseThrow());
+
     }
+
+    public ResourceLocation getTexture() {
+        WolfflueVariant wolfvariant = this.getVariant().value();
+        if (this.isTame()) {
+            return wolfvariant.wildTexture();
+        } else {
+            return this.isAngry() ? wolfvariant.angryTexture() : wolfvariant.wildTexture();
+        }
+    }
+
+    public Holder<WolfflueVariant> getVariant() {
+        return this.entityData.get(DATA_VARIANT_ID);
+    }
+
+    public void setVariant(Holder<WolfflueVariant> p_332777_) {
+        this.entityData.set(DATA_VARIANT_ID, p_332777_);
+    }
+
 
     @Override
     protected void playStepSound(BlockPos p_30415_, BlockState p_30416_) {
@@ -214,6 +247,9 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
     public void addAdditionalSaveData(CompoundTag p_30418_) {
         super.addAdditionalSaveData(p_30418_);
         p_30418_.putByte("CollarColor", (byte) this.getCollarColor().getId());
+        this.getVariant().unwrapKey().ifPresent(p_344339_ -> p_30418_.putString("variant", p_344339_.location().toString()));
+
+
         this.addPersistentAngerSaveData(p_30418_);
     }
 
@@ -224,13 +260,28 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
             this.setCollarColor(DyeColor.byId(p_30402_.getInt("CollarColor")));
         }
 
+        Optional.ofNullable(ResourceLocation.tryParse(p_30402_.getString("variant")))
+                .map(p_332608_ -> ResourceKey.create(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, p_332608_))
+                .flatMap(p_352803_ -> this.registryAccess().registryOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY).getHolder((ResourceKey<WolfflueVariant>) p_352803_))
+                .ifPresent(this::setVariant);
+
         this.readPersistentAngerSaveData(this.level(), p_30402_);
     }
 
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_332775_, DifficultyInstance p_332793_, MobSpawnType p_332761_, @Nullable SpawnGroupData p_332782_) {
+
         Holder<Biome> holder = p_332775_.getBiome(this.blockPosition());
+        Holder<WolfflueVariant> holder1;
+        if (p_332782_ instanceof WolffluePackData wolf$wolfpackdata) {
+            holder1 = wolf$wolfpackdata.type;
+        } else {
+            holder1 = WolfflueVariants.getSpawnVariant(this.registryAccess(), holder);
+            p_332782_ = new WolffluePackData(holder1);
+        }
+
+        this.setVariant(holder1);
         return super.finalizeSpawn(p_332775_, p_332793_, p_332761_, p_332782_);
     }
 
@@ -447,7 +498,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
     }
 
     public float getTailAngle() {
-        if (this.isAngry()) {
+        if (this.isAngry() && !this.isTame()) {
             return 1.5393804F;
         } else if (this.isTame()) {
             float f = this.getMaxHealth();
@@ -510,7 +561,11 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
     public Wolfflue getBreedOffspring(ServerLevel p_149088_, AgeableMob p_149089_) {
         Wolfflue wolf = FrostEntities.WOLFFLUE.get().create(p_149088_);
         if (wolf != null && p_149089_ instanceof Wolfflue wolf1) {
-
+            if (this.random.nextBoolean()) {
+                wolf.setVariant(this.getVariant());
+            } else {
+                wolf.setVariant(wolf1.getVariant());
+            }
             if (this.isTame()) {
                 wolf.setOwnerUUID(this.getOwnerUUID());
                 wolf.setTame(true, true);
@@ -583,4 +638,12 @@ public class Wolfflue extends TamableAnimal implements NeutralMob {
         return p_218293_.getBlockState(p_218295_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE) && isBrightEnoughToSpawn(p_218293_, p_218295_);
     }
 
+    private class WolffluePackData extends AgeableMob.AgeableMobGroupData {
+        public final Holder<WolfflueVariant> type;
+
+        public WolffluePackData(Holder<WolfflueVariant> p_332792_) {
+            super(false);
+            this.type = p_332792_;
+        }
+    }
 }

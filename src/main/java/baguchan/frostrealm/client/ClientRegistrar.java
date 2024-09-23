@@ -152,8 +152,9 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.CORRUPTED_WALKER.get(), CorruptedWalkerRenderer::new);
         event.registerEntityRenderer(FrostEntities.VENOM_BALL.get(), VenomBallRenderer::new);
 		event.registerEntityRenderer(FrostEntities.VENOCHEM.get(), VenochemRenderer::new);
-		event.registerBlockEntityRenderer(FrostBlockEntitys.FROST_CHEST.get(), FrostChestRenderer::new);
+		event.registerEntityRenderer(FrostEntities.GOKKUR.get(), GokkurRenderer::new);
 
+		event.registerBlockEntityRenderer(FrostBlockEntitys.FROST_CHEST.get(), FrostChestRenderer::new);
 	}
 
 	@SubscribeEvent
@@ -176,6 +177,8 @@ public class ClientRegistrar {
         event.registerLayerDefinition(FrostModelLayers.SEEKER, SeekerModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SEAL, SealModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.MIND_VINE, MindVineModel::createBodyLayer);
+
+		event.registerLayerDefinition(FrostModelLayers.GOKKUR, GokkurModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.VENOCHEM, VenochemModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.VENOM_BALL, VenomBallModel::createBodyLayer);

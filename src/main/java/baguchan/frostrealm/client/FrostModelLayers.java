@@ -26,6 +26,7 @@ public class FrostModelLayers {
     public static final ModelLayerLocation WOLFFLUE_ARMOR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_armor"), "main");
 
     public static final ModelLayerLocation VENOCHEM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "venchem"), "main");
+    public static final ModelLayerLocation GOKKUR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "gokkur"), "main");
 
     public static final ModelLayerLocation VENOM_BALL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "venom_ball"), "main");
 

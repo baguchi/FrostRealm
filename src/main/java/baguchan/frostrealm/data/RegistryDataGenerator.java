@@ -4,6 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.data.resource.FrostDensityFunctions;
 import baguchan.frostrealm.data.resource.FrostNoises;
 import baguchan.frostrealm.data.resource.ModConfiguredFeatures;
+import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
 import baguchan.frostrealm.registry.FrostBiomeSources;
 import baguchan.frostrealm.registry.FrostBiomes;
 import baguchan.frostrealm.registry.FrostDamageSources;
@@ -31,6 +32,7 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
 			.add(Registries.DENSITY_FUNCTION, FrostDensityFunctions::bootstrap)
             .add(Registries.DIMENSION_TYPE, FrostDimensionSettings::bootstrapDimensionType)
             .add(Registries.BIOME, FrostBiomes::bootstrap)
+			.add(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, WolfflueVariants::bootstrap)
             .add(Registries.LEVEL_STEM, FrostDimensionSettings::bootstrapLevelStem);
 	;
 

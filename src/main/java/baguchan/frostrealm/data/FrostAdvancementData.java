@@ -101,7 +101,7 @@ public class FrostAdvancementData extends AdvancementProvider {
 
 			AdvancementHolder tame_wolfflue = Advancement.Builder.advancement()
 					.parent(enterFrostrealm)
-					.display(FrostItems.ASTRIUM_INGOT.get(),
+					.display(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get(),
 							Component.translatable("advancement.frostrealm.tame_wolfflue"),
 							Component.translatable("advancement.frostrealm.tame_wolfflue.desc"),
 							null,
