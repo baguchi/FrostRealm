@@ -83,7 +83,7 @@ public class SnowSwimNodeEvaluator extends WalkNodeEvaluator {
 
             return PathType.POWDER_SNOW;
 		} else {
-            return getPathTypeStatic(p_164666_, blockpos$mutableblockpos);
+			return super.getPathType(p_164666_, p_164667_, p_164668_, p_164669_);
 		}
 	}
 }

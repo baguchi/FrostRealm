@@ -72,6 +72,10 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
+        url "https://cursemaven.com"
+    }
+
+    maven {
         url = "https://api.modrinth.com/maven"
     }
 }
@@ -84,6 +88,7 @@ dependencies {
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     implementation "net.neoforged:neoforge:${neo_version}"
     implementation "maven.modrinth:bagus-lib:${bagus_lib_version}"
+    implementation "curse.maven:debug-utils-forge-783008:5607923"
     // Example mod dependency using a mod jar from ./libs with a flat dir repository
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
     // The group id is ignored when searching -- in this case, it is "blank"

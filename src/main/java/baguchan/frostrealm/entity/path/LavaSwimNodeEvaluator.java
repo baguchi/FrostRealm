@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.PathNavigationRegion;
 import net.minecraft.world.level.pathfinder.*;
 
@@ -70,7 +69,8 @@ public class LavaSwimNodeEvaluator extends WalkNodeEvaluator {
 		return false;
 	}
 
-	public PathType getPathTypeStatic(PathfindingContext p_164666_, int p_164667_, int p_164668_, int p_164669_) {
+	@Override
+	public PathType getPathType(PathfindingContext p_164666_, int p_164667_, int p_164668_, int p_164669_) {
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 		PathType blockpathtypes = getPathTypeStatic(p_164666_, blockpos$mutableblockpos.set(p_164667_, p_164668_, p_164669_));
 		if (blockpathtypes == PathType.LAVA) {
@@ -83,7 +83,7 @@ public class LavaSwimNodeEvaluator extends WalkNodeEvaluator {
 
 			return PathType.LAVA;
 		} else {
-			return getPathTypeStatic(p_164666_, blockpos$mutableblockpos);
+			return super.getPathType(p_164666_, p_164667_, p_164668_, p_164669_);
 		}
 	}
 }
