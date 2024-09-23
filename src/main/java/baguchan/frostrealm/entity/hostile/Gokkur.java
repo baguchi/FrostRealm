@@ -174,7 +174,7 @@ public class Gokkur extends Monster {
         if (this.isAlive() && getPose() == Pose.SPIN_ATTACK) {
             boolean flag = livingentity.isDamageSourceBlocked(this.damageSources().mobAttack(this));
             float f1 = (float) Mth.clamp(livingentity.getDeltaMovement().horizontalDistanceSqr() * 1.5F, 0.5F, 3.0F);
-            float f2 = flag ? 0.25F : 1.0F;
+            float f2 = flag ? 0.25F + this.getSnowProgress() * 0.25F : 1.0F + this.getSnowProgress() * 0.5F;
             double d1 = this.getX() - livingentity.getX();
             double d2 = this.getZ() - livingentity.getZ();
             double d3 = livingentity.getX() - this.getX();
