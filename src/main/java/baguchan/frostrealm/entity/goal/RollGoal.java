@@ -40,7 +40,7 @@ public class RollGoal extends Goal {
         LivingEntity livingentity = this.mob.getTarget();
         if (this.cooldown <= 0) {
             if (livingentity != null && livingentity.isAlive() && this.mob.getSensing().hasLineOfSight(livingentity)) {
-                Vec3 vec3 = calculateViewVector(0.0F, -livingentity.getYHeadRot()).scale(5.0F);
+                Vec3 vec3 = calculateViewVector(0.0F, this.mob.getYRot()).scale(6.0F);
                 this.target = BlockPos.containing(vec3.add(livingentity.position()));
                 this.cooldown = 120;
                 return true;
@@ -92,23 +92,24 @@ public class RollGoal extends Goal {
         double d0 = this.mob.distanceToSqr(this.target.getX(), this.target.getY(), this.target.getZ());
         float f = (float) Math.sqrt(d0) / 16F;
         if (++this.attackTime >= 0) {
-            if (this.attackTime == 40) {
-
+            if (this.attackTime == 10) {
                 this.mob.setPose(Pose.SPIN_ATTACK);
             }
 
-            if (this.attackTime < 40) {
+            if (this.attackTime < 10) {
                 this.mob.getNavigation().stop();
 
-                this.mob.getLookControl().setLookAt(this.target, 30.0F, 30.0F);
+                this.mob.getLookControl().setLookAt(this.target.getX(), this.target.getY(), this.target.getZ(), 30.0F, 30.0F);
             } else {
-                Vec3 vec3 = this.calculateViewVector(0.0F, this.getYHeadRot());
-
                 this.mob.getMoveControl().setWantedPosition(this.target.getX(), this.target.getY(), this.target.getZ(), 1.5F);
-            }
-            if (this.attackTime == 20 * 6) {
-                this.mob.setPose(Pose.STANDING);
-                this.attackTime = -Mth.floor(f * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
+
+                double x = this.target.getX() - this.mob.getX();
+                double z = this.target.getZ() - this.mob.getZ();
+
+                if (this.attackTime == 20 * 6 || x * x + z * z < 1.0F) {
+                    this.mob.setPose(Pose.STANDING);
+                    this.attackTime = -Mth.floor(f * (float) (this.attackIntervalMax - this.attackIntervalMin) + (float) this.attackIntervalMin);
+                }
             }
         }
     }

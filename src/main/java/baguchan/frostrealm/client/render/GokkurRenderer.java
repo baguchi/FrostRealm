@@ -3,6 +3,7 @@ package baguchan.frostrealm.client.render;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.GokkurModel;
+import baguchan.frostrealm.client.render.layer.SnowGokkurLayer;
 import baguchan.frostrealm.entity.hostile.Gokkur;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -14,6 +15,7 @@ public class GokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurModel
 
     public GokkurRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(FrostModelLayers.GOKKUR)), 0.5F);
+        this.addLayer(new SnowGokkurLayer<>(this, p_173952_.getItemRenderer()));
     }
 
     @Override

@@ -11,8 +11,8 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
 public class GokkurModel<T extends Gokkur> extends HierarchicalModel<T> {
-    private final ModelPart root;
-    private final ModelPart body_rotation;
+    public final ModelPart root;
+    public final ModelPart body_rotation;
     private final ModelPart left_leg;
     private final ModelPart right_leg;
     private final ModelPart body;
