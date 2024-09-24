@@ -67,19 +67,21 @@ public class CellingMonster extends Monster {
             } else {
                 Direction closestDirection = null;
                 double closestDistance = 100D;
-                for (Direction dir : Direction.Plane.HORIZONTAL) {
-                    BlockPos antPos = new BlockPos(Mth.floor(this.getX()), Mth.floor(this.getY()), Mth.floor(this.getZ()));
-                    BlockPos offsetPos = antPos.relative(dir);
-                    Vec3 offset = Vec3.atCenterOf(offsetPos);
-                    if (closestDistance > this.position().distanceTo(offset) && level().loadedAndEntityCanStandOnFace(offsetPos, this, dir.getOpposite())) {
-                        closestDistance = this.position().distanceTo(offset);
-                        closestDirection = dir;
+                for (Direction dir : Direction.values()) {
+                    if (dir != Direction.DOWN) {
+                        BlockPos antPos = new BlockPos(Mth.floor(this.getX()), Mth.floor(this.getY()), Mth.floor(this.getZ()));
+                        BlockPos offsetPos = antPos.relative(dir);
+                        Vec3 offset = Vec3.atCenterOf(offsetPos);
+                        if (closestDistance > this.position().distanceTo(offset) && level().loadedAndEntityCanStandOnFace(offsetPos, this, dir.getOpposite())) {
+                            closestDistance = this.position().distanceTo(offset);
+                            closestDirection = dir;
+                        }
                     }
-                }
-                if (closestDirection != null && closestDirection != this.getDirection()) {
-                    this.entityData.set(ATTACHED_FACE, closestDirection);
-                } else if (Direction.DOWN != this.getDirection() && closestDirection == null) {
-                    this.entityData.set(ATTACHED_FACE, Direction.DOWN);
+                    if (closestDirection != null && closestDirection != this.getDirection()) {
+                        this.entityData.set(ATTACHED_FACE, closestDirection);
+                    } else if (Direction.DOWN != this.getDirection() && closestDirection == null) {
+                        this.entityData.set(ATTACHED_FACE, Direction.DOWN);
+                    }
                 }
             }
         }
