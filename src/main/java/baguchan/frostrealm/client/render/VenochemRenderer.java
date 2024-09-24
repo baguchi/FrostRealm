@@ -45,6 +45,8 @@ public class VenochemRenderer<T extends Venochem> extends MobRenderer<T, Venoche
                 poseStack.translate(0.0D, -trans, 0.0D);
 
             } else if (entity.getAttachFacing() == Direction.UP) {
+                poseStack.translate(0.0D, trans, 0.0D);
+
                 poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - rotationYaw));
                 poseStack.mulPose(Axis.XP.rotationDegrees(180));
                 poseStack.mulPose(Axis.YP.rotationDegrees(180));

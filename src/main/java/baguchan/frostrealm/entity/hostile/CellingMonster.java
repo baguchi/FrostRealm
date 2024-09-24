@@ -18,7 +18,6 @@ import net.minecraft.world.phys.Vec3;
 
 public class CellingMonster extends Monster {
     private static final EntityDataAccessor<Direction> ATTACHED_FACE = SynchedEntityData.defineId(CellingMonster.class, EntityDataSerializers.DIRECTION);
-    private static final EntityDataAccessor<Byte> CLIMBING = SynchedEntityData.defineId(CellingMonster.class, EntityDataSerializers.BYTE);
 
     private boolean isUpsideDownNavigator;
     public float attachChangeProgress;
@@ -36,7 +35,6 @@ public class CellingMonster extends Monster {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(ATTACHED_FACE, Direction.DOWN);
-        builder.define(CLIMBING, (byte) 0);
     }
 
     @Override
@@ -59,14 +57,17 @@ public class CellingMonster extends Monster {
         }
         Vec3 vector3d = this.getDeltaMovement();
         if (!this.level().isClientSide) {
-            if (this.onGround() || this.isInWaterOrBubble() || this.isInLava() || this.isInFluidType()) {
+            boolean flag = this.moveControl instanceof CellingMoveControl && ((CellingMoveControl) this.moveControl).isWalkableUpper();
+            boolean flag2 = this.moveControl.hasWanted() && this.moveControl.getWantedY() - this.getY() > 0;
+
+            if (!flag && !flag2 && (this.onGround() || this.isInWaterOrBubble() || this.isInLava() || this.isInFluidType())) {
                 this.entityData.set(ATTACHED_FACE, Direction.DOWN);
-            } else if (this.verticalCollision) {
+            } else if (this.verticalCollision && !flag && !flag2) {
                 this.entityData.set(ATTACHED_FACE, Direction.UP);
             } else {
                 Direction closestDirection = null;
                 double closestDistance = 100D;
-                for (Direction dir : Direction.values()) {
+                for (Direction dir : Direction.Plane.HORIZONTAL) {
                     BlockPos antPos = new BlockPos(Mth.floor(this.getX()), Mth.floor(this.getY()), Mth.floor(this.getZ()));
                     BlockPos offsetPos = antPos.relative(dir);
                     Vec3 offset = Vec3.atCenterOf(offsetPos);
@@ -84,7 +85,7 @@ public class CellingMonster extends Monster {
         }
         final Direction attachmentFacing = this.getAttachFacing();
         if (attachmentFacing != Direction.DOWN) {
-            if (attachmentFacing == Direction.UP) {
+            if (attachmentFacing == Direction.UP && this.yya >= 0) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0, 1, 0));
             }
         }
