@@ -53,7 +53,7 @@ public class Venochem extends CellingMonster implements RangedAttackMob {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new RestrictSunGoal(this));
-        this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0));
+        this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.2));
         this.goalSelector.addGoal(4, new AnimateAttackGoal(this, 1.1F, (int) (0.25 * 20), 20) {
             @Override
             public boolean canUse() {
@@ -66,7 +66,7 @@ public class Venochem extends CellingMonster implements RangedAttackMob {
             }
         });
         this.goalSelector.addGoal(5, new ShootProjectileAnimationGoal(this, 0.8F, 20, 20 * 3, 10.0F));
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.6));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.8F));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
