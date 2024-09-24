@@ -13,6 +13,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 public class CellingMonster extends Monster {
@@ -27,6 +28,8 @@ public class CellingMonster extends Monster {
     protected CellingMonster(EntityType<? extends CellingMonster> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
         switchNavigator(true);
+        this.moveControl = new CellingMoveControl(this);
+        this.navigation = new CellingPathNavigation(this, level());
     }
 
     @Override
@@ -39,9 +42,10 @@ public class CellingMonster extends Monster {
     @Override
     public void travel(Vec3 p_32394_) {
         if (this.isControlledByLocalInstance() && this.getAttachFacing() != Direction.DOWN) {
-            this.moveRelative(0.01F, p_32394_);
+            this.moveRelative(0.1F, p_32394_);
             this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.6));
+            this.calculateEntityAnimation(true);
         } else {
             super.travel(p_32394_);
         }
@@ -60,9 +64,9 @@ public class CellingMonster extends Monster {
             } else if (this.verticalCollision) {
                 this.entityData.set(ATTACHED_FACE, Direction.UP);
             } else {
-                Direction closestDirection = Direction.DOWN;
+                Direction closestDirection = null;
                 double closestDistance = 100D;
-                for (Direction dir : Direction.Plane.HORIZONTAL) {
+                for (Direction dir : Direction.values()) {
                     BlockPos antPos = new BlockPos(Mth.floor(this.getX()), Mth.floor(this.getY()), Mth.floor(this.getZ()));
                     BlockPos offsetPos = antPos.relative(dir);
                     Vec3 offset = Vec3.atCenterOf(offsetPos);
@@ -71,26 +75,24 @@ public class CellingMonster extends Monster {
                         closestDirection = dir;
                     }
                 }
-                this.entityData.set(ATTACHED_FACE, closestDirection);
+                if (closestDirection != null && closestDirection != this.getDirection()) {
+                    this.entityData.set(ATTACHED_FACE, closestDirection);
+                } else if (Direction.DOWN != this.getDirection() && closestDirection == null) {
+                    this.entityData.set(ATTACHED_FACE, Direction.DOWN);
+                }
             }
         }
-        boolean flag = false;
         final Direction attachmentFacing = this.getAttachFacing();
         if (attachmentFacing != Direction.DOWN) {
             if (attachmentFacing == Direction.UP) {
                 this.setDeltaMovement(this.getDeltaMovement().add(0, 1, 0));
-            } else {
-                if (!this.horizontalCollision) {
-                    Vec3 vec = Vec3.atLowerCornerOf(attachmentFacing.getNormal());
-                    this.setDeltaMovement(this.getDeltaMovement().add(vec.normalize().multiply(0.5F, 0.5F, 0.5F)));
-                }
             }
         }
-        if (attachmentFacing != Direction.DOWN) {
-            this.setNoGravity(true);
+        /*if (attachmentFacing != Direction.DOWN) {
+            //this.setNoGravity(true);
         } else {
-            this.setNoGravity(false);
-        }
+            //this.setNoGravity(false);
+        }*/
         if (prevAttachDir != attachmentFacing) {
             attachChangeProgress = 1F;
         }
@@ -105,13 +107,21 @@ public class CellingMonster extends Monster {
         }
     }
 
+    @Override
+    protected void checkFallDamage(double p_20990_, boolean p_20991_, BlockState p_20992_, BlockPos p_20993_) {
+        super.checkFallDamage(p_20990_, p_20991_, p_20992_, p_20993_);
+        if (this.getAttachFacing() != Direction.DOWN) {
+            this.resetFallDistance();
+        }
+    }
+
     public boolean onClimbable() {
         return false;
     }
 
     @Override
     protected float getFlyingSpeed() {
-        return this.getSpeed() * 0.1F;
+        return this.getSpeed() * 0.2F;
     }
 
     @Override
@@ -137,13 +147,10 @@ public class CellingMonster extends Monster {
 
 
     public void switchNavigator(boolean rightsideUp) {
+
         if (rightsideUp) {
-            this.moveControl = new CellingMoveControl(this);
-            this.navigation = new CellingPathNavigation(this, level());
             this.isUpsideDownNavigator = false;
         } else {
-            this.moveControl = new CellingMoveControl(this);
-            this.navigation = new CellingPathNavigation(this, level());
             this.isUpsideDownNavigator = true;
         }
     }

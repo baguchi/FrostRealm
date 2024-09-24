@@ -2,11 +2,12 @@ package baguchan.frostrealm.entity.path;
 
 import baguchan.frostrealm.entity.hostile.CellingMonster;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.network.protocol.game.DebugPackets;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathFinder;
-import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 
 public class CellingPathNavigation extends GroundPathNavigation {
@@ -30,21 +31,46 @@ public class CellingPathNavigation extends GroundPathNavigation {
         return new PathFinder(this.nodeEvaluator, p_26598_);
     }
 
-    protected double getGroundY(Vec3 p_186132_) {
-        BlockPos blockpos = BlockPos.containing(p_186132_);
-        return WalkNodeEvaluator.getFloorLevel(this.level, blockpos);
+    @Override
+    public void tick() {
+        this.tick++;
+        if (this.hasDelayedRecomputation) {
+            this.recomputePath();
+        }
+
+        if (!this.isDone()) {
+            if (this.canUpdatePath()) {
+                this.followThePath();
+            } else if (this.path != null && !this.path.isDone()) {
+                Vec3 vec3 = this.path.getNextEntityPos(this.mob);
+                if (this.mob.getBlockX() == Mth.floor(vec3.x) && this.mob.getBlockY() == Mth.floor(vec3.y) && this.mob.getBlockZ() == Mth.floor(vec3.z)) {
+                    this.path.advance();
+                }
+            }
+
+            DebugPackets.sendPathFindingPacket(this.level, this.mob, this.path, this.maxDistanceToWaypoint);
+            if (!this.isDone()) {
+                Vec3 vec31 = this.path.getNextEntityPos(this.mob);
+                this.mob.getMoveControl().setWantedPosition(vec31.x, vec31.y, vec31.z, this.speedModifier);
+            }
+        }
     }
 
     protected boolean canMoveDirectly(Vec3 p_186138_, Vec3 p_186139_) {
-        return true;
+        return false;
     }
 
     public boolean isStableDestination(BlockPos p_26608_) {
-        return !this.level.getBlockState(p_26608_.below()).isAir() || this.cellingMonster.getAttachFacing() != Direction.DOWN;
+        return true;
     }
 
 
     public void setCanFloat(boolean p_26563_) {
         this.nodeEvaluator.setCanFloat(p_26563_);
+    }
+
+    @Override
+    protected boolean hasValidPathType(PathType p_326937_) {
+        return super.hasValidPathType(p_326937_) || p_326937_ == PathType.OPEN;
     }
 }

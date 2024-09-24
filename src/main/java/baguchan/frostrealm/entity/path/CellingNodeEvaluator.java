@@ -8,6 +8,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.PathNavigationRegion;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.Target;
@@ -34,9 +36,29 @@ public class CellingNodeEvaluator extends WalkNodeEvaluator {
         this.pathTypesByPosCache.clear();
     }
 
-    @Nullable
+    @Override
     public Node getStart() {
-        return this.getStartNode(new BlockPos(Mth.floor(this.mob.getBoundingBox().minX), Mth.floor(this.mob.getBoundingBox().minY + 0.5D), Mth.floor(this.mob.getBoundingBox().minZ)));
+        int i;
+        if (this.canFloat() && this.mob.isInWater()) {
+            i = this.mob.getBlockY();
+            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(this.mob.getX(), (double) i, this.mob.getZ());
+
+            for (BlockState blockstate = this.currentContext.getBlockState(blockpos$mutableblockpos);
+                 blockstate.is(Blocks.WATER);
+                 blockstate = this.currentContext.getBlockState(blockpos$mutableblockpos)
+            ) {
+                blockpos$mutableblockpos.set(this.mob.getX(), (double) (++i), this.mob.getZ());
+            }
+        } else {
+            i = Mth.floor(this.mob.getY() + 0.5);
+        }
+
+        BlockPos blockpos1 = BlockPos.containing(this.mob.getX(), (double) i, this.mob.getZ());
+        if (!this.canStartAt(blockpos1)) {
+            return super.getStartNode(blockpos1);
+        }
+
+        return super.getStartNode(blockpos1);
     }
 
 
@@ -146,9 +168,9 @@ public class CellingNodeEvaluator extends WalkNodeEvaluator {
                 }
             }
 
-            node = tryFindFirstGroundNodeBelow(p_263032_, p_263066_, p_263105_);
+            //node = tryFindFirstGroundNodeBelow(p_263032_, p_263066_, p_263105_);
         }
-        return node;
+        return null;
     }
 
     protected PathType getCachedBlockType(int p_192968_, int p_192969_, int p_192970_) {

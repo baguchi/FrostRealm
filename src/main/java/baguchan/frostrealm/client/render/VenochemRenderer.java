@@ -35,7 +35,14 @@ public class VenochemRenderer<T extends Venochem> extends MobRenderer<T, Venoche
             float progresso = 1F - (entity.prevAttachChangeProgress + (entity.attachChangeProgress - entity.prevAttachChangeProgress) * partialTicks);
 
             if (entity.getAttachFacing() == Direction.DOWN) {
-                super.setupRotations(entity, poseStack, ageInTick, rotationYaw, partialTicks, p_320045_);
+                poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - rotationYaw));
+                poseStack.translate(0.0D, trans, 0.0D);
+                if (entity.yo < entity.getY()) {
+                    poseStack.mulPose(Axis.XP.rotationDegrees(90 * (1 - progresso)));
+                } else {
+                    poseStack.mulPose(Axis.XP.rotationDegrees(-90 * (1 - progresso)));
+                }
+                poseStack.translate(0.0D, -trans, 0.0D);
 
             } else if (entity.getAttachFacing() == Direction.UP) {
                 poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - rotationYaw));

@@ -18,6 +18,7 @@ public class CellingMoveControl extends MoveControl {
         this.cellingMonster = cellingMonster;
     }
 
+    @Override
     public void tick() {
         if (this.operation == MoveControl.Operation.STRAFE) {
             if (this.cellingMonster.getAttachFacing() == Direction.DOWN) {
@@ -45,6 +46,7 @@ public class CellingMoveControl extends MoveControl {
                 }
 
                 this.mob.setSpeed(f1);
+                this.mob.setYya(0.0F);
                 this.mob.setZza(this.strafeForwards);
                 this.mob.setXxa(this.strafeRight);
                 this.operation = MoveControl.Operation.WAIT;
@@ -52,6 +54,13 @@ public class CellingMoveControl extends MoveControl {
         } else if (this.operation == MoveControl.Operation.MOVE_TO) {
             if (this.cellingMonster.getAttachFacing() == Direction.DOWN) {
                 super.tick();
+
+                double d2 = this.wantedY - this.mob.getY();
+                this.mob.setYya(0.0F);
+                if (d2 > 0.0) {
+                    this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
+                    this.mob.setZza(1.0F);
+                }
             } else {
                 this.operation = MoveControl.Operation.WAIT;
                 double d0 = this.wantedX - this.mob.getX();
@@ -59,14 +68,17 @@ public class CellingMoveControl extends MoveControl {
                 double d2 = this.wantedY - this.mob.getY();
                 double d3 = d0 * d0 + d2 * d2 + d1 * d1;
                 if (d3 < 2.5000003E-7F) {
+                    this.mob.setYya(0.0F);
                     this.mob.setZza(0.0F);
                     return;
                 }
 
                 float f1 = (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
 
-                if (d1 != 0.0) {
-                    this.mob.setYya(d1 > 0.0 ? f1 * 0.05F : -f1 * 0.05F);
+                double d4 = Math.sqrt(d0 * d0 + d1 * d1);
+                if (Math.abs(d2) > 1.0E-5F || Math.abs(d4) > 1.0E-5F) {
+
+                    this.mob.setYya(d2 > 0.0 ? f1 : -f1);
                 }
 
                 float f9 = (float) (Mth.atan2(d1, d0) * 180.0F / (float) Math.PI) - 90.0F;
@@ -74,6 +86,7 @@ public class CellingMoveControl extends MoveControl {
                 this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
             }
         } else {
+            this.mob.setYya(0.0F);
             super.tick();
         }
     }
