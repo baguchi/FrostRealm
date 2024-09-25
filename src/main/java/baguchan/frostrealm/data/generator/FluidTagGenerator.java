@@ -1,4 +1,4 @@
-package baguchan.frostrealm.data;
+package baguchan.frostrealm.data.generator;
 
 import baguchan.frostrealm.FrostRealm;
 import net.minecraft.core.HolderLookup;

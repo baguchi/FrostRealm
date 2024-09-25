@@ -1,6 +1,7 @@
-package baguchan.frostrealm.data;
+package baguchan.frostrealm.data.generator;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.data.CraftingDataHelper;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.core.HolderLookup;

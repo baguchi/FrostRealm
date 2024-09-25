@@ -1,5 +1,6 @@
-package baguchan.frostrealm.data;
+package baguchan.frostrealm.data.generator;
 
+import baguchan.frostrealm.data.BlockLootTables;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
