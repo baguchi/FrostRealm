@@ -485,6 +485,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
                     if (itemstack.getItem() instanceof SwordItem && this.isOwnedBy(p_30412_) && this.getMainHandItem().isEmpty() && !this.isBaby()) {
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                         itemstack.consume(1, p_30412_);
+                        this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
                         return InteractionResult.SUCCESS;
                     }
 
@@ -497,6 +498,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
 
                     if (itemstack.is(FrostItems.WOLFFLUE_ASTRIUM_ARMOR.get()) && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
                         this.setBodyArmorItem(itemstack.copyWithCount(1));
+                        this.setGuaranteedDrop(EquipmentSlot.BODY);
                         itemstack.consume(1, p_30412_);
                         return InteractionResult.SUCCESS;
                     } else if (itemstack.canPerformAction(net.neoforged.neoforge.common.ItemAbilities.SHEARS_REMOVE_ARMOR)
