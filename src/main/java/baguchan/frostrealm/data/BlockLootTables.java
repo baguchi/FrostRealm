@@ -43,7 +43,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 	private static final Set<Item> EXPLOSION_RESISTANT = Set.of();
 
 
-	protected BlockLootTables(HolderLookup.Provider p_344943_) {
+	public BlockLootTables(HolderLookup.Provider p_344943_) {
 		super(EXPLOSION_RESISTANT, FeatureFlags.REGISTRY.allFlags(), p_344943_);
 	}
 

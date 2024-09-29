@@ -26,14 +26,14 @@ public class QuailHeldItemLayer<T extends SnowPileQuail> extends RenderLayer<T, 
 			if (flag1) {
 				float f = 0.75F;
 				p_117007_.scale(0.75F, 0.75F, 0.75F);
-				p_117007_.translate(0.0D, 0.65D, 0.0D);
+				p_117007_.translate(0.0D, 0.5D, -0.2D);
 			}
 
 			this.getParentModel().body.translateAndRotate(p_117007_);
 			this.getParentModel().getHead().translateAndRotate(p_117007_);
-			p_117007_.translate(0.059D, 0.15D, -0.42D);
+			p_117007_.translate(0.0D, 0.05D, -0.42D);
 			p_117007_.mulPose(Axis.XP.rotationDegrees(90.0F));
-
+			p_117007_.mulPose(Axis.ZP.rotationDegrees(-60.0F));
 			ItemStack itemstack = p_117010_.getItemBySlot(EquipmentSlot.MAINHAND);
 			Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(p_117010_, itemstack, ItemDisplayContext.GROUND, false, p_117007_, p_117008_, p_117009_);
 			p_117007_.popPose();

@@ -4,15 +4,11 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.VenochemModel;
 import baguchan.frostrealm.entity.hostile.Venochem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Pose;
 
 public class VenochemRenderer<T extends Venochem> extends MobRenderer<T, VenochemModel<T>> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/venochem/venochem.png");
@@ -28,9 +24,9 @@ public class VenochemRenderer<T extends Venochem> extends MobRenderer<T, Venoche
         });
     }
 
-    @Override
+/*    @Override
     protected void setupRotations(T entity, PoseStack poseStack, float ageInTick, float rotationYaw, float partialTicks, float p_320045_) {
-        float trans = /*entity.isBaby() ? 0.25F : */6.5F / 16F;
+        float trans = 6.5F / 16F;
         if (entity.getPose() != Pose.SLEEPING) {
             float progresso = 1F - (entity.prevAttachChangeProgress + (entity.attachChangeProgress - entity.prevAttachChangeProgress) * partialTicks);
 
@@ -82,7 +78,7 @@ public class VenochemRenderer<T extends Venochem> extends MobRenderer<T, Venoche
         } else {
             super.setupRotations(entity, poseStack, ageInTick, rotationYaw, partialTicks, p_320045_);
         }
-    }
+    }*/
 
     @Override
     public ResourceLocation getTextureLocation(T p_110775_1_) {

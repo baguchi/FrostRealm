@@ -270,19 +270,27 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_332775_, DifficultyInstance p_332793_, MobSpawnType p_332761_, @Nullable SpawnGroupData p_332782_) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
 
-        Holder<Biome> holder = p_332775_.getBiome(this.blockPosition());
+        Holder<Biome> holder = serverLevelAccessor.getBiome(this.blockPosition());
         Holder<WolfflueVariant> holder1;
-        if (p_332782_ instanceof WolffluePackData wolf$wolfpackdata) {
+        if (spawnGroupData instanceof WolffluePackData wolf$wolfpackdata) {
             holder1 = wolf$wolfpackdata.type;
         } else {
             holder1 = WolfflueVariants.getSpawnVariant(this.registryAccess(), holder);
-            p_332782_ = new WolffluePackData(holder1);
+            spawnGroupData = new WolffluePackData(holder1);
         }
 
         this.setVariant(holder1);
-        return super.finalizeSpawn(p_332775_, p_332793_, p_332761_, p_332782_);
+        this.populateDefaultEquipmentSlots(random, difficultyInstance);
+        this.populateDefaultEquipmentEnchantments(serverLevelAccessor, random, difficultyInstance);
+
+        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
+    }
+
+    @Override
+    protected void populateDefaultEquipmentSlots(RandomSource p_217055_, DifficultyInstance p_217056_) {
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(FrostItems.SILVER_MOON.get()));
     }
 
     @Override

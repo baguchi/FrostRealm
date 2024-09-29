@@ -27,27 +27,20 @@ public class CrystalFoxHeldItemLayer extends RenderLayer<CrystalFox, CrystalFoxM
 		if (flag1) {
 			float f = 0.75F;
 			p_117007_.scale(0.75F, 0.75F, 0.75F);
-			p_117007_.translate(0.0F, 0.5F, 0.209375F);
+			p_117007_.translate(0.0F, 0.4F, 0.0F);
 		}
 		this.getParentModel().main.translateAndRotate(p_117007_);
 		this.getParentModel().body.translateAndRotate(p_117007_);
 		this.getParentModel().head.translateAndRotate(p_117007_);
 		if (p_117010_.isBaby()) {
-			if (flag) {
-				p_117007_.translate(0.4F, 0.26F, 0.15F);
-			} else {
-				p_117007_.translate(0.06F, 0.26F, -0.5F);
-			}
-		} else if (flag) {
-			p_117007_.translate(0.46F, 0.26F, 0.22F);
+			p_117007_.translate(0.00F, 0.15F, -0.8F);
+
 		} else {
-			p_117007_.translate(0.06F, 0.27F, -0.5F);
+			p_117007_.translate(0.00F, 0.15F, -0.5F);
 		}
 
 		p_117007_.mulPose(Axis.XP.rotationDegrees(90.0F));
-		if (flag) {
-			p_117007_.mulPose(Axis.ZP.rotationDegrees(90.0F));
-		}
+		p_117007_.mulPose(Axis.ZP.rotationDegrees(-60.0F));
 
 		ItemStack itemstack = p_117010_.getItemBySlot(EquipmentSlot.MAINHAND);
 		this.itemInHandRenderer.renderItem(p_117010_, itemstack, ItemDisplayContext.GROUND, false, p_117007_, p_117008_, p_117009_);
