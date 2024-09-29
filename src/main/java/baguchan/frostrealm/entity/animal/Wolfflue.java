@@ -289,8 +289,10 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
     }
 
     @Override
-    protected void populateDefaultEquipmentSlots(RandomSource p_217055_, DifficultyInstance p_217056_) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(FrostItems.SILVER_MOON.get()));
+    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance p_217056_) {
+        if (randomSource.nextFloat() < 0.05F) {
+            this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(FrostItems.SILVER_MOON.get()));
+        }
     }
 
     @Override
@@ -442,6 +444,20 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
                         }
 
                         return super.mobInteract(p_30412_, p_30413_);
+                    }
+
+
+                    if (itemstack.getItem() instanceof SwordItem && this.isOwnedBy(p_30412_) && this.getMainHandItem().isEmpty() && !this.isBaby()) {
+                        this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
+                        itemstack.consume(1, p_30412_);
+                        return InteractionResult.SUCCESS;
+                    }
+
+                    if (itemstack.isEmpty() && p_30412_.isShiftKeyDown() && this.isOwnedBy(p_30412_) && !this.getMainHandItem().isEmpty()) {
+                        ItemStack itemstack1 = this.getMainHandItem();
+                        this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                        this.spawnAtLocation(itemstack1);
+                        return InteractionResult.SUCCESS;
                     }
 
                     if (itemstack.is(FrostItems.WOLFFLUE_ASTRIUM_ARMOR.get()) && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {

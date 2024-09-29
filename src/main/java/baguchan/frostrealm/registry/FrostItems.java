@@ -48,7 +48,7 @@ public class FrostItems {
     public static final Supplier<Item> YETI_FUR = ITEMS.register("yeti_fur", () -> new Item((new Item.Properties())));
     public static final Supplier<Item> FROST_BOAR_FUR = ITEMS.register("frost_boar_fur", () -> new Item((new Item.Properties())));
     public static final Supplier<Item> FROST_SPEAR = ITEMS.register("frost_spear", () -> new FrostSpearItem((new Item.Properties().attributes(FrostSpearItem.createAttributes()).durability(1021).rarity(Rarity.UNCOMMON))));
-    public static final Supplier<Item> SILVER_MOON = ITEMS.register("silver_moon", () -> new SilverMoonSwordItem(FrostItemTier.SILVER_MOON, (new Item.Properties().attributes(SwordItem.createAttributes(FrostItemTier.SILVER_MOON, 3, -2.1F)).rarity(Rarity.RARE))));
+    public static final Supplier<Item> SILVER_MOON = ITEMS.register("silver_moon", () -> new SilverMoonSwordItem(FrostItemTier.SILVER_MOON, (new Item.Properties().attributes(SwordItem.createAttributes(FrostItemTier.SILVER_MOON, 3, -2.2F)).rarity(Rarity.RARE))));
 
     public static final Supplier<Item> ASTRIUM_SWORD = ITEMS.register("astrium_sword", () -> new SwordItem(FrostItemTier.ASTRIUM, (new Item.Properties().attributes(SwordItem.createAttributes(FrostItemTier.ASTRIUM, 3, -2.3F)))));
     public static final Supplier<Item> ASTRIUM_AXE = ITEMS.register("astrium_axe", () -> new AxeItem(FrostItemTier.ASTRIUM, (new Item.Properties().attributes(AxeItem.createAttributes(FrostItemTier.ASTRIUM, 6F, -3.0F)))));
