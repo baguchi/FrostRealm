@@ -370,6 +370,41 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
     }
 
     @Override
+    public boolean doHurtTarget(Entity p_21372_) {
+        float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        DamageSource damagesource = this.damageSources().mobAttack(this);
+        if (this.level() instanceof ServerLevel serverlevel) {
+            f = EnchantmentHelper.modifyDamage(serverlevel, this.getWeaponItem(), p_21372_, damagesource, f);
+            if (!this.getMainHandItem().isEmpty()) {
+                f = this.getMainHandItem().getItem().getAttackDamageBonus(p_21372_, f, damagesource);
+            }
+        }
+
+        boolean flag = p_21372_.hurt(damagesource, f);
+        if (flag) {
+            float f1 = this.getKnockback(p_21372_, damagesource);
+            if (f1 > 0.0F && p_21372_ instanceof LivingEntity livingentity) {
+                livingentity.knockback(
+                        (double) (f1 * 0.5F),
+                        (double) Mth.sin(this.getYRot() * (float) (Math.PI / 180.0)),
+                        (double) (-Mth.cos(this.getYRot() * (float) (Math.PI / 180.0)))
+                );
+                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
+            }
+
+            if (this.level() instanceof ServerLevel serverlevel1) {
+                EnchantmentHelper.doPostAttackEffects(serverlevel1, p_21372_, damagesource);
+            }
+
+            this.setLastHurtMob(p_21372_);
+            this.playAttackSound();
+        }
+
+        return flag;
+    }
+
+
+    @Override
     public boolean canUseSlot(EquipmentSlot p_348657_) {
         return true;
     }
