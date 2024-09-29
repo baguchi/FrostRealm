@@ -21,8 +21,8 @@ public class SilverMoonSwordItem extends SwordItem {
     @Override
     public float getAttackDamageBonus(Entity p_344900_, float damage, DamageSource p_344972_) {
         if (p_344972_.getDirectEntity() instanceof LivingEntity livingentity) {
-            float f = (float) (damage / (p_344900_.distanceTo(livingentity) * 0.25F));
-            float f1 = Mth.clamp(f, damage, damage * 3F);
+            float f = (float) (damage / (p_344900_.distanceTo(livingentity) * 0.4F));
+            float f1 = Mth.clamp(f, damage, damage * 2F);
             return f1;
         }
         return damage;
