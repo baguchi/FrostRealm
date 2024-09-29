@@ -376,7 +376,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
         if (this.level() instanceof ServerLevel serverlevel) {
             f = EnchantmentHelper.modifyDamage(serverlevel, this.getWeaponItem(), p_21372_, damagesource, f);
             if (!this.getMainHandItem().isEmpty()) {
-                f = this.getMainHandItem().getItem().getAttackDamageBonus(p_21372_, f, damagesource);
+                f += this.getMainHandItem().getItem().getAttackDamageBonus(p_21372_, f, damagesource);
             }
         }
 
