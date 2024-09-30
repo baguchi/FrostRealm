@@ -10,10 +10,10 @@ import net.minecraft.world.level.block.Block;
 import java.util.function.Supplier;
 
 public enum FrostItemTier implements Tier {
-	ASTRIUM(BlockTags.INCORRECT_FOR_IRON_TOOL, 2, 320, 6.0F, 2.0F, 16, () -> Ingredient.of(FrostItems.ASTRIUM_INGOT.get())),
-    SILVER_MOON(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 3, 560, 7.0F, 2.0F, 20, () -> Ingredient.of());
+	ASTRIUM(BlockTags.INCORRECT_FOR_IRON_TOOL, 320, 6.0F, 2.0F, 16, () -> Ingredient.of(FrostItems.ASTRIUM_INGOT.get())),
+	SILVER_MOON(BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 560, 7.0F, 2.0F, 20, () -> Ingredient.of()),
+	GLACINIUM(BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2531, 9.5F, 5.5F, 18, () -> Ingredient.of(FrostItems.GLACINIUM_INGOT.get()));
 	private final TagKey<Block> incorrectBlocksForDrops;
-	private final int level;
 
 	private final int uses;
 
@@ -25,9 +25,8 @@ public enum FrostItemTier implements Tier {
 
 	private final LazyLoadedValue<Ingredient> repairIngredient;
 
-	FrostItemTier(TagKey<Block> p_336171_, int p_i48458_3_, int p_i48458_4_, float p_i48458_5_, float p_i48458_6_, int p_i48458_7_, Supplier<Ingredient> p_i48458_8_) {
+	FrostItemTier(TagKey<Block> p_336171_, int p_i48458_4_, float p_i48458_5_, float p_i48458_6_, int p_i48458_7_, Supplier<Ingredient> p_i48458_8_) {
 		this.incorrectBlocksForDrops = p_336171_;
-		this.level = p_i48458_3_;
 		this.uses = p_i48458_4_;
 		this.speed = p_i48458_5_;
 		this.damage = p_i48458_6_;
@@ -50,10 +49,6 @@ public enum FrostItemTier implements Tier {
 	@Override
 	public TagKey<Block> getIncorrectBlocksForDrops() {
 		return this.incorrectBlocksForDrops;
-	}
-
-	public int getLevel() {
-		return this.level;
 	}
 
 	public int getEnchantmentValue() {

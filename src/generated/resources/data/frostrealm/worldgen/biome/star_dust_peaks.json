@@ -82,6 +82,12 @@
         "type": "frostrealm:venochem",
         "maxCount": 2,
         "minCount": 1,
+        "weight": 40
+      },
+      {
+        "type": "frostrealm:gokkur",
+        "maxCount": 2,
+        "minCount": 1,
         "weight": 10
       }
     ],

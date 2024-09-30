@@ -50,12 +50,12 @@ public class FrostOverlay implements LayeredDraw.Layer {
                         i7 = k1 + this.random.nextInt(3) - 1;
                     }
                     int k8 = j1 - k6 * 8 - 9;
-                    guiGraphics.blit(ICON_2, k8, i7, 16 + i8 * 9, 27, 9, 9);
+                    guiGraphics.blitSprite(ICON_2, k8, i7, 9, 9);
                     if (k6 * 2 + 1 < l) {
-                        guiGraphics.blit(ICON_1, k8, i7, k7 + 36, 27, 9, 9);
+                        guiGraphics.blitSprite(ICON_0, k8, i7, 9, 9);
                     }
                     if (k6 * 2 + 1 == l) {
-                        guiGraphics.blit(ICON_0, k8, i7, k7 + 45, 27, 9, 9);
+                        guiGraphics.blitSprite(ICON_1, k8, i7, 9, 9);
                     }
                 }
                 RenderSystem.disableBlend();

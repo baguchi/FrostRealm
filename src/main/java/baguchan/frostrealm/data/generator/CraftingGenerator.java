@@ -140,7 +140,15 @@ public class CraftingGenerator extends CraftingDataHelper {
 		hoeItem(consumer, "astrium_hoe", FrostItems.ASTRIUM_HOE.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
 		sickleItem(consumer, "astrium_sickle", FrostItems.ASTRIUM_SICKLE.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
 
-        makeFrostTorch(consumer, FrostBlocks.FROST_TORCH.get().asItem());
+		swordItem(consumer, "glacinium_sword", FrostItems.GLACINIUM_SWORD.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+		axeItem(consumer, "glacinium_axe", FrostItems.GLACINIUM_AXE.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+		pickaxeItem(consumer, "glacinium_pickaxe", FrostItems.GLACINIUM_PICKAXE.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+		shovelItem(consumer, "glacinium_shovel", FrostItems.GLACINIUM_SHOVEL.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+		hoeItem(consumer, "glacinium_hoe", FrostItems.GLACINIUM_HOE.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+		sickleItem(consumer, "glacinium_sickle", FrostItems.GLACINIUM_SICKLE.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+
+
+		makeFrostTorch(consumer, FrostBlocks.FROST_TORCH.get().asItem());
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_CHEST.get(), 1)
                 .pattern("SSS")
                 .pattern("S S")

@@ -61,12 +61,12 @@ public class ItemTagGenerator extends ItemTagsProvider {
         this.tag(FrostTags.Items.SNOWPILE_FOODS).add(FrostItems.SUGARBEET_SEEDS.get()).add(FrostItems.RYE_SEEDS.get());
         this.tag(FrostTags.Items.WOLFFLUE_FOODS).addTag(ItemTags.WOLF_FOOD);
 
-        this.tag(ItemTags.SWORDS).add(FrostItems.ASTRIUM_SWORD.get()).add(FrostItems.SILVER_MOON.get());
-        this.tag(ItemTags.PICKAXES).add(FrostItems.ASTRIUM_PICKAXE.get());
-        this.tag(ItemTags.AXES).add(FrostItems.ASTRIUM_AXE.get());
-        this.tag(ItemTags.SHOVELS).add(FrostItems.ASTRIUM_SHOVEL.get());
-        this.tag(ItemTags.HOES).add(FrostItems.ASTRIUM_HOE.get());
-        this.tag(FrostTags.Items.SICKLE).add(FrostItems.ASTRIUM_SICKLE.get());
+        this.tag(ItemTags.SWORDS).add(FrostItems.ASTRIUM_SWORD.get()).add(FrostItems.GLACINIUM_SWORD.get()).add(FrostItems.SILVER_MOON.get());
+        this.tag(ItemTags.PICKAXES).add(FrostItems.ASTRIUM_PICKAXE.get()).add(FrostItems.GLACINIUM_PICKAXE.get());
+        this.tag(ItemTags.AXES).add(FrostItems.ASTRIUM_AXE.get()).add(FrostItems.GLACINIUM_AXE.get());
+        this.tag(ItemTags.SHOVELS).add(FrostItems.ASTRIUM_SHOVEL.get()).add(FrostItems.ASTRIUM_SHOVEL.get());
+        this.tag(ItemTags.HOES).add(FrostItems.ASTRIUM_HOE.get()).add(FrostItems.GLACINIUM_HOE.get());
+        this.tag(FrostTags.Items.SICKLE).add(FrostItems.ASTRIUM_SICKLE.get()).add(FrostItems.GLACINIUM_SICKLE.get());
         this.tag(ItemTags.DURABILITY_ENCHANTABLE).add(FrostItems.FROST_SPEAR.get()).addTag(FrostTags.Items.SICKLE);
         this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).add(FrostItems.FROST_SPEAR.get()).addTag(FrostTags.Items.SICKLE);
         this.tag(ItemTags.MEAT).add(FrostItems.COOKED_FROST_BOAR_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get())
