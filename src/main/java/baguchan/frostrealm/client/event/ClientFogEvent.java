@@ -2,6 +2,7 @@ package baguchan.frostrealm.client.event;
 
 import baguchan.frostrealm.capability.FrostWeatherManager;
 import baguchan.frostrealm.registry.FrostDimensions;
+import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -25,16 +26,19 @@ public class ClientFogEvent {
                 float fogDensity = Mth.lerp((1.0F - weatherLevel), (float) FrostWeatherManager.getPrevFrostWeather().getDensity(), (float) FrostWeatherManager.getFrostWeather().getDensity());
 
                 float near = event.getNearPlaneDistance();
-                float far = event.getNearPlaneDistance();
+                float far = event.getFarPlaneDistance();
 
-                near = near * (1.0F - weatherLevel) + near * fogDensity;
-                far = far * (1.0F - weatherLevel) + far * fogDensity;
+                float nearLevel = Mth.clamp((1.0F / weatherLevel), 0.0F, 1.0F);
+
+                near = near * ((1.0F - weatherLevel)) + near * fogDensity + nearLevel * 20F;
+                far = far * ((1.0F - weatherLevel)) + far * fogDensity + nearLevel * 60F;
 
 
-                event.setNearPlaneDistance(20.0F * (near));
-                event.setFarPlaneDistance(160.0F * (far));
+                event.setNearPlaneDistance(near);
+                event.setFarPlaneDistance(far);
                 RenderSystem.setShaderFogStart(event.getNearPlaneDistance());
                 RenderSystem.setShaderFogEnd(event.getFarPlaneDistance());
+                event.setFogShape(FogShape.SPHERE);
                 event.setCanceled(true);
             }
         }
@@ -63,13 +67,13 @@ public class ClientFogEvent {
                 float blue2 = FrostWeatherManager.getFrostWeather().getBlue();
 
 
-                float redTotal = Mth.lerp((1.0F - weatherLevel), (float) red, (float) red2);
-                float greenTotal = Mth.lerp((1.0F - weatherLevel), (float) green, (float) green2);
-                float blueTotal = Mth.lerp((1.0F - weatherLevel), (float) blue, (float) blue2);
+                float redTotal = Mth.lerp((weatherLevel), (float) red, (float) red2);
+                float greenTotal = Mth.lerp((weatherLevel), (float) green, (float) green2);
+                float blueTotal = Mth.lerp((weatherLevel), (float) blue, (float) blue2);
 
-                fogRed = fogRed * (1.0F - weatherLevel) + fogRed * redTotal;
-                fogGreen = fogGreen * (1.0F - weatherLevel) + fogGreen * greenTotal;
-                fogBlue = fogBlue * (1.0F - weatherLevel) + fogBlue * blueTotal;
+                fogRed = fogRed * (weatherLevel) + fogRed * redTotal;
+                fogGreen = fogGreen * (weatherLevel) + fogGreen * greenTotal;
+                fogBlue = fogBlue * (weatherLevel) + fogBlue * blueTotal;
 
                 event.setRed(fogRed);
                 event.setGreen(fogGreen);

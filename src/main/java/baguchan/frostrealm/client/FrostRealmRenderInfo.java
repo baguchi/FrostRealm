@@ -95,11 +95,13 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, LightTexture lightTexture, double camX, double camY, double camZ) {
         float f = FrostWeatherManager.getWeatherLevel(partialTick);
         if (!(f <= 0.0F)) {
-            if (level.random.nextFloat() < 0.1F) {
-                float x = level.getRandom().nextFloat() * 0.5F - level.getRandom().nextFloat();
-                float y = level.getRandom().nextFloat();
-                float z = level.getRandom().nextFloat() * 0.5F - level.getRandom().nextFloat();
-                level.addParticle(FrostParticleTypes.SNOW.get(), camX + x * 16F, camY + y * 16, camZ + z * 16, 0F, -0.01F, 0F);
+            for (int i = 0; i < 3; i++) {
+                if (level.random.nextFloat() < 0.75F) {
+                    float x = level.getRandom().nextFloat() * 0.5F - level.getRandom().nextFloat();
+                    float y = level.getRandom().nextFloat();
+                    float z = level.getRandom().nextFloat() * 0.5F - level.getRandom().nextFloat();
+                    level.addParticle(FrostParticleTypes.SNOW.get(), camX - x * 36F, camY + 8 + y * 16, camZ - z * 36, -0.2F, -0.4F, -0.2F);
+                }
             }
         }
         return false;

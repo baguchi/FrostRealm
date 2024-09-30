@@ -22,7 +22,7 @@ public class SnowParticle extends TextureSheetParticle {
         this.particleRandom = this.random.nextFloat();
         this.spinAcceleration = (float) Math.toRadians(this.random.nextBoolean() ? -5.0 : 5.0);
         this.lifetime = 200;
-        this.gravity = 0.005F;
+        this.gravity = 0.015F;
         float f = 0.15F;
         this.quadSize = f;
         this.setSize(f, f);
@@ -47,13 +47,6 @@ public class SnowParticle extends TextureSheetParticle {
         }
 
         if (!this.removed) {
-            float f = (float) (300 - this.lifetime);
-            float f1 = Math.min(f / 300.0F, 1.0F);
-            double d0 = Math.cos(Math.toRadians((double) (this.particleRandom * 60.0F))) * 2.0 * Math.pow((double) f1, 1.25);
-            double d1 = Math.sin(Math.toRadians((double) (this.particleRandom * 60.0F))) * 2.0 * Math.pow((double) f1, 1.25);
-            this.xd += d0 * 0.005F;
-            this.zd += d1 * 0.005F;
-            this.yd = this.yd - (double) this.gravity;
             this.rotSpeed = this.rotSpeed + this.spinAcceleration / 20.0F;
             this.oRoll = this.roll;
             this.roll = this.roll + this.rotSpeed / 20.0F;
