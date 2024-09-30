@@ -51,7 +51,7 @@ public class SnowParticle extends TextureSheetParticle {
             this.oRoll = this.roll;
             this.roll = this.roll + this.rotSpeed / 20.0F;
             this.move(this.xd, this.yd, this.zd);
-            if (this.onGround || this.lifetime < 299 && (this.xd == 0.0 || this.zd == 0.0)) {
+            if (this.onGround || this.lifetime < 200 && (this.xd == 0.0 || this.zd == 0.0)) {
                 this.remove();
             }
 
