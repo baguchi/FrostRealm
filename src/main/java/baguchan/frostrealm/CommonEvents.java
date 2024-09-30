@@ -167,11 +167,6 @@ public class CommonEvents {
                                                 } else if (snowStateBelow.getBlock() == Blocks.CAMPFIRE) {
                                                     makeParticles(serverLevel, pos.below());
                                                     serverLevel.setBlockAndUpdate(pos.below(), snowStateBelow.setValue(BlockStateProperties.LIT, false));
-                                                } else if (snowState.getBlock() == Blocks.SNOW.defaultBlockState().getBlock()) {
-                                                    int layers = snowState.getValue(SnowLayerBlock.LAYERS);
-                                                    if (layers < 2) {
-                                                        serverLevel.setBlockAndUpdate(pos, snowState.setValue(SnowLayerBlock.LAYERS, ++layers));
-                                                    }
                                                 } else if (canPlaceSnowLayer(serverLevel, pos)) {
                                                     serverLevel.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
                                                 }
