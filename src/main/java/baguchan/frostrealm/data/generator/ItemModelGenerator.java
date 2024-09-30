@@ -158,7 +158,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.itemBlockFlat(FrostBlocks.COLD_GRASS);
 		this.itemBlockFlat(FrostBlocks.COLD_TALL_GRASS.get(), "cold_tall_grass_top");
 
-		this.itemBlockFlat(FrostBlocks.RYE_BLOCK);
+		this.toBlock(FrostBlocks.RYE_BLOCK);
 
 		this.toBlock(FrostBlocks.FROST_CRYSTAL_ORE);
 		this.toBlock(FrostBlocks.GLIMMERROCK_ORE);

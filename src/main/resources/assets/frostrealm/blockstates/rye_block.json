@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "frostrealm:block/rye_block",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "frostrealm:block/rye_block"
+    },
+    "axis=z": {
+      "model": "frostrealm:block/rye_block",
+      "x": 90
+    }
+  }
+}

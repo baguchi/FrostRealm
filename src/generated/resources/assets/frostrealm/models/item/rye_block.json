@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "frostrealm:block/rye_block"
-  }
+  "parent": "frostrealm:block/rye_block"
 }

@@ -76,7 +76,8 @@ public class FrostStructures {
 
         context.register(IGLOO_HOUSE, new StructureTemplatePool(emptyPool, ImmutableList.of(
                 Pair.of(StructurePoolElement.legacy(name("igloo/igloo_1")), 3),
-                Pair.of(StructurePoolElement.legacy(name("igloo/igloo_2")), 1)
+                Pair.of(StructurePoolElement.legacy(name("igloo/igloo_2")), 1),
+                Pair.of(StructurePoolElement.legacy(name("igloo/igloo_2")), 4)
         ), StructureTemplatePool.Projection.RIGID));
 
 

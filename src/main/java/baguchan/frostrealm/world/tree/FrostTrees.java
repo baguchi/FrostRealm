@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public class FrostTrees {
     public static final TreeGrower FROSTROOT = new TreeGrower(
-            "mangrove",
-            0.85F,
+            "frsotroot",
+            0.15F,
             Optional.empty(),
             Optional.empty(),
             Optional.of(FrostTreeFeatures.FROST_TREE),
