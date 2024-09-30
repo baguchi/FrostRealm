@@ -217,12 +217,12 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.requires(FrostBlocks.FROST_CRYSTAL_BLOCK.get())
 				.unlockedBy("has_item", has(FrostItems.FROST_CRYSTAL.get())).save(consumer, prefix("frost_crystal_from_block"));
 
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostItems.GLACINIUM_INGOT.get(), 2)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostItems.GLACINIUM_INGOT.get(), 1)
 				.requires(FrostItems.GLACINIUM_CRYSTAL.get())
 				.requires(FrostItems.GLACINIUM_CRYSTAL.get())
 				.requires(FrostItems.FROST_CRYSTAL.get())
 				.requires(FrostItems.FROST_CRYSTAL.get())
-				.requires(FrostItems.GLIMMERROCK.get())
+				.requires(FrostItems.ASTRIUM_INGOT.get())
 				.unlockedBy("has_item", has(FrostItems.GLACINIUM_CRYSTAL.get())).save(consumer);
 
 

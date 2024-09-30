@@ -15,11 +15,11 @@
       "item": "frostrealm:frost_crystal"
     },
     {
-      "item": "frostrealm:glimmerrock"
+      "item": "frostrealm:astrium_ingot"
     }
   ],
   "result": {
-    "count": 2,
+    "count": 1,
     "id": "frostrealm:glacinium_ingot"
   }
 }

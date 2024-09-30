@@ -58,11 +58,11 @@ public class FrostItems {
     public static final Supplier<Item> ASTRIUM_SICKLE = ITEMS.register("astrium_sickle", () -> new SickleItem(FrostItemTier.ASTRIUM, (new Item.Properties().attributes(SickleItem.createAttributes(FrostItemTier.ASTRIUM, 8.0F, -3.3F)))));
 
     public static final Supplier<Item> GLACINIUM_SWORD = ITEMS.register("glacinium_sword", () -> new SwordItem(FrostItemTier.GLACINIUM, (new Item.Properties().attributes(SwordItem.createAttributes(FrostItemTier.GLACINIUM, 3, -2.6F)))));
-    public static final Supplier<Item> GLACINIUM_AXE = ITEMS.register("glacinium_axe", () -> new AxeItem(FrostItemTier.GLACINIUM, (new Item.Properties().attributes(AxeItem.createAttributes(FrostItemTier.GLACINIUM, 6F, -3.1F)))));
+    public static final Supplier<Item> GLACINIUM_AXE = ITEMS.register("glacinium_axe", () -> new AxeItem(FrostItemTier.GLACINIUM, (new Item.Properties().attributes(AxeItem.createAttributes(FrostItemTier.GLACINIUM, 4F, -3.1F)))));
     public static final Supplier<Item> GLACINIUM_PICKAXE = ITEMS.register("glacinium_pickaxe", () -> new PickaxeItem(FrostItemTier.GLACINIUM, (new Item.Properties().attributes(PickaxeItem.createAttributes(FrostItemTier.GLACINIUM, 1, -2.9F)))));
     public static final Supplier<Item> GLACINIUM_SHOVEL = ITEMS.register("glacinium_shovel", () -> new ShovelItem(FrostItemTier.GLACINIUM, (new Item.Properties().attributes(ShovelItem.createAttributes(FrostItemTier.GLACINIUM, 1.5F, -3.0F)))));
     public static final Supplier<Item> GLACINIUM_HOE = ITEMS.register("glacinium_hoe", () -> new HoeItem(FrostItemTier.GLACINIUM, (new Item.Properties().attributes(HoeItem.createAttributes(FrostItemTier.GLACINIUM, -2, -1.0F)))));
-    public static final Supplier<Item> GLACINIUM_SICKLE = ITEMS.register("glacinium_sickle", () -> new SickleItem(FrostItemTier.GLACINIUM, (new Item.Properties().attributes(SickleItem.createAttributes(FrostItemTier.GLACINIUM, 8.0F, -3.4F)))));
+    public static final Supplier<Item> GLACINIUM_SICKLE = ITEMS.register("glacinium_sickle", () -> new SickleItem(FrostItemTier.GLACINIUM, (new Item.Properties().attributes(SickleItem.createAttributes(FrostItemTier.GLACINIUM, 6.0F, -3.4F)))));
 
 
     public static final Supplier<Item> YETI_FUR_HELMET = ITEMS.register("yeti_fur_helmet", () -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorItem.Type.HELMET, (new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(20)))));
