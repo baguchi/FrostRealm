@@ -84,7 +84,7 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 			if (!entity.getItemBySlot(EquipmentSlot.FEET).isEmpty())
 				tempAffect *= 0.8F;
 			if (entity.isInWaterOrRain())
-				tempAffect *= 2.0F;
+				tempAffect *= 3.0F;
 			if (entity.isInFluidType(FrostFluidTypes.HOT_SPRING.get())) {
 				tempAffect *= 0.1F;
 				if (entity.tickCount % 80 == 0) {
