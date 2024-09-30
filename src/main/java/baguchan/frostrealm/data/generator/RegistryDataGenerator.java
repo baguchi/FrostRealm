@@ -5,10 +5,7 @@ import baguchan.frostrealm.data.resource.FrostDensityFunctions;
 import baguchan.frostrealm.data.resource.FrostNoises;
 import baguchan.frostrealm.data.resource.ModConfiguredFeatures;
 import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
-import baguchan.frostrealm.registry.FrostBiomeSources;
-import baguchan.frostrealm.registry.FrostBiomes;
-import baguchan.frostrealm.registry.FrostDamageSources;
-import baguchan.frostrealm.registry.FrostDimensionSettings;
+import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.world.caver.FrostConfiguredWorldCarvers;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
@@ -26,6 +23,10 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.NOISE, FrostNoises::bootstrap)
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrapConfiguredFeature)
             .add(Registries.PLACED_FEATURE, ModConfiguredFeatures::bootstrapPlacedFeature)
+			.add(Registries.PROCESSOR_LIST, FrostStructures::bootstrapProcessors)
+			.add(Registries.STRUCTURE, FrostStructures::bootstrapStructures)
+			.add(Registries.STRUCTURE_SET, FrostStructures::bootstrapSets)
+			.add(Registries.TEMPLATE_POOL, FrostStructures::bootstrapPools)
             .add(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, FrostBiomeSources::bootstrapPreset)
             .add(Registries.CONFIGURED_CARVER, FrostConfiguredWorldCarvers::bootstrap)
             .add(Registries.NOISE_SETTINGS, FrostDimensionSettings::bootstrapNoise)

@@ -108,6 +108,8 @@ public class FrostBlocks {
 	//CROP
     public static final Supplier<Block> SUGARBEET = noItemRegister("sugarbeet", () -> new SugarBeetBlock(BlockBehaviour.Properties.of().noOcclusion().noCollission().sound(SoundType.CROP)));
     public static final Supplier<Block> RYE = noItemRegister("rye", () -> new RyeBlock(BlockBehaviour.Properties.of().noOcclusion().noCollission().sound(SoundType.CROP)));
+
+	public static final Supplier<Block> RYE_BLOCK = register("rye_block", () -> new HayBlock(BlockBehaviour.Properties.of().sound(SoundType.GRASS)));
 	//EGG
     public static final Supplier<Block> SNOWPILE_QUAIL_EGG = register("snowpile_quail_egg", () -> new SnowPileQuailEggBlock(BlockBehaviour.Properties.of().noOcclusion().strength(0.2F, 0.25F).sound(SoundType.METAL)));
 
@@ -176,6 +178,7 @@ public class FrostBlocks {
 		fireblock.setFlammable(FROSTROOT_FENCE.get(), 5, 20);
 		fireblock.setFlammable(FROSTROOT_FENCE_GATE.get(), 5, 20);
 		fireblock.setFlammable(COLD_TALL_GRASS.get(), 60, 100);
+		fireblock.setFlammable(RYE_BLOCK.get(), 60, 20);
 	}
 
     private static <T extends Block> Supplier<T> baseRegister(String name, Supplier<? extends T> block, Function<Supplier<T>, Supplier<? extends Item>> item) {

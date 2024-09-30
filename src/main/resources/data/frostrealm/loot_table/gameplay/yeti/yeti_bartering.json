@@ -11,29 +11,45 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
+                "max": 6.0,
+                "min": 4.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "frostrealm:sugarbeet_seeds",
-          "weight": 10
+          "weight": 20
         },
         {
           "type": "minecraft:item",
+          "name": "frostrealm:rye_wheat",
           "functions": [
             {
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
+                "max": 16.0,
+                "min": 8.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "frostrealm:rye_seeds",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "frostrealm:frost_boar_fur",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
           "weight": 10
         },
         {
@@ -50,70 +66,6 @@
             }
           ],
           "name": "frostrealm:stray_necklace_part",
-          "weight": 2
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "frostrealm:warped_crystal",
-          "weight": 12
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "frostrealm:cryonite",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "frostrealm:frost_crystal",
-          "weight": 12
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "frostrealm:glimmerrock",
           "weight": 4
         },
         {
@@ -123,14 +75,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
+                "max": 4.0,
+                "min": 2.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "frostrealm:astrium_ingot",
-          "weight": 3
+          "name": "frostrealm:warped_crystal",
+          "weight": 25
         },
         {
           "type": "minecraft:item",
@@ -139,14 +91,71 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 8.0,
+                "max": 6.0,
                 "min": 4.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "frostrealm:frost_boar_fur",
-          "weight": 8
+          "name": "frostrealm:cryonite",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "frostrealm:frost_crystal",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "frostrealm:glimmerrock",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4.0,
+                "min": 2.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "frostrealm:frost_boar_helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "frostrealm:frost_boar_chestplate",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "frostrealm:frost_boar_leggings",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "frostrealm:frost_boar_boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "frostrealm:astrium_ingot",
+          "weight": 2
         }
       ],
       "rolls": 1

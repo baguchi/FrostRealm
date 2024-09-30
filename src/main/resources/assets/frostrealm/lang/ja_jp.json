@@ -96,6 +96,8 @@
   "block.frostrealm.sugarbeets": "Sugar Beets",
   "block.frostrealm.vigoroshroom": "活発性キノコ",
   "block.frostrealm.warped_crystal_block": "Warped Crystal Block",
+  "block.frostrealm.rye": "ライ麦",
+  "block.frostrealm.rye_block": "ライ麦ブロック",
   "commands.frostrealm.frost_weather.clear": "フロストリアムの天候を消しました",
   "commands.frostrealm.frost_weather.clear.fail_dimension": "フロストリアムの天候をリセットするのに失敗しました。フロストリアム内でしか機能しませ",
   "commands.frostrealm.frost_weather.set": "フロストリアムの天候を変えました",

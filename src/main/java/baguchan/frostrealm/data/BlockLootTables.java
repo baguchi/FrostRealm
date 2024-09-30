@@ -129,7 +129,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.add(FrostBlocks.SUGARBEET.get(), createCropDrops(FrostBlocks.SUGARBEET.get(), FrostItems.SUGARBEET.get(), FrostItems.SUGARBEET.get(), lootitemcondition$builder));
         LootItemCondition.Builder lootitemcondition$builder2 = LootItemBlockStatePropertyCondition.hasBlockStateProperties(FrostBlocks.RYE.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BeetrootBlock.AGE, 7));
         this.add(FrostBlocks.RYE.get(), createCropDrops(FrostBlocks.RYE.get(), FrostItems.RYE_SEEDS.get(), FrostItems.RYE.get(), lootitemcondition$builder2));
-
+		this.dropSelf(FrostBlocks.RYE_BLOCK.get());
 
 		this.add(FrostBlocks.FROST_CRYSTAL_ORE.get(), this::createFrostCrystalOreDrops);
 		this.add(FrostBlocks.GLIMMERROCK_ORE.get(), this::createGlimmerRockOreDrops);
