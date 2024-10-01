@@ -4,6 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.data.resource.FrostDensityFunctions;
 import baguchan.frostrealm.data.resource.FrostNoises;
 import baguchan.frostrealm.data.resource.ModConfiguredFeatures;
+import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
 import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.world.caver.FrostConfiguredWorldCarvers;
@@ -19,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
 public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
 
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
-			.add(Registries.DAMAGE_TYPE, FrostDamageSources::bootstrap)
+            .add(Registries.DAMAGE_TYPE, FrostDamageType::bootstrap)
             .add(Registries.NOISE, FrostNoises::bootstrap)
             .add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrapConfiguredFeature)
             .add(Registries.PLACED_FEATURE, ModConfiguredFeatures::bootstrapPlacedFeature)
@@ -34,6 +35,7 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.DIMENSION_TYPE, FrostDimensionSettings::bootstrapDimensionType)
             .add(Registries.BIOME, FrostBiomes::bootstrap)
 			.add(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, WolfflueVariants::bootstrap)
+            .add(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY, AttachableCrystals::bootstrap)
             .add(Registries.LEVEL_STEM, FrostDimensionSettings::bootstrapLevelStem);
 	;
 

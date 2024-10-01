@@ -27,6 +27,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.singleTex(FrostItems.CRYONITE);
 		this.singleTex(FrostItems.CRYONITE_CREAM);
 		this.singleTex(FrostItems.WARPED_CRYSTAL);
+		this.singleTex(FrostItems.VENOM_CRYSTAL);
+		this.singleTex(FrostItems.UNSTABLE_VENOM_CRYSTAL);
 		this.singleTex(FrostItems.GLIMMERROCK);
 		this.singleTex(FrostItems.ASTRIUM_RAW);
 		this.singleTex(FrostItems.ASTRIUM_INGOT);

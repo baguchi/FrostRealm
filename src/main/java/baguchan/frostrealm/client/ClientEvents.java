@@ -5,13 +5,18 @@ import bagu_chan.bagus_lib.api.client.IRootModel;
 import bagu_chan.bagus_lib.client.event.BagusModelEvent;
 import bagu_chan.bagus_lib.util.client.AnimationUtil;
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.api.recipe.AttachableCrystal;
 import baguchan.frostrealm.client.animation.SpearAttackAnimations;
+import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import baguchan.frostrealm.registry.FrostAnimations;
+import baguchan.frostrealm.registry.FrostDataCompnents;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import net.minecraft.Util;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
@@ -20,6 +25,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import org.jetbrains.annotations.Nullable;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -39,6 +45,11 @@ public class ClientEvents {
         AuroraPowerUtils.getAuroraPowers(event.getItemStack()).addToTooltip(event.getContext(), component -> {
             event.getToolTip().add(component);
         }, TooltipFlag.NORMAL);
+        @Nullable Holder<AttachableCrystal> attachableCrystal = event.getItemStack().get(FrostDataCompnents.ATTACH_CRYSTAL);
+
+        if (attachableCrystal != null) {
+            event.getToolTip().add(Component.translatable(Util.makeDescriptionId("attach_crystal", event.getContext().registries().lookup(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).get().getOrThrow(attachableCrystal.getKey()).getKey().location())));
+        }
     }
 
     @SubscribeEvent

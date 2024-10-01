@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "V": {
+      "item": "frostrealm:unstable_venom_crystal"
+    },
+    "W": {
+      "item": "frostrealm:warped_crystal"
+    }
+  },
+  "pattern": [
+    "VVV",
+    "VWV",
+    "VVV"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frostrealm:unstable_venom_crystal"
+  }
+}

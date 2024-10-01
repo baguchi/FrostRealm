@@ -101,6 +101,8 @@
   "item.frostrealm.venochem_spawn_egg": "Venochem Spawn Egg",
   "item.frostrealm.frozen_fruit": "Frozen Fruit",
   "item.frostrealm.warped_crystal": "Warped Crystal",
+  "item.frostrealm.venom_crystal": "Venom Crystal",
+  "item.frostrealm.unstable_venom_crystal": "Unstable Venom Crystal",
   "item.frostrealm.glimmerrock": "Glimmer Rock",
   "item.frostrealm.aurora_gem": "Aurora Gem",
   "item.frostrealm.melted_fruit": "Melted Fruit",
@@ -228,5 +230,6 @@
   "fluid.frostrealm.hot_spring": "Hot Spring",
   "fluid_type.frostrealm.hot_spring": "Hot Spring",
   "death.attack.venom": "%1$s was Infected Venom",
-  "death.attack.venom_ball": "%1$s was Infected Venom by %2$s 's %3$s"
+  "death.attack.venom_ball": "%1$s was Infected Venom by %2$s 's %3$s",
+  "attach_crystal.frostrealm.venom": "Venom"
 }

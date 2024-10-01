@@ -1,6 +1,6 @@
 package baguchan.frostrealm.entity.projectile;
 
-import baguchan.frostrealm.registry.FrostDamageSources;
+import baguchan.frostrealm.registry.FrostDamageType;
 import baguchan.frostrealm.registry.FrostParticleTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -91,7 +91,7 @@ public class VenomBall extends ThrowableProjectile {
             }
 
             int poison = this.level().getDifficulty().getId();
-            DamageSource damagesource = this.damageSources().source(FrostDamageSources.VENOM_BALL, this, livingentity);
+            DamageSource damagesource = this.damageSources().source(FrostDamageType.VENOM_BALL, this, livingentity);
             if (entity.hurt(damagesource, 2.0F) && entity instanceof LivingEntity livingentity2) {
                 EnchantmentHelper.doPostAttackEffects((ServerLevel) this.level(), livingentity2, damagesource);
                 livingentity2.addEffect(new MobEffectInstance(MobEffects.POISON, 40 + 20 * poison));

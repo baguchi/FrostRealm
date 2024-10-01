@@ -1,9 +1,11 @@
-package baguchan.frostrealm.data.generator;
+package baguchan.frostrealm.data.generator.recipe;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.data.CraftingDataHelper;
+import baguchan.frostrealm.data.generator.recipe.builder.AttachCrystalRecipeBuilder;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
+import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -272,5 +274,16 @@ public class CraftingGenerator extends CraftingDataHelper {
                 .define('A', FrostItems.ASTRIUM_INGOT.get())
                 .unlockedBy("has_item", has(FrostItems.STARDUST_CRYSTAL.get())).save(consumer);
 
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, FrostItems.UNSTABLE_VENOM_CRYSTAL.get(), 1)
+				.pattern("VVV")
+				.pattern("VWV")
+				.pattern("VVV")
+				.define('V', FrostItems.UNSTABLE_VENOM_CRYSTAL.get())
+				.define('W', FrostItems.WARPED_CRYSTAL.get())
+				.unlockedBy("has_item", has(FrostItems.VENOM_CRYSTAL.get())).save(consumer);
+
+		AttachCrystalRecipeBuilder.smithingTrim(Ingredient.of(ItemTags.SWORDS), Ingredient.of(FrostItems.VENOM_CRYSTAL.get()), RecipeCategory.COMBAT).unlocks("has_item", has(FrostItems.UNSTABLE_VENOM_CRYSTAL.get())).save(consumer, prefix("venom_sword"));
+		AttachCrystalRecipeBuilder.smithingTrim(Ingredient.of(ItemTags.AXES), Ingredient.of(FrostItems.VENOM_CRYSTAL.get()), RecipeCategory.COMBAT).unlocks("has_item", has(FrostItems.UNSTABLE_VENOM_CRYSTAL.get())).save(consumer, prefix("venom_axe"));
+		AttachCrystalRecipeBuilder.smithingTrim(Ingredient.of(FrostTags.Items.SICKLE), Ingredient.of(FrostItems.VENOM_CRYSTAL.get()), RecipeCategory.COMBAT).unlocks("has_item", has(FrostItems.UNSTABLE_VENOM_CRYSTAL.get())).save(consumer, prefix("venom_sickle"));
 	}
 }

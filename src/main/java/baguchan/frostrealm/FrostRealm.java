@@ -2,9 +2,11 @@ package baguchan.frostrealm;
 
 
 import baguchan.frostrealm.api.entity.WolfflueVariant;
+import baguchan.frostrealm.api.recipe.AttachableCrystal;
 import baguchan.frostrealm.client.ClientRegistrar;
 import baguchan.frostrealm.command.FrostWeatherCommand;
 import baguchan.frostrealm.command.TemperatureCommand;
+import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
 import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
@@ -52,6 +54,7 @@ public class FrostRealm {
 		IEventBus forgeBus = NeoForge.EVENT_BUS;
 
 		modBus.addListener(DataPackRegistryEvent.NewRegistry.class, event -> event.dataPackRegistry(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, WolfflueVariant.DIRECT_CODEC, WolfflueVariant.DIRECT_CODEC));
+        modBus.addListener(DataPackRegistryEvent.NewRegistry.class, event -> event.dataPackRegistry(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY, AttachableCrystal.DIRECT_CODEC, AttachableCrystal.DIRECT_CODEC));
 
 		FrostFeatures.FEATURES.register(modBus);
 		FrostSounds.SOUND_EVENTS.register(modBus);

@@ -1,7 +1,7 @@
 package baguchan.frostrealm.data.generator;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.registry.FrostDamageSources;
+import baguchan.frostrealm.registry.FrostDamageType;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -20,7 +20,7 @@ public class DamageTypeTagGenerator extends TagsProvider<DamageType> {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.tag(DamageTypeTags.NO_KNOCKBACK).add(FrostDamageSources.VENOM);
-        this.tag(DamageTypeTags.WITCH_RESISTANT_TO).add(FrostDamageSources.VENOM);
+        this.tag(DamageTypeTags.NO_KNOCKBACK).add(FrostDamageType.VENOM);
+        this.tag(DamageTypeTags.WITCH_RESISTANT_TO).add(FrostDamageType.VENOM);
     }
 }

@@ -128,6 +128,8 @@
   "entity.frostrealm.snow_mole": "Snow Mole",
   "entity.frostrealm.snowpile_quail": "ユキダマチョウ",
   "entity.frostrealm.warped_crystal": "Warped Crystal",
+  "item.frostrealm.venom_crystal": "ベノムクリスタル",
+  "item.frostrealm.unstable_venom_crystal": "不安定なベノムクリスタル",
   "entity.frostrealm.yeti": "イエティ",
   "entity.frostrealm.wolfflue": "ウルッフルー",
   "entity.frostrealm.gokkur": "ゴックル",
@@ -229,5 +231,6 @@
   "subtitles.entity.snowpile_quail.idle": "Snow Pile Quail Crows",
   "subtitles.entity.yeti.idle": "イエティーがうめく",
   "death.attack.venom": "%1$sは猛毒にさらされた",
-  "death.attack.venom_ball": "%1$sは%2$sの%3$sに猛毒にさらされた"
+  "death.attack.venom_ball": "%1$sは%2$sの%3$sに猛毒にさらされた",
+  "attach_crystal.frostrealm.venom": "ベノム"
 }

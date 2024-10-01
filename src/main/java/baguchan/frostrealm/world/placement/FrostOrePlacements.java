@@ -53,8 +53,8 @@ public class FrostOrePlacements {
 
 		PlacementUtils.register(context, STARDUST_ORE_UPPER, configuredFeature.getOrThrow(FrostConfiguredFeatures.ORE_STARDUST_CRYSTAL), commonOrePlacement(30, HeightRangePlacement.triangle(VerticalAnchor.absolute(60), VerticalAnchor.absolute(384))));
 
-        PlacementUtils.register(context, GLACINIUM_ORE, configuredFeature.getOrThrow(FrostConfiguredFeatures.ORE_GLACINIUM), commonOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(64))));
-        PlacementUtils.register(context, GLACINIUM_ORE_SMALL, configuredFeature.getOrThrow(FrostConfiguredFeatures.ORE_GLACINIUM_SMALL), commonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(64))));
+        PlacementUtils.register(context, GLACINIUM_ORE, configuredFeature.getOrThrow(FrostConfiguredFeatures.ORE_GLACINIUM), rareOrePlacement(3, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(64))));
+        PlacementUtils.register(context, GLACINIUM_ORE_SMALL, configuredFeature.getOrThrow(FrostConfiguredFeatures.ORE_GLACINIUM_SMALL), commonOrePlacement(5, HeightRangePlacement.triangle(VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(64))));
 
 	}
 

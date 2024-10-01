@@ -1,5 +1,6 @@
 package baguchan.frostrealm;
 
+import baguchan.frostrealm.api.recipe.AttachableCrystal;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherSavedData;
 import baguchan.frostrealm.entity.FrostPart;
@@ -20,9 +21,11 @@ import net.minecraft.server.level.ChunkMap;
 import net.minecraft.server.level.ChunkResult;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.Musics;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.PolarBear;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -42,6 +45,7 @@ import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -49,6 +53,7 @@ import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.jetbrains.annotations.Nullable;
 
 @EventBusSubscriber(modid = FrostRealm.MODID)
 public class CommonEvents {
@@ -211,6 +216,28 @@ public class CommonEvents {
             if (action == ItemAbilities.HOE_TILL && (context.getClickedFace() != Direction.DOWN && context.getLevel().getBlockState(context.getClickedPos().above()).isAir())) {
                 if (state.is(FrostBlocks.FROZEN_DIRT.get()) || state.is(FrostBlocks.FROZEN_GRASS_BLOCK.get())) {
                     event.setFinalState(FrostBlocks.FROZEN_FARMLAND.get().defaultBlockState());
+                }
+            }
+        }
+    }
+
+    /*
+      handle the Attached Crystal
+    */
+    @SubscribeEvent
+    public static void onEntityHurtPost(LivingDamageEvent.Post event) {
+        LivingEntity livingEntity = event.getEntity();
+        if (event.getSource().getDirectEntity() instanceof LivingEntity attacker) {
+            ItemStack stack = attacker.getMainHandItem();
+            int damage = stack.getOrDefault(FrostDataCompnents.CRYSTAL_USED, 0);
+            @Nullable Holder<AttachableCrystal> attachableCrystal = stack.get(FrostDataCompnents.ATTACH_CRYSTAL);
+            if (attachableCrystal != null) {
+                attacker.hurt(attacker.damageSources().source(attachableCrystal.value().getDamageType().getKey(), attacker), attachableCrystal.value().getDamage());
+
+                if (damage - 1 >= attachableCrystal.value().getUse()) {
+                    stack.remove(FrostDataCompnents.ATTACH_CRYSTAL);
+                    stack.remove(FrostDataCompnents.CRYSTAL_USED);
+                    attacker.playSound(SoundEvents.SLIME_BLOCK_BREAK, 1.0F, 0.4F / (attacker.getRandom().nextFloat() * 0.4F + 0.8F));
                 }
             }
         }
