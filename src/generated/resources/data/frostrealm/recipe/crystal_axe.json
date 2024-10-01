@@ -1,0 +1,9 @@
+{
+  "type": "frostrealm:attach_crystal",
+  "addition": {
+    "item": "frostrealm:frost_crystal"
+  },
+  "base": {
+    "tag": "minecraft:axes"
+  }
+}
