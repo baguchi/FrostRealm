@@ -16,10 +16,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ChunkHolder;
-import net.minecraft.server.level.ChunkMap;
-import net.minecraft.server.level.ChunkResult;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.*;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
@@ -64,18 +61,21 @@ public class CommonEvents {
             ServerLevel world = (ServerLevel) event.getEntity().level();
             MinecraftServer server = world.getServer();
             //sync weather
-            for (ServerLevel serverworld : server.getAllLevels()) {
-                if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-                    FrostWeatherSavedData cap = FrostWeatherSavedData.get(serverworld);
-                    ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
-                    PacketDistributor.sendToAllPlayers(message);
-                    ChangeAuroraMessage message2 = new ChangeAuroraMessage(cap.getAuroraLevel());
-                    PacketDistributor.sendToAllPlayers(message2);
+            if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+                for (ServerLevel serverworld : server.getAllLevels()) {
+                    if (serverworld.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+                        FrostWeatherSavedData cap = FrostWeatherSavedData.get(serverworld);
+                        ChangeWeatherMessage message = new ChangeWeatherMessage(cap.getFrostWeather());
+                        PacketDistributor.sendToPlayer(serverPlayer, message);
+                        ChangeAuroraMessage message2 = new ChangeAuroraMessage(cap.getAuroraLevel());
+                        PacketDistributor.sendToPlayer(serverPlayer, message2);
+                    }
                 }
             }
         }
     }
 
+    //handle frostrelam music
     @SubscribeEvent
     public static void onMusicPlayed(SelectMusicEvent event) {
         if (Minecraft.getInstance().level != null && Minecraft.getInstance().player != null) {
