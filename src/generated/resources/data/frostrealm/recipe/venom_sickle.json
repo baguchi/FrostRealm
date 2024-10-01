@@ -1,9 +1,0 @@
-{
-  "type": "frostrealm:attach_crystal",
-  "addition": {
-    "item": "frostrealm:venom_crystal"
-  },
-  "base": {
-    "tag": "frostrealm:sickle"
-  }
-}

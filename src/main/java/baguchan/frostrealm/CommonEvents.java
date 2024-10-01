@@ -231,8 +231,10 @@ public class CommonEvents {
             ItemStack stack = attacker.getMainHandItem();
             int damage = stack.getOrDefault(FrostDataCompnents.CRYSTAL_USED, 0);
             @Nullable Holder<AttachableCrystal> attachableCrystal = stack.get(FrostDataCompnents.ATTACH_CRYSTAL);
-            if (attachableCrystal != null) {
-                attacker.hurt(attacker.damageSources().source(attachableCrystal.value().getDamageType().getKey(), attacker), attachableCrystal.value().getDamage());
+            if (attachableCrystal != null && !event.getSource().is(attachableCrystal.value().getDamageType().getKey())) {
+
+                livingEntity.invulnerableTime = 5;
+                livingEntity.hurt(attacker.damageSources().source(attachableCrystal.value().getDamageType().getKey(), attacker), attachableCrystal.value().getDamage());
 
                 if (damage - 1 >= attachableCrystal.value().getUse()) {
                     stack.remove(FrostDataCompnents.ATTACH_CRYSTAL);
