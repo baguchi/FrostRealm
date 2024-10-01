@@ -56,11 +56,9 @@ public class FrostBlocks {
 	public static final Supplier<Block> PERMA_MAGMA = register("perma_magma", () -> new PermaMagmaBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
-			.lightLevel(p_152684_ -> 3)
 			.strength(1F, 3.0F)
 			.isValidSpawn((p_187421_, p_187422_, p_187423_, p_187424_) -> p_187424_.fireImmune())
-			.hasPostProcess(FrostBlocks::always)
-			.emissiveRendering(FrostBlocks::always)));
+			.hasPostProcess(FrostBlocks::always)));
 
 	public static final Supplier<Block> FRIGID_STONE = register("frigid_stone", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
 	public static final Supplier<Block> FRIGID_GRASS_BLOCK = register("frigid_grass_block", () -> new FrostGrassBlock(BlockBehaviour.Properties.of().randomTicks().strength(1.5F, 6.0F).sound(SoundType.NYLIUM), FrostBlocks.FRIGID_STONE));
