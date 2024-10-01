@@ -28,6 +28,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
                 , FrostBlocks.FRIGID_STONE_BRICK_MOSSY.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS.get()
                 , FrostBlocks.FRIGID_STONE_SMOOTH.get(), FrostBlocks.FRIGID_STONE_BRICK.get(), FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK_SLAB.get(), FrostBlocks.CHISELED_FRIGID_STONE_BRICK.get()
                 , FrostBlocks.PERMA_SLATE_SMOOTH.get(), FrostBlocks.PERMA_SLATE_BRICK.get(), FrostBlocks.PERMA_SLATE_BRICK_STAIRS.get(), FrostBlocks.PERMA_SLATE_BRICK_SLAB.get()
+                , FrostBlocks.PERMA_MAGMA.get()
                 , FrostBlocks.SHERBET_SANDSTONE.get(), FrostBlocks.SHERBET_SANDSTONE_STAIRS.get(), FrostBlocks.SHERBET_SANDSTONE_SLAB.get()
                 , FrostBlocks.POINTED_ICE.get()
                 , FrostBlocks.FROST_CRYSTAL_BLOCK.get()

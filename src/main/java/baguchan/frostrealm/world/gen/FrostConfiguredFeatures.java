@@ -51,6 +51,8 @@ public class FrostConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GLACINIUM = registerKey("ore_glacinium");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_GLACINIUM_SMALL = registerKey("ore_glacinium_small");
 
+	public static final ResourceKey<ConfiguredFeature<?, ?>> UNDERGROUND_DELTA = registerKey("underground_delta");
+
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TUNDRA_GRASS = registerKey("patch_tundra_grass");
 
@@ -98,6 +100,9 @@ public class FrostConfiguredFeatures {
 		FeatureUtils.register(context, ORE_STARDUST_CRYSTAL, Feature.ORE, new OreConfiguration(ORE_STARDUST_CRYSRTAL_TARGET_LIST, 8));
         FeatureUtils.register(context, ORE_GLACINIUM, Feature.ORE, new OreConfiguration(ORE_GLACINIUM_TARGET_LIST, 8, 0.5F));
         FeatureUtils.register(context, ORE_GLACINIUM_SMALL, Feature.ORE, new OreConfiguration(ORE_GLACINIUM_TARGET_LIST, 4));
+		FeatureUtils.register(context, UNDERGROUND_DELTA, Feature.DELTA_FEATURE,
+				new DeltaFeatureConfiguration(Blocks.LAVA.defaultBlockState(), FrostBlocks.PERMA_MAGMA.get().defaultBlockState(), UniformInt.of(3, 7), UniformInt.of(0, 2)));
+
 
 		FeatureUtils.register(context, PATCH_TUNDRA_GRASS, Feature.RANDOM_PATCH, grassPatch(BlockStateProvider.simple(FrostBlocks.COLD_GRASS.get()), 32));
 

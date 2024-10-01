@@ -33,7 +33,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.simpleBlock(FrostBlocks.PERMA_SLATE_SMOOTH.get());
 		this.slab(FrostBlocks.PERMA_SLATE_BRICK_SLAB.get(), FrostBlocks.PERMA_SLATE_BRICK.get());
 		this.stairs(FrostBlocks.PERMA_SLATE_BRICK_STAIRS.get(), FrostBlocks.PERMA_SLATE_BRICK.get());
-
+		this.simpleBlock(FrostBlocks.PERMA_MAGMA.get());
 
 		this.simpleBlock(FrostBlocks.FRIGID_STONE.get());
 		this.slab(FrostBlocks.FRIGID_STONE_SLAB.get(), FrostBlocks.FRIGID_STONE.get());

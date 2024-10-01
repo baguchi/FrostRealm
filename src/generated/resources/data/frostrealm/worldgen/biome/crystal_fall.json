@@ -83,15 +83,15 @@
     "monster": [
       {
         "type": "frostrealm:venochem",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 40
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 100
       },
       {
         "type": "frostrealm:gokkur",
-        "maxCount": 2,
-        "minCount": 1,
-        "weight": 10
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 60
       }
     ],
     "underground_water_creature": [],

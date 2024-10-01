@@ -23,8 +23,8 @@ public class FrostBiomeDefaultFeatures {
 	}
 
 	public static void defaultMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
-		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.VENOCHEM.get(), 40, 1, 2));
-		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUR.get(), 10, 1, 2));
+		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.VENOCHEM.get(), 100, 2, 3));
+		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUR.get(), 60, 2, 3));
 	}
 
 	public static void purpleFogMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
@@ -118,7 +118,7 @@ public class FrostBiomeDefaultFeatures {
 
 	public static void addUnderGroundFeature(BiomeGenerationSettings.Builder p_194721_) {
 		p_194721_.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, FrostPlacements.SPRING_LAVA_HOTROCK_EXTRA);
-		p_194721_.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FrostPlacements.LAVA_DELTA);
+		p_194721_.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FrostPlacements.UNDERGRAUND_DELTA);
 	}
 
 	public static void addStarDustHillFeatures(BiomeGenerationSettings.Builder p_194721_) {

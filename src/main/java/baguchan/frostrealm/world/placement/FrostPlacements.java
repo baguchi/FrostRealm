@@ -51,6 +51,7 @@ public class FrostPlacements {
 
 
 	public static final ResourceKey<PlacedFeature> LAVA_DELTA = registerKey("delta");
+	public static final ResourceKey<PlacedFeature> UNDERGRAUND_DELTA = registerKey("underground_delta");
 
 	public static final ResourceKey<PlacedFeature> SPRING_LAVA = registerKey("spring_lava");
 	public static final ResourceKey<PlacedFeature> SPRING_LAVA_HOTROCK_EXTRA = registerKey("spring_lava_hotrock_extra");
@@ -103,6 +104,7 @@ public class FrostPlacements {
         PlacementUtils.register(context, FLOATING_ROCK, configuredFeature.getOrThrow(FrostConfiguredFeatures.FLOATING_ROCK), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), HeightRangePlacement.uniform(VerticalAnchor.belowTop(128), VerticalAnchor.belowTop(64)), BiomeFilter.biome());
 
 		PlacementUtils.register(context, LAVA_DELTA, configuredFeature.getOrThrow(NetherFeatures.DELTA), CountOnEveryLayerPlacement.of(8), BiomeFilter.biome());
+		PlacementUtils.register(context, UNDERGRAUND_DELTA, configuredFeature.getOrThrow(FrostConfiguredFeatures.UNDERGROUND_DELTA), CountOnEveryLayerPlacement.of(8), BiomeFilter.biome());
 		PlacementUtils.register(context, HOT_SPRING_DELTA, configuredFeature.getOrThrow(FrostConfiguredFeatures.HOT_SPRING_DELTA), CountOnEveryLayerPlacement.of(4), BiomeFilter.biome());
 
 		PlacementUtils.register(context, SPRING_LAVA, configuredFeature.getOrThrow(FrostConfiguredFeatures.SPRING_LAVA), CountPlacement.of(20), InSquarePlacement.spread(), HeightRangePlacement.of(VeryBiasedToBottomHeight.of(VerticalAnchor.bottom(), VerticalAnchor.belowTop(8), 8)), BiomeFilter.biome());
