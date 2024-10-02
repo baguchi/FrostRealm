@@ -19,15 +19,15 @@ import net.neoforged.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 
 public class FrostAmbientSoundsHandler implements AmbientSoundHandler {
-    private static final int LOOP_SOUND_CROSS_FADE_TIME = 40;
+    private static final int LOOP_SOUND_CROSS_FADE_TIME = 100;
     private static final float SKY_MOOD_RECOVERY_RATE = 0.001F;
     private final SoundManager soundManager;
     private final Object2ObjectArrayMap<FrostWeather, FrostAmbientSoundsHandler.LoopSoundInstance> loopSounds = new Object2ObjectArrayMap<>();
     @Nullable
     private FrostWeather previousWeather;
 
-    public FrostAmbientSoundsHandler(SoundManager p_119640_) {
-        this.soundManager = p_119640_;
+    public FrostAmbientSoundsHandler(SoundManager p_1196100_) {
+        this.soundManager = p_1196100_;
     }
 
     @Override
@@ -98,12 +98,12 @@ public class FrostAmbientSoundsHandler implements AmbientSoundHandler {
 
             this.fade += this.fadeDirection;
             this.tone += this.toneDirection;
-            this.volume = Mth.clamp((float) this.fade / 40.0F, 0.0F, Mth.clamp(0.5F + tone, 0F, 3F));
+            this.volume = Mth.clamp((float) this.fade / 100.0F, 0.0F, Mth.clamp(0.5F + tone, 0F, 3F));
         }
 
 
         public void fadeOut() {
-            this.fade = Math.min(this.fade, 40);
+            this.fade = Math.min(this.fade, 100);
             this.fadeDirection = -1;
         }
 

@@ -19,7 +19,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.PolarBear;
@@ -229,7 +228,7 @@ public class CommonEvents {
     @SubscribeEvent
     public static void onEntityHurtPost(LivingDamageEvent.Post event) {
         LivingEntity livingEntity = event.getEntity();
-        if (event.getSource().getDirectEntity() instanceof LivingEntity attacker && (event.getSource().is(DamageTypes.MOB_ATTACK) || event.getSource().is(DamageTypes.PLAYER_ATTACK))) {
+        if (event.getSource().getDirectEntity() instanceof LivingEntity attacker && event.getSource().isDirect()) {
             ItemStack stack = event.getSource().getWeaponItem();
             if (stack != null) {
                 int damage = stack.getOrDefault(FrostDataCompnents.CRYSTAL_USED, 0);
@@ -280,7 +279,7 @@ public class CommonEvents {
             event.setAmount(AuroraCombatRules.getDamageReduction(event.getAmount(), auroraProtection));
         }
 
-        if (event.getSource().getDirectEntity() instanceof LivingEntity attacker && (event.getSource().is(DamageTypes.MOB_ATTACK) || event.getSource().is(DamageTypes.PLAYER_ATTACK))) {
+        if (event.getSource().getDirectEntity() instanceof LivingEntity attacker && event.getSource().isDirect()) {
             ItemStack stack = event.getSource().getWeaponItem();
             if (stack != null && event.getAmount() > 0) {
                 @Nullable Holder<AttachableCrystal> attachableCrystal = stack.get(FrostDataCompnents.ATTACH_CRYSTAL);
