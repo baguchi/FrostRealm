@@ -234,6 +234,9 @@ public class CommonEvents {
             if (attachableCrystal != null && !event.getSource().is(attachableCrystal.value().getDamageType().getKey())) {
 
                 livingEntity.invulnerableTime = 5;
+                if (attachableCrystal.value().getMobEffectInstance().isPresent()) {
+                    livingEntity.addEffect(attachableCrystal.value().getMobEffectInstance().get());
+                }
                 livingEntity.hurt(attacker.damageSources().source(attachableCrystal.value().getDamageType().getKey(), attacker), attachableCrystal.value().getDamage());
 
                 if (damage - 1 >= attachableCrystal.value().getUse()) {

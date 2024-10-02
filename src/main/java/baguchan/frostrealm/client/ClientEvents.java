@@ -46,9 +46,11 @@ public class ClientEvents {
             event.getToolTip().add(component);
         }, TooltipFlag.NORMAL);
         @Nullable Holder<AttachableCrystal> attachableCrystal = event.getItemStack().get(FrostDataCompnents.ATTACH_CRYSTAL);
-
+        int damage = event.getItemStack().getOrDefault(FrostDataCompnents.CRYSTAL_USED, 0);
+        int damage2 = (attachableCrystal.value().getUse() - damage);
         if (attachableCrystal != null) {
-            event.getToolTip().add(Component.translatable(Util.makeDescriptionId("attach_crystal", event.getContext().registries().lookup(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).get().getOrThrow(attachableCrystal.getKey()).getKey().location())));
+            event.getToolTip().add(Component.translatable(Util.makeDescriptionId("attach_crystal", event.getContext().registries().lookup(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).get().getOrThrow(attachableCrystal.getKey()).getKey().location()))
+                    .append(" ").append(damage2 + " / " + attachableCrystal.value().getUse()));
         }
     }
 

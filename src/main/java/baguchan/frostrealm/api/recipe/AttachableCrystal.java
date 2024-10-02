@@ -13,9 +13,11 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Item;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class AttachableCrystal {
     public static final Codec<AttachableCrystal> DIRECT_CODEC = RecordCodecBuilder.create(
@@ -23,7 +25,8 @@ public class AttachableCrystal {
                             RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("items").forGetter(AttachableCrystal::getItem),
                             Codec.FLOAT.fieldOf("damage").forGetter(AttachableCrystal::getDamage),
                             ExtraCodecs.POSITIVE_INT.fieldOf("usage").forGetter(AttachableCrystal::getUse),
-                            DamageType.CODEC.fieldOf("damage_types").forGetter(AttachableCrystal::getDamageType)
+                            DamageType.CODEC.fieldOf("damage_types").forGetter(AttachableCrystal::getDamageType),
+                            MobEffectInstance.CODEC.optionalFieldOf("mob_effects").forGetter(AttachableCrystal::getMobEffectInstance)
                     )
                     .apply(p_332779_, AttachableCrystal::new)
     );
@@ -33,12 +36,14 @@ public class AttachableCrystal {
     private final float damage;
     private final int use;
     private final Holder<DamageType> damageType;
+    private final Optional<MobEffectInstance> mobEffectInstance;
 
-    public AttachableCrystal(HolderSet<Item> item, float damage, int use, Holder<DamageType> damageType) {
+    public AttachableCrystal(HolderSet<Item> item, float damage, int use, Holder<DamageType> damageType, Optional<MobEffectInstance> mobEffectInstance) {
         this.item = item;
         this.damage = damage;
         this.use = use;
         this.damageType = damageType;
+        this.mobEffectInstance = mobEffectInstance;
     }
 
     public HolderSet<Item> getItem() {
@@ -55,6 +60,10 @@ public class AttachableCrystal {
 
     public Holder<DamageType> getDamageType() {
         return damageType;
+    }
+
+    public Optional<MobEffectInstance> getMobEffectInstance() {
+        return mobEffectInstance;
     }
 
     @Override
