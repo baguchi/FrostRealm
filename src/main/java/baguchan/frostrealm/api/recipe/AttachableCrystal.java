@@ -12,7 +12,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Item;
 
@@ -25,7 +24,6 @@ public class AttachableCrystal {
                             RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("items").forGetter(AttachableCrystal::getItem),
                             Codec.FLOAT.fieldOf("damage").forGetter(AttachableCrystal::getDamage),
                             ExtraCodecs.POSITIVE_INT.fieldOf("usage").forGetter(AttachableCrystal::getUse),
-                            DamageType.CODEC.fieldOf("damage_types").forGetter(AttachableCrystal::getDamageType),
                             MobEffectInstance.CODEC.optionalFieldOf("mob_effects").forGetter(AttachableCrystal::getMobEffectInstance)
                     )
                     .apply(p_332779_, AttachableCrystal::new)
@@ -35,14 +33,12 @@ public class AttachableCrystal {
     private final HolderSet<Item> item;
     private final float damage;
     private final int use;
-    private final Holder<DamageType> damageType;
     private final Optional<MobEffectInstance> mobEffectInstance;
 
-    public AttachableCrystal(HolderSet<Item> item, float damage, int use, Holder<DamageType> damageType, Optional<MobEffectInstance> mobEffectInstance) {
+    public AttachableCrystal(HolderSet<Item> item, float damage, int use, Optional<MobEffectInstance> mobEffectInstance) {
         this.item = item;
         this.damage = damage;
         this.use = use;
-        this.damageType = damageType;
         this.mobEffectInstance = mobEffectInstance;
     }
 
@@ -58,10 +54,6 @@ public class AttachableCrystal {
         return use;
     }
 
-    public Holder<DamageType> getDamageType() {
-        return damageType;
-    }
-
     public Optional<MobEffectInstance> getMobEffectInstance() {
         return mobEffectInstance;
     }
@@ -75,8 +67,7 @@ public class AttachableCrystal {
                     ? false
                     : Objects.equals(this.getItem(), attachableCrystal.getItem())
                     && Objects.equals(this.damage, attachableCrystal.damage)
-                    && Objects.equals(this.use, attachableCrystal.use)
-                    && Objects.equals(this.damageType, attachableCrystal.damageType);
+                    && Objects.equals(this.use, attachableCrystal.use);
         }
     }
 }

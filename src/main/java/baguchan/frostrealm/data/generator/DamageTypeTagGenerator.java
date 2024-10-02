@@ -20,7 +20,7 @@ public class DamageTypeTagGenerator extends TagsProvider<DamageType> {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.tag(DamageTypeTags.NO_KNOCKBACK).add(FrostDamageType.VENOM);
-        this.tag(DamageTypeTags.WITCH_RESISTANT_TO).add(FrostDamageType.VENOM);
+        this.tag(DamageTypeTags.NO_KNOCKBACK).add(FrostDamageType.VENOM).add(FrostDamageType.VENOM_BALL);
+        this.tag(DamageTypeTags.WITCH_RESISTANT_TO).add(FrostDamageType.VENOM).add(FrostDamageType.VENOM_BALL);
     }
 }

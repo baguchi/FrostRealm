@@ -19,9 +19,11 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.PolarBear;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ChunkPos;
@@ -227,22 +229,25 @@ public class CommonEvents {
     @SubscribeEvent
     public static void onEntityHurtPost(LivingDamageEvent.Post event) {
         LivingEntity livingEntity = event.getEntity();
-        if (event.getSource().getDirectEntity() instanceof LivingEntity attacker && event.getSource().isDirect()) {
-            ItemStack stack = attacker.getMainHandItem();
-            int damage = stack.getOrDefault(FrostDataCompnents.CRYSTAL_USED, 0);
-            @Nullable Holder<AttachableCrystal> attachableCrystal = stack.get(FrostDataCompnents.ATTACH_CRYSTAL);
-            if (attachableCrystal != null && !event.getSource().is(attachableCrystal.value().getDamageType().getKey())) {
+        if (event.getSource().getDirectEntity() instanceof LivingEntity attacker && (event.getSource().is(DamageTypes.MOB_ATTACK) || event.getSource().is(DamageTypes.PLAYER_ATTACK))) {
+            ItemStack stack = event.getSource().getWeaponItem();
+            if (stack != null) {
+                int damage = stack.getOrDefault(FrostDataCompnents.CRYSTAL_USED, 0);
+                @Nullable Holder<AttachableCrystal> attachableCrystal = stack.get(FrostDataCompnents.ATTACH_CRYSTAL);
+                if (attachableCrystal != null) {
 
-                livingEntity.invulnerableTime = 5;
-                if (attachableCrystal.value().getMobEffectInstance().isPresent()) {
-                    livingEntity.addEffect(attachableCrystal.value().getMobEffectInstance().get());
-                }
-                livingEntity.hurt(attacker.damageSources().source(attachableCrystal.value().getDamageType().getKey(), attacker), attachableCrystal.value().getDamage());
-
-                if (damage - 1 >= attachableCrystal.value().getUse()) {
-                    stack.remove(FrostDataCompnents.ATTACH_CRYSTAL);
-                    stack.remove(FrostDataCompnents.CRYSTAL_USED);
-                    attacker.playSound(SoundEvents.SLIME_BLOCK_BREAK, 1.0F, 0.4F / (attacker.getRandom().nextFloat() * 0.4F + 0.8F));
+                    if (attachableCrystal.value().getMobEffectInstance().isPresent()) {
+                        livingEntity.addEffect(attachableCrystal.value().getMobEffectInstance().get());
+                    }
+                    if (!(attacker instanceof Player player) || !player.isCreative()) {
+                        if (damage - 1 >= attachableCrystal.value().getUse()) {
+                            stack.remove(FrostDataCompnents.ATTACH_CRYSTAL);
+                            stack.remove(FrostDataCompnents.CRYSTAL_USED);
+                            attacker.playSound(SoundEvents.SLIME_BLOCK_BREAK, 1.0F, 0.4F / (attacker.getRandom().nextFloat() * 0.4F + 0.8F));
+                        } else {
+                            stack.set(FrostDataCompnents.CRYSTAL_USED, damage + 1);
+                        }
+                    }
                 }
             }
         }
@@ -273,6 +278,16 @@ public class CommonEvents {
 
         if (event.getAmount() > 0) {
             event.setAmount(AuroraCombatRules.getDamageReduction(event.getAmount(), auroraProtection));
+        }
+
+        if (event.getSource().getDirectEntity() instanceof LivingEntity attacker && (event.getSource().is(DamageTypes.MOB_ATTACK) || event.getSource().is(DamageTypes.PLAYER_ATTACK))) {
+            ItemStack stack = event.getSource().getWeaponItem();
+            if (stack != null && event.getAmount() > 0) {
+                @Nullable Holder<AttachableCrystal> attachableCrystal = stack.get(FrostDataCompnents.ATTACH_CRYSTAL);
+                if (attachableCrystal != null) {
+                    event.setAmount(event.getAmount() + attachableCrystal.value().getDamage());
+                }
+            }
         }
     }
 }

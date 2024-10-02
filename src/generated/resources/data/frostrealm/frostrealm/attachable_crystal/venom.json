@@ -1,14 +1,13 @@
 {
   "damage": 1.0,
-  "damage_types": "frostrealm:venom",
   "items": "frostrealm:unstable_venom_crystal",
   "mob_effects": {
     "duration": 200,
     "id": "minecraft:poison",
     "neoforge:cures": [
       "protected_by_totem",
-      "honey",
-      "milk"
+      "milk",
+      "honey"
     ],
     "show_icon": true
   },
