@@ -67,6 +67,7 @@ public class ItemTagGenerator extends ItemTagsProvider {
         this.tag(ItemTags.SHOVELS).add(FrostItems.ASTRIUM_SHOVEL.get()).add(FrostItems.ASTRIUM_SHOVEL.get());
         this.tag(ItemTags.HOES).add(FrostItems.ASTRIUM_HOE.get()).add(FrostItems.GLACINIUM_HOE.get());
         this.tag(FrostTags.Items.SICKLE).add(FrostItems.ASTRIUM_SICKLE.get()).add(FrostItems.GLACINIUM_SICKLE.get());
+        this.tag(FrostTags.Items.SMITHABLE_WEAPON).addTag(ItemTags.SWORDS).addTag(ItemTags.AXES).addTag(FrostTags.Items.SICKLE);
         this.tag(ItemTags.DURABILITY_ENCHANTABLE).add(FrostItems.FROST_SPEAR.get()).addTag(FrostTags.Items.SICKLE);
         this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).add(FrostItems.FROST_SPEAR.get()).addTag(FrostTags.Items.SICKLE);
         this.tag(ItemTags.MEAT).add(FrostItems.COOKED_FROST_BOAR_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get())

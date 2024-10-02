@@ -227,7 +227,7 @@ public class CommonEvents {
     @SubscribeEvent
     public static void onEntityHurtPost(LivingDamageEvent.Post event) {
         LivingEntity livingEntity = event.getEntity();
-        if (event.getSource().getDirectEntity() instanceof LivingEntity attacker) {
+        if (event.getSource().getDirectEntity() instanceof LivingEntity attacker && event.getSource().isDirect()) {
             ItemStack stack = attacker.getMainHandItem();
             int damage = stack.getOrDefault(FrostDataCompnents.CRYSTAL_USED, 0);
             @Nullable Holder<AttachableCrystal> attachableCrystal = stack.get(FrostDataCompnents.ATTACH_CRYSTAL);

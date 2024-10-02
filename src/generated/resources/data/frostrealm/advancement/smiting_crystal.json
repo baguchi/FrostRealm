@@ -1,0 +1,34 @@
+{
+  "parent": "frostrealm:astrium_age",
+  "criteria": {
+    "smithing_crystal": {
+      "conditions": {
+        "ingredients": [
+          {
+            "items": "frostrealm:frost_crystal"
+          }
+        ],
+        "recipe_id": "frostrealm:smiting_crystal_with_weapon"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.frostrealm.smithing_crystal.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "frostrealm:frost_crystal"
+    },
+    "title": {
+      "translate": "advancements.frostrealm.smithing_crystal.title"
+    }
+  },
+  "requirements": [
+    [
+      "smithing_crystal"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "frostrealm:crystal_axe"
+        "recipe": "frostrealm:smiting_crystal_with_weapon"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "frostrealm:crystal_axe"
+      "frostrealm:smiting_crystal_with_weapon"
     ]
   }
 }

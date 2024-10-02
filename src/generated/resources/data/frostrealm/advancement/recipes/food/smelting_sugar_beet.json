@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "frostrealm:unstable_venom_crystal"
+            "items": "frostrealm:sugarbeet"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "frostrealm:crystal_sword"
+        "recipe": "frostrealm:smelting_sugar_beet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "frostrealm:crystal_sword"
+      "frostrealm:smelting_sugar_beet"
     ]
   }
 }

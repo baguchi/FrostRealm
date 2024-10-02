@@ -8,10 +8,7 @@ import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.critereon.ChangeDimensionTrigger;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.TameAnimalTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
@@ -108,6 +105,30 @@ public class FrostAdvancementData extends AdvancementProvider {
 							AdvancementType.TASK, true, true, false)
 					.addCriterion("has_item", TameAnimalTrigger.TriggerInstance.tamedAnimal(EntityPredicate.Builder.entity().of(FrostEntities.WOLFFLUE.get())))
 					.save(consumer, "frostrealm:tame_wolfflue");
+
+			Advancement.Builder.advancement()
+					.parent(astrium_age)
+					.display(
+							FrostItems.FROST_CRYSTAL.get(),
+							Component.translatable("advancements.frostrealm.smithing_crystal.title"),
+							Component.translatable("advancements.frostrealm.smithing_crystal.desc"),
+							null,
+							AdvancementType.TASK,
+							true,
+							true,
+							false
+					)
+					.addCriterion(
+							"smithing_crystal",
+							RecipeCraftedTrigger.TriggerInstance.craftedItem(
+									ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "smiting_crystal_with_weapon"),
+									List.of(
+											ItemPredicate.Builder.item().of(FrostItems.FROST_CRYSTAL.get())
+									)
+							)
+					)
+					.save(consumer, "frostrealm:smiting_crystal");
+
 		}
 	}
 }

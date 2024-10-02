@@ -282,8 +282,8 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.define('W', FrostItems.WARPED_CRYSTAL.get())
 				.unlockedBy("has_item", has(FrostItems.VENOM_CRYSTAL.get())).save(consumer);
 
-		AttachCrystalRecipeBuilder.smithingTrim(Ingredient.of(ItemTags.SWORDS), Ingredient.of(FrostItems.FROST_CRYSTAL.get()), RecipeCategory.COMBAT).unlocks("has_item", has(FrostItems.UNSTABLE_VENOM_CRYSTAL.get())).save(consumer, prefix("crystal_sword"));
-		AttachCrystalRecipeBuilder.smithingTrim(Ingredient.of(ItemTags.AXES), Ingredient.of(FrostItems.FROST_CRYSTAL.get()), RecipeCategory.COMBAT).unlocks("has_item", has(FrostItems.UNSTABLE_VENOM_CRYSTAL.get())).save(consumer, prefix("crystal_axe"));
-		AttachCrystalRecipeBuilder.smithingTrim(Ingredient.of(FrostTags.Items.SICKLE), Ingredient.of(FrostItems.FROST_CRYSTAL.get()), RecipeCategory.COMBAT).unlocks("has_item", has(FrostItems.UNSTABLE_VENOM_CRYSTAL.get())).save(consumer, prefix("crystal_sickle"));
+		foodCooking(FrostItems.SUGARBEET.get(), Items.SUGAR, 0.05F, consumer, "sugar_beet");
+
+		AttachCrystalRecipeBuilder.smithingTrim(Ingredient.of(FrostTags.Items.SMITHABLE_WEAPON), Ingredient.of(FrostItems.FROST_CRYSTAL.get()), RecipeCategory.COMBAT).unlocks("has_item", has(FrostItems.UNSTABLE_VENOM_CRYSTAL.get())).save(consumer, prefix("smiting_crystal_with_weapon"));
 	}
 }

@@ -4,6 +4,6 @@
     "item": "frostrealm:frost_crystal"
   },
   "base": {
-    "tag": "frostrealm:sickle"
+    "tag": "frostrealm:smithable_weapon"
   }
 }
