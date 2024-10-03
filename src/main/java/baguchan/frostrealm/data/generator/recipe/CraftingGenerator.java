@@ -101,6 +101,12 @@ public class CraftingGenerator extends CraftingDataHelper {
 		makeFenceGate(consumer, FrostBlocks.FROSTROOT_FENCE_GATE.get(), FrostBlocks.FROSTROOT_PLANKS.get());
 		makeDoor(consumer, FrostBlocks.FROSTROOT_DOOR.get(), FrostBlocks.FROSTROOT_PLANKS.get());
 
+
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTBITE_PLANKS.get(), 4).requires(FrostBlocks.FROSTBITE_LOG.get())
+				.unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(FrostBlocks.FROSTBITE_LOG.get()).getPath(), has(FrostBlocks.FROSTBITE_LOG.get())).save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTBITE_PLANKS.get(), 4).requires(FrostBlocks.STRIPPED_FROSTBITE_LOG.get())
+				.unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(FrostBlocks.STRIPPED_FROSTBITE_LOG.get()).getPath(), has(FrostBlocks.STRIPPED_FROSTBITE_LOG.get())).save(consumer, prefix("stripped_frostbite_to_plank"));
+
 		makeSlab(consumer, FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_PLANKS.get());
 		makeStairs(consumer, FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS.get());
 		makeWoodFence(consumer, FrostBlocks.FROSTBITE_FENCE.get(), FrostBlocks.FROSTBITE_PLANKS.get());
