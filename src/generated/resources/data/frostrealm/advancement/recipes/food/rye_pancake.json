@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_frostroot_planks": {
+    "has_item": {
       "conditions": {
         "items": [
           {
-            "items": "frostrealm:frostroot_planks"
+            "items": "frostrealm:rye"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "frostrealm:frostroot_chest"
+        "recipe": "frostrealm:rye_pancake"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_frostroot_planks"
+      "has_item"
     ]
   ],
   "rewards": {
     "recipes": [
-      "frostrealm:frostroot_chest"
+      "frostrealm:rye_pancake"
     ]
   }
 }

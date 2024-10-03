@@ -42,7 +42,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
                 , FrostBlocks.GLACINIUM_BLOCK.get()
         );
         tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_PLANKS.get(), FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_FENCE_GATE.get()
-                        , FrostBlocks.FROSTROOT_CHEST.get(), FrostBlocks.FROSTROOT_CRAFTING_TABLE.get())
+                )
                 .add(FrostBlocks.FROSTBITE_LOG.get(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get(), FrostBlocks.FROSTBITE_PLANKS.get(), FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_FENCE.get(), FrostBlocks.FROSTBITE_FENCE_GATE.get());
 
         tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTROOT_SAPLING.get())
@@ -59,7 +59,6 @@ public class BlockTagGenerator extends BlockTagsProvider {
         tag(BlockTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE.get()).add(FrostBlocks.FROSTBITE_FENCE_GATE.get());
         tag(BlockTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR.get());
         tag(BlockTags.WOODEN_SLABS).add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get()).add(FrostBlocks.FROSTBITE_PLANKS_SLAB.get());
-        tag(Tags.Blocks.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.get());
 
         tag(BlockTags.CROPS).add(FrostBlocks.SUGARBEET.get(), FrostBlocks.RYE.get());
         tag(BlockTags.MAINTAINS_FARMLAND).add(FrostBlocks.SUGARBEET.get(), FrostBlocks.RYE.get());

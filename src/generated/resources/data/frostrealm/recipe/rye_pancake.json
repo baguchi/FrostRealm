@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "frostrealm:rye"
+    },
+    {
+      "item": "frostrealm:snowpile_quail_egg"
+    },
+    {
+      "item": "minecraft:sugar"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "frostrealm:rye_pancake"
+  }
+}

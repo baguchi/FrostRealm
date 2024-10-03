@@ -1,13 +1,11 @@
 package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.blockentity.FrostChestBlockEntity;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.*;
 import baguchan.frostrealm.client.overlay.FrostOverlay;
 import baguchan.frostrealm.client.render.*;
-import baguchan.frostrealm.client.render.blockentity.FrostChestRenderer;
 import baguchan.frostrealm.client.screen.AuroraInfuserScreen;
 import baguchan.frostrealm.item.GlimmerRockItem;
 import baguchan.frostrealm.item.YetiFurArmorItem;
@@ -23,14 +21,15 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
@@ -43,13 +42,10 @@ import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
 import org.joml.Matrix4f;
-
-import javax.annotation.Nonnull;
 
 
 @OnlyIn(Dist.CLIENT)
@@ -60,30 +56,6 @@ public class ClientRegistrar {
 
 	@SubscribeEvent
 	public static void registerClientExtend(RegisterClientExtensionsEvent event) {
-		event.registerItem(new IClientItemExtensions() {
-			BlockEntityWithoutLevelRenderer myRenderer;
-
-
-			@Override
-			public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-				if (Minecraft.getInstance().getEntityRenderDispatcher() != null && myRenderer == null) {
-					myRenderer = new BlockEntityWithoutLevelRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()) {
-						private FrostChestBlockEntity blockEntity;
-
-						@Override
-						public void renderByItem(@Nonnull ItemStack stack, @Nonnull ItemDisplayContext transformType, @Nonnull PoseStack matrix, @Nonnull MultiBufferSource buffer, int x, int y) {
-							if (blockEntity == null) {
-								blockEntity = new FrostChestBlockEntity(BlockPos.ZERO, FrostBlocks.FROSTROOT_CHEST.get().defaultBlockState());
-							}
-							Minecraft.getInstance().getBlockEntityRenderDispatcher().renderItem(blockEntity, matrix, buffer, x, y);
-						}
-					};
-				}
-
-				return myRenderer;
-			}
-		}, FrostBlocks.FROSTROOT_CHEST.get().asItem());
-
 		event.registerItem(new GlimmerRockItem.ItemRender(), FrostItems.GLIMMERROCK.get(), FrostItems.CRYONITE_CREAM.get());
 		event.registerItem(YetiFurArmorItem.ArmorRender.INSTANCE, FrostItems.YETI_FUR_BOOTS.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_HELMET.get());
 		event.registerItem(YetiFurArmorItem.ArmorRender.INSTANCE, FrostItems.FROST_BOAR_FUR_BOOTS.get(), FrostItems.FROST_BOAR_FUR_LEGGINGS.get(), FrostItems.FROST_BOAR_FUR_CHESTPLATE.get(), FrostItems.FROST_BOAR_FUR_HELMET.get());
@@ -153,8 +125,6 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.VENOM_BALL.get(), VenomBallRenderer::new);
 		event.registerEntityRenderer(FrostEntities.VENOCHEM.get(), VenochemRenderer::new);
 		event.registerEntityRenderer(FrostEntities.GOKKUR.get(), GokkurRenderer::new);
-
-		event.registerBlockEntityRenderer(FrostBlockEntitys.FROST_CHEST.get(), FrostChestRenderer::new);
 	}
 
 	@SubscribeEvent

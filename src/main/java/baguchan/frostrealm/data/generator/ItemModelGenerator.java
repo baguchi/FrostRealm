@@ -43,6 +43,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         this.singleTex(FrostItems.SUGARBEET_SEEDS);
 		this.singleTex(FrostItems.RYE);
 		this.singleTex(FrostItems.RYE_BREAD);
+		this.singleTex(FrostItems.RYE_PANCAKE);
 		this.singleTex(FrostItems.RYE_SEEDS);
         this.singleTex(FrostItems.BEARBERRY);
         this.singleTex(FrostItems.COOKED_BEARBERRY);
@@ -151,7 +152,6 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.FROSTROOT_PLANKS_STAIRS);
 		this.woodenFence(FrostBlocks.FROSTROOT_FENCE, FrostBlocks.FROSTROOT_PLANKS);
 		this.toBlock(FrostBlocks.FROSTROOT_FENCE_GATE);
-		this.toBlock(FrostBlocks.FROSTROOT_CRAFTING_TABLE);
 
 		this.toBlock(FrostBlocks.FROSTBITE_LOG);
 		this.toBlock(FrostBlocks.STRIPPED_FROSTBITE_LOG);

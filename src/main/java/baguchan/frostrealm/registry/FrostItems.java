@@ -12,7 +12,7 @@ import static baguchan.frostrealm.FrostRealm.MODID;
 public class FrostItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, MODID);
 
-    public static final DeferredHolder<Item, Item> FROST_CRYSTAL = ITEMS.register("frost_crystal", () -> new Item((new Item.Properties())));
+    public static final DeferredHolder<Item, Item> FROST_CRYSTAL = ITEMS.register("frost_crystal", () -> new FrostCrystalItem((new Item.Properties())));
 
     public static final DeferredHolder<Item, Item> CRYONITE = ITEMS.register("cryonite", () -> new Item((new Item.Properties())));
     public static final DeferredHolder<Item, Item> CRYONITE_CREAM = ITEMS.register("cryonite_cream", () -> new GlimmerRockItem((new Item.Properties())));
@@ -34,6 +34,7 @@ public class FrostItems {
     public static final DeferredHolder<Item, Item> SUGARBEET_SEEDS = ITEMS.register("sugarbeet_seeds", () -> new ItemNameBlockItem(FrostBlocks.SUGARBEET.get(), (new Item.Properties())));
     public static final DeferredHolder<Item, Item> RYE = ITEMS.register("rye", () -> new Item((new Item.Properties())));
     public static final DeferredHolder<Item, Item> RYE_BREAD = ITEMS.register("rye_bread", () -> new Item((new Item.Properties().food(FrostFoods.RYE_BREAD))));
+    public static final DeferredHolder<Item, Item> RYE_PANCAKE = ITEMS.register("rye_pancake", () -> new Item((new Item.Properties().food(FrostFoods.RYE_PANCAKE))));
     public static final DeferredHolder<Item, Item> RYE_SEEDS = ITEMS.register("rye_seeds", () -> new ItemNameBlockItem(FrostBlocks.RYE.get(), (new Item.Properties())));
     public static final DeferredHolder<Item, Item> BEARBERRY = ITEMS.register("bearberry", () -> new ItemNameBlockItem(FrostBlocks.BEARBERRY_BUSH.get(), (new Item.Properties())));
     public static final DeferredHolder<Item, Item> COOKED_BEARBERRY = ITEMS.register("bearberry_cooked", () -> new Item((new Item.Properties()).food(FrostFoods.COOKED_BEARBERRY)));

@@ -97,7 +97,6 @@ public class FrostBlocks {
     public static final Supplier<FenceBlock> FROSTROOT_FENCE = register("frostroot_fence", () -> new FenceBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
 	public static final Supplier<FenceGateBlock> FROSTROOT_FENCE_GATE = register("frostroot_fence_gate", () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.of().strength(2.0F, 3.0F).noOcclusion().sound(SoundType.WOOD)));
 	public static final Supplier<DoorBlock> FROSTROOT_DOOR = register("frostroot_door", () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(3.0F).noOcclusion().sound(SoundType.WOOD)));
-    public static final Supplier<Block> FROSTROOT_CRAFTING_TABLE = register("frostroot_crafting_table", () -> new FrostCraftingTableBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD)));
 
 	public static final Supplier<RotatedPillarBlock> FROSTBITE_LOG = register("frostbite_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().strength(2.0F).sound(SoundType.CHERRY_WOOD)));
 	public static final Supplier<RotatedPillarBlock> STRIPPED_FROSTBITE_LOG = register("stripped_frostbite_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().strength(2.0F).sound(SoundType.CHERRY_WOOD)));
@@ -109,7 +108,6 @@ public class FrostBlocks {
 	public static final Supplier<FenceBlock> FROSTBITE_FENCE = register("frostbite_fence", () -> new FenceBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).noOcclusion().sound(SoundType.CHERRY_WOOD)));
 	public static final Supplier<FenceGateBlock> FROSTBITE_FENCE_GATE = register("frostbite_fence_gate", () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.of().strength(2.0F, 3.0F).noOcclusion().sound(SoundType.CHERRY_WOOD)));
 	//public static final Supplier<DoorBlock> FROSTBITE_DOOR = register("frostbite_door", () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.of().strength(3.0F).noOcclusion().sound(SoundType.CHERRY_WOOD)));
-	//public static final Supplier<Block> FROSTBITE_CRAFTING_TABLE = register("frostbite_crafting_table", () -> new FrostCraftingTableBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.CHERRY_WOOD)));
 
 
 	//PLANT
@@ -168,7 +166,6 @@ public class FrostBlocks {
 
     public static final Supplier<Block> FROST_CAMPFIRE = register("frost_campfire", () -> new FrostCampfireBlock(BlockBehaviour.Properties.of().strength(2.0F).noOcclusion().lightLevel(litBlockEmission(13)).sound(SoundType.WOOD)));
 
-    public static final Supplier<Block> FROSTROOT_CHEST = register("frostroot_chest", () -> new FrostChestBlock(BlockBehaviour.Properties.of().strength(2.0F, 3.0F).sound(SoundType.WOOD), FrostBlockEntitys.FROST_CHEST::get));
     public static final Supplier<Block> AURORA_INFUSER = register("aurora_infuser", () -> new AuroraInfuserBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(2.0F, 3.0F).sound(SoundType.METAL)));
 
 	private static ToIntFunction<BlockState> litBlockEmission(int p_50760_) {
@@ -227,9 +224,7 @@ public class FrostBlocks {
 
     private static <T extends Block> Supplier<BlockItem> registerBlockItem(final Supplier<T> block) {
 		return () -> {
-			if (Objects.requireNonNull(block.get()) == FROSTROOT_CHEST.get()) {
-				return new BlockItem(FROSTROOT_CHEST.get(), (new Item.Properties()));
-			} else if (Objects.requireNonNull(block.get()) instanceof DoublePlantBlock || Objects.requireNonNull(block.get()) instanceof DoorBlock) {
+			if (Objects.requireNonNull(block.get()) instanceof DoublePlantBlock || Objects.requireNonNull(block.get()) instanceof DoorBlock) {
 				return new DoubleHighBlockItem(Objects.requireNonNull(block.get()), new Item.Properties());
 			} else if (Objects.requireNonNull(block.get()) == FrostBlocks.FROST_TORCH.get()) {
 				return new StandingAndWallBlockItem(FrostBlocks.FROST_TORCH.get(), FrostBlocks.WALL_FROST_TORCH.get(), new Item.Properties(), Direction.DOWN);

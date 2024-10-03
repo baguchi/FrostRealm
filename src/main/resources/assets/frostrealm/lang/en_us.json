@@ -119,6 +119,7 @@
   "item.frostrealm.sugarbeet_seeds": "SugarBeet Seeds",
   "item.frostrealm.rye": "Rye",
   "item.frostrealm.rye_bread": "Rye Bread",
+  "item.frostrealm.rye_pancake": "Rye Pancake",
   "item.frostrealm.rye_seeds": "Rye Seeds",
   "item.frostrealm.fusion_crystal_dagger": "Fusion Crystal dagger",
   "item.frostrealm.frost_spear": "Frost Spear",
@@ -233,5 +234,7 @@
   "fluid_type.frostrealm.hot_spring": "Hot Spring",
   "death.attack.venom": "%1$s was Infected Venom",
   "death.attack.venom_ball": "%1$s was Infected Venom by %2$s 's %3$s",
-  "attach_crystal.frostrealm.venom": "Venom"
+  "attach_crystal.frostrealm.venom": "Venom",
+  "smithing_template.frostrealm.frost_crystal.applies_to": "Weapon",
+  "smithing_template.frostrealm.frost_crystal.ingredients": "Supported Crystal"
 }

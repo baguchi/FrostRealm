@@ -197,6 +197,7 @@
   "item.frostrealm.melted_fruit": "溶けた木の実",
   "item.frostrealm.rye": "黒麦",
   "item.frostrealm.rye_bread": "黒麦パン",
+  "item.frostrealm.rye_pancake": "黒麦パンケーキ",
   "item.frostrealm.rye_seeds": "黒麦の種",
   "item.frostrealm.seal_spawn_egg": "あざらしのスポーンエッグ",
   "item.frostrealm.seeker_spawn_egg": "シーカーのスポーンエッグ",
@@ -234,5 +235,7 @@
   "subtitles.entity.yeti.idle": "イエティーがうめく",
   "death.attack.venom": "%1$sは猛毒にさらされた",
   "death.attack.venom_ball": "%1$sは%2$sの%3$sに猛毒にさらされた",
-  "attach_crystal.frostrealm.venom": "ベノム"
+  "attach_crystal.frostrealm.venom": "ベノム",
+  "smithing_template.frostrealm.frost_crystal.applies_to": "武器",
+  "smithing_template.frostrealm.frost_crystal.ingredients": "対応するクリスタル"
 }

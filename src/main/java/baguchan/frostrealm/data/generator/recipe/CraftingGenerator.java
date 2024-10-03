@@ -163,19 +163,6 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 
 		makeFrostTorch(consumer, FrostBlocks.FROST_TORCH.get().asItem());
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_CHEST.get(), 1)
-                .pattern("SSS")
-                .pattern("S S")
-                .pattern("SSS")
-                .define('S', FrostBlocks.FROSTROOT_PLANKS.get())
-                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(FrostBlocks.FROSTROOT_PLANKS.get()).getPath(), has(FrostBlocks.FROSTROOT_PLANKS.get())).save(consumer);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_CRAFTING_TABLE.get(), 1)
-                .pattern("WW")
-                .pattern("WW")
-                .define('W', FrostBlocks.FROSTROOT_PLANKS.get())
-                .unlockedBy("has_item", has(FrostBlocks.FROSTROOT_PLANKS.get())).save(consumer);
-
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROST_CAMPFIRE.get(), 1)
 				.pattern(" S ")
@@ -276,8 +263,14 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.pattern("WWW")
 				.define('W', FrostItems.RYE.get())
 				.unlockedBy("has_item", has(FrostItems.RYE.get())).save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, FrostItems.RYE_PANCAKE.get(), 1)
+				.requires(FrostItems.RYE.get())
+				.requires(FrostBlocks.SNOWPILE_QUAIL_EGG.get())
+				.requires(Items.SUGAR)
+				.unlockedBy("has_item", has(FrostItems.RYE.get())).save(consumer);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, FrostBlocks.AURORA_INFUSER.get(), 1)
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, FrostBlocks.AURORA_INFUSER.get(), 1)
                 .pattern("ASA")
                 .pattern("TST")
                 .pattern("TTT")

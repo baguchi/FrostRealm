@@ -107,10 +107,9 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.dropSelf(FrostBlocks.STRIPPED_FROSTROOT_LOG.get());
 		this.dropSelf(FrostBlocks.FROSTROOT_SAPLING.get());
 		this.add(FrostBlocks.FROSTROOT_LEAVES.get(), (p_124104_) -> {
-            return createFrostLeavesDrops(p_124104_, FrostBlocks.FROSTROOT_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
+			return silkAndStick(p_124104_, FrostBlocks.FROSTROOT_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
         });
         this.dropSelf(FrostBlocks.FROSTROOT_PLANKS.get());
-        this.dropSelf(FrostBlocks.FROSTROOT_CRAFTING_TABLE.get());
         this.add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), this::createSlabItemTable);
         this.dropSelf(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get());
         this.dropSelf(FrostBlocks.FROSTROOT_FENCE.get());
@@ -121,7 +120,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.dropSelf(FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
 		this.dropSelf(FrostBlocks.FROSTBITE_SAPLING.get());
 		this.add(FrostBlocks.FROSTBITE_LEAVES.get(), (p_124104_) -> {
-			return createFrostLeavesDrops(p_124104_, FrostBlocks.FROSTBITE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
+			return createFrostbiteLeavesDrops(p_124104_, FrostBlocks.FROSTBITE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
 		});
 		this.dropSelf(FrostBlocks.FROSTBITE_PLANKS.get());
 		//this.dropSelf(FrostBlocks.FROSTBITE_CRAFTING_TABLE.get());
@@ -168,7 +167,6 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.add(FrostBlocks.FROST_CAMPFIRE.get(), (p_236259_) -> {
 			return createSilkTouchDispatchTable(p_236259_, applyExplosionCondition(p_236259_, LootItem.lootTableItem(FrostItems.FROST_CRYSTAL.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))));
 		});
-		this.dropSelf(FrostBlocks.FROSTROOT_CHEST.get());
         this.dropSelf(FrostBlocks.AURORA_INFUSER.get());
 		this.dropSelf(FrostBlocks.SNOWPILE_QUAIL_EGG.get());
 	}
@@ -250,7 +248,7 @@ public class BlockLootTables extends BlockLootSubProvider {
         return createSilkTouchOrShearsDispatchTable(block, applyExplosionCondition(block, LootItem.lootTableItem(nonSilk.asItem())).when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), nonSilkFortune))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).when(HAS_SHEARS).add(applyExplosionDecay(block, LootItem.lootTableItem(Items.STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))).when(BonusLevelTableCondition.bonusLevelFlatChance(registrylookup.getOrThrow(Enchantments.FORTUNE), 0.02F, 0.022222223F, 0.025F, 0.033333335F, 0.1F))));
 	}
 
-	protected LootTable.Builder createFrostLeavesDrops(Block p_124264_, Block p_124265_, float... p_124266_) {
+	protected LootTable.Builder createFrostbiteLeavesDrops(Block p_124264_, Block p_124265_, float... p_124266_) {
 		HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
 
 

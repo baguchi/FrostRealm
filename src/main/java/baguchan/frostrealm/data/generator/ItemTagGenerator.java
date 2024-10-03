@@ -29,10 +29,10 @@ public class ItemTagGenerator extends ItemTagsProvider {
         tag(ItemTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE.get().asItem()).add(FrostBlocks.FROSTBITE_FENCE_GATE.get().asItem());
         tag(ItemTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR.get().asItem());
         tag(ItemTags.WOODEN_SLABS).add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get().asItem()).add(FrostBlocks.FROSTBITE_PLANKS_SLAB.get().asItem());
-        tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.get().asItem());
+
+
         tag(ItemTags.STONE_TOOL_MATERIALS).add(FrostBlocks.FRIGID_STONE.get().asItem(), FrostBlocks.PERMA_SLATE.get().asItem());
         tag(ItemTags.STONE_CRAFTING_MATERIALS).add(FrostBlocks.FRIGID_STONE.get().asItem());
-        tag(Tags.Items.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.get().asItem());
         tag(Tags.Items.EGGS).add(FrostBlocks.SNOWPILE_QUAIL_EGG.get().asItem());
         tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(FrostItems.YETI_FUR_HELMET.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_BOOTS.get())
                 .add(FrostItems.FROST_BOAR_FUR_HELMET.get(), FrostItems.FROST_BOAR_FUR_CHESTPLATE.get(), FrostItems.FROST_BOAR_FUR_LEGGINGS.get(), FrostItems.FROST_BOAR_FUR_BOOTS.get());
