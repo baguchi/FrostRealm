@@ -19,7 +19,7 @@ public class FrostItems {
 
     public static final DeferredHolder<Item, Item> WARPED_CRYSTAL = ITEMS.register("warped_crystal", () -> new Item((new Item.Properties())));
     public static final DeferredHolder<Item, Item> VENOM_CRYSTAL = ITEMS.register("venom_crystal", () -> new Item((new Item.Properties())));
-    public static final DeferredHolder<Item, Item> UNSTABLE_VENOM_CRYSTAL = ITEMS.register("unstable_venom_crystal", () -> new Item((new Item.Properties())));
+    public static final DeferredHolder<Item, Item> UNSTABLE_VENOM_CRYSTAL = ITEMS.register("unstable_venom_crystal", () -> new SmithableCrystalItem((new Item.Properties())));
     public static final DeferredHolder<Item, Item> GLIMMERROCK = ITEMS.register("glimmerrock", () -> new GlimmerRockItem((new Item.Properties())));
     public static final DeferredHolder<Item, Item> ASTRIUM_RAW = ITEMS.register("astrium_raw", () -> new Item((new Item.Properties())));
     public static final DeferredHolder<Item, Item> ASTRIUM_INGOT = ITEMS.register("astrium_ingot", () -> new Item((new Item.Properties())));

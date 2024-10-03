@@ -44,6 +44,7 @@
   "block.frostrealm.frostbite_fence_gate": "Frostbite Fence Gate",
   "block.frostrealm.frostbite_leaves": "Frostbite Leaves",
   "block.frostrealm.frostbite_log": "Frostbite Log",
+  "block.frostrealm.stripped_frostbite_log": "Stripped Frostbite Log",
   "block.frostrealm.frostbite_planks": "Frostbite Planks",
   "block.frostrealm.frostbite_planks_slab": "Frostbite Planks Slab",
   "block.frostrealm.frostbite_planks_stairs": "Frostbite Planks Stairs",
@@ -233,8 +234,9 @@
   "fluid.frostrealm.hot_spring": "Hot Spring",
   "fluid_type.frostrealm.hot_spring": "Hot Spring",
   "death.attack.venom": "%1$s was Infected Venom",
-  "death.attack.venom_ball": "%1$s was Infected Venom by %2$s 's %3$s",
+  "death.attack.venom_ball": "%1$s was Infected Venom by %2$s",
   "attach_crystal.frostrealm.venom": "Venom",
-  "smithing_template.frostrealm.frost_crystal.applies_to": "Weapon",
-  "smithing_template.frostrealm.frost_crystal.ingredients": "Supported Crystal"
+  "item.frostrealm.smithing_template.smithable": "It can use to Smiting Table",
+  "item.frostrealm.smithing_template.frost_crystal.applies_to": "Weapon",
+  "item.frostrealm.smithing_template.frost_crystal.ingredients": "Supported Crystal"
 }

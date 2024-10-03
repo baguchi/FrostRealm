@@ -1,5 +1,6 @@
 package baguchan.frostrealm.item;
 
+import baguchan.frostrealm.FrostRealm;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.network.chat.CommonComponents;
@@ -24,11 +25,11 @@ public class FrostCrystalItem extends Item {
             .withStyle(TITLE_FORMAT);
 
     private static final Component FROST_CRYSTAL_APPLIES_TO = Component.translatable(
-                    Util.makeDescriptionId("item", ResourceLocation.withDefaultNamespace("smithing_template.frostrealm.frost_crystal.applies_to"))
+                    Util.makeDescriptionId("item", ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "smithing_template.frost_crystal.applies_to"))
             )
             .withStyle(DESCRIPTION_FORMAT);
     private static final Component FROST_CRYSTAL_INGREDIENTS = Component.translatable(
-                    Util.makeDescriptionId("item", ResourceLocation.withDefaultNamespace("smithing_template.frostrealm.frost_crystal.ingredients"))
+                    Util.makeDescriptionId("item", ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "smithing_template.frost_crystal.ingredients"))
             )
             .withStyle(DESCRIPTION_FORMAT);
 
