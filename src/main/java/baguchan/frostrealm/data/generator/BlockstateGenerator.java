@@ -112,7 +112,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.simpleBlock(FrostBlocks.RAW_ASTRIUM_BLOCK.get());
 		this.simpleBlock(FrostBlocks.GLIMMERROCK_BLOCK.get());
 
-		this.simpleBlock(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
+		this.make2LayerCubeAllSidesSame(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), ResourceLocation.withDefaultNamespace("cutout"), 0, 15, false);
 		this.translucentBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.translucentBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
 		this.doorBlock(FrostBlocks.FROSTROOT_DOOR.get(), texture("frostroot_door_bottom"), texture("frostroot_door_top"));

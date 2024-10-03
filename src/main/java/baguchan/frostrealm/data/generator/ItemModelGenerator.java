@@ -10,7 +10,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.client.model.generators.loaders.ItemLayerModelBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.function.Supplier;
 
@@ -23,16 +25,16 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
-		this.singleTex(FrostItems.FROST_CRYSTAL);
-		this.singleTex(FrostItems.CRYONITE);
-		this.singleTex(FrostItems.CRYONITE_CREAM);
+		this.singleTexFullbright(FrostItems.FROST_CRYSTAL);
+		this.singleTexFullbright(FrostItems.CRYONITE);
+		this.singleTexFullbright(FrostItems.CRYONITE_CREAM);
 		this.singleTex(FrostItems.WARPED_CRYSTAL);
 		this.singleTex(FrostItems.VENOM_CRYSTAL);
 		this.singleTex(FrostItems.UNSTABLE_VENOM_CRYSTAL);
-		this.singleTex(FrostItems.GLIMMERROCK);
+		this.singleTexFullbright(FrostItems.GLIMMERROCK);
 		this.singleTex(FrostItems.ASTRIUM_RAW);
 		this.singleTex(FrostItems.ASTRIUM_INGOT);
-        this.singleTex(FrostItems.STARDUST_CRYSTAL);
+		this.singleTexFullbright(FrostItems.STARDUST_CRYSTAL);
 		this.singleTex(FrostItems.GLACINIUM_CRYSTAL);
 		this.singleTex(FrostItems.GLACINIUM_INGOT);
 
@@ -193,9 +195,43 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.itemBlockFlat(FrostBlocks.FROST_TORCH);
 	}
 
+	private ItemModelBuilder singleTexFullbright(DeferredHolder<Item, ? extends Item> item) {
+		return fullbright(item.getId().getPath(), prefix("item/" + item.getId().getPath()));
+	}
+
+	private ItemModelBuilder singleTexFullbrightTool(DeferredHolder<Item, ? extends Item> item) {
+		return fullbrightTool(item.getId().getPath(), prefix("item/" + item.getId().getPath()));
+	}
+
+	private ItemModelBuilder fullbright(String name, ResourceLocation... layers) {
+		return buildItem(name, "item/generated", 15, layers);
+	}
+
+	private ItemModelBuilder fullbrightTool(String name, ResourceLocation... layers) {
+		return buildItem(name, "item/handheld", 15, layers);
+	}
+
+	private ItemModelBuilder singleTexTool(DeferredHolder<Item, ? extends Item> item) {
+		return tool(item.getId().getPath(), prefix("item/" + item.getId().getPath()));
+	}
+
+	private ItemModelBuilder singleTex(DeferredHolder<?, ?> item) {
+		return generated(item.getId().getPath(), prefix("item/" + item.getId().getPath()));
+	}
+
 	public ItemModelBuilder torchItem(Block item) {
         return withExistingParent(BuiltInRegistries.BLOCK.getKey(item).getPath(), mcLoc("item/generated"))
                 .texture("layer0", modLoc("block/" + BuiltInRegistries.BLOCK.getKey(item).getPath()));
+	}
+
+	private ItemModelBuilder buildItem(String name, String parent, int emissivity, ResourceLocation... layers) {
+		ItemModelBuilder builder = withExistingParent(name, parent);
+		for (int i = 0; i < layers.length; i++) {
+			builder = builder.texture("layer" + i, layers[i]);
+		}
+		if (emissivity > 0)
+			builder = builder.customLoader(ItemLayerModelBuilder::begin).emissive(emissivity, emissivity, 0).renderType("minecraft:translucent", 0).end();
+		return builder;
 	}
 
 	private ItemModelBuilder generated(String name, ResourceLocation... layers) {
@@ -206,20 +242,12 @@ public class ItemModelGenerator extends ItemModelProvider {
 		return builder;
 	}
 
-    private ItemModelBuilder singleTexTool(Supplier<Item> item) {
-        return tool(BuiltInRegistries.ITEM.getKey(item.get()).getPath(), prefix("item/" + BuiltInRegistries.ITEM.getKey(item.get()).getPath()));
-	}
-
 	private ItemModelBuilder tool(String name, ResourceLocation... layers) {
 		ItemModelBuilder builder = withExistingParent(name, "item/handheld");
 		for (int i = 0; i < layers.length; i++) {
 			builder = builder.texture("layer" + i, layers[i]);
 		}
 		return builder;
-	}
-
-    private ItemModelBuilder singleTex(Supplier<Item> item) {
-        return generated(BuiltInRegistries.ITEM.getKey(item.get()).getPath(), prefix("item/" + BuiltInRegistries.ITEM.getKey(item.get()).getPath()));
 	}
 
 	private ItemModelBuilder bowItem(String name, ResourceLocation... layers) {
