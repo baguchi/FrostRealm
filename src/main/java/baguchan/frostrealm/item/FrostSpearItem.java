@@ -3,6 +3,7 @@ package baguchan.frostrealm.item;
 import bagu_chan.bagus_lib.util.client.AnimationUtil;
 import baguchan.frostrealm.registry.FrostAnimations;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -15,6 +16,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -74,5 +77,11 @@ public class FrostSpearItem extends Item {
 	@Override
 	public int getEnchantmentValue() {
 		return 20;
+	}
+
+
+	@Override
+	public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
+		return super.supportsEnchantment(stack, enchantment) || enchantment == Enchantments.BREACH;
 	}
 }
