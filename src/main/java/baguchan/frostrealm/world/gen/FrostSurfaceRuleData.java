@@ -54,7 +54,7 @@ public class FrostSurfaceRuleData {
         SurfaceRules.RuleSource skyLike = SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.CRYSTAL_FALL), SurfaceRules.sequence(
                 SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, surfaceStone)
         ));
-		SurfaceRules.RuleSource grassLike = SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.FRIGID_FOREST, FrostBiomes.TUNDRA), SurfaceRules.sequence(
+		SurfaceRules.RuleSource grassLike = SurfaceRules.ifTrue(SurfaceRules.isBiome(FrostBiomes.FRIGID_FOREST, FrostBiomes.TUNDRA, FrostBiomes.FROSTBITE_FOREST), SurfaceRules.sequence(
 				SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, surface),
 				SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, FROZEN_DIRT)
 		));

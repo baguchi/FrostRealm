@@ -16,4 +16,14 @@ public class FrostTrees {
             Optional.empty(),
             Optional.empty()
     );
+    public static final TreeGrower FROSTBITE = new TreeGrower(
+            "frsotbit",
+            0.15F,
+            Optional.empty(),
+            Optional.empty(),
+            Optional.of(FrostTreeFeatures.FROSTBITE_TREE),
+            Optional.of(FrostTreeFeatures.FROSTBITE_TREE_BIG),
+            Optional.empty(),
+            Optional.empty()
+    );
 }

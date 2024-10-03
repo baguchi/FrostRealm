@@ -43,21 +43,22 @@ public class BlockTagGenerator extends BlockTagsProvider {
         );
         tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_PLANKS.get(), FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_FENCE_GATE.get()
                         , FrostBlocks.FROSTROOT_CHEST.get(), FrostBlocks.FROSTROOT_CRAFTING_TABLE.get())
-        ;
+                .add(FrostBlocks.FROSTBITE_LOG.get(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get(), FrostBlocks.FROSTBITE_PLANKS.get(), FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_FENCE.get(), FrostBlocks.FROSTBITE_FENCE_GATE.get());
 
-        tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTROOT_SAPLING.get()).add(FrostBlocks.RYE_BLOCK.get());
+        tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTROOT_SAPLING.get())
+                .add(FrostBlocks.FROSTBITE_LEAVES.get()).add(FrostBlocks.FROSTBITE_SAPLING.get()).add(FrostBlocks.RYE_BLOCK.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_BLOCK.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.ASTRIUM_ORE.get(), FrostBlocks.GLIMMERROCK_SLATE_ORE.get(), FrostBlocks.ASTRIUM_SLATE_ORE.get(), FrostBlocks.ASTRIUM_BLOCK.get(), FrostBlocks.RAW_ASTRIUM_BLOCK.get());
 
         tag(BlockTags.NEEDS_IRON_TOOL).add(FrostBlocks.GLACINIUM_ORE.get(), FrostBlocks.GLACINIUM_BLOCK.get());
 
-        tag(BlockTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get());
-        tag(BlockTags.LEAVES).add(FrostBlocks.FROSTROOT_LEAVES.get());
-        tag(BlockTags.WOODEN_FENCES).add(FrostBlocks.FROSTROOT_FENCE.get());
-        tag(BlockTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE.get());
+        tag(BlockTags.LOGS_THAT_BURN).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get()).add(FrostBlocks.FROSTBITE_LOG.get(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
+        tag(BlockTags.LEAVES).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTBITE_LEAVES.get());
+        tag(BlockTags.WOODEN_FENCES).add(FrostBlocks.FROSTROOT_FENCE.get()).add(FrostBlocks.FROSTBITE_FENCE.get());
+        tag(BlockTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE.get()).add(FrostBlocks.FROSTBITE_FENCE_GATE.get());
         tag(BlockTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR.get());
-        tag(BlockTags.WOODEN_SLABS).add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get());
+        tag(BlockTags.WOODEN_SLABS).add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get()).add(FrostBlocks.FROSTBITE_PLANKS_SLAB.get());
         tag(Tags.Blocks.CHESTS_WOODEN).add(FrostBlocks.FROSTROOT_CHEST.get());
 
         tag(BlockTags.CROPS).add(FrostBlocks.SUGARBEET.get(), FrostBlocks.RYE.get());
@@ -72,8 +73,8 @@ public class BlockTagGenerator extends BlockTagsProvider {
         tag(FrostTags.Blocks.WORLD_CARVER_REPLACEABLE).add(FrostBlocks.FRIGID_STONE.get(), FrostBlocks.PERMA_SLATE.get(), FrostBlocks.FROZEN_DIRT.get(), FrostBlocks.FROZEN_GRASS_BLOCK.get(), Blocks.ICE, Blocks.BLUE_ICE, Blocks.PACKED_ICE);
 
         tag(FrostTags.Blocks.ANIMAL_SPAWNABLE).add(FrostBlocks.FROZEN_GRASS_BLOCK.get(), FrostBlocks.FRIGID_GRASS_BLOCK.get());
-        tag(BlockTags.DIRT).add(FrostBlocks.FROZEN_DIRT.get(), FrostBlocks.FROZEN_GRASS_BLOCK.get());
-        tag(BlockTags.DIRT).add(FrostBlocks.FRIGID_GRASS_BLOCK.get());
+        tag(BlockTags.DIRT).add(FrostBlocks.FROZEN_DIRT.get(), FrostBlocks.FROZEN_GRASS_BLOCK.get()).add(FrostBlocks.FRIGID_GRASS_BLOCK.get());
+
         tag(Tags.Blocks.ORES).add(FrostBlocks.ASTRIUM_ORE.get(), FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.FROST_CRYSTAL_ORE.get())
                 .add(FrostBlocks.ASTRIUM_SLATE_ORE.get(), FrostBlocks.GLIMMERROCK_SLATE_ORE.get(), FrostBlocks.FROST_CRYSTAL_SLATE_ORE.get());
         tag(FrostTags.Blocks.NON_FREEZE_CROP).add(FrostBlocks.SUGARBEET.get(), FrostBlocks.RYE.get());

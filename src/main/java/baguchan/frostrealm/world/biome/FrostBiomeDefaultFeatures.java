@@ -47,6 +47,10 @@ public class FrostBiomeDefaultFeatures {
 		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.WOLFFLUE.get(), 5, 4, 4));
 	}
 
+	public static void frostBiteCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
+		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.CRYSTAL_FOX.get(), 10, 2, 4));
+	}
+
 	public static void mountainCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
 		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SNOW_MOLE.get(), 6, 2, 4));
 	}
@@ -72,6 +76,12 @@ public class FrostBiomeDefaultFeatures {
 	public static void addForestFeatures(BiomeGenerationSettings.Builder p_194721_) {
 		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.FROSTROOT_TREES_FOREST);
 		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_ARTIC_WILLOW);
+		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_TUNDRA_GRASS);
+	}
+
+	public static void addFrostBiteFeatures(BiomeGenerationSettings.Builder p_194721_) {
+		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.FROSTBITE_TREES);
+		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_VIGOROSHROOM);
 		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.PATCH_TUNDRA_GRASS);
 	}
 

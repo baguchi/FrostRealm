@@ -117,7 +117,22 @@ public class BlockLootTables extends BlockLootSubProvider {
         this.dropSelf(FrostBlocks.FROSTROOT_FENCE_GATE.get());
         this.add(FrostBlocks.FROSTROOT_DOOR.get(), this::createDoorTable);
 
-        this.dropSelf(FrostBlocks.VIGOROSHROOM.get());
+		this.dropSelf(FrostBlocks.FROSTBITE_LOG.get());
+		this.dropSelf(FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
+		this.dropSelf(FrostBlocks.FROSTBITE_SAPLING.get());
+		this.add(FrostBlocks.FROSTBITE_LEAVES.get(), (p_124104_) -> {
+			return createFrostLeavesDrops(p_124104_, FrostBlocks.FROSTBITE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
+		});
+		this.dropSelf(FrostBlocks.FROSTBITE_PLANKS.get());
+		//this.dropSelf(FrostBlocks.FROSTBITE_CRAFTING_TABLE.get());
+		this.add(FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(FrostBlocks.FROSTBITE_PLANKS_STAIRS.get());
+		this.dropSelf(FrostBlocks.FROSTBITE_FENCE.get());
+		this.dropSelf(FrostBlocks.FROSTBITE_FENCE_GATE.get());
+		//this.add(FrostBlocks.FROSTBITE_DOOR.get(), this::createDoorTable);
+
+
+		this.dropSelf(FrostBlocks.VIGOROSHROOM.get());
         this.dropSelf(FrostBlocks.ARCTIC_POPPY.get());
         this.dropSelf(FrostBlocks.ARCTIC_WILLOW.get());
 

@@ -213,6 +213,9 @@ public class CommonEvents {
                 if (state.is(FrostBlocks.FROSTROOT_LOG.get())) {
                     event.setFinalState(FrostBlocks.STRIPPED_FROSTROOT_LOG.get().withPropertiesOf(state));
                 }
+                if (state.is(FrostBlocks.FROSTBITE_LOG.get())) {
+                    event.setFinalState(FrostBlocks.STRIPPED_FROSTBITE_LOG.get().withPropertiesOf(state));
+                }
             }
             if (action == ItemAbilities.HOE_TILL && (context.getClickedFace() != Direction.DOWN && context.getLevel().getBlockState(context.getClickedPos().above()).isAir())) {
                 if (state.is(FrostBlocks.FROZEN_DIRT.get()) || state.is(FrostBlocks.FROZEN_GRASS_BLOCK.get())) {

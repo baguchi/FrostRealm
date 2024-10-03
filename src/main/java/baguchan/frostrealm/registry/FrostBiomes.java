@@ -15,6 +15,7 @@ public class FrostBiomes {
 
 	public static final ResourceKey<Biome> TUNDRA = register("tundra");
 	public static final ResourceKey<Biome> FRIGID_FOREST = register("frigid_forest");
+	public static final ResourceKey<Biome> FROSTBITE_FOREST = register("frostbite_forest");
 
 	public static final ResourceKey<Biome> FROZEN_CANYON = register("frozen_canyon");
 	public static final ResourceKey<Biome> GLACIERS = register("glaciers");
@@ -36,6 +37,7 @@ public class FrostBiomes {
 		HolderGetter<ConfiguredWorldCarver<?>> vanillaConfiguredCarvers = context.lookup(Registries.CONFIGURED_CARVER);
 		context.register(TUNDRA, FrostBiomeBuilders.tundraBiome(placedFeatures, vanillaConfiguredCarvers));
 		context.register(FRIGID_FOREST, FrostBiomeBuilders.forestBiome(placedFeatures, vanillaConfiguredCarvers));
+		context.register(FROSTBITE_FOREST, FrostBiomeBuilders.frostbiteBiome(placedFeatures, vanillaConfiguredCarvers));
 
 		context.register(FROZEN_CANYON, FrostBiomeBuilders.mountainBiome(placedFeatures, vanillaConfiguredCarvers));
 		context.register(GLACIERS, FrostBiomeBuilders.mountainBiome(placedFeatures, vanillaConfiguredCarvers));

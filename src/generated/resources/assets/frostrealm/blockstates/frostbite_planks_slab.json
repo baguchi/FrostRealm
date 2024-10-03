@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "frostrealm:block/frostbite_planks_slab"
+    },
+    "type=double": {
+      "model": "frostrealm:block/frostbite_planks"
+    },
+    "type=top": {
+      "model": "frostrealm:block/frostbite_planks_slab_top"
+    }
+  }
+}

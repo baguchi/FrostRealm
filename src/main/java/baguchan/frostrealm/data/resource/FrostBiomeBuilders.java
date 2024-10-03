@@ -85,6 +85,16 @@ public class FrostBiomeBuilders {
 		return makeDefaultBiome(builder, builder1);
 	}
 
+	public static Biome frostbiteBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
+		BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
+		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
+		FrostBiomeDefaultFeatures.addFrostBiteFeatures(builder);
+		FrostBiomeDefaultFeatures.frostBiteCreatureSpawns(builder1);
+		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
+		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
+		return makeDefaultBiome(builder, builder1);
+	}
+
 	public static Biome tundraBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
 		BiomeGenerationSettings.Builder builder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();

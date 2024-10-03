@@ -153,6 +153,16 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.FROSTROOT_FENCE_GATE);
 		this.toBlock(FrostBlocks.FROSTROOT_CRAFTING_TABLE);
 
+		this.toBlock(FrostBlocks.FROSTBITE_LOG);
+		this.toBlock(FrostBlocks.STRIPPED_FROSTBITE_LOG);
+		this.itemBlockFlat(FrostBlocks.FROSTBITE_SAPLING);
+		this.toBlock(FrostBlocks.FROSTBITE_LEAVES);
+		this.toBlock(FrostBlocks.FROSTBITE_PLANKS);
+		this.toBlock(FrostBlocks.FROSTBITE_PLANKS_SLAB);
+		this.toBlock(FrostBlocks.FROSTBITE_PLANKS_STAIRS);
+		this.woodenFence(FrostBlocks.FROSTBITE_FENCE, FrostBlocks.FROSTBITE_PLANKS);
+		this.toBlock(FrostBlocks.FROSTBITE_FENCE_GATE);
+
 		this.itemBlockFlat(FrostBlocks.VIGOROSHROOM);
 		this.itemBlockFlat(FrostBlocks.ARCTIC_POPPY);
 		this.itemBlockFlat(FrostBlocks.ARCTIC_WILLOW);
