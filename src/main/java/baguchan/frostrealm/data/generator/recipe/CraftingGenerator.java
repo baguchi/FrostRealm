@@ -101,6 +101,12 @@ public class CraftingGenerator extends CraftingDataHelper {
 		makeFenceGate(consumer, FrostBlocks.FROSTROOT_FENCE_GATE.get(), FrostBlocks.FROSTROOT_PLANKS.get());
 		makeDoor(consumer, FrostBlocks.FROSTROOT_DOOR.get(), FrostBlocks.FROSTROOT_PLANKS.get());
 
+		makeSlab(consumer, FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_PLANKS.get());
+		makeStairs(consumer, FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS.get());
+		makeWoodFence(consumer, FrostBlocks.FROSTBITE_FENCE.get(), FrostBlocks.FROSTBITE_PLANKS.get());
+		makeFenceGate(consumer, FrostBlocks.FROSTBITE_FENCE_GATE.get(), FrostBlocks.FROSTBITE_PLANKS.get());
+		//makeDoor(consumer, FrostBlocks.FROSTBITE_DOOR.get(), FrostBlocks.FROSTBITE_PLANKS.get());
+
 
 		foodCooking(FrostItems.FROZEN_FRUIT.get(), FrostItems.MELTED_FRUIT.get(), 0.1F, consumer);
 		foodCooking(FrostItems.BEARBERRY.get(), FrostItems.COOKED_BEARBERRY.get(), 0.1F, consumer);
