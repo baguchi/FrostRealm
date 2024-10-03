@@ -79,6 +79,7 @@ public class SickleItem extends TieredItem {
 
     @Override
     public AABB getSweepHitBox(ItemStack stack, Player player, Entity target) {
-        return super.getSweepHitBox(stack, player, target);
+        return target.getBoundingBox().inflate(1D, 0.25D, 1D);
     }
+
 }
