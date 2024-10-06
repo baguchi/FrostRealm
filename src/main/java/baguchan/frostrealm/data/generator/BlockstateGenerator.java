@@ -6,10 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -77,6 +74,8 @@ public class BlockstateGenerator extends BlockStateProvider {
         this.stairs(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS.get());
         this.fenceBlock(FrostBlocks.FROSTROOT_FENCE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
         this.fenceGateBlock(FrostBlocks.FROSTROOT_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
+		this.doorBlock(FrostBlocks.FROSTROOT_DOOR.get(), texture("frostroot_door_bottom"), texture("frostroot_door_top"));
+		this.trapdoor(FrostBlocks.FROSTROOT_TRAPDOOR, "frostroot");
 
 		this.logBlock(FrostBlocks.FROSTBITE_LOG.get());
 		this.logBlock(FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
@@ -115,7 +114,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.make2LayerCubeAllSidesSame(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), ResourceLocation.withDefaultNamespace("cutout"), 0, 15, false);
 		this.translucentBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.translucentBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
-		this.doorBlock(FrostBlocks.FROSTROOT_DOOR.get(), texture("frostroot_door_bottom"), texture("frostroot_door_top"));
+
 	}
 
 	private ResourceLocation suffix(ResourceLocation rl, String suffix) {
@@ -250,23 +249,10 @@ public class BlockstateGenerator extends BlockStateProvider {
 		}, DoorBlock.POWERED);
 	}
 
-	public void lockableDoorBlock(DoorBlock block, ModelFile bottomLeft, ModelFile bottomLeftOpen, ModelFile bottomRight, ModelFile bottomRightOpen, ModelFile topLeft, ModelFile topLeftOpen, ModelFile topRight, ModelFile topRightOpen) {
-		getVariantBuilder(block).forAllStatesExcept(state -> {
-			int yRot = ((int) state.getValue(DoorBlock.FACING).toYRot()) + 90;
-			boolean right = state.getValue(DoorBlock.HINGE) == DoorHingeSide.RIGHT;
-			boolean open = state.getValue(DoorBlock.OPEN);
-			if (open) {
-				yRot += 90;
-			}
-			if (right && open) {
-				yRot += 180;
-			}
-			yRot %= 360;
-			return ConfiguredModel.builder().modelFile(state.getValue(DoorBlock.HALF) == DoubleBlockHalf.LOWER ? (right ? (open ? bottomRightOpen : bottomRight) : (open ? bottomLeftOpen : bottomLeft)) : (right ? (open ? topRightOpen : topRight) : (open ? topLeftOpen : topLeft)))
-					.rotationY(yRot)
-					.build();
-		}, DoorBlock.POWERED);
+	public void trapdoor(Supplier<? extends TrapDoorBlock> block, String name) {
+		trapdoorBlockWithRenderType(block.get(), texture(name + "_trapdoor"), true, "cutout");
 	}
+
 
 	protected VariantBlockStateBuilder make2LayerCubeAllSidesSame(Block block, Block block2, ResourceLocation renderType, int layer1em, int layer2em, boolean shade) {
 		return this.make2LayerCube(block, block2, renderType,

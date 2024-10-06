@@ -97,6 +97,8 @@ public class FrostRealm {
 
 	public void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
+            FrostBlockSetTypes.init();
+            FrostWoodTypes.init();
 			FrostInteractionInformations.init();
 			FrostBlocks.burnables();
 			FrostBiomes.addBiomeTypes();

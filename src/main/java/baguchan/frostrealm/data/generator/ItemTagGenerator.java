@@ -28,6 +28,7 @@ public class ItemTagGenerator extends ItemTagsProvider {
         tag(ItemTags.WOODEN_FENCES).add(FrostBlocks.FROSTROOT_FENCE.get().asItem()).add(FrostBlocks.FROSTBITE_FENCE.get().asItem());
         tag(ItemTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE.get().asItem()).add(FrostBlocks.FROSTBITE_FENCE_GATE.get().asItem());
         tag(ItemTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR.get().asItem());
+        tag(ItemTags.WOODEN_TRAPDOORS).add(FrostBlocks.FROSTROOT_TRAPDOOR.get().asItem());
         tag(ItemTags.WOODEN_SLABS).add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get().asItem()).add(FrostBlocks.FROSTBITE_PLANKS_SLAB.get().asItem());
 
 

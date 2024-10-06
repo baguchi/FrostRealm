@@ -189,6 +189,14 @@ public abstract class CraftingDataHelper extends RecipeProvider {
                 .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(blockIn).getPath(), has(blockIn)).save(consumer);
 	}
 
+	public void makeTrapDoor(RecipeOutput consumer, Block doorOut, Block blockIn) {
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, doorOut, 3)
+				.pattern("DDD")
+				.pattern("DDD")
+				.define('D', blockIn)
+				.unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(blockIn).getPath(), has(blockIn)).save(consumer);
+	}
+
     public void makeFrostTorch(RecipeOutput consumer, Item torchOut) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, torchOut, 4)
                 .pattern("C")

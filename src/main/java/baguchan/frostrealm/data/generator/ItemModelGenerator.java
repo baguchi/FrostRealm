@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.TrapDoorBlock;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.loaders.ItemLayerModelBuilder;
@@ -154,6 +155,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.FROSTROOT_PLANKS_STAIRS);
 		this.woodenFence(FrostBlocks.FROSTROOT_FENCE, FrostBlocks.FROSTROOT_PLANKS);
 		this.toBlock(FrostBlocks.FROSTROOT_FENCE_GATE);
+		this.singleTex(FrostBlocks.FROSTROOT_DOOR);
+		this.trapdoor(FrostBlocks.FROSTROOT_TRAPDOOR);
 
 		this.toBlock(FrostBlocks.FROSTBITE_LOG);
 		this.toBlock(FrostBlocks.STRIPPED_FROSTBITE_LOG);
@@ -193,6 +196,11 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK);
         this.toBlock(FrostBlocks.AURORA_INFUSER);
 		this.itemBlockFlat(FrostBlocks.FROST_TORCH);
+	}
+
+
+	public void trapdoor(Supplier<? extends TrapDoorBlock> trapdoor) {
+		withExistingParent(BuiltInRegistries.BLOCK.getKey(trapdoor.get()).getPath(), ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "block/" + blockName(trapdoor.get()) + "_bottom"));
 	}
 
 	private ItemModelBuilder singleTexFullbright(DeferredHolder<Item, ? extends Item> item) {
