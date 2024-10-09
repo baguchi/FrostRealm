@@ -157,6 +157,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		return FOOD_ITEMS.test(p_27600_);
 	}
 
+	@Override
 	public void aiStep() {
 		if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
 			++this.ticksSinceEaten;
@@ -193,6 +194,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		super.aiStep();
 	}
 
+	@Override
 	protected void pickUpItem(ItemEntity p_28514_) {
 		ItemStack itemstack = p_28514_.getItem();
 		if (this.canHoldItem(itemstack)) {
@@ -227,6 +229,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		this.level().addFreshEntity(itementity);
 	}
 
+	@Override
 	public boolean canHoldItem(ItemStack p_28578_) {
 		Item item = p_28578_.getItem();
 		ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);

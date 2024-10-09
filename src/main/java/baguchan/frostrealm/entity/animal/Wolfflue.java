@@ -41,6 +41,7 @@ import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
@@ -70,10 +71,11 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Holder<WolfflueVariant>> DATA_VARIANT_ID = SynchedEntityData.defineId(Wolfflue.class, FrostEntityDatas.WOLFFLUE_VARIANT.get());
 
+    private int ticksSinceEaten;
 
     public static final Predicate<LivingEntity> PREY_SELECTOR = p_348295_ -> {
         EntityType<?> entitytype = p_348295_.getType();
-        return entitytype == FrostEntities.CRYSTAL_FOX || entitytype == FrostEntities.SNOWPILE_QUAIL || entitytype == EntityType.FOX;
+        return entitytype == FrostEntities.CRYSTAL_FOX.get() || entitytype == FrostEntities.SNOWPILE_QUAIL.get() || entitytype == EntityType.FOX;
     };
     private static final float START_HEALTH = 20.0F;
     private static final float TAME_HEALTH = 80.0F;
@@ -118,6 +120,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
 
     @Override
     protected void registerGoals() {
+
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(1, new TamableAnimal.TamableAnimalPanicGoal(1.5, DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
@@ -133,7 +136,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
-        this.targetSelector.addGoal(5, new NonTameRandomTargetGoal<>(this, Animal.class, false, PREY_SELECTOR));
+        this.targetSelector.addGoal(5, new NonTameRandomTargetGoal<>(this, Animal.class, false, PREY_SELECTOR).setUnseenMemoryTicks(300));
         this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
@@ -237,7 +240,6 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
         this.entityData.set(DATA_VARIANT_ID, p_332777_);
     }
 
-
     @Override
     protected void playStepSound(BlockPos p_30415_, BlockState p_30416_) {
         this.playSound(SoundEvents.WOLF_STEP, 0.5F, 1.0F);
@@ -322,15 +324,6 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
     }
 
     @Override
-    public void aiStep() {
-        super.aiStep();
-
-        if (!this.level().isClientSide) {
-            this.updatePersistentAnger((ServerLevel) this.level(), true);
-        }
-    }
-
-    @Override
     public void tick() {
         super.tick();
         if (this.isAlive()) {
@@ -346,6 +339,80 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
             this.setupAnimationStates();
         }
     }
+
+    @Override
+    public void aiStep() {
+        if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
+            ++this.ticksSinceEaten;
+            ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+            if (this.isFood(itemstack)) {
+                if (this.ticksSinceEaten > 600) {
+                    FoodProperties foodproperties = itemstack.getFoodProperties(this);
+                    float f = foodproperties != null ? (float) foodproperties.nutrition() : 1.0F;
+                    this.heal(f);
+                    ItemStack itemstack1 = itemstack.finishUsingItem(this.level(), this);
+
+                    if (!itemstack1.isEmpty()) {
+                        this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
+                    }
+
+                    this.ticksSinceEaten = 0;
+                } else if (this.ticksSinceEaten > 560 && this.ticksSinceEaten % 5 == 0) {
+                    this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                    this.level().broadcastEntityEvent(this, (byte) 45);
+                }
+            }
+        }
+
+        if (!this.level().isClientSide) {
+            this.updatePersistentAnger((ServerLevel) this.level(), true);
+        }
+
+        super.aiStep();
+    }
+
+    @Override
+    protected void pickUpItem(ItemEntity p_28514_) {
+        ItemStack itemstack = p_28514_.getItem();
+        if (this.canHoldItem(itemstack)) {
+            int i = itemstack.getCount();
+            if (i > 1) {
+                this.dropItemStack(itemstack.split(i - 1));
+            }
+
+            this.spitOutItem(this.getItemBySlot(EquipmentSlot.MAINHAND));
+            this.onItemPickup(p_28514_);
+            this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.split(1));
+            this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
+            this.take(p_28514_, itemstack.getCount());
+            p_28514_.discard();
+            this.ticksSinceEaten = 0;
+        }
+
+    }
+
+    private void spitOutItem(ItemStack p_28602_) {
+        if (!p_28602_.isEmpty() && !this.level().isClientSide) {
+            ItemEntity itementity = new ItemEntity(this.level(), this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, p_28602_);
+            itementity.setPickUpDelay(40);
+            itementity.setThrower(this);
+            this.playSound(SoundEvents.FOX_SPIT, 1.0F, 1.0F);
+            this.level().addFreshEntity(itementity);
+        }
+    }
+
+    private void dropItemStack(ItemStack p_28606_) {
+        ItemEntity itementity = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), p_28606_);
+        this.level().addFreshEntity(itementity);
+    }
+
+    @Override
+    public boolean canHoldItem(ItemStack p_28578_) {
+        Item item = p_28578_.getItem();
+        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+        return itemstack.isEmpty() && this.isFood(p_28578_);
+    }
+
 
     public float getHeadRollAngle(float p_30449_) {
         return Mth.lerp(p_30449_, this.interestedAngleO, this.interestedAngle) * 0.15F * (float) Math.PI;
@@ -578,6 +645,10 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
     @Override
     public int getMaxSpawnClusterSize() {
         return 8;
+    }
+
+    public boolean isMaxGroupSizeReached(int p_21489_) {
+        return false;
     }
 
     @Override

@@ -9,6 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -61,7 +62,7 @@ public class ItemTagGenerator extends ItemTagsProvider {
         this.tag(FrostTags.Items.FROST_BOAR_FOODS).add(FrostItems.RYE.get());
         this.tag(FrostTags.Items.SNOWPILE_FOODS).add(FrostItems.SUGARBEET_SEEDS.get()).add(FrostItems.RYE_SEEDS.get());
         this.tag(FrostTags.Items.WOLFFLUE_FOODS).addTag(ItemTags.WOLF_FOOD);
-
+        this.tag(FrostTags.Items.FERRET_FOODS).add(Items.CHICKEN).add(Items.COOKED_CHICKEN).add(FrostItems.SNOWPILE_QUAIL_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get());
         this.tag(ItemTags.SWORDS).add(FrostItems.ASTRIUM_SWORD.get()).add(FrostItems.GLACINIUM_SWORD.get()).add(FrostItems.SILVER_MOON.get());
         this.tag(ItemTags.PICKAXES).add(FrostItems.ASTRIUM_PICKAXE.get()).add(FrostItems.GLACINIUM_PICKAXE.get());
         this.tag(ItemTags.AXES).add(FrostItems.ASTRIUM_AXE.get()).add(FrostItems.GLACINIUM_AXE.get());

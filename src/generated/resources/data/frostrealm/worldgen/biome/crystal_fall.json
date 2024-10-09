@@ -68,6 +68,18 @@
         "maxCount": 4,
         "minCount": 3,
         "weight": 6
+      },
+      {
+        "type": "frostrealm:ferret",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 4
+      },
+      {
+        "type": "frostrealm:snowpile_quail",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
       }
     ],
     "frostrealm:frostrealm_weather_monster": [

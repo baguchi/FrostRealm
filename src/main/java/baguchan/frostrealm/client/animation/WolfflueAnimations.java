@@ -242,20 +242,6 @@ public class WolfflueAnimations {
                 ))
                 .build();
 
-        public static final AnimationDefinition baby = AnimationDefinition.Builder.withLength(0.0F)
-                .addAnimation(
-                        "head",
-                        new AnimationChannel(
-                                AnimationChannel.Targets.SCALE, new Keyframe(0.0F, KeyframeAnimations.scaleVec(1.2F, 1.2F, 1.2F), AnimationChannel.Interpolations.LINEAR)
-                        )
-                )
-                .addAnimation(
-                        "head",
-                        new AnimationChannel(
-                                AnimationChannel.Targets.POSITION, new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 1.0F, 1.0F), AnimationChannel.Interpolations.LINEAR)
-                        )
-                )
-                .build();
 
         public static final AnimationDefinition jump = AnimationDefinition.Builder.withLength(0.25F)
                 .addAnimation("rightLeg2", new AnimationChannel(AnimationChannel.Targets.ROTATION,

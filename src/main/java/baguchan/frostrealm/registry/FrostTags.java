@@ -44,6 +44,7 @@ public class FrostTags {
 		public static final TagKey<Item> SMITHABLE_WEAPON = tag("smithable_weapon");
 
 		public static final TagKey<Item> WOLFFLUE_FOODS = tag("wolfflue_foods");
+		public static final TagKey<Item> FERRET_FOODS = tag("ferret_foods");
 		public static final TagKey<Item> SNOWPILE_FOODS = tag("snowpile_foods");
 		public static final TagKey<Item> FROST_BOAR_FOODS = tag("frost_boar_foods");
 		public static final TagKey<Item> CRYSTAL_FOX_FOODS = tag("crystal_fox_foods");

@@ -3,6 +3,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.10.4
 // Paste this class into your mod and generate all required imports
 
 
+import baguchan.frostrealm.client.animation.BabyAnimations;
 import baguchan.frostrealm.client.animation.WolfflueAnimations;
 import baguchan.frostrealm.entity.animal.Wolfflue;
 import net.minecraft.client.model.AgeableHierarchicalModel;
@@ -106,7 +107,7 @@ public class WolfflueModel<T extends Wolfflue> extends AgeableHierarchicalModel<
         }
 
         if (this.young) {
-            this.applyStatic(WolfflueAnimations.baby);
+            this.applyStatic(BabyAnimations.baby);
         }
     }
 

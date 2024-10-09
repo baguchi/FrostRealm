@@ -11,7 +11,8 @@ public class FrostModelLayers {
     public static final ModelLayerLocation ASTRA_BALL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "astra_ball"), "main");
 
     public static final ModelLayerLocation MARMOT = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "marmot"), "main");
-    public static final ModelLayerLocation SNOWPILE_QUAIL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "main"), "main");
+    public static final ModelLayerLocation SNOWPILE_QUAIL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "snowpile_quail"), "main");
+    public static final ModelLayerLocation FERRET = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "ferret"), "main");
 
     public static final ModelLayerLocation CRYSTAL_FOX = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "crystal_fox"), "main");
     public static final ModelLayerLocation SNOW_MOLE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "snow_mole"), "main");
