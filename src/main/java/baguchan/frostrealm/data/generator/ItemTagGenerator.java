@@ -31,6 +31,8 @@ public class ItemTagGenerator extends ItemTagsProvider {
         tag(ItemTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR.get().asItem());
         tag(ItemTags.WOODEN_TRAPDOORS).add(FrostBlocks.FROSTROOT_TRAPDOOR.get().asItem());
         tag(ItemTags.WOODEN_SLABS).add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get().asItem()).add(FrostBlocks.FROSTBITE_PLANKS_SLAB.get().asItem());
+        tag(ItemTags.WOODEN_PRESSURE_PLATES).add(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get().asItem()).add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get().asItem());
+        tag(ItemTags.BUTTONS).add(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get().asItem()).add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get().asItem());
 
 
         tag(ItemTags.STONE_TOOL_MATERIALS).add(FrostBlocks.FRIGID_STONE.get().asItem(), FrostBlocks.PERMA_SLATE.get().asItem());

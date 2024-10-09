@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_inventory",
+  "textures": {
+    "texture": "frostrealm:block/frostbite_planks"
+  }
+}

@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -158,6 +159,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.FROSTROOT_FENCE_GATE);
 		this.singleTex(FrostBlocks.FROSTROOT_DOOR);
 		this.trapdoor(FrostBlocks.FROSTROOT_TRAPDOOR);
+		this.toBlock(FrostBlocks.FROSTROOT_PRESSURE_PLATE);
+		this.button(FrostBlocks.FROSTROOT_BUTTON, FrostBlocks.FROSTROOT_PLANKS);
 
 		this.toBlock(FrostBlocks.FROSTBITE_LOG);
 		this.toBlock(FrostBlocks.STRIPPED_FROSTBITE_LOG);
@@ -168,13 +171,15 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.FROSTBITE_PLANKS_STAIRS);
 		this.woodenFence(FrostBlocks.FROSTBITE_FENCE, FrostBlocks.FROSTBITE_PLANKS);
 		this.toBlock(FrostBlocks.FROSTBITE_FENCE_GATE);
+		this.toBlock(FrostBlocks.FROSTBITE_PRESSURE_PLATE);
+		this.button(FrostBlocks.FROSTBITE_BUTTON, FrostBlocks.FROSTBITE_PLANKS);
 
 		this.itemBlockFlat(FrostBlocks.VIGOROSHROOM);
 		this.itemBlockFlat(FrostBlocks.ARCTIC_POPPY);
 		this.itemBlockFlat(FrostBlocks.ARCTIC_WILLOW);
 
 		this.itemBlockFlat(FrostBlocks.COLD_GRASS);
-		this.itemBlockFlat(FrostBlocks.COLD_TALL_GRASS.get(), "cold_tall_grass_top");
+		this.itemBlockFlat(FrostBlocks.COLD_TALL_GRASS, "cold_tall_grass_top");
 
 		this.toBlock(FrostBlocks.RYE_BLOCK);
 
@@ -199,9 +204,12 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.itemBlockFlat(FrostBlocks.FROST_TORCH);
 	}
 
+	public ItemModelBuilder button(Supplier<? extends ButtonBlock> button, Supplier<? extends Block> fullBlock) {
+		return buttonInventory(BuiltInRegistries.BLOCK.getKey(button.get()).getPath(), texture(blockName(fullBlock)));
+	}
 
 	public void trapdoor(Supplier<? extends TrapDoorBlock> trapdoor) {
-		withExistingParent(BuiltInRegistries.BLOCK.getKey(trapdoor.get()).getPath(), ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "block/" + blockName(trapdoor.get()) + "_bottom"));
+		withExistingParent(BuiltInRegistries.BLOCK.getKey(trapdoor.get()).getPath(), ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "block/" + blockName(trapdoor) + "_bottom"));
 	}
 
 	private ItemModelBuilder singleTexFullbright(DeferredHolder<Item, ? extends Item> item) {
@@ -298,10 +306,10 @@ public class ItemModelGenerator extends ItemModelProvider {
 	}
 
     public ItemModelBuilder itemBlockFlat(Supplier<? extends Block> block) {
-		return itemBlockFlat(block.get(), blockName(block.get()));
+		return itemBlockFlat(block, blockName(block));
 	}
 
-	public ItemModelBuilder itemBlockFlat(Block block, String name) {
+	public ItemModelBuilder itemBlockFlat(Supplier<? extends Block> block, String name) {
 		return withExistingParent(blockName(block), mcLoc("item/generated"))
 				.texture("layer0", modLoc("block/" + name));
 	}
@@ -310,9 +318,14 @@ public class ItemModelGenerator extends ItemModelProvider {
         return withExistingParent(BuiltInRegistries.ITEM.getKey(item.get()).getPath(), mcLoc("item/template_spawn_egg"));
 	}
 
-	public String blockName(Block block) {
-        return BuiltInRegistries.BLOCK.getKey(block).getPath();
+	public String blockName(Supplier<? extends Block> block) {
+		return BuiltInRegistries.BLOCK.getKey(block.get()).getPath();
 	}
+
+	private ResourceLocation texture(String name) {
+		return modLoc("block/" + name);
+	}
+
 
 	@Override
 	public String getName() {

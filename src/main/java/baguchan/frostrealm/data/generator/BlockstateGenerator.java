@@ -76,6 +76,8 @@ public class BlockstateGenerator extends BlockStateProvider {
         this.fenceGateBlock(FrostBlocks.FROSTROOT_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
 		this.doorBlock(FrostBlocks.FROSTROOT_DOOR.get(), texture("frostroot_door_bottom"), texture("frostroot_door_top"));
 		this.trapdoor(FrostBlocks.FROSTROOT_TRAPDOOR, "frostroot");
+		this.buttonBlock(FrostBlocks.FROSTROOT_BUTTON.get(), blockTexture(FrostBlocks.FROSTROOT_PLANKS.get()));
+		this.pressurePlateBlock(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get(), blockTexture(FrostBlocks.FROSTROOT_PLANKS.get()));
 
 		this.logBlock(FrostBlocks.FROSTBITE_LOG.get());
 		this.logBlock(FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
@@ -86,6 +88,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.stairs(FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS.get());
 		this.fenceBlock(FrostBlocks.FROSTBITE_FENCE.get(), texture(name(FrostBlocks.FROSTBITE_PLANKS.get())));
 		this.fenceGateBlock(FrostBlocks.FROSTBITE_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
+		this.pressurePlateBlock(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get(), blockTexture(FrostBlocks.FROSTROOT_PLANKS.get()));
 
 
 		this.crossBlock(FrostBlocks.VIGOROSHROOM.get());
