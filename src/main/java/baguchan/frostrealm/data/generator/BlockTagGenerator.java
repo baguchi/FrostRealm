@@ -43,7 +43,9 @@ public class BlockTagGenerator extends BlockTagsProvider {
         );
         tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_PLANKS.get(), FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_FENCE_GATE.get()
                 )
-                .add(FrostBlocks.FROSTBITE_LOG.get(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get(), FrostBlocks.FROSTBITE_PLANKS.get(), FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_FENCE.get(), FrostBlocks.FROSTBITE_FENCE_GATE.get());
+                .add(FrostBlocks.FROSTROOT_DOOR.get()).add(FrostBlocks.FROSTROOT_TRAPDOOR.get()).add(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get()).add(FrostBlocks.FROSTROOT_BUTTON.get())
+                .add(FrostBlocks.FROSTBITE_LOG.get(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get(), FrostBlocks.FROSTBITE_PLANKS.get(), FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_FENCE.get(), FrostBlocks.FROSTBITE_FENCE_GATE.get())
+                .add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get()).add(FrostBlocks.FROSTBITE_BUTTON.get());
 
         tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTROOT_SAPLING.get())
                 .add(FrostBlocks.FROSTBITE_LEAVES.get()).add(FrostBlocks.FROSTBITE_SAPLING.get()).add(FrostBlocks.RYE_BLOCK.get());
