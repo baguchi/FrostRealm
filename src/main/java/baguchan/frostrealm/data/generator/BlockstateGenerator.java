@@ -89,7 +89,8 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.fenceBlock(FrostBlocks.FROSTBITE_FENCE.get(), texture(name(FrostBlocks.FROSTBITE_PLANKS.get())));
 		this.fenceGateBlock(FrostBlocks.FROSTBITE_FENCE_GATE.get(), texture(name(FrostBlocks.FROSTROOT_PLANKS.get())));
 		this.pressurePlateBlock(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get(), blockTexture(FrostBlocks.FROSTROOT_PLANKS.get()));
-
+		this.doorBlock(FrostBlocks.FROSTBITE_DOOR.get(), texture("frostbite_door_bottom"), texture("frostbite_door_top"));
+		this.trapdoor(FrostBlocks.FROSTBITE_TRAPDOOR, "frostbite");
 
 		this.crossBlock(FrostBlocks.VIGOROSHROOM.get());
         this.crossBlock(FrostBlocks.ARCTIC_POPPY.get());

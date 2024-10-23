@@ -28,8 +28,8 @@ public class ItemTagGenerator extends ItemTagsProvider {
         tag(ItemTags.PLANKS).add(FrostBlocks.FROSTROOT_PLANKS.get().asItem()).add(FrostBlocks.FROSTBITE_PLANKS.get().asItem());
         tag(ItemTags.WOODEN_FENCES).add(FrostBlocks.FROSTROOT_FENCE.get().asItem()).add(FrostBlocks.FROSTBITE_FENCE.get().asItem());
         tag(ItemTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE.get().asItem()).add(FrostBlocks.FROSTBITE_FENCE_GATE.get().asItem());
-        tag(ItemTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR.get().asItem());
-        tag(ItemTags.WOODEN_TRAPDOORS).add(FrostBlocks.FROSTROOT_TRAPDOOR.get().asItem());
+        tag(ItemTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR.get().asItem()).add(FrostBlocks.FROSTBITE_DOOR.get().asItem());
+        tag(ItemTags.WOODEN_TRAPDOORS).add(FrostBlocks.FROSTROOT_TRAPDOOR.get().asItem()).add(FrostBlocks.FROSTBITE_TRAPDOOR.get().asItem());
         tag(ItemTags.WOODEN_SLABS).add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get().asItem()).add(FrostBlocks.FROSTBITE_PLANKS_SLAB.get().asItem());
         tag(ItemTags.WOODEN_PRESSURE_PLATES).add(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get().asItem()).add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get().asItem());
         tag(ItemTags.WOODEN_BUTTONS).add(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get().asItem()).add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get().asItem());

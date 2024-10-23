@@ -118,7 +118,9 @@ public class FrostBlocks {
 	public static final DeferredBlock<StairBlock> FROSTBITE_PLANKS_STAIRS = register("frostbite_planks_stairs", () -> new StairBlock(FROSTBITE_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.of().mapColor(DyeColor.CYAN).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.NETHER_WOOD)));
 	public static final DeferredBlock<FenceBlock> FROSTBITE_FENCE = register("frostbite_fence", () -> new FenceBlock(BlockBehaviour.Properties.of().mapColor(DyeColor.CYAN).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.NETHER_WOOD)));
 	public static final DeferredBlock<FenceGateBlock> FROSTBITE_FENCE_GATE = register("frostbite_fence_gate", () -> new FenceGateBlock(FrostWoodTypes.FROSTBITE, BlockBehaviour.Properties.of().mapColor(DyeColor.CYAN).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.NETHER_WOOD)));
-	//public static final DeferredBlock<DoorBlock> FROSTBITE_DOOR = register("frostbite_door", () -> new DoorBlock(FrostBlockSetTypes.FROSTBITE, BlockBehaviour.Properties.of().strength(3.0F).noOcclusion().sound(SoundType.CHERRY_WOOD)));
+	public static final DeferredBlock<DoorBlock> FROSTBITE_DOOR = register("frostbite_door", () -> new DoorBlock(FrostBlockSetTypes.FROSTBITE, BlockBehaviour.Properties.of().strength(3.0F).noOcclusion().sound(SoundType.CHERRY_WOOD)));
+	public static final DeferredBlock<TrapDoorBlock> FROSTBITE_TRAPDOOR = register("frostbite_trapdoor", () -> new TrapDoorBlock(FrostBlockSetTypes.FROSTBITE, BlockBehaviour.Properties.of().mapColor(DyeColor.CYAN).strength(3.0F).noOcclusion().sound(SoundType.CHERRY_WOOD)));
+
 	public static final DeferredBlock<ButtonBlock> FROSTBITE_BUTTON = register("frostbite_button", () -> woodenButton(FrostBlockSetTypes.FROSTBITE));
 	public static final DeferredBlock<PressurePlateBlock> FROSTBITE_PRESSURE_PLATE = register(
 			"frostbite_pressure_plate",
@@ -222,6 +224,8 @@ public class FrostBlocks {
 		fireblock.setFlammable(FROSTROOT_PLANKS_STAIRS.get(), 5, 20);
 		fireblock.setFlammable(FROSTROOT_FENCE.get(), 5, 20);
 		fireblock.setFlammable(FROSTROOT_FENCE_GATE.get(), 5, 20);
+		fireblock.setFlammable(FROSTROOT_DOOR.get(), 5, 20);
+		fireblock.setFlammable(FROSTROOT_TRAPDOOR.get(), 5, 20);
 
 		fireblock.setFlammable(FROSTBITE_SAPLING.get(), 60, 100);
 		fireblock.setFlammable(FROSTBITE_LEAVES.get(), 60, 100);
@@ -232,6 +236,11 @@ public class FrostBlocks {
 		fireblock.setFlammable(FROSTBITE_PLANKS_STAIRS.get(), 5, 20);
 		fireblock.setFlammable(FROSTBITE_FENCE.get(), 5, 20);
 		fireblock.setFlammable(FROSTBITE_FENCE_GATE.get(), 5, 20);
+		fireblock.setFlammable(FROSTBITE_DOOR.get(), 5, 20);
+		fireblock.setFlammable(FROSTBITE_TRAPDOOR.get(), 5, 20);
+
+
+
 		fireblock.setFlammable(COLD_TALL_GRASS.get(), 60, 100);
 		fireblock.setFlammable(RYE_BLOCK.get(), 60, 20);
 	}

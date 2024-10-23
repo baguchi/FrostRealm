@@ -131,7 +131,8 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.dropSelf(FrostBlocks.FROSTBITE_PLANKS_STAIRS.get());
 		this.dropSelf(FrostBlocks.FROSTBITE_FENCE.get());
 		this.dropSelf(FrostBlocks.FROSTBITE_FENCE_GATE.get());
-		//this.add(FrostBlocks.FROSTBITE_DOOR.get(), this::createDoorTable);
+		this.add(FrostBlocks.FROSTBITE_DOOR.get(), this::createDoorTable);
+		this.dropSelf(FrostBlocks.FROSTROOT_TRAPDOOR.get());
 		this.dropSelf(FrostBlocks.FROSTBITE_BUTTON.get());
 		this.dropSelf(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get());
 

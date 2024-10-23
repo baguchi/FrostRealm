@@ -45,7 +45,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
                 )
                 .add(FrostBlocks.FROSTROOT_DOOR.get()).add(FrostBlocks.FROSTROOT_TRAPDOOR.get()).add(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get()).add(FrostBlocks.FROSTROOT_BUTTON.get())
                 .add(FrostBlocks.FROSTBITE_LOG.get(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get(), FrostBlocks.FROSTBITE_PLANKS.get(), FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_FENCE.get(), FrostBlocks.FROSTBITE_FENCE_GATE.get())
-                .add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get()).add(FrostBlocks.FROSTBITE_BUTTON.get());
+                .add(FrostBlocks.FROSTBITE_DOOR.get()).add(FrostBlocks.FROSTBITE_TRAPDOOR.get()).add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get()).add(FrostBlocks.FROSTBITE_BUTTON.get());
 
         tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTROOT_SAPLING.get())
                 .add(FrostBlocks.FROSTBITE_LEAVES.get()).add(FrostBlocks.FROSTBITE_SAPLING.get()).add(FrostBlocks.RYE_BLOCK.get());
@@ -59,8 +59,8 @@ public class BlockTagGenerator extends BlockTagsProvider {
         tag(BlockTags.LEAVES).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTBITE_LEAVES.get());
         tag(BlockTags.WOODEN_FENCES).add(FrostBlocks.FROSTROOT_FENCE.get()).add(FrostBlocks.FROSTBITE_FENCE.get());
         tag(BlockTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE.get()).add(FrostBlocks.FROSTBITE_FENCE_GATE.get());
-        tag(BlockTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR.get());
-        tag(BlockTags.WOODEN_TRAPDOORS).add(FrostBlocks.FROSTROOT_TRAPDOOR.get());
+        tag(BlockTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR.get()).add(FrostBlocks.FROSTBITE_DOOR.get());
+        tag(BlockTags.WOODEN_TRAPDOORS).add(FrostBlocks.FROSTROOT_TRAPDOOR.get()).add(FrostBlocks.FROSTBITE_TRAPDOOR.get());
         tag(BlockTags.WOODEN_SLABS).add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get()).add(FrostBlocks.FROSTBITE_PLANKS_SLAB.get());
         tag(BlockTags.WOODEN_PRESSURE_PLATES).add(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get()).add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get());
         tag(BlockTags.WOODEN_BUTTONS).add(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get()).add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get());

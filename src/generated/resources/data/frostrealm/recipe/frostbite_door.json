@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "D": {
+      "item": "frostrealm:frostbite_planks"
+    }
+  },
+  "pattern": [
+    "DD",
+    "DD",
+    "DD"
+  ],
+  "result": {
+    "count": 3,
+    "id": "frostrealm:frostbite_door"
+  }
+}
