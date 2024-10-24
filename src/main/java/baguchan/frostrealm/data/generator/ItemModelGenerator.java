@@ -147,6 +147,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 
 		this.toBlock(FrostBlocks.GLACINIUM_ORE);
 		this.toBlock(FrostBlocks.GLACINIUM_BLOCK);
+		this.toBlock(FrostBlocks.RAW_GLACINIUM_BLOCK);
 
 		this.toBlock(FrostBlocks.FROSTROOT_LOG);
 		this.toBlock(FrostBlocks.STRIPPED_FROSTROOT_LOG);

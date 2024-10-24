@@ -19,6 +19,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.PolarBear;
@@ -175,6 +176,9 @@ public class CommonEvents {
                                                     serverLevel.setBlockAndUpdate(pos.below(), snowStateBelow.setValue(BlockStateProperties.LIT, false));
                                                 } else if (canPlaceSnowLayer(serverLevel, pos)) {
                                                     serverLevel.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
+                                                } else if (!snowState.is(FrostTags.Blocks.NON_FREEZE_SAPLING) && !snowState.is(FrostBlocks.FROSTBITE_SAPLING)) {
+                                                    serverLevel.playSound(null, pos, SoundEvents.PLAYER_HURT_FREEZE, SoundSource.BLOCKS);
+                                                    serverLevel.setBlockAndUpdate(pos, FrostBlocks.FROSTBITE_SAPLING.get().defaultBlockState());
                                                 }
                                             }
                                         }

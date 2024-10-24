@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "frostrealm:raw_glacinium_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "frostrealm:glacinium_crystal"
+  }
+}

@@ -238,6 +238,25 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.requires(FrostItems.FROST_CRYSTAL.get())
 				.requires(FrostItems.ASTRIUM_INGOT.get())
 				.unlockedBy("has_item", has(FrostItems.GLACINIUM_CRYSTAL.get())).save(consumer);
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.GLACINIUM_BLOCK.get(), 1)
+				.pattern("AAA")
+				.pattern("AAA")
+				.pattern("AAA")
+				.define('A', FrostItems.GLACINIUM_INGOT.get())
+				.unlockedBy("has_item", has(FrostItems.GLACINIUM_INGOT.get())).save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostItems.GLACINIUM_INGOT.get(), 9)
+				.requires(FrostBlocks.GLACINIUM_BLOCK.get())
+				.unlockedBy("has_item", has(FrostItems.GLACINIUM_INGOT.get())).save(consumer, prefix("glacinium_to_ingot"));
+		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, FrostBlocks.RAW_GLACINIUM_BLOCK.get(), 1)
+				.pattern("AAA")
+				.pattern("AAA")
+				.pattern("AAA")
+				.define('A', FrostItems.GLACINIUM_CRYSTAL.get())
+				.unlockedBy("has_item", has(FrostItems.GLACINIUM_CRYSTAL.get())).save(consumer);
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, FrostItems.GLACINIUM_CRYSTAL.get(), 9)
+				.requires(FrostBlocks.RAW_GLACINIUM_BLOCK.get())
+				.unlockedBy("has_item", has(FrostItems.GLACINIUM_CRYSTAL.get())).save(consumer, prefix("raw_glacinium_to_ingot"));
+
 
 
 

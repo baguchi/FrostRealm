@@ -64,6 +64,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 
 		this.simpleBlock(FrostBlocks.GLACINIUM_ORE.get());
 		this.simpleBlock(FrostBlocks.GLACINIUM_BLOCK.get());
+		this.simpleBlock(FrostBlocks.RAW_GLACINIUM_BLOCK.get());
 
 		this.logBlock(FrostBlocks.FROSTROOT_LOG.get());
 		this.logBlock(FrostBlocks.STRIPPED_FROSTROOT_LOG.get());

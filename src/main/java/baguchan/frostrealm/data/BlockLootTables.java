@@ -102,6 +102,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 
 		this.add(FrostBlocks.GLACINIUM_ORE.get(), this::createGlaciniumDrops);
 		this.dropSelf(FrostBlocks.GLACINIUM_BLOCK.get());
+		this.dropSelf(FrostBlocks.RAW_GLACINIUM_BLOCK.get());
 
 		this.dropSelf(FrostBlocks.FROSTROOT_LOG.get());
 		this.dropSelf(FrostBlocks.STRIPPED_FROSTROOT_LOG.get());

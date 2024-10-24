@@ -173,6 +173,8 @@ public class FrostBlocks {
 	public static final DeferredBlock<Block> GLACINIUM_ORE = register("glacinium_ore", () -> new DropExperienceBlock(UniformInt.of(3, 6), BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops()
 			.strength(10.0F, 100.0F).sound(SoundType.DEEPSLATE)));
 
+	public static final DeferredBlock<Block> RAW_GLACINIUM_BLOCK = register("raw_glacinium_block", () -> new Block(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops()
+			.strength(15.0F, 100.0F).sound(SoundType.GLASS)));
 	public static final DeferredBlock<Block> GLACINIUM_BLOCK = register("glacinium_block", () -> new Block(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops()
 			.strength(15.0F, 100.0F).sound(SoundType.GLASS)));
 
