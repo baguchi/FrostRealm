@@ -15,6 +15,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.SectionPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.*;
 import net.minecraft.sounds.Musics;
@@ -29,13 +31,11 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.SnowLayerBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -48,6 +48,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
@@ -145,49 +146,93 @@ public class CommonEvents {
     }
 
     @SubscribeEvent
+    public static void onPreServerTick(BlockGrowFeatureEvent event) {
+
+    }
+
+    @SubscribeEvent
     public static void onPreServerTick(LevelTickEvent.Pre event) {
         if (event.getLevel().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
             if (event.getLevel() instanceof ServerLevel serverLevel) {
                 FrostWeatherSavedData frostWeatherSavedData = FrostWeatherSavedData.get(serverLevel);
-                if (frostWeatherSavedData.isWeatherActive() && frostWeatherSavedData.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
-                        ChunkMap chunkManager = serverLevel.getChunkSource().chunkMap;
+                ChunkMap chunkManager = serverLevel.getChunkSource().chunkMap;
 
+                if (frostWeatherSavedData.isWeatherActive() && frostWeatherSavedData.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
+                    serverLevel.getProfiler().push("freeze_weather");
                     if (event.getLevel().random.nextInt(8) == 0) {
-                            chunkManager.getChunks().forEach(chunkHolder -> {
-                                ChunkResult<LevelChunk> optionalChunk = chunkHolder.getEntityTickingChunkFuture().getNow(ChunkHolder.UNLOADED_LEVEL_CHUNK);
-                                if (optionalChunk.isSuccess()) {
-                                    optionalChunk.ifSuccess(chunkHolder2 -> {
-                                        ChunkPos chunkPos = chunkHolder2.getPos();
+                        chunkManager.getChunks().forEach(chunkHolder -> {
+                            ChunkResult<LevelChunk> optionalChunk = chunkHolder.getEntityTickingChunkFuture().getNow(ChunkHolder.UNLOADED_LEVEL_CHUNK);
+                            if (optionalChunk.isSuccess()) {
+                                optionalChunk.ifSuccess(chunkHolder2 -> {
+                                    ChunkPos chunkPos = chunkHolder2.getPos();
                                     if (!chunkManager.getPlayersCloseForSpawning(chunkPos).isEmpty()) {
                                         BlockPos pos = serverLevel.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, serverLevel.getBlockRandomPos(chunkPos.getMinBlockX(), 0, chunkPos.getMinBlockZ(), 15));
                                         BlockPos posDown = pos.below();
+
                                         if (!event.getLevel().getBiome(pos).is(FrostTags.Biomes.HOT_BIOME)) {
                                             if (serverLevel.isAreaLoaded(posDown, 1)) {
                                                 BlockState snowState = serverLevel.getBlockState(pos);
                                                 BlockState snowStateBelow = serverLevel.getBlockState(pos.below());
-                                                if (snowState.getBlock() instanceof CropBlock) {
-                                                    if (!snowState.is(FrostTags.Blocks.NON_FREEZE_CROP)) {
-                                                        serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-                                                    }
-                                                } else if (snowState.getBlock() == Blocks.FIRE) {
+                                                if (snowState.getBlock() == Blocks.FIRE) {
                                                     serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
                                                 } else if (snowStateBelow.getBlock() == Blocks.CAMPFIRE) {
                                                     makeParticles(serverLevel, pos.below());
                                                     serverLevel.setBlockAndUpdate(pos.below(), snowStateBelow.setValue(BlockStateProperties.LIT, false));
                                                 } else if (canPlaceSnowLayer(serverLevel, pos)) {
                                                     serverLevel.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
-                                                } else if (!snowState.is(FrostTags.Blocks.NON_FREEZE_SAPLING) && !snowState.is(FrostBlocks.FROSTBITE_SAPLING)) {
-                                                    serverLevel.playSound(null, pos, SoundEvents.PLAYER_HURT_FREEZE, SoundSource.BLOCKS);
-                                                    serverLevel.setBlockAndUpdate(pos, FrostBlocks.FROSTBITE_SAPLING.get().defaultBlockState());
+                                                }
+                                                }
+                                            }
+                                        }
+                                });
+                            }
+                        });
+                    }
+                    serverLevel.getProfiler().popPush("freeze_weather");
+                }
+                serverLevel.getProfiler().push("freeze");
+                if (event.getLevel().random.nextInt(8) == 0) {
+                    chunkManager.getChunks().forEach(chunkHolder -> {
+                        ChunkResult<LevelChunk> optionalChunk = chunkHolder.getEntityTickingChunkFuture().getNow(ChunkHolder.UNLOADED_LEVEL_CHUNK);
+                        if (optionalChunk.isSuccess()) {
+                            optionalChunk.ifSuccess(chunkHolder2 -> {
+                                ChunkPos chunkPos = chunkHolder2.getPos();
+                                if (!chunkManager.getPlayersCloseForSpawning(chunkPos).isEmpty()) {
+
+                                    LevelChunkSection[] alevelchunksection = chunkHolder2.getSections();
+                                    for (int j1 = 0; j1 < alevelchunksection.length; j1++) {
+                                        LevelChunkSection levelchunksection = alevelchunksection[j1];
+                                        if (levelchunksection.isRandomlyTicking()) {
+                                            int k1 = chunkHolder2.getSectionYFromSectionIndex(j1);
+                                            int k = SectionPos.sectionToBlockCoord(k1);
+
+                                            BlockPos pos = serverLevel.getBlockRandomPos(chunkPos.getMinBlockX(), k, chunkPos.getMinBlockZ(), 15);
+                                            BlockPos posDown = pos.below();
+
+                                            if (!event.getLevel().getBiome(pos).is(FrostTags.Biomes.HOT_BIOME)) {
+                                                if (serverLevel.isAreaLoaded(posDown, 1)) {
+                                                    BlockState snowState = serverLevel.getBlockState(pos);
+                                                    BlockState snowStateBelow = serverLevel.getBlockState(pos.below());
+                                                    if (snowState.getBlock() instanceof CropBlock) {
+                                                        if (!snowState.is(FrostTags.Blocks.NON_FREEZE_CROP)) {
+                                                            serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                                                        }
+                                                    }
+                                                    if (!snowState.is(FrostTags.Blocks.NON_FREEZE_SAPLING) && !snowState.is(FrostBlocks.FROSTBITE_SAPLING) && snowState.getBlock() instanceof SaplingBlock) {
+                                                        serverLevel.playSound(null, pos, SoundEvents.PLAYER_HURT_FREEZE, SoundSource.BLOCKS);
+                                                        serverLevel.setBlockAndUpdate(pos, FrostBlocks.FROSTBITE_SAPLING.get().defaultBlockState());
+                                                        serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, pos.getX() + serverLevel.random.nextFloat(), pos.getY() + serverLevel.random.nextFloat(), pos.getZ() + serverLevel.random.nextFloat(), 4, 0.0D, 0.0D, 0.0D, 0.0F);
+                                                    }
                                                 }
                                             }
                                         }
                                     }
-                                    });
                                 }
                             });
                         }
-                    }
+                    });
+                }
+                serverLevel.getProfiler().popPush("freeze");
             }
         }
     }
