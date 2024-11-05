@@ -78,7 +78,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
 
     public static final Predicate<LivingEntity> PREY_SELECTOR = p_348295_ -> {
         EntityType<?> entitytype = p_348295_.getType();
-        return entitytype == FrostEntities.CRYSTAL_FOX.get() || entitytype == FrostEntities.SNOWPILE_QUAIL.get() || entitytype == EntityType.FOX;
+        return entitytype == FrostEntities.CRYSTAL_FOX.get() || entitytype == FrostEntities.SNOWPILE_QUAIL.get() || entitytype == EntityType.FOX || entitytype == EntityType.SHEEP;
     };
     private static final float START_HEALTH = 20.0F;
     private static final float TAME_HEALTH = 80.0F;
