@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "frostrealm:frost_catalyst"
+        "recipe": "frostrealm:catalyst_with_frost"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "frostrealm:frost_catalyst"
+      "frostrealm:catalyst_with_frost"
     ]
   }
 }

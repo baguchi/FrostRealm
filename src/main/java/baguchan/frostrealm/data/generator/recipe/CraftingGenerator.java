@@ -260,8 +260,17 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.pattern("SBS")
 				.pattern(" S ")
 				.define('S', FrostItems.STRAY_NECKLACE_PART.get())
-				.define('B', Items.SNOWBALL)
-				.unlockedBy("has_" + BuiltInRegistries.ITEM.getKey(FrostItems.STRAY_NECKLACE_PART.get()).getPath(), has(FrostItems.STRAY_NECKLACE_PART.get())).save(this.output);
+				.define('B', FrostItems.FROST_CRYSTAL)
+				.unlockedBy("has_" + BuiltInRegistries.ITEM.getKey(FrostItems.STRAY_NECKLACE_PART.get()).getPath(), has(FrostItems.STRAY_NECKLACE_PART.get())).save(this.output, prefix("catalyst_with_frost"));
+		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, FrostItems.FROST_CATALYST.get(), 1)
+				.pattern(" S ")
+				.pattern("SBS")
+				.pattern(" S ")
+				.define('S', FrostItems.STRAY_NECKLACE_PART.get())
+				.define('B', Items.DIAMOND)
+				.unlockedBy("has_" + BuiltInRegistries.ITEM.getKey(FrostItems.STRAY_NECKLACE_PART.get()).getPath(), has(FrostItems.STRAY_NECKLACE_PART.get())).save(this.output, prefix("catalyst_with_diamond"));
+
+
 
 		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, Blocks.SMITHING_TABLE, 1)
                 .pattern("SS")
