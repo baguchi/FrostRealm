@@ -22,14 +22,20 @@ import net.minecraft.server.level.*;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.PolarBear;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
@@ -49,6 +55,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.entity.player.SweepAttackEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
@@ -57,8 +64,52 @@ import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 @EventBusSubscriber(modid = FrostRealm.MODID)
 public class CommonEvents {
+
+    @SubscribeEvent
+    public static void onSweep(SweepAttackEvent event) {
+        Player player = event.getEntity();
+        Entity target = event.getTarget();
+        ItemStack itemstack = player.getWeaponItem();
+        if (itemstack.is(FrostTags.Items.SICKLE)) {
+            DamageSource damagesource = Optional.ofNullable(itemstack.getItem().getDamageSource(player)).orElse(player.damageSources().playerAttack(player));
+
+            float f = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE);
+            float f2 = player.getAttackStrengthScale(0.5F);
+            f *= 0.2F + f2 * f2 * 0.8F;
+            float f7 = 1.0F + (float) player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) * f;
+
+            for (LivingEntity livingentity2 : player.level()
+                    .getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(1.5, 0.25, 1.5))) {
+                double entityReachSq = Mth.square(player.entityInteractionRange()); // Use entity reach instead of constant 9.0. Vanilla uses bottom center-to-center checks here, so don't update player to use canReach, since it uses closest-corner checks.
+                if (livingentity2 != player
+                        && livingentity2 != target
+                        && !player.isAlliedTo(livingentity2)
+                        && (!(livingentity2 instanceof ArmorStand) || !((ArmorStand) livingentity2).isMarker())
+                        && player.distanceToSqr(livingentity2) < entityReachSq) {
+                    float f5 = player.level() instanceof ServerLevel serverLevel ? EnchantmentHelper.modifyDamage(serverLevel, player.getWeaponItem(), livingentity2, damagesource, f7) : f7;
+                    livingentity2.knockback(
+                            0.4F,
+                            (double) Mth.sin(player.getYRot() * (float) (Math.PI / 180.0)),
+                            (double) (-Mth.cos(player.getYRot() * (float) (Math.PI / 180.0)))
+                    );
+                    f5 = (float) (f5 / Mth.clamp(entityReachSq * 0.75F, 1, 2));
+
+                    livingentity2.hurt(damagesource, f5);
+                    if (player.level() instanceof ServerLevel serverlevel) {
+                        EnchantmentHelper.doPostAttackEffects(serverlevel, livingentity2, damagesource);
+                    }
+                }
+            }
+
+            player.level()
+                    .playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP, player.getSoundSource(), 1.0F, 1.0F);
+            player.sweepAttack();
+        }
+    }
 
     @SubscribeEvent
     public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
