@@ -97,14 +97,16 @@ public abstract class HotSpringFluid extends WaterFluid {
                         false
                 );
             }
-        } else if (p_230609_.nextInt(10) == 0) {
+        }
+
+        if (p_230609_.nextInt(50) == 0) {
             p_230606_.addParticle(
-                    ParticleTypes.WHITE_SMOKE,
+                    ParticleTypes.CAMPFIRE_COSY_SMOKE,
                     (double) p_230607_.getX() + p_230609_.nextDouble(),
                     (double) p_230607_.getY() + p_230609_.nextDouble(),
                     (double) p_230607_.getZ() + p_230609_.nextDouble(),
                     0.0,
-                    0.0,
+                    0.025,
                     0.0
             );
         }

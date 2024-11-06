@@ -37,7 +37,7 @@ import java.util.function.ToIntFunction;
 
 public class FrostBlocks {
 	public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(FrostRealm.MODID);
-	public static final DeferredBlock<LiquidBlock> HOT_SPRING = noItemRegisterWithEmpty("hot_spring", (properties) -> new NonBucketableLiquidBlock(FrostFluids.HOT_SPRING.value(), properties.mapColor(MapColor.WATER).replaceable().noCollission().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
+	public static final DeferredBlock<LiquidBlock> HOT_SPRING = noItemRegisterWithEmpty("hot_spring", (properties) -> new LiquidBlock(FrostFluids.HOT_SPRING.value(), properties.mapColor(MapColor.WATER).replaceable().noCollission().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
 
 
 	public static final DeferredBlock<FrostPortalBlock> FROST_PORTAL = noItemRegisterWithEmpty("frostrealm_portal", (properties) -> new FrostPortalBlock(properties.noOcclusion().noCollission().randomTicks().lightLevel((state) -> {

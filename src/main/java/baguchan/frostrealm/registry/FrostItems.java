@@ -2,6 +2,7 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.item.*;
 import baguchan.frostrealm.item.block.DeferredBlockItem;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.equipment.ArmorType;
@@ -85,6 +86,7 @@ public class FrostItems {
     public static final DeferredItem<FrostArmorItem> ASTRIUM_LEGGINGS = ITEMS.registerItem("astrium_leggings", (properties) -> new FrostArmorItem(FrostArmorMaterials.ASTRIUM, ArmorType.LEGGINGS, (properties.durability(ArmorType.LEGGINGS.getDurability(22)))));
     public static final DeferredItem<FrostArmorItem> ASTRIUM_BOOTS = ITEMS.registerItem("astrium_boots", (properties) -> new FrostArmorItem(FrostArmorMaterials.ASTRIUM, ArmorType.BOOTS, (properties.durability(ArmorType.BOOTS.getDurability(22)))));
     public static final DeferredItem<Item> WOLFFLUE_ASTRIUM_ARMOR = ITEMS.registerItem("wolfflue_astrium_armor", (properties) -> new WolfflueArmorItem(FrostArmorMaterials.ASTRIUM, (properties.durability(ArmorType.BODY.getDurability(22)))));
+    public static final DeferredItem<Item> HOT_SPRING_BUCKET = ITEMS.registerItem("hot_spring_bucket", (properties) -> new BucketItem(FrostFluids.HOT_SPRING.get(), (properties)));
 
 
     public static final DeferredItem<Item> MARMOT_SPAWNEGG = ITEMS.registerItem("marmot_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.MARMOT, 0xB18346, 0x9B6B2D, properties));

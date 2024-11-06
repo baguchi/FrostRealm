@@ -59,7 +59,7 @@ public class ClientRegistrar {
 		event.registerFluidType(new IClientFluidTypeExtensions() {
 			private static final ResourceLocation TEXTURE_STILL = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "block/hot_spring_still");
 			private static final ResourceLocation TEXTURE_FLOW = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "block/hot_spring_flow");
-			private static final ResourceLocation TEXTURE_OVERLAY = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/block/hot_spring_still.png");
+			private static final ResourceLocation TEXTURE_OVERLAY = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/block/hot_spring_still_overlay.png");
 
 			@Override
 			public ResourceLocation getStillTexture() {
