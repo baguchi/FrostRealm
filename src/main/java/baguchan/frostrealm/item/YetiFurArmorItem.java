@@ -31,7 +31,7 @@ public class YetiFurArmorItem extends FrostArmorItem {
 		public static final ArmorRender INSTANCE = new ArmorRender();
 
 		@Override
-		public Model getGenericArmorModel(ItemStack itemStack, EquipmentModel.LayerType layerType, Model original) {
+		public Model getHumanoidArmorModel(ItemStack itemStack, EquipmentModel.LayerType layerType, Model original) {
 			EntityModelSet models = Minecraft.getInstance().getEntityModels();
 			ModelPart root = models.bakeLayer(layerType == EquipmentModel.LayerType.HUMANOID_LEGGINGS ? FrostModelLayers.YETI_FUR_ARMOR_INNER : FrostModelLayers.YETI_FUR_ARMOR_OUTER);
 
