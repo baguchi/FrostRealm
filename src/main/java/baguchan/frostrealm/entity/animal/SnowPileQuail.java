@@ -2,8 +2,10 @@ package baguchan.frostrealm.entity.animal;
 
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
 import baguchan.frostrealm.entity.IHasEgg;
+import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.goal.BreedAndEggGoal;
 import baguchan.frostrealm.entity.goal.FindAndPlaceEggGoal;
+import baguchan.frostrealm.entity.goal.StealFromYetiGoal;
 import baguchan.frostrealm.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -52,6 +54,8 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	private float nextFlap = 1.0F;
 	@Nullable
 	private BlockPos homeTarget;
+	@Nullable
+	private LivingEntity stealTarget;
 	private int ticksShake = 24000;
 	private int ticksSinceEaten;
 	public final AnimationState shakeAnimationState = new AnimationState();
@@ -77,6 +81,9 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Ferret.class, 8.0F, 1.55D, 1.45D, (p_28590_) -> {
 			return !((Ferret) p_28590_).isTame();
 		}));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Yeti.class, 8.0F, 1.55D, 1.45D, (p_28590_) -> {
+			return p_28590_ == getStealTarget();
+		}));
 		this.goalSelector.addGoal(3, new FindAndPlaceEggGoal<>(this, 0.8D) {
 			@Override
 			public void afterPlaceEgg() {
@@ -95,10 +102,12 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 		this.goalSelector.addGoal(4, new BreedAndEggGoal<>(this, 1.0D));
 		this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, (item) -> item.is(FrostTags.Items.SNOWPILE_FOODS), false));
 		this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
-		this.goalSelector.addGoal(7, new MoveToGoal(this, 8.0D, 1.1D));
-		this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-		this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
-		this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(7, new StealFromYetiGoal(this, 1.0D));
+
+		this.goalSelector.addGoal(8, new MoveToGoal(this, 8.0D, 1.1D));
+		this.goalSelector.addGoal(9, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 6.0F));
+		this.goalSelector.addGoal(11, new RandomLookAroundGoal(this));
 	}
 
 	@Override
@@ -308,6 +317,14 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	@Nullable
 	private BlockPos getHomeTarget() {
 		return this.homeTarget;
+	}
+
+	public void setStealTarget(@Nullable LivingEntity stealTarget) {
+		this.stealTarget = stealTarget;
+	}
+
+	public @Nullable LivingEntity getStealTarget() {
+		return stealTarget;
 	}
 
 	public boolean hasEgg() {

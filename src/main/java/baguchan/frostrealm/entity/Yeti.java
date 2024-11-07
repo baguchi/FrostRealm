@@ -43,9 +43,8 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
-import java.util.function.Predicate;
 
-public class Yeti extends AgeableMob {
+public class Yeti extends AgeableMob implements HasContainerEntity {
 	private static final EntityDataAccessor<String> DATA_STATE = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.STRING);
 	public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.LONG);
 
@@ -55,7 +54,7 @@ public class Yeti extends AgeableMob {
 			, FrostMemoryModuleType.NEAREST_ENEMYS.get(), FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get(), MemoryModuleType.AVOID_TARGET, FrostMemoryModuleType.NEAREST_YETIS.get(), FrostMemoryModuleType.YETI_COUNT.get()
 			, MemoryModuleType.ANGRY_AT, MemoryModuleType.UNIVERSAL_ANGER, MemoryModuleType.HUNTED_RECENTLY, MemoryModuleType.HOME
 			, MemoryModuleType.ADMIRING_ITEM, MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM, MemoryModuleType.ADMIRING_DISABLED, MemoryModuleType.DISABLE_WALK_TO_ADMIRE_ITEM
-			, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS);
+			, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, FrostMemoryModuleType.TAKE_BACK_TARGET.get(), FrostMemoryModuleType.TAKE_BACK_COOLDOWN.get());
 
 	private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(FrostEntities.YETI.get().getWidth(), FrostEntities.YETI.get().getHeight() - 0.35F)
 			.withEyeHeight(1.4F);
@@ -67,11 +66,7 @@ public class Yeti extends AgeableMob {
 	public final AnimationState sitPoseAnimationState = new AnimationState();
 
 	public final AnimationState sitUpAnimationState = new AnimationState();
-
-	public static final Predicate<? super ItemEntity> ALLOWED_ITEMS = (p_213616_0_) -> {
-		return p_213616_0_.getItem().getItem() != Items.SPIDER_EYE && p_213616_0_.getItem().getItem() != Items.PUFFERFISH || p_213616_0_.getItem().is(FrostTags.Items.YETI_CURRENCY) || p_213616_0_.getItem().is(FrostTags.Items.YETI_BIG_CURRENCY);
-	};
-
+	public final AnimationState noticedStealerAnimationState = new AnimationState();
 
 	public Yeti(EntityType<? extends Yeti> p_21683_, Level p_21684_) {
 		super(p_21683_, p_21684_);
@@ -139,6 +134,18 @@ public class Yeti extends AgeableMob {
 		builder.define(DATA_STATE, State.IDLING.name());
 		builder.define(LAST_POSE_CHANGE_TICK, 0L);
 	}
+
+	@Override
+	public void onSyncedDataUpdated(EntityDataAccessor<?> p_312373_) {
+		if (this.level().isClientSide() && DATA_STATE.equals(p_312373_)) {
+			if (this.isSameStatue(State.CHASING)) {
+				this.noticedStealerAnimationState.start(this.tickCount);
+			}
+		}
+
+		super.onSyncedDataUpdated(p_312373_);
+	}
+
 
 	@org.jetbrains.annotations.Nullable
 	@Override
@@ -214,13 +221,8 @@ public class Yeti extends AgeableMob {
 		return State.get(this.entityData.get(DATA_STATE)) == State.TRADE;
 	}
 
-
-	public boolean isCheer() {
-		return State.get(this.entityData.get(DATA_STATE)) == State.CHEER;
-	}
-
-	public boolean isPanic() {
-		return State.get(this.entityData.get(DATA_STATE)) == State.PANIC;
+	public boolean isSameStatue(State state) {
+		return State.get(this.entityData.get(DATA_STATE)) == state;
 	}
 
 	public void setState(State state) {
@@ -302,7 +304,6 @@ public class Yeti extends AgeableMob {
 		} else {
 			this.sitAnimationState.stop();
 			this.sitPoseAnimationState.stop();
-			;
 			this.sitUpAnimationState.animateWhen(this.isInPoseTransition() && this.getPoseTime() >= 0L, this.tickCount);
 		}
 	}
@@ -314,8 +315,17 @@ public class Yeti extends AgeableMob {
 		super.aiStep();
 	}
 
+	public ItemStack hasFood() {
+		for (int i = 0; i < this.inventory.getContainerSize(); ++i) {
+			ItemStack itemstack = this.inventory.getItem(i);
+			if (!itemstack.isEmpty() && itemstack.get(DataComponents.FOOD) != null) {
+				return itemstack;
+			}
+		}
+		return ItemStack.EMPTY;
+	}
 
-	private ItemStack findFood() {
+	public ItemStack findFood() {
 		for (int i = 0; i < this.inventory.getContainerSize(); ++i) {
 			ItemStack itemstack = this.inventory.getItem(i);
 			if (!itemstack.isEmpty() && itemstack.get(DataComponents.FOOD) != null) {
@@ -369,6 +379,11 @@ public class Yeti extends AgeableMob {
 
 	public boolean canAddToInventory(ItemStack p_34781_) {
 		return this.inventory.canAddItem(p_34781_);
+	}
+
+	@Override
+	public SimpleContainer getInventory() {
+		return inventory;
 	}
 
 	@Override
@@ -500,6 +515,14 @@ public class Yeti extends AgeableMob {
 		return p_186270_ instanceof Yeti ? false : super.canAttack(p_186270_);
 	}
 
+	@Override
+	protected boolean considersEntityAsAlly(Entity p_360600_) {
+		if (super.considersEntityAsAlly(p_360600_)) {
+			return true;
+		} else {
+			return p_360600_.getType() != FrostEntities.YETI.get() ? false : this.getTeam() == null && p_360600_.getTeam() == null;
+		}
+	}
 
 	public static class YetiGroupData extends AgeableMobGroupData {
 		public final boolean isHunt;
@@ -516,6 +539,8 @@ public class Yeti extends AgeableMob {
 		IDLING,
 		TRADE,
 		PANIC,
+		SNOWBALL_MAKING,
+		CHASING,
 		CHEER;
 
 		public static State get(String nameIn) {

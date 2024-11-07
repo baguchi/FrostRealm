@@ -25,5 +25,7 @@ public class FrostMemoryModuleType {
     public static final Supplier<MemoryModuleType<Integer>> NEAREST_ENEMY_COUNT = MEMORY_MODULE_TYPES.register("nearest_enemy_count", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Unit>> SHOOT_COOLDOWN = MEMORY_MODULE_TYPES.register("shoot_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.unit(Unit.INSTANCE))));
     public static final Supplier<MemoryModuleType<Unit>> SHOOT = MEMORY_MODULE_TYPES.register("shoot", () -> new MemoryModuleType<>(Optional.of(Codec.unit(Unit.INSTANCE))));
+    public static final Supplier<MemoryModuleType<LivingEntity>> TAKE_BACK_TARGET = MEMORY_MODULE_TYPES.register("take_back_target", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<Unit>> TAKE_BACK_COOLDOWN = MEMORY_MODULE_TYPES.register("take_back_cooldown", () -> new MemoryModuleType<>(Optional.empty()));
 
 }

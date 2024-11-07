@@ -90,7 +90,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     @Override
     public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, LightTexture lightTexture, double camX, double camY, double camZ) {
 
-        return false;
+        return true;
     }
 
     @Override
