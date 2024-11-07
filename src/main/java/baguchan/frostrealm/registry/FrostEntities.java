@@ -45,6 +45,7 @@ public class FrostEntities {
     public static final Supplier<EntityType<CorruptedWalker>> CORRUPTED_WALKER = ENTITIES.register("corruped_walker", () -> EntityType.Builder.of(CorruptedWalker::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(1.0F, 1.0F).eyeHeight(0.8F).fireImmune().build(prefix("corruped_walker")));
     public static final Supplier<EntityType<Venochem>> VENOCHEM = ENTITIES.register("venochem", () -> EntityType.Builder.of(Venochem::new, MobCategory.MONSTER).sized(0.9F, 0.8F).eyeHeight(0.45F).fireImmune().build(prefix("venochem")));
     public static final Supplier<EntityType<Gokkur>> GOKKUR = ENTITIES.register("gokkur", () -> EntityType.Builder.of(Gokkur::new, MobCategory.MONSTER).sized(1.0F, 1.2F).eyeHeight(0.525F).fireImmune().build(prefix("gokkur")));
+    public static final Supplier<EntityType<RootDeer>> ROOT_DEER = ENTITIES.register("root_deer", () -> EntityType.Builder.of(RootDeer::new, MobCategory.MONSTER).sized(0.5F, 2.375F).eyeHeight(0.35F).fireImmune().build(prefix("root_deer")));
 
     public static final Supplier<EntityType<VenomBall>> VENOM_BALL = ENTITIES.register("venom_ball", () -> EntityType.Builder.<VenomBall>of(VenomBall::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(8).updateInterval(30).build(prefix("venom_ball")));
 
@@ -71,6 +72,7 @@ public class FrostEntities {
         event.put(CORRUPTED_WALKER.get(), CorruptedWalker.createAttributeMap().build());
         event.put(VENOCHEM.get(), Venochem.createAttributes().build());
         event.put(GOKKUR.get(), Gokkur.createAttributes().build());
+        event.put(ROOT_DEER.get(), RootDeer.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -93,5 +95,6 @@ public class FrostEntities {
         event.register(FROST_BOAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBoar::checkFrostAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(VENOCHEM.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(GOKKUR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(ROOT_DEER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, RootDeer::checkDeerSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
     }
 }

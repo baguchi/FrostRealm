@@ -121,6 +121,7 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.VENOM_BALL.get(), VenomBallRenderer::new);
 		event.registerEntityRenderer(FrostEntities.VENOCHEM.get(), VenochemRenderer::new);
 		event.registerEntityRenderer(FrostEntities.GOKKUR.get(), GokkurRenderer::new);
+		event.registerEntityRenderer(FrostEntities.ROOT_DEER.get(), RootDeerRenderer::new);
 	}
 
 	@SubscribeEvent
@@ -153,6 +154,8 @@ public class ClientRegistrar {
         event.registerLayerDefinition(FrostModelLayers.CORRUPTED_WALKER, CorruptedWalkerModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.CORRUPTED_WALKER_FOOT, CorruptedWalkerFootModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.CORRUPTED_WALKER_PART, CorruptedWalkerPartModel::createBodyLayer);
+
+		event.registerLayerDefinition(FrostModelLayers.ROOT_DEER, RootDeerModel::createBodyLayer);
 
 
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));

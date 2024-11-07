@@ -18,7 +18,7 @@ public class FrostItems {
     public static final DeferredItem<Item> FROST_CRYSTAL = ITEMS.registerItem("frost_crystal", FrostCrystalItem::new);
 
     public static final DeferredItem<Item> CRYONITE = ITEMS.registerItem("cryonite", Item::new);
-    public static final DeferredItem<Item> CRYONITE_CREAM = ITEMS.registerItem("cryonite_cream", GlimmerRockItem::new);
+    public static final DeferredItem<Item> CRYONITE_CREAM = ITEMS.registerItem("cryonite_cream", (properties) -> new CryoniteCreamItem(properties));
 
     public static final DeferredItem<Item> WARPED_CRYSTAL = ITEMS.registerItem("warped_crystal", (properties) -> new Item(properties));
     public static final DeferredItem<Item> VENOM_CRYSTAL = ITEMS.registerItem("venom_crystal", (properties) -> new Item(properties));
@@ -103,4 +103,5 @@ public class FrostItems {
     public static final DeferredItem<Item> STRAY_WARRIOR_SPAWNEGG = ITEMS.registerItem("seeker_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.SEEKER, 6387319, 14543594, properties));
     public static final DeferredItem<Item> VENOCHEM_SPAWNEGG = ITEMS.registerItem("venochem_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.VENOCHEM, 0x400659, 0xCE5487, properties));
     public static final DeferredItem<Item> GOKKUR_SPAWNEGG = ITEMS.registerItem("gokkur_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.GOKKUR, 0xA09D96, 0x6F6965, properties));
+    public static final DeferredItem<Item> ROOT_DEER_SPAWNEGG = ITEMS.registerItem("root_deer_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.ROOT_DEER, 0x61839F, 0xAB1B56, properties));
 }

@@ -7,8 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 public class FrostModelLayers {
     public static final ModelLayerLocation YETI = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "yeti"), "main");
     public static final ModelLayerLocation FROST_WRAITH = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_wraith"), "main");
-    public static final ModelLayerLocation WARPY = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "warpy"), "main");
     public static final ModelLayerLocation ASTRA_BALL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "astra_ball"), "main");
+    public static final ModelLayerLocation ROOT_DEER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "root_deer"), "main");
 
     public static final ModelLayerLocation MARMOT = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "marmot"), "main");
     public static final ModelLayerLocation SNOWPILE_QUAIL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "snowpile_quail"), "main");
