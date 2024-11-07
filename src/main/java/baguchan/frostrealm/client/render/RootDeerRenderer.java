@@ -6,8 +6,10 @@ import baguchan.frostrealm.client.model.RootDeerModel;
 import baguchan.frostrealm.client.render.state.RootDeerRenderState;
 import baguchan.frostrealm.entity.hostile.RootDeer;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
 public class RootDeerRenderer<T extends RootDeer> extends MobRenderer<T, RootDeerRenderState, RootDeerModel<RootDeerRenderState>> {
@@ -28,8 +30,19 @@ public class RootDeerRenderer<T extends RootDeer> extends MobRenderer<T, RootDee
 
     @Override
     protected void setupRotations(RootDeerRenderState p_320913_, PoseStack p_115891_, float p_115892_, float p_115893_) {
-        super.setupRotations(p_320913_, p_115891_, p_115892_, p_115893_ /*+ 180.0F*/);
-        p_115891_.rotateAround(p_320913_.direction.getOpposite().getRotation(), 0.0F, 0.5F, 0.0F);
+
+
+        p_115891_.rotateAround(p_320913_.direction.getOpposite().getRotation(), 0.0F, 0F, 0.0F);
+        if (p_320913_.direction.getAxis() == Direction.Axis.Y) {
+            p_115891_.translate(0, 0, 0.5);
+        }
+
+        if (p_320913_.direction == Direction.DOWN) {
+            p_115891_.translate(0, 1, 0);
+        }
+        p_115891_.mulPose(Axis.XP.rotationDegrees(270.0F));
+        p_115891_.mulPose(Axis.YP.rotationDegrees(180.0F));
+
     }
 
     @Override

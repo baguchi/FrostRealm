@@ -15,7 +15,7 @@
       "constructor": "(Ljava/lang/String;IZZI)V",
       "parameters": [
         "frostrealm:surface_monster",
-        30,
+        20,
         false,
         false,
         128

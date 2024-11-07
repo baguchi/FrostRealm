@@ -1,7 +1,9 @@
 package baguchan.frostrealm.entity.hostile;
 
+import baguchan.frostrealm.entity.goal.AppearGoal;
 import baguchan.frostrealm.entity.goal.NonMoveAnimateAttackGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
+import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -20,7 +22,10 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.BodyRotationControl;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -32,6 +37,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
 public class RootDeer extends Monster {
     protected static final EntityDataAccessor<Direction> DATA_ATTACH_FACE_ID = SynchedEntityData.defineId(RootDeer.class, EntityDataSerializers.DIRECTION);
@@ -42,6 +48,11 @@ public class RootDeer extends Monster {
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState summonAnimationState = new AnimationState();
     public final AnimationState deathAnimationState = new AnimationState();
+
+    public static final Predicate<LivingEntity> FROST_PREY_SELECTOR = (p_30437_) -> {
+        EntityType<?> entitytype = p_30437_.getType();
+        return entitytype != FrostEntities.CRYSTAL_FOX.get();
+    };
 
     public RootDeer(EntityType<? extends RootDeer> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
@@ -57,12 +68,16 @@ public class RootDeer extends Monster {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new NonMoveAnimateAttackGoal(this, attackAnimationActionPoint, attackAnimationLength) {
+        this.goalSelector.addGoal(0, new AppearGoal(this, 20));
+        this.goalSelector.addGoal(1, new NonMoveAnimateAttackGoal(this, attackAnimationActionPoint, attackAnimationLength) {
             @Override
             public boolean canUse() {
                 return getPose() != Pose.EMERGING && super.canUse();
             }
         });
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Animal.class, true, (living, serverlevel) -> FROST_PREY_SELECTOR.test(living)));
+
     }
 
     @Override
@@ -281,7 +296,7 @@ public class RootDeer extends Monster {
 
 
     private void clientDiggingParticles() {
-        BlockState blockstate = this.getBlockStateOn();
+        BlockState blockstate = this.level().getBlockState(this.blockPosition().offset(this.getAttachFace().getUnitVec3i()));
         RandomSource randomsource = this.getRandom();
 
         float size = this.getDimensions(this.getPose()).width() / 2;
@@ -290,9 +305,10 @@ public class RootDeer extends Monster {
 
             if (this.level().isClientSide()) {
                 for (int i = 0; i < 4; ++i) {
-                    double d0 = this.getX() + (double) Mth.randomBetween(randomsource, -size, size);
-                    double d1 = this.getY();
-                    double d2 = this.getZ() + (double) Mth.randomBetween(randomsource, -size, size);
+                    Direction direction = this.getAttachFace().getOpposite();
+                    double d0 = this.getX() + (double) Mth.randomBetween(randomsource, -size, size) + direction.getStepX();
+                    double d1 = this.getY() + direction.getStepY();
+                    double d2 = this.getZ() + (double) Mth.randomBetween(randomsource, -size, size) + direction.getStepZ();
                     this.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockstate), d0, d1, d2, 0.0, 0.0, 0.0);
                 }
             } else {
@@ -314,12 +330,9 @@ public class RootDeer extends Monster {
             if (this.level() instanceof ServerLevel serverlevel) {
                 AABB aabb = this.getBoundingBox();
                 Vec3 vec3 = aabb.getCenter();
-                double d0 = aabb.getXsize() * 0.3;
-                double d1 = aabb.getYsize() * 0.3;
-                double d2 = aabb.getZsize() * 0.3;
-                serverlevel.sendParticles(
-                        new BlockParticleOption(ParticleTypes.BLOCK_CRUMBLE, Blocks.PALE_OAK_WOOD.defaultBlockState()), vec3.x, vec3.y, vec3.z, 100, d0, d1, d2, 0.0
-                );
+                double d0 = aabb.getXsize();
+                double d1 = aabb.getYsize();
+                double d2 = aabb.getZsize();
                 serverlevel.sendParticles(
                         new BlockParticleOption(
                                 ParticleTypes.BLOCK_CRUMBLE,
@@ -328,12 +341,13 @@ public class RootDeer extends Monster {
                         vec3.x,
                         vec3.y,
                         vec3.z,
-                        10,
+                        30,
                         d0,
                         d1,
                         d2,
                         0.0
                 );
+                this.playSound(SoundType.ROOTS.getBreakSound());
             }
             this.remove(RemovalReason.KILLED);
         }
