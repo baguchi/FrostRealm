@@ -87,7 +87,7 @@ public class RootDeer extends Monster {
 
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.0D).add(Attributes.FOLLOW_RANGE, 8F).add(Attributes.MAX_HEALTH, 15F);
+        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.0D).add(Attributes.FOLLOW_RANGE, 8F).add(Attributes.MAX_HEALTH, 15F).add(Attributes.ATTACK_DAMAGE, 4.0F);
     }
 
     public static boolean checkDeerSpawnRules(
