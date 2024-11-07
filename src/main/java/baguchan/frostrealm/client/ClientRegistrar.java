@@ -97,6 +97,7 @@ public class ClientRegistrar {
 				buffer.addVertex(pose, 1.0F, 1.0F, -0.5F).setUv(uOffset, vOffset);
 				buffer.addVertex(pose, -1.0F, 1.0F, -0.5F).setUv(4.0F + uOffset, vOffset);
 				BufferUploader.drawWithShader(buffer.buildOrThrow());
+				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 				RenderSystem.disableBlend();
 			}
 		}, FrostFluidTypes.HOT_SPRING.get());

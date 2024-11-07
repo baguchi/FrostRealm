@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screens.WinScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
@@ -101,9 +102,9 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 					}
 				}
 			}
-			Biome biome = entity.level().getBiome(entity.blockPosition()).value();
+			Holder<Biome> biome = entity.level().getBiome(entity.blockPosition());
 
-			if (biome.getModifiedClimateSettings().temperature() < 0.4F) {
+			if (biome.is(FrostTags.Biomes.HOT_BIOME)) {
 				if (this.hotSource == null) {
 					addExhaustion(tempAffect * 0.002F);
 					if (this.exhaustionLevel > 4.0F) {
