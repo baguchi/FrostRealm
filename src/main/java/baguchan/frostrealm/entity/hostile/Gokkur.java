@@ -126,6 +126,12 @@ public class Gokkur extends Monster {
                     this.setSnowProgress(this.getSnowProgress() + 0.05F);
                 }
             }
+
+            if (this.level().getBlockState(this.blockPosition()).is(BlockTags.SNOW)) {
+                if (this.getSnowProgress() <= 1.5F) {
+                    this.setSnowProgress(this.getSnowProgress() + 0.05F);
+                }
+            }
         }
     }
 

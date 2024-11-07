@@ -24,7 +24,7 @@ public class SickleItem extends Item {
     public static final ResourceLocation SWEEP_SPEED_ID = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "sweep_speed");
 
     public SickleItem(FrostToolMaterials.FrostToolMaterial tier, float damage, float speed, Item.Properties properties) {
-        super(properties.attributes(createAttributes(tier, damage, speed)));
+        super(properties.durability(tier.durability()).enchantable(tier.enchantmentValue()).attributes(createAttributes(tier, damage, speed)));
     }
 
     public static ItemAttributeModifiers createAttributes(FrostToolMaterials.FrostToolMaterial tier, float damage, float speed) {
@@ -41,19 +41,22 @@ public class SickleItem extends Item {
                 .build();
     }
 
+    @Override
     public boolean canAttackBlock(BlockState p_43291_, Level p_43292_, BlockPos p_43293_, Player p_43294_) {
         return !p_43294_.isCreative();
     }
 
+    @Override
     public boolean hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
         return true;
     }
 
     @Override
-    public void postHurtEnemy(ItemStack p_346200_, LivingEntity p_345855_, LivingEntity p_346191_) {
-        p_346200_.hurtAndBreak(1, p_346191_, EquipmentSlot.MAINHAND);
+    public void postHurtEnemy(ItemStack p_345553_, LivingEntity p_345771_, LivingEntity p_346282_) {
+        p_345553_.hurtAndBreak(1, p_346282_, EquipmentSlot.MAINHAND);
     }
 
+    @Override
     public boolean mineBlock(ItemStack p_43282_, Level p_43283_, BlockState p_43284_, BlockPos p_43285_, LivingEntity p_43286_) {
         if (p_43284_.getDestroySpeed(p_43283_, p_43285_) != 0.0F) {
             p_43282_.hurtAndBreak(2, p_43286_, EquipmentSlot.MAINHAND);
