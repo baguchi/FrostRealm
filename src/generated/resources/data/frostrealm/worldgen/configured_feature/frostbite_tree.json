@@ -45,7 +45,8 @@
       "state": {
         "Name": "frostrealm:frostbite_log",
         "Properties": {
-          "axis": "y"
+          "axis": "y",
+          "wax": "false"
         }
       }
     }

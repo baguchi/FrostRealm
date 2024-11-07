@@ -74,14 +74,7 @@
         "weight": 100
       }
     ],
-    "frostrealm:surface_monster": [
-      {
-        "type": "frostrealm:root_deer",
-        "maxCount": 4,
-        "minCount": 2,
-        "weight": 10
-      }
-    ],
+    "frostrealm:surface_monster": [],
     "misc": [],
     "monster": [
       {

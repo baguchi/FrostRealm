@@ -28,6 +28,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
@@ -95,11 +96,21 @@ public class RootDeer extends Monster {
     ) {
         return p_219015_.getDifficulty() != Difficulty.PEACEFUL
                 && (EntitySpawnReason.ignoresLightRequirements(p_361180_) || isDarkEnoughToSpawn(p_219015_, p_219017_, p_219018_))
-                && checkDirectionSpawnRules(p_219014_, p_219015_, p_361180_, p_219017_, p_219018_);
+                && checkDirectionSpawnRules(p_219015_, p_219017_);
+    }
+
+    @Override
+    public boolean checkSpawnRules(LevelAccessor p_21686_, EntitySpawnReason p_361803_) {
+        return true;
+    }
+
+    @Override
+    public boolean checkSpawnObstruction(LevelReader p_21433_) {
+        return !p_21433_.containsAnyLiquid(this.getBoundingBox()) && p_21433_.getBlockState(this.blockPosition()).isAir();
     }
 
     public static boolean checkDirectionSpawnRules(
-            EntityType<? extends Mob> p_217058_, LevelAccessor p_217059_, EntitySpawnReason p_365247_, BlockPos p_217061_, RandomSource p_217062_
+            LevelAccessor p_217059_, BlockPos p_217061_
     ) {
         for (Direction direction : Direction.values()) {
             BlockPos blockpos = p_217061_.offset(direction.getUnitVec3i());
@@ -330,9 +341,9 @@ public class RootDeer extends Monster {
             if (this.level() instanceof ServerLevel serverlevel) {
                 AABB aabb = this.getBoundingBox();
                 Vec3 vec3 = aabb.getCenter();
-                double d0 = aabb.getXsize();
+                double d0 = aabb.getXsize() / 2;
                 double d1 = aabb.getYsize();
-                double d2 = aabb.getZsize();
+                double d2 = aabb.getZsize() / 2;
                 serverlevel.sendParticles(
                         new BlockParticleOption(
                                 ParticleTypes.BLOCK_CRUMBLE,
@@ -341,13 +352,13 @@ public class RootDeer extends Monster {
                         vec3.x,
                         vec3.y,
                         vec3.z,
-                        30,
+                        40,
                         d0,
                         d1,
                         d2,
                         0.0
                 );
-                this.playSound(SoundType.ROOTS.getBreakSound());
+                this.playSound(SoundType.CHERRY_WOOD.getBreakSound());
             }
             this.remove(RemovalReason.KILLED);
         }

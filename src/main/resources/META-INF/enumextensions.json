@@ -27,7 +27,7 @@
       "constructor": "(Ljava/lang/String;IZZI)V",
       "parameters": [
         "frostrealm:frostrealm_weather_monster",
-        20,
+        25,
         false,
         false,
         128

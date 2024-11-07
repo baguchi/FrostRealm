@@ -13,7 +13,7 @@ public class NonMoveAnimateAttackGoal extends AnimateAttackGoal {
     public void tick() {
         LivingEntity target = this.mob.getTarget();
         if (target != null) {
-            this.canPerformAttack(target);
+            this.checkAndPerformAttack(target);
         }
     }
 }
