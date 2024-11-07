@@ -104,7 +104,7 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 			}
 			Holder<Biome> biome = entity.level().getBiome(entity.blockPosition());
 
-			if (biome.is(FrostTags.Biomes.HOT_BIOME)) {
+			if (!biome.is(FrostTags.Biomes.HOT_BIOME)) {
 				if (this.hotSource == null) {
 					addExhaustion(tempAffect * 0.002F);
 					if (this.exhaustionLevel > 4.0F) {

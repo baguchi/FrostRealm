@@ -262,7 +262,7 @@ public class FrostBiomeBuilders {
 		builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
 
 		return fullDefinition(
-                1.0F,
+				0.8F,
 				0.6F,
 				new BiomeSpecialEffects.Builder()
 						.fogColor(4630224)
