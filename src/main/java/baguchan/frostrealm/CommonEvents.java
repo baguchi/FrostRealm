@@ -74,7 +74,7 @@ public class CommonEvents {
         Player player = event.getEntity();
         Entity target = event.getTarget();
         ItemStack itemstack = player.getWeaponItem();
-        if (itemstack.is(FrostTags.Items.SICKLE)) {
+        if (itemstack.is(FrostTags.Items.SICKLE) && player.onGround()) {
             DamageSource damagesource = Optional.ofNullable(itemstack.getItem().getDamageSource(player)).orElse(player.damageSources().playerAttack(player));
 
             float f = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE);
@@ -84,7 +84,7 @@ public class CommonEvents {
 
             for (LivingEntity livingentity2 : player.level()
                     .getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(1.5, 0.25, 1.5))) {
-                double entityReachSq = Mth.square(player.entityInteractionRange()); // Use entity reach instead of constant 9.0. Vanilla uses bottom center-to-center checks here, so don't update player to use canReach, since it uses closest-corner checks.
+                double entityReachSq = Mth.square(player.entityInteractionRange() + 0.5F); // Use entity reach instead of constant 9.0. Vanilla uses bottom center-to-center checks here, so don't update player to use canReach, since it uses closest-corner checks.
                 if (livingentity2 != player
                         && livingentity2 != target
                         && !player.isAlliedTo(livingentity2)

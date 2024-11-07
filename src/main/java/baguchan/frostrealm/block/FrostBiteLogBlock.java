@@ -51,17 +51,19 @@ public class FrostBiteLogBlock extends RotatedPillarBlock {
     @Override
     protected void randomTick(BlockState p_222954_, ServerLevel p_222955_, BlockPos p_222956_, RandomSource p_222957_) {
         super.randomTick(p_222954_, p_222955_, p_222956_, p_222957_);
-        if (!p_222954_.getValue(WAXED)) {
-            if (p_222955_.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)
-                    && p_222957_.nextInt(2000) < p_222955_.getDifficulty().getId()) {
+        if (p_222955_.isNaturalSpawningAllowed(p_222956_)) {
+            if (!p_222954_.getValue(WAXED)) {
+                if (p_222955_.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)
+                        && p_222957_.nextInt(500) < p_222955_.getDifficulty().getId()) {
 
 
-                Direction direction = Direction.getRandom(p_222957_);
-                BlockPos blockPos = p_222956_.offset(direction.getUnitVec3i());
-                float f = p_222955_.getLightLevelDependentMagicValue(blockPos);
-                if (f < 0.5F) {
-                    if (p_222955_.getBlockState(blockPos).isAir()) {
-                        FrostEntities.ROOT_DEER.get().spawn(p_222955_, blockPos, EntitySpawnReason.NATURAL);
+                    Direction direction = Direction.getRandom(p_222957_);
+                    BlockPos blockPos = p_222956_.offset(direction.getUnitVec3i());
+                    float f = p_222955_.getLightLevelDependentMagicValue(blockPos);
+                    if (f < 0.5F) {
+                        if (p_222955_.getBlockState(blockPos).isAir()) {
+                            FrostEntities.ROOT_DEER.get().spawn(p_222955_, blockPos, EntitySpawnReason.NATURAL);
+                        }
                     }
                 }
             }
