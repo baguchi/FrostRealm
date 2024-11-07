@@ -197,7 +197,7 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 			if (--this.ticksShake <= 0) {
 				this.level().broadcastEntityEvent(this, (byte) 5);
 				this.playSound(SoundEvents.WOLF_SHAKE);
-				this.spawnAtLocation(serverLevel, new ItemStack(Items.FEATHER, 1 + this.random.nextInt()));
+				this.spawnAtLocation(serverLevel, new ItemStack(Items.FEATHER, 1 + this.random.nextInt(2)));
 				this.ticksShake = 12000 + this.random.nextIntBetweenInclusive(6000, 12000);
 			}
 		}

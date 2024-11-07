@@ -75,6 +75,7 @@ public class FrostRealm {
 		FrostBlockEntitys.BLOCK_ENTITIES.register(modBus);
 		FrostAttachs.ATTACHMENT_TYPES.register(modBus);
 		FrostPoiTypes.POI_TYPES.register(modBus);
+		FrostActivity.ACTIVITY.register(modBus);
         FrostChunkGenerators.CHUNK_GENERATOR.register(modBus);
         FrostWeathers.FROST_WEATHER.register(modBus);
         AuroraPowers.AURORA_POWER.register(modBus);

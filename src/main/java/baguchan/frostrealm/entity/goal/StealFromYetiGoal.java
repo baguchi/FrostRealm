@@ -19,7 +19,7 @@ public class StealFromYetiGoal extends Goal {
     }
 
     public boolean canUse() {
-        if (!this.animal.isBaby() || this.animal.getStealTarget() != null || this.animal.hasEgg() || cooldown > 0) {
+		if (this.animal.isBaby() || this.animal.getStealTarget() != null || !this.animal.getMainHandItem().isEmpty() || this.animal.hasEgg() || cooldown > 0) {
             return false;
         } else {
             List<? extends Yeti> list = this.animal.level().getEntitiesOfClass(Yeti.class, this.animal.getBoundingBox().inflate(8.0D, 4.0D, 8.0D));
