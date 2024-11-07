@@ -89,24 +89,24 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
     @Override
     public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, LightTexture lightTexture, double camX, double camY, double camZ) {
-        float f = FrostWeatherManager.getWeatherLevel(partialTick);
-        if (!(f <= 0.0F) && FrostWeatherManager.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
-            for (int i = 0; i < 2; i++) {
-                if (level.random.nextInt(2) != 0) {
-                    float x = level.getRandom().nextFloat() * 0.5F - level.getRandom().nextFloat();
-                    float y = level.getRandom().nextFloat();
-                    float z = level.getRandom().nextFloat() * 0.5F - level.getRandom().nextFloat();
-                    level.addParticle(FrostParticleTypes.SNOW.get(), camX - x * 36F, camY + 8 + y * 16, camZ - z * 36, -0.2F, -0.5F, -0.2F);
-                }
-            }
-        }
+
         return false;
     }
 
     @Override
     public boolean tickRain(ClientLevel level, int ticks, Camera camera) {
         soundsHandler.tick();
-
+        float f = FrostWeatherManager.getWeatherLevel(1.0F);
+        if (!(f <= 0.0F) && FrostWeatherManager.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
+            for (int i = 0; i < 2; i++) {
+                if (level.random.nextInt(2) != 0) {
+                    float x = level.getRandom().nextFloat() * 0.5F - level.getRandom().nextFloat();
+                    float y = level.getRandom().nextFloat();
+                    float z = level.getRandom().nextFloat() * 0.5F - level.getRandom().nextFloat();
+                    level.addParticle(FrostParticleTypes.SNOW.get(), camera.getPosition().x - x * 36F, camera.getPosition().y + 8 + y * 16, camera.getPosition().z - z * 36, -0.2F, -0.5F, -0.2F);
+                }
+            }
+        }
 
         return true;
     }
