@@ -39,7 +39,7 @@ public class TakeBackFromStealer {
                                     } else {
                                         p_379118_.set(new EntityTracker(livingentity, true));
 
-                                        walk.set(new WalkTarget(livingentity, 1.0F, 1));
+                                        walk.set(new WalkTarget(livingentity, 1.25F, 1));
                                         return true;
                                     }
                                 }

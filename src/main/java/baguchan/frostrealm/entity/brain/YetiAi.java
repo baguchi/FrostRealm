@@ -275,7 +275,7 @@ public class YetiAi<E extends Yeti> {
         if (!stack.isEmpty()) {
             living.setItemInHand(InteractionHand.MAIN_HAND, stack);
             brain.setMemory(FrostMemoryModuleType.TAKE_BACK_TARGET.get(), living);
-            brain.setMemoryWithExpiry(FrostMemoryModuleType.TAKE_BACK_COOLDOWN.get(), Unit.INSTANCE, 20L);
+            brain.setMemoryWithExpiry(FrostMemoryModuleType.TAKE_BACK_COOLDOWN.get(), Unit.INSTANCE, 40L);
             yeti.setState(Yeti.State.CHASING);
             living.playSound(SoundEvents.ITEM_PICKUP);
         }
