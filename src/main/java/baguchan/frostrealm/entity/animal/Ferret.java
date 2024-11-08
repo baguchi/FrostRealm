@@ -132,7 +132,7 @@ public class Ferret extends TamableAnimal {
                         return interactionresult;
                     }
                 }
-            } else if (this.isFood(itemstack) && this.getTarget() != p_30412_) {
+            } else if (!this.level().isClientSide && this.isFood(itemstack) && this.getTarget() != p_30412_) {
                 itemstack.consume(1, p_30412_);
                 this.tryToTame(p_30412_);
                 return InteractionResult.SUCCESS_SERVER;

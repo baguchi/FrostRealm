@@ -624,7 +624,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
                         }
                     }
                 }
-            } else if (this.isFood(itemstack) && !this.isAngry()) {
+            } else if (!this.level().isClientSide && this.isFood(itemstack) && !this.isAngry()) {
                 itemstack.consume(1, p_30412_);
                 this.tryToTame(p_30412_);
                 return InteractionResult.SUCCESS_SERVER;
