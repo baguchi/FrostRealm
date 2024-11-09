@@ -226,7 +226,7 @@ public class RootDeer extends Monster {
         return this.entityData.get(DATA_ATTACH_FACE_ID);
     }
 
-    private void setAttachFace(Direction p_149789_) {
+    public void setAttachFace(Direction p_149789_) {
         this.entityData.set(DATA_ATTACH_FACE_ID, p_149789_);
     }
 
@@ -316,7 +316,7 @@ public class RootDeer extends Monster {
 
             if (this.level().isClientSide()) {
                 for (int i = 0; i < 4; ++i) {
-                    Direction direction = this.getAttachFace().getOpposite();
+                    Direction direction = this.getAttachFace();
                     double d0 = this.getX() + (double) Mth.randomBetween(randomsource, -size, size) + direction.getStepX();
                     double d1 = this.getY() + direction.getStepY();
                     double d2 = this.getZ() + (double) Mth.randomBetween(randomsource, -size, size) + direction.getStepZ();

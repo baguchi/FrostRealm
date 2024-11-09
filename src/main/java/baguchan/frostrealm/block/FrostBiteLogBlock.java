@@ -1,5 +1,6 @@
 package baguchan.frostrealm.block;
 
+import baguchan.frostrealm.entity.hostile.RootDeer;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostItems;
 import com.mojang.serialization.MapCodec;
@@ -62,7 +63,8 @@ public class FrostBiteLogBlock extends RotatedPillarBlock {
                     float f = p_222955_.getLightLevelDependentMagicValue(blockPos);
                     if (f < 0.5F) {
                         if (p_222955_.getBlockState(blockPos).isAir()) {
-                            FrostEntities.ROOT_DEER.get().spawn(p_222955_, blockPos, EntitySpawnReason.NATURAL);
+                            RootDeer rootDeer = FrostEntities.ROOT_DEER.get().spawn(p_222955_, blockPos, EntitySpawnReason.NATURAL);
+                            rootDeer.setAttachFace(direction);
                         }
                     }
                 }
