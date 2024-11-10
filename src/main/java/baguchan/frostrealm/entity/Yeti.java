@@ -2,7 +2,6 @@ package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.entity.brain.YetiAi;
 import baguchan.frostrealm.entity.path.FrostPathNavigation;
-import baguchan.frostrealm.entity.projectile.FlyingBlockEntity;
 import baguchan.frostrealm.registry.*;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
@@ -520,11 +519,11 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 	}
 
 	public boolean isMeleeAttack() {
-		return this.isAdult() && !(this.getPassengers() instanceof FlyingBlockEntity);
+		return this.isAdult() && !this.isSnowCharge();
 	}
 
 	public boolean isSnowAttack() {
-		return this.isAdult() && this.getPassengers() instanceof FlyingBlockEntity;
+		return this.isAdult() && this.isSnowCharge();
 	}
 
 	public boolean canAttack(LivingEntity p_186270_) {

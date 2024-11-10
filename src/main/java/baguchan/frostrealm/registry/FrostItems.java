@@ -5,8 +5,8 @@ import baguchan.frostrealm.item.block.DeferredBlockItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.equipment.ArmorType;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -89,19 +89,19 @@ public class FrostItems {
     public static final DeferredItem<Item> HOT_SPRING_BUCKET = ITEMS.registerItem("hot_spring_bucket", (properties) -> new BucketItem(FrostFluids.HOT_SPRING.get(), (properties)));
 
 
-    public static final DeferredItem<Item> MARMOT_SPAWNEGG = ITEMS.registerItem("marmot_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.MARMOT, 0xB18346, 0x9B6B2D, properties));
-    public static final DeferredItem<Item> SNOWPILE_QUAIL_SPAWNEGG = ITEMS.registerItem("snowpile_quail_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.SNOWPILE_QUAIL, 0xFFFFFF, 0xFFFFFF, properties));
-    public static final DeferredItem<Item> YETI_SPAWNEGG = ITEMS.registerItem("yeti_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.YETI, 0xD4D7DB, 0x403656, properties));
-    public static final DeferredItem<Item> FROST_WRAITH_SPAWNEGG = ITEMS.registerItem("frost_wraith_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.FROST_WRAITH, 0x895D7B, 0xD15EBE, properties));
-    public static final DeferredItem<Item> CRYSTAL_FOX_SPAWNEGG = ITEMS.registerItem("crystal_fox_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.CRYSTAL_FOX, 0xF7FFFB, 0x90D3E8, properties));
-    public static final DeferredItem<Item> SNOW_MOLE_SPAWNEGG = ITEMS.registerItem("snow_mole_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.SNOW_MOLE, 0xE4E5E6, 0xB6A7A7, properties));
-    public static final DeferredItem<Item> ASTRA_BALL_SPAWNEGG = ITEMS.registerItem("astra_ball_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.ASTRA_BALL, 0x9352CC, 0xE3A6FF, properties));
-    public static final DeferredItem<Item> FROST_BOAR_SPAWNEGG = ITEMS.registerItem("frost_boar_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.FROST_BOAR, 0x031822, 0x296B89, properties));
-    public static final DeferredItem<Item> WOLFFLUE_SPAWNEGG = ITEMS.registerItem("wolfflue_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.WOLFFLUE, 0x9CAAB1, 0xAFA58A, properties));
-    public static final DeferredItem<Item> FERRET_SPAWNEGG = ITEMS.registerItem("ferret_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.FERRET, 0x795C5A, 0x41312D, properties));
-    public static final DeferredItem<Item> SEAL_SPAWNEGG = ITEMS.registerItem("seal_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.SEAL, 0xFFFFFF, 0xFFFFFF, properties));
-    public static final DeferredItem<Item> STRAY_WARRIOR_SPAWNEGG = ITEMS.registerItem("seeker_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.SEEKER, 6387319, 14543594, properties));
-    public static final DeferredItem<Item> VENOCHEM_SPAWNEGG = ITEMS.registerItem("venochem_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.VENOCHEM, 0x400659, 0xCE5487, properties));
-    public static final DeferredItem<Item> GOKKUR_SPAWNEGG = ITEMS.registerItem("gokkur_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.GOKKUR, 0xA09D96, 0x6F6965, properties));
-    public static final DeferredItem<Item> ROOT_DEER_SPAWNEGG = ITEMS.registerItem("root_deer_spawn_egg", (properties) -> new DeferredSpawnEggItem(FrostEntities.ROOT_DEER, 0x61839F, 0xAB1B56, properties));
+    public static final DeferredItem<Item> MARMOT_SPAWNEGG = ITEMS.registerItem("marmot_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.MARMOT.get(), 0xB18346, 0x9B6B2D, properties));
+    public static final DeferredItem<Item> SNOWPILE_QUAIL_SPAWNEGG = ITEMS.registerItem("snowpile_quail_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.SNOWPILE_QUAIL.get(), 0xFFFFFF, 0xFFFFFF, properties));
+    public static final DeferredItem<Item> YETI_SPAWNEGG = ITEMS.registerItem("yeti_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.YETI.get(), 0xD4D7DB, 0x403656, properties));
+    public static final DeferredItem<Item> FROST_WRAITH_SPAWNEGG = ITEMS.registerItem("frost_wraith_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.FROST_WRAITH.get(), 0x895D7B, 0xD15EBE, properties));
+    public static final DeferredItem<Item> CRYSTAL_FOX_SPAWNEGG = ITEMS.registerItem("crystal_fox_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.CRYSTAL_FOX.get(), 0xF7FFFB, 0x90D3E8, properties));
+    public static final DeferredItem<Item> SNOW_MOLE_SPAWNEGG = ITEMS.registerItem("snow_mole_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.SNOW_MOLE.get(), 0xE4E5E6, 0xB6A7A7, properties));
+    public static final DeferredItem<Item> ASTRA_BALL_SPAWNEGG = ITEMS.registerItem("astra_ball_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.ASTRA_BALL.get(), 0x9352CC, 0xE3A6FF, properties));
+    public static final DeferredItem<Item> FROST_BOAR_SPAWNEGG = ITEMS.registerItem("frost_boar_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.FROST_BOAR.get(), 0x031822, 0x296B89, properties));
+    public static final DeferredItem<Item> WOLFFLUE_SPAWNEGG = ITEMS.registerItem("wolfflue_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.WOLFFLUE.get(), 0x9CAAB1, 0xAFA58A, properties));
+    public static final DeferredItem<Item> FERRET_SPAWNEGG = ITEMS.registerItem("ferret_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.FERRET.get(), 0x795C5A, 0x41312D, properties));
+    public static final DeferredItem<Item> SEAL_SPAWNEGG = ITEMS.registerItem("seal_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.SEAL.get(), 0xFFFFFF, 0xFFFFFF, properties));
+    public static final DeferredItem<Item> STRAY_WARRIOR_SPAWNEGG = ITEMS.registerItem("seeker_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.SEEKER.get(), 6387319, 14543594, properties));
+    public static final DeferredItem<Item> VENOCHEM_SPAWNEGG = ITEMS.registerItem("venochem_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.VENOCHEM.get(), 0x400659, 0xCE5487, properties));
+    public static final DeferredItem<Item> GOKKUR_SPAWNEGG = ITEMS.registerItem("gokkur_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.GOKKUR.get(), 0xA09D96, 0x6F6965, properties));
+    public static final DeferredItem<Item> ROOT_DEER_SPAWNEGG = ITEMS.registerItem("root_deer_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.ROOT_DEER.get(), 0x61839F, 0xAB1B56, properties));
 }

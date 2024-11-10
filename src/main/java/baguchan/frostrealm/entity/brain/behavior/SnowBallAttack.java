@@ -130,6 +130,10 @@ public class SnowBallAttack<E extends Mob & SnowChargeMob, T extends LivingEntit
         return p_22785_.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
     }
 
+    @Override
+    protected boolean timedOut(long p_22537_) {
+        return false;
+    }
 
     static enum SnowState {
         UNCHARGED,

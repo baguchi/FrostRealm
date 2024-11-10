@@ -91,7 +91,7 @@ public class FlyingBlockEntity extends ThrowableProjectile {
             if (this.getOwner() != result.getEntity()) {
                 if (!(this.getOwner() instanceof LivingEntity living) || !living.isAlliedTo(result.getEntity())) {
                     result.getEntity().hurt(blockAttack(this.getOwner()), 3);
-
+                    this.playSound(getBlockState().getSoundType().getBreakSound());
                     this.level().broadcastEntityEvent(this, (byte) 3);
                     this.discard();
                 }
@@ -105,6 +105,7 @@ public class FlyingBlockEntity extends ThrowableProjectile {
         if (!this.level().isClientSide() && !this.isPassenger()) {
             this.level().broadcastEntityEvent(this, (byte) 3);
             this.gameEvent(GameEvent.BLOCK_DESTROY, this.getOwner());
+            this.playSound(getBlockState().getSoundType().getBreakSound());
             if (this.canPlace) {
                 this.level().setBlock(this.blockPosition(), getBlockState(), 2);
             }
