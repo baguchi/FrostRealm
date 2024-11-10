@@ -18,6 +18,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -341,9 +342,9 @@ public class RootDeer extends Monster {
             if (this.level() instanceof ServerLevel serverlevel) {
                 AABB aabb = this.getBoundingBox();
                 Vec3 vec3 = aabb.getCenter();
-                double d0 = aabb.getXsize() / 2;
+                double d0 = aabb.getXsize() / 3;
                 double d1 = aabb.getYsize();
-                double d2 = aabb.getZsize() / 2;
+                double d2 = aabb.getZsize() / 3;
                 serverlevel.sendParticles(
                         new BlockParticleOption(
                                 ParticleTypes.BLOCK_CRUMBLE,
@@ -373,6 +374,20 @@ public class RootDeer extends Monster {
         }
 
     }
+
+    @Override
+    public boolean hurtServer(ServerLevel p_376595_, DamageSource p_376181_, float p_376898_) {
+        if (!this.isNoAi() && !this.isDiggingOrEmerging()) {
+            boolean flag = super.hurtServer(p_376595_, p_376181_, p_376898_);
+            return flag;
+        }
+        return false;
+    }
+
+    public boolean isDiggingOrEmerging() {
+        return this.hasPose(Pose.DIGGING) || this.hasPose(Pose.EMERGING);
+    }
+
 
     @Override
     protected AABB getAttackBoundingBox() {

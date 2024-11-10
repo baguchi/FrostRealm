@@ -8,7 +8,7 @@ import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 
-public class CryoniteCreamItem extends Item {
+public class CryoniteCreamItem extends GlimmerRockItem {
     public CryoniteCreamItem(Item.Properties properties) {
         super(properties);
     }
