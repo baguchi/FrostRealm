@@ -5,6 +5,7 @@ import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.animal.*;
 import baguchan.frostrealm.entity.hostile.*;
 import baguchan.frostrealm.entity.hostile.part.CorruptedWalker;
+import baguchan.frostrealm.entity.projectile.FlyingBlockEntity;
 import baguchan.frostrealm.entity.projectile.VenomBall;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -48,6 +49,7 @@ public class FrostEntities {
     public static final Supplier<EntityType<RootDeer>> ROOT_DEER = ENTITIES.register("root_deer", () -> EntityType.Builder.of(RootDeer::new, MobCategory.MONSTER).sized(0.5F, 2.375F).eyeHeight(0.35F).fireImmune().build(prefix("root_deer")));
 
     public static final Supplier<EntityType<VenomBall>> VENOM_BALL = ENTITIES.register("venom_ball", () -> EntityType.Builder.<VenomBall>of(VenomBall::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(8).updateInterval(30).build(prefix("venom_ball")));
+    public static final Supplier<EntityType<FlyingBlockEntity>> FLYING_BLOCK = ENTITIES.register("flying_block", () -> EntityType.Builder.<FlyingBlockEntity>of(FlyingBlockEntity::new, MobCategory.MISC).sized(1.0F, 1.0F).clientTrackingRange(10).updateInterval(30).build(prefix("flying_block")));
 
 
     private static ResourceKey<EntityType<?>> prefix(String path) {

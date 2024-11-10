@@ -107,6 +107,7 @@ public class YetiModel<T extends YetiRenderState> extends EntityModel<T> impleme
 			this.animateWalk(YetiAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 1.0F, 3.0F);
 		}
 		this.animate(entity.noticedStealerAnimationState, YetiAnimations.noticed_stealer, entity.ageInTicks);
+		this.animate(entity.snowChargeAnimationState, YetiAnimations.thorw_pre, entity.ageInTicks);
 	}
 
 	public ModelPart getArm(HumanoidArm p_102923_) {

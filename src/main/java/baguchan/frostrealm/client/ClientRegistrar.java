@@ -123,6 +123,7 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.VENOCHEM.get(), VenochemRenderer::new);
 		event.registerEntityRenderer(FrostEntities.GOKKUR.get(), GokkurRenderer::new);
 		event.registerEntityRenderer(FrostEntities.ROOT_DEER.get(), RootDeerRenderer::new);
+		event.registerEntityRenderer(FrostEntities.FLYING_BLOCK.get(), FlyingBlockRenderer::new);
 	}
 
 	@SubscribeEvent

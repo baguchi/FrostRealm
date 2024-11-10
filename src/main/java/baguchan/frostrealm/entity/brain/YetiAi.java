@@ -1,6 +1,7 @@
 package baguchan.frostrealm.entity.brain;
 
 import baguchan.frostrealm.entity.Yeti;
+import baguchan.frostrealm.entity.brain.behavior.SnowBallAttack;
 import baguchan.frostrealm.entity.brain.behavior.StartAdmiringItemIfSeen;
 import baguchan.frostrealm.entity.brain.behavior.StopAdmiringIfItemTooFarAway;
 import baguchan.frostrealm.entity.brain.behavior.TakeBackFromStealer;
@@ -86,7 +87,7 @@ public class YetiAi<E extends Yeti> {
     }
 
     private static void initFightActivity(Brain<Yeti> p_149303_) {
-        p_149303_.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 0, ImmutableList.of(StopAttackingIfTargetInvalid.create(), SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(YetiAi::getSpeedModifierChasing), BehaviorBuilder.triggerIf(Yeti::isAdult, MeleeAttack.create(25)), EraseMemoryIf.<Mob>create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)), MemoryModuleType.ATTACK_TARGET);
+        p_149303_.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 0, ImmutableList.of(StopAttackingIfTargetInvalid.create(), SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(YetiAi::getSpeedModifierChasing), new SnowBallAttack<>(), BehaviorBuilder.triggerIf(Yeti::isMeleeAttack, MeleeAttack.create(25)), EraseMemoryIf.<Mob>create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)), MemoryModuleType.ATTACK_TARGET);
     }
 
     private static void initCoreActivity(Brain<Yeti> p_149307_) {
@@ -197,6 +198,9 @@ public class YetiAi<E extends Yeti> {
     }
 
     private static float getSpeedModifierChasing(LivingEntity p_149289_) {
+        if (p_149289_ instanceof Yeti yeti && yeti.isSnowAttack()) {
+            return 0.1F;
+        }
         return 1.2F;
     }
 

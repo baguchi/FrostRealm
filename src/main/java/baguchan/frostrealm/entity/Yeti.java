@@ -2,6 +2,7 @@ package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.entity.brain.YetiAi;
 import baguchan.frostrealm.entity.path.FrostPathNavigation;
+import baguchan.frostrealm.entity.projectile.FlyingBlockEntity;
 import baguchan.frostrealm.registry.*;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
@@ -44,7 +45,7 @@ import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 
-public class Yeti extends AgeableMob implements HasContainerEntity {
+public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMob {
 	private static final EntityDataAccessor<String> DATA_STATE = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.STRING);
 	public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.LONG);
 
@@ -67,6 +68,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity {
 
 	public final AnimationState sitUpAnimationState = new AnimationState();
 	public final AnimationState noticedStealerAnimationState = new AnimationState();
+	public final AnimationState snowChargeAnimationState = new AnimationState();
 
 	public Yeti(EntityType<? extends Yeti> p_21683_, Level p_21684_) {
 		super(p_21683_, p_21684_);
@@ -141,6 +143,12 @@ public class Yeti extends AgeableMob implements HasContainerEntity {
 			if (this.isSameStatue(State.CHASING)) {
 				this.noticedStealerAnimationState.start(this.tickCount);
 			}
+			if (this.isSameStatue(State.SNOWBALL_MAKING)) {
+				this.snowChargeAnimationState.start(this.tickCount);
+			} else {
+				this.snowChargeAnimationState.stop();
+			}
+
 		}
 
 		super.onSyncedDataUpdated(p_312373_);
@@ -511,6 +519,14 @@ public class Yeti extends AgeableMob implements HasContainerEntity {
 		return !this.isBaby();
 	}
 
+	public boolean isMeleeAttack() {
+		return this.isAdult() && !(this.getPassengers() instanceof FlyingBlockEntity);
+	}
+
+	public boolean isSnowAttack() {
+		return this.isAdult() && this.getPassengers() instanceof FlyingBlockEntity;
+	}
+
 	public boolean canAttack(LivingEntity p_186270_) {
 		return p_186270_ instanceof Yeti ? false : super.canAttack(p_186270_);
 	}
@@ -522,6 +538,20 @@ public class Yeti extends AgeableMob implements HasContainerEntity {
 		} else {
 			return p_360600_.getType() != FrostEntities.YETI.get() ? false : this.getTeam() == null && p_360600_.getTeam() == null;
 		}
+	}
+
+	@Override
+	public void setSnowCharge(boolean b) {
+		if (b) {
+			this.setState(State.SNOWBALL_MAKING);
+		} else {
+			this.setState(State.IDLING);
+		}
+	}
+
+	@Override
+	public boolean isSnowCharge() {
+		return State.get(this.getState()) == State.SNOWBALL_MAKING;
 	}
 
 	public static class YetiGroupData extends AgeableMobGroupData {

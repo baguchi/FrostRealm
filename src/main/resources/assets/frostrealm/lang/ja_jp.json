@@ -146,6 +146,7 @@
   "entity.frostrealm.gokkur": "ゴックル",
   "entity.frostrealm.venochem": "ベノケム",
   "entity.frostrealm.venom_ball": "ベノムボール",
+  "entity.frostrealm.flying_block": "飛ばされたブロック",
   "fluid.frostrealm.hot_spring": "温泉",
   "fluid_type.frostrealm.hot_spring": "温泉",
   "frostrealm.item.modifiers.total": "モディファイアの合計",
