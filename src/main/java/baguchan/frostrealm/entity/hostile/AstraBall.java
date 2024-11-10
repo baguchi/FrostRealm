@@ -1,8 +1,6 @@
 package baguchan.frostrealm.entity.hostile;
 
-import baguchan.frostrealm.client.LivingEntityFlyingSoundInstance;
 import baguchan.frostrealm.entity.goal.MoveAttackerGoal;
-import baguchan.frostrealm.registry.FrostSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.damagesource.DamageSource;
@@ -101,7 +99,7 @@ public class AstraBall extends Monster {
     @Override
     public void recreateFromPacket(ClientboundAddEntityPacket clientboundAddMobPacket) {
         super.recreateFromPacket(clientboundAddMobPacket);
-        LivingEntityFlyingSoundInstance.playSound(this, FrostSounds.MORTAR.get());
+        //LivingEntityFlyingSoundInstance.playSound(this, FrostSounds.MORTAR.get());
     }
 
 }

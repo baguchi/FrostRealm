@@ -61,12 +61,8 @@ public class FrostPart<T extends Entity> extends net.neoforged.neoforge.entity.P
         this.refreshDimensions();
     }
 
-    public EntityDimensions getSize() {
-        if (this.getParent() == null) {
-            return size;
-        }
-
-        return size.scale(getScale());
+    public EntityDimensions getRawSize() {
+        return size;
     }
 
     public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements) {
@@ -174,9 +170,9 @@ public class FrostPart<T extends Entity> extends net.neoforged.neoforge.entity.P
                 this.getZ(),
                 this.getYRot(),
                 this.getXRot(),
-                this.getDimensions(this.getPose()).width(),
-                this.getDimensions(this.getPose()).height(),
-                this.getDimensions(this.getPose()).fixed(),
+                this.getRawSize().width(),
+                this.getRawSize().height(),
+                this.getRawSize().fixed(),
                 getEntityData().packDirty());
 
     }
@@ -192,10 +188,12 @@ public class FrostPart<T extends Entity> extends net.neoforged.neoforge.entity.P
         this.refreshDimensions();
     }
 
+
     @Override
     public EntityDimensions getDimensions(Pose p_31023_) {
-        return this.size;
+        return this.getRawSize().scale(this.getScale());
     }
+
 
     @Override
     public boolean shouldBeSaved() {

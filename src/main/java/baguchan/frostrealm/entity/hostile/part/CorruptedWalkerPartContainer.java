@@ -151,12 +151,12 @@ public class CorruptedWalkerPartContainer {
         Vec3 vector;
         double dx, dy, dz;
 
-        float partLength = this.getCurrentPartLength();
+        float partLength = this.getCurrentPartLength() * this.parent.getScale();
         float xRotation = this.getCurrentPartXRotation();
         float yRotation = this.getCurrentPartYRotation();
 
 
-        vector = new Vec3(0, 0, partLength); // -53 = 3.3125
+        vector = new Vec3(0, 0, partLength);
         vector = vector.xRot((xRotation * Mth.PI) / 180.0F);
         vector = vector.yRot((-(this.parent.yBodyRot + yRotation) * Mth.PI) / 180.0F);
 
@@ -207,9 +207,9 @@ public class CorruptedWalkerPartContainer {
 
         float f = this.connectPartNum * 0.3F * scale;
         if (this.targetMove) {
-            dx += (targetX - this.parentPart.getX()) * 0.2 * speed;
-            dy += (targetY - this.parentPart.getY()) * 0.2 * speed;
-            dz += (targetZ - this.parentPart.getZ()) * 0.2 * speed;
+            dx += (targetX - this.parentPart.getX()) * 0.2 * speed * scale;
+            dy += (targetY - this.parentPart.getY()) * 0.2 * speed * scale;
+            dz += (targetZ - this.parentPart.getZ()) * 0.2 * speed * scale;
 
         } else if (this.parentPart.distanceToSqr(new Vec3(this.parent.getX() + this.offset.x, this.parent.getY() + this.offset.y, this.parent.getZ() + this.offset.z)) > f * f + 4 * 4) {
             this.stuckMode = true;

@@ -59,10 +59,10 @@ public class CorruptedWalker extends Monster {
         super.refreshDimensions();
         for (CorruptedWalkerPartContainer container : this.ec) {
             container.getParentPart().setScale(this.getScale());
-            container.getParentPart().setSize(container.getParentPart().getSize());
+            container.getParentPart().refreshDimensions();
             for (CorruptedWalkerPart part : container.getParts()) {
                 part.setScale(this.getScale());
-                part.setSize(part.getSize());
+                part.refreshDimensions();
             }
         }
     }
