@@ -15,6 +15,7 @@ public class FrostTags {
 		public static final TagKey<Biome> HOT_BIOME = tag("hot_biome");
 		public static final TagKey<Biome> GRASS_FROST_BIOME = tag("grass_frost_biome");
 		public static final TagKey<Biome> HAS_IGLOO = tag("has_structure/igloo");
+		public static final TagKey<Biome> HAS_UNDER_HIDEOUT = tag("has_structure/under_hideout");
 
         private static TagKey<Biome> tag(String name) {
 			return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name));

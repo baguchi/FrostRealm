@@ -39,7 +39,16 @@ public class FrostStructures {
     public static final ResourceKey<StructureTemplatePool> YETI = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "igloo/mobs/yeti"));
 
 
-    public static final ResourceKey<StructureProcessorList> IGLOO_ROAD_PROCESSOR = ResourceKey.create(Registries.PROCESSOR_LIST, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "tofu_plain_village_road"));
+    public static final ResourceKey<StructureProcessorList> IGLOO_ROAD_PROCESSOR = ResourceKey.create(Registries.PROCESSOR_LIST, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "igloo_road"));
+
+    public static final ResourceKey<Structure> UNDER_HIDEOUT = ResourceKey.create(Registries.STRUCTURE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout"));
+
+    public static final ResourceKey<StructureSet> UNDER_HIDEOUT_SET = ResourceKey.create(Registries.STRUCTURE_SET, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout"));
+
+    public static final ResourceKey<StructureTemplatePool> UNDER_HIDEOUT_CORRIDOR = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout/corridor"));
+    public static final ResourceKey<StructureTemplatePool> UNDER_HIDEOUT_ROOM = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout/room"));
+    public static final ResourceKey<StructureTemplatePool> UNDER_HIDEOUT_ROOM2 = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout/room2"));
+    public static final ResourceKey<StructureTemplatePool> UNDER_HIDEOUT_ENTRANCE = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout/under_hideout_entrance"));
 
 
     public static void bootstrapStructures(BootstrapContext<Structure> context) {
@@ -58,12 +67,26 @@ public class FrostStructures {
                         Heightmap.Types.WORLD_SURFACE_WG
                 )
         );
+        context.register(
+                UNDER_HIDEOUT,
+                new JigsawStructure(
+                        new Structure.StructureSettings.Builder(biomes.getOrThrow(FrostTags.Biomes.HAS_UNDER_HIDEOUT))
+                                .terrainAdapation(TerrainAdjustment.BEARD_THIN)
+                                .build(),
+                        pools.getOrThrow(UNDER_HIDEOUT_ENTRANCE),
+                        16,
+                        ConstantHeight.of(VerticalAnchor.absolute(0)),
+                        false
+                )
+        );
     }
 
     public static void bootstrapSets(BootstrapContext<StructureSet> context) {
         HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
-        context.register(IGLOO_SET, new StructureSet(List.of(StructureSet.entry(structures.getOrThrow(IGLOO), 1), StructureSet.entry(structures.getOrThrow(IGLOO), 1))
+        context.register(IGLOO_SET, new StructureSet(List.of(StructureSet.entry(structures.getOrThrow(IGLOO), 1))
                 , new RandomSpreadStructurePlacement(26, 8, RandomSpreadType.LINEAR, 16324620)));
+        context.register(UNDER_HIDEOUT_SET, new StructureSet(List.of(StructureSet.entry(structures.getOrThrow(UNDER_HIDEOUT), 1))
+                , new RandomSpreadStructurePlacement(32, 8, RandomSpreadType.LINEAR, 1243620)));
     }
 
     public static void bootstrapPools(BootstrapContext<StructureTemplatePool> context) {
@@ -94,6 +117,26 @@ public class FrostStructures {
                 Pair.of(StructurePoolElement.single(name("igloo/mobs/yeti")), 3),
                 Pair.of(StructurePoolElement.single(name("igloo/mobs/yeti_child")), 1)
         ), StructureTemplatePool.Projection.RIGID));
+
+        context.register(UNDER_HIDEOUT_ENTRANCE, new StructureTemplatePool(emptyPool, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/entrance")), 1)
+        ), StructureTemplatePool.Projection.RIGID));
+
+        context.register(UNDER_HIDEOUT_ROOM, new StructureTemplatePool(emptyPool, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_1")), 1),
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_farm")), 3),
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_rest")), 3)
+        ), StructureTemplatePool.Projection.RIGID));
+        context.register(UNDER_HIDEOUT_ROOM2, new StructureTemplatePool(emptyPool, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("under_hideout/room2/spawner")), 1)
+        ), StructureTemplatePool.Projection.RIGID));
+
+
+        context.register(UNDER_HIDEOUT_CORRIDOR, new StructureTemplatePool(emptyPool, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("under_hide_out/corridor/corridor_2")), 3),
+                Pair.of(StructurePoolElement.single(name("under_hide_out/corridor/corridor_3")), 2),
+                Pair.of(StructurePoolElement.single(name("under_hide_out/corridor/corridor_1_to_b1")), 1)), StructureTemplatePool.Projection.RIGID));
+
 
     }
 
