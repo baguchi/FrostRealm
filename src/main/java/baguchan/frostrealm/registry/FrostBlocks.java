@@ -196,8 +196,8 @@ public class FrostBlocks {
 	}).strength(5.0F, 6.0F).noOcclusion().sound(SoundType.GLASS)));
 
 
-	public static final DeferredBlock<Block> FROST_TORCH = register("frost_torch", (properties) -> new FrostTorchBlock(properties.noCollission().instabreak().lightLevel(p_220871_ -> 14).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY)));
 	public static final DeferredBlock<Block> WALL_FROST_TORCH = noItemRegister("wall_frost_torch", (properties) -> new WallFrostTorchBlock(properties.noCollission().instabreak().lightLevel(p_220871_ -> 14).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY)), BlockBehaviour.Properties.of());
+	public static final DeferredBlock<Block> FROST_TORCH = registerTorchBlock("frost_torch", (properties) -> new FrostTorchBlock(properties.noCollission().instabreak().lightLevel(p_220871_ -> 14).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY)), WALL_FROST_TORCH, BlockBehaviour.Properties.of());
 
 	public static final DeferredBlock<Block> FROST_CAMPFIRE = register("frost_campfire", (properties) -> new FrostCampfireBlock(properties.strength(2.0F).noOcclusion().lightLevel(litBlockEmission(13)).sound(SoundType.WOOD)));
 
@@ -279,6 +279,13 @@ public class FrostBlocks {
 		DeferredBlock<T> ret = BLOCKS.register(name, () -> block.apply(properties.setId(ResourceKey.create(Registries.BLOCK, FrostRealm.prefix(name)))));
 		FrostItems.ITEMS.registerItem(name, itemProps -> new DeferredDoubleHighBlockItem(ret, itemProps), new Item.Properties());
 		return ret;
+	}
+
+	private static <T extends Block> DeferredBlock<T> registerTorchBlock(String name, Function<BlockBehaviour.Properties, T> block, DeferredBlock<T> wallTorchBlock, BlockBehaviour.Properties properties) {
+		DeferredBlock<T> ret = BLOCKS.register(name, () -> block.apply(properties.setId(ResourceKey.create(Registries.BLOCK, FrostRealm.prefix(name)))));
+		FrostItems.ITEMS.registerItem(name, itemProps -> new StandingAndWallBlockItem(ret.get(), wallTorchBlock.get(), Direction.DOWN, itemProps), new Item.Properties());
+		return ret;
+
 	}
 
 	private static <B extends Block> DeferredItem<? extends BlockItem> registerBlockItem(String name, DeferredBlock<B> bDeferredBlock) {

@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +20,7 @@ import java.util.function.Predicate;
 
 public class FrostHoeItem extends FrostDiggerItem {
     public FrostHoeItem(FrostToolMaterials.FrostToolMaterial tofuItemTier, float p_362481_, float p_364182_, Properties properties) {
-        super(tofuItemTier, tofuItemTier.incorrectBlocksForDrops(), p_362481_, p_364182_, properties);
+        super(tofuItemTier, BlockTags.MINEABLE_WITH_HOE, p_362481_, p_364182_, properties);
     }
 
     @Override
