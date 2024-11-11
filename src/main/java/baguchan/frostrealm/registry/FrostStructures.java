@@ -26,6 +26,10 @@ import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
 import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import static net.minecraft.world.level.levelgen.structure.structures.JigsawStructure.DEFAULT_DIMENSION_PADDING;
 
 public class FrostStructures {
     public static final ResourceKey<Structure> IGLOO = ResourceKey.create(Registries.STRUCTURE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "igloo"));
@@ -71,12 +75,19 @@ public class FrostStructures {
                 UNDER_HIDEOUT,
                 new JigsawStructure(
                         new Structure.StructureSettings.Builder(biomes.getOrThrow(FrostTags.Biomes.HAS_UNDER_HIDEOUT))
-                                .terrainAdapation(TerrainAdjustment.BEARD_THIN)
+                                .terrainAdapation(TerrainAdjustment.BEARD_BOX)
+                                .spawnOverrides(Map.of())
                                 .build(),
                         pools.getOrThrow(UNDER_HIDEOUT_ENTRANCE),
+                        Optional.empty(),
                         16,
-                        ConstantHeight.of(VerticalAnchor.absolute(0)),
-                        false
+                        ConstantHeight.of(VerticalAnchor.absolute(28)),
+                        false,
+                        Optional.empty(),
+                        80,
+                        List.of(),
+                        DEFAULT_DIMENSION_PADDING,
+                        LiquidSettings.IGNORE_WATERLOGGING
                 )
         );
     }
@@ -123,9 +134,9 @@ public class FrostStructures {
         ), StructureTemplatePool.Projection.RIGID));
 
         context.register(UNDER_HIDEOUT_ROOM, new StructureTemplatePool(emptyPool, ImmutableList.of(
-                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_1")), 1),
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_1")), 2),
                 Pair.of(StructurePoolElement.single(name("under_hideout/room/room_farm")), 3),
-                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_rest")), 3)
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_rest")), 4)
         ), StructureTemplatePool.Projection.RIGID));
         context.register(UNDER_HIDEOUT_ROOM2, new StructureTemplatePool(emptyPool, ImmutableList.of(
                 Pair.of(StructurePoolElement.single(name("under_hideout/room2/spawner")), 1)
@@ -133,9 +144,8 @@ public class FrostStructures {
 
 
         context.register(UNDER_HIDEOUT_CORRIDOR, new StructureTemplatePool(emptyPool, ImmutableList.of(
-                Pair.of(StructurePoolElement.single(name("under_hideout/corridor/corridor_2")), 3),
-                Pair.of(StructurePoolElement.single(name("under_hideout/corridor/corridor_3")), 2),
-                Pair.of(StructurePoolElement.single(name("under_hideout/corridor/corridor_1_to_b1")), 1)), StructureTemplatePool.Projection.RIGID));
+                Pair.of(StructurePoolElement.single(name("under_hideout/corridor/corridor_2")), 5),
+                Pair.of(StructurePoolElement.single(name("under_hideout/corridor/corridor_3")), 3)), StructureTemplatePool.Projection.RIGID));
 
 
     }
