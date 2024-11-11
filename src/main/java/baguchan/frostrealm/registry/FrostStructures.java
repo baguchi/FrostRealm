@@ -133,9 +133,9 @@ public class FrostStructures {
 
 
         context.register(UNDER_HIDEOUT_CORRIDOR, new StructureTemplatePool(emptyPool, ImmutableList.of(
-                Pair.of(StructurePoolElement.single(name("under_hide_out/corridor/corridor_2")), 3),
-                Pair.of(StructurePoolElement.single(name("under_hide_out/corridor/corridor_3")), 2),
-                Pair.of(StructurePoolElement.single(name("under_hide_out/corridor/corridor_1_to_b1")), 1)), StructureTemplatePool.Projection.RIGID));
+                Pair.of(StructurePoolElement.single(name("under_hideout/corridor/corridor_2")), 3),
+                Pair.of(StructurePoolElement.single(name("under_hideout/corridor/corridor_3")), 2),
+                Pair.of(StructurePoolElement.single(name("under_hideout/corridor/corridor_1_to_b1")), 1)), StructureTemplatePool.Projection.RIGID));
 
 
     }
