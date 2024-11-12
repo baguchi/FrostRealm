@@ -142,12 +142,12 @@ public class FrostStructures {
         ), StructureTemplatePool.Projection.RIGID));
         context.register(UNDER_HIDEOUT_ROOM, new StructureTemplatePool(endHolder, ImmutableList.of(
                 Pair.of(StructurePoolElement.single(name("under_hideout/room/room_1")), 1),
-                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_farm")), 2),
-                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_rest")), 2)
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_farm")), 3),
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_rest")), 3)
         ), StructureTemplatePool.Projection.RIGID));
         context.register(UNDER_HIDEOUT_ROOM2, new StructureTemplatePool(emptyPool, ImmutableList.of(
-                Pair.of(StructurePoolElement.single(name("under_hideout/room2/mecha_room")), 2),
-                Pair.of(StructurePoolElement.single(name("under_hideout/room2/meeting_room")), 2)
+                Pair.of(StructurePoolElement.single(name("under_hideout/room2/mecha_room")), 1),
+                Pair.of(StructurePoolElement.single(name("under_hideout/room2/meeting_room")), 3)
         ), StructureTemplatePool.Projection.RIGID));
 
 

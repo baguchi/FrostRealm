@@ -355,7 +355,7 @@ public class CorruptedWalkerPartContainer {
 
             BlockPos blockPos = getTopNonCollidingPos(parent.level(), (int) vec3.x, (int) vec3.y, (int) vec3.z);
 
-            this.setTarget(blockPos.getCenter().add(0, -0.5F, 0));
+            this.setTarget(blockPos.getCenter().add(0, 1.5F, 0));
         } else if (this.parent.movingPartIndex != parentPartNum) {
             this.parentPart.noPhysics = false;
             this.stuckMode = false;
