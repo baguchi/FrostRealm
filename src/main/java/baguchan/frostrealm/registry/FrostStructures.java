@@ -50,8 +50,11 @@ public class FrostStructures {
     public static final ResourceKey<StructureSet> UNDER_HIDEOUT_SET = ResourceKey.create(Registries.STRUCTURE_SET, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout"));
 
     public static final ResourceKey<StructureTemplatePool> UNDER_HIDEOUT_CORRIDOR = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout/corridor"));
+    public static final ResourceKey<StructureTemplatePool> UNDER_HIDEOUT_CORRIDOR2 = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout/corridor2"));
+    public static final ResourceKey<StructureTemplatePool> UNDER_HIDEOUT_STAIR = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout/stair"));
     public static final ResourceKey<StructureTemplatePool> UNDER_HIDEOUT_ROOM = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout/room"));
     public static final ResourceKey<StructureTemplatePool> UNDER_HIDEOUT_ROOM2 = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout/room2"));
+    public static final ResourceKey<StructureTemplatePool> UNDER_HIDEOUT_DEAD_END_ROOM = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout/dead_end_room"));
     public static final ResourceKey<StructureTemplatePool> UNDER_HIDEOUT_ENTRANCE = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "under_hideout/under_hideout_entrance"));
 
 
@@ -84,7 +87,7 @@ public class FrostStructures {
                         ConstantHeight.of(VerticalAnchor.absolute(28)),
                         false,
                         Optional.empty(),
-                        80,
+                        110,
                         List.of(),
                         DEFAULT_DIMENSION_PADDING,
                         LiquidSettings.IGNORE_WATERLOGGING
@@ -133,20 +136,30 @@ public class FrostStructures {
                 Pair.of(StructurePoolElement.single(name("under_hideout/room/entrance")), 1)
         ), StructureTemplatePool.Projection.RIGID));
 
-        context.register(UNDER_HIDEOUT_ROOM, new StructureTemplatePool(emptyPool, ImmutableList.of(
-                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_1")), 2),
-                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_farm")), 3),
-                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_rest")), 3)
+        Holder<StructureTemplatePool> endHolder = context.register(UNDER_HIDEOUT_DEAD_END_ROOM, new StructureTemplatePool(emptyPool, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/spawner")), 1),
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/smithing_room")), 2)
+        ), StructureTemplatePool.Projection.RIGID));
+        context.register(UNDER_HIDEOUT_ROOM, new StructureTemplatePool(endHolder, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_1")), 1),
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_farm")), 2),
+                Pair.of(StructurePoolElement.single(name("under_hideout/room/room_rest")), 2)
         ), StructureTemplatePool.Projection.RIGID));
         context.register(UNDER_HIDEOUT_ROOM2, new StructureTemplatePool(emptyPool, ImmutableList.of(
-                Pair.of(StructurePoolElement.single(name("under_hideout/room2/spawner")), 1)
+                Pair.of(StructurePoolElement.single(name("under_hideout/room2/mecha_room")), 2),
+                Pair.of(StructurePoolElement.single(name("under_hideout/room2/meeting_room")), 2)
         ), StructureTemplatePool.Projection.RIGID));
 
 
         context.register(UNDER_HIDEOUT_CORRIDOR, new StructureTemplatePool(emptyPool, ImmutableList.of(
-                Pair.of(StructurePoolElement.single(name("under_hideout/corridor/corridor_2")), 5),
-                Pair.of(StructurePoolElement.single(name("under_hideout/corridor/corridor_3")), 3)), StructureTemplatePool.Projection.RIGID));
+                Pair.of(StructurePoolElement.single(name("under_hideout/corridor/corridor_2")), 3),
+                Pair.of(StructurePoolElement.single(name("under_hideout/corridor/corridor_3")), 1)), StructureTemplatePool.Projection.RIGID));
+        context.register(UNDER_HIDEOUT_CORRIDOR2, new StructureTemplatePool(emptyPool, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("under_hideout/corridor2/corridor_2")), 3),
+                Pair.of(StructurePoolElement.single(name("under_hideout/corridor2/corridor_3")), 1)), StructureTemplatePool.Projection.RIGID));
 
+        context.register(UNDER_HIDEOUT_STAIR, new StructureTemplatePool(emptyPool, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("under_hideout/stair/stair_1_to_b1")), 1)), StructureTemplatePool.Projection.RIGID));
 
     }
 

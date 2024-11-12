@@ -200,6 +200,11 @@ public class CorruptedWalker extends Monster {
     }
 
     @Override
+    protected boolean shouldDespawnInPeaceful() {
+        return false;
+    }
+
+    @Override
     public void push(Entity p_21294_) {
     }
 

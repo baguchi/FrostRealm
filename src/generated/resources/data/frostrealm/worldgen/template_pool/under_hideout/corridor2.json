@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "frostrealm:under_hideout/corridor/corridor_2",
+        "location": "frostrealm:under_hideout/corridor2/corridor_2",
         "processors": {
           "processors": []
         },
@@ -14,7 +14,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "frostrealm:under_hideout/corridor/corridor_3",
+        "location": "frostrealm:under_hideout/corridor2/corridor_3",
         "processors": {
           "processors": []
         },

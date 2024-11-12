@@ -3,13 +3,24 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "frostrealm:under_hideout/room2/spawner",
+        "location": "frostrealm:under_hideout/room2/mecha_room",
         "processors": {
           "processors": []
         },
         "projection": "rigid"
       },
-      "weight": 1
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "frostrealm:under_hideout/room2/meeting_room",
+        "processors": {
+          "processors": []
+        },
+        "projection": "rigid"
+      },
+      "weight": 2
     }
   ],
   "fallback": "minecraft:empty"
