@@ -30,6 +30,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.simpleBlock(FrostBlocks.PERMA_SLATE_SMOOTH.get());
 		this.slab(FrostBlocks.PERMA_SLATE_BRICK_SLAB.get(), FrostBlocks.PERMA_SLATE_BRICK.get());
 		this.stairs(FrostBlocks.PERMA_SLATE_BRICK_STAIRS.get(), FrostBlocks.PERMA_SLATE_BRICK.get());
+		this.wallBlock(FrostBlocks.PERMA_SLATE_BRICK_WALL.get(), blockTexture(FrostBlocks.PERMA_SLATE_BRICK.get()));
 		this.make2LayerCubeAllSidesSame(FrostBlocks.PERMA_MAGMA.get(), ResourceLocation.withDefaultNamespace("cutout"), 0, 15, false);
 
 		this.simpleBlock(FrostBlocks.FRIGID_STONE.get());
@@ -40,6 +41,7 @@ public class BlockstateGenerator extends BlockStateProvider {
         this.simpleBlock(FrostBlocks.CHISELED_FRIGID_STONE_BRICK.get());
         this.slab(FrostBlocks.FRIGID_STONE_BRICK_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
 		this.stairs(FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
+		this.wallBlock(FrostBlocks.FRIGID_STONE_BRICK_WALL.get(), blockTexture(FrostBlocks.FRIGID_STONE_BRICK.get()));
 
 		this.simpleBlock(FrostBlocks.FRIGID_STONE_MOSSY.get());
 		this.slab(FrostBlocks.FRIGID_STONE_MOSSY_SLAB.get(), FrostBlocks.FRIGID_STONE_MOSSY.get());

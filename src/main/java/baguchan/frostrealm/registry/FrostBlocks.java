@@ -52,9 +52,11 @@ public class FrostBlocks {
 
 	public static final DeferredBlock<Block> PERMA_SLATE = register("perma_slate", (properties) -> new Block(properties.mapColor(MapColor.COLOR_CYAN).strength(1.75F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
 	public static final DeferredBlock<Block> PERMA_SLATE_SMOOTH = register("perma_slate_smooth", (properties) -> new Block(properties.mapColor(MapColor.COLOR_CYAN).strength(1.75F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE)));
-	public static final DeferredBlock<Block> PERMA_SLATE_BRICK = register("perma_slate_brick", (properties) -> new Block(properties.mapColor(MapColor.COLOR_CYAN).strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE_BRICKS)));
-	public static final DeferredBlock<SlabBlock> PERMA_SLATE_BRICK_SLAB = register("perma_slate_brick_slab", (properties) -> new SlabBlock(properties.mapColor(MapColor.COLOR_CYAN).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE_BRICKS)));
-	public static final DeferredBlock<StairBlock> PERMA_SLATE_BRICK_STAIRS = register("perma_slate_brick_stairs", (properties) -> new StairBlock(PERMA_SLATE_BRICK.get().defaultBlockState(), properties.mapColor(MapColor.COLOR_CYAN).strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE_BRICKS)));
+	public static final DeferredBlock<Block> PERMA_SLATE_BRICK = register("perma_slate_brick", (properties) -> new Block(properties.mapColor(MapColor.COLOR_CYAN).strength(1.75F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE_BRICKS)));
+	public static final DeferredBlock<SlabBlock> PERMA_SLATE_BRICK_SLAB = register("perma_slate_brick_slab", (properties) -> new SlabBlock(properties.mapColor(MapColor.COLOR_CYAN).strength(1.75F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE_BRICKS)));
+	public static final DeferredBlock<StairBlock> PERMA_SLATE_BRICK_STAIRS = register("perma_slate_brick_stairs", (properties) -> new StairBlock(PERMA_SLATE_BRICK.get().defaultBlockState(), properties.mapColor(MapColor.COLOR_CYAN).strength(1.75F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE_BRICKS)));
+	public static final DeferredBlock<WallBlock> PERMA_SLATE_BRICK_WALL = register("perma_slate_brick_wall", (properties) -> new WallBlock(properties.strength(1.75F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
+
 	public static final DeferredBlock<Block> PERMA_MAGMA = register("perma_magma", (properties) -> new PermaMagmaBlock(properties.mapColor(MapColor.COLOR_CYAN)
 			.instrument(NoteBlockInstrument.BASEDRUM)
 			.requiresCorrectToolForDrops()
@@ -70,6 +72,7 @@ public class FrostBlocks {
 	public static final DeferredBlock<Block> FRIGID_STONE_BRICK = register("frigid_stone_brick", (properties) -> new Block(properties.strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 	public static final DeferredBlock<SlabBlock> FRIGID_STONE_BRICK_SLAB = register("frigid_stone_brick_slab", (properties) -> new SlabBlock(properties.strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 	public static final DeferredBlock<StairBlock> FRIGID_STONE_BRICK_STAIRS = register("frigid_stone_brick_stairs", (properties) -> new StairBlock(FRIGID_STONE_BRICK.get().defaultBlockState(), properties.strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
+	public static final DeferredBlock<WallBlock> FRIGID_STONE_BRICK_WALL = register("frigid_stone_brick_wall", (properties) -> new WallBlock(properties.strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 	public static final DeferredBlock<Block> FRIGID_STONE_SMOOTH = register("frigid_stone_smooth", (properties) -> new Block(properties.strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 	public static final DeferredBlock<Block> CHISELED_FRIGID_STONE_BRICK = register("chiseled_frigid_stone_brick", (properties) -> new Block(properties.strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
 

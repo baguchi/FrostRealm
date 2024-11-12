@@ -10,6 +10,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.loaders.ItemLayerModelBuilder;
@@ -122,6 +123,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.PERMA_SLATE_SMOOTH);
 		this.toBlock(FrostBlocks.PERMA_SLATE_BRICK_SLAB);
 		this.toBlock(FrostBlocks.PERMA_SLATE_BRICK_STAIRS);
+		this.wall(FrostBlocks.PERMA_SLATE_BRICK_WALL, FrostBlocks.PERMA_SLATE_BRICK);
 		this.toBlock(FrostBlocks.PERMA_MAGMA);
 
 		this.toBlock(FrostBlocks.FRIGID_STONE);
@@ -132,6 +134,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         this.toBlock(FrostBlocks.CHISELED_FRIGID_STONE_BRICK);
         this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_SLAB);
 		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_STAIRS);
+		this.wall(FrostBlocks.FRIGID_STONE_BRICK_WALL, FrostBlocks.FRIGID_STONE_BRICK);
 
 		this.toBlock(FrostBlocks.FRIGID_STONE_MOSSY);
 		this.toBlock(FrostBlocks.FRIGID_STONE_MOSSY_SLAB);
@@ -207,6 +210,11 @@ public class ItemModelGenerator extends ItemModelProvider {
         this.toBlock(FrostBlocks.AURORA_INFUSER);
 		this.itemBlockFlat(FrostBlocks.FROST_TORCH);
 	}
+
+	public ItemModelBuilder wall(Supplier<? extends WallBlock> wall, Supplier<? extends Block> fullBlock) {
+		return wallInventory(BuiltInRegistries.BLOCK.getKey(wall.get()).getPath(), texture(blockName(fullBlock)));
+	}
+
 
 	public ItemModelBuilder button(Supplier<? extends ButtonBlock> button, Supplier<? extends Block> fullBlock) {
 		return buttonInventory(BuiltInRegistries.BLOCK.getKey(button.get()).getPath(), texture(blockName(fullBlock)));

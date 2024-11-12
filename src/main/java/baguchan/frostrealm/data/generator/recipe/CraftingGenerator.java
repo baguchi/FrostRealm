@@ -64,7 +64,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 		makeSlab(this.output, FrostBlocks.PERMA_SLATE_BRICK_SLAB.get(), FrostBlocks.PERMA_SLATE_BRICK.get());
 		makeStairs(this.output, FrostBlocks.PERMA_SLATE_BRICK_STAIRS.get(), FrostBlocks.PERMA_SLATE_BRICK.get());
-
+		makeWall(this.output, FrostBlocks.PERMA_SLATE_BRICK_WALL.get(), FrostBlocks.PERMA_SLATE_BRICK.get());
 
 		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FRIGID_STONE_BRICK.get(), 4)
                 .pattern("BB")
@@ -85,7 +85,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 		makeSlab(this.output, FrostBlocks.FRIGID_STONE_BRICK_SLAB.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
 		makeStairs(this.output, FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
-
+		makeWall(this.output, FrostBlocks.FRIGID_STONE_BRICK_WALL.get(), FrostBlocks.FRIGID_STONE_BRICK.get());
 
 		ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BUILDING_BLOCKS, FrostBlocks.FROSTROOT_PLANKS.get(), 4).requires(FrostBlocks.FROSTROOT_LOG.get())
 				.unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(FrostBlocks.FROSTROOT_LOG.get()).getPath(), has(FrostBlocks.FROSTROOT_LOG.get())).save(this.output);

@@ -157,6 +157,14 @@ public abstract class CraftingDataHelper extends RecipeProvider {
                 .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(blockIn).getPath(), has(blockIn)).save(consumer);
 	}
 
+	public void makeWall(RecipeOutput consumer, Block wallOut, Block blockIn) {
+		ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.BUILDING_BLOCKS, wallOut, 6)
+				.pattern("MMM")
+				.pattern("MMM")
+				.define('M', blockIn)
+				.unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(blockIn).getPath(), has(blockIn)).save(consumer);
+	}
+
     public void makeSlab(RecipeOutput consumer, Block slabOut, Block blockIn) {
 		ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.BUILDING_BLOCKS, slabOut, 6)
 				.pattern("MMM")
