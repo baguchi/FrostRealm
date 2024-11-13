@@ -1,11 +1,14 @@
 package baguchan.frostrealm.entity.hostile;
 
 import baguchan.frostrealm.entity.goal.RollGoal;
+import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostTags;
 import baguchi.bagus_lib.client.camera.CameraCore;
 import baguchi.bagus_lib.client.camera.holder.CameraHolder;
 import baguchi.bagus_lib.util.GlobalVec3;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -15,6 +18,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -28,9 +32,12 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.common.ItemAbilities;
 import org.jetbrains.annotations.Nullable;
 
 public class Gokkur extends Monster {
@@ -167,12 +174,17 @@ public class Gokkur extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return Monster.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 16.0)
+                .add(Attributes.ARMOR, 12.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.24)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5)
                 .add(Attributes.ATTACK_DAMAGE, 2)
                 .add(Attributes.STEP_HEIGHT, 1.0);
+    }
+
+    public Crackiness.Level getCrackiness() {
+        return Crackiness.GOLEM.byFraction(this.getHealth() / this.getMaxHealth());
     }
 
     protected void dealDamage(LivingEntity livingentity) {
@@ -205,6 +217,34 @@ public class Gokkur extends Monster {
     public void playerTouch(Player p_20081_) {
         super.playerTouch(p_20081_);
         this.dealDamage(p_20081_);
+    }
+
+    @Override
+    public boolean hurtServer(ServerLevel p_376221_, DamageSource p_376460_, float p_376610_) {
+        ItemStack itemstack = p_376460_.getWeaponItem();
+
+        float damageScale = 1;
+
+        if (itemstack != null && itemstack.canPerformAction(ItemAbilities.PICKAXE_DIG)) {
+            damageScale = 2;
+        }
+
+        Crackiness.Level crackiness$level = this.getCrackiness();
+        boolean flag = super.hurtServer(p_376221_, p_376460_, p_376610_ * damageScale);
+        if (flag && this.getCrackiness() != crackiness$level) {
+            this.playSound(SoundEvents.STONE_BREAK, 1.0F, 1.0F);
+
+            p_376221_.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, FrostBlocks.FRIGID_STONE.get().defaultBlockState()), this.getRandomX(this.getBbWidth() / 2F), this.getRandomY(), this.getRandomZ(this.getBbWidth() / 2F), 10, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, 0.15F);
+            if (this.getSnowProgress() > 0.25F) {
+                this.setSnowProgress(this.getSnowProgress() - 0.25F);
+                p_376221_.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SNOW_BLOCK.defaultBlockState()), this.getRandomX(this.getBbWidth() / 2F), this.getRandomY(), this.getRandomZ(this.getBbWidth() / 2F), 10, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, 0.15F);
+            } else if (this.getSnowProgress() > 0) {
+                this.setSnowProgress(0);
+                p_376221_.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SNOW_BLOCK.defaultBlockState()), this.getRandomX(this.getBbWidth() / 2F), this.getRandomY(), this.getRandomZ(this.getBbWidth() / 2F), 5, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, 0.15F);
+            }
+        }
+
+        return flag;
     }
 
     protected float getAttackDamage() {

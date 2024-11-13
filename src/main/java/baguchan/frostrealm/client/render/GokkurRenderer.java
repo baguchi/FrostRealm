@@ -3,6 +3,7 @@ package baguchan.frostrealm.client.render;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.GokkurModel;
+import baguchan.frostrealm.client.render.layer.CrackingGokkurLayer;
 import baguchan.frostrealm.client.render.layer.SnowGokkurLayer;
 import baguchan.frostrealm.client.render.state.GokkurRenderState;
 import baguchan.frostrealm.entity.hostile.Gokkur;
@@ -17,6 +18,7 @@ public class GokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurRende
     public GokkurRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(FrostModelLayers.GOKKUR)), 0.5F);
         this.addLayer(new SnowGokkurLayer<>(this, p_173952_.getItemRenderer()));
+        this.addLayer(new CrackingGokkurLayer<>(this));
     }
 
     @Override
@@ -26,6 +28,7 @@ public class GokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurRende
         p_360515_.snowProgress = p_362733_.getSnowProgress();
         p_360515_.rollAnimationState.copyFrom(p_362733_.rollAnimationState);
         p_360515_.startRollAnimationState.copyFrom(p_362733_.startRollAnimationState);
+        p_360515_.crackiness = p_362733_.getCrackiness();
     }
 
     @Override
