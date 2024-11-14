@@ -72,6 +72,9 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 			this.lastTemperate = this.temperature;
 			hotSourceTick(entity);
 			float tempAffect = 1.0F;
+			if (difficulty == Difficulty.HARD) {
+				tempAffect *= 1.5F;
+			}
 			if (!entity.getItemBySlot(EquipmentSlot.HEAD).isEmpty())
 				tempAffect *= 0.85F;
 			if (!entity.getItemBySlot(EquipmentSlot.CHEST).isEmpty())
@@ -93,6 +96,7 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 					this.temperature = Math.min(this.temperature + 1, 20);
 				}
 			}
+
 
 			if (this.hotSource == null) {
 				FrostWeatherSavedData cap = FrostWeatherSavedData.get(entity.level());
