@@ -43,6 +43,8 @@ public class RollGoal extends Goal {
                 Vec3 vec3 = calculateViewVector(0.0F, this.mob.getYRot()).scale(6.0F);
                 this.target = BlockPos.containing(vec3.add(livingentity.position()));
                 this.cooldown = 60;
+                this.mob.getLookControl().setLookAt(this.target.getCenter());
+
                 return true;
             }
         } else {
