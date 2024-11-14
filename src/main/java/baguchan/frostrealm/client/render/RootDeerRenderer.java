@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class RootDeerRenderer<T extends RootDeer> extends MobRenderer<T, RootDeerRenderState, RootDeerModel<RootDeerRenderState>> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/root_deer/root_deer.png");
-    private static final RenderType GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/root_deer/root_deer_glow.png"));
+    private static final RenderType GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/root_deer/root_deer_eye.png"));
 
     public RootDeerRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new RootDeerModel<>(p_173952_.bakeLayer(FrostModelLayers.ROOT_DEER)), 0.5F);
