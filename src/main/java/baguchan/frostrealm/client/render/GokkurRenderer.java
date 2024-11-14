@@ -7,18 +7,27 @@ import baguchan.frostrealm.client.render.layer.CrackingGokkurLayer;
 import baguchan.frostrealm.client.render.layer.SnowGokkurLayer;
 import baguchan.frostrealm.client.render.state.GokkurRenderState;
 import baguchan.frostrealm.entity.hostile.Gokkur;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class GokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurRenderState, GokkurModel<GokkurRenderState>> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/gokkur.png");
     private static final ResourceLocation GRASS_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/gokkur_grass.png");
+    private static final RenderType GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/gokkur_glow.png"));
 
     public GokkurRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(FrostModelLayers.GOKKUR)), 0.5F);
         this.addLayer(new SnowGokkurLayer<>(this, p_173952_.getItemRenderer()));
         this.addLayer(new CrackingGokkurLayer<>(this));
+        this.addLayer(new EyesLayer<>(this) {
+            @Override
+            public RenderType renderType() {
+                return GLOW;
+            }
+        });
     }
 
     @Override

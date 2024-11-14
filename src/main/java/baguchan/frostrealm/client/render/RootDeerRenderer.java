@@ -3,20 +3,31 @@ package baguchan.frostrealm.client.render;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.RootDeerModel;
+import baguchan.frostrealm.client.render.layer.CrackingRootDeerLayer;
 import baguchan.frostrealm.client.render.state.RootDeerRenderState;
 import baguchan.frostrealm.entity.hostile.RootDeer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
 public class RootDeerRenderer<T extends RootDeer> extends MobRenderer<T, RootDeerRenderState, RootDeerModel<RootDeerRenderState>> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/root_deer.png");
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/root_deer/root_deer.png");
+    private static final RenderType GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/root_deer/root_deer_glow.png"));
 
     public RootDeerRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new RootDeerModel<>(p_173952_.bakeLayer(FrostModelLayers.ROOT_DEER)), 0.5F);
+        this.addLayer(new CrackingRootDeerLayer<>(this));
+        this.addLayer(new EyesLayer<>(this) {
+            @Override
+            public RenderType renderType() {
+                return GLOW;
+            }
+        });
     }
 
     @Override
@@ -26,6 +37,7 @@ public class RootDeerRenderer<T extends RootDeer> extends MobRenderer<T, RootDee
         p_360515_.attackAnimationState.copyFrom(p_362733_.attackAnimationState);
         p_360515_.summonAnimationState.copyFrom(p_362733_.summonAnimationState);
         p_360515_.deathAnimationState.copyFrom(p_362733_.deathAnimationState);
+        p_360515_.crackiness = p_362733_.getCrackiness();
     }
 
     @Override

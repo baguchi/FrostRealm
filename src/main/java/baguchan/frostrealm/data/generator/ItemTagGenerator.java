@@ -75,10 +75,9 @@ public class ItemTagGenerator extends ItemTagsProvider {
         this.tag(ItemTags.DURABILITY_ENCHANTABLE).add(FrostItems.FROST_SPEAR.get()).addTag(FrostTags.Items.SICKLE);
         this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).add(FrostItems.FROST_SPEAR.get()).addTag(FrostTags.Items.SICKLE);
 
-        this.tag(FrostTags.Items.ASTRIUM_TOOL_MATERIAL).add(FrostItems.ASTRIUM_SICKLE.get()).add(FrostItems.ASTRIUM_SWORD.get()).add(FrostItems.ASTRIUM_AXE.get()).add(FrostItems.ASTRIUM_SHOVEL.get()).add(FrostItems.ASTRIUM_HOE.get()).add(FrostItems.ASTRIUM_PICKAXE.get())
-                .add(FrostItems.ASTRIUM_HELMET.get()).add(FrostItems.ASTRIUM_CHESTPLATE.get()).add(FrostItems.ASTRIUM_LEGGINGS.get()).add(FrostItems.ASTRIUM_BOOTS.get());
+        this.tag(FrostTags.Items.ASTRIUM_TOOL_MATERIAL).add(FrostItems.ASTRIUM_INGOT.asItem());
 
-        this.tag(FrostTags.Items.GLACINIUM_TOOL_MATERIAL).add(FrostItems.GLACINIUM_SICKLE.get()).add(FrostItems.GLACINIUM_SWORD.get()).add(FrostItems.GLACINIUM_AXE.get()).add(FrostItems.GLACINIUM_SHOVEL.get()).add(FrostItems.GLACINIUM_HOE.get()).add(FrostItems.GLACINIUM_PICKAXE.get());
+        this.tag(FrostTags.Items.GLACINIUM_TOOL_MATERIAL).add(FrostItems.GLACINIUM_INGOT.get());
         //.add(FrostItems.GLACINIUM_HELMET.get()).add(FrostItems.GLACINIUM_CHESTPLATE.get()).add(FrostItems.GLACINIUM_LEGGINGS.get()).add(FrostItems.GLACINIUM_BOOTS.get());
 
 
