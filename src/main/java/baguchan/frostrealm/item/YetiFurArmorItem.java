@@ -2,7 +2,6 @@ package baguchan.frostrealm.item;
 
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.YetiFurArmorModel;
-import baguchan.frostrealm.registry.FrostArmorMaterials;
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
@@ -11,14 +10,16 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.EquipmentModel;
 import net.neoforged.neoforge.client.ClientHooks;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
-public class YetiFurArmorItem extends FrostArmorItem {
-	public YetiFurArmorItem(FrostArmorMaterials.FrostArmorMaterial p_40386_, ArmorType p_40387_, Properties p_40388_) {
+public class YetiFurArmorItem extends ArmorItem {
+	public YetiFurArmorItem(ArmorMaterial p_40386_, ArmorType p_40387_, Properties p_40388_) {
         super(p_40386_, p_40387_, p_40388_);
     }
 

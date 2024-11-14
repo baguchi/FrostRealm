@@ -1,7 +1,6 @@
 package baguchan.frostrealm.item;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.registry.FrostToolMaterials;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -13,6 +12,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,11 +23,11 @@ import net.neoforged.neoforge.common.ItemAbility;
 public class SickleItem extends Item {
     public static final ResourceLocation SWEEP_SPEED_ID = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "sweep_speed");
 
-    public SickleItem(FrostToolMaterials.FrostToolMaterial tier, float damage, float speed, Item.Properties properties) {
+    public SickleItem(ToolMaterial tier, float damage, float speed, Item.Properties properties) {
         super(properties.durability(tier.durability()).enchantable(tier.enchantmentValue()).attributes(createAttributes(tier, damage, speed)));
     }
 
-    public static ItemAttributeModifiers createAttributes(FrostToolMaterials.FrostToolMaterial tier, float damage, float speed) {
+    public static ItemAttributeModifiers createAttributes(ToolMaterial tier, float damage, float speed) {
         return ItemAttributeModifiers.builder()
                 .add(
                         Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_ID, damage + tier.attackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND
