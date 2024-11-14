@@ -42,7 +42,7 @@ public class RollGoal extends Goal {
             if (livingentity != null && livingentity.isAlive() && this.mob.getSensing().hasLineOfSight(livingentity)) {
                 Vec3 vec3 = calculateViewVector(0.0F, this.mob.getYRot()).scale(6.0F);
                 this.target = BlockPos.containing(vec3.add(livingentity.position()));
-                this.cooldown = 120;
+                this.cooldown = 60;
                 return true;
             }
         } else {
@@ -113,4 +113,6 @@ public class RollGoal extends Goal {
             }
         }
     }
+
+
 }
