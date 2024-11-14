@@ -24,17 +24,17 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class FrostBiteLogBlock extends RotatedPillarBlock {
-    public static final MapCodec<FrostBiteLogBlock> CODEC = simpleCodec(FrostBiteLogBlock::new);
+public class FrostBiteHoleLogBlock extends RotatedPillarBlock {
+    public static final MapCodec<FrostBiteHoleLogBlock> CODEC = simpleCodec(FrostBiteHoleLogBlock::new);
     public static final BooleanProperty WAXED = BooleanProperty.create("wax");
 
     @Override
-    public MapCodec<? extends FrostBiteLogBlock> codec() {
+    public MapCodec<? extends FrostBiteHoleLogBlock> codec() {
         return CODEC;
     }
 
 
-    public FrostBiteLogBlock(Properties p_55926_) {
+    public FrostBiteHoleLogBlock(Properties p_55926_) {
         super(p_55926_);
         this.registerDefaultState(this.defaultBlockState().setValue(AXIS, Direction.Axis.Y).setValue(WAXED, false));
     }

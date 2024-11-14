@@ -95,7 +95,7 @@ public class RootDeer extends Monster {
 
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.0D).add(Attributes.FOLLOW_RANGE, 8F).add(Attributes.MAX_HEALTH, 15F).add(Attributes.ATTACK_DAMAGE, 4.0F);
+        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.0D).add(Attributes.FOLLOW_RANGE, 8D).add(Attributes.MAX_HEALTH, 16D).add(Attributes.ARMOR, 4.0D).add(Attributes.ATTACK_DAMAGE, 4.0D);
     }
 
     public static boolean checkDeerSpawnRules(
@@ -388,7 +388,7 @@ public class RootDeer extends Monster {
         float damageScale = 1F;
 
         if (itemstack != null && itemstack.canPerformAction(ItemAbilities.AXE_DIG)) {
-            damageScale = 1.25F;
+            damageScale = 1.5F;
         }
 
 

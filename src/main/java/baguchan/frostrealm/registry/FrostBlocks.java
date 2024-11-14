@@ -118,7 +118,7 @@ public class FrostBlocks {
 							.pushReaction(PushReaction.DESTROY)
 			)
 	);
-	public static final DeferredBlock<RotatedPillarBlock> FROSTBITE_LOG = register("frostbite_log", (properties) -> new FrostBiteLogBlock(properties.mapColor(DyeColor.CYAN).strength(2.0F).randomTicks().sound(SoundType.NETHER_WOOD)));
+	public static final DeferredBlock<RotatedPillarBlock> FROSTBITE_LOG = register("frostbite_log", (properties) -> new RotatedPillarBlock(properties.mapColor(DyeColor.CYAN).strength(2.0F).randomTicks().sound(SoundType.NETHER_WOOD)));
 	public static final DeferredBlock<RotatedPillarBlock> STRIPPED_FROSTBITE_LOG = register("stripped_frostbite_log", (properties) -> new RotatedPillarBlock(properties.mapColor(DyeColor.CYAN).strength(2.0F).sound(SoundType.NETHER_WOOD)));
 	public static final DeferredBlock<LeavesBlock> FROSTBITE_LEAVES = register("frostbite_leaves", (properties) -> new LeavesBlock(properties.mapColor(DyeColor.CYAN).strength(0.2F).noOcclusion().isSuffocating(FrostBlocks::never).isViewBlocking(FrostBlocks::never).sound(SoundType.GRASS)));
 	public static final DeferredBlock<SaplingBlock> FROSTBITE_SAPLING = register("frostbite_sapling", (properties) -> new SaplingBlock(FrostTrees.FROSTBITE, properties.mapColor(DyeColor.CYAN).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS)));
@@ -189,7 +189,7 @@ public class FrostBlocks {
 
 
 	public static final DeferredBlock<Block> STARDUST_CRYSTAL_ORE = register("stardust_crystal_ore", (properties) -> new DropExperienceBlock(UniformInt.of(2, 4), properties.strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
-	public static final DeferredBlock<Block> STARDUST_CRYSTAL_CLUSTER = register("stardust_crystal_cluster", (properties) -> new StarDustCrystalBlock(properties.isSuffocating(FrostBlocks::never).requiresCorrectToolForDrops().lightLevel((state) -> {
+	public static final DeferredBlock<Block> STARDUST_CRYSTAL_CLUSTER = register("stardust_crystal_cluster", (properties) -> new Block(properties.isSuffocating(FrostBlocks::never).requiresCorrectToolForDrops().lightLevel((state) -> {
 		return 10;
 	}).strength(5.0F, 6.0F).noOcclusion().sound(SoundType.DEEPSLATE)));
 

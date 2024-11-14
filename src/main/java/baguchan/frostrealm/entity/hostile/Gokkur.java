@@ -16,6 +16,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -32,6 +33,8 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ProjectileDeflection;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -43,6 +46,11 @@ import org.jetbrains.annotations.Nullable;
 public class Gokkur extends Monster {
     protected static final EntityDataAccessor<Boolean> GRASS = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Float> SNOW_PROGRESS = SynchedEntityData.defineId(Gokkur.class, EntityDataSerializers.FLOAT);
+    private static final ProjectileDeflection PROJECTILE_DEFLECTION = (p_344345_, p_344346_, p_344347_) -> {
+        p_344346_.level().playSound((Player) null, p_344346_, SoundEvents.ANVIL_PLACE, p_344346_.getSoundSource(), 1.0F, 1.5F);
+        ProjectileDeflection.REVERSE.deflect(p_344345_, p_344346_, p_344347_);
+    };
+
 
     private static final EntityDimensions SPIN_DIMENSIONS = EntityDimensions.scalable(1.0F, 1.0F)
             .withEyeHeight(0.5F);
@@ -229,6 +237,11 @@ public class Gokkur extends Monster {
             damageScale = 2;
         }
 
+
+        if (p_376460_.is(DamageTypeTags.IS_PROJECTILE)) {
+            damageScale = 0.25F;
+        }
+
         Crackiness.Level crackiness$level = this.getCrackiness();
         boolean flag = super.hurtServer(p_376221_, p_376460_, p_376610_ * damageScale);
         if (flag && this.getCrackiness() != crackiness$level) {
@@ -245,6 +258,11 @@ public class Gokkur extends Monster {
         }
 
         return flag;
+    }
+
+    @Override
+    public ProjectileDeflection deflection(Projectile p_319824_) {
+        return this.hasPose(Pose.SPIN_ATTACK) ? PROJECTILE_DEFLECTION : super.deflection(p_319824_);
     }
 
     protected float getAttackDamage() {
