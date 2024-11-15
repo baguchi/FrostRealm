@@ -131,6 +131,8 @@ public class FrostBiomeDefaultFeatures {
 	public static void addHotRockFeatures(BiomeGenerationSettings.Builder p_194721_) {
 		p_194721_.addFeature(GenerationStep.Decoration.FLUID_SPRINGS, FrostPlacements.SPRING_LAVA_HOTROCK_EXTRA);
 		p_194721_.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FrostPlacements.LAVA_DELTA);
+        p_194721_.addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, FrostPlacements.SMALL_VOLCANO);
+
 	}
 
 	public static void addUnderGroundFeature(BiomeGenerationSettings.Builder p_194721_) {

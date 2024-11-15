@@ -1,8 +1,15 @@
 {
   "type": "frostrealm:shape_crystal",
   "config": {
-    "state": {
-      "Name": "frostrealm:stardust_crystal_cluster"
+    "base_height": {
+      "max_inclusive": 26,
+      "min_inclusive": 8
+    },
+    "block": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "frostrealm:stardust_crystal_cluster"
+      }
     }
   }
 }

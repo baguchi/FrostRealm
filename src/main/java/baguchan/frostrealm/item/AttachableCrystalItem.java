@@ -12,15 +12,14 @@ import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 
-public class SmithableCrystalItem extends Item {
-    private static final ChatFormatting TITLE_FORMAT = ChatFormatting.GRAY;
+public class AttachableCrystalItem extends Item {
     private static final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
     private static final Component SMITHABLE = Component.translatable(
-                    Util.makeDescriptionId("item", ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "smithing_template.smithable"))
+                    Util.makeDescriptionId("item", ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "attachable"))
             )
             .withStyle(DESCRIPTION_FORMAT);
 
-    public SmithableCrystalItem(Properties properties) {
+    public AttachableCrystalItem(Properties properties) {
         super(properties);
     }
 

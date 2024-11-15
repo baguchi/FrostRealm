@@ -5,6 +5,7 @@ import baguchan.frostrealm.block.crop.BearBerryBushBlock;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostFeatures;
 import baguchan.frostrealm.world.gen.feature.config.FloatingRockConfiguration;
+import baguchan.frostrealm.world.gen.feature.config.HeightBlockStateConfiguration;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
@@ -12,18 +13,21 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.util.valueproviders.ClampedNormalFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.material.Fluids;
@@ -67,6 +71,7 @@ public class FrostConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TUNDRA_ROCK = registerKey("tundra_rock");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TUNDRA_MOSSY_ROCK = registerKey("tundra_mossy_rock");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> STAR_DUST_CLUSTER = registerKey("star_dust_cluster");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_VOLCANO = registerKey("small_volcano");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> STONE_SPIKE = registerKey("stone_spike");
     public static final ResourceKey<ConfiguredFeature<?, ?>> FLOATING_ROCK = registerKey("floating_rock");
@@ -117,7 +122,8 @@ public class FrostConfiguredFeatures {
 
 		FeatureUtils.register(context, TUNDRA_ROCK, FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState()));
 		FeatureUtils.register(context, TUNDRA_MOSSY_ROCK, FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE_MOSSY.get().defaultBlockState()));
-		FeatureUtils.register(context, STAR_DUST_CLUSTER, FrostFeatures.SHAPE_CRYSTAL.get(), new BlockStateConfiguration(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get().defaultBlockState()));
+		FeatureUtils.register(context, STAR_DUST_CLUSTER, FrostFeatures.SHAPE_CRYSTAL.get(), new HeightBlockStateConfiguration(BlockStateProvider.simple(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get().defaultBlockState()), UniformInt.of(8, 26)));
+		FeatureUtils.register(context, SMALL_VOLCANO, FrostFeatures.SMALL_VOLCANO.get(), new HeightBlockStateConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(FrostBlocks.FRIGID_STONE.get().defaultBlockState(), 20).add(FrostBlocks.GLIMMERROCK_ORE.get().defaultBlockState(), 2).add(FrostBlocks.ASTRIUM_ORE.get().defaultBlockState(), 1).build()), UniformInt.of(12, 18)));
 
         FeatureUtils.register(context, STONE_SPIKE, FrostFeatures.STONE_SPIKE.get());
         FeatureUtils.register(context, FLOATING_ROCK, FrostFeatures.FLOATING_ROCK.get(), new FloatingRockConfiguration(BlockStateProvider.simple(FrostBlocks.FRIGID_STONE.get()), UniformFloat.of(5, 8), UniformInt.of(5, 10)));

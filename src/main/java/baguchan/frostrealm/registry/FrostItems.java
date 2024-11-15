@@ -12,14 +12,14 @@ import static baguchan.frostrealm.FrostRealm.MODID;
 public class FrostItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 
-    public static final DeferredItem<Item> FROST_CRYSTAL = ITEMS.registerItem("frost_crystal", FrostCrystalItem::new);
+    public static final DeferredItem<Item> FROST_CRYSTAL = ITEMS.registerItem("frost_crystal", Item::new);
 
     public static final DeferredItem<Item> CRYONITE = ITEMS.registerItem("cryonite", Item::new);
     public static final DeferredItem<Item> CRYONITE_CREAM = ITEMS.registerItem("cryonite_cream", (properties) -> new CryoniteCreamItem(properties));
 
     public static final DeferredItem<Item> WARPED_CRYSTAL = ITEMS.registerItem("warped_crystal", (properties) -> new Item(properties));
     public static final DeferredItem<Item> VENOM_CRYSTAL = ITEMS.registerItem("venom_crystal", (properties) -> new Item(properties));
-    public static final DeferredItem<Item> UNSTABLE_VENOM_CRYSTAL = ITEMS.registerItem("unstable_venom_crystal", (properties) -> new SmithableCrystalItem(properties));
+    public static final DeferredItem<Item> UNSTABLE_VENOM_CRYSTAL = ITEMS.registerItem("unstable_venom_crystal", (properties) -> new AttachableCrystalItem(properties));
     public static final DeferredItem<Item> GLIMMERROCK = ITEMS.registerItem("glimmerrock", GlimmerRockItem::new);
     public static final DeferredItem<Item> ASTRIUM_RAW = ITEMS.registerItem("astrium_raw", (properties) -> new Item(properties));
     public static final DeferredItem<Item> ASTRIUM_INGOT = ITEMS.registerItem("astrium_ingot", (properties) -> new Item(properties));

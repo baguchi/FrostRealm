@@ -255,7 +255,5 @@
   "death.attack.venom": "%1$s was Infected Venom",
   "death.attack.venom_ball": "%1$s was Infected Venom by %2$s",
   "attach_crystal.frostrealm.venom": "Venom",
-  "item.frostrealm.smithing_template.smithable": "It can use to Smiting Table",
-  "item.frostrealm.smithing_template.frost_crystal.applies_to": "Weapon",
-  "item.frostrealm.smithing_template.frost_crystal.ingredients": "Supported Crystal"
+  "item.frostrealm.attachable": "Attachable With Weapon"
 }

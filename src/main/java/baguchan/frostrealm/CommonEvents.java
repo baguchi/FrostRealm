@@ -3,6 +3,7 @@ package baguchan.frostrealm;
 import baguchan.frostrealm.api.recipe.AttachableCrystal;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherSavedData;
+import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import baguchan.frostrealm.entity.FrostPart;
 import baguchan.frostrealm.entity.animal.Seal;
 import baguchan.frostrealm.message.ChangeAuroraMessage;
@@ -16,6 +17,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.SectionPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.*;
@@ -26,6 +28,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -51,6 +54,7 @@ import net.neoforged.neoforge.client.event.SelectMusicEvent;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.entity.PartEntity;
+import net.neoforged.neoforge.event.ItemStackedOnOtherEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
@@ -68,6 +72,22 @@ import java.util.Optional;
 
 @EventBusSubscriber(modid = FrostRealm.MODID)
 public class CommonEvents {
+
+    @SubscribeEvent
+    public static void onStackOther(ItemStackedOnOtherEvent event) {
+        ItemStack stack = event.getStackedOnItem();
+        ItemStack carriedStack = event.getCarriedItem();
+        if (!stack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && stack.has(DataComponents.TOOL)) {
+            Optional<Holder.Reference<AttachableCrystal>> optional1 = AttachableCrystals.getFromIngredient(event.getPlayer().registryAccess(), carriedStack);
+            if (optional1.isPresent()) {
+                stack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1.get());
+                event.getPlayer().playSound(SoundEvents.BUNDLE_INSERT);
+                carriedStack.shrink(1);
+                event.getCarriedSlotAccess().set(stack);
+                event.setCanceled(true);
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void onSweep(SweepAttackEvent event) {
@@ -340,7 +360,7 @@ public class CommonEvents {
                 if (attachableCrystal != null) {
 
                     if (attachableCrystal.value().getMobEffectInstance().isPresent()) {
-                        livingEntity.addEffect(attachableCrystal.value().getMobEffectInstance().get());
+                        livingEntity.addEffect(new MobEffectInstance(attachableCrystal.value().getMobEffectInstance().get()));
                     }
                     if (!(attacker instanceof Player player) || !player.isCreative()) {
                         if (damage - 1 >= attachableCrystal.value().getUse()) {

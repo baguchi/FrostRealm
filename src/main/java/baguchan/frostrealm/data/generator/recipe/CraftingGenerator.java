@@ -2,11 +2,9 @@ package baguchan.frostrealm.data.generator.recipe;
 
 import baguchan.frostrealm.api.recipe.AttachableCrystal;
 import baguchan.frostrealm.data.CraftingDataHelper;
-import baguchan.frostrealm.data.generator.recipe.builder.AttachCrystalRecipeBuilder;
 import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
-import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -315,7 +313,5 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.unlockedBy("has_item", has(FrostItems.VENOM_CRYSTAL.get())).save(this.output);
 
 		foodCooking(FrostItems.SUGARBEET.get(), Items.SUGAR, 0.05F, this.output, "sugar_beet");
-
-		AttachCrystalRecipeBuilder.smithingTrim(Ingredient.of(lookup.getOrThrow(FrostTags.Items.SMITHABLE_WEAPON)), Ingredient.of(FrostItems.FROST_CRYSTAL.get()), Ingredient.of(FrostItems.UNSTABLE_VENOM_CRYSTAL.get()), RecipeCategory.COMBAT).unlocks("has_item", has(FrostItems.UNSTABLE_VENOM_CRYSTAL.get())).save(this.output, prefix("smiting_venom_crystal_with_weapon"));
 	}
 }

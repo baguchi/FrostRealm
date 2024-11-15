@@ -10,6 +10,8 @@ import net.minecraft.world.level.levelgen.synth.NormalNoise;
 public class FrostNoises {
     public static final ResourceKey<NormalNoise.NoiseParameters> ISLANDS_HEIGHT = createKey("islands_height");
     public static final ResourceKey<NormalNoise.NoiseParameters> ISLANDS_BOTTOM_HEIGHT = createKey("islands_bottom_height");
+    public static final ResourceKey<NormalNoise.NoiseParameters> ROOT = createKey("root");
+
 
     private static ResourceKey<NormalNoise.NoiseParameters> createKey(String name) {
         return ResourceKey.create(Registries.NOISE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name));
@@ -18,6 +20,7 @@ public class FrostNoises {
     public static void bootstrap(BootstrapContext<NormalNoise.NoiseParameters> ctx) {
         register(ctx, ISLANDS_HEIGHT, -9, 1.0D, 1.0D, 1.0D);
         register(ctx, ISLANDS_BOTTOM_HEIGHT, -5, 1.0D, 1.0D, 1.0D);
+        register(ctx, ROOT, -6, 1.0D, 1.0D, 1.0D);
     }
 
 

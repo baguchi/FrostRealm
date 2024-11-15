@@ -255,7 +255,5 @@
   "death.attack.venom": "%1$sは猛毒にさらされた",
   "death.attack.venom_ball": "%1$sは%2$sの%3$sに猛毒にさらされた",
   "attach_crystal.frostrealm.venom": "ベノム",
-  "item.frostrealm.smithing_template.smithable": "鍛冶台で使える",
-  "item.frostrealm.smithing_template.frost_crystal.applies_to": "武器",
-  "item.frostrealm.smithing_template.frost_crystal.ingredients": "対応するクリスタル"
+  "item.frostrealm.attachable": "武器に塗布できる"
 }
