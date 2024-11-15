@@ -13,7 +13,7 @@ public class UnderGokkur extends Gokkur {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 16.0)
+                .add(Attributes.MAX_HEALTH, 20.0)
                 .add(Attributes.ARMOR, 14.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.24)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.6)

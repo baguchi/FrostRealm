@@ -56,10 +56,36 @@
     "ambient": [],
     "axolotls": [],
     "creature": [],
-    "frostrealm:frostrealm_weather_monster": [],
+    "frostrealm:frostrealm_weather_monster": [
+      {
+        "type": "frostrealm:frost_wraith",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 100
+      }
+    ],
     "frostrealm:surface_monster": [],
     "misc": [],
-    "monster": [],
+    "monster": [
+      {
+        "type": "frostrealm:venochem",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 100
+      },
+      {
+        "type": "frostrealm:gokkur",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 60
+      },
+      {
+        "type": "frostrealm:under_gokkur",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 20
+      }
+    ],
     "underground_water_creature": [],
     "water_ambient": [],
     "water_creature": []

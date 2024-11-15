@@ -59,9 +59,13 @@ public class FrostBiomeDefaultFeatures {
 	}
 
 	public static void mountainMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
+		monsterSpawns(p_126813_);
 	}
 
 	public static void underGroundMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
+		monsterSpawns(p_126813_);
+		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.UNDER_GOKKUR.get(), 20, 2, 3));
+
 	}
 
 	public static void addDefaultOres(BiomeGenerationSettings.Builder p_194721_) {
