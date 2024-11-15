@@ -1,10 +1,12 @@
 package baguchan.frostrealm.entity.hostile;
 
+import baguchan.frostrealm.registry.FrostBlocks;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class UnderGokkur extends Gokkur {
     public UnderGokkur(EntityType<? extends Gokkur> entityType, Level level) {
@@ -37,5 +39,9 @@ public class UnderGokkur extends Gokkur {
     @Override
     public boolean isGrass() {
         return false;
+    }
+
+    public BlockState getEntityBlocks() {
+        return FrostBlocks.PERMA_SLATE.get().defaultBlockState();
     }
 }

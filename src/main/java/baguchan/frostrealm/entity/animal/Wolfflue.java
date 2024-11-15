@@ -131,8 +131,8 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(4, new LeapAtTargetWolfflueGoal(this, 2.0F));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.2F, true));
-        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F));
-        this.goalSelector.addGoal(7, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.3F, 10.0F, 3.0F));
+        this.goalSelector.addGoal(7, new BreedGoal(this, 0.8F));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.8F));
         this.goalSelector.addGoal(9, new WolfflueBegGoal(this, 8.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Player.class, 8.0F));

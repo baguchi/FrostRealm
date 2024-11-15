@@ -83,7 +83,7 @@
         "type": "frostrealm:under_gokkur",
         "maxCount": 3,
         "minCount": 2,
-        "weight": 20
+        "weight": 80
       }
     ],
     "underground_water_creature": [],

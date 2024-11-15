@@ -247,7 +247,7 @@ public class Gokkur extends Monster {
         if (flag && this.getCrackiness() != crackiness$level) {
             this.playSound(SoundEvents.STONE_BREAK, 1.0F, 1.0F);
 
-            p_376221_.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, FrostBlocks.FRIGID_STONE.get().defaultBlockState()), this.getRandomX(this.getBbWidth() / 2F), this.getRandomY(), this.getRandomZ(this.getBbWidth() / 2F), 10, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, 0.15F);
+            p_376221_.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, this.getEntityBlocks()), this.getRandomX(this.getBbWidth() / 2F), this.getRandomY(), this.getRandomZ(this.getBbWidth() / 2F), 10, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, 0.15F);
             if (this.getSnowProgress() > 0.25F) {
                 this.setSnowProgress(this.getSnowProgress() - 0.25F);
                 p_376221_.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SNOW_BLOCK.defaultBlockState()), this.getRandomX(this.getBbWidth() / 2F), this.getRandomY(), this.getRandomZ(this.getBbWidth() / 2F), 10, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, this.random.nextIntBetweenInclusive(-2, 2) * 0.15F, 0.15F);
@@ -258,6 +258,10 @@ public class Gokkur extends Monster {
         }
 
         return flag;
+    }
+
+    public BlockState getEntityBlocks() {
+        return FrostBlocks.FRIGID_STONE.get().defaultBlockState();
     }
 
     @Override
