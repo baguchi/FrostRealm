@@ -316,6 +316,6 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 		foodCooking(FrostItems.SUGARBEET.get(), Items.SUGAR, 0.05F, this.output, "sugar_beet");
 
-		AttachCrystalRecipeBuilder.smithingTrim(Ingredient.of(lookup.getOrThrow(FrostTags.Items.SMITHABLE_WEAPON)), Ingredient.of(FrostItems.UNSTABLE_VENOM_CRYSTAL.get()), Ingredient.of(FrostItems.FROST_CRYSTAL.get()), RecipeCategory.COMBAT).unlocks("has_item", has(FrostItems.UNSTABLE_VENOM_CRYSTAL.get())).save(this.output, prefix("smiting_venom_crystal_with_weapon"));
+		AttachCrystalRecipeBuilder.smithingTrim(Ingredient.of(lookup.getOrThrow(FrostTags.Items.SMITHABLE_WEAPON)), Ingredient.of(FrostItems.FROST_CRYSTAL.get()), Ingredient.of(FrostItems.UNSTABLE_VENOM_CRYSTAL.get()), RecipeCategory.COMBAT).unlocks("has_item", has(FrostItems.UNSTABLE_VENOM_CRYSTAL.get())).save(this.output, prefix("smiting_venom_crystal_with_weapon"));
 	}
 }

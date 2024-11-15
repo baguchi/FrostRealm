@@ -1,6 +1,6 @@
 {
   "type": "frostrealm:attach_crystal",
-  "addition": "frostrealm:frost_crystal",
+  "addition": "frostrealm:unstable_venom_crystal",
   "base": "#frostrealm:smithable_weapon",
-  "template": "frostrealm:unstable_venom_crystal"
+  "template": "frostrealm:frost_crystal"
 }
