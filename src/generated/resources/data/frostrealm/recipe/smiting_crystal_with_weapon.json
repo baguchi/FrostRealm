@@ -1,5 +1,0 @@
-{
-  "type": "frostrealm:attach_crystal",
-  "addition": "frostrealm:frost_crystal",
-  "base": "#frostrealm:smithable_weapon"
-}

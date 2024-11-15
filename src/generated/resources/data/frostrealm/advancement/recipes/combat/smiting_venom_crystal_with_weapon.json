@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "frostrealm:smiting_crystal_with_weapon"
+        "recipe": "frostrealm:smiting_venom_crystal_with_weapon"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "frostrealm:smiting_crystal_with_weapon"
+      "frostrealm:smiting_venom_crystal_with_weapon"
     ]
   }
 }

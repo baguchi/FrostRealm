@@ -18,17 +18,19 @@ import java.util.Map;
 public class AttachCrystalRecipeBuilder {
     private final RecipeCategory category;
     private final Ingredient base;
+    private final Ingredient template;
     private final Ingredient addition;
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-    public AttachCrystalRecipeBuilder(RecipeCategory p_267007_, Ingredient p_267018_, Ingredient p_267264_) {
+    public AttachCrystalRecipeBuilder(RecipeCategory p_267007_, Ingredient p_267018_, Ingredient template, Ingredient p_267264_) {
         this.category = p_267007_;
         this.base = p_267018_;
+        this.template = template;
         this.addition = p_267264_;
     }
 
-    public static AttachCrystalRecipeBuilder smithingTrim(Ingredient p_266812_, Ingredient p_266843_, RecipeCategory p_267269_) {
-        return new AttachCrystalRecipeBuilder(p_267269_, p_266812_, p_266843_);
+    public static AttachCrystalRecipeBuilder smithingTrim(Ingredient p_266812_, Ingredient template, Ingredient p_266843_, RecipeCategory p_267269_) {
+        return new AttachCrystalRecipeBuilder(p_267269_, p_266812_, template, p_266843_);
     }
 
     public AttachCrystalRecipeBuilder unlocks(String p_266882_, Criterion<?> p_301261_) {
@@ -43,7 +45,7 @@ public class AttachCrystalRecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(p_379691_))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);
-        AttachCrystalRecipe smithingtrimrecipe = new AttachCrystalRecipe(this.base, this.addition);
+        AttachCrystalRecipe smithingtrimrecipe = new AttachCrystalRecipe(this.base, this.template, this.addition);
         p_301110_.accept(
                 p_379691_, smithingtrimrecipe, advancement$builder.build(p_379691_.location().withPrefix("recipes/" + this.category.getFolderName() + "/"))
         );

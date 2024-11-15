@@ -1,7 +1,9 @@
 package baguchan.frostrealm.data.generator.recipe;
 
+import baguchan.frostrealm.api.recipe.AttachableCrystal;
 import baguchan.frostrealm.data.CraftingDataHelper;
 import baguchan.frostrealm.data.generator.recipe.builder.AttachCrystalRecipeBuilder;
+import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostTags;
@@ -24,6 +26,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 	@Override
 	protected void buildRecipes() {
 		HolderLookup<Item> lookup = this.registries.lookupOrThrow(Registries.ITEM);
+		HolderLookup<AttachableCrystal> attach = this.registries.lookupOrThrow(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY);
 		makeSlab(this.output, FrostBlocks.FRIGID_STONE_SLAB.get(), FrostBlocks.FRIGID_STONE.get());
 		makeStairs(this.output, FrostBlocks.FRIGID_STONE_STAIRS.get(), FrostBlocks.FRIGID_STONE.get());
 
@@ -313,6 +316,6 @@ public class CraftingGenerator extends CraftingDataHelper {
 
 		foodCooking(FrostItems.SUGARBEET.get(), Items.SUGAR, 0.05F, this.output, "sugar_beet");
 
-		AttachCrystalRecipeBuilder.smithingTrim(Ingredient.of(lookup.getOrThrow(FrostTags.Items.SMITHABLE_WEAPON)), Ingredient.of(FrostItems.FROST_CRYSTAL.get()), RecipeCategory.COMBAT).unlocks("has_item", has(FrostItems.UNSTABLE_VENOM_CRYSTAL.get())).save(this.output, prefix("smiting_crystal_with_weapon"));
+		AttachCrystalRecipeBuilder.smithingTrim(Ingredient.of(lookup.getOrThrow(FrostTags.Items.SMITHABLE_WEAPON)), Ingredient.of(FrostItems.UNSTABLE_VENOM_CRYSTAL.get()), Ingredient.of(FrostItems.FROST_CRYSTAL.get()), RecipeCategory.COMBAT).unlocks("has_item", has(FrostItems.UNSTABLE_VENOM_CRYSTAL.get())).save(this.output, prefix("smiting_venom_crystal_with_weapon"));
 	}
 }
