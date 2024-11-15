@@ -1,0 +1,32 @@
+{
+  "type": "frostrealm:small_volcano",
+  "config": {
+    "base_height": {
+      "max_inclusive": 18,
+      "min_inclusive": 12
+    },
+    "block": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "frostrealm:frigid_stone"
+          },
+          "weight": 20
+        },
+        {
+          "data": {
+            "Name": "frostrealm:glimmerrock_ore"
+          },
+          "weight": 2
+        },
+        {
+          "data": {
+            "Name": "frostrealm:astrium_ore"
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}
