@@ -16,6 +16,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -214,7 +215,16 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
         RegistryAccess registryaccess = this.registryAccess();
         Registry<WolfflueVariant> registry = registryaccess.lookupOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY);
         p_326027_.define(DATA_VARIANT_ID, registry.get(WolfflueVariants.DEFAULT).or(registry::getAny).orElseThrow());
+    }
 
+    @Override
+    public void setCustomName(@org.jetbrains.annotations.Nullable Component p_20053_) {
+        super.setCustomName(p_20053_);
+        if (!this.getVariant().is(WolfflueVariants.YUZUKI) && p_20053_ != null && (p_20053_.getString().equals("Yuzuki")) || p_20053_.getString().equals("YuzukiYukari") || p_20053_.getString().equals("Yukari")
+                || p_20053_.getString().equals("結月ゆかり") || p_20053_.getString().equals("結月") || p_20053_.getString().equals("ゆかり")) {
+            Holder<WolfflueVariant> holder = this.registryAccess().lookupOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY).getOrThrow(WolfflueVariants.YUZUKI);
+            this.setVariant(holder);
+        }
     }
 
     public ResourceLocation getTexture() {

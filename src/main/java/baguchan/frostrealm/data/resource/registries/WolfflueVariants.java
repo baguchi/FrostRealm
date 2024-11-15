@@ -19,6 +19,7 @@ public class WolfflueVariants {
 
     public static final ResourceKey<WolfflueVariant> FROST = createKey("frost");
     public static final ResourceKey<WolfflueVariant> SNOW = createKey("snow");
+    public static final ResourceKey<WolfflueVariant> YUZUKI = createKey("yuzuki");
     public static final ResourceKey<WolfflueVariant> DEFAULT = FROST;
 
     private static ResourceKey<WolfflueVariant> createKey(String name) {
@@ -52,5 +53,6 @@ public class WolfflueVariants {
     public static void bootstrap(BootstrapContext<WolfflueVariant> context) {
         register(context, FROST, "wolfflue", FrostBiomes.FRIGID_FOREST);
         register(context, SNOW, "wolfflue_snow", FrostBiomes.TUNDRA);
+        register(context, YUZUKI, "wolfflue_yuzuki", HolderSet.empty());
     }
 }
