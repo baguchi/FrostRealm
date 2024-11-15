@@ -122,6 +122,7 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.VENOM_BALL.get(), VenomBallRenderer::new);
 		event.registerEntityRenderer(FrostEntities.VENOCHEM.get(), VenochemRenderer::new);
 		event.registerEntityRenderer(FrostEntities.GOKKUR.get(), GokkurRenderer::new);
+		event.registerEntityRenderer(FrostEntities.UNDER_GOKKUR.get(), UnderGokkurRenderer::new);
 		event.registerEntityRenderer(FrostEntities.ROOT_DEER.get(), RootDeerRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FLYING_BLOCK.get(), FlyingBlockRenderer::new);
 	}

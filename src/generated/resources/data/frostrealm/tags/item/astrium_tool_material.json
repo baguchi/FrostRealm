@@ -1,14 +1,5 @@
 {
   "values": [
-    "frostrealm:astrium_sickle",
-    "frostrealm:astrium_sword",
-    "frostrealm:astrium_axe",
-    "frostrealm:astrium_shovel",
-    "frostrealm:astrium_hoe",
-    "frostrealm:astrium_pickaxe",
-    "frostrealm:astrium_helmet",
-    "frostrealm:astrium_chestplate",
-    "frostrealm:astrium_leggings",
-    "frostrealm:astrium_boots"
+    "frostrealm:astrium_ingot"
   ]
 }
