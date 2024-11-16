@@ -77,12 +77,12 @@ public class CommonEvents {
     public static void onStackOther(ItemStackedOnOtherEvent event) {
         ItemStack stack = event.getStackedOnItem();
         ItemStack carriedStack = event.getCarriedItem();
-        if (!stack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && stack.has(DataComponents.TOOL)) {
-            Optional<Holder.Reference<AttachableCrystal>> optional1 = AttachableCrystals.getFromIngredient(event.getPlayer().registryAccess(), carriedStack);
+        if (!carriedStack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && carriedStack.has(DataComponents.TOOL)) {
+            Optional<Holder.Reference<AttachableCrystal>> optional1 = AttachableCrystals.getFromIngredient(event.getPlayer().registryAccess(), stack);
             if (optional1.isPresent()) {
-                stack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1.get());
-                event.getPlayer().playSound(SoundEvents.BUNDLE_INSERT);
-                carriedStack.shrink(1);
+                carriedStack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1.get());
+                event.getPlayer().playSound(SoundEvents.SMITHING_TABLE_USE);
+                stack.shrink(1);
                 event.getCarriedSlotAccess().set(stack);
                 event.setCanceled(true);
             }
