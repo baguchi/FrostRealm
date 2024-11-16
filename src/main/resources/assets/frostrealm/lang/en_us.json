@@ -197,6 +197,7 @@
   "entity.frostrealm.flying_block": "Flying Block",
   "entity.frostrealm.corruped_walker": "Corruped Walker",
   "effect.frostrealm.cold_resistance": "Cold Resistance",
+  "effect.frostrealm.cold_sensivity": "Cold Sensitivity",
   "itemGroup.frostrealm": "FrostRealm Item",
   "subtitles.ambient.blizzard": "Howling Blizzard Wind",
   "subtitles.entity.marmot.death": "Marmot Death",
@@ -255,5 +256,6 @@
   "death.attack.venom": "%1$s was Infected Venom",
   "death.attack.venom_ball": "%1$s was Infected Venom by %2$s",
   "attach_crystal.frostrealm.venom": "Venom",
+  "attach_crystal.frostrealm.frost": "Frost",
   "item.frostrealm.attachable": "Attachable With Weapon"
 }

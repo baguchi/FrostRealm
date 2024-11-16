@@ -12,7 +12,7 @@ import static baguchan.frostrealm.FrostRealm.MODID;
 public class FrostItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 
-    public static final DeferredItem<Item> FROST_CRYSTAL = ITEMS.registerItem("frost_crystal", Item::new);
+    public static final DeferredItem<Item> FROST_CRYSTAL = ITEMS.registerItem("frost_crystal", AttachableCrystalItem::new);
 
     public static final DeferredItem<Item> CRYONITE = ITEMS.registerItem("cryonite", Item::new);
     public static final DeferredItem<Item> CRYONITE_CREAM = ITEMS.registerItem("cryonite_cream", (properties) -> new CryoniteCreamItem(properties));

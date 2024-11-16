@@ -81,7 +81,7 @@ public class CommonEvents {
             Optional<Holder.Reference<AttachableCrystal>> optional1 = AttachableCrystals.getFromIngredient(event.getPlayer().registryAccess(), stack);
             if (optional1.isPresent()) {
                 carriedStack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1.get());
-                event.getPlayer().playSound(SoundEvents.SMITHING_TABLE_USE);
+                event.getPlayer().playSound(SoundEvents.BUNDLE_INSERT);
                 stack.shrink(1);
                 event.getCarriedSlotAccess().set(stack);
                 event.setCanceled(true);
@@ -151,7 +151,7 @@ public class CommonEvents {
         }
     }
 
-    //handle frostrelam music
+    //handle frostreallam music
     @SubscribeEvent
     public static void onMusicPlayed(SelectMusicEvent event) {
         if (Minecraft.getInstance().level != null && Minecraft.getInstance().player != null) {

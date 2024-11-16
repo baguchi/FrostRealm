@@ -3,6 +3,7 @@
     "#minecraft:freeze_immune_entity_types",
     "frostrealm:marmot",
     "frostrealm:frost_boar",
-    "frostrealm:ferret"
+    "frostrealm:ferret",
+    "frostrealm:venochem"
   ]
 }

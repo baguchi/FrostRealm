@@ -27,9 +27,12 @@ public class SnowParticle extends TextureSheetParticle {
         this.quadSize = f;
         this.setSize(f, f);
         this.friction = 1.0F;
-        this.xd = xd;
-        this.yd = yd;
-        this.zd = zd;
+        this.xd *= 0.1F;
+        this.yd *= 0.1F;
+        this.zd *= 0.1F;
+        this.xd += xd;
+        this.yd += yd;
+        this.zd += zd;
     }
 
     @Override

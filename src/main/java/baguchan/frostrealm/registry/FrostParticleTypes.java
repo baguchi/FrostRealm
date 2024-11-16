@@ -13,20 +13,19 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-
-import java.util.function.Supplier;
 
 @EventBusSubscriber(modid = FrostRealm.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class FrostParticleTypes {
 
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, FrostRealm.MODID);
 
-    public static final Supplier<SimpleParticleType> FROST_PORTAL = PARTICLE_TYPES.register("frost_portal", () -> new SimpleParticleType(false));
-    public static final Supplier<SimpleParticleType> CRYSTAL_SPORE = PARTICLE_TYPES.register("crystal_spore", () -> new SimpleParticleType(false));
-    public static final Supplier<SimpleParticleType> VENOM_BUBBLE = PARTICLE_TYPES.register("venom_bubble", () -> new SimpleParticleType(false));
-    public static final Supplier<SimpleParticleType> VENOM_CLOUD = PARTICLE_TYPES.register("venom_cloud", () -> new SimpleParticleType(false));
-    public static final Supplier<SimpleParticleType> SNOW = PARTICLE_TYPES.register("snow", () -> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> FROST_PORTAL = PARTICLE_TYPES.register("frost_portal", () -> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> CRYSTAL_SPORE = PARTICLE_TYPES.register("crystal_spore", () -> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> VENOM_BUBBLE = PARTICLE_TYPES.register("venom_bubble", () -> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> VENOM_CLOUD = PARTICLE_TYPES.register("venom_cloud", () -> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> SNOW = PARTICLE_TYPES.register("snow", () -> new SimpleParticleType(false));
 
     @SubscribeEvent
     public static void registerFactories(RegisterParticleProvidersEvent event) {
