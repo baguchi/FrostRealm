@@ -96,7 +96,7 @@ public class FrostBoarAi {
             int j = p_34623_.getBrain().getMemory(FrostMemoryModuleType.FROST_BOAR_COUNT.get()).orElse(0) + 1;
             int i = p_34623_.getBrain().getMemory(FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get()).orElse(0);
 
-            return j > i + 2 && (p_34623_.getHealth() > p_34623_.getMaxHealth() / 2);
+            return j > i + 2 && (p_34623_.getHealth() > p_34623_.getMaxHealth() / 3);
         }
     }
 
@@ -151,9 +151,9 @@ public class FrostBoarAi {
                 }
             } else if (!isEnoughFrostBoarOrHealth(p_34596_)) {
                 retreatFromNearestTarget(p_34596_, p_34597_);
-                if (isEntityAttackableIgnoringLineOfSight(serverLevel, p_34596_, p_34597_)) {
+                /*if (isEntityAttackableIgnoringLineOfSight(serverLevel, p_34596_, p_34597_)) {
                     setAttackTarget(p_34596_, p_34597_);
-                }
+                }*/
             } else {
                 maybeRetaliate(serverLevel, p_34596_, p_34597_);
             }
