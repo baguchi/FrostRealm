@@ -123,9 +123,9 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 				if (entity.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)) {
 					this.temperature = Math.max(this.temperature - 1, 0);
 					this.temperatureSaturation = 0.0F;
-					entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 8, 0, 200));
+                    entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 4, 0, 200));
 				} else if (this.temperature <= 0) {
-					entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 8, 0, 200));
+                    entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 4, 0, 200));
 					this.tickTimer = 0;
 				} else {
 					this.tickTimer = 0;

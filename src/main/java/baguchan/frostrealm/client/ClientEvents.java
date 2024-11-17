@@ -14,6 +14,7 @@ import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -35,7 +36,7 @@ public class ClientEvents {
     });
 
     @SubscribeEvent
-    public static void onAuroraToolTip(ItemTooltipEvent event) {
+    public static void onToolTip(ItemTooltipEvent event) {
         AuroraPowerUtils.getAuroraPowers(event.getItemStack()).addToTooltip(event.getContext(), component -> {
             event.getToolTip().add(component);
         }, TooltipFlag.NORMAL);
@@ -44,8 +45,12 @@ public class ClientEvents {
 
         if (attachableCrystal != null) {
             int damage2 = (attachableCrystal.value().getUse() - damage);
-            event.getToolTip().add(Component.translatable(Util.makeDescriptionId("attach_crystal", event.getContext().registries().lookup(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).get().getOrThrow(attachableCrystal.getKey()).getKey().location()))
-                    .append(" ").append(damage2 + " / " + attachableCrystal.value().getUse()));
+            if (event.getItemStack().getItem() instanceof ArrowItem) {
+                event.getToolTip().add(Component.translatable(Util.makeDescriptionId("attach_crystal", event.getContext().registries().lookup(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).get().getOrThrow(attachableCrystal.getKey()).getKey().location())));
+            } else {
+                event.getToolTip().add(Component.translatable(Util.makeDescriptionId("attach_crystal", event.getContext().registries().lookup(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).get().getOrThrow(attachableCrystal.getKey()).getKey().location()))
+                        .append(" ").append(damage2 + " / " + attachableCrystal.value().getUse()));
+            }
         }
     }
 

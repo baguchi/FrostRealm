@@ -1,16 +1,8 @@
 {
   "parent": "frostrealm:astrium_age",
   "criteria": {
-    "smithing_crystal": {
-      "conditions": {
-        "ingredients": [
-          {
-            "items": "frostrealm:frost_crystal"
-          }
-        ],
-        "recipe_id": "frostrealm:smiting_crystal_with_weapon"
-      },
-      "trigger": "minecraft:recipe_crafted"
+    "put_crystal": {
+      "trigger": "frostrealm:chili_distraction"
     }
   },
   "display": {
@@ -27,7 +19,7 @@
   },
   "requirements": [
     [
-      "smithing_crystal"
+      "put_crystal"
     ]
   ],
   "sends_telemetry_event": true

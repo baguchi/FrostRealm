@@ -1,6 +1,7 @@
 package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.advancement.PutCrystalTrigger;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostEntities;
@@ -8,12 +9,14 @@ import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.ChangeDimensionTrigger;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.TameAnimalTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -125,13 +128,8 @@ public class FrostAdvancementData extends AdvancementProvider {
 							false
 					)
 					.addCriterion(
-							"smithing_crystal",
-							RecipeCraftedTrigger.TriggerInstance.craftedItem(
-									ResourceKey.create(Registries.RECIPE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "smiting_crystal_with_weapon")),
-									List.of(
-											ItemPredicate.Builder.item().of(lookupItem, FrostItems.FROST_CRYSTAL.get())
-									)
-							)
+							"put_crystal",
+							PutCrystalTrigger.get()
 					)
 					.save(consumer, "frostrealm:smiting_crystal");
 

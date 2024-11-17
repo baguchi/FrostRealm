@@ -532,9 +532,11 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
     protected void applyTamingSideEffects() {
         if (this.isTame()) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(80.0);
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(6.0);
             this.setHealth(80.0F);
         } else {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0);
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(5.0);
         }
     }
 

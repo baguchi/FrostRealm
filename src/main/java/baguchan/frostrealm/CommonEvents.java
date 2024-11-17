@@ -36,6 +36,8 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.PolarBear;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -77,11 +79,14 @@ public class CommonEvents {
     public static void onStackOther(ItemStackedOnOtherEvent event) {
         ItemStack stack = event.getStackedOnItem();
         ItemStack carriedStack = event.getCarriedItem();
-        if (!carriedStack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && carriedStack.has(DataComponents.TOOL)) {
+        if (!carriedStack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && (carriedStack.has(DataComponents.TOOL) || carriedStack.getItem() instanceof ArrowItem)) {
             Optional<Holder.Reference<AttachableCrystal>> optional1 = AttachableCrystals.getFromIngredient(event.getPlayer().registryAccess(), stack);
             if (optional1.isPresent()) {
                 carriedStack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1.get());
                 event.getPlayer().playSound(SoundEvents.BUNDLE_INSERT);
+                if (event.getPlayer() instanceof ServerPlayer serverPlayer) {
+                    FrostCriterions.PUT_CRYSTAL.get().trigger(serverPlayer);
+                }
                 stack.shrink(1);
                 event.getCarriedSlotAccess().set(stack);
                 event.setCanceled(true);
@@ -374,6 +379,16 @@ public class CommonEvents {
                 }
             }
         }
+
+        if (event.getSource().getDirectEntity() instanceof AbstractArrow arrow) {
+            ItemStack stack2 = arrow.getPickupItemStackOrigin();
+            if (stack2 != null) {
+                @Nullable Holder<AttachableCrystal> attachableCrystal = stack2.get(FrostDataCompnents.ATTACH_CRYSTAL);
+                if (attachableCrystal != null && attachableCrystal.value().getMobEffectInstance().isPresent()) {
+                    livingEntity.addEffect(new MobEffectInstance(attachableCrystal.value().getMobEffectInstance().get()));
+                }
+            }
+        }
     }
 
     @SubscribeEvent
@@ -407,6 +422,16 @@ public class CommonEvents {
             ItemStack stack = event.getSource().getWeaponItem();
             if (stack != null && event.getAmount() > 0) {
                 @Nullable Holder<AttachableCrystal> attachableCrystal = stack.get(FrostDataCompnents.ATTACH_CRYSTAL);
+                if (attachableCrystal != null) {
+                    event.setAmount(event.getAmount() + attachableCrystal.value().getDamage());
+                }
+            }
+        }
+
+        if (event.getSource().getDirectEntity() instanceof AbstractArrow arrow) {
+            ItemStack stack2 = arrow.getPickupItemStackOrigin();
+            if (stack2 != null && event.getAmount() > 0) {
+                @Nullable Holder<AttachableCrystal> attachableCrystal = stack2.get(FrostDataCompnents.ATTACH_CRYSTAL);
                 if (attachableCrystal != null) {
                     event.setAmount(event.getAmount() + attachableCrystal.value().getDamage());
                 }

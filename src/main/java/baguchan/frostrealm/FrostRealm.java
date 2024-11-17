@@ -80,7 +80,7 @@ public class FrostRealm {
         FrostWeathers.FROST_WEATHER.register(modBus);
         AuroraPowers.AURORA_POWER.register(modBus);
 		FrostDataCompnents.DATA_COMPONENT_TYPES.register(modBus);
-
+		FrostCriterions.CRITERIONS_REGISTER.register(modBus);
 		modBus.addListener(this::setup);
 		modBus.addListener(this::dataSetup);
 		modBus.addListener(this::setupPackets);
