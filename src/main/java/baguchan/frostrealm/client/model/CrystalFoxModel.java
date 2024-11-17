@@ -5,6 +5,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.1.5
 
 import baguchan.frostrealm.client.animation.CrystalFoxAnimations;
 import baguchan.frostrealm.client.render.state.CrystalFoxRenderState;
+import baguchan.frostrealm.entity.animal.CrystalFox;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -72,13 +73,23 @@ public class CrystalFoxModel<T extends CrystalFoxRenderState> extends EntityMode
 	@Override
 	public void setupAnim(T entity) {
 		super.setupAnim(entity);
-		this.head.yRot = entity.yRot * ((float) Math.PI / 180F);
-		this.head.xRot = entity.xRot * ((float) Math.PI / 180F);
-
-		this.leg_right_hind.xRot = Mth.cos(entity.walkAnimationPos * 0.6662F) * 1.4F * entity.walkAnimationSpeed;
-		this.leg_left_hind.xRot = Mth.cos(entity.walkAnimationPos * 0.6662F + (float) Math.PI) * 1.4F * entity.walkAnimationSpeed;
-		this.leg_right_front.xRot = Mth.cos(entity.walkAnimationPos * 0.6662F + (float) Math.PI) * 1.4F * entity.walkAnimationSpeed;
-		this.leg_left_front.xRot = Mth.cos(entity.walkAnimationPos * 0.6662F) * 1.4F * entity.walkAnimationSpeed;
+		if (entity.state == CrystalFox.State.IDLING || entity.state == CrystalFox.State.SITTING) {
+			this.head.yRot = entity.yRot * ((float) Math.PI / 180F);
+			this.head.xRot = entity.xRot * ((float) Math.PI / 180F);
+		}
+		if (entity.state == CrystalFox.State.IDLING) {
+			this.leg_right_hind.xRot = Mth.cos(entity.walkAnimationPos * 0.6662F) * 1.4F * entity.walkAnimationSpeed;
+			this.leg_left_hind.xRot = Mth.cos(entity.walkAnimationPos * 0.6662F + (float) Math.PI) * 1.4F * entity.walkAnimationSpeed;
+			this.leg_right_front.xRot = Mth.cos(entity.walkAnimationPos * 0.6662F + (float) Math.PI) * 1.4F * entity.walkAnimationSpeed;
+			this.leg_left_front.xRot = Mth.cos(entity.walkAnimationPos * 0.6662F) * 1.4F * entity.walkAnimationSpeed;
+		}
 		this.animate(entity.eatAnimationState, CrystalFoxAnimations.CRYSTAL_FOX_EATING, entity.ageInTicks);
+		if (entity.state == CrystalFox.State.SITTING) {
+			this.applyStatic(CrystalFoxAnimations.sit);
+		}
+		if (entity.state == CrystalFox.State.SLEEPING) {
+			this.applyStatic(CrystalFoxAnimations.sleep);
+		}
+
 	}
 }

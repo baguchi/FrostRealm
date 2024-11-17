@@ -37,6 +37,7 @@ import net.minecraft.world.entity.animal.PolarBear;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -79,17 +80,19 @@ public class CommonEvents {
     public static void onStackOther(ItemStackedOnOtherEvent event) {
         ItemStack stack = event.getStackedOnItem();
         ItemStack carriedStack = event.getCarriedItem();
-        if (!carriedStack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && (carriedStack.has(DataComponents.TOOL) || carriedStack.getItem() instanceof ArrowItem)) {
-            Optional<Holder.Reference<AttachableCrystal>> optional1 = AttachableCrystals.getFromIngredient(event.getPlayer().registryAccess(), stack);
-            if (optional1.isPresent()) {
-                carriedStack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1.get());
-                event.getPlayer().playSound(SoundEvents.BUNDLE_INSERT);
-                if (event.getPlayer() instanceof ServerPlayer serverPlayer) {
-                    FrostCriterions.PUT_CRYSTAL.get().trigger(serverPlayer);
+        if (event.getClickAction() == ClickAction.PRIMARY) {
+            if (!carriedStack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && (carriedStack.has(DataComponents.TOOL) || carriedStack.getItem() instanceof ArrowItem)) {
+                Optional<Holder.Reference<AttachableCrystal>> optional1 = AttachableCrystals.getFromIngredient(event.getPlayer().registryAccess(), stack);
+                if (optional1.isPresent()) {
+                    carriedStack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1.get());
+                    event.getPlayer().playSound(SoundEvents.BUNDLE_INSERT);
+                    if (event.getPlayer() instanceof ServerPlayer serverPlayer) {
+                        FrostCriterions.PUT_CRYSTAL.get().trigger(serverPlayer);
+                    }
+                    stack.shrink(1);
+                    event.getCarriedSlotAccess().set(stack);
+                    event.setCanceled(true);
                 }
-                stack.shrink(1);
-                event.getCarriedSlotAccess().set(stack);
-                event.setCanceled(true);
             }
         }
     }

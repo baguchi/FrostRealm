@@ -1,6 +1,8 @@
 package baguchan.frostrealm.entity.animal;
 
 import baguchan.frostrealm.block.crop.BearBerryBushBlock;
+import baguchan.frostrealm.entity.goal.FoxSittingGoal;
+import baguchan.frostrealm.entity.goal.FoxSleepGoal;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
@@ -46,6 +48,7 @@ import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -55,6 +58,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 
 
 	private static final EntityDataAccessor<Boolean> SHEARABLE = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<String> DATA_STATE = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.STRING);
 
 
 	private static final EntityDataAccessor<Optional<UUID>> DATA_TRUSTED_ID_0 = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.OPTIONAL_UUID);
@@ -85,6 +89,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 2.2F));
 		this.goalSelector.addGoal(2, new BreedGoal(this, 0.95D));
+		this.goalSelector.addGoal(2, new FollowParentGoal(this, 1.1D));
 		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.6D, 1.4D, (p_28596_) -> {
 			return AVOID_PLAYERS.test(p_28596_) && !this.trusts(p_28596_.getUUID());
 		}));
@@ -92,11 +97,13 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 			return !((Wolfflue) p_28590_).isTame();
 		}));
 		this.goalSelector.addGoal(5, new FoxMeleeAttackGoal(1.2F, true));
-		this.goalSelector.addGoal(6, new FoxEatBerriesGoal(1.25D, 8, 4));
-		this.goalSelector.addGoal(7, new SeekShelterEvenBlizzardGoal(this, 1.25D, true));
-		this.goalSelector.addGoal(8, new RandomStrollGoal(this, 1.0F));
-		this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 8.0F));
-		this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
+		this.goalSelector.addGoal(6, new SeekShelterEvenBlizzardGoal(this, 1.25D, true));
+		this.goalSelector.addGoal(7, new FoxSittingGoal(this));
+		this.goalSelector.addGoal(8, new FoxSleepGoal(this));
+		this.goalSelector.addGoal(9, new FoxEatBerriesGoal(1.25D, 8, 4));
+		this.goalSelector.addGoal(10, new RandomStrollGoal(this, 1.0F));
+		this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(12, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Animal.class, false, (living, serverlevel) -> FROST_PREY_SELECTOR.test(living)));
 
 	}
@@ -108,8 +115,26 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
 		super.defineSynchedData(builder);
 		builder.define(SHEARABLE, true);
+		builder.define(DATA_STATE, CrystalFox.State.IDLING.name());
 		builder.define(DATA_TRUSTED_ID_0, Optional.empty());
 		builder.define(DATA_TRUSTED_ID_1, Optional.empty());
+	}
+
+	public void setState(CrystalFox.State state) {
+		this.entityData.set(DATA_STATE, state.name());
+	}
+
+	private void setStateName(String state) {
+		this.entityData.set(DATA_STATE, state);
+	}
+
+	public String getState() {
+		return this.entityData.get(DATA_STATE);
+	}
+
+	@Override
+	public boolean isSleeping() {
+		return Objects.equals(getState(), State.SLEEPING.name());
 	}
 
 	@Override
@@ -391,6 +416,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		}
 
 		this.setShearable(p_27576_.getBoolean("Shearable"));
+		this.setStateName(p_27576_.getString("State"));
 	}
 
 	@Override
@@ -407,6 +433,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 
 		p_27587_.put("Trusted", listtag);
 		p_27587_.putBoolean("Shearable", this.isShearableWithoutConditions());
+		p_27587_.putString("State", this.getState());
 	}
 
 	public class FoxEatBerriesGoal extends MoveToBlockGoal {
@@ -508,5 +535,22 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		public boolean canUse() {
 			return super.canUse();
 		}
+	}
+
+	public static enum State {
+		IDLING,
+		SITTING,
+		SLEEPING,
+		JUMPING,
+		FACE_PLANTING;
+
+		public static CrystalFox.State get(String nameIn) {
+			for (CrystalFox.State role : values()) {
+				if (role.name().equals(nameIn))
+					return role;
+			}
+			return CrystalFox.State.IDLING;
+		}
+
 	}
 }

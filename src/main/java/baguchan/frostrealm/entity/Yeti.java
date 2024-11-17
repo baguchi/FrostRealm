@@ -406,6 +406,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 		return holdTime;
 	}
 
+    @Override
 	public void readAdditionalSaveData(CompoundTag p_29541_) {
 		super.readAdditionalSaveData(p_29541_);
 		ListTag listnbt = p_29541_.getList("Inventory", 10);
@@ -426,6 +427,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 		this.resetLastPoseChangeTick(i);
 	}
 
+    @Override
 	public void addAdditionalSaveData(CompoundTag p_29548_) {
 		super.addAdditionalSaveData(p_29548_);
 		ListTag listnbt = new ListTag();
@@ -441,9 +443,9 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 		p_29548_.putInt("HoldTime", holdTime);
 		p_29548_.putString("State", this.getState());
 		p_29548_.putLong("LastPoseTick", this.entityData.get(LAST_POSE_CHANGE_TICK));
-
 	}
 
+    @Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_29533_, DifficultyInstance p_29534_, EntitySpawnReason p_29535_, @Nullable SpawnGroupData p_29536_) {
 		if (p_29536_ == null) {
 

@@ -53,6 +53,7 @@ public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxRender
 		super.extractRenderState(p_364137_, p_365146_, p_361192_);
 		p_365146_.eatAnimationState.copyFrom(p_364137_.eatAnimationState);
 		p_365146_.shearable = p_364137_.isShearableWithoutConditions();
+		p_365146_.state = CrystalFox.State.get(p_364137_.getState());
 	}
 
 	@Override

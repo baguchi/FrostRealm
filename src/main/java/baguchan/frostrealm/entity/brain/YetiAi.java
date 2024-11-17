@@ -212,6 +212,7 @@ public class YetiAi<E extends Yeti> {
     }
 
     private static void setAvoidTarget(Yeti p_34620_, LivingEntity p_34621_) {
+        p_34620_.standUpInstantly();
         p_34620_.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
         p_34620_.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
         p_34620_.getBrain().setMemoryWithExpiry(MemoryModuleType.AVOID_TARGET, p_34621_, (long) RETREAT_DURATION.sample(p_34620_.getRandom()));
@@ -255,6 +256,7 @@ public class YetiAi<E extends Yeti> {
         Brain<Yeti> brain = p_34630_.getBrain();
         brain.eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
         brain.setMemoryWithExpiry(MemoryModuleType.ATTACK_TARGET, p_34631_, 200L);
+        p_34630_.standUpInstantly();
     }
 
     public static void onHitTarget(Yeti p_34580_, LivingEntity p_34581_) {
