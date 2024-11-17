@@ -12,6 +12,7 @@ public class YetiRenderState extends HumanoidRenderState {
     public final AnimationState sitUpAnimationState = new AnimationState();
     public final AnimationState noticedStealerAnimationState = new AnimationState();
     public final AnimationState snowChargeAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
 
 
     public Yeti.State state = Yeti.State.IDLING;

@@ -47,6 +47,7 @@ public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiRenderState
         p_361774_.sitUpAnimationState.copyFrom(p_365075_.sitUpAnimationState);
         p_361774_.noticedStealerAnimationState.copyFrom(p_365075_.noticedStealerAnimationState);
         p_361774_.snowChargeAnimationState.copyFrom(p_365075_.snowChargeAnimationState);
+        p_361774_.idleAnimationState.copyFrom(p_365075_.idleAnimationState);
         p_361774_.state = Yeti.State.get(p_365075_.getState());
         p_361774_.isCrouching = p_365075_.isCrouching();
         p_361774_.isFallFlying = p_365075_.isFallFlying();

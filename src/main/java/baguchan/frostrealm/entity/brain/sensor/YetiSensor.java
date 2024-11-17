@@ -40,9 +40,9 @@ public class YetiSensor extends Sensor<Yeti> {
             if (livingentity instanceof FrostBoar boar) {
                 list2.add(boar);
             }
-            if (YetiAi.isWearingFear(livingentity)) {
+            /*if (YetiAi.isWearingFear(livingentity)) {
                 list3.add(livingentity);
-            }
+            }*/
         }
         brain.setMemory(FrostMemoryModuleType.NEAREST_YETIS.get(), list);
         brain.setMemory(FrostMemoryModuleType.YETI_COUNT.get(), list.size());

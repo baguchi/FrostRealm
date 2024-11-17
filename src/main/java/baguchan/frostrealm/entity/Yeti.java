@@ -68,7 +68,8 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 	public final AnimationState sitUpAnimationState = new AnimationState();
 	public final AnimationState noticedStealerAnimationState = new AnimationState();
 	public final AnimationState snowChargeAnimationState = new AnimationState();
-
+	public final AnimationState idleAnimationState = new AnimationState();
+	private int ticksIdle = 1200;
 	public Yeti(EntityType<? extends Yeti> p_21683_, Level p_21684_) {
 		super(p_21683_, p_21684_);
 		this.getNavigation().setCanFloat(true);
@@ -78,10 +79,10 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 	@Override
 	protected void customServerAiStep(ServerLevel serverLevel) {
 		ProfilerFiller profiler = Profiler.get();
-		profiler.push("boarBrain");
+		profiler.push("yetiBrain");
 		this.getBrain().tick(serverLevel, this);
 		profiler.pop();
-		profiler.push("boarActivityUpdate");
+		profiler.push("yetiActivityUpdate");
 		YetiAi.updateActivity(this);
 		profiler.pop();
 
@@ -106,6 +107,17 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 					if (--this.holdTime <= 0) {
 						YetiAi.stopHoldingOffHandItem(serverLevel, this, true);
 					}
+				}
+			}
+
+			if (this.isYetiSitting()) {
+				if (this.ticksIdle > 0) {
+					--this.ticksIdle;
+				} else {
+					serverLevel.broadcastEntityEvent(this, (byte) 5);
+					this.spawnAtLocation(serverLevel, new ItemStack(FrostItems.YETI_FUR.asItem(), 1 + this.random.nextInt(2)));
+
+					this.ticksIdle = 1200 + random.nextInt(1200);
 				}
 			}
 		}
@@ -295,6 +307,18 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 		if (this.isYetiSitting() && this.isInWater()) {
 			this.standUpInstantly();
 		}
+
+	}
+
+
+	@Override
+	public void handleEntityEvent(byte p_21375_) {
+		super.handleEntityEvent(p_21375_);
+		if (p_21375_ == 5) {
+			this.idleAnimationState.start(this.tickCount);
+		} else {
+			super.handleEntityEvent(p_21375_);
+		}
 	}
 
 	private void setupAnimationStates() {
@@ -423,6 +447,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 		if (i < 0L) {
 			this.setPose(Pose.SITTING);
 		}
+		this.ticksIdle = p_29541_.getInt("IdleTime");
 
 		this.resetLastPoseChangeTick(i);
 	}
@@ -441,6 +466,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 
 		p_29548_.put("Inventory", listnbt);
 		p_29548_.putInt("HoldTime", holdTime);
+		p_29548_.putInt("IdleTime", this.ticksIdle);
 		p_29548_.putString("State", this.getState());
 		p_29548_.putLong("LastPoseTick", this.entityData.get(LAST_POSE_CHANGE_TICK));
 	}

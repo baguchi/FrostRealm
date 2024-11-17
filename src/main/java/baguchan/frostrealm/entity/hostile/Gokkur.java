@@ -281,7 +281,7 @@ public class Gokkur extends Monster {
 
             this.knockback(0.8F, p_21246_.getX() - this.getX(), p_21246_.getZ() - this.getZ());
             this.setPose(Pose.STANDING);
-            CameraCore.addCameraHolderList(this.level(), new CameraHolder(6, 30, GlobalVec3.of(this.level().dimension(), this.position())));
+            CameraCore.addCameraHolderList(this.level(), new CameraHolder(8, 30, 0.085F, GlobalVec3.of(this.level().dimension(), this.position())));
         }
     }
 
