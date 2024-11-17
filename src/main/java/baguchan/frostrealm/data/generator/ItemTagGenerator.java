@@ -80,7 +80,7 @@ public class ItemTagGenerator extends ItemTagsProvider {
         this.tag(FrostTags.Items.GLACINIUM_TOOL_MATERIAL).add(FrostItems.GLACINIUM_INGOT.get());
         //.add(FrostItems.GLACINIUM_HELMET.get()).add(FrostItems.GLACINIUM_CHESTPLATE.get()).add(FrostItems.GLACINIUM_LEGGINGS.get()).add(FrostItems.GLACINIUM_BOOTS.get());
 
-
+        this.tag(Tags.Items.LEATHERS).add(FrostItems.FROST_BOAR_FUR.get());
         this.tag(ItemTags.MEAT).add(FrostItems.COOKED_FROST_BOAR_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get())
                 .add(FrostItems.FROST_BOAR_MEAT.get()).add(FrostItems.SNOWPILE_QUAIL_MEAT.get());
     }

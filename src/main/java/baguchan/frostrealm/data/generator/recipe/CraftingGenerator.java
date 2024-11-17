@@ -313,5 +313,12 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.unlockedBy("has_item", has(FrostItems.VENOM_CRYSTAL.get())).save(this.output);
 
 		foodCooking(FrostItems.SUGARBEET.get(), Items.SUGAR, 0.05F, this.output, "sugar_beet");
+		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, Items.BUNDLE, 1)
+				.pattern("S")
+				.pattern("L")
+				.define('S', Items.STRING)
+				.define('L', FrostItems.FROST_BOAR_FUR.get())
+				.unlockedBy("has_item", has(FrostItems.FROST_BOAR_FUR.get())).save(this.output, prefix("bundle_frost_boar_fur"));
+
 	}
 }

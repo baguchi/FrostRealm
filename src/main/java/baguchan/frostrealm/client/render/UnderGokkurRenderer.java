@@ -4,15 +4,17 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.GokkurModel;
 import baguchan.frostrealm.client.render.layer.CrackingGokkurLayer;
-import baguchan.frostrealm.client.render.state.GokkurRenderState;
-import baguchan.frostrealm.entity.hostile.Gokkur;
+import baguchan.frostrealm.client.render.state.UnderGokkurRenderState;
+import baguchan.frostrealm.entity.hostile.UnderGokkur;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.resources.ResourceLocation;
 
-public class UnderGokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurRenderState, GokkurModel<GokkurRenderState>> {
+public class UnderGokkurRenderer<T extends UnderGokkur> extends MobRenderer<T, UnderGokkurRenderState, GokkurModel<UnderGokkurRenderState>> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/under_gokkur.png");
     private static final RenderType GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/under_gokkur_hot.png"));
 
@@ -20,6 +22,14 @@ public class UnderGokkurRenderer<T extends Gokkur> extends MobRenderer<T, Gokkur
         super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(FrostModelLayers.GOKKUR)), 0.5F);
         this.addLayer(new CrackingGokkurLayer<>(this));
         this.addLayer(new EyesLayer<>(this) {
+
+            @Override
+            public void render(PoseStack p_116983_, MultiBufferSource p_116984_, int p_116985_, UnderGokkurRenderState p_363277_, float p_116987_, float p_116988_) {
+                if (p_363277_.magma) {
+                    super.render(p_116983_, p_116984_, p_116985_, p_363277_, p_116987_, p_116988_);
+                }
+            }
+
             @Override
             public RenderType renderType() {
                 return GLOW;
@@ -28,21 +38,22 @@ public class UnderGokkurRenderer<T extends Gokkur> extends MobRenderer<T, Gokkur
     }
 
     @Override
-    public void extractRenderState(T p_362733_, GokkurRenderState p_360515_, float p_361157_) {
+    public void extractRenderState(T p_362733_, UnderGokkurRenderState p_360515_, float p_361157_) {
         super.extractRenderState(p_362733_, p_360515_, p_361157_);
 
         p_360515_.rollAnimationState.copyFrom(p_362733_.rollAnimationState);
         p_360515_.startRollAnimationState.copyFrom(p_362733_.startRollAnimationState);
         p_360515_.crackiness = p_362733_.getCrackiness();
+        p_360515_.magma = p_362733_.isMagma();
     }
 
     @Override
-    public GokkurRenderState createRenderState() {
-        return new GokkurRenderState();
+    public UnderGokkurRenderState createRenderState() {
+        return new UnderGokkurRenderState();
     }
 
     @Override
-    public ResourceLocation getTextureLocation(GokkurRenderState entity) {
+    public ResourceLocation getTextureLocation(UnderGokkurRenderState entity) {
         return TEXTURE;
     }
 }

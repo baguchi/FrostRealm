@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": "frostrealm:frost_boar_fur",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    "S",
+    "L"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:bundle"
+  }
+}
