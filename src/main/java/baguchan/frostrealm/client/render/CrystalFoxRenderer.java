@@ -20,6 +20,8 @@ import net.neoforged.api.distmarker.OnlyIn;
 public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxRenderState, CrystalFoxModel<CrystalFoxRenderState>> {
 	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox.png");
 	private static final ResourceLocation SHEARED_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sheared.png");
+	private static final ResourceLocation SLEEP_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sleep.png");
+	private static final ResourceLocation SLEEP_SHEARED_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sleep_sheared.png");
 
 	private static final RenderType FOX_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_glow.png"));
 	private static final RenderType FOX_EYES_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_eyes_glow.png"));
@@ -40,6 +42,13 @@ public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxRender
 			}
 		});
 		this.addLayer(new EyesLayer<>(this) {
+			@Override
+			public void render(PoseStack p_116983_, MultiBufferSource p_116984_, int p_116985_, CrystalFoxRenderState p_363277_, float p_116987_, float p_116988_) {
+				if (p_363277_.state != CrystalFox.State.SLEEPING) {
+					super.render(p_116983_, p_116984_, p_116985_, p_363277_, p_116987_, p_116988_);
+				}
+			}
+
 			@Override
 			public RenderType renderType() {
 				return FOX_EYES_GLOW;
@@ -69,6 +78,9 @@ public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxRender
 
 	@Override
 	public ResourceLocation getTextureLocation(CrystalFoxRenderState p_110775_1_) {
+		if (p_110775_1_.state == CrystalFox.State.SLEEPING) {
+			return p_110775_1_.shearable ? SLEEP_TEXTURE : SLEEP_SHEARED_TEXTURE;
+		}
 		return p_110775_1_.shearable ? TEXTURE : SHEARED_TEXTURE;
 	}
 }

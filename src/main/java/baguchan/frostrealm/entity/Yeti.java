@@ -115,9 +115,9 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 					--this.ticksIdle;
 				} else {
 					serverLevel.broadcastEntityEvent(this, (byte) 5);
-					this.spawnAtLocation(serverLevel, new ItemStack(FrostItems.YETI_FUR.asItem(), 1 + this.random.nextInt(2)));
+					this.spawnAtLocation(serverLevel, new ItemStack(FrostItems.YETI_FUR.asItem(), 1));
 
-					this.ticksIdle = 1200 + random.nextInt(1200);
+					this.ticksIdle = 1200 + random.nextInt(600);
 				}
 			}
 		}
