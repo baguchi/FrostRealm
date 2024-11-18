@@ -252,7 +252,7 @@ public class ClientRegistrar {
 	}
 	@SubscribeEvent
 	public static void registerDimensionEffect(RegisterDimensionSpecialEffectsEvent event) {
-		FrostRealmRenderInfo renderInfo = new FrostRealmRenderInfo(192.0F, true, DimensionSpecialEffects.SkyType.NONE, false, false);
+        FrostRealmRenderInfo renderInfo = new FrostRealmRenderInfo(192.0F, true, DimensionSpecialEffects.SkyType.OVERWORLD, false, false);
 		event.register(FrostRealm.prefix("renderer"), renderInfo);
 	}
 

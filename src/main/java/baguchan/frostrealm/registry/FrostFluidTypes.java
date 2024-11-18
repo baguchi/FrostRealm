@@ -11,5 +11,5 @@ import java.util.function.Supplier;
 public class FrostFluidTypes {
     public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(NeoForgeRegistries.FLUID_TYPES, FrostRealm.MODID);
 
-    public static final Supplier<FluidType> HOT_SPRING = FLUID_TYPES.register("hot_spring", () -> new HotSpringFluidType(FluidType.Properties.create().canExtinguish(true).motionScale(0.005F).fallDistanceModifier(0F).supportsBoating(true)));
+    public static final Supplier<FluidType> HOT_SPRING = FLUID_TYPES.register("hot_spring", () -> new HotSpringFluidType(FluidType.Properties.create().canDrown(true).canHydrate(true).canSwim(true).canPushEntity(true).canExtinguish(true).motionScale(0.005F).fallDistanceModifier(0F).supportsBoating(true)));
 }

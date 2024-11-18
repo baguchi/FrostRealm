@@ -86,10 +86,10 @@ public class FrostBoarAi {
     }
 
     private static boolean wantsToStopFleeing(FrostBoar p_34618_) {
-        return p_34618_.isAdult() && isEnoughFrostBoarOrHealth(p_34618_);
+        return p_34618_.isAdult() && isEnoughFrostBoarAndHealth(p_34618_);
     }
 
-    private static boolean isEnoughFrostBoarOrHealth(FrostBoar p_34623_) {
+    private static boolean isEnoughFrostBoarAndHealth(FrostBoar p_34623_) {
         if (p_34623_.isBaby()) {
             return false;
         } else {
@@ -149,7 +149,7 @@ public class FrostBoarAi {
                 if (isEntityAttackableIgnoringLineOfSight(serverLevel, p_34596_, p_34597_)) {
                     broadcastAttackTarget(p_34596_, p_34597_);
                 }
-            } else if (!isEnoughFrostBoarOrHealth(p_34596_)) {
+            } else if (!isEnoughFrostBoarAndHealth(p_34596_)) {
                 retreatFromNearestTarget(p_34596_, p_34597_);
                 /*if (isEntityAttackableIgnoringLineOfSight(serverLevel, p_34596_, p_34597_)) {
                     setAttackTarget(p_34596_, p_34597_);

@@ -75,6 +75,9 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 			if (difficulty == Difficulty.HARD) {
 				tempAffect *= 1.5F;
 			}
+			if (difficulty == Difficulty.EASY) {
+				tempAffect *= 0.5F;
+			}
 			if (!entity.getItemBySlot(EquipmentSlot.HEAD).isEmpty())
 				tempAffect *= 0.85F;
 			if (!entity.getItemBySlot(EquipmentSlot.CHEST).isEmpty())
@@ -102,7 +105,7 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 				FrostWeatherSavedData cap = FrostWeatherSavedData.get(entity.level());
 				if (cap != null) {
 					if (isAffectRain(entity) && cap.isWeatherActive() && cap.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
-						addExhaustion(0.001F * (entity.canFreeze() ? 1.0F : 0.25F));
+						addExhaustion(0.001F * (entity.canFreeze() ? 1.0F : 0.2F));
 					}
 				}
 			}
