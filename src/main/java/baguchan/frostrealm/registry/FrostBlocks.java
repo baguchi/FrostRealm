@@ -65,7 +65,7 @@ public class FrostBlocks {
 			.hasPostProcess(FrostBlocks::always)));
 
 	public static final DeferredBlock<Block> FRIGID_STONE = register("frigid_stone", (properties) -> new Block(properties.strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
-	public static final DeferredBlock<Block> FRIGID_GRASS_BLOCK = register("frigid_grass_block", (properties) -> new FrostGrassBlock(properties.randomTicks().strength(1.5F, 6.0F).sound(SoundType.NYLIUM), FrostBlocks.FRIGID_STONE));
+	public static final DeferredBlock<Block> FRIGID_GRASS_BLOCK = register("frigid_grass_block", (properties) -> new FrostGrassBlock(properties.randomTicks().requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.NYLIUM), FrostBlocks.FRIGID_STONE));
 
 	public static final DeferredBlock<SlabBlock> FRIGID_STONE_SLAB = register("frigid_stone_slab", (properties) -> new SlabBlock(properties.strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));
 	public static final DeferredBlock<StairBlock> FRIGID_STONE_STAIRS = register("frigid_stone_stairs", (properties) -> new StairBlock(FRIGID_STONE.get().defaultBlockState(), properties.noOcclusion().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));

@@ -8,6 +8,7 @@ import baguchan.frostrealm.entity.FrostPart;
 import baguchan.frostrealm.entity.animal.Seal;
 import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
+import baguchan.frostrealm.mixin.LivingEntityAccessor;
 import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.utils.aurorapower.AuroraCombatRules;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
@@ -158,7 +159,6 @@ public class CommonEvents {
             }
         }
     }
-
     //handle frostreallam music
     @SubscribeEvent
     public static void onMusicPlayed(SelectMusicEvent event) {
@@ -214,6 +214,13 @@ public class CommonEvents {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
             FrostLivingCapability capability = livingEntity.getData(FrostAttachs.FROST_LIVING);
             capability.tick(livingEntity);
+            if (livingEntity.isInFluidType(FrostFluidTypes.HOT_SPRING.get())) {
+                FrostFluidTypes.HOT_SPRING.get().move(FrostFluids.HOT_SPRING.get().defaultFluidState(), livingEntity, livingEntity.getDeltaMovement(), livingEntity.getGravity());
+
+                if (((LivingEntityAccessor) livingEntity).isJump()) {
+                    livingEntity.jumpInFluid(FrostFluidTypes.HOT_SPRING.get());
+                }
+            }
         }
     }
 
