@@ -1,6 +1,8 @@
-package baguchan.frostrealm.registry;
+package baguchan.frostrealm.data.resource;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.registry.FrostBlocks;
+import baguchan.frostrealm.registry.FrostTags;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Holder;

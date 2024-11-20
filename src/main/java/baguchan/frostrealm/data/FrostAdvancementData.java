@@ -2,8 +2,8 @@ package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.advancement.PutCrystalTrigger;
+import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.registry.FrostBlocks;
-import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.advancements.Advancement;

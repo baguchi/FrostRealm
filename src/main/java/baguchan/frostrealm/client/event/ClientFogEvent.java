@@ -1,7 +1,7 @@
 package baguchan.frostrealm.client.event;
 
 import baguchan.frostrealm.capability.FrostWeatherManager;
-import baguchan.frostrealm.registry.FrostDimensions;
+import baguchan.frostrealm.data.resource.FrostDimensions;
 import com.mojang.blaze3d.shaders.FogShape;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;

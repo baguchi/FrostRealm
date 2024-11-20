@@ -2,8 +2,8 @@ package baguchan.frostrealm.client.overlay;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.capability.FrostLivingCapability;
+import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.registry.FrostAttachs;
-import baguchan.frostrealm.registry.FrostDimensions;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;

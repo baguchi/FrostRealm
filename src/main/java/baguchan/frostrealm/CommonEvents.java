@@ -3,6 +3,7 @@ package baguchan.frostrealm;
 import baguchan.frostrealm.api.recipe.AttachableCrystal;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherSavedData;
+import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import baguchan.frostrealm.entity.FrostPart;
 import baguchan.frostrealm.entity.animal.Seal;

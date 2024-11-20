@@ -1,8 +1,8 @@
 package baguchan.frostrealm.command;
 
 import baguchan.frostrealm.capability.FrostWeatherSavedData;
+import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
-import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.weather.FrostWeather;
 import com.mojang.brigadier.CommandDispatcher;

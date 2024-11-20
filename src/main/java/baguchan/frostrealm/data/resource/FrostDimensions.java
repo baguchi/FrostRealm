@@ -1,4 +1,4 @@
-package baguchan.frostrealm.registry;
+package baguchan.frostrealm.data.resource;
 
 import baguchan.frostrealm.FrostRealm;
 import net.minecraft.core.registries.Registries;

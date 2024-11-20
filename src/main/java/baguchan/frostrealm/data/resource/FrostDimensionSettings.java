@@ -1,6 +1,8 @@
-package baguchan.frostrealm.registry;
+package baguchan.frostrealm.data.resource;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.registry.FrostBiomeSources;
+import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.world.biome.FrostrealmBiomeBuilder;
 import baguchan.frostrealm.world.gen.FrostChunkGenerator;
 import baguchan.frostrealm.world.gen.FrostNoiseRouterData;

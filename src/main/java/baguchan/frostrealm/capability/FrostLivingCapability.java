@@ -1,5 +1,6 @@
 package baguchan.frostrealm.capability;
 
+import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.message.ChangedColdMessage;
 import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.utils.ClientUtils;

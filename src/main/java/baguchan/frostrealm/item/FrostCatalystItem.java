@@ -1,6 +1,6 @@
 package baguchan.frostrealm.item;
 
-import baguchan.frostrealm.registry.FrostDimensions;
+import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.world.FrostPortalShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

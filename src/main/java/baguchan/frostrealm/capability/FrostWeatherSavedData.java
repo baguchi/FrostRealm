@@ -1,8 +1,8 @@
 package baguchan.frostrealm.capability;
 
+import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
-import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.utils.BlizzardUtils;
 import baguchan.frostrealm.weather.FrostWeather;

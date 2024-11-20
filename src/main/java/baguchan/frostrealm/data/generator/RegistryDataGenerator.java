@@ -1,12 +1,12 @@
 package baguchan.frostrealm.data.generator;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.data.resource.FrostDensityFunctions;
-import baguchan.frostrealm.data.resource.FrostNoises;
-import baguchan.frostrealm.data.resource.ModConfiguredFeatures;
+import baguchan.frostrealm.data.resource.*;
 import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
-import baguchan.frostrealm.registry.*;
+import baguchan.frostrealm.registry.FrostBiomeSources;
+import baguchan.frostrealm.registry.FrostBiomes;
+import baguchan.frostrealm.registry.FrostDamageType;
 import baguchan.frostrealm.world.caver.FrostConfiguredWorldCarvers;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;

@@ -1,7 +1,7 @@
 package baguchan.frostrealm.block;
 
+import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.registry.FrostAttachs;
-import baguchan.frostrealm.registry.FrostDimensions;
 import baguchan.frostrealm.registry.FrostParticleTypes;
 import baguchan.frostrealm.world.FrostPortalForcer;
 import baguchan.frostrealm.world.FrostPortalShape;
