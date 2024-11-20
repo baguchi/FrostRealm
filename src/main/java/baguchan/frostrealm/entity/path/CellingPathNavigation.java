@@ -72,11 +72,9 @@ public class CellingPathNavigation extends GroundPathNavigation {
         Vec3i vec3i = this.path.getNextNodePos();
 
         Direction reverseDirection = this.cellingMonster.getAttachFacing().getOpposite();
-        double widthOffset = this.cellingMonster.getAttachFacing() != Direction.DOWN ? 0.2F : 0.0F;
-
-        double d0 = Math.abs(this.mob.getX() - ((double) vec3i.getX() + (widthOffset * reverseDirection.getStepX()) + (this.mob.getBbWidth() + 1) / 2D)); //Forge: Fix MC-94054
-        double d1 = Math.abs(this.mob.getY() - (double) vec3i.getY() + (widthOffset * reverseDirection.getStepY()));
-        double d2 = Math.abs(this.mob.getZ() - ((double) vec3i.getZ() + (widthOffset * reverseDirection.getStepZ()) + (this.mob.getBbWidth() + 1) / 2D)); //Forge: Fix MC-94054
+        double d0 = Math.abs(this.mob.getX() - ((double) vec3i.getX() + (this.mob.getBbWidth() + 1) / 2D)); //Forge: Fix MC-94054
+        double d1 = Math.abs(this.mob.getY() - (double) vec3i.getY());
+        double d2 = Math.abs(this.mob.getZ() - ((double) vec3i.getZ() + (this.mob.getBbWidth() + 1) / 2D)); //Forge: Fix MC-94054
 
         //no cut out
         float fallDistance = this.mob.getMaxFallDistance();
