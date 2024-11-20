@@ -23,7 +23,7 @@ import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class Venochem extends Monster implements RangedAttackMob {
+public class Venochem extends CellingMonster implements RangedAttackMob {
 
     private int attackTick;
     public AnimationState attackAnimationState = new AnimationState();

@@ -5,10 +5,12 @@ import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.VenochemModel;
 import baguchan.frostrealm.client.render.state.VenochemRenderState;
 import baguchan.frostrealm.entity.hostile.Venochem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
 public class VenochemRenderer<T extends Venochem> extends MobRenderer<T, VenochemRenderState, VenochemModel<VenochemRenderState>> {
@@ -35,63 +37,16 @@ public class VenochemRenderer<T extends Venochem> extends MobRenderer<T, Venoche
         super.extractRenderState(p_362733_, p_360515_, p_361157_);
         p_360515_.attackAnimationState.copyFrom(p_362733_.attackAnimationState);
         p_360515_.shootAnimationState.copyFrom(p_362733_.shootAnimationState);
+        p_360515_.attachFace = p_362733_.getAttachFacing();
     }
 
-    /*    @Override
-    protected void setupRotations(T entity, PoseStack poseStack, float ageInTick, float rotationYaw, float partialTicks, float p_320045_) {
-        float trans = 6.5F / 16F;
-        if (entity.getPose() != Pose.SLEEPING) {
-            float progresso = 1F - (entity.prevAttachChangeProgress + (entity.attachChangeProgress - entity.prevAttachChangeProgress) * partialTicks);
-
-            if (entity.getAttachFacing() == Direction.DOWN) {
-                poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - rotationYaw));
-                poseStack.translate(0.0D, trans, 0.0D);
-                if (entity.yo < entity.getY()) {
-                    poseStack.mulPose(Axis.XP.rotationDegrees(90 * (1 - progresso)));
-                } else {
-                    poseStack.mulPose(Axis.XP.rotationDegrees(-90 * (1 - progresso)));
-                }
-                poseStack.translate(0.0D, -trans, 0.0D);
-
-            } else if (entity.getAttachFacing() == Direction.UP) {
-                poseStack.translate(0.0D, trans, 0.0D);
-
-                poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - rotationYaw));
-                poseStack.mulPose(Axis.XP.rotationDegrees(180));
-                poseStack.mulPose(Axis.YP.rotationDegrees(180));
-                poseStack.translate(0.0D, -trans, 0.0D);
-
-            } else {
-                poseStack.translate(0.0D, trans, 0.0D);
-                switch (entity.getAttachFacing()) {
-                    case NORTH:
-                        poseStack.mulPose(Axis.XP.rotationDegrees(90.0F * progresso));
-                        poseStack.mulPose(Axis.ZP.rotationDegrees(0));
-                        break;
-                    case SOUTH:
-                        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
-                        poseStack.mulPose(Axis.XP.rotationDegrees(90.0F * progresso));
-                        break;
-                    case WEST:
-                        poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
-                        poseStack.mulPose(Axis.YP.rotationDegrees(90F - 90.0F * progresso));
-                        poseStack.mulPose(Axis.ZP.rotationDegrees(-90.0F));
-                        break;
-                    case EAST:
-                        poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
-                        poseStack.mulPose(Axis.YP.rotationDegrees(90.0F * progresso - 90F));
-                        poseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
-                        break;
-                }
-                if (entity.getDeltaMovement().y <= -0.001F) {
-                    poseStack.mulPose(Axis.YP.rotationDegrees(-180.0F));
-                }
-                poseStack.translate(0.0D, -trans, 0.0D);
-            }
-        } else {
-            super.setupRotations(entity, poseStack, ageInTick, rotationYaw, partialTicks, p_320045_);
+    @Override
+    protected void setupRotations(VenochemRenderState p_364147_, PoseStack p_115908_, float p_115909_, float p_115910_) {
+        if (p_364147_.attachFace == Direction.DOWN) {
+            super.setupRotations(p_364147_, p_115908_, p_115909_, p_115910_);
         }
-    }*/
+        p_115908_.rotateAround(p_364147_.attachFace.getOpposite().getRotation(), 0.0F, 0.5F, 0.0F);
+    }
 
     @Override
     public ResourceLocation getTextureLocation(VenochemRenderState p_110775_1_) {
