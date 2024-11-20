@@ -25,6 +25,12 @@ public class CellingPathNavigation extends GroundPathNavigation {
         return true;
     }
 
+
+    @Override
+    public boolean canCutCorner(PathType p_326808_) {
+        return this.cellingMonster.getAttachFacing() == Direction.DOWN && super.canCutCorner(p_326808_);
+    }
+
     @Override
     protected PathFinder createPathFinder(int p_26598_) {
         this.nodeEvaluator = new CellingNodeEvaluator();
@@ -60,28 +66,17 @@ public class CellingPathNavigation extends GroundPathNavigation {
     }
 
     @Override
-    protected boolean canMoveDirectly(Vec3 p_186138_, Vec3 p_186139_) {
-        return false;
-    }
-
-    @Override
-    public boolean isStableDestination(BlockPos p_26608_) {
-        return true;
-    }
-
-    //fixing falling pathfinding
-    @Override
     protected void followThePath() {
         Vec3 vec3 = this.getTempMobPos();
         this.maxDistanceToWaypoint = this.mob.getBbWidth() > 0.75F ? this.mob.getBbWidth() / 2.0F : 0.75F - this.mob.getBbWidth() / 2.0F;
         Vec3i vec3i = this.path.getNextNodePos();
 
         Direction reverseDirection = this.cellingMonster.getAttachFacing().getOpposite();
-        double widthOffset = this.cellingMonster.getAttachFacing() != Direction.DOWN ? 0.1F : 0.0F;
+        double widthOffset = this.cellingMonster.getAttachFacing() != Direction.DOWN ? 0.2F : 0.0F;
 
-        double d0 = Math.abs(this.mob.getX() - ((double) vec3i.getX() - (widthOffset * reverseDirection.getStepX()) + ((this.mob.getBbWidth() + 1) / 2D))); //Forge: Fix MC-94054
-        double d1 = Math.abs(this.mob.getY() - (double) vec3i.getY()) - (widthOffset * reverseDirection.getStepY());
-        double d2 = Math.abs(this.mob.getZ() - ((double) vec3i.getZ() - (widthOffset * reverseDirection.getStepZ()) + ((this.mob.getBbWidth() + 1) / 2D))); //Forge: Fix MC-94054
+        double d0 = Math.abs(this.mob.getX() - ((double) vec3i.getX() + (widthOffset * reverseDirection.getStepX()) + (this.mob.getBbWidth() + 1) / 2D)); //Forge: Fix MC-94054
+        double d1 = Math.abs(this.mob.getY() - (double) vec3i.getY() + (widthOffset * reverseDirection.getStepY()));
+        double d2 = Math.abs(this.mob.getZ() - ((double) vec3i.getZ() + (widthOffset * reverseDirection.getStepZ()) + (this.mob.getBbWidth() + 1) / 2D)); //Forge: Fix MC-94054
 
         //no cut out
         float fallDistance = this.mob.getMaxFallDistance();
@@ -91,11 +86,6 @@ public class CellingPathNavigation extends GroundPathNavigation {
         }
 
         this.doStuckDetection(vec3);
-    }
-
-    @Override
-    public boolean canCutCorner(PathType p_326808_) {
-        return this.cellingMonster.getAttachFacing() == Direction.DOWN && super.canCutCorner(p_326808_);
     }
 
     private boolean shouldTargetNextNodeInDirection(Vec3 pVec) {
@@ -127,6 +117,16 @@ public class CellingPathNavigation extends GroundPathNavigation {
     }
 
     @Override
+    protected boolean canMoveDirectly(Vec3 p_186138_, Vec3 p_186139_) {
+        return false;
+    }
+
+    @Override
+    public boolean isStableDestination(BlockPos p_26608_) {
+        return true;
+    }
+
+    @Override
     public void setCanFloat(boolean p_26563_) {
         this.nodeEvaluator.setCanFloat(p_26563_);
     }
@@ -139,7 +139,7 @@ public class CellingPathNavigation extends GroundPathNavigation {
     @Override
     protected Vec3 getTempMobPos() {
         if (this.cellingMonster.getAttachFacing() != Direction.DOWN) {
-            return new Vec3(this.mob.getX(), (double) this.mob.getY(), this.mob.getZ());
+            return new Vec3(this.mob.getX(), this.mob.getY(), this.mob.getZ());
         }
 
         return super.getTempMobPos();

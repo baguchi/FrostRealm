@@ -90,11 +90,6 @@ public class CellingMonster extends Monster {
                 this.setDeltaMovement(this.getDeltaMovement().add(0, 1, 0));
             }
         }
-        /*if (attachmentFacing != Direction.DOWN) {
-            //this.setNoGravity(true);
-        } else {
-            //this.setNoGravity(false);
-        }*/
         if (prevAttachDir != attachmentFacing) {
             attachChangeProgress = 1F;
         }

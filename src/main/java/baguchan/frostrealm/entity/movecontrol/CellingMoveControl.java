@@ -22,7 +22,7 @@ public class CellingMoveControl extends MoveControl {
     public void tick() {
         if (this.operation == Operation.MOVE_TO) {
             if (this.cellingMonster.getAttachFacing() == Direction.DOWN) {
-                this.operation = MoveControl.Operation.WAIT;
+                this.operation = Operation.WAIT;
                 double d0 = this.wantedX - this.mob.getX();
                 double d1 = this.wantedZ - this.mob.getZ();
                 double d2 = this.wantedY - this.mob.getY();
@@ -75,15 +75,11 @@ public class CellingMoveControl extends MoveControl {
                     this.mob.setYya(d2 > 0.0 ? f1 : -f1);
                 }
 
-                this.mob.setYRot(this.cellingMonster.getAttachFacing().toYRot());
-                this.mob.yBodyRot = this.mob.getYRot();
-                if (Math.abs(d0) > 2.5000003E-7F) {
-                    this.mob.setXxa(d0 > 0.0 ? -f1 : f1);
-                }
+                float f9 = (float) (Mth.atan2(d1, d0) * 180.0F / (float) Math.PI) - 90.0F;
 
-                if (Math.abs(d1) > 2.5000003E-7F) {
-                    this.mob.setZza(d1 > 0.0 ? -f1 : f1);
-                }
+                this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
+                this.mob.setYRot(this.rotlerp(this.mob.getYRot(), f9, 90.0F));
+
             }
         } else {
             this.mob.setXxa(0.0F);
@@ -91,6 +87,7 @@ public class CellingMoveControl extends MoveControl {
             this.mob.setZza(0.0F);
         }
     }
+
 
     public boolean isWalkableUpper() {
         PathNavigation pathnavigation = this.mob.getNavigation();
