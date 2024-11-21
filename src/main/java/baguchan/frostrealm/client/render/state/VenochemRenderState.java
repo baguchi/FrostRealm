@@ -9,4 +9,5 @@ public class VenochemRenderState extends LivingEntityRenderState {
     public AnimationState shootAnimationState = new AnimationState();
 
     public Direction attachFace = Direction.DOWN;
+    public float attachProgress;
 }
