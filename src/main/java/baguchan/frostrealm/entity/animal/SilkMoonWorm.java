@@ -41,7 +41,7 @@ public class SilkMoonWorm extends PathfinderMob {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Animal.createAnimalAttributes().add(Attributes.MOVEMENT_SPEED, 0.18F).add(Attributes.MAX_HEALTH, 4.0);
+        return Animal.createAnimalAttributes().add(Attributes.MOVEMENT_SPEED, 0.125F).add(Attributes.MAX_HEALTH, 4.0);
     }
 
     @Override

@@ -39,6 +39,6 @@ public class SilkMoonWormModel<T extends LivingEntityRenderState> extends Entity
     @Override
     public void setupAnim(T entity) {
         super.setupAnim(entity);
-        this.animateWalk(SilkMoonWormAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 1.0F, 4.0F);
+		this.animateWalk(SilkMoonWormAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 3.0F, 4.0F);
     }
 }

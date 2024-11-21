@@ -4,8 +4,10 @@ import baguchan.frostrealm.block.SilkMoonEggBlock;
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
 import baguchan.frostrealm.entity.IHasEgg;
 import baguchan.frostrealm.entity.goal.FindAndPlaceEggGoal;
+import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
+import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -15,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -32,16 +35,27 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class SilkMoon extends Animal implements IHasEgg {
+public class SilkMoon extends FrostAnimal implements IHasEgg {
     private static final EntityDataAccessor<Boolean> HAS_EGG = SynchedEntityData.defineId(SilkMoon.class, EntityDataSerializers.BOOLEAN);
 
     public SilkMoon(EntityType<? extends SilkMoon> p_21683_, Level p_21684_) {
         super(p_21683_, p_21684_);
         this.moveControl = new FlyingMoveControl(this, 10, true);
+    }
+
+    public static boolean checkSilkSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, EntitySpawnReason p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
+        return (p_27579_.getBlockState(p_27581_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE)) && p_27579_.getRawBrightness(p_27581_, 0) <= 10;
+    }
+
+    @Override
+    public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
+        return 0.5F - p_27574_.getPathfindingCostFromLightLevels(p_27573_);
     }
 
     @Override
@@ -70,9 +84,11 @@ public class SilkMoon extends Animal implements IHasEgg {
                 return SilkMoonEggBlock.onDirt(p_25619_, p_25620_) && p_25619_.getBlockState(p_25620_.above()).isAir();
             }
         });
-        this.goalSelector.addGoal(2, new WaterAvoidingRandomFlyingGoal(this, 0.95D));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(2, new SeekShelterEvenBlizzardGoal(this, 1.1D, true));
+
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 0.95D));
+        this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
     }
 
     @Override
@@ -145,5 +161,9 @@ public class SilkMoon extends Animal implements IHasEgg {
 
     @Override
     public void setBaby(boolean p_218500_) {
+    }
+
+    @Override
+    protected void checkFallDamage(double p_20990_, boolean p_20991_, BlockState p_20992_, BlockPos p_20993_) {
     }
 }
