@@ -71,6 +71,7 @@ public class SilkMoonCocoonBlock extends Block {
         return p_49854_;
     }
 
+	@Override
     public void tick(BlockState p_221194_, ServerLevel p_221195_, BlockPos p_221196_, RandomSource p_221197_) {
         if (!this.canSurvive(p_221194_, p_221195_, p_221196_)) {
             this.destroyBlock(p_221195_, p_221196_);
@@ -110,12 +111,13 @@ public class SilkMoonCocoonBlock extends Block {
         return p_57766_.getRawBrightness(p_57816_, 0) <= 8 || p_57766_.isNight();
     }
 
+	@Override
     public void playerDestroy(Level p_57771_, Player p_57772_, BlockPos p_57773_, BlockState p_57774_, @Nullable BlockEntity p_57775_, ItemStack p_57776_) {
         super.playerDestroy(p_57771_, p_57772_, p_57773_, p_57774_, p_57775_, p_57776_);
         this.decreaseEggs(p_57771_, p_57773_, p_57774_);
     }
 
-
+	@Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_57799_) {
         p_57799_.add(HATCH);
     }

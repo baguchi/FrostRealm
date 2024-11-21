@@ -87,16 +87,16 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 		this.goalSelector.addGoal(3, new FindAndPlaceEggGoal<>(this, 0.8D) {
 			@Override
 			public void afterPlaceEgg() {
-				level().playSound(null, blockPos.above(), SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level().random.nextFloat() * 0.2F);
-				level().setBlock(blockPos.above(), FrostBlocks.SNOWPILE_QUAIL_EGG.get().defaultBlockState().setValue(SnowPileQuailEggBlock.EGGS, Integer.valueOf(random.nextInt(1) + 1)), 3);
-				setHomeTarget(blockPos.above());
+				level().playSound(null, blockPos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level().random.nextFloat() * 0.2F);
+				level().setBlock(blockPos, FrostBlocks.SNOWPILE_QUAIL_EGG.get().defaultBlockState().setValue(SnowPileQuailEggBlock.EGGS, random.nextInt(1) + 1), 3);
+				setHomeTarget(blockPos);
 				//egg animation
 				level().broadcastEntityEvent(this.mob, (byte) 7);
 			}
 
 			@Override
 			protected boolean isValidTarget(LevelReader p_25619_, BlockPos p_25620_) {
-				return SnowPileQuailEggBlock.onDirt(p_25619_, p_25620_) && p_25619_.getBlockState(p_25620_.above()).isAir();
+				return SnowPileQuailEggBlock.onDirt(p_25619_, p_25620_) && p_25619_.getBlockState(p_25620_).isAir();
 			}
 		});
 		this.goalSelector.addGoal(4, new BreedAndEggGoal<>(this, 1.0D));

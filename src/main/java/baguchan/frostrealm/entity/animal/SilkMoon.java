@@ -1,8 +1,8 @@
 package baguchan.frostrealm.entity.animal;
 
 import baguchan.frostrealm.block.SilkMoonEggBlock;
-import baguchan.frostrealm.block.SnowPileQuailEggBlock;
 import baguchan.frostrealm.entity.IHasEgg;
+import baguchan.frostrealm.entity.goal.BreedAndEggGoal;
 import baguchan.frostrealm.entity.goal.FindAndPlaceEggGoal;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
@@ -72,16 +72,16 @@ public class SilkMoon extends FrostAnimal implements IHasEgg {
         this.goalSelector.addGoal(1, new FindAndPlaceEggGoal<>(this, 0.85D) {
             @Override
             public void afterPlaceEgg() {
-                level().playSound(null, blockPos.above(), SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level().random.nextFloat() * 0.2F);
-                level().setBlock(blockPos.above(), FrostBlocks.SILK_MOON_EGG.get().defaultBlockState().setValue(SnowPileQuailEggBlock.EGGS, Integer.valueOf(random.nextInt(1) + 1)), 3);
+                level().playSound(null, blockPos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level().random.nextFloat() * 0.2F);
+                level().setBlock(blockPos, FrostBlocks.SILK_MOON_EGG.get().defaultBlockState().setValue(SilkMoonEggBlock.EGGS, random.nextInt(1) + 1), 3);
             }
 
             @Override
             protected boolean isValidTarget(LevelReader p_25619_, BlockPos p_25620_) {
-                return SilkMoonEggBlock.onDirt(p_25619_, p_25620_) && p_25619_.getBlockState(p_25620_.above()).isAir();
+                return SilkMoonEggBlock.onDirt(p_25619_, p_25620_) && p_25619_.getBlockState(p_25620_).isAir();
             }
         });
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(2, new BreedAndEggGoal<>(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, item -> item.is(ItemTags.LEAVES), false));
         this.goalSelector.addGoal(4, new SeekShelterEvenBlizzardGoal(this, 1.1D, true));
 
