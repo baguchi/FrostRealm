@@ -89,15 +89,10 @@ public class SilkMoonEggBlock extends Block {
 
     @Override
     public void tick(BlockState p_221194_, ServerLevel p_221195_, BlockPos p_221196_, RandomSource p_221197_) {
-        if (!this.canSurvive(p_221194_, p_221195_, p_221196_)) {
-            this.destroyBlock(p_221195_, p_221196_);
-        } else {
-            this.hatchEgg(p_221194_, p_221195_, p_221196_, p_221197_);
-        }
+        this.hatchEgg(p_221194_, p_221195_, p_221196_, p_221197_);
     }
 
     private void hatchEgg(BlockState p_221194_, ServerLevel p_221182_, BlockPos p_221183_, RandomSource p_221184_) {
-        this.destroyBlock(p_221182_, p_221183_);
         p_221182_.playSound((Player) null, p_221183_, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 1.0F, 1.0F);
         if (this.shouldUpdateHatchLevel(p_221182_, p_221183_)) {
             int i = p_221194_.getValue(HATCH);
