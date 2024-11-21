@@ -143,8 +143,8 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	protected void populateDefaultEquipmentSlots(RandomSource p_218171_, DifficultyInstance p_218172_) {
 		float f = p_218171_.nextFloat();
 		ItemStack itemstack;
-		if (f < 0.5F) {
-			if (f < 0.8F) {
+		if (f < 0.25F) {
+			if (f < 0.1F) {
 				itemstack = new ItemStack(FrostItems.YETI_FUR.get());
 			} else {
 				itemstack = new ItemStack(Items.STICK);

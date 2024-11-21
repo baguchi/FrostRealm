@@ -102,4 +102,5 @@ public class FrostItems {
     public static final DeferredItem<Item> GOKKUR_SPAWNEGG = ITEMS.registerItem("gokkur_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.GOKKUR.get(), 0xA09D96, 0x6F6965, properties));
     public static final DeferredItem<Item> UNDER_GOKKUR_SPAWNEGG = ITEMS.registerItem("under_gokkur_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.UNDER_GOKKUR.get(), 0x738B90, 0xE66410, properties));
     public static final DeferredItem<Item> ROOT_DEER_SPAWNEGG = ITEMS.registerItem("root_deer_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.ROOT_DEER.get(), 0x61839F, 0xAB1B56, properties));
+    public static final DeferredItem<Item> SILK_MOON_SPAWNEGG = ITEMS.registerItem("silk_moon_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.SILK_MOON.get(), 0xDFFBEC, 0x75BE97, properties));
 }

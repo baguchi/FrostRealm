@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_turtle_egg",
+  "textures": {
+    "all": "frostrealm:block/silk_moon_egg"
+  }
+}

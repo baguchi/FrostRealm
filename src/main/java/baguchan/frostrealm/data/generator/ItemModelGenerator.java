@@ -113,6 +113,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.egg(FrostItems.GOKKUR_SPAWNEGG);
 		this.egg(FrostItems.UNDER_GOKKUR_SPAWNEGG);
 		this.egg(FrostItems.ROOT_DEER_SPAWNEGG);
+		this.egg(FrostItems.SILK_MOON_SPAWNEGG);
 
 		this.toBlock(FrostBlocks.FROZEN_DIRT);
 		this.toBlock(FrostBlocks.FROZEN_GRASS_BLOCK);
@@ -210,6 +211,9 @@ public class ItemModelGenerator extends ItemModelProvider {
 		this.toBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK);
         this.toBlock(FrostBlocks.AURORA_INFUSER);
 		this.itemBlockFlat(FrostBlocks.FROST_TORCH);
+
+		this.toBlock(FrostBlocks.SILK_MOON_EGG);
+		this.toBlock(FrostBlocks.SILK_MOON_COCOON);
 	}
 
 	public ItemModelBuilder wall(Supplier<? extends WallBlock> wall, Supplier<? extends Block> fullBlock) {

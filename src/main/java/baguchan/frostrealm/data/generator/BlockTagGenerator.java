@@ -41,6 +41,8 @@ public class BlockTagGenerator extends BlockTagsProvider {
                 , FrostBlocks.GLACINIUM_ORE.get()
                 , FrostBlocks.GLACINIUM_BLOCK.get()
                 , FrostBlocks.RAW_GLACINIUM_BLOCK.get()
+                , FrostBlocks.SILK_MOON_EGG.get()
+                , FrostBlocks.SNOWPILE_QUAIL_EGG.get()
         );
         tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_PLANKS.get(), FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_FENCE_GATE.get()
                 )
@@ -49,7 +51,7 @@ public class BlockTagGenerator extends BlockTagsProvider {
                 .add(FrostBlocks.FROSTBITE_DOOR.get()).add(FrostBlocks.FROSTBITE_TRAPDOOR.get()).add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get()).add(FrostBlocks.FROSTBITE_BUTTON.get());
 
         tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTROOT_SAPLING.get())
-                .add(FrostBlocks.FROSTBITE_LEAVES.get()).add(FrostBlocks.FROSTBITE_SAPLING.get()).add(FrostBlocks.RYE_BLOCK.get());
+                .add(FrostBlocks.SILK_MOON_COCOON.get()).add(FrostBlocks.FROSTBITE_LEAVES.get()).add(FrostBlocks.FROSTBITE_SAPLING.get()).add(FrostBlocks.RYE_BLOCK.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_BLOCK.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.ASTRIUM_ORE.get(), FrostBlocks.GLIMMERROCK_SLATE_ORE.get(), FrostBlocks.ASTRIUM_SLATE_ORE.get(), FrostBlocks.ASTRIUM_BLOCK.get(), FrostBlocks.RAW_ASTRIUM_BLOCK.get());

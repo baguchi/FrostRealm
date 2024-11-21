@@ -14,6 +14,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -36,6 +37,8 @@ public class FrostEntities {
     public static final Supplier<EntityType<Seal>> SEAL = ENTITIES.register("seal", () -> EntityType.Builder.of(Seal::new, MobCategory.CREATURE).sized(0.95F, 0.8F).eyeHeight(0.45F).clientTrackingRange(10).build(prefix("seal")));
     public static final Supplier<EntityType<Wolfflue>> WOLFFLUE = ENTITIES.register("wolfflue", () -> EntityType.Builder.of(Wolfflue::new, MobCategory.CREATURE).sized(1.25F, 1.4F).eyeHeight(1.2F).clientTrackingRange(10).build(prefix("wolfflue")));
     public static final Supplier<EntityType<Ferret>> FERRET = ENTITIES.register("ferret", () -> EntityType.Builder.of(Ferret::new, MobCategory.CREATURE).sized(1.0F, 0.4F).eyeHeight(0.3F).clientTrackingRange(10).build(prefix("ferret")));
+    public static final Supplier<EntityType<SilkMoonWorm>> SILK_MOON_WORM = ENTITIES.register("silk_moon_worm", () -> EntityType.Builder.of(SilkMoonWorm::new, MobCategory.CREATURE).sized(0.4F, 0.3F).eyeHeight(0.25F).clientTrackingRange(10).build(prefix("silk_moon_worm")));
+    public static final Supplier<EntityType<SilkMoon>> SILK_MOON = ENTITIES.register("silk_moon", () -> EntityType.Builder.of(SilkMoon::new, MobCategory.CREATURE).sized(0.6F, 0.5F).eyeHeight(0.35F).clientTrackingRange(10).build(prefix("silk_moon")));
 
     public static final Supplier<EntityType<Yeti>> YETI = ENTITIES.register("yeti", () -> EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).eyeHeight(1.75F).build(prefix("yeti")));
     public static final Supplier<EntityType<FrostWraith>> FROST_WRAITH = ENTITIES.register("frost_wraith", () -> EntityType.Builder.of(FrostWraith::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(0.6F, 2.1F).build(prefix("frost_wraith")));
@@ -67,6 +70,9 @@ public class FrostEntities {
         event.put(SEAL.get(), Seal.createAttributes().build());
         event.put(WOLFFLUE.get(), Wolfflue.createAttributes().build());
         event.put(FERRET.get(), Ferret.createAttributes().build());
+        event.put(SILK_MOON_WORM.get(), SilkMoonWorm.createAttributes().build());
+        event.put(SILK_MOON.get(), SilkMoon.createAttributes().build());
+
         event.put(YETI.get(), Yeti.createAttributeMap().build());
         event.put(FROST_WRAITH.get(), FrostWraith.createAttributes().build());
         event.put(SEEKER.get(), Seeker.createAttributes().build());
@@ -89,6 +95,8 @@ public class FrostEntities {
         event.register(SEAL.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seal::checkSealSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(WOLFFLUE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Wolfflue::checkWolfSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(FERRET.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Ferret::checkWolfSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(SILK_MOON_WORM.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(SILK_MOON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
 
         event.register(YETI.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
 

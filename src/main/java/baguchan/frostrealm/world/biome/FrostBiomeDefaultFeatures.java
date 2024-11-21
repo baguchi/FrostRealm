@@ -52,6 +52,7 @@ public class FrostBiomeDefaultFeatures {
 
 	public static void frostBiteCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
 		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.CRYSTAL_FOX.get(), 10, 2, 4));
+		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SILK_MOON.get(), 6, 2, 3));
 	}
 
 	public static void mountainCreatureSpawns(MobSpawnSettings.Builder p_126813_) {

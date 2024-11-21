@@ -164,6 +164,8 @@ public class FrostBlocks {
 	public static final DeferredBlock<Block> RYE_BLOCK = register("rye_block", (properties) -> new HayBlock(properties.sound(SoundType.GRASS)));
 	//EGG
 	public static final DeferredBlock<Block> SNOWPILE_QUAIL_EGG = register("snowpile_quail_egg", (properties) -> new SnowPileQuailEggBlock(properties.noOcclusion().strength(0.2F, 0.25F).sound(SoundType.METAL)));
+	public static final DeferredBlock<Block> SILK_MOON_EGG = register("silk_moon_egg", (properties) -> new SilkMoonEggBlock(properties.noOcclusion().strength(0.2F, 0.25F).sound(SoundType.METAL)));
+	public static final DeferredBlock<Block> SILK_MOON_COCOON = register("silk_moon_cocoon", (properties) -> new SilkMoonCocoonBlock(properties.noOcclusion().strength(0.75F).sound(SoundType.WOOL)));
 
 	//ORE
 	public static final DeferredBlock<Block> FROST_CRYSTAL_ORE = register("frost_crystal_ore", (properties) -> new DropExperienceBlock(UniformInt.of(1, 2), properties.strength(3.0F, 3.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK)));

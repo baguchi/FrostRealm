@@ -73,7 +73,7 @@ public class SnowPileQuailEggBlock extends Block {
 	}
 
 	private void decreaseEggs(Level p_57792_, BlockPos p_57793_, BlockState p_57794_) {
-		p_57792_.playSound(null, p_57793_, SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + p_57792_.random.nextFloat() * 0.2F);
+		p_57792_.playSound(null, p_57793_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + p_57792_.random.nextFloat() * 0.2F);
 		int i = p_57794_.getValue(EGGS);
 		if (i <= 1) {
 			p_57792_.destroyBlock(p_57793_, false);
@@ -99,14 +99,14 @@ public class SnowPileQuailEggBlock extends Block {
 
 	private void hatchEgg(BlockState p_221194_, ServerLevel p_221182_, BlockPos p_221183_, RandomSource p_221184_) {
 		this.destroyBlock(p_221182_, p_221183_);
-		p_221182_.playSound((Player) null, p_221183_, SoundEvents.FROGSPAWN_HATCH, SoundSource.BLOCKS, 1.0F, 1.0F);
+		p_221182_.playSound((Player) null, p_221183_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
 		if (this.shouldUpdateHatchLevel(p_221182_, p_221183_)) {
 			int i = p_221194_.getValue(HATCH);
 			if (i < 2) {
-				p_221182_.playSound(null, p_221183_, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + p_221184_.nextFloat() * 0.2F);
+				p_221182_.playSound(null, p_221183_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + p_221184_.nextFloat() * 0.2F);
 				p_221182_.setBlock(p_221183_, p_221194_.setValue(HATCH, Integer.valueOf(i + 1)), 2);
 			} else {
-				p_221182_.playSound(null, p_221183_, SoundEvents.TURTLE_EGG_HATCH, SoundSource.BLOCKS, 0.7F, 0.9F + p_221184_.nextFloat() * 0.2F);
+				p_221182_.playSound(null, p_221183_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + p_221184_.nextFloat() * 0.2F);
 				p_221182_.removeBlock(p_221183_, false);
 
 				for (int j = 0; j < p_221194_.getValue(EGGS); ++j) {

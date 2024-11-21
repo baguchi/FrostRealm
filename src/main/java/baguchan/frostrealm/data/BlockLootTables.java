@@ -177,6 +177,8 @@ public class BlockLootTables extends BlockLootSubProvider {
 		});
         this.dropSelf(FrostBlocks.AURORA_INFUSER.get());
 		this.dropSelf(FrostBlocks.SNOWPILE_QUAIL_EGG.get());
+		this.dropSelf(FrostBlocks.SILK_MOON_EGG.get());
+		this.dropSelf(FrostBlocks.SILK_MOON_COCOON.get());
 	}
 
 	protected LootTable.Builder createFrostGrassDrops(Block p_252139_) {

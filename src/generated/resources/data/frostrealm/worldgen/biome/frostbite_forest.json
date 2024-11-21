@@ -64,6 +64,12 @@
         "maxCount": 4,
         "minCount": 2,
         "weight": 10
+      },
+      {
+        "type": "frostrealm:silk_moon",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 6
       }
     ],
     "frostrealm:frostrealm_weather_monster": [

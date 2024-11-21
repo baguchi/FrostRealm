@@ -122,6 +122,7 @@ public class BlockstateGenerator extends BlockStateProvider {
 		this.translucentBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
 		this.translucentBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
 
+		this.simpleBlock(FrostBlocks.SILK_MOON_COCOON.get());
 	}
 
 	private ResourceLocation suffix(ResourceLocation rl, String suffix) {
