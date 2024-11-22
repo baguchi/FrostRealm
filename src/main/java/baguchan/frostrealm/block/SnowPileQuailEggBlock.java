@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -99,8 +98,7 @@ public class SnowPileQuailEggBlock extends Block {
 
 	private void hatchEgg(BlockState p_221194_, ServerLevel p_221182_, BlockPos p_221183_, RandomSource p_221184_) {
 		//p_221182_.playSound((Player) null, p_221183_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
-		if (this.shouldUpdateHatchLevel(p_221182_, p_221183_)) {
-			int i = p_221194_.getValue(HATCH);
+		int i = p_221194_.getValue(HATCH);
 			if (i < 2) {
 				p_221182_.playSound(null, p_221183_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + p_221184_.nextFloat() * 0.2F);
 				p_221182_.setBlock(p_221183_, p_221194_.setValue(HATCH, Integer.valueOf(i + 1)), 2);
@@ -117,20 +115,10 @@ public class SnowPileQuailEggBlock extends Block {
 					p_221182_.addFreshEntity(snowpileEgg);
 				}
 			}
-		} else {
-			p_221182_.setBlock(p_221183_, p_221194_, 2);
-
-		}
 	}
 
 	private void destroyBlock(Level p_221191_, BlockPos p_221192_) {
 		p_221191_.destroyBlock(p_221192_, false);
-	}
-
-
-	private boolean shouldUpdateHatchLevel(Level p_57766_, BlockPos p_57816_) {
-		float f = p_57766_.getTimeOfDay(1.0F);
-		return p_57766_.getBrightness(LightLayer.SKY, p_57816_) > 8 || p_57766_.random.nextInt(5) == 0;
 	}
 
 	public void playerDestroy(Level p_57771_, Player p_57772_, BlockPos p_57773_, BlockState p_57774_, @Nullable BlockEntity p_57775_, ItemStack p_57776_) {

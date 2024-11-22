@@ -94,8 +94,7 @@ public class SilkMoonEggBlock extends Block {
 
     private void hatchEgg(BlockState p_221194_, ServerLevel p_221182_, BlockPos p_221183_, RandomSource p_221184_) {
         //p_221182_.playSound((Player) null, p_221183_, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 1.0F, 1.0F);
-        if (this.shouldUpdateHatchLevel(p_221182_, p_221183_)) {
-            int i = p_221194_.getValue(HATCH);
+        int i = p_221194_.getValue(HATCH);
             if (i < 2) {
                 p_221182_.playSound(null, p_221183_, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.7F, 0.9F + p_221184_.nextFloat() * 0.2F);
                 p_221182_.setBlock(p_221183_, p_221194_.setValue(HATCH, Integer.valueOf(i + 1)), 2);
@@ -110,19 +109,6 @@ public class SilkMoonEggBlock extends Block {
                     p_221182_.addFreshEntity(silkMoonWorm);
                 }
             }
-        } else {
-            p_221182_.setBlock(p_221183_, p_221194_, 2);
-        }
-    }
-
-    private void destroyBlock(Level p_221191_, BlockPos p_221192_) {
-        p_221191_.destroyBlock(p_221192_, false);
-    }
-
-
-    private boolean shouldUpdateHatchLevel(Level p_57766_, BlockPos p_57816_) {
-        float f = p_57766_.getTimeOfDay(1.0F);
-        return p_57766_.getRawBrightness(p_57816_, 0) <= 8 || p_57766_.isNight();
     }
 
     @Override
