@@ -27,11 +27,11 @@ public class SilkMoonWormModel<T extends LivingEntityRenderState> extends Entity
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
-        PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(20, 0).addBox(-4.0F, -3.0F, -5.0F, 7.0F, 5.0F, 11.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 22.0F, 0.0F));
+        PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(23, 1).addBox(-3.0F, -4.0F, -4.0F, 5.0F, 4.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(1, 1).addBox(-2.5F, -2.0F, -3.0F, 5.0F, 4.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, 0.0F, -5.0F));
+        PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(2, 1).addBox(-1.5F, -2.0F, -3.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, -1.0F, -4.0F));
 
-        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 8).addBox(-3.0F, -2.0F, 0.0F, 5.0F, 4.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 6.0F));
+        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(2, 10).addBox(-3.0F, -1.0F, 0.0F, 5.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 6.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
@@ -39,6 +39,6 @@ public class SilkMoonWormModel<T extends LivingEntityRenderState> extends Entity
     @Override
     public void setupAnim(T entity) {
         super.setupAnim(entity);
-		this.animateWalk(SilkMoonWormAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 3.0F, 4.0F);
+        this.animateWalk(SilkMoonWormAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 5.0F, 4.0F);
     }
 }

@@ -99,6 +99,9 @@ public class YetiModel<T extends YetiRenderState> extends EntityModel<T> impleme
 				this.leftArm.xRot -= Mth.sin((float) Math.PI * f1) * 0.5F;
 			}
 		}
+        if (entity.isPassenger) {
+            this.applyStatic(YetiAnimations.sit);
+        } else
 		if (entity.sitPoseAnimationState.isStarted() || entity.sitAnimationState.isStarted() || entity.sitUpAnimationState.isStarted()) {
 			this.animate(entity.sitAnimationState, YetiAnimations.sit_start, entity.ageInTicks);
 			this.animate(entity.sitPoseAnimationState, YetiAnimations.sit, entity.ageInTicks);

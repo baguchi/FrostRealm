@@ -52,7 +52,7 @@ public class SilkMoonModel<T extends LivingEntityRenderState> extends EntityMode
 
         PartDefinition right_ear = head.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(3, 2).addBox(-0.5F, -2.0F, 0.0F, 1.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-0.75F, -0.75F, -1.0F, -0.4363F, 0.0F, -0.1309F));
 
-        PartDefinition left_ear = head.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(3, 2).addBox(-0.5F, -2.0F, 0.0F, 1.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.5F, -0.75F, -1.0F, -0.4363F, 0.0F, 0.1309F));
+        PartDefinition left_ear = head.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(3, 2).addBox(-0.5F, -2.0F, 0.0F, 1.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.75F, -0.75F, -1.0F, -0.4363F, 0.0F, 0.1309F));
 
         PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -1.5F, 0.0F, 4.0F, 3.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, -0.5F, 0.0F));
 
@@ -68,9 +68,9 @@ public class SilkMoonModel<T extends LivingEntityRenderState> extends EntityMode
 
         PartDefinition left_leg_back = body.addOrReplaceChild("left_leg_back", CubeListBuilder.create().texOffs(0, 2).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 2.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(1.0F, 1.5F, -1.0F));
 
-        PartDefinition right_wing = body.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(-10, 13).addBox(-7.0F, 0.0F, -2.0F, 7.0F, 0.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.0F, -2.25F, -4.0F));
+        PartDefinition right_wing = body.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(19, 10).addBox(-7.0F, 0.0F, -5.0F, 8.0F, 0.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.0F, -2.0F, -4.0F));
 
-        PartDefinition left_wing = body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(4, 13).addBox(0.0F, 0.0F, -2.0F, 7.0F, 0.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, -2.25F, -4.0F));
+        PartDefinition left_wing = body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(1, 10).addBox(-1.0F, 0.0F, -4.0F, 8.0F, 0.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, -2.0F, -5.0F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }

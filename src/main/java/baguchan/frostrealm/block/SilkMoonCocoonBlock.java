@@ -38,7 +38,7 @@ public class SilkMoonCocoonBlock extends Block {
 
     @Override
     public void onPlace(BlockState p_221227_, Level p_221228_, BlockPos p_221229_, BlockState p_221230_, boolean p_221231_) {
-        p_221228_.scheduleTick(p_221229_, this, 1200);
+        p_221228_.scheduleTick(p_221229_, this, 1600);
     }
 
     @Override
@@ -57,12 +57,8 @@ public class SilkMoonCocoonBlock extends Block {
     }
 
     private void decreaseEggs(Level p_57792_, BlockPos p_57793_, BlockState p_57794_) {
-        p_57792_.playSound(null, p_57793_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + p_57792_.random.nextFloat() * 0.2F);
+        p_57792_.playSound(null, p_57793_, SoundEvents.SLIME_BLOCK_BREAK, SoundSource.BLOCKS, 0.7F, 0.5F + p_57792_.random.nextFloat() * 0.2F);
         p_57792_.destroyBlock(p_57793_, false);
-        ItemStack itemstack = new ItemStack(Items.STRING);
-        ItemEntity itementity = new ItemEntity(p_57792_, (double) p_57793_.getX(), (double) p_57793_.getY(), (double) p_57793_.getZ(), itemstack);
-        itementity.setDefaultPickUpDelay();
-        p_57792_.addFreshEntity(itementity);
     }
 
     @Override
@@ -77,12 +73,12 @@ public class SilkMoonCocoonBlock extends Block {
     }
 
     private void hatchEgg(BlockState p_221194_, ServerLevel p_221182_, BlockPos p_221183_, RandomSource p_221184_) {
-		p_221182_.playSound((Player) null, p_221183_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+        //p_221182_.playSound((Player) null, p_221183_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
         if (this.shouldUpdateHatchLevel(p_221182_, p_221183_)) {
             int i = p_221194_.getValue(HATCH);
             if (i < 2) {
                 p_221182_.playSound(null, p_221183_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + p_221184_.nextFloat() * 0.2F);
-                p_221182_.setBlock(p_221183_, p_221194_.setValue(HATCH, Integer.valueOf(i + 1)), 2);
+                p_221182_.setBlock(p_221183_, p_221194_.setValue(HATCH, i + 1), 2);
             } else {
                 p_221182_.playSound(null, p_221183_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + p_221184_.nextFloat() * 0.2F);
                 p_221182_.removeBlock(p_221183_, false);
@@ -91,8 +87,16 @@ public class SilkMoonCocoonBlock extends Block {
                 SilkMoon silkMoonWorm = FrostEntities.SILK_MOON.get().create(p_221182_, EntitySpawnReason.BREEDING);
                 silkMoonWorm.moveTo((double) p_221183_.getX() + 0.5, p_221183_.getY(), (double) p_221183_.getZ() + 0.5D, 0.0F, 0.0F);
                 p_221182_.addFreshEntity(silkMoonWorm);
-
+                if (!p_221182_.isClientSide) {
+                    ItemStack itemstack = new ItemStack(Items.STRING, 6);
+                    ItemEntity itementity = new ItemEntity(p_221182_, (double) p_221183_.getX(), (double) p_221183_.getY(), (double) p_221183_.getZ(), itemstack);
+                    itementity.setDefaultPickUpDelay();
+                    p_221182_.addFreshEntity(itementity);
+                }
             }
+        } else {
+            p_221182_.setBlock(p_221183_, p_221194_, 2);
+
         }
     }
 

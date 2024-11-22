@@ -22,7 +22,7 @@ public class FoxSleepGoal extends Goal {
         if (this.mob.hasControllingPassenger()) {
             return false;
         } else {
-            if (Objects.equals(this.mob.getState(), CrystalFox.State.SLEEPING.name())) {
+            if (Objects.equals(this.mob.getState(), CrystalFox.State.SLEEPING.name()) && this.mob.level().isNight()) {
                 return true;
             }
             if (!Objects.equals(this.mob.getState(), CrystalFox.State.IDLING.name())) {
@@ -41,7 +41,7 @@ public class FoxSleepGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return !this.mob.onGround() || FrostWeatherSavedData.get(this.mob.level()) != null && !FrostWeatherSavedData.get(this.mob.level()).isWeatherActive();
+        return !this.mob.onGround() || FrostWeatherSavedData.get(this.mob.level()) != null && FrostWeatherSavedData.get(this.mob.level()).isWeatherActive() || this.mob.level().isNight();
     }
 
     @Override

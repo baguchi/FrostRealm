@@ -59,7 +59,7 @@ public class SnowPileQuailEggBlock extends Block {
 
 	@Override
 	public void fallOn(Level p_154845_, BlockState p_154846_, BlockPos p_154847_, Entity p_154848_, float p_154849_) {
-		if (!(p_154848_ instanceof Zombie)) {
+		if (!(p_154848_ instanceof Zombie) && !(p_154848_ instanceof SnowPileQuail)) {
 			this.destroyEgg(p_154845_, p_154846_, p_154847_, p_154848_, 5);
 		}
 
@@ -98,7 +98,7 @@ public class SnowPileQuailEggBlock extends Block {
 	}
 
 	private void hatchEgg(BlockState p_221194_, ServerLevel p_221182_, BlockPos p_221183_, RandomSource p_221184_) {
-		p_221182_.playSound((Player) null, p_221183_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+		//p_221182_.playSound((Player) null, p_221183_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
 		if (this.shouldUpdateHatchLevel(p_221182_, p_221183_)) {
 			int i = p_221194_.getValue(HATCH);
 			if (i < 2) {
@@ -117,6 +117,9 @@ public class SnowPileQuailEggBlock extends Block {
 					p_221182_.addFreshEntity(snowpileEgg);
 				}
 			}
+		} else {
+			p_221182_.setBlock(p_221183_, p_221194_, 2);
+
 		}
 	}
 

@@ -93,7 +93,7 @@ public class SilkMoonEggBlock extends Block {
     }
 
     private void hatchEgg(BlockState p_221194_, ServerLevel p_221182_, BlockPos p_221183_, RandomSource p_221184_) {
-        p_221182_.playSound((Player) null, p_221183_, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 1.0F, 1.0F);
+        //p_221182_.playSound((Player) null, p_221183_, SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 1.0F, 1.0F);
         if (this.shouldUpdateHatchLevel(p_221182_, p_221183_)) {
             int i = p_221194_.getValue(HATCH);
             if (i < 2) {
@@ -110,6 +110,8 @@ public class SilkMoonEggBlock extends Block {
                     p_221182_.addFreshEntity(silkMoonWorm);
                 }
             }
+        } else {
+            p_221182_.setBlock(p_221183_, p_221194_, 2);
         }
     }
 

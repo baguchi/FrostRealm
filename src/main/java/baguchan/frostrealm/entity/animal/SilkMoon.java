@@ -4,7 +4,9 @@ import baguchan.frostrealm.block.SilkMoonEggBlock;
 import baguchan.frostrealm.entity.IHasEgg;
 import baguchan.frostrealm.entity.goal.BreedAndEggGoal;
 import baguchan.frostrealm.entity.goal.FindAndPlaceEggGoal;
+import baguchan.frostrealm.entity.goal.RestrictFlyingSunGoal;
 import baguchan.frostrealm.entity.goal.SeekShelterEvenBlizzardGoal;
+import baguchan.frostrealm.entity.path.SunAvoidFlyingPathNavigation;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostTags;
@@ -25,8 +27,10 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -47,12 +51,12 @@ public class SilkMoon extends FrostAnimal implements IHasEgg {
     }
 
     public static boolean checkSilkSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, EntitySpawnReason p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
-        return (p_27579_.getBlockState(p_27581_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE)) && p_27579_.getRawBrightness(p_27581_, 0) <= 10;
+        return (p_27579_.getBlockState(p_27581_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE)) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
     }
 
     @Override
     public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
-        return 0.5F - p_27574_.getPathfindingCostFromLightLevels(p_27573_);
+        return p_27574_.getPathfindingCostFromLightLevels(p_27573_) * 3F;
     }
 
     @Override
@@ -68,8 +72,7 @@ public class SilkMoon extends FrostAnimal implements IHasEgg {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new FindAndPlaceEggGoal<>(this, 0.85D) {
+        this.goalSelector.addGoal(0, new FindAndPlaceEggGoal<>(this, 0.85D) {
             @Override
             public void afterPlaceEgg() {
                 level().playSound(null, blockPos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level().random.nextFloat() * 0.2F);
@@ -81,9 +84,25 @@ public class SilkMoon extends FrostAnimal implements IHasEgg {
                 return SilkMoonEggBlock.onDirt(p_25619_, p_25620_) && p_25619_.getBlockState(p_25620_).isAir();
             }
         });
-        this.goalSelector.addGoal(2, new BreedAndEggGoal<>(this, 1.0D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.1D, item -> item.is(ItemTags.LEAVES), false));
-        this.goalSelector.addGoal(4, new SeekShelterEvenBlizzardGoal(this, 1.1D, true));
+        this.goalSelector.addGoal(1, new BreedAndEggGoal<>(this, 1.0D));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 1.1D, item -> item.is(ItemTags.LEAVES), false));
+        this.goalSelector.addGoal(3, new RestrictFlyingSunGoal(this));
+        this.goalSelector.addGoal(4, new SeekShelterEvenBlizzardGoal(this, 1.1D, true) {
+            @Override
+            protected Vec3 getHidePos() {
+                RandomSource randomsource = this.mob.getRandom();
+                BlockPos blockpos = this.mob.blockPosition();
+
+                for (int i = 0; i < 10; i++) {
+                    BlockPos blockpos1 = blockpos.offset(randomsource.nextInt(20) - 10, randomsource.nextInt(6) - 3, randomsource.nextInt(20) - 10);
+                    if (!level().canSeeSky(blockpos1)) {
+                        return Vec3.atBottomCenterOf(blockpos1);
+                    }
+                }
+
+                return null;
+            }
+        });
 
         this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 0.95D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -92,7 +111,7 @@ public class SilkMoon extends FrostAnimal implements IHasEgg {
 
     @Override
     protected PathNavigation createNavigation(Level p_29417_) {
-        FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, p_29417_);
+        SunAvoidFlyingPathNavigation flyingpathnavigation = new SunAvoidFlyingPathNavigation(this, p_29417_);
         flyingpathnavigation.setCanOpenDoors(false);
         flyingpathnavigation.setCanFloat(true);
         flyingpathnavigation.setCanPassDoors(true);
