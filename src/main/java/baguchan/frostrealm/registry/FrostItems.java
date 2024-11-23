@@ -3,6 +3,7 @@ package baguchan.frostrealm.registry;
 import baguchan.frostrealm.item.*;
 import baguchan.frostrealm.item.block.DeferredBlockItem;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -43,6 +44,9 @@ public class FrostItems {
     public static final DeferredItem<Item> COOKED_SNOWPILE_QUAIL_MEAT = ITEMS.registerItem("cooked_snowpile_quail_meat", (properties) -> new Item(properties.food(FrostFoods.COOKED_SNOWPILE_QUAIL_MEAT)));
     public static final DeferredItem<Item> FROST_BOAR_MEAT = ITEMS.registerItem("frost_boar_meat", (properties) -> new Item(properties.food(FrostFoods.FROST_BOAR_MEAT)));
     public static final DeferredItem<Item> COOKED_FROST_BOAR_MEAT = ITEMS.registerItem("cooked_frost_boar_meat", (properties) -> new Item(properties.food(FrostFoods.COOKED_FROST_BOAR_MEAT)));
+    public static final DeferredItem<Item> SILK_MOON_MEAT = ITEMS.registerItem("silk_moon_meat", (properties) -> new Item(properties.food(FrostFoods.SILK_MOON_MEAT, Consumable.builder().consumeSeconds(0.6F).build())));
+    public static final DeferredItem<Item> COOKED_SILK_MOON_MEAT = ITEMS.registerItem("cooked_silk_moon_meat", (properties) -> new Item(properties.food(FrostFoods.COOKED_SILK_MOON_MEAT, Consumable.builder().consumeSeconds(0.6F).build())));
+
 
     public static final DeferredItem<Item> FROST_CATALYST = ITEMS.registerItem("frost_catalyst", (properties) -> new FrostCatalystItem(properties.stacksTo(1).durability(64)));
     public static final DeferredItem<Item> STRAY_NECKLACE_PART = ITEMS.registerItem("stray_necklace_part", (properties) -> new Item(properties));

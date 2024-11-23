@@ -57,6 +57,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         this.singleTex(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT);
         this.singleTex(FrostItems.FROST_BOAR_MEAT);
         this.singleTex(FrostItems.COOKED_FROST_BOAR_MEAT);
+		this.singleTex(FrostItems.SILK_MOON_MEAT);
+		this.singleTex(FrostItems.COOKED_SILK_MOON_MEAT);
 
         this.singleTex(FrostItems.FROST_CATALYST);
         this.singleTex(FrostItems.STRAY_NECKLACE_PART);

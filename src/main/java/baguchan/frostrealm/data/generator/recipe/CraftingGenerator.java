@@ -118,6 +118,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 		foodCooking(FrostBlocks.SNOWPILE_QUAIL_EGG.get().asItem(), FrostItems.COOKED_SNOWPILE_QUAIL_EGG.get(), 0.2F, this.output);
 		foodCooking(FrostItems.SNOWPILE_QUAIL_MEAT.get(), FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get(), 0.15F, this.output);
 		foodCooking(FrostItems.FROST_BOAR_MEAT.get(), FrostItems.COOKED_FROST_BOAR_MEAT.get(), 0.15F, this.output);
+		foodCooking(FrostItems.SILK_MOON_MEAT.get(), FrostItems.COOKED_SILK_MOON_MEAT.get(), 0.05F, this.output);
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(FrostItems.CRYONITE.get()), RecipeCategory.MISC, FrostItems.CRYONITE_CREAM.get(), 0.1F, 200).unlockedBy("has_item", has(FrostItems.CRYONITE.get())).save(this.output, prefix("smelting_" + BuiltInRegistries.ITEM.getKey(FrostItems.CRYONITE.get()).getPath()));
 

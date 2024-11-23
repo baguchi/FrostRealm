@@ -82,6 +82,7 @@ public class ItemTagGenerator extends ItemTagsProvider {
         this.tag(ItemTags.LEAVES).add(FrostBlocks.FROSTBITE_LEAVES.asItem()).add(FrostBlocks.FROSTROOT_LEAVES.asItem());
         this.tag(Tags.Items.LEATHERS).add(FrostItems.FROST_BOAR_FUR.get());
         this.tag(ItemTags.MEAT).add(FrostItems.COOKED_FROST_BOAR_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get())
+                .add(FrostItems.SILK_MOON_MEAT.get()).add(FrostItems.COOKED_SILK_MOON_MEAT.get())
                 .add(FrostItems.FROST_BOAR_MEAT.get()).add(FrostItems.SNOWPILE_QUAIL_MEAT.get());
     }
 }

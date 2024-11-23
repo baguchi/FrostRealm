@@ -16,6 +16,9 @@ public class FrostFoods {
     public static final FoodProperties FROST_BOAR_MEAT = (new FoodProperties.Builder()).nutrition(4).saturationModifier(0.3F).build();
     public static final FoodProperties COOKED_FROST_BOAR_MEAT = (new FoodProperties.Builder()).nutrition(9).saturationModifier(0.8F).build();
 
+    public static final FoodProperties SILK_MOON_MEAT = (new FoodProperties.Builder()).nutrition(1).saturationModifier(0.3F).build();
+    public static final FoodProperties COOKED_SILK_MOON_MEAT = (new FoodProperties.Builder()).nutrition(3).saturationModifier(0.8F).build();
+
     public static final FoodProperties SNOWPILE_QUAIL_MEAT = (new FoodProperties.Builder()).nutrition(3).saturationModifier(0.3F).build();
     public static final FoodProperties COOKED_SNOWPILE_QUAIL_MEAT = (new FoodProperties.Builder()).nutrition(6).saturationModifier(0.6F).build();
 }
