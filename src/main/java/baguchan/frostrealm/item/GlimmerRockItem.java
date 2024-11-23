@@ -7,6 +7,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
@@ -15,13 +17,12 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUseAnimation;
-import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class GlimmerRockItem extends Item {
 
@@ -61,6 +62,13 @@ public class GlimmerRockItem extends Item {
 	@Override
 	public ItemUseAnimation getUseAnimation(ItemStack p_41452_) {
 		return ItemUseAnimation.DRINK;
+	}
+
+	@Override
+	public void appendHoverText(ItemStack p_267313_, TooltipContext p_339591_, List<Component> p_266820_, TooltipFlag p_266857_) {
+		super.appendHoverText(p_267313_, p_339591_, p_266820_, p_266857_);
+		p_266820_.add(CommonComponents.EMPTY);
+		p_266820_.add(Component.translatable("item.frostrealm.glimmerrock.tooltip"));
 	}
 
 	public static final class ItemRender implements IClientItemExtensions {
