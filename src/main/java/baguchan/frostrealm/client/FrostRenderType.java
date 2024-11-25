@@ -20,8 +20,7 @@ public class FrostRenderType extends RenderType {
             1536,
             RenderType.CompositeState.builder()
                     .setShaderState(RenderType.RENDERTYPE_GLINT_SHADER)
-                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/misc/aurora_glint.png"), TriState.TRUE, false))
-                    .setWriteMaskState(RenderType.COLOR_WRITE)
+                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), TriState.DEFAULT, false))
                     .setCullState(RenderType.NO_CULL)
                     .setDepthTestState(RenderType.EQUAL_DEPTH_TEST)
                     .setTransparencyState(RenderType.GLINT_TRANSPARENCY)
