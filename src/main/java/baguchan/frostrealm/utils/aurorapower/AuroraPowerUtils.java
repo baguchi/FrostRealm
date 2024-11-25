@@ -5,14 +5,10 @@ import baguchan.frostrealm.item.component.ItemAuroraPower;
 import baguchan.frostrealm.registry.AuroraPowers;
 import baguchan.frostrealm.registry.FrostDataCompnents;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -22,7 +18,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
@@ -130,6 +125,22 @@ public class AuroraPowerUtils {
             return true;
         });
     }
+
+    public static int getAuroraCost(RandomSource p_220288_, int p_220289_, int p_220290_) {
+
+        if (p_220290_ > 15) {
+            p_220290_ = 15;
+        }
+
+        int i = p_220288_.nextInt(8) + 1 + (p_220290_ >> 1) + p_220288_.nextInt(p_220290_ + 1);
+        if (p_220289_ == 0) {
+            return Math.max(i / 3, 1);
+        } else {
+            return p_220289_ == 1 ? i * 2 / 3 + 1 : Math.max(i, p_220290_ * 2);
+        }
+
+    }
+
 
     @Nullable
     public static Map.Entry<EquipmentSlot, ItemStack> getRandomItemWith(AuroraPower p_44840_, LivingEntity p_44841_, Predicate<ItemStack> p_44842_) {

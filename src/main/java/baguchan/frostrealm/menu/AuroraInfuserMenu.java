@@ -1,6 +1,5 @@
 package baguchan.frostrealm.menu;
 
-import baguchan.frostrealm.block.AuroraInfuserBlock;
 import baguchan.frostrealm.capability.FrostWeatherManager;
 import baguchan.frostrealm.capability.FrostWeatherSavedData;
 import baguchan.frostrealm.data.resource.FrostDimensions;
@@ -16,7 +15,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -38,6 +36,13 @@ public class AuroraInfuserMenu extends AbstractContainerMenu {
             AuroraInfuserMenu.this.slotsChanged(this);
         }
     };
+
+    public static final List<BlockPos> OFFSETS = BlockPos.betweenClosedStream(-2, 0, -2, 2, 2, 2)
+            .filter(p_341357_ -> Math.abs(p_341357_.getX()) == 0 && Math.abs(p_341357_.getZ()) == 2 || Math.abs(p_341357_.getZ()) == 0 && Math.abs(p_341357_.getX()) == 2)
+            .map(BlockPos::immutable)
+            .toList();
+
+
     private final ContainerLevelAccess access;
     private final RandomSource random = RandomSource.create();
     private final DataSlot enchantmentSeed = DataSlot.standalone();
@@ -67,7 +72,7 @@ public class AuroraInfuserMenu extends AbstractContainerMenu {
             }
 
             public int getMaxStackSize() {
-                return 10;
+                return 64;
             }
         });
 
@@ -100,11 +105,16 @@ public class AuroraInfuserMenu extends AbstractContainerMenu {
             if (!itemstack.isEmpty() && AuroraPowerUtils.getAuroraPowers(itemstack).isEmpty() && !itemstack2.isEmpty()) {
                 this.access.execute((p_39485_, p_39486_) -> {
                     int j = 0;
+                    for (BlockPos blockpos : OFFSETS) {
+                        if (p_39485_.getBlockState(p_39486_.offset(blockpos)).is(FrostBlocks.STARDUST_CRYSTAL_CLUSTER)) {
+                            j += 2;
+                        }
+                    }
+
                     this.random.setSeed((long) this.enchantmentSeed.get());
 
-                    int counts = itemstack2.getCount() + 1;
                     for (int k = 0; k < 3; ++k) {
-                        this.costs[k] = Mth.clamp(random.nextInt(counts) + (counts / 2), 1, 30);
+                        this.costs[k] = AuroraPowerUtils.getAuroraCost(random, k, j);
                         this.auroraClue[k] = -1;
                         this.levelClue[k] = -1;
                         if (this.costs[k] < k + 1) {
@@ -121,9 +131,6 @@ public class AuroraInfuserMenu extends AbstractContainerMenu {
                                 this.levelClue[l] = enchantmentinstance.level;
                             }
                         }
-                    }
-                    for (BlockPos blockpos : AuroraInfuserBlock.OFFSETS) {
-                        p_39485_.removeBlock(blockpos, false);
                     }
                     this.broadcastChanges();
                 });
@@ -160,13 +167,16 @@ public class AuroraInfuserMenu extends AbstractContainerMenu {
                         }
 
                         if (!p_39465_.getAbilities().instabuild) {
-                            FrostWeatherSavedData.get(p_39481_).setAuroraLevel(FrostWeatherSavedData.get(p_39481_).getAuroraLevel() - this.costs[p_39466_] * 0.01F);
-                            FrostWeatherSavedData.get(p_39481_).setUnstableLevel(FrostWeatherSavedData.get(p_39481_).getUnstableLevel() + this.costs[p_39466_] * 0.01F);
+                            FrostWeatherSavedData.get(p_39481_).setAuroraLevel(FrostWeatherSavedData.get(p_39481_).getAuroraLevel() - i * 0.01F);
+                            FrostWeatherSavedData.get(p_39481_).setUnstableLevel(FrostWeatherSavedData.get(p_39481_).getUnstableLevel() + i * 0.01F);
                             ChangeAuroraMessage message2 = new ChangeAuroraMessage(FrostWeatherSavedData.get(p_39481_).getAuroraLevel());
                             if (p_39481_ instanceof ServerLevel serverLevel) {
                                 PacketDistributor.sendToPlayersInDimension(serverLevel, message2);
                             }
-                            this.enchantSlots.setItem(1, ItemStack.EMPTY);
+                            itemstack1.consume(i, p_39465_);
+                            if (itemstack1.isEmpty()) {
+                                this.enchantSlots.setItem(1, ItemStack.EMPTY);
+                            }
                         }
 
                         this.enchantSlots.setChanged();
