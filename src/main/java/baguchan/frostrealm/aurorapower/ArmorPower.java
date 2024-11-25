@@ -1,8 +1,9 @@
 package baguchan.frostrealm.aurorapower;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.Equippable;
 
 import java.util.Arrays;
 
@@ -21,8 +22,7 @@ public class ArmorPower extends AuroraPower {
 
     @Override
     public boolean canApplyItem(ItemStack stack) {
-        return stack.getItem() instanceof ArmorItem && Arrays.stream(this.getSlots()).anyMatch(slot -> {
-            return slot == ((ArmorItem) stack.getItem()).getEquipmentSlot(stack);
-        });
+        Equippable equippable = stack.get(DataComponents.EQUIPPABLE);
+        return equippable != null && Arrays.stream(getSlots()).anyMatch(equipmentSlot -> equipmentSlot == equippable.slot());
     }
 }

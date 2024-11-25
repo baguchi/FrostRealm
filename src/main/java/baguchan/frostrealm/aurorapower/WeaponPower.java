@@ -1,9 +1,8 @@
 package baguchan.frostrealm.aurorapower;
 
+import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
 
 public class WeaponPower extends AuroraPower {
     public WeaponPower(Properties properties, EquipmentSlot[] equipmentSlots) {
@@ -20,6 +19,6 @@ public class WeaponPower extends AuroraPower {
 
     @Override
     public boolean canApplyItem(ItemStack stack) {
-        return stack.getItem() instanceof SwordItem || stack.getItem() instanceof AxeItem;
+        return stack.is(FrostTags.Items.SMITHABLE_WEAPON);
     }
 }
