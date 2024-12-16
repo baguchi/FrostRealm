@@ -37,7 +37,6 @@ public class FrostWraith extends WarpedMonster {
 		FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, p_29417_);
 		flyingpathnavigation.setCanOpenDoors(false);
 		flyingpathnavigation.setCanFloat(true);
-		flyingpathnavigation.setCanPassDoors(true);
 		return flyingpathnavigation;
 	}
 

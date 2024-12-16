@@ -7,11 +7,11 @@ import baguchan.frostrealm.client.render.state.YetiRenderState;
 import baguchan.frostrealm.entity.Yeti;
 import baguchi.bagus_lib.client.layer.CustomArmorLayer;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
+import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +19,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -29,7 +30,7 @@ public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiRenderState
 
 	public YetiRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new YetiModel<>(p_173952_.bakeLayer(FrostModelLayers.YETI)), 0.75F);
-        this.addLayer(new ItemInHandLayer<>(this, Minecraft.getInstance().getItemRenderer()));
+        this.addLayer(new ItemInHandLayer<>(this));
         this.addLayer(new CustomArmorLayer<>(this, p_173952_));
         this.addLayer(new EyesLayer<>(this) {
             @Override
@@ -67,9 +68,15 @@ public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiRenderState
         p_361774_.maxCrossbowChargeDuration = (float) CrossbowItem.getChargeDuration(p_365075_.getUseItem(), p_365075_);
         p_361774_.ticksUsingItem = p_365075_.getTicksUsingItem();
         p_361774_.isUsingItem = p_365075_.isUsingItem();
-        p_361774_.chestItem = p_365075_.getItemBySlot(EquipmentSlot.CHEST).copy();
-        p_361774_.legsItem = p_365075_.getItemBySlot(EquipmentSlot.LEGS).copy();
-        p_361774_.feetItem = p_365075_.getItemBySlot(EquipmentSlot.FEET).copy();
+        p_361774_.headEquipment = getEquipmentIfRenderable(p_365075_, EquipmentSlot.HEAD);
+        p_361774_.chestEquipment = getEquipmentIfRenderable(p_365075_, EquipmentSlot.CHEST);
+        p_361774_.legsEquipment = getEquipmentIfRenderable(p_365075_, EquipmentSlot.LEGS);
+        p_361774_.feetEquipment = getEquipmentIfRenderable(p_365075_, EquipmentSlot.FEET);
+    }
+
+    private static ItemStack getEquipmentIfRenderable(LivingEntity p_386637_, EquipmentSlot p_386956_) {
+        ItemStack itemstack = p_386637_.getItemBySlot(p_386956_);
+        return HumanoidArmorLayer.shouldRender(itemstack, p_386956_) ? itemstack.copy() : ItemStack.EMPTY;
     }
 
     private static HumanoidArm getAttackArm(LivingEntity p_362737_) {

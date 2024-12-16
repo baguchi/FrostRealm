@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
+import net.minecraft.client.renderer.entity.state.HoldingEntityRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -54,12 +55,14 @@ public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxRender
 				return FOX_EYES_GLOW;
 			}
 		});
-		this.addLayer(new CrystalFoxHeldItemLayer(this, p_173952_.getItemRenderer()));
+		this.addLayer(new CrystalFoxHeldItemLayer(this));
 	}
 
 	@Override
 	public void extractRenderState(CrystalFox p_364137_, CrystalFoxRenderState p_365146_, float p_361192_) {
 		super.extractRenderState(p_364137_, p_365146_, p_361192_);
+		HoldingEntityRenderState.extractHoldingEntityRenderState(p_364137_, p_365146_, this.itemModelResolver);
+
 		p_365146_.eatAnimationState.copyFrom(p_364137_.eatAnimationState);
 		p_365146_.shearable = p_364137_.isShearableWithoutConditions();
 		p_365146_.state = CrystalFox.State.get(p_364137_.getState());

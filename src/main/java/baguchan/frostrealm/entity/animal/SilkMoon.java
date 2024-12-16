@@ -114,7 +114,6 @@ public class SilkMoon extends FrostAnimal implements IHasEgg {
         SunAvoidFlyingPathNavigation flyingpathnavigation = new SunAvoidFlyingPathNavigation(this, p_29417_);
         flyingpathnavigation.setCanOpenDoors(false);
         flyingpathnavigation.setCanFloat(true);
-        flyingpathnavigation.setCanPassDoors(true);
         return flyingpathnavigation;
     }
 

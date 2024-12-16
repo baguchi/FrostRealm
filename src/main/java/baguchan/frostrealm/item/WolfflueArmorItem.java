@@ -12,7 +12,7 @@ public class WolfflueArmorItem extends AnimalArmorItem {
 
     public WolfflueArmorItem(ArmorMaterial armorMaterial, Item.Properties p_316341_) {
         super(armorMaterial, AnimalArmorItem.BodyType.CANINE, p_316341_);
-        ResourceLocation resourcelocation = armorMaterial.modelId().withPath(p_323717_ -> "textures/entity/wolfflue/armor/" + p_323717_);
+        ResourceLocation resourcelocation = armorMaterial.assetId().location().withPath(p_323717_ -> "textures/entity/wolfflue/armor/" + p_323717_);
         this.textureLocation = resourcelocation.withSuffix(".png");
 
     }

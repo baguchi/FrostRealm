@@ -26,9 +26,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.GrassColor;
-import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -75,7 +73,7 @@ public class ClientRegistrar {
 
 
 			@Override
-			public void renderOverlay(Minecraft mc, PoseStack stack) {
+			public void renderOverlay(Minecraft mc, PoseStack poseStack, MultiBufferSource buffers) {
 				ResourceLocation texture = this.getRenderOverlayTexture(mc);
 				if (texture == null) return;
 				RenderSystem.setShader(CoreShaders.POSITION_TEX);
@@ -88,7 +86,7 @@ public class ClientRegistrar {
 				RenderSystem.setShaderColor(brightness, brightness, brightness, 0.65F);
 				float uOffset = -mc.player.getYRot() / 64.0F;
 				float vOffset = mc.player.getXRot() / 64.0F;
-				Matrix4f pose = stack.last().pose();
+				Matrix4f pose = poseStack.last().pose();
 				buffer.addVertex(pose, -1.0F, -1.0F, -0.5F).setUv(4.0F + uOffset, 4.0F + vOffset);
 				buffer.addVertex(pose, 1.0F, -1.0F, -0.5F).setUv(uOffset, 4.0F + vOffset);
 				buffer.addVertex(pose, 1.0F, 1.0F, -0.5F).setUv(uOffset, vOffset);
@@ -178,33 +176,21 @@ public class ClientRegistrar {
 	}
 
 	public static void renderBlockColor() {
-		Minecraft.getInstance().getBlockColors().register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
+
+	}
+
+	@SubscribeEvent
+	public static void renderItemTint(RegisterColorHandlersEvent.Block event) {
+		event.register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
 			return p_92622_ != null && p_92623_ != null ? BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : GrassColor.get(0.5D, 1.0D);
 		}, FrostBlocks.FROZEN_GRASS_BLOCK.get());
 
-		Minecraft.getInstance().getItemColors().register((p_92687_, p_92688_) -> {
-			BlockState blockstate = ((BlockItem) p_92687_.getItem()).getBlock().defaultBlockState();
-			return Minecraft.getInstance().getBlockColors().getColor(blockstate, null, null, p_92688_);
-		}, FrostBlocks.FROZEN_GRASS_BLOCK.get());
-
-
-		Minecraft.getInstance().getBlockColors().register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
+		event.register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
 			return p_92622_ != null && p_92623_ != null ? BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : GrassColor.get(0.5D, 1.0D);
 		}, FrostBlocks.COLD_GRASS.get());
-		Minecraft.getInstance().getBlockColors().register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
-            return p_92622_ != null && p_92623_ != null ? BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : GrassColor.get(0.5D, 1.0D);
+		event.register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
+			return p_92622_ != null && p_92623_ != null ? BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : GrassColor.get(0.5D, 1.0D);
 		}, FrostBlocks.COLD_TALL_GRASS.get());
-
-		Minecraft.getInstance().getItemColors().register((p_92687_, p_92688_) -> {
-			BlockState blockstate = ((BlockItem) p_92687_.getItem()).getBlock().defaultBlockState();
-			return Minecraft.getInstance().getBlockColors().getColor(blockstate, null, null, p_92688_);
-		}, FrostBlocks.COLD_GRASS.get());
-		Minecraft.getInstance().getItemColors().register((p_92687_, p_92688_) -> {
-			BlockState blockstate = ((BlockItem) p_92687_.getItem()).getBlock().defaultBlockState();
-			return Minecraft.getInstance().getBlockColors().getColor(blockstate, null, null, p_92688_);
-		}, FrostBlocks.COLD_TALL_GRASS.get());
-
-
 
 	}
 

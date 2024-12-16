@@ -1,12 +1,9 @@
 package baguchan.frostrealm.item;
 
-import baguchan.frostrealm.registry.FrostAnimations;
-import baguchi.bagus_lib.util.client.AnimationUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
@@ -46,13 +43,13 @@ public class FrostSpearItem extends Item {
 		return !p_43294_.isCreative();
 	}
 
-	@Override
+	/*@Override
 	public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
 		if (!player.level().isClientSide()) {
 			AnimationUtil.sendAnimation(player, FrostAnimations.ATTACK);
 		}
 		return super.onLeftClickEntity(stack, player, entity);
-	}
+	}*/
 
 	public boolean hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
 		if (p_43279_.isAttackable() && p_43279_.canFreeze()) {

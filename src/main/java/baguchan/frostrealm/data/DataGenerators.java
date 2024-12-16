@@ -20,30 +20,31 @@ import java.util.concurrent.CompletableFuture;
 @EventBusSubscriber(modid = FrostRealm.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
 	@SubscribeEvent
-	public static void gatherData(GatherDataEvent event) {
+	public static void gatherData(GatherDataEvent.Client event) {
 		DataGenerator generator = event.getGenerator();
 		PackOutput packOutput = generator.getPackOutput();
 		ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 		DatapackBuiltinEntriesProvider datapackProvider = new RegistryDataGenerator(packOutput, event.getLookupProvider());
 
 		CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();
-		generator.addProvider(event.includeServer(), datapackProvider);
-		event.getGenerator().addProvider(event.includeServer(), new FrostAdvancementData(packOutput, lookupProvider, event.getExistingFileHelper()));
-		event.getGenerator().addProvider(event.includeClient(), new BlockstateGenerator(packOutput, event.getExistingFileHelper()));
-		event.getGenerator().addProvider(event.includeClient(), new ItemModelGenerator(packOutput, event.getExistingFileHelper()));
-		generator.addProvider(event.includeClient(), new FrostEquipmentModelProvider(packOutput));
+		generator.addProvider(true, datapackProvider);
+		event.getGenerator().addProvider(true, new FrostAdvancementData(packOutput, lookupProvider, event.getExistingFileHelper()));
+		event.getGenerator().addProvider(true, new FrBlockstateGenerator(packOutput, event.getExistingFileHelper()));
+		event.getGenerator().addProvider(true, new FrItemModelGenerator(packOutput, event.getExistingFileHelper()));
+		generator.addProvider(true, new FrostEquipmentAssetProvider(packOutput));
+		generator.addProvider(true, new FrostClientItemsProvider(packOutput));
 
-		event.getGenerator().addProvider(event.includeServer(), LootGenerator.create(packOutput, lookupProvider));
+		event.getGenerator().addProvider(true, LootGenerator.create(packOutput, lookupProvider));
 
-		event.getGenerator().addProvider(event.includeServer(), new Runner(packOutput, lookupProvider));
-		generator.addProvider(event.includeServer(), new FrostDataMaps(packOutput, lookupProvider));
-		BlockTagsProvider blocktags = new BlockTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper());
-		event.getGenerator().addProvider(event.includeServer(), blocktags);
-		event.getGenerator().addProvider(event.includeServer(), new ItemTagGenerator(packOutput, lookupProvider, blocktags.contentsGetter(), event.getExistingFileHelper()));
-		event.getGenerator().addProvider(event.includeServer(), new EntityTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
-		event.getGenerator().addProvider(event.includeServer(), new FluidTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
-		event.getGenerator().addProvider(event.includeServer(), new BiomeTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
-		event.getGenerator().addProvider(event.includeServer(), new DamageTypeTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
+		event.getGenerator().addProvider(true, new Runner(packOutput, lookupProvider));
+		generator.addProvider(true, new FrostDataMaps(packOutput, lookupProvider));
+		BlockTagsProvider blocktags = new FrBlockTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper());
+		event.getGenerator().addProvider(true, blocktags);
+		event.getGenerator().addProvider(true, new FrItemTagGenerator(packOutput, lookupProvider, blocktags.contentsGetter(), event.getExistingFileHelper()));
+		event.getGenerator().addProvider(true, new FrEntityTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
+		event.getGenerator().addProvider(true, new FrFluidTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
+		event.getGenerator().addProvider(true, new BiomeTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
+		event.getGenerator().addProvider(true, new FrDamageTypeTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
 	}
 
 	public static final class Runner extends RecipeProvider.Runner {

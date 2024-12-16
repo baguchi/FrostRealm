@@ -20,7 +20,7 @@ public class GokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurRende
 
     public GokkurRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(FrostModelLayers.GOKKUR)), 0.5F);
-        this.addLayer(new SnowGokkurLayer<>(this, p_173952_.getItemRenderer()));
+        this.addLayer(new SnowGokkurLayer<>(this, p_173952_.getBlockRenderDispatcher()));
         this.addLayer(new CrackingGokkurLayer<>(this));
         this.addLayer(new EyesLayer<>(this) {
             @Override

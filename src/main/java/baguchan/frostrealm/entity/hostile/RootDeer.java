@@ -256,7 +256,7 @@ public class RootDeer extends Monster {
 
 
     @Override
-    protected AABB makeBoundingBox() {
+    protected AABB makeBoundingBox(Vec3 p_388602_) {
         Direction direction = this.getAttachFace().getOpposite();
         double d0 = (double) this.getX();
         double d1 = (double) this.getY();

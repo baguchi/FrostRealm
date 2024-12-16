@@ -15,6 +15,7 @@ import baguchan.frostrealm.utils.aurorapower.AuroraCombatRules;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import baguchan.frostrealm.world.FrostLevelData;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.sounds.MusicInfo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -23,7 +24,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.*;
-import net.minecraft.sounds.Musics;
+import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -169,7 +170,10 @@ public class CommonEvents {
         if (Minecraft.getInstance().level != null && Minecraft.getInstance().player != null) {
             Holder<Biome> biome = Minecraft.getInstance().player.level().getBiome(Minecraft.getInstance().player.blockPosition());
             if (Minecraft.getInstance().level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-                event.setMusic(biome.value().getBackgroundMusic().orElse(Musics.GAME));
+                Optional<Music> musicInfo = biome.value().getBackgroundMusic().get().getRandomValue(Minecraft.getInstance().level.random);
+                if (!musicInfo.isEmpty()) {
+                    event.setMusic(new MusicInfo(musicInfo.get()));
+                }
             }
         }
     }

@@ -14,7 +14,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
@@ -75,7 +74,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
         BufferBuilder bufferbuilder = p_361695_.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
         Matrix4f matrix4f = p_361665_.last().pose();
         RenderSystem.depthMask(false);
-        RenderSystem.overlayBlendFunc();
+        //RenderSystem.overlayBlendFunc();
         RenderSystem.enableBlend();
         RenderSystem.setShader(CoreShaders.POSITION_TEX);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, p_362331_);
@@ -127,7 +126,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     public void renderEndSky(PoseStack p_361681_, float weatherLevel) {
         RenderSystem.enableBlend();
         RenderSystem.depthMask(false);
-        RenderSystem.overlayBlendFunc();
+        //RenderSystem.overlayBlendFunc();
         RenderSystem.setShader(CoreShaders.POSITION_TEX_COLOR);
         RenderSystem.setShaderTexture(0, END_SKY_LOCATION);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, weatherLevel);
@@ -176,8 +175,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     }
 
     @Override
-    public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, LightTexture lightTexture, double camX, double camY, double camZ) {
-
+    public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, double camX, double camY, double camZ) {
         return true;
     }
 

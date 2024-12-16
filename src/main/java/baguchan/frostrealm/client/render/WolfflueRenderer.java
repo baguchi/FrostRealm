@@ -10,6 +10,7 @@ import baguchan.frostrealm.entity.animal.Wolfflue;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.state.HoldingEntityRenderState;
 import net.minecraft.resources.ResourceLocation;
 
 public class WolfflueRenderer<T extends Wolfflue> extends MobRenderer<T, WolfflueRenderState, WolfflueModel<WolfflueRenderState>> {
@@ -30,6 +31,8 @@ public class WolfflueRenderer<T extends Wolfflue> extends MobRenderer<T, Wolfflu
     @Override
     public void extractRenderState(T p_363274_, WolfflueRenderState p_363549_, float p_362105_) {
         super.extractRenderState(p_363274_, p_363549_, p_362105_);
+        HoldingEntityRenderState.extractHoldingEntityRenderState(p_363274_, p_363549_, this.itemModelResolver);
+
         p_363549_.isAngry = p_363274_.isAngry();
         p_363549_.isSitting = p_363274_.isInSittingPose();
         p_363549_.tailAngle = p_363274_.getTailAngle();
