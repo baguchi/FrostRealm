@@ -1,5 +1,6 @@
 package baguchan.frostrealm.data.generator;
 
+import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
@@ -10,6 +11,7 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
 
 import java.util.HashMap;
@@ -27,9 +29,12 @@ public class FrostClientItemsProvider implements DataProvider {
 
     private static void bootstrap(BiConsumer<ResourceLocation, ClientItem> p_387865_) {
         FrostItems.ITEMS.getEntries().forEach(p_388426_ -> {
-            ResourceLocation resourcelocation = ModelLocationUtils.getModelLocation(p_388426_.value());
-            p_387865_.accept(getLocation(p_388426_.value()), new ClientItem(ItemModelUtils.plainModel(resourcelocation), ClientItem.Properties.DEFAULT));
+            if (!(p_388426_.value() instanceof SpawnEggItem) && !p_388426_.is(FrostBlocks.COLD_GRASS.getId()) && !p_388426_.is(FrostBlocks.COLD_TALL_GRASS.getId()) && !p_388426_.is(FrostBlocks.FROZEN_GRASS_BLOCK.getId())) {
+                ResourceLocation resourcelocation = ModelLocationUtils.getModelLocation(p_388426_.value());
+                p_387865_.accept(getLocation(p_388426_.value()), new ClientItem(ItemModelUtils.plainModel(resourcelocation), ClientItem.Properties.DEFAULT));
+            }
         });
+
     }
 
     public static ResourceLocation getLocation(Block p_387471_) {
