@@ -10,7 +10,10 @@
     "ServerEntityMixin"
   ],
   "client": [
-    "client.ItemRendererMixin"
+    "client.GuiGraphicsMixin",
+    "client.ItemRendererMixin",
+    "client.ItemStackRenderStateMixin",
+    "client.LayerRenderStateAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

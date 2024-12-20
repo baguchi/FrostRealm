@@ -85,7 +85,7 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends FrostPart<T>
                             this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK);
                         });
                 if (!p_20992_.addLandingEffects((ServerLevel) this.level(), p_20993_, p_20992_, this.parentMob, (int) (i * getScale())))
-                    ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, p_20992_).setPos(p_20993_), d0, d1, d2, i, 0.0, 0.0, 0.0, 0.15F);
+                    ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, p_20992_), d0, d1, d2, i, 0.0, 0.0, 0.0, 0.15F);
             }
             BlockPos blockpos1 = this.getOnPos();
             BlockState blockstate1 = this.level().getBlockState(blockpos1);
