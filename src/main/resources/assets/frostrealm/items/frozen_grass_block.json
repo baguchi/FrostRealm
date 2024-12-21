@@ -1,6 +1,13 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:item/frozen_grass_block"
+    "model": "frostrealm:item/frozen_grass_block",
+    "tints": [
+      {
+        "type": "minecraft:grass",
+        "downfall": 1,
+        "temperature": 0.5
+      }
+    ]
   }
 }

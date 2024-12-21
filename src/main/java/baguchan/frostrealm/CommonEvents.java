@@ -30,6 +30,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.util.random.SimpleWeightedRandomList;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -173,9 +174,13 @@ public class CommonEvents {
         if (Minecraft.getInstance().level != null && Minecraft.getInstance().player != null) {
             Holder<Biome> biome = Minecraft.getInstance().player.level().getBiome(Minecraft.getInstance().player.blockPosition());
             if (Minecraft.getInstance().level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-                Optional<Music> musicInfo = biome.value().getBackgroundMusic().get().getRandomValue(Minecraft.getInstance().level.random);
-                if (!musicInfo.isEmpty()) {
-                    event.setMusic(new MusicInfo(musicInfo.get()));
+                Optional<SimpleWeightedRandomList<Music>> musicInfo = biome.value().getBackgroundMusic();
+
+                if (musicInfo.isPresent()) {
+                    Optional<Music> music = musicInfo.get().getRandomValue(Minecraft.getInstance().level.random);
+                    if (music.isPresent()) {
+                        event.setMusic(new MusicInfo(music.get()));
+                    }
                 }
             }
         }

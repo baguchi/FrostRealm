@@ -15,7 +15,9 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
@@ -71,23 +73,14 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     private void renderOrb(float p_362331_, Tesselator p_361695_, PoseStack p_361665_) {
         float f = 30.0F;
         float f1 = 100.0F;
-        BufferBuilder bufferbuilder = p_361695_.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        int i = ARGB.white(p_362331_);
         Matrix4f matrix4f = p_361665_.last().pose();
-        RenderSystem.depthMask(false);
-        //RenderSystem.overlayBlendFunc();
-        RenderSystem.enableBlend();
-        RenderSystem.setShader(CoreShaders.POSITION_TEX);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, p_362331_);
-        RenderSystem.setShaderTexture(0, ORB_LOCATION);
-        bufferbuilder.addVertex(matrix4f, -30.0F, 100.0F, -30.0F).setUv(0.0F, 0.0F);
-        bufferbuilder.addVertex(matrix4f, 30.0F, 100.0F, -30.0F).setUv(1.0F, 0.0F);
-        bufferbuilder.addVertex(matrix4f, 30.0F, 100.0F, 30.0F).setUv(1.0F, 1.0F);
-        bufferbuilder.addVertex(matrix4f, -30.0F, 100.0F, 30.0F).setUv(0.0F, 1.0F);
-        BufferUploader.drawWithShader(bufferbuilder.buildOrThrow());
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.disableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.depthMask(true);
+        VertexConsumer vertexconsumer = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.celestial(ORB_LOCATION));
+        vertexconsumer.addVertex(matrix4f, -30.0F, 100.0F, -30.0F).setUv(0.0F, 0.0F).setColor(i);
+        vertexconsumer.addVertex(matrix4f, 30.0F, 100.0F, -30.0F).setUv(1.0F, 0.0F).setColor(i);
+        vertexconsumer.addVertex(matrix4f, 30.0F, 100.0F, 30.0F).setUv(1.0F, 1.0F).setColor(i);
+        vertexconsumer.addVertex(matrix4f, -30.0F, 100.0F, 30.0F).setUv(0.0F, 1.0F).setColor(i);
+        Minecraft.getInstance().renderBuffers().bufferSource().endBatch();
     }
 
     private void renderAurora(PoseStack p_109781_, float weatherLevel) {
