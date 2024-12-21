@@ -113,28 +113,31 @@ public class CommonEvents {
 
             float f = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE);
             float f2 = player.getAttackStrengthScale(0.5F);
+            boolean flag3 = f2 > 0.9F;
+
             f *= 0.2F + f2 * f2 * 0.8F;
-            float f7 = 1.0F + (float) player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) * f;
+            float f7 = 0.8F + (float) player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) * 0.25F * f;
+            if (flag3) {
+                for (LivingEntity livingentity2 : player.level()
+                        .getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(1.5, 0.25, 1.5))) {
+                    double entityReachSq = Mth.square(player.entityInteractionRange() + 0.5F); // Use entity reach instead of constant 9.0. Vanilla uses bottom center-to-center checks here, so don't update player to use canReach, since it uses closest-corner checks.
+                    if (livingentity2 != player
+                            && livingentity2 != target
+                            && !player.isAlliedTo(livingentity2)
+                            && (!(livingentity2 instanceof ArmorStand) || !((ArmorStand) livingentity2).isMarker())
+                            && player.distanceToSqr(livingentity2) < entityReachSq) {
+                        float f5 = player.level() instanceof ServerLevel serverLevel ? EnchantmentHelper.modifyDamage(serverLevel, player.getWeaponItem(), livingentity2, damagesource, f7) : f7;
+                        livingentity2.knockback(
+                                0.4F,
+                                (double) Mth.sin(player.getYRot() * (float) (Math.PI / 180.0)),
+                                (double) (-Mth.cos(player.getYRot() * (float) (Math.PI / 180.0)))
+                        );
+                        f5 = (float) (f5 / Mth.clamp(entityReachSq * 0.75F, 1, 2));
 
-            for (LivingEntity livingentity2 : player.level()
-                    .getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(1.5, 0.25, 1.5))) {
-                double entityReachSq = Mth.square(player.entityInteractionRange() + 0.5F); // Use entity reach instead of constant 9.0. Vanilla uses bottom center-to-center checks here, so don't update player to use canReach, since it uses closest-corner checks.
-                if (livingentity2 != player
-                        && livingentity2 != target
-                        && !player.isAlliedTo(livingentity2)
-                        && (!(livingentity2 instanceof ArmorStand) || !((ArmorStand) livingentity2).isMarker())
-                        && player.distanceToSqr(livingentity2) < entityReachSq) {
-                    float f5 = player.level() instanceof ServerLevel serverLevel ? EnchantmentHelper.modifyDamage(serverLevel, player.getWeaponItem(), livingentity2, damagesource, f7) : f7;
-                    livingentity2.knockback(
-                            0.4F,
-                            (double) Mth.sin(player.getYRot() * (float) (Math.PI / 180.0)),
-                            (double) (-Mth.cos(player.getYRot() * (float) (Math.PI / 180.0)))
-                    );
-                    f5 = (float) (f5 / Mth.clamp(entityReachSq * 0.75F, 1, 2));
-
-                    livingentity2.hurt(damagesource, f5);
-                    if (player.level() instanceof ServerLevel serverlevel) {
-                        EnchantmentHelper.doPostAttackEffects(serverlevel, livingentity2, damagesource);
+                        livingentity2.hurt(damagesource, f5);
+                        if (player.level() instanceof ServerLevel serverlevel) {
+                            EnchantmentHelper.doPostAttackEffects(serverlevel, livingentity2, damagesource);
+                        }
                     }
                 }
             }

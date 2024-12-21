@@ -61,14 +61,14 @@ public class FrostItems {
     public static final DeferredItem<Item> ASTRIUM_PICKAXE = ITEMS.registerItem("astrium_pickaxe", (properties) -> new PickaxeItem(FrostToolMaterials.ASTRIUM, 1, -2.7F, properties));
     public static final DeferredItem<Item> ASTRIUM_SHOVEL = ITEMS.registerItem("astrium_shovel", (properties) -> new ShovelItem(FrostToolMaterials.ASTRIUM, 1.5F, -2.9F, properties));
     public static final DeferredItem<Item> ASTRIUM_HOE = ITEMS.registerItem("astrium_hoe", (properties) -> new HoeItem(FrostToolMaterials.ASTRIUM, -2, -1.0F, properties));
-    public static final DeferredItem<Item> ASTRIUM_SICKLE = ITEMS.registerItem("astrium_sickle", (properties) -> new SickleItem(FrostToolMaterials.ASTRIUM, 8.0F, -3.3F, properties));
+    public static final DeferredItem<Item> ASTRIUM_SICKLE = ITEMS.registerItem("astrium_sickle", (properties) -> new SickleItem(FrostToolMaterials.ASTRIUM, 5.0F, -3.2F, properties));
 
     public static final DeferredItem<Item> GLACINIUM_SWORD = ITEMS.registerItem("glacinium_sword", (properties) -> new SwordItem(FrostToolMaterials.GLACINIUM, 3, -2.6F, properties));
     public static final DeferredItem<Item> GLACINIUM_AXE = ITEMS.registerItem("glacinium_axe", (properties) -> new AxeItem(FrostToolMaterials.GLACINIUM, 4F, -3.1F, properties));
     public static final DeferredItem<Item> GLACINIUM_PICKAXE = ITEMS.registerItem("glacinium_pickaxe", (properties) -> new PickaxeItem(FrostToolMaterials.GLACINIUM, 1, -2.9F, properties));
     public static final DeferredItem<Item> GLACINIUM_SHOVEL = ITEMS.registerItem("glacinium_shovel", (properties) -> new ShovelItem(FrostToolMaterials.GLACINIUM, 1.5F, -3.0F, properties));
     public static final DeferredItem<Item> GLACINIUM_HOE = ITEMS.registerItem("glacinium_hoe", (properties) -> new HoeItem(FrostToolMaterials.GLACINIUM, -2, -1.0F, properties));
-    public static final DeferredItem<Item> GLACINIUM_SICKLE = ITEMS.registerItem("glacinium_sickle", (properties) -> new SickleItem(FrostToolMaterials.GLACINIUM, 6.0F, -3.4F, properties));
+    public static final DeferredItem<Item> GLACINIUM_SICKLE = ITEMS.registerItem("glacinium_sickle", (properties) -> new SickleItem(FrostToolMaterials.GLACINIUM, 3.0F, -3.3F, properties));
 
 
     public static final DeferredItem<YetiFurArmorItem> YETI_FUR_HELMET = ITEMS.registerItem("yeti_fur_helmet", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorType.HELMET, (properties.durability(ArmorType.HELMET.getDurability(20)))));

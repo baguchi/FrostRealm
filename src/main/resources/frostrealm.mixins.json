@@ -11,6 +11,7 @@
   ],
   "client": [
     "client.GuiGraphicsMixin",
+    "client.ItemModelResolverMixin",
     "client.ItemRendererMixin",
     "client.ItemStackRenderStateMixin",
     "client.LayerRenderStateAccessor"
