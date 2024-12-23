@@ -53,6 +53,7 @@ public class FrostItems {
 
     public static final DeferredItem<Item> YETI_FUR = ITEMS.registerItem("yeti_fur", (properties) -> new Item(properties));
     public static final DeferredItem<Item> FROST_BOAR_FUR = ITEMS.registerItem("frost_boar_fur", (properties) -> new Item(properties));
+    public static final DeferredItem<Item> FROST_BOAR_HORN = ITEMS.registerItem("frost_boar_horn", (properties) -> new Item(properties));
     public static final DeferredItem<Item> FROST_SPEAR = ITEMS.registerItem("frost_spear", (properties) -> new FrostSpearItem((properties.attributes(FrostSpearItem.createAttributes()).enchantable(20).durability(1021).rarity(Rarity.UNCOMMON))));
     public static final DeferredItem<Item> SILVER_MOON = ITEMS.registerItem("silver_moon", (properties) -> new SilverMoonSwordItem(FrostToolMaterials.SILVER_MOON, 3, -2.2F, (properties.rarity(Rarity.RARE))));
 

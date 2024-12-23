@@ -161,6 +161,15 @@ public class CraftingGenerator extends CraftingDataHelper {
 		hoeItem(this.output, "glacinium_hoe", FrostItems.GLACINIUM_HOE.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
 		sickleItem(this.output, "glacinium_sickle", FrostItems.GLACINIUM_SICKLE.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
 
+		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.COMBAT, Items.ARROW, 4)
+				.pattern("B")
+				.pattern("S")
+				.pattern("F")
+				.define('B', FrostItems.FROST_BOAR_HORN.get())
+				.define('S', Items.STICK)
+				.define('F', Items.FEATHER)
+				.unlockedBy("has_item", has(FrostItems.FROST_BOAR_HORN.get())).save(this.output, prefix("horn_arrow"));
+
 
 		makeFrostTorch(this.output, FrostBlocks.FROST_TORCH.get().asItem());
 

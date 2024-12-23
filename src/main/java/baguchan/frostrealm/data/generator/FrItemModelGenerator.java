@@ -65,6 +65,7 @@ public class FrItemModelGenerator extends ItemModelProvider {
 
         this.singleTex(FrostItems.YETI_FUR);
 		this.singleTex(FrostItems.FROST_BOAR_FUR);
+		this.singleTex(FrostItems.FROST_BOAR_HORN);
 
 		this.singleTexTool(FrostItems.SILVER_MOON);
 

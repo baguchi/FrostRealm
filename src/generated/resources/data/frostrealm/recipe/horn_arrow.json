@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "frostrealm:frost_boar_horn",
+    "F": "minecraft:feather",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "B",
+    "S",
+    "F"
+  ],
+  "result": {
+    "count": 4,
+    "id": "minecraft:arrow"
+  }
+}
