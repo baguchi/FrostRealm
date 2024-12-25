@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "frostrealm:block/aurora_infuser",
+    "east": "frostrealm:block/aurora_infuser_side",
+    "north": "frostrealm:block/aurora_infuser_front",
+    "particle": "frostrealm:block/aurora_infuser_front",
+    "south": "frostrealm:block/aurora_infuser_side",
+    "up": "frostrealm:block/aurora_infuser_top",
+    "west": "frostrealm:block/aurora_infuser_front"
+  }
+}

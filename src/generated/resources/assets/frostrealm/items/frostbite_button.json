@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:block/frostbite_button_inventory"
+    "model": "frostrealm:block/frostbite_button"
   }
 }

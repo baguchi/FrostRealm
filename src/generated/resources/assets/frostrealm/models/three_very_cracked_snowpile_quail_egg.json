@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_three_turtle_eggs",
+  "textures": {
+    "all": "frostrealm:block/snowpile_quail_egg"
+  }
+}

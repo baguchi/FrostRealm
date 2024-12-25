@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:item/frost_campfire"
+    "model": "frostrealm:block/frost_campfire"
   }
 }

@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:item/frostroot_door"
+    "model": "frostrealm:block/frostroot_door"
   }
 }

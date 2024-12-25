@@ -8,7 +8,6 @@ import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 import java.util.stream.Stream;
@@ -109,15 +108,12 @@ public class FrItemModelGenerator extends ModelProvider {
 		itemModels.generateSpawnEgg(FrostItems.UNDER_GOKKUR_SPAWNEGG.get(), 7572368, 15098896);
 		itemModels.generateSpawnEgg(FrostItems.ROOT_DEER_SPAWNEGG.get(), 6390687, 11213654);
 		itemModels.generateSpawnEgg(FrostItems.SILK_MOON_SPAWNEGG.get(), 14679020, 7716503);
+		itemModels.generateFlatItem(FrostItems.FROST_SPEAR.asItem(), FrostModelTemplate.BIG_HANDHELD);
 	}
+
 
 	@Override
 	public Stream<? extends Holder<Block>> getKnownBlocks() {
-		return Stream.of();
-	}
-
-	@Override
-	protected Stream<? extends Holder<Item>> getKnownItems() {
 		return Stream.of();
 	}
 

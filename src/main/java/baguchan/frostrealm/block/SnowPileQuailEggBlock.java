@@ -36,11 +36,11 @@ public class SnowPileQuailEggBlock extends Block {
 	private static final VoxelShape ONE_EGG_AABB = Block.box(3.0D, 0.0D, 3.0D, 12.0D, 7.0D, 12.0D);
 	private static final VoxelShape MULTIPLE_EGGS_AABB = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 7.0D, 15.0D);
 	public static final IntegerProperty HATCH = BlockStateProperties.HATCH;
-	public static final IntegerProperty EGGS = IntegerProperty.create("eggs", 1, 3);
+	public static final IntegerProperty EGGS = BlockStateProperties.EGGS;
 
 	public SnowPileQuailEggBlock(BlockBehaviour.Properties p_57759_) {
 		super(p_57759_);
-		this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, Integer.valueOf(0)).setValue(EGGS, Integer.valueOf(1)));
+		this.registerDefaultState(this.stateDefinition.any().setValue(HATCH, 0).setValue(EGGS, 1));
 	}
 
 	public static boolean onDirt(BlockGetter p_57763_, BlockPos p_57764_) {

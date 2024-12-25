@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "frostrealm:block/rye_block_top",
+    "side": "frostrealm:block/rye_block_side"
+  }
+}
