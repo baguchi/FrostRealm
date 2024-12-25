@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:item/sherbet_sandstone_stairs"
+    "model": "frostrealm:block/sherbet_sandstone_stairs"
   }
 }

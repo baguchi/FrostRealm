@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:item/frostbite_planks_stairs"
+    "model": "frostrealm:block/frostbite_planks_stairs"
   }
 }

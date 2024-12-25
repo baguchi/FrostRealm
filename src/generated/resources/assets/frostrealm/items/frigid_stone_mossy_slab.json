@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:item/frigid_stone_mossy_slab"
+    "model": "frostrealm:block/frigid_stone_mossy_slab"
   }
 }

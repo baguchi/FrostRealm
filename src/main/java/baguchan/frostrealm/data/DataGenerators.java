@@ -12,7 +12,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
@@ -23,17 +22,14 @@ public class DataGenerators {
 	public static void gatherData(GatherDataEvent.Client event) {
 		DataGenerator generator = event.getGenerator();
 		PackOutput packOutput = generator.getPackOutput();
-		ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 		DatapackBuiltinEntriesProvider datapackProvider = new RegistryDataGenerator(packOutput, event.getLookupProvider());
 
 		CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();
 		generator.addProvider(true, datapackProvider);
 		event.getGenerator().addProvider(true, new FrostAdvancementData(packOutput, lookupProvider, event.getExistingFileHelper()));
-		event.getGenerator().addProvider(true, new FrBlockstateGenerator(packOutput, event.getExistingFileHelper()));
-		event.getGenerator().addProvider(true, new FrItemModelGenerator(packOutput, event.getExistingFileHelper()));
 		generator.addProvider(true, new FrostEquipmentAssetProvider(packOutput));
-		generator.addProvider(true, new FrostClientItemsProvider(packOutput));
-
+		generator.addProvider(true, new FrBlockstateGenerator(packOutput));
+		generator.addProvider(true, new FrItemModelGenerator(packOutput));
 		event.getGenerator().addProvider(true, LootGenerator.create(packOutput, lookupProvider));
 
 		event.getGenerator().addProvider(true, new Runner(packOutput, lookupProvider));

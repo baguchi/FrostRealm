@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "frostrealm:block/rye_stage4"
+  }
+}

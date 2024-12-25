@@ -1,354 +1,128 @@
 package baguchan.frostrealm.data.generator;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostItems;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.ModelProvider;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.core.Holder;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ButtonBlock;
-import net.minecraft.world.level.block.TrapDoorBlock;
-import net.minecraft.world.level.block.WallBlock;
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.client.model.generators.loaders.ItemLayerModelBuilder;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
-import java.util.function.Supplier;
+import java.util.stream.Stream;
 
-import static baguchan.frostrealm.FrostRealm.prefix;
-
-public class FrItemModelGenerator extends ItemModelProvider {
-	public FrItemModelGenerator(PackOutput generator, ExistingFileHelper existingFileHelper) {
-		super(generator, FrostRealm.MODID, existingFileHelper);
+public class FrItemModelGenerator extends ModelProvider {
+	public FrItemModelGenerator(PackOutput generator) {
+		super(generator, FrostRealm.MODID);
 	}
 
 	@Override
-	protected void registerModels() {
-		this.singleTex(FrostItems.FROST_CRYSTAL);
-		this.singleTex(FrostItems.CRYONITE);
-		this.singleTex(FrostItems.CRYONITE_CREAM);
-		this.singleTex(FrostItems.WARPED_CRYSTAL);
-		this.singleTex(FrostItems.VENOM_CRYSTAL);
-		this.singleTex(FrostItems.UNSTABLE_VENOM_CRYSTAL);
-		this.singleTex(FrostItems.GLIMMERROCK);
-		this.singleTex(FrostItems.ASTRIUM_RAW);
-		this.singleTex(FrostItems.ASTRIUM_INGOT);
-		this.singleTex(FrostItems.STARDUST_CRYSTAL);
-		this.singleTex(FrostItems.GLACINIUM_CRYSTAL);
-		this.singleTex(FrostItems.GLACINIUM_INGOT);
+	protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+		itemModels.generateFlatItem(FrostItems.FROST_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.CRYONITE.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.CRYONITE_CREAM.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.WARPED_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.VENOM_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.UNSTABLE_VENOM_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.GLIMMERROCK.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.ASTRIUM_RAW.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.ASTRIUM_INGOT.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.STARDUST_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.GLACINIUM_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.GLACINIUM_INGOT.asItem(), ModelTemplates.FLAT_ITEM);
 
 
-        this.singleTex(FrostItems.FROZEN_FRUIT);
-        this.singleTex(FrostItems.MELTED_FRUIT);
-        this.singleTex(FrostItems.SUGARBEET);
-        this.singleTex(FrostItems.SUGARBEET_SEEDS);
-		this.singleTex(FrostItems.RYE);
-		this.singleTex(FrostItems.RYE_BREAD);
-		this.singleTex(FrostItems.RYE_PANCAKE);
-		this.singleTex(FrostItems.RYE_SEEDS);
-        this.singleTex(FrostItems.BEARBERRY);
-        this.singleTex(FrostItems.COOKED_BEARBERRY);
-        this.singleTex(FrostItems.COOKED_SNOWPILE_QUAIL_EGG);
-        this.singleTex(FrostItems.SNOWPILE_QUAIL_MEAT);
-        this.singleTex(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT);
-        this.singleTex(FrostItems.FROST_BOAR_MEAT);
-        this.singleTex(FrostItems.COOKED_FROST_BOAR_MEAT);
-		this.singleTex(FrostItems.SILK_MOON_MEAT);
-		this.singleTex(FrostItems.COOKED_SILK_MOON_MEAT);
+		itemModels.generateFlatItem(FrostItems.FROZEN_FRUIT.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.MELTED_FRUIT.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.SUGARBEET.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.SUGARBEET_SEEDS.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.RYE.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.RYE_BREAD.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.RYE_PANCAKE.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.RYE_SEEDS.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.BEARBERRY.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.COOKED_BEARBERRY.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.COOKED_SNOWPILE_QUAIL_EGG.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.SNOWPILE_QUAIL_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.FROST_BOAR_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.COOKED_FROST_BOAR_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.SILK_MOON_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.COOKED_SILK_MOON_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
 
-        this.singleTex(FrostItems.FROST_CATALYST);
-        this.singleTex(FrostItems.STRAY_NECKLACE_PART);
+		itemModels.generateFlatItem(FrostItems.FROST_CATALYST.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.STRAY_NECKLACE_PART.asItem(), ModelTemplates.FLAT_ITEM);
 
-        this.singleTex(FrostItems.YETI_FUR);
-		this.singleTex(FrostItems.FROST_BOAR_FUR);
-		this.singleTex(FrostItems.FROST_BOAR_HORN);
+		itemModels.generateFlatItem(FrostItems.YETI_FUR.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.FROST_BOAR_FUR.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.FROST_BOAR_HORN.asItem(), ModelTemplates.FLAT_ITEM);
 
-		this.singleTexTool(FrostItems.SILVER_MOON);
+		itemModels.generateFlatItem(FrostItems.SILVER_MOON.asItem(), ModelTemplates.FLAT_ITEM);
 
-        this.singleTexTool(FrostItems.ASTRIUM_SWORD);
-		this.singleTexTool(FrostItems.ASTRIUM_AXE);
-		this.singleTexTool(FrostItems.ASTRIUM_PICKAXE);
-		this.singleTexTool(FrostItems.ASTRIUM_SHOVEL);
-		this.singleTexTool(FrostItems.ASTRIUM_HOE);
-		this.singleTexTool(FrostItems.ASTRIUM_SICKLE);
+		itemModels.generateFlatItem(FrostItems.ASTRIUM_SWORD.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.ASTRIUM_AXE.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.ASTRIUM_PICKAXE.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.ASTRIUM_SHOVEL.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.ASTRIUM_HOE.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.ASTRIUM_SICKLE.asItem(), ModelTemplates.FLAT_ITEM);
 
-		this.singleTexTool(FrostItems.GLACINIUM_SWORD);
-		this.singleTexTool(FrostItems.GLACINIUM_AXE);
-		this.singleTexTool(FrostItems.GLACINIUM_PICKAXE);
-		this.singleTexTool(FrostItems.GLACINIUM_SHOVEL);
-		this.singleTexTool(FrostItems.GLACINIUM_HOE);
-		this.singleTexTool(FrostItems.GLACINIUM_SICKLE);
+		itemModels.generateFlatItem(FrostItems.GLACINIUM_SWORD.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.GLACINIUM_AXE.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.GLACINIUM_PICKAXE.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.GLACINIUM_SHOVEL.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.GLACINIUM_HOE.asItem(), ModelTemplates.FLAT_ITEM);
+		itemModels.generateFlatItem(FrostItems.GLACINIUM_SICKLE.asItem(), ModelTemplates.FLAT_ITEM);
 
-		this.singleTex(FrostItems.YETI_FUR_HELMET);
-		this.singleTex(FrostItems.YETI_FUR_CHESTPLATE);
-		this.singleTex(FrostItems.YETI_FUR_LEGGINGS);
-		this.singleTex(FrostItems.YETI_FUR_BOOTS);
+		itemModels.generateFlatItem(FrostItems.YETI_FUR_HELMET.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+		itemModels.generateFlatItem(FrostItems.YETI_FUR_CHESTPLATE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+		itemModels.generateFlatItem(FrostItems.YETI_FUR_LEGGINGS.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+		itemModels.generateFlatItem(FrostItems.YETI_FUR_BOOTS.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
 
-		this.singleTex(FrostItems.FROST_BOAR_FUR_HELMET);
-		this.singleTex(FrostItems.FROST_BOAR_FUR_CHESTPLATE);
-		this.singleTex(FrostItems.FROST_BOAR_FUR_LEGGINGS);
-		this.singleTex(FrostItems.FROST_BOAR_FUR_BOOTS);
+		itemModels.generateFlatItem(FrostItems.FROST_BOAR_FUR_HELMET.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+		itemModels.generateFlatItem(FrostItems.FROST_BOAR_FUR_CHESTPLATE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+		itemModels.generateFlatItem(FrostItems.FROST_BOAR_FUR_LEGGINGS.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+		itemModels.generateFlatItem(FrostItems.FROST_BOAR_FUR_BOOTS.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
 
-		this.singleTex(FrostItems.ASTRIUM_HELMET);
-		this.singleTex(FrostItems.ASTRIUM_CHESTPLATE);
-		this.singleTex(FrostItems.ASTRIUM_LEGGINGS);
-		this.singleTex(FrostItems.ASTRIUM_BOOTS);
-		this.singleTex(FrostItems.WOLFFLUE_ASTRIUM_ARMOR);
-		this.singleTex(FrostItems.HOT_SPRING_BUCKET);
+		itemModels.generateFlatItem(FrostItems.ASTRIUM_HELMET.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+		itemModels.generateFlatItem(FrostItems.ASTRIUM_CHESTPLATE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+		itemModels.generateFlatItem(FrostItems.ASTRIUM_LEGGINGS.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+		itemModels.generateFlatItem(FrostItems.ASTRIUM_BOOTS.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+		itemModels.generateFlatItem(FrostItems.WOLFFLUE_ASTRIUM_ARMOR.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+		itemModels.generateFlatItem(FrostItems.HOT_SPRING_BUCKET.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
 
-		this.egg(FrostItems.MARMOT_SPAWNEGG);
-		this.egg(FrostItems.SNOWPILE_QUAIL_SPAWNEGG);
-		this.egg(FrostItems.YETI_SPAWNEGG);
-		this.egg(FrostItems.FROST_WRAITH_SPAWNEGG);
-		this.egg(FrostItems.CRYSTAL_FOX_SPAWNEGG);
-		this.egg(FrostItems.SNOW_MOLE_SPAWNEGG);
-        this.egg(FrostItems.ASTRA_BALL_SPAWNEGG);
-        this.egg(FrostItems.FROST_BOAR_SPAWNEGG);
-		this.egg(FrostItems.WOLFFLUE_SPAWNEGG);
-		this.egg(FrostItems.FERRET_SPAWNEGG);
-		this.egg(FrostItems.SEAL_SPAWNEGG);
-		this.egg(FrostItems.STRAY_WARRIOR_SPAWNEGG);
-		this.egg(FrostItems.VENOCHEM_SPAWNEGG);
-		this.egg(FrostItems.GOKKUR_SPAWNEGG);
-		this.egg(FrostItems.UNDER_GOKKUR_SPAWNEGG);
-		this.egg(FrostItems.ROOT_DEER_SPAWNEGG);
-		this.egg(FrostItems.SILK_MOON_SPAWNEGG);
-
-		this.toBlock(FrostBlocks.FROZEN_DIRT);
-		this.toBlock(FrostBlocks.FROZEN_GRASS_BLOCK);
-		this.toBlock(FrostBlocks.FRIGID_GRASS_BLOCK);
-		this.toBlock(FrostBlocks.FROZEN_FARMLAND);
-
-		this.toBlock(FrostBlocks.PERMA_SLATE);
-		this.toBlock(FrostBlocks.PERMA_SLATE_BRICK);
-		this.toBlock(FrostBlocks.PERMA_SLATE_SMOOTH);
-		this.toBlock(FrostBlocks.PERMA_SLATE_BRICK_SLAB);
-		this.toBlock(FrostBlocks.PERMA_SLATE_BRICK_STAIRS);
-		this.wall(FrostBlocks.PERMA_SLATE_BRICK_WALL, FrostBlocks.PERMA_SLATE_BRICK);
-		this.toBlock(FrostBlocks.PERMA_MAGMA);
-
-		this.toBlock(FrostBlocks.FRIGID_STONE);
-		this.toBlock(FrostBlocks.FRIGID_STONE_SLAB);
-		this.toBlock(FrostBlocks.FRIGID_STONE_STAIRS);
-		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK);
-		this.toBlock(FrostBlocks.FRIGID_STONE_SMOOTH);
-        this.toBlock(FrostBlocks.CHISELED_FRIGID_STONE_BRICK);
-        this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_SLAB);
-		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_STAIRS);
-		this.wall(FrostBlocks.FRIGID_STONE_BRICK_WALL, FrostBlocks.FRIGID_STONE_BRICK);
-
-		this.toBlock(FrostBlocks.FRIGID_STONE_MOSSY);
-		this.toBlock(FrostBlocks.FRIGID_STONE_MOSSY_SLAB);
-		this.toBlock(FrostBlocks.FRIGID_STONE_MOSSY_STAIRS);
-
-		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_MOSSY);
-		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_SLAB);
-		this.toBlock(FrostBlocks.FRIGID_STONE_BRICK_MOSSY_STAIRS);
-
-		this.toBlock(FrostBlocks.SHERBET_SAND);
-		this.toBlock(FrostBlocks.SHERBET_SANDSTONE);
-		this.toBlock(FrostBlocks.SHERBET_SANDSTONE_STAIRS);
-		this.toBlock(FrostBlocks.SHERBET_SANDSTONE_SLAB);
-
-		this.toBlock(FrostBlocks.GLACINIUM_ORE);
-		this.toBlock(FrostBlocks.GLACINIUM_BLOCK);
-		this.toBlock(FrostBlocks.RAW_GLACINIUM_BLOCK);
-
-		this.toBlock(FrostBlocks.FROSTROOT_LOG);
-		this.toBlock(FrostBlocks.STRIPPED_FROSTROOT_LOG);
-		this.itemBlockFlat(FrostBlocks.FROSTROOT_SAPLING);
-		this.toBlock(FrostBlocks.FROSTROOT_LEAVES);
-		this.toBlock(FrostBlocks.FROSTROOT_PLANKS);
-		this.toBlock(FrostBlocks.FROSTROOT_PLANKS_SLAB);
-		this.toBlock(FrostBlocks.FROSTROOT_PLANKS_STAIRS);
-		this.woodenFence(FrostBlocks.FROSTROOT_FENCE, FrostBlocks.FROSTROOT_PLANKS);
-		this.toBlock(FrostBlocks.FROSTROOT_FENCE_GATE);
-		this.singleTex(FrostBlocks.FROSTROOT_DOOR);
-		this.trapdoor(FrostBlocks.FROSTROOT_TRAPDOOR);
-		this.toBlock(FrostBlocks.FROSTROOT_PRESSURE_PLATE);
-		this.button(FrostBlocks.FROSTROOT_BUTTON, FrostBlocks.FROSTROOT_PLANKS);
-
-		this.toBlock(FrostBlocks.FROSTBITE_LOG);
-		this.toBlock(FrostBlocks.STRIPPED_FROSTBITE_LOG);
-		this.itemBlockFlat(FrostBlocks.FROSTBITE_SAPLING);
-		this.toBlock(FrostBlocks.FROSTBITE_LEAVES);
-		this.toBlock(FrostBlocks.FROSTBITE_PLANKS);
-		this.toBlock(FrostBlocks.FROSTBITE_PLANKS_SLAB);
-		this.toBlock(FrostBlocks.FROSTBITE_PLANKS_STAIRS);
-		this.woodenFence(FrostBlocks.FROSTBITE_FENCE, FrostBlocks.FROSTBITE_PLANKS);
-		this.toBlock(FrostBlocks.FROSTBITE_FENCE_GATE);
-		this.toBlock(FrostBlocks.FROSTBITE_PRESSURE_PLATE);
-		this.button(FrostBlocks.FROSTBITE_BUTTON, FrostBlocks.FROSTBITE_PLANKS);
-		this.singleTex(FrostBlocks.FROSTBITE_DOOR);
-		this.trapdoor(FrostBlocks.FROSTBITE_TRAPDOOR);
-
-		this.itemBlockFlat(FrostBlocks.VIGOROSHROOM);
-		this.itemBlockFlat(FrostBlocks.ARCTIC_POPPY);
-		this.itemBlockFlat(FrostBlocks.ARCTIC_WILLOW);
-
-		this.itemBlockFlat(FrostBlocks.COLD_GRASS);
-		this.itemBlockFlat(FrostBlocks.COLD_TALL_GRASS, "cold_tall_grass_top");
-
-		this.toBlock(FrostBlocks.RYE_BLOCK);
-
-		this.toBlock(FrostBlocks.FROST_CRYSTAL_ORE);
-		this.toBlock(FrostBlocks.GLIMMERROCK_ORE);
-		this.toBlock(FrostBlocks.ASTRIUM_ORE);
-
-		this.toBlock(FrostBlocks.FROST_CRYSTAL_SLATE_ORE);
-		this.toBlock(FrostBlocks.GLIMMERROCK_SLATE_ORE);
-		this.toBlock(FrostBlocks.ASTRIUM_SLATE_ORE);
-
-
-		this.toBlock(FrostBlocks.GLIMMERROCK_BLOCK);
-		this.toBlock(FrostBlocks.FROST_CRYSTAL_BLOCK);
-		this.toBlock(FrostBlocks.ASTRIUM_BLOCK);
-		this.toBlock(FrostBlocks.RAW_ASTRIUM_BLOCK);
-
-		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_ORE);
-		this.toBlock(FrostBlocks.STARDUST_CRYSTAL_CLUSTER);
-		this.toBlock(FrostBlocks.WARPED_CRYSTAL_BLOCK);
-        this.toBlock(FrostBlocks.AURORA_INFUSER);
-		this.itemBlockFlat(FrostBlocks.FROST_TORCH);
-
-		this.toBlock(FrostBlocks.SILK_MOON_EGG);
-		this.toBlock(FrostBlocks.SILK_MOON_COCOON);
+		itemModels.generateSpawnEgg(FrostItems.MARMOT_SPAWNEGG.get(), 11633478, 10185517);
+		itemModels.generateSpawnEgg(FrostItems.SNOWPILE_QUAIL_SPAWNEGG.get(), 16777215, 16777215);
+		itemModels.generateSpawnEgg(FrostItems.YETI_SPAWNEGG.get(), 13948891, 4208214);
+		itemModels.generateSpawnEgg(FrostItems.FROST_WRAITH_SPAWNEGG.get(), 9002363, 13721278);
+		itemModels.generateSpawnEgg(FrostItems.CRYSTAL_FOX_SPAWNEGG.get(), 16252923, 9491432);
+		itemModels.generateSpawnEgg(FrostItems.SNOW_MOLE_SPAWNEGG.get(), 15001062, 11970471);
+		itemModels.generateSpawnEgg(FrostItems.ASTRA_BALL_SPAWNEGG.get(), 9654988, 14919423);
+		itemModels.generateSpawnEgg(FrostItems.FROST_BOAR_SPAWNEGG.get(), 202786, 2714505);
+		itemModels.generateSpawnEgg(FrostItems.WOLFFLUE_SPAWNEGG.get(), 8689054, 11511178);
+		itemModels.generateSpawnEgg(FrostItems.FERRET_SPAWNEGG.get(), 7953498, 4272429);
+		itemModels.generateSpawnEgg(FrostItems.SEAL_SPAWNEGG.get(), 16777215, 16777215);
+		itemModels.generateSpawnEgg(FrostItems.STRAY_WARRIOR_SPAWNEGG.get(), 6387319, 14543594);
+		itemModels.generateSpawnEgg(FrostItems.VENOCHEM_SPAWNEGG.get(), 4195929, 13522055);
+		itemModels.generateSpawnEgg(FrostItems.GOKKUR_SPAWNEGG.get(), 10526102, 7301477);
+		itemModels.generateSpawnEgg(FrostItems.UNDER_GOKKUR_SPAWNEGG.get(), 7572368, 15098896);
+		itemModels.generateSpawnEgg(FrostItems.ROOT_DEER_SPAWNEGG.get(), 6390687, 11213654);
+		itemModels.generateSpawnEgg(FrostItems.SILK_MOON_SPAWNEGG.get(), 14679020, 7716503);
 	}
 
-	public ItemModelBuilder wall(Supplier<? extends WallBlock> wall, Supplier<? extends Block> fullBlock) {
-		return wallInventory(BuiltInRegistries.BLOCK.getKey(wall.get()).getPath(), texture(blockName(fullBlock)));
+	@Override
+	public Stream<? extends Holder<Block>> getKnownBlocks() {
+		return Stream.of();
 	}
 
-
-	public ItemModelBuilder button(Supplier<? extends ButtonBlock> button, Supplier<? extends Block> fullBlock) {
-		return buttonInventory(BuiltInRegistries.BLOCK.getKey(button.get()).getPath(), texture(blockName(fullBlock)));
+	@Override
+	protected Stream<? extends Holder<Item>> getKnownItems() {
+		return Stream.of();
 	}
-
-	public void trapdoor(Supplier<? extends TrapDoorBlock> trapdoor) {
-		withExistingParent(BuiltInRegistries.BLOCK.getKey(trapdoor.get()).getPath(), ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "block/" + blockName(trapdoor) + "_bottom"));
-	}
-
-	private ItemModelBuilder singleTexFullbright(DeferredHolder<Item, ? extends Item> item) {
-		return fullbright(item.getId().getPath(), prefix("item/" + item.getId().getPath()));
-	}
-
-	private ItemModelBuilder singleTexFullbrightTool(DeferredHolder<Item, ? extends Item> item) {
-		return fullbrightTool(item.getId().getPath(), prefix("item/" + item.getId().getPath()));
-	}
-
-	private ItemModelBuilder fullbright(String name, ResourceLocation... layers) {
-		return buildItem(name, "item/generated", 15, layers);
-	}
-
-	private ItemModelBuilder fullbrightTool(String name, ResourceLocation... layers) {
-		return buildItem(name, "item/handheld", 15, layers);
-	}
-
-	private ItemModelBuilder singleTexTool(DeferredHolder<Item, ? extends Item> item) {
-		return tool(item.getId().getPath(), prefix("item/" + item.getId().getPath()));
-	}
-
-	private ItemModelBuilder singleTex(DeferredHolder<?, ?> item) {
-		return generated(item.getId().getPath(), prefix("item/" + item.getId().getPath()));
-	}
-
-	public ItemModelBuilder torchItem(Block item) {
-        return withExistingParent(BuiltInRegistries.BLOCK.getKey(item).getPath(), mcLoc("item/generated"))
-                .texture("layer0", modLoc("block/" + BuiltInRegistries.BLOCK.getKey(item).getPath()));
-	}
-
-	private ItemModelBuilder buildItem(String name, String parent, int emissivity, ResourceLocation... layers) {
-		ItemModelBuilder builder = withExistingParent(name, parent);
-		for (int i = 0; i < layers.length; i++) {
-			builder = builder.texture("layer" + i, layers[i]);
-		}
-		if (emissivity > 0)
-			builder = builder.customLoader(ItemLayerModelBuilder::begin).emissive(emissivity, emissivity, 0).renderType("minecraft:translucent", 0).end();
-		return builder;
-	}
-
-	private ItemModelBuilder generated(String name, ResourceLocation... layers) {
-		ItemModelBuilder builder = withExistingParent(name, "item/generated");
-		for (int i = 0; i < layers.length; i++) {
-			builder = builder.texture("layer" + i, layers[i]);
-		}
-		return builder;
-	}
-
-	private ItemModelBuilder tool(String name, ResourceLocation... layers) {
-		ItemModelBuilder builder = withExistingParent(name, "item/handheld");
-		for (int i = 0; i < layers.length; i++) {
-			builder = builder.texture("layer" + i, layers[i]);
-		}
-		return builder;
-	}
-
-	private ItemModelBuilder bowItem(String name, ResourceLocation... layers) {
-		ItemModelBuilder builder = withExistingParent(name, "item/bow");
-		for (int i = 0; i < layers.length; i++) {
-			builder = builder.texture("layer" + i, layers[i]);
-		}
-		return builder;
-	}
-
-	private void woodenButton(Block button, String variant) {
-        getBuilder(BuiltInRegistries.BLOCK.getKey(button).getPath())
-				.parent(getExistingFile(mcLoc("block/button_inventory")))
-				.texture("texture", "block/wood/planks_" + variant + "_0");
-	}
-
-    private void woodenFence(Supplier<? extends Block> fence, Supplier<? extends Block> block) {
-        getBuilder(BuiltInRegistries.BLOCK.getKey(fence.get()).getPath())
-				.parent(getExistingFile(mcLoc("block/fence_inventory")))
-                .texture("texture", "block/" + BuiltInRegistries.BLOCK.getKey(block.get()).getPath());
-	}
-
-	private void woodenFence(Block fence, String texture) {
-        getBuilder(BuiltInRegistries.BLOCK.getKey(fence).getPath())
-				.parent(getExistingFile(mcLoc("block/fence_inventory")))
-				.texture("texture", "block/" + texture);
-	}
-
-    private void toBlock(Supplier<? extends Block> b) {
-        toBlockModel(b.get(), BuiltInRegistries.BLOCK.getKey(b.get()).getPath());
-	}
-
-	private void toBlockModel(Block b, String model) {
-		toBlockModel(b, prefix("block/" + model));
-	}
-
-	private void toBlockModel(Block b, ResourceLocation model) {
-        withExistingParent(BuiltInRegistries.BLOCK.getKey(b).getPath(), model);
-	}
-
-    public ItemModelBuilder itemBlockFlat(Supplier<? extends Block> block) {
-		return itemBlockFlat(block, blockName(block));
-	}
-
-	public ItemModelBuilder itemBlockFlat(Supplier<? extends Block> block, String name) {
-		return withExistingParent(blockName(block), mcLoc("item/generated"))
-				.texture("layer0", modLoc("block/" + name));
-	}
-
-    public ItemModelBuilder egg(Supplier<Item> item) {
-        return withExistingParent(BuiltInRegistries.ITEM.getKey(item.get()).getPath(), mcLoc("item/template_spawn_egg"));
-	}
-
-	public String blockName(Supplier<? extends Block> block) {
-		return BuiltInRegistries.BLOCK.getKey(block.get()).getPath();
-	}
-
-	private ResourceLocation texture(String name) {
-		return modLoc("block/" + name);
-	}
-
 
 	@Override
 	public String getName() {
-		return "FrostRealm item and itemblock models";
+		return this.modId + " item and itemblock models";
 	}
 }

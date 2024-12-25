@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:item/frostbite_planks_slab"
+    "model": "frostrealm:block/frostbite_planks_slab"
   }
 }

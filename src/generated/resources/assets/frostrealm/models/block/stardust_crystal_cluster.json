@@ -1,6 +1,5 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "render_type": "minecraft:translucent",
+  "parent": "frostrealm:block/translucent_cube",
   "textures": {
     "all": "frostrealm:block/stardust_crystal_cluster"
   }

@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:item/frostbite_trapdoor"
+    "model": "frostrealm:block/frostbite_trapdoor_bottom"
   }
 }
