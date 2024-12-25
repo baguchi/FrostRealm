@@ -101,7 +101,9 @@ public class FrBlockstateGenerator extends ModelProvider {
 				.log(FrostBlocks.FROSTROOT_LOG.get())
 				.log(FrostBlocks.STRIPPED_FROSTROOT_LOG.get());
 		blockModels.createTrivialCube(FrostBlocks.FROSTROOT_LEAVES.get());
-		blockModels.createCrossBlock(FrostBlocks.FROSTROOT_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.FROSTROOT_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+
+		blockModels.registerSimpleItemModel(FrostBlocks.FROSTROOT_PLANKS.get(), ModelLocationUtils.getModelLocation(FrostBlocks.FROSTBITE_PLANKS.get()));
 
 		blockModels.family(FrostBlocks.FROSTROOT_PLANKS.get())
 				.slab(FrostBlocks.FROSTROOT_PLANKS_SLAB.get())
@@ -117,7 +119,9 @@ public class FrBlockstateGenerator extends ModelProvider {
 				.log(FrostBlocks.FROSTBITE_LOG.get())
 				.log(FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
 		blockModels.createTrivialCube(FrostBlocks.FROSTBITE_LEAVES.get());
-		blockModels.createCrossBlock(FrostBlocks.FROSTBITE_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.FROSTBITE_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+
+		blockModels.registerSimpleItemModel(FrostBlocks.FROSTBITE_PLANKS.get(), ModelLocationUtils.getModelLocation(FrostBlocks.FROSTBITE_PLANKS.get()));
 		blockModels.family(FrostBlocks.FROSTBITE_PLANKS.get())
 				.slab(FrostBlocks.FROSTBITE_PLANKS_SLAB.get())
 				.stairs(FrostBlocks.FROSTBITE_PLANKS_STAIRS.get())
@@ -128,11 +132,11 @@ public class FrBlockstateGenerator extends ModelProvider {
 				.pressurePlate(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get())
 				.trapdoor(FrostBlocks.FROSTBITE_TRAPDOOR.get());
 
-		blockModels.createCrossBlock(FrostBlocks.VIGOROSHROOM.get(), BlockModelGenerators.PlantType.NOT_TINTED);
-		blockModels.createCrossBlock(FrostBlocks.ARCTIC_POPPY.get(), BlockModelGenerators.PlantType.NOT_TINTED);
-		blockModels.createCrossBlock(FrostBlocks.ARCTIC_WILLOW.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.VIGOROSHROOM.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.ARCTIC_POPPY.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.ARCTIC_WILLOW.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
-		blockModels.createCrossBlock(FrostBlocks.COLD_GRASS.get(), BlockModelGenerators.PlantType.TINTED);
+		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.COLD_GRASS.get(), BlockModelGenerators.PlantType.TINTED);
 
 		blockModels.createTintedDoublePlant(FrostBlocks.COLD_TALL_GRASS.get());
 
@@ -159,10 +163,12 @@ public class FrBlockstateGenerator extends ModelProvider {
 		createTranslucentCube(blockModels, FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
 
 		blockModels.createTrivialCube(FrostBlocks.SILK_MOON_COCOON.get());
+
 		blockModels.createCampfires(FrostBlocks.FROST_CAMPFIRE.get());
+
 		blockModels.createNonTemplateModelBlock(FrostBlocks.HOT_SPRING.get());
 		blockModels.createCraftingTableLike(FrostBlocks.AURORA_INFUSER.get(), FrostBlocks.AURORA_INFUSER.get(), TextureMapping::craftingTable);
-		createEgg(blockModels, FrostBlocks.SILK_MOON_EGG.get());
+		createBlockEgg(blockModels, FrostBlocks.SILK_MOON_EGG.get());
 		createEgg(blockModels, FrostBlocks.SNOWPILE_QUAIL_EGG.get());
 		blockModels.createRotatedPillarWithHorizontalVariant(FrostBlocks.RYE_BLOCK.get(), TexturedModel.COLUMN, TexturedModel.COLUMN_HORIZONTAL);
 
@@ -170,6 +176,18 @@ public class FrBlockstateGenerator extends ModelProvider {
 
 	public void createEgg(BlockModelGenerators generators, Block block) {
 		generators.registerSimpleFlatItemModel(block.asItem());
+		generators.blockStateOutput
+				.accept(
+						MultiVariantGenerator.multiVariant(block)
+								.with(
+										PropertyDispatch.properties(BlockStateProperties.EGGS, BlockStateProperties.HATCH)
+												.generateList((p_387353_, p_388815_) -> Arrays.asList(createRotatedVariants(this.createEggModel(generators, block, p_387353_, p_388815_))))
+								)
+				);
+	}
+
+	public void createBlockEgg(BlockModelGenerators generators, Block block) {
+		generators.registerSimpleItemModel(block.asItem(), ModelLocationUtils.getModelLocation(block));
 		generators.blockStateOutput
 				.accept(
 						MultiVariantGenerator.multiVariant(block)
@@ -205,16 +223,16 @@ public class FrBlockstateGenerator extends ModelProvider {
 	public ResourceLocation createEggModel(BlockModelGenerators generators, Block block, int p_387392_, String p_387935_, TextureMapping p_388813_) {
 		switch (p_387392_) {
 			case 1:
-				return ModelTemplates.TURTLE_EGG.create(FrostRealm.prefix(p_387935_ + getBlockName(block)), p_388813_, generators.modelOutput);
+				return ModelTemplates.TURTLE_EGG.create(FrostRealm.prefix(p_387935_ + getBlockName(block)).withPrefix("block/"), p_388813_, generators.modelOutput);
 			case 2:
 				return ModelTemplates.TWO_TURTLE_EGGS
-						.create(FrostRealm.prefix("two_" + p_387935_ + getBlockName(block)), p_388813_, generators.modelOutput);
+						.create(FrostRealm.prefix("two_" + p_387935_ + getBlockName(block)).withPrefix("block/"), p_388813_, generators.modelOutput);
 			case 3:
 				return ModelTemplates.THREE_TURTLE_EGGS
-						.create(FrostRealm.prefix("three_" + p_387935_ + getBlockName(block)), p_388813_, generators.modelOutput);
+						.create(FrostRealm.prefix("three_" + p_387935_ + getBlockName(block)).withPrefix("block/"), p_388813_, generators.modelOutput);
 			case 4:
 				return ModelTemplates.FOUR_TURTLE_EGGS
-						.create(FrostRealm.prefix("four_" + p_387935_ + getBlockName(block)), p_388813_, generators.modelOutput);
+						.create(FrostRealm.prefix("four_" + p_387935_ + getBlockName(block)).withPrefix("block/"), p_388813_, generators.modelOutput);
 			default:
 				throw new UnsupportedOperationException();
 		}
@@ -243,6 +261,7 @@ public class FrBlockstateGenerator extends ModelProvider {
 	}
 
 	public void createGlowCube(BlockModelGenerators blockModels, Block p_386512_) {
+
 		blockModels.createTrivialBlock(p_386512_, GLOW_CUBE);
 	}
 

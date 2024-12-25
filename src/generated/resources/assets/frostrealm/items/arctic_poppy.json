@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:block/arctic_poppy"
+    "model": "frostrealm:item/arctic_poppy"
   }
 }

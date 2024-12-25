@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:block/cold_grass"
+    "model": "frostrealm:item/cold_grass"
   }
 }

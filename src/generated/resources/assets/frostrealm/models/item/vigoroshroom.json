@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "frostrealm:item/silk_moon_egg"
+    "layer0": "frostrealm:block/vigoroshroom"
   }
 }

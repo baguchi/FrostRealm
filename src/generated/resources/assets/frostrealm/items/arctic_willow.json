@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:block/arctic_willow"
+    "model": "frostrealm:item/arctic_willow"
   }
 }

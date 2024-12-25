@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:block/vigoroshroom"
+    "model": "frostrealm:item/vigoroshroom"
   }
 }

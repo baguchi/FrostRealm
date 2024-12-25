@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:block/frostbite_sapling"
+    "model": "frostrealm:item/frostbite_sapling"
   }
 }
