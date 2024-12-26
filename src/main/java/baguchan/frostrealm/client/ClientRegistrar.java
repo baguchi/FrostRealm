@@ -176,7 +176,8 @@ public class ClientRegistrar {
 	}
 
 	public static void renderBlockColor() {
-
+		RenderType cutout = RenderType.cutout();
+		RenderType transluct = RenderType.translucent();
 	}
 
 	@SubscribeEvent

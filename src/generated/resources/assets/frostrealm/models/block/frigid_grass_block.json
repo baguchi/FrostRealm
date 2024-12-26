@@ -1,0 +1,10 @@
+{
+  "parent": "frostrealm:block/block",
+  "textures": {
+    "bottom": "frostrealm:block/frigid_stone",
+    "overlay": "frostrealm:block/frigid_grass_block_side_overlay",
+    "particle": "frostrealm:block/frigid_stone",
+    "side": "frostrealm:block/frigid_grass_block_side",
+    "top": "frostrealm:block/frigid_grass_block"
+  }
+}

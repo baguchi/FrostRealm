@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "frostrealm:block/frozen_dirt",
-    "particle": "frostrealm:block/frozen_dirt",
-    "side": "frostrealm:block/frozen_grass_block_snow",
-    "top": "frostrealm:block/frozen_grass_block_top"
-  }
-}

@@ -37,20 +37,11 @@ public class FrBlockstateGenerator extends ModelProvider {
 		super(gen, FrostRealm.MODID);
 	}
 
-
 	@Override
 	protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-		TextureMapping grassMapping = new TextureMapping().put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(FrostBlocks.FROZEN_DIRT.get())).copyForced(TextureSlot.BOTTOM, TextureSlot.PARTICLE)
-				.put(TextureSlot.TOP, TextureMapping.getBlockTexture(FrostBlocks.FROZEN_GRASS_BLOCK.get(), "_top"))
-				.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(FrostBlocks.FROZEN_GRASS_BLOCK.get(), "_snow"));
-		Variant snowVariant = Variant.variant().with(VariantProperties.MODEL, ModelTemplates.CUBE_BOTTOM_TOP.createWithSuffix(FrostBlocks.FROZEN_GRASS_BLOCK.get(), "_snow", grassMapping, blockModels.modelOutput));
-		blockModels.createGrassLikeBlock(FrostBlocks.FROZEN_GRASS_BLOCK.get(), ModelLocationUtils.getModelLocation(FrostBlocks.FROZEN_GRASS_BLOCK.get()), snowVariant);
+		createGrassLikeFrostBlock(blockModels, FrostBlocks.FROZEN_GRASS_BLOCK.get(), FrostBlocks.FROZEN_DIRT.get());
 
-		TextureMapping grassMapping2 = new TextureMapping().put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(FrostBlocks.FRIGID_STONE.get())).copyForced(TextureSlot.BOTTOM, TextureSlot.PARTICLE)
-				.put(TextureSlot.TOP, TextureMapping.getBlockTexture(FrostBlocks.FRIGID_GRASS_BLOCK.get(), "_top"))
-				.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(FrostBlocks.FRIGID_GRASS_BLOCK.get(), "_snow"));
-		Variant snowVariant2 = Variant.variant().with(VariantProperties.MODEL, ModelTemplates.CUBE_BOTTOM_TOP.createWithSuffix(FrostBlocks.FRIGID_GRASS_BLOCK.get(), "_snow", grassMapping2, blockModels.modelOutput));
-		blockModels.createGrassLikeBlock(FrostBlocks.FRIGID_GRASS_BLOCK.get(), ModelLocationUtils.getModelLocation(FrostBlocks.FRIGID_GRASS_BLOCK.get()), snowVariant2);
+		createGrassLikeFrostBlock(blockModels, FrostBlocks.FRIGID_GRASS_BLOCK.get(), FrostBlocks.FRIGID_STONE.get());
 
 
 		createFrostPortalBlock(blockModels);
@@ -171,6 +162,17 @@ public class FrBlockstateGenerator extends ModelProvider {
 		createBlockEgg(blockModels, FrostBlocks.SILK_MOON_EGG.get());
 		createEgg(blockModels, FrostBlocks.SNOWPILE_QUAIL_EGG.get());
 		blockModels.createRotatedPillarWithHorizontalVariant(FrostBlocks.RYE_BLOCK.get(), TexturedModel.COLUMN, TexturedModel.COLUMN_HORIZONTAL);
+
+	}
+
+	public void createGrassLikeFrostBlock(BlockModelGenerators generators, Block block, Block dirt) {
+		TextureMapping texturemapping = new TextureMapping()
+				.put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(dirt))
+				.put(TextureSlot.TOP, TextureMapping.getBlockTexture(block))
+				.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side"))
+				.put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(dirt))
+				.put(FrostTextureMapping.OVERLAY, TextureMapping.getBlockTexture(block, "_side_overlay"));
+		generators.blockStateOutput.accept(createSimpleBlock(block, FrostModelTemplate.BLOCK.create(block, texturemapping, generators.modelOutput)));
 
 	}
 

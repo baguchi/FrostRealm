@@ -11,6 +11,10 @@ import static net.minecraft.client.data.models.model.ModelTemplates.createItem;
 
 public class FrostModelTemplate {
     public static final ModelTemplate GLOW_CUBE = create("glow_cube", TextureSlot.ALL);
+    public static final ModelTemplate BLOCK = create(
+            "block", TextureSlot.PARTICLE, TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, FrostTextureMapping.OVERLAY
+    );
+
 
     public static final ModelTemplate TRANSLUCENT_CUBE = create("translucent_cube", TextureSlot.ALL);
     public static final ModelTemplate BIG_HANDHELD = createItem("handheld", TextureSlot.LAYER0);

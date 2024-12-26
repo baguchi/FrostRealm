@@ -1,24 +1,7 @@
 {
   "variants": {
-    "snowy=false": [
-      {
-        "model": "frostrealm:block/frozen_grass_block"
-      },
-      {
-        "model": "frostrealm:block/frozen_grass_block",
-        "y": 90
-      },
-      {
-        "model": "frostrealm:block/frozen_grass_block",
-        "y": 180
-      },
-      {
-        "model": "frostrealm:block/frozen_grass_block",
-        "y": 270
-      }
-    ],
-    "snowy=true": {
-      "model": "frostrealm:block/frozen_grass_block_snow"
+    "": {
+      "model": "frostrealm:block/frozen_grass_block"
     }
   }
 }
