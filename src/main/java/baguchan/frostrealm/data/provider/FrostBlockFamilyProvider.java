@@ -227,7 +227,7 @@ public class FrostBlockFamilyProvider {
                                 resourcelocation7
                         )
                 );
-        this.generators.registerSimpleItemModel(p_386982_.asItem(), this.generators.createFlatItemModel(p_386982_.asItem()));
+        this.generators.registerSimpleItemModel(p_386982_.asItem(), this.generators.createFlatItemModelWithBlockTexture(p_386982_.asItem(), p_386982_));
     }
 
     public void trapdoor(Block p_388553_) {

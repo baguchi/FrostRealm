@@ -10,6 +10,7 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import javax.annotation.Nonnull;
@@ -109,10 +110,11 @@ public class FrBlockstateGenerator extends FrBlockstateModelProvider {
 		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.VIGOROSHROOM.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.ARCTIC_POPPY.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.ARCTIC_WILLOW.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		createCrossBlock(blockModels, FrostBlocks.COLD_GRASS.get(), BlockModelGenerators.PlantType.TINTED);
+		blockModels.createItemWithGrassTint(FrostBlocks.COLD_GRASS.get());
 
-		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.COLD_GRASS.get(), BlockModelGenerators.PlantType.TINTED);
-
-		blockModels.createTintedDoublePlant(FrostBlocks.COLD_TALL_GRASS.get());
+		//blockModels.createTintedDoublePlant(FrostBlocks.COLD_TALL_GRASS.get());
+		createTintedDoublePlant(blockModels, FrostBlocks.COLD_TALL_GRASS.get());
 
 		blockModels.createCropBlock(FrostBlocks.BEARBERRY_BUSH.get(), BlockStateProperties.AGE_3, 0, 1, 2, 3);
 		blockModels.createCropBlock(FrostBlocks.SUGARBEET.get(), BlockStateProperties.AGE_3, 0, 1, 2, 3);
@@ -141,11 +143,16 @@ public class FrBlockstateGenerator extends FrBlockstateModelProvider {
 		blockModels.createCampfires(FrostBlocks.FROST_CAMPFIRE.get());
 
 		blockModels.createNonTemplateModelBlock(FrostBlocks.HOT_SPRING.get());
-		blockModels.createCraftingTableLike(FrostBlocks.AURORA_INFUSER.get(), FrostBlocks.AURORA_INFUSER.get(), TextureMapping::craftingTable);
+		createAuroraInfuser(blockModels, FrostBlocks.AURORA_INFUSER.get());
 		createBlockEgg(blockModels, FrostBlocks.SILK_MOON_EGG.get());
 		createEgg(blockModels, FrostBlocks.SNOWPILE_QUAIL_EGG.get());
 		blockModels.createRotatedPillarWithHorizontalVariant(FrostBlocks.RYE_BLOCK.get(), TexturedModel.COLUMN, TexturedModel.COLUMN_HORIZONTAL);
 
+	}
+
+	public void createAuroraInfuser(BlockModelGenerators blockModelGenerators, Block p_388054_) {
+		TextureMapping texturemapping = FrostTextureMapping.auroraInfuser(p_388054_);
+		blockModelGenerators.blockStateOutput.accept(createSimpleBlock(p_388054_, ModelTemplates.CUBE.create(p_388054_, texturemapping, blockModelGenerators.modelOutput)));
 	}
 
 	@Nonnull

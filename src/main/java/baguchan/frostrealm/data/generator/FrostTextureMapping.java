@@ -1,5 +1,6 @@
 package baguchan.frostrealm.data.generator;
 
+import baguchan.frostrealm.registry.FrostBlocks;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
@@ -18,6 +19,17 @@ public class FrostTextureMapping {
         ResourceLocation resourcelocation3 = getBlockTexture(block).withSuffix("_side_overlay");
         ResourceLocation resourcelocation4 = getBlockTexture(dirt);
         return grassBlock(resourcelocation, resourcelocation2, resourcelocation3, resourcelocation4);
+    }
+
+    public static TextureMapping auroraInfuser(Block p_388634_) {
+        return new TextureMapping()
+                .put(TextureSlot.PARTICLE, getBlockTexture(p_388634_))
+                .put(TextureSlot.DOWN, getBlockTexture(FrostBlocks.FRIGID_STONE_SMOOTH.get()))
+                .put(TextureSlot.UP, getBlockTexture(p_388634_, "_top"))
+                .put(TextureSlot.NORTH, getBlockTexture(p_388634_))
+                .put(TextureSlot.EAST, getBlockTexture(p_388634_))
+                .put(TextureSlot.SOUTH, getBlockTexture(p_388634_))
+                .put(TextureSlot.WEST, getBlockTexture(p_388634_));
     }
 
     public static TextureMapping grassBlock(ResourceLocation p_386993_, ResourceLocation side, ResourceLocation overlay, ResourceLocation dirt) {

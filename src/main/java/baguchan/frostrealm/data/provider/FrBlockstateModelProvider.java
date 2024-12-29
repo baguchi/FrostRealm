@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static net.minecraft.client.data.models.BlockModelGenerators.createRotatedVariants;
+import static net.minecraft.client.data.models.model.TextureMapping.getBlockTexture;
 
 public abstract class FrBlockstateModelProvider extends ModelProvider {
     public static final ModelTemplate GLOW_CUBE = FrostModelTemplate.GLOW_CUBE.extend().renderType("cutout").build();
@@ -35,6 +36,31 @@ public abstract class FrBlockstateModelProvider extends ModelProvider {
 
     public FrBlockstateModelProvider(PackOutput p_388260_, String modId) {
         super(p_388260_, modId);
+    }
+
+    public void createItemWithDoubleGrassTint(BlockModelGenerators blockModels, Block p_388714_) {
+        blockModels.registerSimpleTintedItemModel(p_388714_, ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(p_388714_), TextureMapping.layer0(getBlockTexture(p_388714_).withSuffix("_top")), blockModels.modelOutput), new GrassColorSource());
+    }
+
+    public void createTintedDoublePlant(BlockModelGenerators blockModels, Block p_388276_) {
+        createItemWithDoubleGrassTint(blockModels, p_388276_);
+        createDoublePlant(blockModels, p_388276_, BlockModelGenerators.PlantType.TINTED);
+    }
+
+    public void createDoublePlant(BlockModelGenerators blockModels, Block p_388543_, BlockModelGenerators.PlantType p_388551_) {
+        ResourceLocation resourcelocation = blockModels.createSuffixedVariant(p_388543_, "_top", p_388551_.getCross().extend().renderType("cutout").build(), TextureMapping::cross);
+        ResourceLocation resourcelocation1 = blockModels.createSuffixedVariant(p_388543_, "_bottom", p_388551_.getCross().extend().renderType("cutout").build(), TextureMapping::cross);
+        blockModels.createDoubleBlock(p_388543_, resourcelocation, resourcelocation1);
+    }
+
+    public void createCrossBlock(BlockModelGenerators blockModels, Block p_388178_, BlockModelGenerators.PlantType p_387157_) {
+        TextureMapping texturemapping = p_387157_.getTextureMapping(p_388178_);
+        this.createCrossBlock(blockModels, p_388178_, p_387157_, texturemapping);
+    }
+
+    public void createCrossBlock(BlockModelGenerators blockModels, Block p_388360_, BlockModelGenerators.PlantType p_386631_, TextureMapping p_388352_) {
+        ResourceLocation resourcelocation = p_386631_.getCross().extend().renderType("cutout").build().create(p_388360_, p_388352_, blockModels.modelOutput);
+        blockModels.blockStateOutput.accept(createSimpleBlock(p_388360_, resourcelocation));
     }
 
     public void createCutoutCube(BlockModelGenerators blockModels, Block block) {
@@ -57,11 +83,11 @@ public abstract class FrBlockstateModelProvider extends ModelProvider {
 
     public void createGrassLikeFrostBlock(BlockModelGenerators generators, Block block, Block dirt) {
         TextureMapping texturemapping = new TextureMapping()
-                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(dirt))
-                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"))
-                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side"))
+                .put(TextureSlot.BOTTOM, getBlockTexture(dirt))
+                .put(TextureSlot.TOP, getBlockTexture(block, "_top"))
+                .put(TextureSlot.SIDE, getBlockTexture(block, "_side"))
                 .copySlot(TextureSlot.BOTTOM, TextureSlot.PARTICLE)
-                .put(FrostTextureMapping.OVERLAY, TextureMapping.getBlockTexture(block, "_side_overlay"));
+                .put(FrostTextureMapping.OVERLAY, getBlockTexture(block, "_side_overlay"));
 
         generators.blockStateOutput.accept(createSimpleBlock(block, FrostModelTemplate.GRASS_BLOCK.extend().renderType("cutout_mipped").build().create(block, texturemapping, generators.modelOutput)));
         generators.registerSimpleTintedItemModel(block, ModelLocationUtils.getModelLocation(block), new GrassColorSource());
@@ -69,9 +95,9 @@ public abstract class FrBlockstateModelProvider extends ModelProvider {
 
     public void createGrassLikeFrostStoneBlock(BlockModelGenerators generators, Block block, Block dirt) {
         TextureMapping texturemapping = new TextureMapping()
-                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(dirt))
-                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"))
-                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side"))
+                .put(TextureSlot.BOTTOM, getBlockTexture(dirt))
+                .put(TextureSlot.TOP, getBlockTexture(block, "_top"))
+                .put(TextureSlot.SIDE, getBlockTexture(block, "_side"))
                 .copySlot(TextureSlot.BOTTOM, TextureSlot.PARTICLE)
                 .copySlot(TextureSlot.SIDE, FrostTextureMapping.OVERLAY);
         generators.blockStateOutput.accept(createSimpleBlock(block, FrostModelTemplate.GRASS_BLOCK.extend().renderType("cutout").build().create(block, texturemapping, generators.modelOutput)));
@@ -106,14 +132,14 @@ public abstract class FrBlockstateModelProvider extends ModelProvider {
     public ResourceLocation createEggModel(BlockModelGenerators generators, Block block, Integer p_386499_, Integer p_387511_) {
         switch (p_387511_) {
             case 0:
-                return createEggModel(generators, block, p_386499_, "", TextureMapping.cube(TextureMapping.getBlockTexture(block)));
+                return createEggModel(generators, block, p_386499_, "", TextureMapping.cube(getBlockTexture(block)));
             case 1:
                 return createEggModel(generators, block,
-                        p_386499_, "slightly_cracked_", TextureMapping.cube(TextureMapping.getBlockTexture(block))
+                        p_386499_, "slightly_cracked_", TextureMapping.cube(getBlockTexture(block))
                 );
             case 2:
                 return createEggModel(generators, block,
-                        p_386499_, "very_cracked_", TextureMapping.cube(TextureMapping.getBlockTexture(block))
+                        p_386499_, "very_cracked_", TextureMapping.cube(getBlockTexture(block))
                 );
             default:
                 throw new UnsupportedOperationException();
@@ -145,10 +171,10 @@ public abstract class FrBlockstateModelProvider extends ModelProvider {
 
 
     public void createFrostFarmland(BlockModelGenerators blockModels) {
-        TextureMapping texturemapping = new TextureMapping().put(TextureSlot.DIRT, TextureMapping.getBlockTexture(FrostBlocks.FROZEN_DIRT.get())).put(TextureSlot.TOP, TextureMapping.getBlockTexture(FrostBlocks.FROZEN_FARMLAND.get()));
-        TextureMapping texturemapping1 = new TextureMapping().put(TextureSlot.DIRT, TextureMapping.getBlockTexture(FrostBlocks.FROZEN_DIRT.get())).put(TextureSlot.TOP, TextureMapping.getBlockTexture(FrostBlocks.FROZEN_FARMLAND.get(), "_moist"));
+        TextureMapping texturemapping = new TextureMapping().put(TextureSlot.DIRT, getBlockTexture(FrostBlocks.FROZEN_DIRT.get())).put(TextureSlot.TOP, getBlockTexture(FrostBlocks.FROZEN_FARMLAND.get()));
+        TextureMapping texturemapping1 = new TextureMapping().put(TextureSlot.DIRT, getBlockTexture(FrostBlocks.FROZEN_DIRT.get())).put(TextureSlot.TOP, getBlockTexture(FrostBlocks.FROZEN_FARMLAND.get(), "_moist"));
         ResourceLocation resourcelocation = ModelTemplates.FARMLAND.create(FrostBlocks.FROZEN_FARMLAND.get(), texturemapping, blockModels.modelOutput);
-        ResourceLocation resourcelocation1 = ModelTemplates.FARMLAND.create(TextureMapping.getBlockTexture(FrostBlocks.FROZEN_FARMLAND.get(), "_moist"), texturemapping1, blockModels.modelOutput);
+        ResourceLocation resourcelocation1 = ModelTemplates.FARMLAND.create(getBlockTexture(FrostBlocks.FROZEN_FARMLAND.get(), "_moist"), texturemapping1, blockModels.modelOutput);
         blockModels.blockStateOutput.accept(MultiVariantGenerator.multiVariant(FrostBlocks.FROZEN_FARMLAND.get()).with(BlockModelGenerators.createEmptyOrFullDispatch(BlockStateProperties.MOISTURE, 7, resourcelocation1, resourcelocation)));
     }
 
@@ -181,12 +207,12 @@ public abstract class FrBlockstateModelProvider extends ModelProvider {
         }
 
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(FrostBlocks.POINTED_ICE.get()).with(c2));
-        generator.registerSimpleFlatItemModel(FrostBlocks.POINTED_ICE.get());
+        generator.registerSimpleFlatItemModel(FrostBlocks.POINTED_ICE.get(), "_up_tip");
     }
 
     public Variant createPointedIceVariant(BlockModelGenerators generator, Direction p_387068_, DripstoneThickness p_388190_) {
         String s = "_" + p_387068_.getSerializedName() + "_" + p_388190_.getSerializedName();
-        TextureMapping texturemapping = TextureMapping.cross(TextureMapping.getBlockTexture(FrostBlocks.POINTED_ICE.get(), s));
+        TextureMapping texturemapping = TextureMapping.cross(getBlockTexture(FrostBlocks.POINTED_ICE.get(), s));
         return Variant.variant()
                 .with(VariantProperties.MODEL, ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(FrostBlocks.POINTED_ICE.get(), s, texturemapping, generator.modelOutput));
     }
