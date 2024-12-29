@@ -2,6 +2,7 @@
   "parent": "frostrealm:block/glow_cube",
   "render_type": "minecraft:cutout",
   "textures": {
-    "all": "frostrealm:block/stardust_crystal_ore"
+    "all": "frostrealm:block/stardust_crystal_ore",
+    "glow_all": "frostrealm:block/stardust_crystal_ore_glow"
   }
 }

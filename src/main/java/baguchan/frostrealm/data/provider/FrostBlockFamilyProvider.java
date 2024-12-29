@@ -77,7 +77,7 @@ public class FrostBlockFamilyProvider {
         ResourceLocation resourcelocation1 = ModelTemplates.BUTTON_PRESSED.create(p_388929_, this.mapping, generators.modelOutput);
         generators.blockStateOutput.accept(createButton(p_388929_, resourcelocation, resourcelocation1));
         ResourceLocation resourcelocation2 = ModelTemplates.BUTTON_INVENTORY.create(p_388929_, this.mapping, generators.modelOutput);
-        generators.registerSimpleItemModel(p_388929_, resourcelocation2.withSuffix("_inventory"));
+        generators.registerSimpleItemModel(p_388929_, resourcelocation2);
         return this;
     }
 
@@ -88,7 +88,7 @@ public class FrostBlockFamilyProvider {
         generators.blockStateOutput
                 .accept(createWall(p_387051_, resourcelocation, resourcelocation1, resourcelocation2));
         ResourceLocation resourcelocation3 = ModelTemplates.WALL_INVENTORY.create(p_387051_, this.mapping, generators.modelOutput);
-        generators.registerSimpleItemModel(p_387051_, resourcelocation3.withSuffix("_inventory"));
+        generators.registerSimpleItemModel(p_387051_, resourcelocation3);
         return this;
     }
 
@@ -117,7 +117,7 @@ public class FrostBlockFamilyProvider {
         ResourceLocation resourcelocation1 = ModelTemplates.FENCE_SIDE.create(p_387512_, this.mapping, generators.modelOutput);
         generators.blockStateOutput.accept(createFence(p_387512_, resourcelocation, resourcelocation1));
         ResourceLocation resourcelocation2 = ModelTemplates.FENCE_INVENTORY.create(p_387512_, this.mapping, generators.modelOutput);
-        generators.registerSimpleItemModel(p_387512_, resourcelocation2.withSuffix("_inventory"));
+        generators.registerSimpleItemModel(p_387512_, resourcelocation2);
         return this;
     }
 
@@ -142,7 +142,7 @@ public class FrostBlockFamilyProvider {
         ResourceLocation resourcelocation3 = ModelTemplates.FENCE_GATE_WALL_CLOSED.create(p_386624_, this.mapping, generators.modelOutput);
         generators.blockStateOutput
                 .accept(createFenceGate(p_386624_, resourcelocation, resourcelocation1, resourcelocation2, resourcelocation3, true));
-        this.generators.registerSimpleItemModel(p_386624_, resourcelocation.withSuffix("_inventory"));
+        this.generators.registerSimpleItemModel(p_386624_, resourcelocation1);
         return this;
     }
 
@@ -150,7 +150,7 @@ public class FrostBlockFamilyProvider {
         ResourceLocation resourcelocation = ModelTemplates.PRESSURE_PLATE_UP.create(p_387753_, this.mapping, generators.modelOutput);
         ResourceLocation resourcelocation1 = ModelTemplates.PRESSURE_PLATE_DOWN.create(p_387753_, this.mapping, generators.modelOutput);
         generators.blockStateOutput.accept(createPressurePlate(p_387753_, resourcelocation, resourcelocation1));
-        this.generators.registerSimpleItemModel(p_387753_, resourcelocation.withSuffix("_up"));
+        this.generators.registerSimpleItemModel(p_387753_, resourcelocation);
         return this;
     }
 
@@ -212,7 +212,7 @@ public class FrostBlockFamilyProvider {
         ResourceLocation resourcelocation5 = ModelTemplates.DOOR_TOP_LEFT_OPEN.extend().renderType("cutout").build().create(p_386982_, texturemapping, this.generators.modelOutput);
         ResourceLocation resourcelocation6 = ModelTemplates.DOOR_TOP_RIGHT.extend().renderType("cutout").build().create(p_386982_, texturemapping, this.generators.modelOutput);
         ResourceLocation resourcelocation7 = ModelTemplates.DOOR_TOP_RIGHT_OPEN.extend().renderType("cutout").build().create(p_386982_, texturemapping, this.generators.modelOutput);
-        this.generators.registerSimpleFlatItemModel(p_386982_.asItem());
+
         this.generators.blockStateOutput
                 .accept(
                         this.generators.createDoor(
@@ -227,6 +227,7 @@ public class FrostBlockFamilyProvider {
                                 resourcelocation7
                         )
                 );
+        this.generators.registerSimpleItemModel(p_386982_.asItem(), this.generators.createFlatItemModel(p_386982_.asItem()));
     }
 
     public void trapdoor(Block p_388553_) {
@@ -243,7 +244,7 @@ public class FrostBlockFamilyProvider {
         ResourceLocation resourcelocation1 = ModelTemplates.TRAPDOOR_BOTTOM.extend().renderType("cutout").build().create(p_387551_, texturemapping, this.generators.modelOutput);
         ResourceLocation resourcelocation2 = ModelTemplates.TRAPDOOR_OPEN.extend().renderType("cutout").build().create(p_387551_, texturemapping, this.generators.modelOutput);
         this.generators.blockStateOutput.accept(this.generators.createTrapdoor(p_387551_, resourcelocation, resourcelocation1, resourcelocation2));
-        this.generators.registerSimpleItemModel(p_387551_, resourcelocation1.withSuffix("_bottom"));
+        this.generators.registerSimpleItemModel(p_387551_, resourcelocation1);
     }
 
     private void createOrientableTrapdoor(Block p_388937_) {
@@ -252,7 +253,7 @@ public class FrostBlockFamilyProvider {
         ResourceLocation resourcelocation1 = ModelTemplates.ORIENTABLE_TRAPDOOR_BOTTOM.extend().renderType("cutout").build().create(p_388937_, texturemapping, this.generators.modelOutput);
         ResourceLocation resourcelocation2 = ModelTemplates.ORIENTABLE_TRAPDOOR_OPEN.extend().renderType("cutout").build().create(p_388937_, texturemapping, this.generators.modelOutput);
         this.generators.blockStateOutput.accept(this.generators.createOrientableTrapdoor(p_388937_, resourcelocation, resourcelocation1, resourcelocation2));
-        this.generators.registerSimpleItemModel(p_388937_, resourcelocation1.withSuffix("_bottom"));
+        this.generators.registerSimpleItemModel(p_388937_, resourcelocation1);
     }
 
     public ResourceLocation getOrCreateModel(ModelTemplate p_387416_, Block p_388850_) {

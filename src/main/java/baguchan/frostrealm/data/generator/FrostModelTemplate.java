@@ -10,7 +10,7 @@ import java.util.Optional;
 import static net.minecraft.client.data.models.model.ModelTemplates.createItem;
 
 public class FrostModelTemplate {
-    public static final ModelTemplate GLOW_CUBE = create("glow_cube", TextureSlot.ALL);
+    public static final ModelTemplate GLOW_CUBE = create("glow_cube", TextureSlot.ALL, FrostTextureMapping.GLOW_ALL);
     public static final ModelTemplate GRASS_BLOCK = createDefault(
             "grass_block", TextureSlot.PARTICLE, TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, FrostTextureMapping.OVERLAY
     );

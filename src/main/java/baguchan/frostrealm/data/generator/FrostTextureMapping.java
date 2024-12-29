@@ -26,7 +26,7 @@ public class FrostTextureMapping {
 
     public static TextureMapping glowCube(Block p_387253_) {
         ResourceLocation resourcelocation = getBlockTexture(p_387253_);
-        ResourceLocation resourcelocation2 = getBlockTexture(p_387253_).withSuffix("_glow");
+        ResourceLocation resourcelocation2 = getBlockTexture(p_387253_, "_glow");
         return glowCube(resourcelocation, resourcelocation2);
     }
 

@@ -27,12 +27,11 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static net.minecraft.client.data.models.BlockModelGenerators.createRotatedVariants;
-import static net.minecraft.client.data.models.model.TexturedModel.createDefault;
 
 public abstract class FrBlockstateModelProvider extends ModelProvider {
-    public static final TexturedModel.Provider GLOW_CUBE = createDefault(FrostTextureMapping::glowCube, FrostModelTemplate.GLOW_CUBE.extend().renderType("cutout").build());
+    public static final ModelTemplate GLOW_CUBE = FrostModelTemplate.GLOW_CUBE.extend().renderType("cutout").build();
     public static final ModelTemplate TRANSLUCENT_CUBE = ModelTemplates.CUBE_ALL.extend().renderType("translucent").build();
-    private static final ModelTemplate CUTOUT_CUBE = ModelTemplates.CUBE_ALL.extend().renderType("cutout").build();
+    public static final ModelTemplate CUTOUT_CUBE = ModelTemplates.CUBE_ALL.extend().renderType("cutout").build();
 
     public FrBlockstateModelProvider(PackOutput p_388260_, String modId) {
         super(p_388260_, modId);
@@ -44,6 +43,10 @@ public abstract class FrBlockstateModelProvider extends ModelProvider {
 
     public void createTranslucentCube(BlockModelGenerators blockModels, Block block) {
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, TRANSLUCENT_CUBE.create(block, TextureMapping.cube(block), blockModels.modelOutput)));
+    }
+
+    public void createGlowCube(BlockModelGenerators blockModels, Block block) {
+        blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, GLOW_CUBE.create(block, FrostTextureMapping.glowCube(block), blockModels.modelOutput)));
     }
 
 
@@ -153,10 +156,6 @@ public abstract class FrBlockstateModelProvider extends ModelProvider {
         return MultiVariantGenerator.multiVariant(p_387997_, Variant.variant().with(VariantProperties.MODEL, p_388814_));
     }
 
-    public void createGlowCube(BlockModelGenerators blockModels, Block p_386512_) {
-        blockModels.createTrivialBlock(p_386512_, GLOW_CUBE);
-    }
-
     public void createFrostPortalBlock(BlockModelGenerators blockModels) {
         blockModels.blockStateOutput.accept(MultiVariantGenerator.multiVariant(FrostBlocks.FROST_PORTAL.get()).with(PropertyDispatch.property(BlockStateProperties.HORIZONTAL_AXIS)
                 .select(Direction.Axis.X, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(FrostBlocks.FROST_PORTAL.get(), "_ns")))
@@ -182,6 +181,7 @@ public abstract class FrBlockstateModelProvider extends ModelProvider {
         }
 
         generator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(FrostBlocks.POINTED_ICE.get()).with(c2));
+        generator.registerSimpleFlatItemModel(FrostBlocks.POINTED_ICE.get());
     }
 
     public Variant createPointedIceVariant(BlockModelGenerators generator, Direction p_387068_, DripstoneThickness p_388190_) {

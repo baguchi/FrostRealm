@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:block/frostroot_button_inventory_inventory"
+    "model": "frostrealm:block/frostroot_button_inventory"
   }
 }
