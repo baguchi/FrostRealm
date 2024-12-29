@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/door_top_left_open",
+  "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "frostrealm:block/frostroot_door_bottom",
     "top": "frostrealm:block/frostroot_door_top"
