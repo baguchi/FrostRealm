@@ -213,6 +213,7 @@ public class FrostBlockFamilyProvider {
         ResourceLocation resourcelocation6 = ModelTemplates.DOOR_TOP_RIGHT.extend().renderType("cutout").build().create(p_386982_, texturemapping, this.generators.modelOutput);
         ResourceLocation resourcelocation7 = ModelTemplates.DOOR_TOP_RIGHT_OPEN.extend().renderType("cutout").build().create(p_386982_, texturemapping, this.generators.modelOutput);
 
+        generators.registerSimpleFlatItemModel(p_386982_.asItem());
         this.generators.blockStateOutput
                 .accept(
                         this.generators.createDoor(
@@ -227,7 +228,7 @@ public class FrostBlockFamilyProvider {
                                 resourcelocation7
                         )
                 );
-        this.generators.registerSimpleFlatItemModel(p_386982_.asItem());
+
     }
 
     public void trapdoor(Block p_388553_) {
@@ -244,7 +245,7 @@ public class FrostBlockFamilyProvider {
         ResourceLocation resourcelocation1 = ModelTemplates.TRAPDOOR_BOTTOM.extend().renderType("cutout").build().create(p_387551_, texturemapping, this.generators.modelOutput);
         ResourceLocation resourcelocation2 = ModelTemplates.TRAPDOOR_OPEN.extend().renderType("cutout").build().create(p_387551_, texturemapping, this.generators.modelOutput);
         this.generators.blockStateOutput.accept(this.generators.createTrapdoor(p_387551_, resourcelocation, resourcelocation1, resourcelocation2));
-        this.generators.registerSimpleItemModel(p_387551_, resourcelocation1);
+        this.generators.registerSimpleItemModel(p_387551_, resourcelocation1.withSuffix(""));
     }
 
     private void createOrientableTrapdoor(Block p_388937_) {
@@ -253,7 +254,7 @@ public class FrostBlockFamilyProvider {
         ResourceLocation resourcelocation1 = ModelTemplates.ORIENTABLE_TRAPDOOR_BOTTOM.extend().renderType("cutout").build().create(p_388937_, texturemapping, this.generators.modelOutput);
         ResourceLocation resourcelocation2 = ModelTemplates.ORIENTABLE_TRAPDOOR_OPEN.extend().renderType("cutout").build().create(p_388937_, texturemapping, this.generators.modelOutput);
         this.generators.blockStateOutput.accept(this.generators.createOrientableTrapdoor(p_388937_, resourcelocation, resourcelocation1, resourcelocation2));
-        this.generators.registerSimpleItemModel(p_388937_, resourcelocation1);
+        this.generators.registerSimpleItemModel(p_388937_, resourcelocation1.withSuffix(""));
     }
 
     public ResourceLocation getOrCreateModel(ModelTemplate p_387416_, Block p_388850_) {

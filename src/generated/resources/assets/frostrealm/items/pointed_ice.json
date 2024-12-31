@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:block/pointed_ice"
+    "model": "frostrealm:block/pointed_ice_up_tip"
   }
 }

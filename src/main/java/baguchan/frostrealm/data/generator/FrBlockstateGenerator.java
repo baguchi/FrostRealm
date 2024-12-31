@@ -1,14 +1,15 @@
 package baguchan.frostrealm.data.generator;
 
 import baguchan.frostrealm.FrostRealm;
+import baguchan.frostrealm.data.builder.FrostBlockFamilies;
 import baguchan.frostrealm.data.provider.FrBlockstateModelProvider;
 import baguchan.frostrealm.registry.FrostBlocks;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
-import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -23,6 +24,9 @@ public class FrBlockstateGenerator extends FrBlockstateModelProvider {
 
 	@Override
 	protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+		FrostBlockFamilies.getAllFamilies().filter(BlockFamily::shouldGenerateModel).forEach((family) -> family(blockModels, family.getBaseBlock()).generateFor(family));
+
+
 		createGrassLikeFrostBlock(blockModels, FrostBlocks.FROZEN_GRASS_BLOCK.get(), FrostBlocks.FROZEN_DIRT.get());
 
 		createGrassLikeFrostStoneBlock(blockModels, FrostBlocks.FRIGID_GRASS_BLOCK.get(), FrostBlocks.FRIGID_STONE.get());
@@ -78,34 +82,11 @@ public class FrBlockstateGenerator extends FrBlockstateModelProvider {
 		createTrivialBlock(blockModels, FrostBlocks.FROSTROOT_LEAVES.get(), LEAVES_PROVIDER);
 		createCrossBlockWithDefaultItem(blockModels, FrostBlocks.FROSTROOT_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
-		blockModels.registerSimpleItemModel(FrostBlocks.FROSTROOT_PLANKS.get(), ModelLocationUtils.getModelLocation(FrostBlocks.FROSTROOT_PLANKS.get()));
-
-		family(blockModels, FrostBlocks.FROSTROOT_PLANKS.get())
-				.slab(FrostBlocks.FROSTROOT_PLANKS_SLAB.get())
-				.stairs(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get())
-				.fence(FrostBlocks.FROSTROOT_FENCE.get())
-				.fenceGate(FrostBlocks.FROSTROOT_FENCE_GATE.get())
-				.door(FrostBlocks.FROSTROOT_DOOR.get())
-				.button(FrostBlocks.FROSTROOT_BUTTON.get())
-				.pressurePlate(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get())
-				.trapdoor(FrostBlocks.FROSTROOT_TRAPDOOR.get());
-
 		blockModels.woodProvider(FrostBlocks.FROSTBITE_LOG.get())
 				.log(FrostBlocks.FROSTBITE_LOG.get())
 				.log(FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
 		createTrivialBlock(blockModels, FrostBlocks.FROSTBITE_LEAVES.get(), LEAVES_PROVIDER);
 		createCrossBlockWithDefaultItem(blockModels, FrostBlocks.FROSTBITE_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
-
-		blockModels.registerSimpleItemModel(FrostBlocks.FROSTBITE_PLANKS.get(), ModelLocationUtils.getModelLocation(FrostBlocks.FROSTBITE_PLANKS.get()));
-		family(blockModels, FrostBlocks.FROSTBITE_PLANKS.get())
-				.slab(FrostBlocks.FROSTBITE_PLANKS_SLAB.get())
-				.stairs(FrostBlocks.FROSTBITE_PLANKS_STAIRS.get())
-				.fence(FrostBlocks.FROSTBITE_FENCE.get())
-				.fenceGate(FrostBlocks.FROSTBITE_FENCE_GATE.get())
-				.door(FrostBlocks.FROSTBITE_DOOR.get())
-				.button(FrostBlocks.FROSTBITE_BUTTON.get())
-				.pressurePlate(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get())
-				.trapdoor(FrostBlocks.FROSTBITE_TRAPDOOR.get());
 
 		createCrossBlockWithDefaultItem(blockModels, FrostBlocks.VIGOROSHROOM.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 		createCrossBlockWithDefaultItem(blockModels, FrostBlocks.ARCTIC_POPPY.get(), BlockModelGenerators.PlantType.NOT_TINTED);
