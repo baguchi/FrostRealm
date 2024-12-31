@@ -75,8 +75,8 @@ public class FrBlockstateGenerator extends FrBlockstateModelProvider {
 		blockModels.woodProvider(FrostBlocks.FROSTROOT_LOG.get())
 				.log(FrostBlocks.FROSTROOT_LOG.get())
 				.log(FrostBlocks.STRIPPED_FROSTROOT_LOG.get());
-		blockModels.createTrivialCube(FrostBlocks.FROSTROOT_LEAVES.get());
-		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.FROSTROOT_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		createTrivialBlock(blockModels, FrostBlocks.FROSTROOT_LEAVES.get(), LEAVES_PROVIDER);
+		createCrossBlockWithDefaultItem(blockModels, FrostBlocks.FROSTROOT_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
 		blockModels.registerSimpleItemModel(FrostBlocks.FROSTROOT_PLANKS.get(), ModelLocationUtils.getModelLocation(FrostBlocks.FROSTROOT_PLANKS.get()));
 
@@ -93,8 +93,8 @@ public class FrBlockstateGenerator extends FrBlockstateModelProvider {
 		blockModels.woodProvider(FrostBlocks.FROSTBITE_LOG.get())
 				.log(FrostBlocks.FROSTBITE_LOG.get())
 				.log(FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
-		blockModels.createTrivialCube(FrostBlocks.FROSTBITE_LEAVES.get());
-		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.FROSTBITE_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		createTrivialBlock(blockModels, FrostBlocks.FROSTBITE_LEAVES.get(), LEAVES_PROVIDER);
+		createCrossBlockWithDefaultItem(blockModels, FrostBlocks.FROSTBITE_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
 		blockModels.registerSimpleItemModel(FrostBlocks.FROSTBITE_PLANKS.get(), ModelLocationUtils.getModelLocation(FrostBlocks.FROSTBITE_PLANKS.get()));
 		family(blockModels, FrostBlocks.FROSTBITE_PLANKS.get())
@@ -107,12 +107,11 @@ public class FrBlockstateGenerator extends FrBlockstateModelProvider {
 				.pressurePlate(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get())
 				.trapdoor(FrostBlocks.FROSTBITE_TRAPDOOR.get());
 
-		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.VIGOROSHROOM.get(), BlockModelGenerators.PlantType.NOT_TINTED);
-		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.ARCTIC_POPPY.get(), BlockModelGenerators.PlantType.NOT_TINTED);
-		blockModels.createCrossBlockWithDefaultItem(FrostBlocks.ARCTIC_WILLOW.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		createCrossBlockWithDefaultItem(blockModels, FrostBlocks.VIGOROSHROOM.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		createCrossBlockWithDefaultItem(blockModels, FrostBlocks.ARCTIC_POPPY.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+		createCrossBlockWithDefaultItem(blockModels, FrostBlocks.ARCTIC_WILLOW.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 		createCrossBlock(blockModels, FrostBlocks.COLD_GRASS.get(), BlockModelGenerators.PlantType.TINTED);
 		blockModels.createItemWithGrassTint(FrostBlocks.COLD_GRASS.get());
-
 		//blockModels.createTintedDoublePlant(FrostBlocks.COLD_TALL_GRASS.get());
 		createTintedDoublePlant(blockModels, FrostBlocks.COLD_TALL_GRASS.get());
 
@@ -140,7 +139,7 @@ public class FrBlockstateGenerator extends FrBlockstateModelProvider {
 
 		blockModels.createTrivialCube(FrostBlocks.SILK_MOON_COCOON.get());
 
-		blockModels.createCampfires(FrostBlocks.FROST_CAMPFIRE.get());
+		createCampfires(blockModels, FrostBlocks.FROST_CAMPFIRE.get());
 
 		blockModels.createNonTemplateModelBlock(FrostBlocks.HOT_SPRING.get());
 		createAuroraInfuser(blockModels, FrostBlocks.AURORA_INFUSER.get());

@@ -40,7 +40,7 @@ public class FrostBlockFamilyProvider {
     @Nullable
     private BlockFamily family;
     @Nullable
-    private ResourceLocation fullBlock;
+    protected ResourceLocation fullBlock;
     private final Set<Block> skipGeneratingModelsFor = new HashSet<>();
 
     public FrostBlockFamilyProvider(BlockModelGenerators generators, TextureMapping p_388151_) {
@@ -227,7 +227,7 @@ public class FrostBlockFamilyProvider {
                                 resourcelocation7
                         )
                 );
-        this.generators.registerSimpleItemModel(p_386982_.asItem(), this.generators.createFlatItemModelWithBlockTexture(p_386982_.asItem(), p_386982_));
+        this.generators.registerSimpleFlatItemModel(p_386982_.asItem());
     }
 
     public void trapdoor(Block p_388553_) {

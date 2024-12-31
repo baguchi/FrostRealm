@@ -26,13 +26,17 @@ import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import static net.minecraft.client.data.models.BlockModelGenerators.createRotatedVariants;
+import static net.minecraft.client.data.models.BlockModelGenerators.*;
 import static net.minecraft.client.data.models.model.TextureMapping.getBlockTexture;
+import static net.minecraft.client.data.models.model.TexturedModel.createDefault;
 
 public abstract class FrBlockstateModelProvider extends ModelProvider {
     public static final ModelTemplate GLOW_CUBE = FrostModelTemplate.GLOW_CUBE.extend().renderType("cutout").build();
     public static final ModelTemplate TRANSLUCENT_CUBE = ModelTemplates.CUBE_ALL.extend().renderType("translucent").build();
     public static final ModelTemplate CUTOUT_CUBE = ModelTemplates.CUBE_ALL.extend().renderType("cutout").build();
+    public static final ModelTemplate CROP = ModelTemplates.CROP.extend().renderType("cutout").build();
+    public static final TexturedModel.Provider LEAVES_PROVIDER = createDefault(TextureMapping::cube, ModelTemplates.LEAVES.extend().renderType("cutout").build());
+    public static final TexturedModel.Provider COLUMN_CUTOUT = createDefault(TextureMapping::column, ModelTemplates.CUBE_COLUMN.extend().renderType("cutout").build());
 
     public FrBlockstateModelProvider(PackOutput p_388260_, String modId) {
         super(p_388260_, modId);
@@ -42,8 +46,10 @@ public abstract class FrBlockstateModelProvider extends ModelProvider {
         blockModels.registerSimpleTintedItemModel(p_388714_, ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(p_388714_), TextureMapping.layer0(getBlockTexture(p_388714_).withSuffix("_top")), blockModels.modelOutput), new GrassColorSource());
     }
 
+
     public void createTintedDoublePlant(BlockModelGenerators blockModels, Block p_388276_) {
-        createItemWithDoubleGrassTint(blockModels, p_388276_);
+        ResourceLocation resourcelocation = blockModels.createFlatItemModelWithBlockTexture(p_388276_.asItem(), p_388276_, "_top");
+        blockModels.registerSimpleTintedItemModel(p_388276_, resourcelocation, new GrassColorSource());
         createDoublePlant(blockModels, p_388276_, BlockModelGenerators.PlantType.TINTED);
     }
 
@@ -51,6 +57,12 @@ public abstract class FrBlockstateModelProvider extends ModelProvider {
         ResourceLocation resourcelocation = blockModels.createSuffixedVariant(p_388543_, "_top", p_388551_.getCross().extend().renderType("cutout").build(), TextureMapping::cross);
         ResourceLocation resourcelocation1 = blockModels.createSuffixedVariant(p_388543_, "_bottom", p_388551_.getCross().extend().renderType("cutout").build(), TextureMapping::cross);
         blockModels.createDoubleBlock(p_388543_, resourcelocation, resourcelocation1);
+    }
+
+
+    public void createCrossBlockWithDefaultItem(BlockModelGenerators blockModels, Block p_386508_, BlockModelGenerators.PlantType p_387047_) {
+        blockModels.registerSimpleItemModel(p_386508_.asItem(), p_387047_.createItemModel(blockModels, p_386508_));
+        this.createCrossBlock(blockModels, p_386508_, p_387047_);
     }
 
     public void createCrossBlock(BlockModelGenerators blockModels, Block p_388178_, BlockModelGenerators.PlantType p_387157_) {
@@ -63,9 +75,36 @@ public abstract class FrBlockstateModelProvider extends ModelProvider {
         blockModels.blockStateOutput.accept(createSimpleBlock(p_388360_, resourcelocation));
     }
 
+    public void createTrivialCube(BlockModelGenerators blockModels, Block p_386512_) {
+        blockModels.itemModelOutput.accept(p_386512_.asItem(), ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(p_386512_)));
+        blockModels.createTrivialBlock(p_386512_, TexturedModel.CUBE);
+    }
+
+    public void createTrivialBlock(BlockModelGenerators blockModels, Block p_387678_, TexturedModel.Provider p_386545_) {
+        blockModels.itemModelOutput.accept(p_387678_.asItem(), ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(p_387678_)));
+
+        blockModels.blockStateOutput.accept(createSimpleBlock(p_387678_, p_386545_.create(p_387678_, blockModels.modelOutput)));
+    }
+
+    public void createCampfires(BlockModelGenerators blockModels, Block... p_387949_) {
+        ResourceLocation resourcelocation = ModelLocationUtils.decorateBlockModelLocation("campfire_off");
+
+        for (Block block : p_387949_) {
+            ResourceLocation resourcelocation1 = ModelTemplates.CAMPFIRE.extend().renderType("cutout").build().create(block, TextureMapping.campfire(block), blockModels.modelOutput);
+            blockModels.registerSimpleFlatItemModel(block.asItem());
+            blockModels.blockStateOutput
+                    .accept(
+                            MultiVariantGenerator.multiVariant(block)
+                                    .with(createBooleanModelDispatch(BlockStateProperties.LIT, resourcelocation1, resourcelocation))
+                                    .with(createHorizontalFacingDispatchAlt())
+                    );
+        }
+    }
+
     public void createCutoutCube(BlockModelGenerators blockModels, Block block) {
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, CUTOUT_CUBE.create(block, TextureMapping.cube(block), blockModels.modelOutput)));
     }
+
 
     public void createTranslucentCube(BlockModelGenerators blockModels, Block block) {
         blockModels.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, TRANSLUCENT_CUBE.create(block, TextureMapping.cube(block), blockModels.modelOutput)));
