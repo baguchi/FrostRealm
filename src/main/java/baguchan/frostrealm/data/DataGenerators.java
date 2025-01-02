@@ -26,21 +26,20 @@ public class DataGenerators {
 
 		CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();
 		generator.addProvider(true, datapackProvider);
-		event.getGenerator().addProvider(true, new FrostAdvancementData(packOutput, lookupProvider, event.getExistingFileHelper()));
+        event.getGenerator().addProvider(true, new FrostAdvancementData(packOutput, lookupProvider));
 		generator.addProvider(true, new FrostEquipmentAssetProvider(packOutput));
-		generator.addProvider(true, new FrBlockstateGenerator(packOutput));
-		generator.addProvider(true, new FrItemModelGenerator(packOutput));
+        generator.addProvider(true, new FrostModelData(packOutput));
 		event.getGenerator().addProvider(true, LootGenerator.create(packOutput, lookupProvider));
 
 		event.getGenerator().addProvider(true, new Runner(packOutput, lookupProvider));
 		generator.addProvider(true, new FrostDataMaps(packOutput, lookupProvider));
-		BlockTagsProvider blocktags = new FrBlockTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper());
+        BlockTagsProvider blocktags = new FrBlockTagGenerator(packOutput, lookupProvider);
 		event.getGenerator().addProvider(true, blocktags);
-		event.getGenerator().addProvider(true, new FrItemTagGenerator(packOutput, lookupProvider, blocktags.contentsGetter(), event.getExistingFileHelper()));
-		event.getGenerator().addProvider(true, new FrEntityTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
-		event.getGenerator().addProvider(true, new FrFluidTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
-		event.getGenerator().addProvider(true, new BiomeTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
-		event.getGenerator().addProvider(true, new FrDamageTypeTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper()));
+        event.getGenerator().addProvider(true, new FrItemTagGenerator(packOutput, lookupProvider, blocktags.contentsGetter()));
+        event.getGenerator().addProvider(true, new FrEntityTagGenerator(packOutput, lookupProvider));
+        event.getGenerator().addProvider(true, new FrFluidTagGenerator(packOutput, lookupProvider));
+        event.getGenerator().addProvider(true, new BiomeTagGenerator(packOutput, lookupProvider));
+        event.getGenerator().addProvider(true, new FrDamageTypeTagGenerator(packOutput, lookupProvider));
 	}
 
 	public static final class Runner extends RecipeProvider.Runner {

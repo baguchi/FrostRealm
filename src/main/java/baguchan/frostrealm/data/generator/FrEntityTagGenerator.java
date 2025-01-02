@@ -7,13 +7,12 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.tags.EntityTypeTags;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
 public class FrEntityTagGenerator extends EntityTypeTagsProvider {
-	public FrEntityTagGenerator(PackOutput p_255941_, CompletableFuture<HolderLookup.Provider> p_256600_, ExistingFileHelper exFileHelper) {
-		super(p_255941_, p_256600_, FrostRealm.MODID, exFileHelper);
+    public FrEntityTagGenerator(PackOutput p_255941_, CompletableFuture<HolderLookup.Provider> p_256600_) {
+        super(p_255941_, p_256600_, FrostRealm.MODID);
 	}
 
 	@SuppressWarnings("unchecked")

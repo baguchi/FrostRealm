@@ -12,13 +12,12 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
 public class FrItemTagGenerator extends ItemTagsProvider {
-    public FrItemTagGenerator(PackOutput p_255871_, CompletableFuture<HolderLookup.Provider> p_256035_, CompletableFuture<TagsProvider.TagLookup<Block>> p_256467_, ExistingFileHelper exFileHelper) {
-        super(p_255871_, p_256035_, p_256467_, FrostRealm.MODID, exFileHelper);
+    public FrItemTagGenerator(PackOutput p_255871_, CompletableFuture<HolderLookup.Provider> p_256035_, CompletableFuture<TagsProvider.TagLookup<Block>> p_256467_) {
+        super(p_255871_, p_256035_, p_256467_, FrostRealm.MODID);
     }
 
 	@SuppressWarnings("unchecked")

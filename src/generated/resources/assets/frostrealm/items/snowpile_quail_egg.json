@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "frostrealm:block/snowpile_quail_egg"
+    "model": "frostrealm:item/snowpile_quail_egg"
   }
 }

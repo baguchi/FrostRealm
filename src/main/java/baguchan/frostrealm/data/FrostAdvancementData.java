@@ -16,28 +16,28 @@ import net.minecraft.advancements.critereon.TameAnimalTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.advancements.AdvancementProvider;
+import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.common.data.AdvancementProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class FrostAdvancementData extends AdvancementProvider {
-	public FrostAdvancementData(PackOutput output, CompletableFuture<HolderLookup.Provider> registries, ExistingFileHelper existingFileHelper) {
-		super(output, registries, existingFileHelper, List.of(new FrostAdvancements()));
+    public FrostAdvancementData(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        super(output, registries, List.of(new FrostAdvancements()));
 	}
 
 
-	public static class FrostAdvancements implements AdvancementGenerator {
+    public static class FrostAdvancements implements AdvancementSubProvider {
 
 		@SuppressWarnings("unused")
 		@Override
-        public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
+        public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer) {
 			HolderLookup<Item> lookupItem = provider.lookupOrThrow(Registries.ITEM);
 			HolderLookup.RegistryLookup<EntityType<?>> lookupEntity = provider.lookupOrThrow(Registries.ENTITY_TYPE);
 

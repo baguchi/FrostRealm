@@ -2,6 +2,7 @@ package baguchan.frostrealm.data.generator;
 
 import baguchan.frostrealm.FrostRealm;
 import net.minecraft.client.data.models.model.ModelTemplate;
+import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
 
@@ -9,11 +10,13 @@ import java.util.Optional;
 
 import static net.minecraft.client.data.models.model.ModelTemplates.createItem;
 
-public class FrostModelTemplate {
+public class FrostModelTemplates {
     public static final ModelTemplate GRASS_BLOCK = createDefault(
-            "grass_block", TextureSlot.PARTICLE, TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, FrostTextureMapping.OVERLAY
+            "grass_block", TextureSlot.PARTICLE, TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, FrostTextureMappings.OVERLAY
     );
-    public static final ModelTemplate GLOW_CUBE = create("glow_cube", TextureSlot.ALL, FrostTextureMapping.GLOW_ALL);
+    public static final ModelTemplate EMPTY = ModelTemplates.create("block", TextureSlot.PARTICLE);
+
+    public static final ModelTemplate GLOW_CUBE = create("glow_cube", TextureSlot.ALL, FrostTextureMappings.GLOW_ALL);
     public static final ModelTemplate CHAIN = create("chain", TextureSlot.ALL);
     public static final ModelTemplate LADDER = create("ladder", TextureSlot.ALL);
     public static final ModelTemplate TRANSLUCENT_CUBE = create("translucent_cube", TextureSlot.ALL);
