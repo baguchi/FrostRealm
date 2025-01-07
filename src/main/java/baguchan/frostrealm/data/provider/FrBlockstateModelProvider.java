@@ -273,6 +273,6 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
         String s = "_" + p_387068_.getSerializedName() + "_" + p_388190_.getSerializedName();
         TextureMapping texturemapping = TextureMapping.cross(getBlockTexture(FrostBlocks.POINTED_ICE.get(), s));
         return Variant.variant()
-                .with(VariantProperties.MODEL, ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(FrostBlocks.POINTED_ICE.get(), s, texturemapping, generator.modelOutput));
+                .with(VariantProperties.MODEL, ModelTemplates.POINTED_DRIPSTONE.extend().renderType("cutout").build().createWithSuffix(FrostBlocks.POINTED_ICE.get(), s, texturemapping, generator.modelOutput));
     }
 }
