@@ -24,10 +24,8 @@ public class GuiGraphicsMixin {
     private void renderItem(
             LivingEntity p_282619_, Level p_281754_, ItemStack p_281675_, int p_281271_, int p_282210_, int p_283260_, int p_281995_, CallbackInfo ci
     ) {
-        if (!p_281675_.isEmpty()) {
-            if (this.scratchItemStackRenderState instanceof IGlintAurora glintAurora) {
-                glintAurora.frostRealm$setGlint(!AuroraPowerUtils.getAuroraPowers(p_281675_).isEmpty());
-            }
+        if (this.scratchItemStackRenderState instanceof IGlintAurora glintAurora) {
+            glintAurora.frostRealm$setGlint(!AuroraPowerUtils.getAuroraPowers(p_281675_).isEmpty());
         }
     }
 }
