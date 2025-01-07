@@ -15,10 +15,7 @@ import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Fallable;
@@ -70,29 +67,30 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 		return isValidPointedDripstonePlacement(p_154138_, p_154139_, p_154137_.getValue(TIP_DIRECTION));
 	}
 
-	public BlockState updateShape(BlockState p_154147_, Direction p_154148_, BlockState p_154149_, LevelAccessor p_154150_, BlockPos p_154151_, BlockPos p_154152_) {
-		if (p_154147_.getValue(WATERLOGGED)) {
-			p_154150_.scheduleTick(p_154151_, Fluids.WATER, Fluids.WATER.getTickDelay(p_154150_));
+	@Override
+	protected BlockState updateShape(BlockState p_154147_, LevelReader p_374104_, ScheduledTickAccess p_374078_, BlockPos p_154151_, Direction p_154148_, BlockPos p_154152_, BlockState p_154149_, RandomSource p_374393_) {
+		if ((Boolean) p_154147_.getValue(WATERLOGGED)) {
+			p_374078_.scheduleTick(p_154151_, Fluids.WATER, Fluids.WATER.getTickDelay(p_374104_));
 		}
 
 		if (p_154148_ != Direction.UP && p_154148_ != Direction.DOWN) {
 			return p_154147_;
 		} else {
-			Direction direction = p_154147_.getValue(TIP_DIRECTION);
-			if (direction == Direction.DOWN && p_154150_.getBlockTicks().hasScheduledTick(p_154151_, this)) {
+			Direction direction = (Direction) p_154147_.getValue(TIP_DIRECTION);
+			if (direction == Direction.DOWN && p_374078_.getBlockTicks().hasScheduledTick(p_154151_, this)) {
 				return p_154147_;
-			} else if (p_154148_ == direction.getOpposite() && !this.canSurvive(p_154147_, p_154150_, p_154151_)) {
+			} else if (p_154148_ == direction.getOpposite() && !this.canSurvive(p_154147_, p_374104_, p_154151_)) {
 				if (direction == Direction.DOWN) {
-					this.scheduleStalactiteFallTicks(p_154147_, p_154150_, p_154151_);
+					p_374078_.scheduleTick(p_154151_, this, 2);
 				} else {
-					p_154150_.scheduleTick(p_154151_, this, 1);
+					p_374078_.scheduleTick(p_154151_, this, 1);
 				}
 
 				return p_154147_;
 			} else {
 				boolean flag = p_154147_.getValue(THICKNESS) == DripstoneThickness.TIP_MERGE;
-				DripstoneThickness dripstonethickness = calculateDripstoneThickness(p_154150_, p_154151_, direction, flag);
-				return p_154147_.setValue(THICKNESS, dripstonethickness);
+				DripstoneThickness dripstonethickness = calculateDripstoneThickness(p_374104_, p_154151_, direction, flag);
+				return (BlockState) p_154147_.setValue(THICKNESS, dripstonethickness);
 			}
 		}
 	}
