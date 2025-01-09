@@ -23,7 +23,7 @@ public class AuroraPowers {
 
     public static final DeferredRegister<AuroraPower> AURORA_POWER = DeferredRegister.create(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "aurora_power"), FrostRealm.MODID);
 
-    public static final Supplier<AuroraPower> AURORA_PROTECTION = AURORA_POWER.register("aurora_protection", () -> new ArmorPower(new AuroraPower.Properties(AuroraPower.Rarity.COMMON, 3), new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}));
+    public static final Supplier<AuroraPower> AURORA_PROTECTION = AURORA_POWER.register("aurora_protection", () -> new ArmorPower(new AuroraPower.Properties(AuroraPower.Rarity.COMMON, 3), new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET, EquipmentSlot.BODY}));
 
     public static final Supplier<AuroraPower> AURORA_SHAPER = AURORA_POWER.register("aurora_shaper", () -> new WeaponPower(new AuroraPower.Properties(AuroraPower.Rarity.COMMON, 5), new EquipmentSlot[]{EquipmentSlot.MAINHAND}));
     public static final Supplier<AuroraPower> CRYSTAL_SLASHER = AURORA_POWER.register("crystal_slasher", () -> new LightSlasherPower(new AuroraPower.Properties(AuroraPower.Rarity.RARE, 3), new EquipmentSlot[]{EquipmentSlot.MAINHAND}));
