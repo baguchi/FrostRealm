@@ -28,6 +28,22 @@ public class FrostRenderType extends RenderType {
                     .createCompositeState(false)
     );
 
+    public static final RenderType COW_GLINT = RenderType.create(
+            "frostrealm:cow_glint",
+            DefaultVertexFormat.POSITION_TEX,
+            VertexFormat.Mode.QUADS,
+            1536,
+            RenderType.CompositeState.builder()
+                    .setShaderState(RenderType.RENDERTYPE_GLINT_SHADER)
+                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/misc/cow.png"), TriState.DEFAULT, false))
+                    .setCullState(RenderType.NO_CULL)
+                    .setDepthTestState(RenderType.EQUAL_DEPTH_TEST)
+                    .setTransparencyState(RenderType.NO_TRANSPARENCY)
+                    .setTexturingState(RenderType.GLINT_TEXTURING)
+                    .createCompositeState(false)
+    );
+
+
     public static final RenderType AURORA_ARMOR_GLINT = RenderType.create(
             "frostrealm:aurora_armor_glint",
             DefaultVertexFormat.POSITION_TEX,
