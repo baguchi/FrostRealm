@@ -6,6 +6,7 @@ import baguchan.frostrealm.entity.goal.GuardAndCounterAnimationGoal;
 import baguchan.frostrealm.entity.utils.GuardHandler;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.utils.LookUtils;
+import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import baguchi.bagus_lib.entity.AnimationScale;
 import baguchi.bagus_lib.entity.goal.AnimateAttackGoal;
 import net.minecraft.core.BlockPos;
@@ -182,8 +183,13 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
     }
 
     protected void populateDefaultEquipmentSlots(RandomSource p_218949_, DifficultyInstance p_218950_) {
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(FrostItems.FROST_SPEAR.get()));
-        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(FrostItems.YETI_FUR_HELMET.get()));
+        ItemStack spear = new ItemStack(FrostItems.FROST_SPEAR.get());
+
+        AuroraPowerUtils.auroraInfusionItem(p_218949_, spear, 5, false);
+        this.setItemSlot(EquipmentSlot.MAINHAND, spear);
+        ItemStack helmet = new ItemStack(FrostItems.YETI_FUR_HELMET.get());
+        AuroraPowerUtils.auroraInfusionItem(p_218949_, helmet, 5, false);
+        this.setItemSlot(EquipmentSlot.HEAD, helmet);
         this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(FrostItems.YETI_FUR_CHESTPLATE.get()));
     }
 

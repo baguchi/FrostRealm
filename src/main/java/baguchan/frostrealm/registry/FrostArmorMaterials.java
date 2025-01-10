@@ -28,7 +28,7 @@ public class FrostArmorMaterials {
 		p_266654_.put(ArmorType.LEGGINGS, 5);
 		p_266654_.put(ArmorType.CHESTPLATE, 6);
 		p_266654_.put(ArmorType.HELMET, 2);
-		p_266654_.put(ArmorType.BODY, 15);
+		p_266654_.put(ArmorType.BODY, 16);
 	}), 12, SoundEvents.ARMOR_EQUIP_IRON, 1.5F, 0.0F, FrostTags.Items.ASTRIUM_TOOL_MATERIAL, FrostEquipmentAssets.ASTRIUM);
 
 }

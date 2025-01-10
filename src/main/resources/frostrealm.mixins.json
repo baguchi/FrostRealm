@@ -10,6 +10,8 @@
     "ServerEntityMixin"
   ],
   "client": [
+    "client.CustomArmorLayerMixin",
+    "client.EquipmentLayerRendererMixin",
     "client.GuiGraphicsMixin",
     "client.ItemModelResolverMixin",
     "client.ItemRendererMixin",

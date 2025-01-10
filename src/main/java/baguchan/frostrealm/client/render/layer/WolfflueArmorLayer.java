@@ -2,14 +2,17 @@ package baguchan.frostrealm.client.render.layer;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
+import baguchan.frostrealm.client.FrostRenderType;
 import baguchan.frostrealm.client.model.WolfflueModel;
 import baguchan.frostrealm.client.render.state.WolfflueRenderState;
 import baguchan.frostrealm.item.WolfflueArmorItem;
+import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -51,10 +54,16 @@ public class WolfflueArmorLayer<T extends WolfflueRenderState> extends RenderLay
             ItemStack itemstack = p_316642_.bodyArmorItem;
 
             this.model.setupAnim(p_316642_);
-            VertexConsumer vertexconsumer = p_316832_.getBuffer(RenderType.entityCutoutNoCull(wolfflueArmorItem.getTexture()));
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(p_316832_, RenderType.entityCutoutNoCull(wolfflueArmorItem.getTexture()), itemstack.hasFoil());
                 this.model.renderToBuffer(p_316608_, vertexconsumer, p_316312_, OverlayTexture.NO_OVERLAY);
             this.maybeRenderCracks(p_316608_, p_316832_, p_316312_, itemstack);
-                return;
+
+            if (!AuroraPowerUtils.getAuroraPowers(itemstack).isEmpty()) {
+                VertexConsumer vertexconsumer2 = p_316832_.getBuffer(FrostRenderType.AURORA_ENTITY_GLINT);
+                this.model.renderToBuffer(p_316608_, vertexconsumer2, p_316312_, OverlayTexture.NO_OVERLAY);
+            }
+
+            return;
 
         }
 
