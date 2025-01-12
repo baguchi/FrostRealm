@@ -4,6 +4,8 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.data.generator.FrostModelTemplates;
 import baguchan.frostrealm.data.generator.FrostTextureMappings;
 import baguchan.frostrealm.registry.FrostBlocks;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.color.item.GrassColorSource;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelOutput;
@@ -16,6 +18,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
+import net.minecraft.world.level.block.state.properties.Property;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;
@@ -274,5 +277,25 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
         TextureMapping texturemapping = TextureMapping.cross(getBlockTexture(FrostBlocks.POINTED_ICE.get(), s));
         return Variant.variant()
                 .with(VariantProperties.MODEL, ModelTemplates.POINTED_DRIPSTONE.extend().renderType("cutout").build().createWithSuffix(FrostBlocks.POINTED_ICE.get(), s, texturemapping, generator.modelOutput));
+    }
+
+    public void createCropBlock(Block p_387553_, Property<Integer> p_386757_, int... p_388514_) {
+        if (p_386757_.getPossibleValues().size() != p_388514_.length) {
+            throw new IllegalArgumentException();
+        } else {
+            Int2ObjectMap<ResourceLocation> int2objectmap = new Int2ObjectOpenHashMap<>();
+            PropertyDispatch propertydispatch = PropertyDispatch.property(p_386757_)
+                    .generate(
+                            p_388091_ -> {
+                                int i = p_388514_[p_388091_];
+                                ResourceLocation resourcelocation = int2objectmap.computeIfAbsent(
+                                        i, p_387534_ -> this.createSuffixedVariant(p_387553_, "_" + i, ModelTemplates.CROP.extend().renderType("cutout").build(), TextureMapping::crop)
+                                );
+                                return Variant.variant().with(VariantProperties.MODEL, resourcelocation);
+                            }
+                    );
+            this.registerSimpleFlatItemModel(p_387553_.asItem());
+            this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(p_387553_).with(propertydispatch));
+        }
     }
 }
