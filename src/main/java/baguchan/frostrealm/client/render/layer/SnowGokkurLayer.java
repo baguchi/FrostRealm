@@ -31,12 +31,11 @@ public class SnowGokkurLayer<T extends GokkurRenderState> extends RenderLayer<T,
                 BakedModel bakedmodel = this.blockRenderer.getBlockModel(blockstate);
                 p_117256_.pushPose();
                 float f = p_361786_.snowProgress;
-
                 this.getParentModel().root.translateAndRotate(p_117256_);
-                //p_117256_.translate(0.0F, -0.34375F, 0.0F);
-
                 this.getParentModel().body_rotation.translateAndRotate(p_117256_);
-                p_117256_.scale(f, -f, -f);
+                p_117256_.scale(f, f, f);
+
+                p_117256_.translate(-0.5F, -0.5F, -0.5F);
                 this.renderBlock(p_117256_, p_117257_, p_117258_, flag, blockstate, i, bakedmodel);
                 p_117256_.popPose();
             }
