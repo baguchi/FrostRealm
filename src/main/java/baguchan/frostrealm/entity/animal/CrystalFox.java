@@ -88,18 +88,19 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 2.2F));
-		this.goalSelector.addGoal(2, new BreedGoal(this, 0.95D));
-		this.goalSelector.addGoal(2, new FollowParentGoal(this, 1.1D));
-		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.6D, 1.4D, (p_28596_) -> {
+		this.goalSelector.addGoal(2, new FoxSittingGoal(this));
+		this.goalSelector.addGoal(3, new FoxSleepGoal(this));
+
+		this.goalSelector.addGoal(4, new BreedGoal(this, 0.95D));
+		this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
+		this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.6D, 1.4D, (p_28596_) -> {
 			return AVOID_PLAYERS.test(p_28596_) && !this.trusts(p_28596_.getUUID());
 		}));
-		this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Wolfflue.class, 8.0F, 1.55D, 1.45D, (p_28590_) -> {
+		this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, Wolfflue.class, 8.0F, 1.55D, 1.45D, (p_28590_) -> {
 			return !((Wolfflue) p_28590_).isTame();
 		}));
-		this.goalSelector.addGoal(5, new FoxMeleeAttackGoal(1.2F, true));
-		this.goalSelector.addGoal(6, new SeekShelterEvenBlizzardGoal(this, 1.25D, true));
-		this.goalSelector.addGoal(7, new FoxSittingGoal(this));
-		this.goalSelector.addGoal(8, new FoxSleepGoal(this));
+		this.goalSelector.addGoal(7, new FoxMeleeAttackGoal(1.2F, true));
+		this.goalSelector.addGoal(8, new SeekShelterEvenBlizzardGoal(this, 1.25D, true));
 		this.goalSelector.addGoal(9, new FoxEatBerriesGoal(1.25D, 8, 4));
 		this.goalSelector.addGoal(10, new RandomStrollGoal(this, 1.0F));
 		this.goalSelector.addGoal(11, new LookAtPlayerGoal(this, Player.class, 8.0F));

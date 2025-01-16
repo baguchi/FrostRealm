@@ -21,19 +21,15 @@ public class CrystalFoxHeldItemLayer extends RenderLayer<CrystalFoxRenderState, 
 			p_117007_.pushPose();
 			this.getParentModel().main.translateAndRotate(p_117007_);
 			this.getParentModel().body.translateAndRotate(p_117007_);
-			p_117007_.translate(this.getParentModel().head.x / 16.0F, this.getParentModel().head.y / 16.0F, this.getParentModel().head.z / 16.0F);
-			if (flag1) {
-				float f = 0.75F;
-				p_117007_.scale(0.75F, 0.75F, 0.75F);
-			}
+			this.getParentModel().head.translateAndRotate(p_117007_);
 
-			p_117007_.mulPose(Axis.YP.rotationDegrees(p_117011_));
-			p_117007_.mulPose(Axis.XP.rotationDegrees(p_117012_));
+			//p_117007_.mulPose(Axis.YP.rotationDegrees(p_117011_));
+			//p_117007_.mulPose(Axis.XP.rotationDegrees(p_117012_));
 
 			if (p_360609_.isBaby) {
-				p_117007_.translate(0.06F, 0.175F, -0.8F);
+				p_117007_.translate(0.06F, 0.175F, -0.7F);
 			} else {
-				p_117007_.translate(0.06F, 0.115F, -0.8F);
+				p_117007_.translate(0.06F, 0.115F, -0.7F);
 			}
 
 			p_117007_.mulPose(Axis.XP.rotationDegrees(90.0F));

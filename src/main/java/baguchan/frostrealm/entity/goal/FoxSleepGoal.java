@@ -14,7 +14,7 @@ public class FoxSleepGoal extends Goal {
 
     public FoxSleepGoal(CrystalFox p_25492_) {
         this.mob = p_25492_;
-        this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
+        this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE, Flag.LOOK));
     }
 
     @Override
