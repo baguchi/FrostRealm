@@ -76,8 +76,9 @@ public class FrBlockTagGenerator extends BlockTagsProvider {
         tag(FrostTags.Blocks.HOT_SOURCE).addTag(BlockTags.CAMPFIRES).addTag(BlockTags.FIRE).add(Blocks.MAGMA_BLOCK)
                 .add(Blocks.FURNACE, Blocks.BLAST_FURNACE, Blocks.SMOKER).add(FrostBlocks.HOT_SPRING.get());
 		tag(BlockTags.CAMPFIRES).add(FrostBlocks.FROST_CAMPFIRE.get());
+        tag(BlockTags.FIRE).add(FrostBlocks.FROST_FIRE.get());
         tag(FrostTags.Blocks.TUNDRA_REPLACEABLE).add(FrostBlocks.FRIGID_STONE.get(), FrostBlocks.FROZEN_DIRT.get());
-        tag(FrostTags.Blocks.WORLD_CARVER_REPLACEABLE).add(FrostBlocks.FRIGID_STONE.get(), FrostBlocks.PERMA_SLATE.get(), FrostBlocks.FROZEN_DIRT.get(), FrostBlocks.FROZEN_GRASS_BLOCK.get(), Blocks.ICE, Blocks.BLUE_ICE, Blocks.PACKED_ICE);
+        tag(FrostTags.Blocks.WORLD_CARVER_REPLACEABLE).add(FrostBlocks.FRIGID_STONE.get(), FrostBlocks.PERMA_SLATE.get(), FrostBlocks.FROZEN_DIRT.get(), FrostBlocks.FROZEN_GRASS_BLOCK.get(), Blocks.ICE, Blocks.BLUE_ICE, Blocks.PACKED_ICE, FrostBlocks.SHERBET_SAND.get(), FrostBlocks.SHERBET_SANDSTONE.get());
 
         tag(FrostTags.Blocks.ANIMAL_SPAWNABLE).add(FrostBlocks.FROZEN_GRASS_BLOCK.get(), FrostBlocks.FRIGID_GRASS_BLOCK.get());
         tag(BlockTags.DIRT).add(FrostBlocks.FROZEN_DIRT.get(), FrostBlocks.FROZEN_GRASS_BLOCK.get()).add(FrostBlocks.FRIGID_GRASS_BLOCK.get());

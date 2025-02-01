@@ -130,7 +130,7 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
         createBlockEgg(FrostBlocks.SILK_MOON_EGG.get());
         createEgg(FrostBlocks.SNOWPILE_QUAIL_EGG.get());
         this.createRotatedPillarWithHorizontalVariant(FrostBlocks.RYE_BLOCK.get(), TexturedModel.COLUMN, TexturedModel.COLUMN_HORIZONTAL);
-
+        this.createFrostFire();
     }
 
     public void createAuroraInfuser(Block p_388054_) {

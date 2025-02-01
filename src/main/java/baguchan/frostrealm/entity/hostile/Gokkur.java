@@ -215,17 +215,12 @@ public class Gokkur extends Monster {
 
     @Override
     public void push(Entity p_33636_) {
-        if (p_33636_ instanceof LivingEntity && !(p_33636_ instanceof Gokkur) && !(p_33636_ instanceof Player)) {
+        if (p_33636_ instanceof LivingEntity && !(p_33636_ instanceof Gokkur)) {
             this.dealDamage((LivingEntity) p_33636_);
         }
         super.push(p_33636_);
     }
 
-    @Override
-    public void playerTouch(Player p_20081_) {
-        super.playerTouch(p_20081_);
-        this.dealDamage(p_20081_);
-    }
 
     @Override
     public boolean hurtServer(ServerLevel p_376221_, DamageSource p_376460_, float p_376610_) {

@@ -64,6 +64,7 @@ public class FrostPlacements {
 	public static final ResourceKey<PlacedFeature> LARGE_ICE = registerKey("large_ice");
 	public static final ResourceKey<PlacedFeature> STARDUST_CRUSTER = registerKey("stardust_cluster");
     public static final ResourceKey<PlacedFeature> SMALL_VOLCANO = registerKey("small_volcano");
+	public static final ResourceKey<PlacedFeature> FROST_FIRE_DESERT = registerKey("frost_fire_desert");
 
 	public static final ResourceKey<PlacedFeature> LOG_PLACE = registerKey("log");
 	public static final ResourceKey<PlacedFeature> CHAIN_PLACE = registerKey("chain");
@@ -124,6 +125,14 @@ public class FrostPlacements {
 		PlacementUtils.register(context, LOG_PLACE, configuredFeature.getOrThrow(FrostConfiguredFeatures.LOG), EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.anyOf(BlockPredicate.hasSturdyFace(new Vec3i(0, 1, 0), Direction.UP), BlockPredicate.hasSturdyFace(Direction.UP)), 32));
 		PlacementUtils.register(context, CHAIN_PLACE, configuredFeature.getOrThrow(FrostConfiguredFeatures.CHAIN), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.anyOf(BlockPredicate.hasSturdyFace(new Vec3i(0, -1, 0), Direction.DOWN), BlockPredicate.hasSturdyFace(Direction.DOWN)), 32));
 
+		List<PlacementModifier> list = List.of(
+				CountPlacement.of(UniformInt.of(0, 5)), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+
+		List<PlacementModifier> list2 = List.of(
+				RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+		);
+		PlacementUtils.register(context, FROST_FIRE_DESERT, configuredFeature.getOrThrow(FrostConfiguredFeatures.FROST_FIRE_DESERT), list2);
 	}
 
 	private static ImmutableList.Builder<PlacementModifier> treePlacementBase(PlacementModifier p_195485_) {

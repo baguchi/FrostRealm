@@ -4,6 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.data.generator.FrostModelTemplates;
 import baguchan.frostrealm.data.generator.FrostTextureMappings;
 import baguchan.frostrealm.registry.FrostBlocks;
+import com.google.common.collect.ImmutableList;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.color.item.GrassColorSource;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import net.minecraft.world.level.block.state.properties.Property;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -297,5 +299,51 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
             this.registerSimpleFlatItemModel(p_387553_.asItem());
             this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(p_387553_).with(propertydispatch));
         }
+    }
+
+    public List<ResourceLocation> createSideFireModels(Block p_387079_) {
+        ResourceLocation resourcelocation = ModelTemplates.FIRE_SIDE.extend().renderType("cutout").build()
+                .create(ModelLocationUtils.getModelLocation(p_387079_, "_side0"), TextureMapping.fire0(p_387079_), this.modelOutput);
+        ResourceLocation resourcelocation1 = ModelTemplates.FIRE_SIDE.extend().renderType("cutout").build()
+                .create(ModelLocationUtils.getModelLocation(p_387079_, "_side1"), TextureMapping.fire1(p_387079_), this.modelOutput);
+        ResourceLocation resourcelocation2 = ModelTemplates.FIRE_SIDE_ALT.extend().renderType("cutout").build()
+                .create(ModelLocationUtils.getModelLocation(p_387079_, "_side_alt0"), TextureMapping.fire0(p_387079_), this.modelOutput);
+        ResourceLocation resourcelocation3 = ModelTemplates.FIRE_SIDE_ALT.extend().renderType("cutout").build()
+                .create(ModelLocationUtils.getModelLocation(p_387079_, "_side_alt1"), TextureMapping.fire1(p_387079_), this.modelOutput);
+        return ImmutableList.of(resourcelocation, resourcelocation1, resourcelocation2, resourcelocation3);
+    }
+
+    public List<ResourceLocation> createTopFireModels(Block p_387163_) {
+        ResourceLocation resourcelocation = ModelTemplates.FIRE_UP.extend().renderType("cutout").build()
+                .create(ModelLocationUtils.getModelLocation(p_387163_, "_up0"), TextureMapping.fire0(p_387163_), this.modelOutput);
+        ResourceLocation resourcelocation1 = ModelTemplates.FIRE_UP.extend().renderType("cutout").build()
+                .create(ModelLocationUtils.getModelLocation(p_387163_, "_up1"), TextureMapping.fire1(p_387163_), this.modelOutput);
+        ResourceLocation resourcelocation2 = ModelTemplates.FIRE_UP_ALT.extend().renderType("cutout").build()
+                .create(ModelLocationUtils.getModelLocation(p_387163_, "_up_alt0"), TextureMapping.fire0(p_387163_), this.modelOutput);
+        ResourceLocation resourcelocation3 = ModelTemplates.FIRE_UP_ALT.extend().renderType("cutout").build()
+                .create(ModelLocationUtils.getModelLocation(p_387163_, "_up_alt1"), TextureMapping.fire1(p_387163_), this.modelOutput);
+        return ImmutableList.of(resourcelocation, resourcelocation1, resourcelocation2, resourcelocation3);
+    }
+
+    public List<ResourceLocation> createFloorFireModels(Block p_387402_) {
+        ResourceLocation resourcelocation = ModelTemplates.FIRE_FLOOR.extend().renderType("cutout").build()
+                .create(ModelLocationUtils.getModelLocation(p_387402_, "_floor0"), TextureMapping.fire0(p_387402_), this.modelOutput);
+        ResourceLocation resourcelocation1 = ModelTemplates.FIRE_FLOOR.extend().renderType("cutout").build()
+                .create(ModelLocationUtils.getModelLocation(p_387402_, "_floor1"), TextureMapping.fire1(p_387402_), this.modelOutput);
+        return ImmutableList.of(resourcelocation, resourcelocation1);
+    }
+
+    public void createFrostFire() {
+        List<ResourceLocation> list = this.createFloorFireModels(FrostBlocks.FROST_FIRE.get());
+        List<ResourceLocation> list1 = this.createSideFireModels(FrostBlocks.FROST_FIRE.get());
+        this.blockStateOutput
+                .accept(
+                        MultiPartGenerator.multiPart(FrostBlocks.FROST_FIRE.get())
+                                .with(wrapModels(list, p_387713_ -> p_387713_))
+                                .with(wrapModels(list1, p_387314_ -> p_387314_))
+                                .with(wrapModels(list1, p_388922_ -> p_388922_.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)))
+                                .with(wrapModels(list1, p_388318_ -> p_388318_.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)))
+                                .with(wrapModels(list1, p_386556_ -> p_386556_.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)))
+                );
     }
 }

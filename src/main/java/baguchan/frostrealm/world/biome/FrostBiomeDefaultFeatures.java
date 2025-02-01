@@ -11,6 +11,10 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class FrostBiomeDefaultFeatures {
+    public static void addDesertFeature(BiomeGenerationSettings.Builder p_194721_) {
+        p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.FROST_FIRE_DESERT);
+    }
+
 	public static void addDefaultCarvers(BiomeGenerationSettings.Builder p_194721_) {
         p_194721_.addCarver(FrostConfiguredWorldCarvers.CAVE);
         p_194721_.addCarver(FrostConfiguredWorldCarvers.CAVE_EXTRA_UNDERGROUND);

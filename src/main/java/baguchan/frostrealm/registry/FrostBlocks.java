@@ -203,6 +203,16 @@ public class FrostBlocks {
     public static final DeferredBlock<Block> FROST_TORCH = registerTorchBlock("frost_torch", (properties) -> new FrostTorchBlock(properties), WALL_FROST_TORCH, BlockBehaviour.Properties.of().noCollission().instabreak().lightLevel(p_220871_ -> 14).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
 
     public static final DeferredBlock<Block> FROST_CAMPFIRE = register("frost_campfire", (properties) -> new FrostCampfireBlock(properties), () -> BlockBehaviour.Properties.of().strength(2.0F).noOcclusion().lightLevel(litBlockEmission(13)).sound(SoundType.WOOD));
+    public static final DeferredBlock<Block> FROST_FIRE = registerWithoutItem("frost_fire",
+            (prop) -> new FrostFireBlock(prop),
+            () -> BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLUE)
+                    .replaceable()
+                    .noCollission()
+                    .instabreak()
+                    .lightLevel(p_50755_ -> 10)
+                    .sound(SoundType.WOOL)
+                    .pushReaction(PushReaction.DESTROY));
 
     public static final DeferredBlock<Block> AURORA_INFUSER = register("aurora_infuser", (properties) -> new AuroraInfuserBlock(properties), () -> BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(2.0F, 3.0F).sound(SoundType.METAL));
 

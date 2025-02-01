@@ -12,8 +12,8 @@
     "music": [
       {
         "data": {
-          "max_delay": 24000,
-          "min_delay": 12000,
+          "max_delay": 10800,
+          "min_delay": 3600,
           "replace_current_music": false,
           "sound": {
             "sound_id": "frostrealm:music.frost_moon"

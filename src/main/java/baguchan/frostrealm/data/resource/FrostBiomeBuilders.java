@@ -27,7 +27,7 @@ public class FrostBiomeBuilders {
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
 		FrostBiomeDefaultFeatures.addUnderGroundFeature(builder);
 		FrostBiomeDefaultFeatures.underGroundMonsterSpawns(builder1);
-		return makeDefaultHotBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
+        return makeDefaultHotBiome(builder, builder1, FrostSounds.FROST_MOON_BGM);
 	}
 
 	public static Biome iceBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
@@ -47,7 +47,7 @@ public class FrostBiomeBuilders {
 		FrostBiomeDefaultFeatures.addCrystalFallPlantsFeatures(builder);
 		FrostBiomeDefaultFeatures.crystalFallCreatureSpawns(builder1);
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
-        return makeSkyBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
+        return makeSkyBiome(builder, builder1, FrostSounds.FROST_MOON_BGM);
 	}
 
 	public static Biome sherbetDesert(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
@@ -63,7 +63,7 @@ public class FrostBiomeBuilders {
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
 		FrostBiomeDefaultFeatures.addHotRockFeatures(builder);
 		FrostBiomeDefaultFeatures.mountainMonsterSpawns(builder1);
-		return makeDefaultHotBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
+        return makeDefaultHotBiome(builder, builder1, FrostSounds.FROST_MOON_BGM);
 	}
 
 	public static Biome beachBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
@@ -125,7 +125,7 @@ public class FrostBiomeBuilders {
 		builder1.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SEAL.get(), 10, 5, 6));
 
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
-		return makeOceanBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
+        return makeOceanBiome(builder, builder1, FrostSounds.FROST_MOON_BGM);
 	}
 
     public static Biome warpedCliffBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
@@ -135,7 +135,7 @@ public class FrostBiomeBuilders {
         FrostBiomeDefaultFeatures.addSpringFeatures(builder);
         FrostBiomeDefaultFeatures.mountainCreatureSpawns(builder1);
         FrostBiomeDefaultFeatures.monsterSpawns(builder1);
-        return makeDefaultBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
+        return makeDefaultBiome(builder, builder1, FrostSounds.FROST_MOON_BGM);
     }
 
 	public static Biome mountainBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
@@ -144,7 +144,7 @@ public class FrostBiomeBuilders {
 		FrostBiomeDefaultFeatures.mountainCreatureSpawns(builder1);
 		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
-		return makeDefaultBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
+        return makeDefaultBiome(builder, builder1, FrostSounds.FROST_MOON_BGM);
 	}
 
 	public static Biome stardustPeakBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
@@ -154,7 +154,7 @@ public class FrostBiomeBuilders {
 		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
 		FrostBiomeDefaultFeatures.addStarDustHillFeatures(builder);
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
-		return makeDefaultBiome(builder, builder1, FrostSounds.CALM_NIGHT_BGM);
+        return makeDefaultBiome(builder, builder1, FrostSounds.FROST_MOON_BGM);
 	}
 
 	public static Biome makeDefaultBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting) {
@@ -176,7 +176,7 @@ public class FrostBiomeBuilders {
 						.grassColorOverride(7115607)
 						.foliageColorOverride(7115607)
 						.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
-						.backgroundMusic(new Music(Holder.direct(soundEvent.get()), 12000, 24000, false))
+                        .backgroundMusic(new Music(Holder.direct(soundEvent.get()), 3600, 10800, false))
 						.build(),
 				mobSpawnSetting.build(),
 				builder.build(),
@@ -200,7 +200,7 @@ public class FrostBiomeBuilders {
                         .grassColorOverride(7115607)
                         .foliageColorOverride(7115607)
                         .grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
-                        .backgroundMusic(new Music(Holder.direct(soundEvent.get()), 12000, 24000, false))
+                        .backgroundMusic(new Music(Holder.direct(soundEvent.get()), 3600, 10800, false))
                         .build(),
                 mobSpawnSetting.build(),
                 builder.build(),
@@ -224,7 +224,7 @@ public class FrostBiomeBuilders {
 						.grassColorOverride(7115607)
 						.foliageColorOverride(7115607)
 						.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
-						.backgroundMusic(new Music(Holder.direct(soundEvent.get()), 12000, 24000, false))
+                        .backgroundMusic(new Music(Holder.direct(soundEvent.get()), 3600, 10800, false))
 						.build(),
 				mobSpawnSetting.build(),
 				builder.build(),
@@ -234,6 +234,7 @@ public class FrostBiomeBuilders {
 
     public static Biome makeDesertBiome(BiomeGenerationSettings.Builder builder, MobSpawnSettings.Builder mobSpawnSetting, Supplier<SoundEvent> soundEvent) {
         FrostBiomeDefaultFeatures.addDefaultCarvers(builder);
+        FrostBiomeDefaultFeatures.addDesertFeature(builder);
         FrostBiomeDefaultFeatures.addDefaultOres(builder);
         builder.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, MiscOverworldPlacements.FREEZE_TOP_LAYER);
 
@@ -248,7 +249,7 @@ public class FrostBiomeBuilders {
                         .grassColorOverride(7115607)
                         .foliageColorOverride(7115607)
                         .grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
-                        .backgroundMusic(new Music(Holder.direct(soundEvent.get()), 12000, 24000, false))
+                        .backgroundMusic(new Music(Holder.direct(soundEvent.get()), 3600, 10800, false))
                         .build(),
                 mobSpawnSetting.build(),
                 builder.build(),
@@ -272,7 +273,7 @@ public class FrostBiomeBuilders {
 						.grassColorOverride(7115607)
 						.foliageColorOverride(7115607)
 						.grassColorModifier(BiomeSpecialEffects.GrassColorModifier.NONE)
-						.backgroundMusic(new Music(Holder.direct(soundEvent.get()), 12000, 24000, false))
+                        .backgroundMusic(new Music(Holder.direct(soundEvent.get()), 3600, 10800, false))
 						.build(),
 				mobSpawnSetting.build(),
 				builder.build(),
