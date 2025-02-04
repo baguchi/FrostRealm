@@ -18,7 +18,7 @@ public class FrostCreativeTabs {
             .title(Component.translatable("itemGroup." + "frostrealm"))
             .icon(() -> FrostItems.FROST_BOAR_MEAT.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.acceptAll(FrostItems.ITEMS.getEntries().stream().map(sup -> {
+                output.acceptAll(FrostItems.ITEMS.getEntries().stream().filter(itemDeferredHolder -> !itemDeferredHolder.is(FrostTags.Items.DEBUG)).map(sup -> {
                     return sup.get().getDefaultInstance();
                 }).toList());
             }).build());

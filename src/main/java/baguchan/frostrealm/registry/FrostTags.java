@@ -57,6 +57,8 @@ public class FrostTags {
         public static final TagKey<Item> YETI_FUR_MATERIAL = tag("yeti_fur_material");
         public static final TagKey<Item> BOAR_FUR_MATERIAL = tag("boar_fur_material");
 
+		public static final TagKey<Item> DEBUG = tag("debug");
+
 
 		private static TagKey<Item> tag(String p_203849_) {
 			return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_203849_));

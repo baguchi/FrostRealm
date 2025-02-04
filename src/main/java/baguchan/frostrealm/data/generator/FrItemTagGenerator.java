@@ -77,11 +77,17 @@ public class FrItemTagGenerator extends ItemTagsProvider {
         this.tag(FrostTags.Items.ASTRIUM_TOOL_MATERIAL).add(FrostItems.ASTRIUM_INGOT.asItem());
 
         this.tag(FrostTags.Items.GLACINIUM_TOOL_MATERIAL).add(FrostItems.GLACINIUM_INGOT.get());
+        this.tag(FrostTags.Items.RARE_TOOL_MATERIAL).add(FrostItems.ASTRIUM_INGOT.asItem());
+        this.tag(FrostTags.Items.YETI_FUR_MATERIAL).add(FrostItems.YETI_FUR.asItem());
+        this.tag(FrostTags.Items.BOAR_FUR_MATERIAL).add(FrostItems.FROST_BOAR_FUR.asItem());
+
         //.add(FrostItems.GLACINIUM_HELMET.get()).add(FrostItems.GLACINIUM_CHESTPLATE.get()).add(FrostItems.GLACINIUM_LEGGINGS.get()).add(FrostItems.GLACINIUM_BOOTS.get());
         this.tag(ItemTags.LEAVES).add(FrostBlocks.FROSTBITE_LEAVES.asItem()).add(FrostBlocks.FROSTROOT_LEAVES.asItem());
         this.tag(Tags.Items.LEATHERS).add(FrostItems.FROST_BOAR_FUR.get());
         this.tag(ItemTags.MEAT).add(FrostItems.COOKED_FROST_BOAR_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get())
                 .add(FrostItems.SILK_MOON_MEAT.get()).add(FrostItems.COOKED_SILK_MOON_MEAT.get())
                 .add(FrostItems.FROST_BOAR_MEAT.get()).add(FrostItems.SNOWPILE_QUAIL_MEAT.get());
+
+        this.tag(FrostTags.Items.DEBUG).add(FrostBlocks.WOLFFLUE_BLOCK.asItem());
     }
 }

@@ -215,6 +215,7 @@ public class FrostBlocks {
                     .pushReaction(PushReaction.DESTROY));
 
     public static final DeferredBlock<Block> AURORA_INFUSER = register("aurora_infuser", (properties) -> new AuroraInfuserBlock(properties), () -> BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(2.0F, 3.0F).sound(SoundType.METAL));
+    public static final DeferredBlock<Block> WOLFFLUE_BLOCK = register("wolfflue_block", (properties) -> new WolfflueBlock(properties), () -> BlockBehaviour.Properties.of().strength(5.0F, 5.0F).sound(SoundType.WOOL));
 
     private static <T extends Block> DeferredBlock<Block> registerWithoutItem(String name, Supplier<Block.Properties> properties) {
         return registerWithoutItem(name, Block::new, properties);

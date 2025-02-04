@@ -7,6 +7,9 @@ import baguchan.frostrealm.registry.FrostBlocks;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelOutput;
 import net.minecraft.client.data.models.blockstates.BlockStateGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.Variant;
+import net.minecraft.client.data.models.blockstates.VariantProperties;
 import net.minecraft.client.data.models.model.ModelInstance;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
@@ -127,6 +130,7 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
 
         this.createNonTemplateModelBlock(FrostBlocks.HOT_SPRING.get());
         createAuroraInfuser(FrostBlocks.AURORA_INFUSER.get());
+        createWolfflue(FrostBlocks.WOLFFLUE_BLOCK.get());
         createBlockEgg(FrostBlocks.SILK_MOON_EGG.get());
         createEgg(FrostBlocks.SNOWPILE_QUAIL_EGG.get());
         this.createRotatedPillarWithHorizontalVariant(FrostBlocks.RYE_BLOCK.get(), TexturedModel.COLUMN, TexturedModel.COLUMN_HORIZONTAL);
@@ -136,5 +140,15 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
     public void createAuroraInfuser(Block p_388054_) {
         TextureMapping texturemapping = FrostTextureMappings.auroraInfuser(p_388054_);
         this.blockStateOutput.accept(createSimpleBlock(p_388054_, ModelTemplates.CUBE.create(p_388054_, texturemapping, this.modelOutput)));
+    }
+
+    public void createWolfflue(Block p_388054_) {
+        TextureMapping texturemapping = FrostTextureMappings.wolfflue(p_388054_);
+
+        this.blockStateOutput
+                .accept(
+                        MultiVariantGenerator.multiVariant(p_388054_, Variant.variant().with(VariantProperties.MODEL, ModelTemplates.CUBE.create(p_388054_, texturemapping, this.modelOutput)))
+                                .with(createHorizontalFacingDispatch())
+                );
     }
 }

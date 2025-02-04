@@ -176,6 +176,7 @@ public class BlockLootTables extends BlockLootSubProvider {
 			return createSilkTouchDispatchTable(p_236259_, applyExplosionCondition(p_236259_, LootItem.lootTableItem(FrostItems.FROST_CRYSTAL.get()).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))));
 		});
         this.dropSelf(FrostBlocks.AURORA_INFUSER.get());
+		this.dropSelf(FrostBlocks.WOLFFLUE_BLOCK.get());
 		this.dropSelf(FrostBlocks.SNOWPILE_QUAIL_EGG.get());
 		this.dropSelf(FrostBlocks.SILK_MOON_EGG.get());
 		this.dropSelf(FrostBlocks.SILK_MOON_COCOON.get());

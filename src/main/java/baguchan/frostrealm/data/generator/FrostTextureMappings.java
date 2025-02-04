@@ -33,6 +33,17 @@ public class FrostTextureMappings {
         return grassBlock(resourcelocation, resourcelocation2, resourcelocation3, resourcelocation4);
     }
 
+    public static TextureMapping wolfflue(Block p_388634_) {
+        return new TextureMapping()
+                .put(TextureSlot.PARTICLE, getBlockTexture(p_388634_, "_front"))
+                .put(TextureSlot.DOWN, getBlockTexture(p_388634_, "_side"))
+                .put(TextureSlot.UP, getBlockTexture(p_388634_, "_top"))
+                .put(TextureSlot.NORTH, getBlockTexture(p_388634_, "_front"))
+                .put(TextureSlot.EAST, getBlockTexture(p_388634_, "_side"))
+                .put(TextureSlot.SOUTH, getBlockTexture(p_388634_, "_back"))
+                .put(TextureSlot.WEST, getBlockTexture(p_388634_, "_side"));
+    }
+
     public static TextureMapping auroraInfuser(Block p_388634_) {
         return new TextureMapping()
                 .put(TextureSlot.PARTICLE, getBlockTexture(p_388634_))
