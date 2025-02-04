@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "frostrealm:block/wolfflue_block_side",
+    "east": "frostrealm:block/wolfflue_block_side",
+    "north": "frostrealm:block/wolfflue_block_front",
+    "particle": "frostrealm:block/wolfflue_block_front",
+    "south": "frostrealm:block/wolfflue_block_back",
+    "up": "frostrealm:block/wolfflue_block_top",
+    "west": "frostrealm:block/wolfflue_block_side"
+  }
+}

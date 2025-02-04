@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "frostrealm:block/wolfflue_block",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "frostrealm:block/wolfflue_block"
+    },
+    "facing=south": {
+      "model": "frostrealm:block/wolfflue_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "frostrealm:block/wolfflue_block",
+      "y": 270
+    }
+  }
+}
