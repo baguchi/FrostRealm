@@ -29,6 +29,7 @@ public class FrostBiomeDefaultFeatures {
 	public static void defaultMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
 		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.VENOCHEM.get(), 100, 2, 3));
 		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUR.get(), 60, 2, 3));
+		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_CRAWLER.get(), 10, 2, 3));
 		//p_126813_.addSpawn(FrostMobCategory.FROSTREALM_SURFACE_MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.ROOT_DEER.get(), 10, 4, 6));
 	}
 

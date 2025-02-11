@@ -24,7 +24,8 @@ public class FrEntityTagGenerator extends EntityTypeTagsProvider {
 				.add(FrostEntities.ROOT_DEER.get())
 				.add(FrostEntities.SEEKER.get()).add(FrostEntities.CORRUPTED_WALKER.get())
 				.add(FrostEntities.GOKKUR.get())
-				.add(FrostEntities.UNDER_GOKKUR.get());
+				.add(FrostEntities.UNDER_GOKKUR.get())
+				.add(FrostEntities.FROST_CRAWLER.get());
 		tag(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE).addTag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.MARMOT.get(), FrostEntities.FROST_BOAR.get())
 				.add(FrostEntities.FERRET.get())
 				.add(FrostEntities.VENOCHEM.get())
@@ -32,6 +33,7 @@ public class FrEntityTagGenerator extends EntityTypeTagsProvider {
 				.add(FrostEntities.SILK_MOON_WORM.get());
 		tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS).add(FrostEntities.FERRET.get());
 		tag(EntityTypeTags.FALL_DAMAGE_IMMUNE)
+				.add(FrostEntities.FROST_CRAWLER.get())
 				.add(FrostEntities.SILK_MOON.get()).add(FrostEntities.ASTRA_BALL.get()).add(FrostEntities.SNOWPILE_QUAIL.get()).add(FrostEntities.CORRUPTED_WALKER.get());
         this.tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER).add(FrostEntities.CORRUPTED_WALKER.get());
 	}

@@ -105,6 +105,7 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateSpawnEgg(FrostItems.UNDER_GOKKUR_SPAWNEGG.get(), 7572368, 15098896);
         this.generateSpawnEgg(FrostItems.ROOT_DEER_SPAWNEGG.get(), 6390687, 11213654);
         this.generateSpawnEgg(FrostItems.SILK_MOON_SPAWNEGG.get(), 14679020, 7716503);
+        this.generateSpawnEgg(FrostItems.FROST_CRAWLER_SPAWNEGG.get(), 0x5985AC, 0x15243C);
         this.generateFlatItem(FrostItems.FROST_SPEAR.asItem(), FrostModelTemplates.BIG_HANDHELD);
     }
 }

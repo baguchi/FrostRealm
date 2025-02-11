@@ -50,6 +50,7 @@ public class FrostEntities {
     public static final Supplier<EntityType<Gokkur>> GOKKUR = ENTITIES.register("gokkur", () -> EntityType.Builder.of(Gokkur::new, MobCategory.MONSTER).sized(1.0F, 1.2F).eyeHeight(0.525F).fireImmune().build(prefix("gokkur")));
     public static final Supplier<EntityType<UnderGokkur>> UNDER_GOKKUR = ENTITIES.register("under_gokkur", () -> EntityType.Builder.of(UnderGokkur::new, MobCategory.MONSTER).sized(1.0F, 1.2F).eyeHeight(0.525F).fireImmune().build(prefix("under_gokkur")));
     public static final Supplier<EntityType<RootDeer>> ROOT_DEER = ENTITIES.register("root_deer", () -> EntityType.Builder.of(RootDeer::new, MobCategory.MONSTER).sized(0.5F, 2.375F).eyeHeight(0.35F).build(prefix("root_deer")));
+    public static final Supplier<EntityType<FrostCrawler>> FROST_CRAWLER = ENTITIES.register("frost_crawler", () -> EntityType.Builder.of(FrostCrawler::new, MobCategory.MONSTER).sized(0.6F, 1.85F).eyeHeight(1.65F).build(prefix("frost_crawler")));
 
     public static final Supplier<EntityType<VenomBall>> VENOM_BALL = ENTITIES.register("venom_ball", () -> EntityType.Builder.<VenomBall>of(VenomBall::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(8).updateInterval(30).build(prefix("venom_ball")));
     public static final Supplier<EntityType<FlyingBlockEntity>> FLYING_BLOCK = ENTITIES.register("flying_block", () -> EntityType.Builder.<FlyingBlockEntity>of(FlyingBlockEntity::new, MobCategory.MISC).sized(1.0F, 1.0F).clientTrackingRange(10).updateInterval(30).build(prefix("flying_block")));
@@ -82,6 +83,7 @@ public class FrostEntities {
         event.put(GOKKUR.get(), Gokkur.createAttributes().build());
         event.put(UNDER_GOKKUR.get(), UnderGokkur.createAttributes().build());
         event.put(ROOT_DEER.get(), RootDeer.createAttributes().build());
+        event.put(FROST_CRAWLER.get(), FrostCrawler.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -108,5 +110,6 @@ public class FrostEntities {
         event.register(GOKKUR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(UNDER_GOKKUR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(ROOT_DEER.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, RootDeer::checkDeerSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(FROST_CRAWLER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
     }
 }

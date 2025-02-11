@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 public class CellingMonster extends Monster {
-    private static final EntityDataAccessor<Direction> ATTACHED_FACE = SynchedEntityData.defineId(CellingMonster.class, EntityDataSerializers.DIRECTION);
+    public static final EntityDataAccessor<Direction> ATTACHED_FACE = SynchedEntityData.defineId(CellingMonster.class, EntityDataSerializers.DIRECTION);
 
     private boolean isUpsideDownNavigator;
     public float attachChangeProgress;
@@ -58,7 +58,6 @@ public class CellingMonster extends Monster {
         if (!this.level().isClientSide) {
             boolean flag = this.moveControl instanceof CellingMoveControl && ((CellingMoveControl) this.moveControl).isWalkableUpper();
             boolean flag2 = this.moveControl.hasWanted() && this.moveControl.getWantedY() - this.getY() > 0;
-
             if (!flag && !flag2 && (this.onGround() || this.isInWaterOrBubble() || this.isInLava() || this.isInFluidType())) {
                 this.entityData.set(ATTACHED_FACE, Direction.DOWN);
             } else if (this.verticalCollision && !flag && !flag2) {
@@ -67,7 +66,7 @@ public class CellingMonster extends Monster {
                 Direction closestDirection = null;
                 double closestDistance = 100D;
                 for (Direction dir : Direction.values()) {
-                    if (dir != Direction.DOWN) {
+                    //if (dir != Direction.DOWN) {
                         BlockPos pos = new BlockPos(Mth.floor(this.getX()), Mth.floor(this.getY()), Mth.floor(this.getZ()));
                         BlockPos offsetPos = pos.relative(dir);
                         Vec3 offset = Vec3.atCenterOf(offsetPos);
@@ -75,11 +74,13 @@ public class CellingMonster extends Monster {
                             closestDistance = this.position().distanceTo(offset);
                             closestDirection = dir;
                         }
-                    }
+                    //}
                 }
                 if (closestDirection != null && closestDirection != this.getDirection()) {
                     this.entityData.set(ATTACHED_FACE, closestDirection);
                 } else if (Direction.DOWN != this.getDirection() && closestDirection == null) {
+                    this.entityData.set(ATTACHED_FACE, Direction.DOWN);
+                } else if (Direction.DOWN != this.getDirection() && this.jumping) {
                     this.entityData.set(ATTACHED_FACE, Direction.DOWN);
                 }
             }

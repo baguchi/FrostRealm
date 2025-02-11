@@ -71,14 +71,13 @@ public class CellingPathNavigation extends GroundPathNavigation {
         this.maxDistanceToWaypoint = this.mob.getBbWidth() > 0.75F ? this.mob.getBbWidth() / 2.0F : 0.75F - this.mob.getBbWidth() / 2.0F;
         Vec3i vec3i = this.path.getNextNodePos();
 
-        Direction reverseDirection = this.cellingMonster.getAttachFacing().getOpposite();
         double d0 = Math.abs(this.mob.getX() - ((double) vec3i.getX() + (this.mob.getBbWidth() + 1) / 2D)); //Forge: Fix MC-94054
         double d1 = Math.abs(this.mob.getY() - (double) vec3i.getY());
         double d2 = Math.abs(this.mob.getZ() - ((double) vec3i.getZ() + (this.mob.getBbWidth() + 1) / 2D)); //Forge: Fix MC-94054
 
         //no cut out
         float fallDistance = this.mob.getMaxFallDistance();
-        boolean flag = d0 <= (double) this.maxDistanceToWaypoint && d2 <= (double) this.maxDistanceToWaypoint && d1 < 1;
+        boolean flag = d0 <= (double) this.maxDistanceToWaypoint && d2 <= (double) this.maxDistanceToWaypoint && d1 <= this.maxDistanceToWaypoint;
         if (flag || this.canCutCorner(this.path.getNextNode().type) && this.shouldTargetNextNodeInDirection(vec3)) {
             this.path.advance();
         }
@@ -137,7 +136,7 @@ public class CellingPathNavigation extends GroundPathNavigation {
     @Override
     protected Vec3 getTempMobPos() {
         if (this.cellingMonster.getAttachFacing() != Direction.DOWN) {
-            return new Vec3(this.mob.getX(), this.mob.getY(), this.mob.getZ());
+            return new Vec3(this.mob.getX(), this.mob.getY() + 0.5F, this.mob.getZ());
         }
 
         return super.getTempMobPos();

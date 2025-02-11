@@ -33,6 +33,7 @@ public class FrostModelLayers {
 
     public static final ModelLayerLocation SILK_MOON_WORM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "silk_moon_worm"), "main");
     public static final ModelLayerLocation SILK_MOON = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "silk_moon"), "main");
+    public static final ModelLayerLocation FROST_CRAWLER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_crawler"), "main");
 
     public static final ModelLayerLocation SEAL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "seal"), "main");
     public static final ModelLayerLocation YETI_FUR_ARMOR_INNER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "yeti_fur_armor_inner"), "yeti_fur_armor_inner");
