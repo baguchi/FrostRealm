@@ -85,6 +85,11 @@ public class CellingMoveControl extends MoveControl {
                 this.mob.setYRot(this.rotlerp(this.mob.getYRot(), f9, 90.0F));
 
             }
+        } else if (this.operation == MoveControl.Operation.JUMPING) {
+            this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
+            if (this.mob.onGround()) {
+                this.operation = MoveControl.Operation.WAIT;
+            }
         } else {
             this.mob.setXxa(0.0F);
             this.mob.setYya(0.0F);
