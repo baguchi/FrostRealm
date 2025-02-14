@@ -87,31 +87,21 @@ public class CellingMonster extends Monster {
             this.entityData.set(ATTACHED_FACE, Direction.UP);
         } else {
             Direction closestDirection = null;
-            double closestDistance = 100D;
+            double closestDistance = 2.5D;
             BlockPos pos = new BlockPos(Mth.floor(this.getX()), Mth.floor(this.getY() + (this.getBbHeight() / 2)), Mth.floor(this.getZ()));
 
-            for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, -1, -1), pos.offset(1, 1, 1))) {
-                Direction dir = Direction.getApproximateNearest(blockPos.getX() - pos.getX(), blockPos.getY() - pos.getY(), blockPos.getZ() - pos.getZ());
-                Vec3 offset = Vec3.atCenterOf(blockPos);
+            //first celling check in bb height's center
+            for (BlockPos offsetPos : BlockPos.betweenClosedStream(-1, -1, -1, 1, 1, 1)
+                    .filter(p_341357_ -> Math.abs(p_341357_.getX() - p_341357_.getY() - p_341357_.getZ()) != 0)
+                    .map(BlockPos::immutable)
+                    .toList()) {
+                BlockPos pos1 = pos.offset(offsetPos);
+                Direction dir = Direction.getApproximateNearest(pos1.getX() - pos.getX(), pos1.getY() - pos.getY(), pos1.getZ() - pos.getZ());
+                Vec3 offset = Vec3.atCenterOf(pos1);
                 if (dir != Direction.DOWN) {
-                    if (closestDistance > this.position().distanceTo(offset) && level().loadedAndEntityCanStandOnFace(blockPos, this, dir.getOpposite())) {
+                    if (closestDistance > this.position().distanceTo(offset) && level().loadedAndEntityCanStandOnFace(pos1, this, dir.getOpposite())) {
                         closestDistance = this.position().distanceTo(offset);
                         closestDirection = dir;
-                    }
-                }
-            }
-
-            if (closestDirection == null) {
-                BlockPos pos2 = new BlockPos(Mth.floor(this.getX()), Mth.floor(this.getY()), Mth.floor(this.getZ()));
-
-                for (BlockPos blockPos : BlockPos.betweenClosed(pos2.offset(-1, -1, -1), pos2.offset(1, 1, 1))) {
-                    Direction dir = Direction.getApproximateNearest(blockPos.getX() - pos2.getX(), blockPos.getY() - pos2.getY(), blockPos.getZ() - pos2.getZ());
-                    Vec3 offset = Vec3.atCenterOf(blockPos);
-                    if (dir != Direction.DOWN) {
-                        if (closestDistance > this.position().distanceTo(offset) && level().loadedAndEntityCanStandOnFace(blockPos, this, dir.getOpposite())) {
-                            closestDistance = this.position().distanceTo(offset);
-                            closestDirection = dir;
-                        }
                     }
                 }
             }
