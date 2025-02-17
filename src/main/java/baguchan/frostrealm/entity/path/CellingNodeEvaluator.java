@@ -113,47 +113,6 @@ public class CellingNodeEvaluator extends WalkNodeEvaluator {
         return i;
     }
 
-    private Node tryFindFirstGroundNodeBelow(int p_326892_, int p_326901_, int p_326809_) {
-        for (int i = p_326901_ - 1; i >= this.mob.level().getMinY(); i--) {
-            if (p_326901_ - i > this.mob.getMaxFallDistance()) {
-                return this.getBlockedNode(p_326892_, i, p_326809_);
-            }
-
-            PathType pathtype = this.getCachedPathType(p_326892_, i, p_326809_);
-            float f = this.mob.getPathfindingMalus(pathtype);
-            if (pathtype != PathType.OPEN) {
-                if (f >= 0.0F) {
-                    return this.getNodeAndUpdateCostToMax(p_326892_, i, p_326809_, pathtype, f);
-                }
-
-                return this.getBlockedNode(p_326892_, i, p_326809_);
-            }
-        }
-
-        return this.getBlockedNode(p_326892_, p_326901_, p_326809_);
-    }
-
-    private Node getNodeAndUpdateCostToMax(int p_230620_, int p_230621_, int p_230622_, PathType p_326789_, float p_230624_) {
-        Node node = this.getNode(p_230620_, p_230621_, p_230622_);
-        node.type = p_326789_;
-        node.costMalus = Math.max(node.costMalus, p_230624_);
-        return node;
-    }
-
-    private Node getBlockedNode(int p_230628_, int p_230629_, int p_230630_) {
-        Node node = this.getNode(p_230628_, p_230629_, p_230630_);
-        node.type = PathType.BLOCKED;
-        node.costMalus = -1.0F;
-        return node;
-    }
-
-    private Node getClosedNode(int p_326935_, int p_326904_, int p_326845_, PathType p_326820_) {
-        Node node = this.getNode(p_326935_, p_326904_, p_326845_);
-        node.closed = true;
-        node.type = p_326820_;
-        node.costMalus = p_326820_.getMalus();
-        return node;
-    }
 
     protected boolean isNodeValid(@Nullable Node p_192962_) {
         return p_192962_ != null && !p_192962_.closed;

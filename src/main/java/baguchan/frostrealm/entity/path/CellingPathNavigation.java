@@ -57,9 +57,11 @@ public class CellingPathNavigation extends GroundPathNavigation {
                 }
             }
 
+
             DebugPackets.sendPathFindingPacket(this.level, this.mob, this.path, this.maxDistanceToWaypoint);
             if (!this.isDone()) {
                 Vec3 vec31 = this.path.getNextEntityPos(this.mob);
+                //TODO find why 0.5 block gap has!
                 this.mob.getMoveControl().setWantedPosition(vec31.x, vec31.y, vec31.z, this.speedModifier);
             }
         }
