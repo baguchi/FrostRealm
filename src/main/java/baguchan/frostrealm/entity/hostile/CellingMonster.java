@@ -18,14 +18,19 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Quaternionf;
+
+import static net.neoforged.neoforge.common.util.TransformationHelper.quatFromXYZ;
 
 public class CellingMonster extends Monster {
     public static final EntityDataAccessor<Direction> ATTACHED_FACE = SynchedEntityData.defineId(CellingMonster.class, EntityDataSerializers.DIRECTION);
+    public static final EntityDataAccessor<Quaternionf> CELL_ROTATION = SynchedEntityData.defineId(CellingMonster.class, EntityDataSerializers.QUATERNION);
 
-    private boolean isUpsideDownNavigator;
-    public float attachChangeProgress;
+    public Quaternionf prevRotation = new Quaternionf();
+
     public float prevAttachChangeProgress;
-    public Direction prevAttachDir = Direction.DOWN;
+
+    public float attachChangeProgress;
 
     protected CellingMonster(EntityType<? extends CellingMonster> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
@@ -37,6 +42,7 @@ public class CellingMonster extends Monster {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(ATTACHED_FACE, Direction.DOWN);
+        builder.define(CELL_ROTATION, new Quaternionf());
     }
 
     @Override
@@ -45,7 +51,7 @@ public class CellingMonster extends Monster {
             this.moveRelative(0.1F, p_32394_);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.6));
-            this.calculateEntityAnimation(true);
+            this.calculateEntityAnimation(false);
         } else {
             super.travel(p_32394_);
         }
@@ -54,21 +60,19 @@ public class CellingMonster extends Monster {
     @Override
     public void tick() {
         this.prevAttachChangeProgress = this.attachChangeProgress;
+        if (this.prevRotation != this.getCellRotation()) {
+            attachChangeProgress = 1F;
+        }
+        this.prevRotation = this.getCellRotation();
         super.tick();
+
         if (attachChangeProgress > 0F) {
             attachChangeProgress -= 0.1F;
         }
+    }
 
-        final Direction attachmentFacing = this.getAttachFacing();
-        /*if (attachmentFacing != Direction.DOWN) {
-            if (attachmentFacing == Direction.UP && this.yya >= 0) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0, 1, 0));
-            }
-        }*/
-        if (prevAttachDir != attachmentFacing) {
-            attachChangeProgress = 1F;
-        }
-        this.prevAttachDir = attachmentFacing;
+    public float getAttachAmount(float p_20999_) {
+        return Mth.lerp(p_20999_, this.prevAttachChangeProgress, this.attachChangeProgress);
     }
 
     @Override
@@ -83,10 +87,10 @@ public class CellingMonster extends Monster {
 
         if (!flag && !flag2 && (this.onGround() || this.isInWaterOrBubble() || this.isInLava() || this.isInFluidType())) {
             this.entityData.set(ATTACHED_FACE, Direction.DOWN);
-        } else if (this.verticalCollision && !flag && !flag2) {
-            this.entityData.set(ATTACHED_FACE, Direction.UP);
+            this.setCellRotation(new Quaternionf());
         } else {
             Direction closestDirection = null;
+            Quaternionf closestRotation = new Quaternionf();
             double closestDistance = 2.5D;
             BlockPos pos = new BlockPos(Mth.floor(this.getX()), Mth.floor(this.getY() + (this.getBbHeight() / 2)), Mth.floor(this.getZ()));
 
@@ -102,6 +106,7 @@ public class CellingMonster extends Monster {
                     if (closestDistance > this.position().distanceTo(offset) && level().loadedAndEntityCanStandOnFace(pos1, this, dir.getOpposite())) {
                         closestDistance = this.position().distanceTo(offset);
                         closestDirection = dir;
+                        closestRotation = quatFromXYZ(pos1.getX() - pos.getX(), pos1.getY() - pos.getY(), pos1.getZ() - pos.getZ(), false);
                     }
                 }
             }
@@ -120,6 +125,7 @@ public class CellingMonster extends Monster {
                         if (closestDistance > this.position().distanceTo(offset) && level().loadedAndEntityCanStandOnFace(pos1, this, dir.getOpposite())) {
                             closestDistance = this.position().distanceTo(offset);
                             closestDirection = dir;
+                            closestRotation = quatFromXYZ(pos1.getX() - pos.getX(), pos1.getY() - pos.getY(), pos1.getZ() - pos.getZ(), false);
                         }
                     }
                 }
@@ -139,6 +145,7 @@ public class CellingMonster extends Monster {
                         if (closestDistance > this.position().distanceTo(offset) && level().loadedAndEntityCanStandOnFace(pos1, this, dir.getOpposite())) {
                             closestDistance = this.position().distanceTo(offset);
                             closestDirection = dir;
+                            closestRotation = quatFromXYZ(pos1.getX() - pos.getX(), pos1.getY() - pos.getY(), pos1.getZ() - pos.getZ(), false);
                         }
                     }
                 }
@@ -146,8 +153,10 @@ public class CellingMonster extends Monster {
 
             if (closestDirection != null && closestDirection != this.getDirection()) {
                 this.entityData.set(ATTACHED_FACE, closestDirection);
+                this.setCellRotation(closestRotation);
             } else if (Direction.DOWN != this.getDirection() && closestDirection == null) {
                 this.entityData.set(ATTACHED_FACE, Direction.DOWN);
+                this.setCellRotation(new Quaternionf());
             }
         }
         profilerfiller.pop();
@@ -190,5 +199,13 @@ public class CellingMonster extends Monster {
 
     public Direction getAttachFacing() {
         return this.entityData.get(ATTACHED_FACE);
+    }
+
+    private void setCellRotation(Quaternionf quaternionf) {
+        this.entityData.set(CELL_ROTATION, quaternionf);
+    }
+
+    public Quaternionf getCellRotation() {
+        return this.entityData.get(CELL_ROTATION);
     }
 }
