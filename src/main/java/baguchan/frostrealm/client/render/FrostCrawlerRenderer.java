@@ -31,6 +31,7 @@ public class FrostCrawlerRenderer<T extends FrostCrawler> extends MobRenderer<T,
         super.extractRenderState(p_362733_, p_360515_, p_361157_);
         p_360515_.attachFace = p_362733_.getAttachFacing();
         p_360515_.rotations = p_362733_.getCellRotation();
+        p_360515_.prevRotations = p_362733_.prevRotation;
         p_360515_.attachChangeProgress = p_362733_.getAttachAmount(p_361157_);
     }
 
@@ -53,10 +54,12 @@ public class FrostCrawlerRenderer<T extends FrostCrawler> extends MobRenderer<T,
                 poseStack.translate(0.0F, trans, 0.0F);
 
                 poseStack.mulPose(Axis.YP.rotationDegrees(realYaw));
-                poseStack.mulPose(Axis.XP.rotationDegrees(-90 + realPitch));
+                poseStack.mulPose(Axis.XP.rotationDegrees(realPitch));
                 //poseStack.mulPose(Axis.YP.rotationDegrees(realDiff * realYaw));
 
                 poseStack.translate(0.0F, -trans, 0.0F);
+                poseStack.translate(0.0D, -8F / 16F, 0.0D);
+
                 super.setupRotations(entity, poseStack, 0.0F, p_115910_);
             }
         } else {
