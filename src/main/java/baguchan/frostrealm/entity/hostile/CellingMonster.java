@@ -62,8 +62,9 @@ public class CellingMonster extends Monster {
         this.prevAttachChangeProgress = this.attachChangeProgress;
         if (this.prevRotation != this.getCellRotation()) {
             attachChangeProgress = 1F;
+            this.prevRotation = this.getCellRotation();
+
         }
-        this.prevRotation = this.getCellRotation();
         super.tick();
 
         if (attachChangeProgress > 0F) {

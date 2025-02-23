@@ -48,16 +48,14 @@ public class FrostCrawlerRenderer<T extends FrostCrawler> extends MobRenderer<T,
                 float pitch = (float) -Math.toDegrees(Mth.atan2(entity.rotations.y, Math.sqrt(entity.rotations.x * entity.rotations.x + entity.rotations.z * entity.rotations.z)));
                 float prevYaw = (float) Math.toDegrees(Mth.atan2(entity.prevRotations.x, entity.prevRotations.z));
                 float prevPitch = (float) -Math.toDegrees(Mth.atan2(entity.prevRotations.y, Math.sqrt(entity.prevRotations.x * entity.prevRotations.x + entity.prevRotations.z * entity.prevRotations.z)));
-                float realYaw = Mth.lerp(entity.attachChangeProgress, prevYaw, yaw);
-                float realPitch = Mth.lerp(entity.attachChangeProgress, prevPitch, pitch);
-                float realDiff = Mth.lerp(entity.attachChangeProgress, Math.signum(0.5f - entity.prevRotations.y - entity.prevRotations.z - entity.prevRotations.x), Math.signum(0.5f - entity.rotations.y - entity.rotations.z - entity.rotations.x));
-
+                float realYaw = prevYaw * (1 - entity.attachChangeProgress) - yaw * entity.attachChangeProgress;
+                float realPitch = prevPitch * (1 - entity.attachChangeProgress) - pitch * entity.attachChangeProgress;
                 poseStack.translate(0.0F, trans, 0.0F);
-                poseStack.mulPose(Axis.YP.rotationDegrees((float) realDiff * realYaw));
 
-                poseStack.mulPose(Axis.XP.rotationDegrees(realPitch));
                 poseStack.mulPose(Axis.YP.rotationDegrees(realYaw));
-                //poseStack.mulPose(Axis.ZP.rotationDegrees(-90));
+                poseStack.mulPose(Axis.XP.rotationDegrees(-90 + realPitch));
+                //poseStack.mulPose(Axis.YP.rotationDegrees(realDiff * realYaw));
+
                 poseStack.translate(0.0F, -trans, 0.0F);
                 super.setupRotations(entity, poseStack, 0.0F, p_115910_);
             }
