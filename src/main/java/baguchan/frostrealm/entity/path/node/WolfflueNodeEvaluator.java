@@ -177,17 +177,13 @@ public class WolfflueNodeEvaluator extends WalkNodeEvaluator {
         return pathType == PathType.FENCE || pathType == PathType.DOOR_WOOD_CLOSED || pathType == PathType.DOOR_IRON_CLOSED;
     }
 
-    private boolean canReachWithoutCollision(Node node) {
+    private boolean canReachWithoutCollision(Node p_77625_) {
         AABB aabb = this.mob.getBoundingBox();
-        Vec3 vec3 = new Vec3(
-                (double) node.x - this.mob.getX() + aabb.getXsize() / 2.0,
-                (double) node.y - this.mob.getY() + aabb.getYsize() / 2.0,
-                (double) node.z - this.mob.getZ() + aabb.getZsize() / 2.0
-        );
+        Vec3 vec3 = new Vec3((double) p_77625_.x - this.mob.getX() + aabb.getXsize() / (double) 2.0F, (double) p_77625_.y - this.mob.getY() + aabb.getYsize() / (double) 2.0F, (double) p_77625_.z - this.mob.getZ() + aabb.getZsize() / (double) 2.0F);
         int i = Mth.ceil(vec3.length() / aabb.getSize());
         vec3 = vec3.scale((double) (1.0F / (float) i));
 
-        for (int j = 1; j <= i; j++) {
+        for (int j = 1; j <= i; ++j) {
             aabb = aabb.move(vec3);
             if (this.hasCollisions(aabb)) {
                 return false;
