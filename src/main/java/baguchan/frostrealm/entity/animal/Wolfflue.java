@@ -4,11 +4,12 @@ import baguchan.frostrealm.api.entity.WolfflueVariant;
 import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
 import baguchan.frostrealm.entity.goal.LeapAtTargetWolfflueGoal;
 import baguchan.frostrealm.entity.goal.WolfflueBegGoal;
-import baguchan.frostrealm.entity.path.node.WolfflueNodeEvaluator;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostEntityDatas;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostTags;
+import baguchi.bagus_lib.entity.ISmartJump;
+import baguchi.bagus_lib.entity.path.node.SmartNodeEvaluator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -73,7 +74,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder<Holder<WolfflueVariant>>, Saddleable, PlayerRideableJumping {
+public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder<Holder<WolfflueVariant>>, Saddleable, PlayerRideableJumping, ISmartJump {
     private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_COLLAR_COLOR = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
@@ -118,7 +119,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
     protected PathNavigation createNavigation(Level p_21480_) {
         return new GroundPathNavigation(this, p_21480_) {
             protected PathFinder createPathFinder(int p_219479_) {
-                this.nodeEvaluator = new WolfflueNodeEvaluator();
+                this.nodeEvaluator = new SmartNodeEvaluator();
                 this.nodeEvaluator.setCanPassDoors(true);
                 this.nodeEvaluator.setCanOpenDoors(false);
                 this.nodeEvaluator.setCanFloat(true);
@@ -238,8 +239,8 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
     @Override
     public void setCustomName(@org.jetbrains.annotations.Nullable Component p_20053_) {
         super.setCustomName(p_20053_);
-        if (!this.getVariant().is(WolfflueVariants.YUZUKI) && p_20053_ != null && (p_20053_.getString().equals("Yuzuki")) || p_20053_.getString().equals("YuzukiYukari") || p_20053_.getString().equals("Yukari")
-                || p_20053_.getString().equals("結月ゆかり") || p_20053_.getString().equals("結月") || p_20053_.getString().equals("ゆかり")) {
+        if (!this.getVariant().is(WolfflueVariants.YUZUKI) && p_20053_ != null && (p_20053_.getString().equals("Yuzuki") || p_20053_.getString().equals("YuzukiYukari") || p_20053_.getString().equals("Yukari")
+                || p_20053_.getString().equals("結月ゆかり") || p_20053_.getString().equals("結月") || p_20053_.getString().equals("ゆかり"))) {
             Holder<WolfflueVariant> holder = this.registryAccess().lookupOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY).getOrThrow(WolfflueVariants.YUZUKI);
             this.setVariant(holder);
         }
@@ -1027,9 +1028,13 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
             if (vec3.y > this.getY() + 1.5) {
                 f = 0.65F;
             }
+
+            /*if (vec3.y > this.getY() + 2.5) {
+                f = 1.0F;
+            }*/
         }
 
-        return super.getJumpPower(f / 0.42F);
+        return super.getJumpPower((float) (f / this.getAttributeValue(Attributes.JUMP_STRENGTH)));
     }
 
     @Override
@@ -1039,6 +1044,11 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
             this.setPose(Pose.LONG_JUMPING);
             this.makeSound(SoundEvents.GOAT_LONG_JUMP);
         }
+    }
+
+    @Override
+    public float getSuppportJump() {
+        return 2.125F;
     }
 
     private class WolffluePackData extends AgeableMob.AgeableMobGroupData {
