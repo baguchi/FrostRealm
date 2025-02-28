@@ -78,17 +78,51 @@ public class CommonEvents {
         ItemStack stack = event.getStackedOnItem();
         ItemStack carriedStack = event.getCarriedItem();
         if (event.getClickAction() == ClickAction.PRIMARY) {
-            if (!carriedStack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && (carriedStack.has(DataComponents.TOOL) || carriedStack.getItem() instanceof ArrowItem)) {
-                Optional<Holder.Reference<AttachableCrystal>> optional1 = AttachableCrystals.getFromIngredient(event.getPlayer().registryAccess(), stack);
+            if (!stack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && (stack.is(FrostItems.COATING_FUR))) {
+                Optional<Holder.Reference<AttachableCrystal>> optional1 = AttachableCrystals.getFromIngredient(event.getPlayer().registryAccess(), carriedStack);
                 if (optional1.isPresent()) {
-                    carriedStack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1.get());
+                    stack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1.get());
                     event.getPlayer().playSound(SoundEvents.BUNDLE_INSERT);
                     if (event.getPlayer() instanceof ServerPlayer serverPlayer) {
                         FrostCriterions.PUT_CRYSTAL.get().trigger(serverPlayer);
                     }
-                    stack.shrink(1);
+                    carriedStack.shrink(1);
                     event.getCarriedSlotAccess().set(stack);
                     event.setCanceled(true);
+                }
+            }
+
+
+            if (!stack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && (stack.has(DataComponents.TOOL) || carriedStack.getItem() instanceof ArrowItem)
+                    && carriedStack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && carriedStack.is(FrostItems.COATING_FUR)) {
+                Holder<AttachableCrystal> optional1 = carriedStack.get(FrostDataCompnents.ATTACH_CRYSTAL.get());
+                stack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1);
+                event.getPlayer().playSound(SoundEvents.HONEYCOMB_WAX_ON);
+                if (event.getPlayer() instanceof ServerPlayer serverPlayer) {
+                    FrostCriterions.PUT_CRYSTAL.get().trigger(serverPlayer);
+                }
+                carriedStack.shrink(1);
+                event.getCarriedSlotAccess().set(stack);
+                event.setCanceled(true);
+            }
+        }
+
+        if (event.getClickAction() == ClickAction.SECONDARY) {
+
+            if (carriedStack.isEmpty()) {
+                if (stack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && stack.is(FrostItems.COATING_FUR)) {
+                    Holder<AttachableCrystal> crystal = stack.copy().get(FrostDataCompnents.ATTACH_CRYSTAL.get());
+                    if (crystal != null) {
+                        event.getPlayer().playSound(SoundEvents.HONEYCOMB_WAX_ON);
+                        stack.remove(FrostDataCompnents.ATTACH_CRYSTAL.get());
+                        event.getCarriedSlotAccess().set(stack);
+                        ItemStack stack1 = new ItemStack(crystal.value().getItem().value(), stack.getCount());
+                        ;
+                        if (!event.getPlayer().addItem(stack1)) {
+                            event.getPlayer().drop(stack1, true);
+                        }
+                        event.setCanceled(true);
+                    }
                 }
             }
         }
@@ -253,9 +287,9 @@ public class CommonEvents {
                                                 } else if (canPlaceSnowLayer(serverLevel, pos)) {
                                                     serverLevel.setBlockAndUpdate(pos, Blocks.SNOW.defaultBlockState());
                                                 }
-                                                }
                                             }
                                         }
+                                    }
                                 });
                             }
                         });
@@ -263,45 +297,45 @@ public class CommonEvents {
                     profiler.popPush("freeze_weather");
                 }
                 profiler.push("freeze");
-                    chunkManager.getChunks().forEach(chunkHolder -> {
-                        ChunkResult<LevelChunk> optionalChunk = chunkHolder.getEntityTickingChunkFuture().getNow(ChunkHolder.UNLOADED_LEVEL_CHUNK);
-                        if (optionalChunk.isSuccess()) {
-                            optionalChunk.ifSuccess(chunkHolder2 -> {
-                                ChunkPos chunkPos = chunkHolder2.getPos();
-                                if (!chunkManager.getPlayersCloseForSpawning(chunkPos).isEmpty()) {
+                chunkManager.getChunks().forEach(chunkHolder -> {
+                    ChunkResult<LevelChunk> optionalChunk = chunkHolder.getEntityTickingChunkFuture().getNow(ChunkHolder.UNLOADED_LEVEL_CHUNK);
+                    if (optionalChunk.isSuccess()) {
+                        optionalChunk.ifSuccess(chunkHolder2 -> {
+                            ChunkPos chunkPos = chunkHolder2.getPos();
+                            if (!chunkManager.getPlayersCloseForSpawning(chunkPos).isEmpty()) {
 
-                                    LevelChunkSection[] alevelchunksection = chunkHolder2.getSections();
-                                    for (int j1 = 0; j1 < alevelchunksection.length; j1++) {
-                                        LevelChunkSection levelchunksection = alevelchunksection[j1];
-                                        if (levelchunksection.isRandomlyTicking()) {
-                                            int k1 = chunkHolder2.getSectionYFromSectionIndex(j1);
-                                            int k = SectionPos.sectionToBlockCoord(k1);
+                                LevelChunkSection[] alevelchunksection = chunkHolder2.getSections();
+                                for (int j1 = 0; j1 < alevelchunksection.length; j1++) {
+                                    LevelChunkSection levelchunksection = alevelchunksection[j1];
+                                    if (levelchunksection.isRandomlyTicking()) {
+                                        int k1 = chunkHolder2.getSectionYFromSectionIndex(j1);
+                                        int k = SectionPos.sectionToBlockCoord(k1);
 
-                                            BlockPos pos = serverLevel.getBlockRandomPos(chunkPos.getMinBlockX(), k, chunkPos.getMinBlockZ(), 15);
-                                            BlockPos posDown = pos.below();
+                                        BlockPos pos = serverLevel.getBlockRandomPos(chunkPos.getMinBlockX(), k, chunkPos.getMinBlockZ(), 15);
+                                        BlockPos posDown = pos.below();
 
-                                                if (serverLevel.isAreaLoaded(posDown, 1)) {
-                                                    BlockState snowState = serverLevel.getBlockState(pos);
-                                                    BlockState snowStateBelow = serverLevel.getBlockState(pos.below());
-                                                    if (snowState.getBlock() instanceof CropBlock) {
-                                                        if (!snowState.is(FrostTags.Blocks.NON_FREEZE_CROP)) {
-                                                            serverLevel.playSound(null, pos, SoundEvents.PLAYER_HURT_FREEZE, SoundSource.BLOCKS);
-                                                            serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, pos.getX() + serverLevel.random.nextFloat(), pos.getY() + serverLevel.random.nextFloat(), pos.getZ() + serverLevel.random.nextFloat(), 4, 0.0D, 0.0D, 0.0D, 0.0F);
-                                                            serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-                                                        }
-                                                    }
-                                                    if (!snowState.is(FrostTags.Blocks.NON_FREEZE_SAPLING) && !snowState.is(FrostBlocks.FROSTBITE_SAPLING) && snowState.getBlock() instanceof SaplingBlock) {
-                                                        serverLevel.playSound(null, pos, SoundEvents.PLAYER_HURT_FREEZE, SoundSource.BLOCKS);
-                                                        serverLevel.setBlockAndUpdate(pos, FrostBlocks.FROSTBITE_SAPLING.get().defaultBlockState());
-                                                        serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, pos.getX() + serverLevel.random.nextFloat(), pos.getY() + serverLevel.random.nextFloat(), pos.getZ() + serverLevel.random.nextFloat(), 4, 0.0D, 0.0D, 0.0D, 0.0F);
-                                                    }
+                                        if (serverLevel.isAreaLoaded(posDown, 1)) {
+                                            BlockState snowState = serverLevel.getBlockState(pos);
+                                            BlockState snowStateBelow = serverLevel.getBlockState(pos.below());
+                                            if (snowState.getBlock() instanceof CropBlock) {
+                                                if (!snowState.is(FrostTags.Blocks.NON_FREEZE_CROP)) {
+                                                    serverLevel.playSound(null, pos, SoundEvents.PLAYER_HURT_FREEZE, SoundSource.BLOCKS);
+                                                    serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, pos.getX() + serverLevel.random.nextFloat(), pos.getY() + serverLevel.random.nextFloat(), pos.getZ() + serverLevel.random.nextFloat(), 4, 0.0D, 0.0D, 0.0D, 0.0F);
+                                                    serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                                                }
+                                            }
+                                            if (!snowState.is(FrostTags.Blocks.NON_FREEZE_SAPLING) && !snowState.is(FrostBlocks.FROSTBITE_SAPLING) && snowState.getBlock() instanceof SaplingBlock) {
+                                                serverLevel.playSound(null, pos, SoundEvents.PLAYER_HURT_FREEZE, SoundSource.BLOCKS);
+                                                serverLevel.setBlockAndUpdate(pos, FrostBlocks.FROSTBITE_SAPLING.get().defaultBlockState());
+                                                serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, pos.getX() + serverLevel.random.nextFloat(), pos.getY() + serverLevel.random.nextFloat(), pos.getZ() + serverLevel.random.nextFloat(), 4, 0.0D, 0.0D, 0.0D, 0.0F);
                                             }
                                         }
                                     }
                                 }
-                            });
-                        }
-                    });
+                            }
+                        });
+                    }
+                });
                 profiler.popPush("freeze");
             }
         }

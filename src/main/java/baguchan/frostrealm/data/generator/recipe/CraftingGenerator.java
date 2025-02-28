@@ -330,5 +330,13 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.define('L', FrostItems.FROST_BOAR_FUR.get())
 				.unlockedBy("has_item", has(FrostItems.FROST_BOAR_FUR.get())).save(this.output, prefix("bundle_frost_boar_fur"));
 
+		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, FrostItems.COATING_FUR, 1)
+				.pattern("S")
+				.pattern("L")
+				.define('S', FrostItems.CRYONITE_CREAM)
+				.define('L', FrostItems.FROST_BOAR_FUR.get())
+				.unlockedBy("has_item", has(FrostItems.CRYONITE_CREAM.get())).save(this.output);
+
+
 	}
 }

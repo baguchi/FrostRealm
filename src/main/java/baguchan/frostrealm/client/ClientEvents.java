@@ -5,6 +5,7 @@ import baguchan.frostrealm.api.recipe.AttachableCrystal;
 import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import baguchan.frostrealm.registry.FrostDataCompnents;
+import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import net.minecraft.Util;
@@ -54,7 +55,7 @@ public class ClientEvents {
 
         if (attachableCrystal != null) {
             int damage2 = (attachableCrystal.value().getUse() - damage);
-            if (event.getItemStack().getItem() instanceof ArrowItem) {
+            if (event.getItemStack().getItem() instanceof ArrowItem || event.getItemStack().is(FrostItems.COATING_FUR)) {
                 event.getToolTip().add(Component.translatable(Util.makeDescriptionId("attach_crystal", event.getContext().registries().lookup(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).get().getOrThrow(attachableCrystal.getKey()).getKey().location())));
             } else {
                 event.getToolTip().add(Component.translatable(Util.makeDescriptionId("attach_crystal", event.getContext().registries().lookup(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).get().getOrThrow(attachableCrystal.getKey()).getKey().location()))

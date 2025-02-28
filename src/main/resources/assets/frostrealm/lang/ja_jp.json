@@ -201,6 +201,7 @@
   "item.frostrealm.cryonite_cream": "クライオナイトクリーム",
   "item.frostrealm.glimmerrock.tooltip": "使うことで、自分の体温を上げる。",
   "item.frostrealm.crystal_fox_spawn_egg": "Crystal Fox Spawn Egg",
+  "item.frostrealm.coating_fur": "塗布用の皮",
   "item.frostrealm.frost_boar_horn": "フロストイノシシのツノ",
   "item.frostrealm.frost_boar_fur": "フロストイノシシの革",
   "item.frostrealm.frost_boar_fur_boots": "フロストイノシシの革のブーツ",
@@ -268,5 +269,5 @@
   "death.attack.venom_ball": "%1$sは%2$sの%3$sに猛毒にさらされた",
   "attach_crystal.frostrealm.venom": "ベノム",
   "attach_crystal.frostrealm.frost": "フロスト",
-  "item.frostrealm.attachable": "武器に塗布できる"
+  "item.frostrealm.attachable": "Can be attach to weapons with a coating fur"
 }

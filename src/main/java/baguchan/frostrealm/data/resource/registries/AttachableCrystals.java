@@ -6,13 +6,10 @@ import baguchan.frostrealm.registry.FrostEffects;
 import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
@@ -33,24 +30,21 @@ public class AttachableCrystals {
         return p_335701_.lookupOrThrow(ATTACHABLE_CRYSTAL_REGISTRY_KEY).listElements().filter(p_266876_ -> p_267327_.is(p_266876_.value().getItem())).findFirst();
     }
 
-    static void register(BootstrapContext<AttachableCrystal> context, ResourceKey<AttachableCrystal> key, TagKey<Item> tagKey, float damage, int usage) {
-        context.register(key, new AttachableCrystal(context.lookup(Registries.ITEM).getOrThrow(tagKey), damage, usage, Optional.empty()));
+    public static Optional<Holder.Reference<AttachableCrystal>> getIngredient(HolderLookup.Provider p_335701_, Holder<AttachableCrystal> attachableCrystal) {
+        return p_335701_.lookupOrThrow(ATTACHABLE_CRYSTAL_REGISTRY_KEY).listElements().filter(p_266876_ -> attachableCrystal.is(p_266876_)).findFirst();
     }
 
-    static void register(BootstrapContext<AttachableCrystal> context, ResourceKey<AttachableCrystal> key, ResourceKey<Item> item, float damage, int usage) {
-        context.register(key, new AttachableCrystal(HolderSet.direct(context.lookup(Registries.ITEM).getOrThrow(item)), damage, usage, Optional.empty()));
+    static void register(BootstrapContext<AttachableCrystal> context, ResourceKey<AttachableCrystal> key, Holder<Item> itemHolder, float damage, int usage) {
+        context.register(key, new AttachableCrystal(itemHolder, damage, usage, Optional.empty()));
     }
 
-    static void register(BootstrapContext<AttachableCrystal> context, ResourceKey<AttachableCrystal> key, TagKey<Item> tagKey, float damage, int usage, MobEffectInstance mobEffectInstance) {
-        context.register(key, new AttachableCrystal(context.lookup(Registries.ITEM).getOrThrow(tagKey), damage, usage, Optional.of(mobEffectInstance)));
+    static void register(BootstrapContext<AttachableCrystal> context, ResourceKey<AttachableCrystal> key, Holder<Item> itemHolder, float damage, int usage, MobEffectInstance mobEffectInstance) {
+        context.register(key, new AttachableCrystal(itemHolder, damage, usage, Optional.of(mobEffectInstance)));
     }
 
-    static void register(BootstrapContext<AttachableCrystal> context, ResourceKey<AttachableCrystal> key, ResourceKey<Item> item, float damage, int usage, MobEffectInstance mobEffectInstance) {
-        context.register(key, new AttachableCrystal(HolderSet.direct(context.lookup(Registries.ITEM).getOrThrow(item)), damage, usage, Optional.of(mobEffectInstance)));
-    }
 
     public static void bootstrap(BootstrapContext<AttachableCrystal> context) {
-        register(context, VENOM, FrostItems.UNSTABLE_VENOM_CRYSTAL.getKey(), 1.0F, 64, new MobEffectInstance(MobEffects.POISON, 200));
-        register(context, FROST, FrostItems.FROST_CRYSTAL.getKey(), 1.0F, 64, new MobEffectInstance(FrostEffects.COLD_SENSITIVITY, 200));
+        register(context, VENOM, FrostItems.UNSTABLE_VENOM_CRYSTAL, 1.0F, 64, new MobEffectInstance(MobEffects.POISON, 200));
+        register(context, FROST, FrostItems.FROST_CRYSTAL, 1.0F, 64, new MobEffectInstance(FrostEffects.COLD_SENSITIVITY, 200));
     }
 }

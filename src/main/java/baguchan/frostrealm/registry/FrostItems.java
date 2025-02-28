@@ -17,6 +17,7 @@ public class FrostItems {
 
     public static final DeferredItem<Item> CRYONITE = ITEMS.registerItem("cryonite", Item::new);
     public static final DeferredItem<Item> CRYONITE_CREAM = ITEMS.registerItem("cryonite_cream", (properties) -> new CryoniteCreamItem(properties));
+    public static final DeferredItem<Item> COATING_FUR = ITEMS.registerItem("coating_fur", (properties) -> new Item(properties.stacksTo(1)));
 
     public static final DeferredItem<Item> WARPED_CRYSTAL = ITEMS.registerItem("warped_crystal", (properties) -> new Item(properties));
     public static final DeferredItem<Item> VENOM_CRYSTAL = ITEMS.registerItem("venom_crystal", (properties) -> new Item(properties));

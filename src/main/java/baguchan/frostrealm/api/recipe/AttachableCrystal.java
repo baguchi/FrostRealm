@@ -4,9 +4,6 @@ import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryCodecs;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -21,7 +18,7 @@ import java.util.Optional;
 public class AttachableCrystal {
     public static final Codec<AttachableCrystal> DIRECT_CODEC = RecordCodecBuilder.create(
             p_332779_ -> p_332779_.group(
-                            RegistryCodecs.homogeneousList(Registries.ITEM).fieldOf("items").forGetter(AttachableCrystal::getItem),
+                            Item.CODEC.fieldOf("items").forGetter(AttachableCrystal::getItem),
                             Codec.FLOAT.fieldOf("damage").forGetter(AttachableCrystal::getDamage),
                             ExtraCodecs.POSITIVE_INT.fieldOf("usage").forGetter(AttachableCrystal::getUse),
                             MobEffectInstance.CODEC.optionalFieldOf("mob_effects").forGetter(AttachableCrystal::getMobEffectInstance)
@@ -30,19 +27,19 @@ public class AttachableCrystal {
     );
     public static final Codec<Holder<AttachableCrystal>> CODEC = RegistryFileCodec.create(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY, DIRECT_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<AttachableCrystal>> STREAM_CODEC = ByteBufCodecs.holderRegistry(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY);
-    private final HolderSet<Item> item;
+    private final Holder<Item> item;
     private final float damage;
     private final int use;
     private final Optional<MobEffectInstance> mobEffectInstance;
 
-    public AttachableCrystal(HolderSet<Item> item, float damage, int use, Optional<MobEffectInstance> mobEffectInstance) {
+    public AttachableCrystal(Holder<Item> item, float damage, int use, Optional<MobEffectInstance> mobEffectInstance) {
         this.item = item;
         this.damage = damage;
         this.use = use;
         this.mobEffectInstance = mobEffectInstance;
     }
 
-    public HolderSet<Item> getItem() {
+    public Holder<Item> getItem() {
         return item;
     }
 

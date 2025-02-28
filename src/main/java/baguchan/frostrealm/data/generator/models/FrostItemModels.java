@@ -21,6 +21,7 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.FROST_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.CRYONITE.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.CRYONITE_CREAM.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.COATING_FUR.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.WARPED_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.VENOM_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.UNSTABLE_VENOM_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
@@ -71,22 +72,22 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.GLACINIUM_HOE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_SICKLE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
 
-        this.generateFlatItem(FrostItems.YETI_FUR_HELMET.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.YETI_FUR_CHESTPLATE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.YETI_FUR_LEGGINGS.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.YETI_FUR_BOOTS.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        this.generateFlatItem(FrostItems.YETI_FUR_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.YETI_FUR_CHESTPLATE.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.YETI_FUR_LEGGINGS.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.YETI_FUR_BOOTS.asItem(), ModelTemplates.FLAT_ITEM);
 
-        this.generateFlatItem(FrostItems.FROST_BOAR_FUR_HELMET.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.FROST_BOAR_FUR_CHESTPLATE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.FROST_BOAR_FUR_LEGGINGS.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.FROST_BOAR_FUR_BOOTS.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        this.generateFlatItem(FrostItems.FROST_BOAR_FUR_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.FROST_BOAR_FUR_CHESTPLATE.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.FROST_BOAR_FUR_LEGGINGS.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.FROST_BOAR_FUR_BOOTS.asItem(), ModelTemplates.FLAT_ITEM);
 
-        this.generateFlatItem(FrostItems.ASTRIUM_HELMET.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.ASTRIUM_CHESTPLATE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.ASTRIUM_LEGGINGS.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.ASTRIUM_BOOTS.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.WOLFFLUE_ASTRIUM_ARMOR.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.HOT_SPRING_BUCKET.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        this.generateFlatItem(FrostItems.ASTRIUM_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.ASTRIUM_CHESTPLATE.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.ASTRIUM_LEGGINGS.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.ASTRIUM_BOOTS.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.WOLFFLUE_ASTRIUM_ARMOR.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.HOT_SPRING_BUCKET.asItem(), ModelTemplates.FLAT_ITEM);
 
         this.generateSpawnEgg(FrostItems.MARMOT_SPAWNEGG.get(), 11633478, 10185517);
         this.generateSpawnEgg(FrostItems.SNOWPILE_QUAIL_SPAWNEGG.get(), 16777215, 16777215);

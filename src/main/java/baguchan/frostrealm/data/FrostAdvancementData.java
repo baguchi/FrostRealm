@@ -118,7 +118,7 @@ public class FrostAdvancementData extends AdvancementProvider {
 			Advancement.Builder.advancement()
 					.parent(astrium_age)
 					.display(
-							FrostItems.FROST_CRYSTAL.get(),
+							FrostItems.COATING_FUR.get(),
 							Component.translatable("advancements.frostrealm.smithing_crystal.title"),
 							Component.translatable("advancements.frostrealm.smithing_crystal.desc"),
 							null,
