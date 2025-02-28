@@ -1,6 +1,7 @@
 package baguchan.frostrealm.entity.path;
 
 import baguchan.frostrealm.entity.hostile.CellingMonster;
+import baguchan.frostrealm.entity.path.node.CellingNodeEvaluator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;

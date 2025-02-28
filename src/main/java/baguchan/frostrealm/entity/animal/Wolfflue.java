@@ -4,6 +4,7 @@ import baguchan.frostrealm.api.entity.WolfflueVariant;
 import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
 import baguchan.frostrealm.entity.goal.LeapAtTargetWolfflueGoal;
 import baguchan.frostrealm.entity.goal.WolfflueBegGoal;
+import baguchan.frostrealm.entity.path.node.WolfflueNodeEvaluator;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostEntityDatas;
 import baguchan.frostrealm.registry.FrostItems;
@@ -40,6 +41,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -57,6 +60,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
@@ -107,6 +112,19 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
         this.setTame(false, false);
         this.setPathfindingMalus(PathType.POWDER_SNOW, -1.0F);
         this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level p_21480_) {
+        return new GroundPathNavigation(this, p_21480_) {
+            protected PathFinder createPathFinder(int p_219479_) {
+                this.nodeEvaluator = new WolfflueNodeEvaluator();
+                this.nodeEvaluator.setCanPassDoors(true);
+                this.nodeEvaluator.setCanOpenDoors(false);
+                this.nodeEvaluator.setCanFloat(true);
+                return new PathFinder(this.nodeEvaluator, p_219479_);
+            }
+        };
     }
 
     @Override
@@ -386,6 +404,11 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
 
         if (!this.level().isClientSide) {
             this.updatePersistentAnger((ServerLevel) this.level(), true);
+            if (this.onGround()) {
+                if (this.getPose() == Pose.LONG_JUMPING) {
+                    this.setPose(Pose.STANDING);
+                }
+            }
         }
 
         super.aiStep();
@@ -991,6 +1014,32 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
         }
     }
 
+    @Override
+    protected float getJumpPower() {
+        float f = 0.42F;
+
+        Path path = this.navigation.getPath();
+        if (path != null && !path.isDone()) {
+            Vec3 vec3 = path.getNextEntityPos(this);
+            if (vec3.y > this.getY() + 0.5) {
+                f = 0.5F;
+            }
+            if (vec3.y > this.getY() + 1.5) {
+                f = 0.65F;
+            }
+        }
+
+        return super.getJumpPower(f / 0.42F);
+    }
+
+    @Override
+    public void jumpFromGround() {
+        super.jumpFromGround();
+        if (getJumpPower() >= (0.6F / 0.42F) * this.getAttributeValue(Attributes.JUMP_STRENGTH)) {
+            this.setPose(Pose.LONG_JUMPING);
+            this.makeSound(SoundEvents.GOAT_LONG_JUMP);
+        }
+    }
 
     private class WolffluePackData extends AgeableMob.AgeableMobGroupData {
         public final Holder<WolfflueVariant> type;

@@ -1,5 +1,6 @@
 package baguchan.frostrealm.entity.path;
 
+import baguchan.frostrealm.entity.path.node.LavaSwimNodeEvaluator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Mob;

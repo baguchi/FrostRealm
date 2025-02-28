@@ -1,4 +1,4 @@
-package baguchan.frostrealm.entity.path;
+package baguchan.frostrealm.entity.path.node;
 
 import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;

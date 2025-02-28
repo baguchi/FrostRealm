@@ -1,5 +1,6 @@
 package baguchan.frostrealm.entity.path;
 
+import baguchan.frostrealm.entity.path.node.SnowSwimNodeEvaluator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
