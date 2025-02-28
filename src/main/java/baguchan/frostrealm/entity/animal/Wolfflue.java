@@ -4,6 +4,7 @@ import baguchan.frostrealm.api.entity.WolfflueVariant;
 import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
 import baguchan.frostrealm.entity.goal.LeapAtTargetWolfflueGoal;
 import baguchan.frostrealm.entity.goal.WolfflueBegGoal;
+import baguchan.frostrealm.item.WolfflueArmorItem;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostEntityDatas;
 import baguchan.frostrealm.registry.FrostItems;
@@ -76,6 +77,7 @@ import java.util.function.Predicate;
 
 public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder<Holder<WolfflueVariant>>, Saddleable, PlayerRideableJumping, ISmartJump {
     private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_SADDLE = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_COLLAR_COLOR = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Holder<WolfflueVariant>> DATA_VARIANT_ID = SynchedEntityData.defineId(Wolfflue.class, FrostEntityDatas.WOLFFLUE_VARIANT.get());
@@ -229,6 +231,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
     protected void defineSynchedData(SynchedEntityData.Builder p_326027_) {
         super.defineSynchedData(p_326027_);
         p_326027_.define(DATA_INTERESTED_ID, false);
+        p_326027_.define(DATA_SADDLE, false);
         p_326027_.define(DATA_COLLAR_COLOR, DyeColor.RED.getId());
         p_326027_.define(DATA_REMAINING_ANGER_TIME, 0);
         RegistryAccess registryaccess = this.registryAccess();
@@ -273,7 +276,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
         super.addAdditionalSaveData(p_30418_);
         p_30418_.putByte("CollarColor", (byte) this.getCollarColor().getId());
         this.getVariant().unwrapKey().ifPresent(p_344339_ -> p_30418_.putString("variant", p_344339_.location().toString()));
-
+        p_30418_.putBoolean("Saddle", this.isSaddled());
 
         this.addPersistentAngerSaveData(p_30418_);
     }
@@ -289,6 +292,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
                 .map(p_332608_ -> ResourceKey.create(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, p_332608_))
                 .flatMap(p_352803_ -> this.registryAccess().lookupOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY).get((ResourceKey<WolfflueVariant>) p_352803_))
                 .ifPresent(this::setVariant);
+        this.setSaddled(p_30402_.getBoolean("Saddle"));
 
         this.readPersistentAngerSaveData(this.level(), p_30402_);
     }
@@ -569,6 +573,15 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
         this.doHurtEquipment(p_332118_, p_330593_, EquipmentSlot.BODY);
     }
 
+    @Override
+    protected void dropEquipment(ServerLevel p_376551_) {
+        super.dropEquipment(p_376551_);
+        if (this.isSaddled()) {
+            this.spawnAtLocation(p_376551_, Items.SADDLE);
+        }
+
+    }
+
     protected void doPlayerRide(Player p_30634_) {
         this.setOrderedToSit(false);
         if (!this.level().isClientSide) {
@@ -620,17 +633,20 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
                         return InteractionResult.SUCCESS;
                     }
 
-                    if (itemstack.is(Items.SADDLE) && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
+                    if (itemstack.getItem() instanceof WolfflueArmorItem wolfflueArmorItem && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
                         this.setBodyArmorItem(itemstack.copyWithCount(1));
                         this.setGuaranteedDrop(EquipmentSlot.BODY);
                         itemstack.consume(1, p_30412_);
-                        this.playSound(SoundEvents.STRIDER_SADDLE);
                         return InteractionResult.SUCCESS;
-                    } else
-                    if (itemstack.is(FrostItems.WOLFFLUE_ASTRIUM_ARMOR.get()) && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
-                        this.setBodyArmorItem(itemstack.copyWithCount(1));
-                        this.setGuaranteedDrop(EquipmentSlot.BODY);
-                        itemstack.consume(1, p_30412_);
+                    } else if (itemstack.canPerformAction(net.neoforged.neoforge.common.ItemAbilities.SHEARS_REMOVE_ARMOR)
+                            && this.isOwnedBy(p_30412_)
+                            && this.isSaddled()) {
+                        itemstack.hurtAndBreak(1, p_30412_, getSlotForHand(p_30413_));
+                        this.playSound(SoundEvents.ARMOR_UNEQUIP_WOLF);
+                        this.setSaddled(false);
+                        if (this.level() instanceof ServerLevel serverLevel) {
+                            this.spawnAtLocation(serverLevel, Items.SADDLE);
+                        }
                         return InteractionResult.SUCCESS;
                     } else if (itemstack.canPerformAction(net.neoforged.neoforge.common.ItemAbilities.SHEARS_REMOVE_ARMOR)
                             && this.isOwnedBy(p_30412_)
@@ -854,12 +870,12 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
 
     @Override
     public boolean isSaddleable() {
-        return !this.isWearingBodyArmor() && this.isTame() && this.isAlive() && !this.isBaby();
+        return !this.isSaddled() && this.isTame() && this.isAlive() && !this.isBaby();
     }
 
     @Override
     public void equipSaddle(ItemStack p_352360_, @org.jetbrains.annotations.Nullable SoundSource p_21748_) {
-        this.setBodyArmorItem(p_352360_);
+        this.setSaddled(true);
         if (p_21748_ != null) {
             this.level().playSound(null, this, SoundEvents.STRIDER_SADDLE, p_21748_, 0.5F, 1.0F);
         }
@@ -942,7 +958,11 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
 
     @Override
     public boolean isSaddled() {
-        return this.getBodyArmorItem().is(Items.SADDLE);
+        return this.entityData.get(DATA_SADDLE);
+    }
+
+    public void setSaddled(boolean saddle) {
+        this.entityData.set(DATA_SADDLE, saddle);
     }
 
     @Override

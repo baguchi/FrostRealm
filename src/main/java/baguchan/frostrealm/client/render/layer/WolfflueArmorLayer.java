@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Crackiness;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SaddleItem;
 
 import java.util.Map;
 
@@ -62,12 +61,9 @@ public class WolfflueArmorLayer<T extends WolfflueRenderState> extends RenderLay
                 VertexConsumer vertexconsumer2 = p_316832_.getBuffer(FrostRenderType.AURORA_ENTITY_GLINT);
                 this.model.renderToBuffer(p_316608_, vertexconsumer2, p_316312_, OverlayTexture.NO_OVERLAY);
             }
-
-            return;
-
         }
 
-        if (p_316642_.bodyArmorItem.getItem() instanceof SaddleItem) {
+        if (p_316642_.saddle) {
             this.model.setupAnim(p_316642_);
             VertexConsumer vertexconsumer = p_316832_.getBuffer(RenderType.entityCutoutNoCull(SADDLE_LOCATION));
             this.model.renderToBuffer(p_316608_, vertexconsumer, p_316312_, OverlayTexture.NO_OVERLAY);

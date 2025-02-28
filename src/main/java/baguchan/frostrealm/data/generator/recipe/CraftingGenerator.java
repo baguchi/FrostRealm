@@ -140,6 +140,13 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.define('A', FrostItems.ASTRIUM_INGOT.get())
 				.define('S', Items.STRING)
 				.unlockedBy("has_item", has(FrostItems.ASTRIUM_INGOT.get())).save(this.output);
+		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.COMBAT, FrostItems.WOLFFLUE_FROST_BOAR_ARMOR.get(), 1)
+				.pattern("AAA")
+				.pattern("SAA")
+				.pattern("  S")
+				.define('A', FrostItems.FROST_BOAR_FUR.get())
+				.define('S', Items.STRING)
+				.unlockedBy("has_item", has(FrostItems.FROST_BOAR_FUR.get())).save(this.output);
 
 
 		helmetItem(this.output, "astrium_helmet", FrostItems.ASTRIUM_HELMET.get(), FrostItems.ASTRIUM_INGOT.get());

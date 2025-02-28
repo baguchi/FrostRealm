@@ -35,6 +35,7 @@ public class WolfflueRenderer<T extends Wolfflue> extends MobRenderer<T, Wolfflu
 
         p_363549_.isAngry = p_363274_.isAngry();
         p_363549_.isSitting = p_363274_.isInSittingPose();
+        p_363549_.saddle = p_363274_.isSaddled();
         p_363549_.tailAngle = p_363274_.getTailAngle();
         p_363549_.headRollAngle = p_363274_.getHeadRollAngle(p_362105_);
         p_363549_.texture = p_363274_.getTexture();
