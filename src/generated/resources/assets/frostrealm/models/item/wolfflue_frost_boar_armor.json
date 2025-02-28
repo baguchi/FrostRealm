@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "frostrealm:item/wolfflue_frost_boar_armor"
+  }
+}

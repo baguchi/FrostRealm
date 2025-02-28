@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "frostrealm:frost_boar_fur",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    "AAA",
+    "SAA",
+    "  S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frostrealm:wolfflue_frost_boar_armor"
+  }
+}

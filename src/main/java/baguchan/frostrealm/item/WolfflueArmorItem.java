@@ -1,10 +1,13 @@
 package baguchan.frostrealm.item;
 
+import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.AnimalArmorItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 
 public class WolfflueArmorItem extends AnimalArmorItem {
@@ -23,5 +26,10 @@ public class WolfflueArmorItem extends AnimalArmorItem {
     @Override
     public SoundEvent getBreakingSound() {
         return SoundEvents.WOLF_ARMOR_BREAK;
+    }
+
+    @Override
+    public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
+        return stack.is(FrostItems.WOLFFLUE_FROST_BOAR_ARMOR);
     }
 }

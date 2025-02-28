@@ -633,7 +633,12 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
                         return InteractionResult.SUCCESS;
                     }
 
-                    if (itemstack.getItem() instanceof WolfflueArmorItem wolfflueArmorItem && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
+                    if (itemstack.is(Items.SADDLE) && this.isOwnedBy(p_30412_) && !this.isBaby()) {
+                        this.setSaddled(true);
+                        itemstack.consume(1, p_30412_);
+                        this.playSound(SoundEvents.STRIDER_SADDLE);
+                        return InteractionResult.SUCCESS;
+                    } else if (itemstack.getItem() instanceof WolfflueArmorItem wolfflueArmorItem && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
                         this.setBodyArmorItem(itemstack.copyWithCount(1));
                         this.setGuaranteedDrop(EquipmentSlot.BODY);
                         itemstack.consume(1, p_30412_);
