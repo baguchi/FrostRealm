@@ -633,7 +633,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
                         return InteractionResult.SUCCESS;
                     }
 
-                    if (itemstack.is(Items.SADDLE) && this.isOwnedBy(p_30412_) && !this.isBaby()) {
+                    if (!this.isSaddled() && itemstack.is(Items.SADDLE) && this.isOwnedBy(p_30412_) && !this.isBaby()) {
                         this.setSaddled(true);
                         itemstack.consume(1, p_30412_);
                         this.playSound(SoundEvents.STRIDER_SADDLE);

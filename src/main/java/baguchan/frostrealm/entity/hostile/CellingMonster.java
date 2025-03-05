@@ -46,6 +46,27 @@ public class CellingMonster extends Monster {
     }
 
     @Override
+    public void calculateEntityAnimation(boolean p_268129_) {
+        float f = (float) Mth.length(this.getX() - this.xo, this.getAttachFacing() != Direction.DOWN ? this.getY() - this.yo : 0.0, this.getZ() - this.zo);
+        if (!this.isPassenger() && this.isAlive()) {
+            this.updateWalkAnimation(f);
+        } else {
+            this.walkAnimation.stop();
+        }
+    }
+
+    @Override
+    protected void updateWalkAnimation(float p_268239_) {
+        float f;
+        if (this.getAttachFacing() == Direction.DOWN) {
+            f = Math.min(p_268239_ * 4.0F, 1.0F);
+        } else {
+            f = Math.min(p_268239_ * 25.0F, 1.0F);
+        }
+        this.walkAnimation.update(f, 0.4F, this.isBaby() ? 3.0F : 1.0F);
+    }
+
+    @Override
     public void travel(Vec3 p_32394_) {
         if (this.isControlledByLocalInstance() && this.getAttachFacing() != Direction.DOWN) {
             this.moveRelative(0.1F, p_32394_);

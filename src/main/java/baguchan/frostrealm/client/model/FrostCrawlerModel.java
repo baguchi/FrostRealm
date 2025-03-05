@@ -9,7 +9,6 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.core.Direction;
 
 public class FrostCrawlerModel<T extends FrostCrawlerRenderState> extends EntityModel<T> {
     private final ModelPart head_rotation;
@@ -67,12 +66,7 @@ public class FrostCrawlerModel<T extends FrostCrawlerRenderState> extends Entity
     @Override
     public void setupAnim(T entity) {
         super.setupAnim(entity);
-        if (entity.attachFace != Direction.DOWN) {
-            this.animateWalk(FrostCrawlerAnimations.crawl, entity.walkAnimationPos, entity.walkAnimationSpeed, 2.0F, 2.5F);
-            this.animateWalk(FrostCrawlerAnimations.crawl_stop, entity.walkAnimationPos, (1.0F - entity.walkAnimationSpeed), 2.0F, 2.5F);
-        } else {
-            this.animateWalk(FrostCrawlerAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 2.0F, 2.5F);
+        this.animateWalk(FrostCrawlerAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 2.0F, 2.5F);
 
-        }
     }
 }

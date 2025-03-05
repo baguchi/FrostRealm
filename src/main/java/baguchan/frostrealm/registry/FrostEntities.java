@@ -46,7 +46,7 @@ public class FrostEntities {
     public static final Supplier<EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).eyeHeight(0.25F).build(prefix("astra_ball")));
     public static final Supplier<EntityType<FrostBoar>> FROST_BOAR = ENTITIES.register("frost_boar", () -> EntityType.Builder.of(FrostBoar::new, MobCategory.CREATURE).sized(1.8F, 1.95F).eyeHeight(1.5F).build(prefix("frost_boar")));
     public static final Supplier<EntityType<CorruptedWalker>> CORRUPTED_WALKER = ENTITIES.register("corruped_walker", () -> EntityType.Builder.of(CorruptedWalker::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(1.0F, 1.0F).eyeHeight(0.8F).fireImmune().build(prefix("corruped_walker")));
-    public static final Supplier<EntityType<Venochem>> VENOCHEM = ENTITIES.register("venochem", () -> EntityType.Builder.of(Venochem::new, MobCategory.MONSTER).sized(0.9F, 0.8F).eyeHeight(0.45F).build(prefix("venochem")));
+    public static final Supplier<EntityType<Venochem>> VENOCHEM = ENTITIES.register("venochem", () -> EntityType.Builder.of(Venochem::new, MobCategory.MONSTER).sized(0.8F, 0.8F).eyeHeight(0.45F).build(prefix("venochem")));
     public static final Supplier<EntityType<Gokkur>> GOKKUR = ENTITIES.register("gokkur", () -> EntityType.Builder.of(Gokkur::new, MobCategory.MONSTER).sized(1.0F, 1.2F).eyeHeight(0.525F).fireImmune().build(prefix("gokkur")));
     public static final Supplier<EntityType<UnderGokkur>> UNDER_GOKKUR = ENTITIES.register("under_gokkur", () -> EntityType.Builder.of(UnderGokkur::new, MobCategory.MONSTER).sized(1.0F, 1.2F).eyeHeight(0.525F).fireImmune().build(prefix("under_gokkur")));
     public static final Supplier<EntityType<RootDeer>> ROOT_DEER = ENTITIES.register("root_deer", () -> EntityType.Builder.of(RootDeer::new, MobCategory.MONSTER).sized(0.5F, 2.375F).eyeHeight(0.35F).build(prefix("root_deer")));
@@ -106,7 +106,7 @@ public class FrostEntities {
         event.register(SEEKER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seeker::checkStraySpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(ASTRA_BALL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(FROST_BOAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBoar::checkFrostAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
-        event.register(VENOCHEM.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(VENOCHEM.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Venochem::checkVenochemSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(GOKKUR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(UNDER_GOKKUR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(ROOT_DEER.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, RootDeer::checkDeerSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);

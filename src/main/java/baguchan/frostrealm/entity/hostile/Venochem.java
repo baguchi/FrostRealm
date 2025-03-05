@@ -4,26 +4,33 @@ import baguchan.frostrealm.entity.goal.ShootProjectileAnimationGoal;
 import baguchan.frostrealm.entity.projectile.VenomBall;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchi.bagus_lib.entity.goal.AnimateAttackGoal;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.Vec3;
 
-public class Venochem extends Monster implements RangedAttackMob {
+import javax.annotation.Nullable;
+
+public class Venochem extends CellingMonster implements RangedAttackMob {
 
     private int attackTick;
     public AnimationState attackAnimationState = new AnimationState();
@@ -66,7 +73,12 @@ public class Venochem extends Monster implements RangedAttackMob {
             }
         });
         this.goalSelector.addGoal(5, new ShootProjectileAnimationGoal(this, 0.8F, 20, 20 * 3, 10.0F));
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.8F));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.8F) {
+            @Nullable
+            protected Vec3 getPosition() {
+                return this.mob.getRandom().nextFloat() >= this.probability ? DefaultRandomPos.getPos(this.mob, 10, 7) : super.getPosition();
+            }
+        });
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -95,9 +107,29 @@ public class Venochem extends Monster implements RangedAttackMob {
         return Monster.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 14.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
-                .add(Attributes.FOLLOW_RANGE, 16.0)
+                .add(Attributes.FOLLOW_RANGE, 18.0)
                 .add(Attributes.ATTACK_DAMAGE, 2.0);
     }
+
+    public static boolean checkVenochemSpawnRules(
+            EntityType<? extends Monster> p_219014_, ServerLevelAccessor p_219015_, EntitySpawnReason p_361180_, BlockPos p_219017_, RandomSource p_219018_
+    ) {
+        return p_219015_.getDifficulty() != Difficulty.PEACEFUL
+                && (EntitySpawnReason.ignoresLightRequirements(p_361180_) || isDarkEnoughToSpawn(p_219015_, p_219017_, p_219018_))
+                && checkDirectionSpawnRules(p_219015_, p_219017_);
+    }
+
+    public static boolean checkDirectionSpawnRules(
+            LevelAccessor p_217059_, BlockPos p_217061_
+    ) {
+        for (Direction direction : Direction.values()) {
+            BlockPos blockpos = p_217061_.offset(direction.getUnitVec3i());
+            return p_217059_.getBlockState(blockpos).isSolid();
+        }
+        return false;
+    }
+
+
 
     @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
