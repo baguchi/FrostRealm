@@ -2,6 +2,7 @@ package baguchan.frostrealm.world.gen;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
+import baguchan.frostrealm.world.trunk.DripWoodTrunkPlacer;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -33,6 +34,7 @@ public class FrostTreeFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FROST_TREE_BIG = registerKey("frostroot_tree_big");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FROSTBITE_TREE = registerKey("frostbite_tree");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> FROSTBITE_TREE_BIG = registerKey("frostbite_tree_big");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> DRIP_WOOD_TREE = registerKey("drip_wood_tree");
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;
 	}
@@ -46,6 +48,7 @@ public class FrostTreeFeatures {
 		FeatureUtils.register(context, FROST_TREE_BIG, Feature.TREE, createFancyFrostRoot().build());
 		FeatureUtils.register(context, FROSTBITE_TREE, Feature.TREE, createFrostBite().build());
 		FeatureUtils.register(context, FROSTBITE_TREE_BIG, Feature.TREE, createFancyFrostBite().build());
+		FeatureUtils.register(context, DRIP_WOOD_TREE, Feature.TREE, createDripWood().build());
 	}
 
 
@@ -61,6 +64,12 @@ public class FrostTreeFeatures {
     private static TreeConfiguration.TreeConfigurationBuilder createFancyFrostRoot() {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTROOT_LOG.get()), new ForkingTrunkPlacer(4, 11, 0), BlockStateProvider.simple(FrostBlocks.FROSTROOT_LEAVES.get()), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), 4), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
     }
+
+	private static TreeConfiguration.TreeConfigurationBuilder createDripWood() {
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTBITE_LOG.get()), new DripWoodTrunkPlacer(32, 8, 0), BlockStateProvider.simple(FrostBlocks.FROSTBITE_LEAVES.get()), new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
+				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
+		)).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
+	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder createFrostBite() {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTBITE_LOG.get()), new ForkingTrunkPlacer(8, 4, 0), BlockStateProvider.simple(FrostBlocks.FROSTBITE_LEAVES.get()), new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),

@@ -359,7 +359,8 @@
             "biome_is": [
               "frostrealm:frigid_forest",
               "frostrealm:tundra",
-              "frostrealm:frostbite_forest"
+              "frostrealm:frostbite_forest",
+              "frostrealm:drip_forest"
             ]
           },
           "then_run": {

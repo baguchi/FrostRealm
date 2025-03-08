@@ -79,6 +79,7 @@ public class FrostRealm {
         FrostChunkGenerators.CHUNK_GENERATOR.register(modBus);
         FrostWeathers.FROST_WEATHER.register(modBus);
         AuroraPowers.AURORA_POWER.register(modBus);
+		FrostTrunkPlacerTypes.TRUNK_TYPES.register(modBus);
 		FrostDataCompnents.DATA_COMPONENT_TYPES.register(modBus);
 		FrostCriterions.CRITERIONS_REGISTER.register(modBus);
 		modBus.addListener(this::setup);

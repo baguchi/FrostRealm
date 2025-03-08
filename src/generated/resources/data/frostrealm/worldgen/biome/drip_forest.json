@@ -1,0 +1,117 @@
+{
+  "carvers": [
+    "frostrealm:frostrealm_cave",
+    "frostrealm:frostrealm_cave_extra_underground",
+    "frostrealm:frostrealm_canyon"
+  ],
+  "downfall": 0.5,
+  "effects": {
+    "fog_color": 4630224,
+    "foliage_color": 7115607,
+    "grass_color": 7115607,
+    "music": [
+      {
+        "data": {
+          "max_delay": 10800,
+          "min_delay": 3600,
+          "replace_current_music": false,
+          "sound": {
+            "sound_id": "frostrealm:music.frost_moon"
+          }
+        },
+        "weight": 1
+      }
+    ],
+    "music_volume": 1.0,
+    "sky_color": 7907327,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "frostrealm:astrium_ore_upper",
+      "frostrealm:astrium_ore_lower",
+      "frostrealm:frost_crystal_ore_lower",
+      "frostrealm:frost_crystal_ore_upper",
+      "frostrealm:glimmer_ore_lower",
+      "frostrealm:glimmer_ore_extra",
+      "frostrealm:glimmer_ore_small",
+      "frostrealm:glacinium_ore",
+      "frostrealm:glacinium_ore_small"
+    ],
+    [],
+    [
+      "frostrealm:spring_water",
+      "frostrealm:spring_lava"
+    ],
+    [
+      "frostrealm:drip_tree",
+      "frostrealm:patch_vigoroshroom",
+      "frostrealm:patch_artic_willow",
+      "frostrealm:patch_drip_grass"
+    ],
+    [
+      "minecraft:freeze_top_layer"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [
+      {
+        "type": "frostrealm:snowpile_quail",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
+      },
+      {
+        "type": "frostrealm:wolfflue",
+        "maxCount": 4,
+        "minCount": 4,
+        "weight": 5
+      }
+    ],
+    "frostrealm:frostrealm_weather_monster": [
+      {
+        "type": "frostrealm:frost_wraith",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 100
+      }
+    ],
+    "frostrealm:surface_monster": [],
+    "misc": [],
+    "monster": [
+      {
+        "type": "frostrealm:venochem",
+        "maxCount": 2,
+        "minCount": 1,
+        "weight": 100
+      },
+      {
+        "type": "frostrealm:gokkur",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 80
+      },
+      {
+        "type": "frostrealm:frost_crawler",
+        "maxCount": 4,
+        "minCount": 3,
+        "weight": 30
+      }
+    ],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": -1.2
+}
