@@ -94,6 +94,12 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
         createTrivialBlock(FrostBlocks.FROSTBITE_LEAVES.get(), LEAVES_PROVIDER);
         createCrossBlockWithDefaultItem(FrostBlocks.FROSTBITE_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
+        this.woodProvider(FrostBlocks.DRIP_LOG.get())
+                .log(FrostBlocks.DRIP_LOG.get());
+        createTrivialBlock(FrostBlocks.DRIP_LEAVES.get(), LEAVES_PROVIDER);
+        createCrossBlockWithDefaultItem(FrostBlocks.DRIP_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+
+
         createCrossBlockWithDefaultItem(FrostBlocks.VIGOROSHROOM.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         createCrossBlockWithDefaultItem(FrostBlocks.ARCTIC_POPPY.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         createCrossBlockWithDefaultItem(FrostBlocks.ARCTIC_WILLOW.get(), BlockModelGenerators.PlantType.NOT_TINTED);

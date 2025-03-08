@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "frostrealm:drip_log"
+  ],
+  "result": {
+    "count": 4,
+    "id": "frostrealm:drip_planks"
+  }
+}

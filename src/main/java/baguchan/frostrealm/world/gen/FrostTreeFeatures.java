@@ -66,13 +66,13 @@ public class FrostTreeFeatures {
     }
 
 	private static TreeConfiguration.TreeConfigurationBuilder createDripWood() {
-		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTBITE_LOG.get()), new DripWoodTrunkPlacer(32, 8, 0,
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.DRIP_LOG.get()), new DripWoodTrunkPlacer(32, 8, 0,
 				new WeightedListInt(
 						SimpleWeightedRandomList.<IntProvider>builder().add(ConstantInt.of(1), 1).add(ConstantInt.of(2), 1).add(ConstantInt.of(3), 1).build()
 				),
 				UniformInt.of(4, 6),
 				UniformInt.of(-18, -10),
-				UniformInt.of(-8, -6)), BlockStateProvider.simple(FrostBlocks.FROSTBITE_LEAVES.get()), new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
+				UniformInt.of(-8, -6)), BlockStateProvider.simple(FrostBlocks.DRIP_LEAVES.get()), new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
 		)).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
 	}

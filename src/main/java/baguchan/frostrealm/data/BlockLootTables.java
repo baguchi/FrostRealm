@@ -139,6 +139,23 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.dropSelf(FrostBlocks.FROSTBITE_BUTTON.get());
 		this.dropSelf(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get());
 
+        this.dropSelf(FrostBlocks.DRIP_LOG.get());
+        //this.dropSelf(FrostBlocks.STRIPPED_DRIP_LOG.get());
+        this.dropSelf(FrostBlocks.DRIP_SAPLING.get());
+        this.add(FrostBlocks.DRIP_LEAVES.get(), (p_124104_) -> {
+            return createFrostbiteLeavesDrops(p_124104_, FrostBlocks.DRIP_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES);
+        });
+        this.dropSelf(FrostBlocks.DRIP_PLANKS.get());
+        //this.dropSelf(FrostBlocks.DRIP_CRAFTING_TABLE.get());
+        this.add(FrostBlocks.DRIP_PLANKS_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(FrostBlocks.DRIP_PLANKS_STAIRS.get());
+        this.dropSelf(FrostBlocks.DRIP_FENCE.get());
+        this.dropSelf(FrostBlocks.DRIP_FENCE_GATE.get());
+        this.add(FrostBlocks.DRIP_DOOR.get(), this::createDoorTable);
+        this.dropSelf(FrostBlocks.FROSTROOT_TRAPDOOR.get());
+        this.dropSelf(FrostBlocks.DRIP_BUTTON.get());
+        this.dropSelf(FrostBlocks.DRIP_PRESSURE_PLATE.get());
+
 		this.dropSelf(FrostBlocks.VIGOROSHROOM.get());
         this.dropSelf(FrostBlocks.ARCTIC_POPPY.get());
         this.dropSelf(FrostBlocks.ARCTIC_WILLOW.get());

@@ -16,7 +16,7 @@
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "frostrealm:frostbite_leaves",
+        "Name": "frostrealm:drip_leaves",
         "Properties": {
           "distance": "7",
           "persistent": "false",
@@ -74,7 +74,7 @@
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "frostrealm:frostbite_log",
+        "Name": "frostrealm:drip_log",
         "Properties": {
           "axis": "y"
         }

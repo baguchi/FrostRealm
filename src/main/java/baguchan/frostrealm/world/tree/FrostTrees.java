@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class FrostTrees {
     public static final TreeGrower FROSTROOT = new TreeGrower(
-            "frsotroot",
+            "frostroot",
             0.15F,
             Optional.empty(),
             Optional.empty(),
@@ -17,7 +17,7 @@ public class FrostTrees {
             Optional.empty()
     );
     public static final TreeGrower FROSTBITE = new TreeGrower(
-            "frsotbit",
+            "frosttbite",
             0.15F,
             Optional.empty(),
             Optional.empty(),
@@ -26,4 +26,15 @@ public class FrostTrees {
             Optional.empty(),
             Optional.empty()
     );
+    public static final TreeGrower DRIP = new TreeGrower(
+            "drip",
+            0.15F,
+            Optional.empty(),
+            Optional.empty(),
+            Optional.of(FrostTreeFeatures.DRIP_WOOD_TREE),
+            Optional.empty(),
+            Optional.empty(),
+            Optional.empty()
+    );
 }
+

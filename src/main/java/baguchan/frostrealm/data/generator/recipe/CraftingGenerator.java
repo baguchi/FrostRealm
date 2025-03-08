@@ -113,6 +113,21 @@ public class CraftingGenerator extends CraftingDataHelper {
 		makeTrapDoor(this.output, FrostBlocks.FROSTBITE_TRAPDOOR.get(), FrostBlocks.FROSTBITE_PLANKS.get());
 
 
+        ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BUILDING_BLOCKS, FrostBlocks.DRIP_PLANKS.get(), 4).requires(FrostBlocks.DRIP_LOG.get())
+                .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(FrostBlocks.DRIP_LOG.get()).getPath(), has(FrostBlocks.DRIP_LOG.get())).save(this.output);
+/*
+		ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BUILDING_BLOCKS, FrostBlocks.DRIP_PLANKS.get(), 4).requires(FrostBlocks.STRIPPED_DRIP_LOG.get())
+				.unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(FrostBlocks.STRIPPED_DRIP_LOG.get()).getPath(), has(FrostBlocks.STRIPPED_DRIP_LOG.get())).save(this.output, prefix("stripped_frostbite_to_plank"));
+*/
+
+        makeSlab(this.output, FrostBlocks.DRIP_PLANKS_SLAB.get(), FrostBlocks.DRIP_PLANKS.get());
+        makeStairs(this.output, FrostBlocks.DRIP_PLANKS_STAIRS.get(), FrostBlocks.DRIP_PLANKS.get());
+        makeWoodFence(this.output, FrostBlocks.DRIP_FENCE.get(), FrostBlocks.DRIP_PLANKS.get());
+        makeFenceGate(this.output, FrostBlocks.DRIP_FENCE_GATE.get(), FrostBlocks.DRIP_PLANKS.get());
+        makeDoor(this.output, FrostBlocks.DRIP_DOOR.get(), FrostBlocks.DRIP_PLANKS.get());
+        makeTrapDoor(this.output, FrostBlocks.DRIP_TRAPDOOR.get(), FrostBlocks.DRIP_PLANKS.get());
+
+
 		foodCooking(FrostItems.FROZEN_FRUIT.get(), FrostItems.MELTED_FRUIT.get(), 0.1F, this.output);
 		foodCooking(FrostItems.BEARBERRY.get(), FrostItems.COOKED_BEARBERRY.get(), 0.1F, this.output);
 		foodCooking(FrostBlocks.SNOWPILE_QUAIL_EGG.get().asItem(), FrostItems.COOKED_SNOWPILE_QUAIL_EGG.get(), 0.2F, this.output);
