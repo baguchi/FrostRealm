@@ -6,6 +6,7 @@ import baguchan.frostrealm.entity.brain.behavior.StartAdmiringItemIfSeen;
 import baguchan.frostrealm.entity.brain.behavior.StopAdmiringIfItemTooFarAway;
 import baguchan.frostrealm.entity.brain.behavior.TakeBackFromStealer;
 import baguchan.frostrealm.registry.*;
+import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -17,6 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.Unit;
@@ -164,11 +166,24 @@ public class YetiAi<E extends Yeti> {
 
     public static InteractionResult mobInteract(ServerLevel p_376885_, Yeti yeti, Player p_34848_, InteractionHand p_34849_) {
         ItemStack itemstack = p_34848_.getItemInHand(p_34849_);
+        ItemStack itemstack2 = yeti.getItemInHand(InteractionHand.OFF_HAND);
+
+        if ((itemstack.is(FrostTags.Items.SMITHABLE_WEAPON) || itemstack.is(ItemTags.ARMOR_ENCHANTABLE)) && !itemstack.has(FrostDataCompnents.AURORA_POWER) && !(itemstack2.is(FrostTags.Items.SMITHABLE_WEAPON) || itemstack2.is(ItemTags.ARMOR_ENCHANTABLE)) && yeti.isTrade()) {
+            yeti.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+            ItemStack itemstack1 = itemstack.consumeAndReturn(1, p_34848_);
+            holdInOffHand(p_376885_, yeti, itemstack1);
+            admireGoldItem(yeti);
+            stopWalking(yeti);
+            yeti.setHoldTime(80);
+            yeti.setState(Yeti.State.TRADE);
+            return InteractionResult.SUCCESS;
+        } else
         if (canAdmire(yeti, itemstack)) {
             ItemStack itemstack1 = itemstack.consumeAndReturn(1, p_34848_);
             holdInOffHand(p_376885_, yeti, itemstack1);
             admireGoldItem(yeti);
             stopWalking(yeti);
+            yeti.setHoldTime(60);
             yeti.setState(Yeti.State.TRADE);
             return InteractionResult.SUCCESS;
         } else {
@@ -378,10 +393,18 @@ public class YetiAi<E extends Yeti> {
                 if (thrown && flag) {
                     itemstack.shrink(1);
                     throwItems(yeti, getBarterResponseItems(yeti));
-                    yeti.setHoldTime(40);
                     if (itemstack.getCount() <= 0) {
                         yeti.setState(Yeti.State.IDLING);
+
+                        yeti.setHoldTime(40);
                     }
+                } else if (thrown && (itemstack.is(FrostTags.Items.SMITHABLE_WEAPON) || itemstack.is(ItemTags.ARMOR_ENCHANTABLE))) {
+
+                    ItemStack itemstack1 = yeti.getOffhandItem();
+                    AuroraPowerUtils.auroraInfusionItem(yeti.getRandom(), itemstack1, 11, false);
+                    throwItems(yeti, Collections.singletonList(itemstack1));
+                    yeti.setState(Yeti.State.IDLING);
+                    yeti.holdInOffHand(ItemStack.EMPTY);
                 } else if (!flag) {
 
                     boolean flag1 = !yeti.equipItemIfPossible(serverLevel, itemstack).isEmpty();

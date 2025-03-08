@@ -87,7 +87,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 		profiler.pop();
 
 		if (this.isAlive()) {
-			ItemStack offhand = this.getItemInHand(InteractionHand.OFF_HAND);
+			ItemStack offhand = this.getItemInHand(InteractionHand.MAIN_HAND);
 
 			if (!this.isUsingItem() && offhand.isEmpty()) {
 				ItemStack food = ItemStack.EMPTY;
@@ -97,16 +97,14 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 				}
 
 				if (!food.isEmpty()) {
-					this.setItemSlot(EquipmentSlot.OFFHAND, food);
-					this.startUsingItem(InteractionHand.OFF_HAND);
+					this.setItemSlot(EquipmentSlot.MAINHAND, food);
+					this.startUsingItem(InteractionHand.MAIN_HAND);
 				}
 			}
 
 			if (!this.isBaby()) {
-				if (offhand.is(FrostTags.Items.YETI_BIG_CURRENCY) || offhand.is(FrostTags.Items.YETI_CURRENCY)) {
-					if (--this.holdTime <= 0) {
-						YetiAi.stopHoldingOffHandItem(serverLevel, this, true);
-					}
+				if (--this.holdTime <= 0) {
+					YetiAi.stopHoldingOffHandItem(serverLevel, this, true);
 				}
 			}
 

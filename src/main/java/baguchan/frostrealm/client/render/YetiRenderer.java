@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -43,6 +44,7 @@ public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiRenderState
     @Override
     public void extractRenderState(T p_365075_, YetiRenderState p_361774_, float p_363123_) {
         super.extractRenderState(p_365075_, p_361774_, p_363123_);
+        ArmedEntityRenderState.extractArmedEntityRenderState(p_365075_, p_361774_, this.itemModelResolver);
         p_361774_.sitAnimationState.copyFrom(p_365075_.sitAnimationState);
         p_361774_.sitPoseAnimationState.copyFrom(p_365075_.sitPoseAnimationState);
         p_361774_.sitUpAnimationState.copyFrom(p_365075_.sitUpAnimationState);

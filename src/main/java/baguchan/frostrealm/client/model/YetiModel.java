@@ -122,6 +122,7 @@ public class YetiModel<T extends YetiRenderState> extends EntityModel<T> impleme
 		return this.head;
 	}
 
+	@Override
     public void translateToHand(HumanoidArm p_102925_, PoseStack p_102926_) {
 		this.root.translateAndRotate(p_102926_);
 		this.getArm(p_102925_).translateAndRotate(p_102926_);

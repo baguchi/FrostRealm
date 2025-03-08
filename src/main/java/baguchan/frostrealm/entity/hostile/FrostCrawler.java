@@ -1,10 +1,11 @@
 package baguchan.frostrealm.entity.hostile;
 
 import baguchi.bagus_lib.entity.ISmartJump;
+import baguchi.bagus_lib.entity.goal.AnimateAttackGoal;
 import baguchi.bagus_lib.entity.path.node.SmartNodeEvaluator;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -25,14 +26,23 @@ import net.minecraft.world.phys.Vec3;
 
 public class FrostCrawler extends Monster implements ISmartJump {
 
+    public final AnimationState attackAnimationState = new AnimationState();
+    public final AnimationState jumpAnimationState = new AnimationState();
+
+    public int attackAnimationTick;
+    public final int attackAnimationLength = 20;
+    public final int attackAnimationActionPoint = 10;
+
+
     public FrostCrawler(EntityType<? extends FrostCrawler> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.24)
+                .add(Attributes.MAX_HEALTH, 40.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.2)
+                .add(Attributes.ATTACK_DAMAGE, 6)
                 .add(Attributes.FOLLOW_RANGE, 20.0);
     }
 
@@ -50,12 +60,56 @@ public class FrostCrawler extends Monster implements ISmartJump {
     }
 
     @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> p_312373_) {
+        if (this.level().isClientSide() && DATA_POSE.equals(p_312373_)) {
+            this.stopAllAnimation();
+            Pose pose = this.getPose();
+            switch (pose) {
+                case LONG_JUMPING:
+                    this.jumpAnimationState.startIfStopped(this.tickCount);
+                    break;
+            }
+        }
+
+        super.onSyncedDataUpdated(p_312373_);
+    }
+
+    protected void stopAllAnimation() {
+        this.jumpAnimationState.stop();
+    }
+
+
+    @Override
+    public void handleEntityEvent(byte p_21375_) {
+        if (p_21375_ == 4) {
+            this.attackAnimationState.start(this.tickCount);
+            this.attackAnimationTick = 0;
+        } else {
+            super.handleEntityEvent(p_21375_);
+        }
+    }
+
+    @Override
+    public void baseTick() {
+        super.baseTick();
+        if (this.level().isClientSide) {
+            if (this.attackAnimationTick < this.attackAnimationLength) {
+                this.attackAnimationTick++;
+            }
+
+            if (this.attackAnimationTick >= this.attackAnimationLength) {
+                this.attackAnimationState.stop();
+            }
+        }
+    }
+
+    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(2, new RestrictSunGoal(this));
         this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.2));
-        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.1F, true));
+        this.goalSelector.addGoal(4, new AnimateAttackGoal(this, 1.5F, this.attackAnimationActionPoint, this.attackAnimationLength, true));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.8F));
         this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtPlayerGoal(this, Mob.class, 8.0F));
@@ -86,6 +140,13 @@ public class FrostCrawler extends Monster implements ISmartJump {
 
                 if (flag) {
                     this.igniteForSeconds(8.0F);
+                }
+            }
+        }
+        if (!this.level().isClientSide) {
+            if (this.onGround()) {
+                if (this.getPose() == Pose.LONG_JUMPING) {
+                    this.setPose(Pose.STANDING);
                 }
             }
         }
@@ -121,6 +182,15 @@ public class FrostCrawler extends Monster implements ISmartJump {
         }
 
         return super.getJumpPower((float) (f / this.getAttributeValue(Attributes.JUMP_STRENGTH)));
+    }
+
+    @Override
+    public void jumpFromGround() {
+        super.jumpFromGround();
+        if (getJumpPower() >= (0.6F / 0.42F) * this.getAttributeValue(Attributes.JUMP_STRENGTH)) {
+            this.setPose(Pose.LONG_JUMPING);
+            this.makeSound(SoundEvents.GOAT_LONG_JUMP);
+        }
     }
 
     protected boolean isSunSensitive() {
