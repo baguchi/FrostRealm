@@ -50,7 +50,7 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
     public final AnimationState attackAnimationState = new AnimationState();
     public final AnimationState counterAnimationState = new AnimationState();
     public AnimationScale guardAnimationScale = new AnimationScale(0.2F);
-    public final GuardHandler guardHandler = new GuardHandler(2);
+    public final GuardHandler guardHandler = new GuardHandler(4);
     public GuardAndCounterAnimationGoal guardAnimationGoal;
     public CounterGoal counterGoal;
 
@@ -68,7 +68,7 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
                 this.attacker.level().broadcastEntityEvent(this.attacker, (byte) 61);
             }
         };
-        guardAnimationGoal = new GuardAndCounterAnimationGoal<>(this, true, 60) {
+        guardAnimationGoal = new GuardAndCounterAnimationGoal<>(this, true, 40) {
             @Override
             protected void stopGuardAndAttackAnimation() {
                 super.stopGuardAndAttackAnimation();

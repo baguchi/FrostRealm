@@ -29,7 +29,7 @@ public class GuardHandler {
 
     public void addHurtCount(float damage) {
         this.hurtCount += 1;
-        this.hurtTick = (int) Mth.clamp(damage * 4 + this.hurtTick, 0, 400);
+        this.hurtTick = (int) Mth.clamp(damage * 10 + this.hurtTick, 0, 600);
     }
 
     public boolean isTrigger() {

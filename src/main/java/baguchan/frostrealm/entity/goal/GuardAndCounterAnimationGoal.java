@@ -20,9 +20,6 @@ public class GuardAndCounterAnimationGoal<T extends PathfinderMob & IGuardMob> e
         super.stop();
         this.mob.setGuard(false);
         this.stopGuardAnimation();
-        if (!this.stopTrigger) {
-
-        }
         this.stopGuardAndAttackAnimation();
         this.trigger = false;
         this.stopTrigger = false;
