@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -33,6 +34,8 @@ public class SeekerRenderer<T extends Seeker> extends MobRenderer<T, SeekerRende
     @Override
     public void extractRenderState(T p_365075_, SeekerRenderState p_361774_, float p_363123_) {
         super.extractRenderState(p_365075_, p_361774_, p_363123_);
+        ArmedEntityRenderState.extractArmedEntityRenderState(p_365075_, p_361774_, this.itemModelResolver);
+
         p_361774_.attackAnimationState.copyFrom(p_365075_.attackAnimationState);
         p_361774_.counterAnimationState.copyFrom(p_365075_.counterAnimationState);
         p_361774_.guardAnimationScale = p_365075_.guardAnimationScale;

@@ -2,48 +2,64 @@ package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.api.recipe.AttachableCrystal;
+import baguchan.frostrealm.client.animation.SpearAttackAnimations;
 import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
+import baguchan.frostrealm.registry.FrostAnimations;
 import baguchan.frostrealm.registry.FrostDataCompnents;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
+import baguchi.bagus_lib.client.event.BagusModelEvent;
+import baguchi.bagus_lib.util.client.VectorUtil;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.WinScreen;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.sounds.MusicInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.biome.Biome;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.SelectMusicEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 import java.util.Optional;
-import java.util.UUID;
 
 @EventBusSubscriber(modid = FrostRealm.MODID, value = Dist.CLIENT)
 public class ClientEvents {
 
     public static final Music CALM_NIGHT = createFrostMusic(FrostSounds.CALM_NIGHT_BGM);
 
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void clientAnimation(BagusModelEvent.PostAnimate event) {
+        if (event.getEntityRenderState() instanceof HumanoidRenderState humanoidRenderState) {
+            boolean flag = humanoidRenderState.mainArm == HumanoidArm.RIGHT;
 
-    protected static final UUID BASE_ATTACK_DAMAGE_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
-    protected static final UUID BASE_ATTACK_SPEED_UUID = UUID.fromString("FA233E1C-4180-4865-B01B-BCCE9785ACA3");
-    public static final DecimalFormat ATTRIBUTE_MODIFIER_FORMAT = Util.make(new DecimalFormat("#.##"), (p_41704_) -> {
-        p_41704_.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.ROOT));
-    });
+            if (event.getEntityRenderState().getRenderData(ClientRegistrar.HOLD_SPEAR_KEY) != null) {
+                if (event.getEntityRenderState().getRenderData(ClientRegistrar.HOLD_SPEAR_KEY)) {
+                    VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("right_arm").orElseThrow());
+                    VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("left_arm").orElseThrow());
+                    if (!event.getBaguAnimationController().getAnimationState(FrostAnimations.ATTACK).isStarted()) {
+                        event.applyStatic(flag ? SpearAttackAnimations.spear_attack_right : SpearAttackAnimations.spear_attack_left);
+                    }
+
+                    event.animate(event.getBaguAnimationController().getAnimationState(FrostAnimations.ATTACK), flag ? SpearAttackAnimations.spear_attack_right : SpearAttackAnimations.spear_attack_left, humanoidRenderState.ageInTicks);
+                }
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void onToolTip(ItemTooltipEvent event) {

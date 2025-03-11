@@ -11,14 +11,14 @@ public class CounterGoal extends Goal {
     protected boolean attack;
 
     protected boolean trigger;
-    protected final int leftActionPoint;
+    protected final int actionPoint;
     protected final int attackLengh;
 
     private int ticksUntilNextAttack;
 
-    public CounterGoal(PathfinderMob attacker, int leftActionPoint, int attackLengh) {
+    public CounterGoal(PathfinderMob attacker, int actionPoint, int attackLengh) {
         this.attacker = attacker;
-        this.leftActionPoint = leftActionPoint;
+        this.actionPoint = actionPoint;
         this.attackLengh = attackLengh;
         this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
@@ -34,13 +34,13 @@ public class CounterGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.ticksUntilNextAttack > 0;
+        return this.ticksUntilNextAttack <= this.attackLengh;
     }
 
     @Override
     public void start() {
         super.start();
-        this.ticksUntilNextAttack = attackLengh + 1;
+        this.ticksUntilNextAttack = 0;
     }
 
     public void stop() {
@@ -54,18 +54,19 @@ public class CounterGoal extends Goal {
         LivingEntity livingentity = this.attacker.getTarget();
         if (livingentity != null) {
             this.attacker.getLookControl().setLookAt(livingentity, 30.0F, 30.0F);
-            this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
+
             this.checkAndPerformAttack(livingentity);
+            this.ticksUntilNextAttack++;
         }
     }
 
     protected void checkAndPerformAttack(LivingEntity p_29589_) {
-        if (this.ticksUntilNextAttack == this.leftActionPoint) {
+        if (this.ticksUntilNextAttack == this.actionPoint) {
             if (this.canPerformAttack(p_29589_)) {
                 this.attacker.doHurtTarget(getServerLevel(this.attacker), p_29589_);
             }
         } else if (this.canPerformAttack(p_29589_)) {
-            if (this.ticksUntilNextAttack == this.attackLengh) {
+            if (this.ticksUntilNextAttack == 0) {
                 this.doTheAnimation();
             }
         }

@@ -1,9 +1,12 @@
 package baguchan.frostrealm.item;
 
+import baguchan.frostrealm.registry.FrostAnimations;
+import baguchi.bagus_lib.util.client.AnimationUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
@@ -69,6 +72,14 @@ public class FrostSpearItem extends Item {
 		}
 
 		return true;
+	}
+
+	@Override
+	public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
+		if (!entity.swinging && entity instanceof Player player && !player.level().isClientSide()) {
+			AnimationUtil.sendAnimation(entity, FrostAnimations.ATTACK);
+		}
+		return super.onEntitySwing(stack, entity, hand);
 	}
 
 	@Override

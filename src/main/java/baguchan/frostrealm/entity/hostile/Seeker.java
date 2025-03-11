@@ -5,7 +5,6 @@ import baguchan.frostrealm.entity.goal.CounterGoal;
 import baguchan.frostrealm.entity.goal.GuardAndCounterAnimationGoal;
 import baguchan.frostrealm.entity.utils.GuardHandler;
 import baguchan.frostrealm.registry.FrostItems;
-import baguchan.frostrealm.utils.LookUtils;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import baguchi.bagus_lib.entity.AnimationScale;
 import baguchi.bagus_lib.entity.goal.AnimateAttackGoal;
@@ -42,10 +41,10 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
 
     public int attackAnimationTick;
     private final int attackAnimationLength = (int) (20 * 1.25);
-    private final int attackAnimationActionPoint = (int) ((int) (20 * 0.5));
+    private final int attackAnimationActionPoint = (int) ((int) (20 * 0.25));
     public int counterAnimationTick;
-    private final int counterAnimationLength = (int) (20 * 0.5F);
-    private final int counterAnimationActionPoint = (int) (counterAnimationLength - (int) (20 * 0.1f));
+    private final int counterAnimationLength = (int) (20);
+    private final int counterAnimationActionPoint = (int) (int) (20 * 0.2f);
 
 
     public final AnimationState attackAnimationState = new AnimationState();
@@ -195,11 +194,13 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
 
     @Override
     public boolean doHurtTarget(ServerLevel serverLevel, Entity p_21372_) {
-        if (this.getMainHandItem().is(FrostItems.FROST_SPEAR.get())) {
+        boolean flag = super.doHurtTarget(serverLevel, p_21372_);
+
+        if (flag && this.getMainHandItem().is(FrostItems.FROST_SPEAR.get())) {
             p_21372_.setTicksFrozen(Mth.clamp(p_21372_.getTicksFrozen() + 100, 0, 600));
 
         }
-        return super.doHurtTarget(serverLevel, p_21372_);
+        return flag;
     }
 
     @Override
@@ -271,14 +272,6 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
         }
 
         return abstractarrow;
-    }
-
-    @Override
-    public boolean hasLineOfSight(Entity p_147185_) {
-        if (p_147185_.level() == this.level() && !LookUtils.isLookingAtYouTest(this, p_147185_)) {
-            return false;
-        }
-        return super.hasLineOfSight(p_147185_);
     }
 
     @Override

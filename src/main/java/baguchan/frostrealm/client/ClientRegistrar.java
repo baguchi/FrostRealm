@@ -22,10 +22,13 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.util.context.ContextKey;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.GrassColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -36,6 +39,7 @@ import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+import net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import org.joml.Matrix4f;
 
@@ -45,6 +49,17 @@ import org.joml.Matrix4f;
 public class ClientRegistrar {
 	public static final CubeDeformation OUTER_ARMOR_DEFORMATION = new CubeDeformation(1.0F);
 	public static final CubeDeformation INNER_ARMOR_DEFORMATION = new CubeDeformation(0.5F);
+
+	public static ContextKey<Boolean> HOLD_SPEAR_KEY = new ContextKey<>(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "hold_spear_id"));
+
+
+	@SubscribeEvent
+	public static void registerLayer(RegisterRenderStateModifiersEvent event) {
+		event.registerEntityModifier(PlayerRenderer.class, (abstractClientPlayer, playerRenderState) -> {
+			boolean flag = abstractClientPlayer.getItemInHand(InteractionHand.MAIN_HAND).is(FrostItems.FROST_SPEAR);
+			playerRenderState.setRenderData(HOLD_SPEAR_KEY, flag);
+		});
+	}
 
 	@SubscribeEvent
 	public static void registerClientExtend(RegisterClientExtensionsEvent event) {
