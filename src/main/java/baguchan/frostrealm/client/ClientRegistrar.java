@@ -56,7 +56,7 @@ public class ClientRegistrar {
 	@SubscribeEvent
 	public static void registerLayer(RegisterRenderStateModifiersEvent event) {
 		event.registerEntityModifier(PlayerRenderer.class, (abstractClientPlayer, playerRenderState) -> {
-			boolean flag = abstractClientPlayer.getItemInHand(InteractionHand.MAIN_HAND).is(FrostItems.FROST_SPEAR);
+			boolean flag = abstractClientPlayer.getItemInHand(InteractionHand.MAIN_HAND).is(FrostTags.Items.SPEAR) && abstractClientPlayer.onGround();
 			playerRenderState.setRenderData(HOLD_SPEAR_KEY, flag);
 		});
 	}
