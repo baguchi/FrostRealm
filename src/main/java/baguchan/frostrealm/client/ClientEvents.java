@@ -2,6 +2,7 @@ package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.api.recipe.AttachableCrystal;
+import baguchan.frostrealm.client.animation.BurgerAnimations;
 import baguchan.frostrealm.client.animation.SpearAttackAnimations;
 import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
@@ -47,6 +48,15 @@ public class ClientEvents {
         if (event.getEntityRenderState() instanceof HumanoidRenderState humanoidRenderState) {
             boolean flag = humanoidRenderState.mainArm == HumanoidArm.RIGHT;
 
+            if (event.getBaguAnimationController().getAnimationState(FrostAnimations.BURGER).isStarted()) {
+                VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("right_arm").orElseThrow());
+                VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("left_arm").orElseThrow());
+                VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("body").orElseThrow());
+                VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("right_leg").orElseThrow());
+                VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("left_leg").orElseThrow());
+
+                event.animate(event.getBaguAnimationController().getAnimationState(FrostAnimations.BURGER), BurgerAnimations.hamburger, humanoidRenderState.ageInTicks);
+            } else
             if (event.getEntityRenderState().getRenderData(ClientRegistrar.HOLD_SPEAR_KEY) != null) {
                 if (event.getEntityRenderState().getRenderData(ClientRegistrar.HOLD_SPEAR_KEY)) {
                     VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("right_arm").orElseThrow());

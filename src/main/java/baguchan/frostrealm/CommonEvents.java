@@ -196,6 +196,7 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event) {
+
         if (event.getEntity().isMultipartEntity()) {
             for (PartEntity<?> partEntity : event.getEntity().getParts()) {
                 if (partEntity instanceof FrostPart<?> part) {
@@ -238,6 +239,12 @@ public class CommonEvents {
         if (event.getEntity() instanceof LivingEntity livingEntity) {
             FrostLivingCapability capability = livingEntity.getData(FrostAttachs.FROST_LIVING);
             capability.tick(livingEntity);
+
+            /*if(event.getEntity() instanceof Player && !event.getEntity().level().isClientSide()){
+                if(((Player) event.getEntity()).swingTime == 1) {
+                    AnimationUtil.sendAnimation(event.getEntity(), FrostAnimations.BURGER);
+                }
+            }*/
         }
     }
 
