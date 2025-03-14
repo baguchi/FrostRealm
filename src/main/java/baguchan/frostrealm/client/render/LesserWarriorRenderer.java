@@ -2,9 +2,9 @@ package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
-import baguchan.frostrealm.client.model.SeekerModel;
-import baguchan.frostrealm.client.render.state.SeekerRenderState;
-import baguchan.frostrealm.entity.hostile.Seeker;
+import baguchan.frostrealm.client.model.LesserWarriorModel;
+import baguchan.frostrealm.client.render.state.LesserWarriorRenderState;
+import baguchan.frostrealm.entity.hostile.LesserWarrior;
 import baguchi.bagus_lib.client.layer.CustomArmorLayer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -18,27 +18,30 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class SeekerRenderer<T extends Seeker> extends MobRenderer<T, SeekerRenderState, SeekerModel<SeekerRenderState>> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/seeker/seeker.png");
+public class LesserWarriorRenderer<T extends LesserWarrior> extends MobRenderer<T, LesserWarriorRenderState, LesserWarriorModel<LesserWarriorRenderState>> {
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/lesser_warrior/lesser_warrior.png");
 
-    public SeekerRenderer(EntityRendererProvider.Context p_173952_) {
-        super(p_173952_, new SeekerModel<>(p_173952_.bakeLayer(FrostModelLayers.SEEKER)), 0.5F);
+    public LesserWarriorRenderer(EntityRendererProvider.Context p_173952_) {
+        super(p_173952_, new LesserWarriorModel<>(p_173952_.bakeLayer(FrostModelLayers.LESSER_WARRIOR)), 0.5F);
         this.addLayer(new ItemInHandLayer<>(this));
         this.addLayer(new CustomArmorLayer<>(this, p_173952_));
     }
 
     @Override
-    public void extractRenderState(T p_365075_, SeekerRenderState p_361774_, float p_363123_) {
+    public void extractRenderState(T p_365075_, LesserWarriorRenderState p_361774_, float p_363123_) {
         super.extractRenderState(p_365075_, p_361774_, p_363123_);
         ArmedEntityRenderState.extractArmedEntityRenderState(p_365075_, p_361774_, this.itemModelResolver);
 
         p_361774_.attackAnimationState.copyFrom(p_365075_.attackAnimationState);
         p_361774_.counterAnimationState.copyFrom(p_365075_.counterAnimationState);
         p_361774_.guardAnimationScale = p_365075_.guardAnimationScale;
+        p_361774_.isAggressive = p_365075_.isAggressive();
+        p_361774_.isHoldingBow = p_365075_.getMainHandItem().is(Items.BOW);
         p_361774_.isCrouching = p_365075_.isCrouching();
         p_361774_.isFallFlying = p_365075_.isFallFlying();
         p_361774_.isVisuallySwimming = p_365075_.isVisuallySwimming();
@@ -75,13 +78,13 @@ public class SeekerRenderer<T extends Seeker> extends MobRenderer<T, SeekerRende
     }
 
     @Override
-    public SeekerRenderState createRenderState() {
-        return new SeekerRenderState();
+    public LesserWarriorRenderState createRenderState() {
+        return new LesserWarriorRenderState();
     }
 
 
     @Override
-    public ResourceLocation getTextureLocation(SeekerRenderState p_110775_1_) {
+    public ResourceLocation getTextureLocation(LesserWarriorRenderState p_110775_1_) {
         return TEXTURE;
     }
 }

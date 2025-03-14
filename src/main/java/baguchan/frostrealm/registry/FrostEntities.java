@@ -41,7 +41,7 @@ public class FrostEntities {
 
     public static final Supplier<EntityType<Yeti>> YETI = ENTITIES.register("yeti", () -> EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).eyeHeight(1.75F).build(prefix("yeti")));
     public static final Supplier<EntityType<FrostWraith>> FROST_WRAITH = ENTITIES.register("frost_wraith", () -> EntityType.Builder.of(FrostWraith::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(0.6F, 2.1F).build(prefix("frost_wraith")));
-    public static final Supplier<EntityType<Seeker>> SEEKER = ENTITIES.register("seeker", () -> EntityType.Builder.of(Seeker::new, MobCategory.MONSTER).sized(0.6F, 1.99F).immuneTo(Blocks.POWDER_SNOW).clientTrackingRange(8).build(prefix("seeker")));
+    public static final Supplier<EntityType<LesserWarrior>> LESSER_WARRIOR = ENTITIES.register("lesser_warrior", () -> EntityType.Builder.of(LesserWarrior::new, MobCategory.MONSTER).sized(0.6F, 1.99F).immuneTo(Blocks.POWDER_SNOW).clientTrackingRange(8).build(prefix("lesser_warrior")));
 
     public static final Supplier<EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).eyeHeight(0.25F).build(prefix("astra_ball")));
     public static final Supplier<EntityType<FrostBoar>> FROST_BOAR = ENTITIES.register("frost_boar", () -> EntityType.Builder.of(FrostBoar::new, MobCategory.CREATURE).sized(1.8F, 1.95F).eyeHeight(1.5F).build(prefix("frost_boar")));
@@ -75,7 +75,7 @@ public class FrostEntities {
 
         event.put(YETI.get(), Yeti.createAttributeMap().build());
         event.put(FROST_WRAITH.get(), FrostWraith.createAttributes().build());
-        event.put(SEEKER.get(), Seeker.createAttributes().build());
+        event.put(LESSER_WARRIOR.get(), LesserWarrior.createAttributes().build());
         event.put(ASTRA_BALL.get(), AstraBall.createAttributes().build());
         event.put(FROST_BOAR.get(), FrostBoar.createAttributes().build());
         event.put(CORRUPTED_WALKER.get(), CorruptedWalker.createAttributeMap().build());
@@ -103,7 +103,7 @@ public class FrostEntities {
 
         event.register(FROST_WRAITH.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WarpedMonster::checkWarpedMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
 
-        event.register(SEEKER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seeker::checkStraySpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(LESSER_WARRIOR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LesserWarrior::checkStraySpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(ASTRA_BALL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(FROST_BOAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBoar::checkFrostAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(VENOCHEM.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Venochem::checkVenochemSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);

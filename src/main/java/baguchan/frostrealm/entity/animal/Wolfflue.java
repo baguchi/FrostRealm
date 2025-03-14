@@ -75,7 +75,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder<Holder<WolfflueVariant>>, Saddleable, PlayerRideableJumping, ISmartJump {
+public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, VariantHolder<Holder<WolfflueVariant>>, Saddleable, PlayerRideableJumping, ISmartJump {
     private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_SADDLE = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_COLLAR_COLOR = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
@@ -153,7 +153,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(4, new LeapAtTargetWolfflueGoal(this, 2.0F));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.2F, true));
-        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.3F, 10.0F, 3.0F));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.5F, 12.0F, 6.0F));
         this.goalSelector.addGoal(7, new BreedGoal(this, 0.8F));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.8F));
         this.goalSelector.addGoal(9, new WolfflueBegGoal(this, 8.0F));
@@ -470,6 +470,7 @@ public class Wolfflue extends TamableAnimal implements NeutralMob, VariantHolder
     public int getMaxHeadXRot() {
         return this.isInSittingPose() ? 20 : super.getMaxHeadXRot();
     }
+
 
     @Override
     public boolean hurtServer(ServerLevel serverLevel, DamageSource p_30386_, float p_30387_) {

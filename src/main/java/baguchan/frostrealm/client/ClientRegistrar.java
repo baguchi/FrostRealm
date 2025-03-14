@@ -126,7 +126,7 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.FROST_WRAITH.get(), FrostWraithRenderer::new);
 		event.registerEntityRenderer(FrostEntities.ASTRA_BALL.get(), AstraBallRenderer::new);
         event.registerEntityRenderer(FrostEntities.FROST_BOAR.get(), FrostBoarRenderer::new);
-        event.registerEntityRenderer(FrostEntities.SEEKER.get(), SeekerRenderer::new);
+		event.registerEntityRenderer(FrostEntities.LESSER_WARRIOR.get(), LesserWarriorRenderer::new);
         event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
 		event.registerEntityRenderer(FrostEntities.CORRUPTED_WALKER.get(), CorruptedWalkerRenderer::new);
         event.registerEntityRenderer(FrostEntities.VENOM_BALL.get(), VenomBallRenderer::new);
@@ -159,7 +159,7 @@ public class ClientRegistrar {
         event.registerLayerDefinition(FrostModelLayers.SNOW_MOLE, SnowMoleModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.ASTRA_BALL, AstraBallModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.FROST_BOAR, FrostBoarModel::createBodyLayer);
-        event.registerLayerDefinition(FrostModelLayers.SEEKER, SeekerModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.LESSER_WARRIOR, LesserWarriorModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SEAL, SealModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.GOKKUR, GokkurModel::createBodyLayer);

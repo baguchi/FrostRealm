@@ -22,7 +22,7 @@ public class FrEntityTagGenerator extends EntityTypeTagsProvider {
 		tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.FROST_WRAITH.get()
 						, FrostEntities.SNOWPILE_QUAIL.get(), FrostEntities.CRYSTAL_FOX.get(), FrostEntities.ASTRA_BALL.get(), FrostEntities.SNOW_MOLE.get(), FrostEntities.YETI.get(), FrostEntities.WOLFFLUE.get(), FrostEntities.SEAL.get())
 				.add(FrostEntities.ROOT_DEER.get())
-				.add(FrostEntities.SEEKER.get()).add(FrostEntities.CORRUPTED_WALKER.get())
+                .add(FrostEntities.LESSER_WARRIOR.get()).add(FrostEntities.CORRUPTED_WALKER.get())
 				.add(FrostEntities.GOKKUR.get())
 				.add(FrostEntities.UNDER_GOKKUR.get())
 				.add(FrostEntities.FROST_CRAWLER.get());

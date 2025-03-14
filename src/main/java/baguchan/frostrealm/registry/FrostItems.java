@@ -105,7 +105,7 @@ public class FrostItems {
     public static final DeferredItem<Item> WOLFFLUE_SPAWNEGG = ITEMS.registerItem("wolfflue_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.WOLFFLUE.get(), properties));
     public static final DeferredItem<Item> FERRET_SPAWNEGG = ITEMS.registerItem("ferret_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.FERRET.get(), properties));
     public static final DeferredItem<Item> SEAL_SPAWNEGG = ITEMS.registerItem("seal_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.SEAL.get(), properties));
-    public static final DeferredItem<Item> STRAY_WARRIOR_SPAWNEGG = ITEMS.registerItem("seeker_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.SEEKER.get(), properties));
+    public static final DeferredItem<Item> LESSER_WARRIOR_SPAWNEGG = ITEMS.registerItem("lesser_warrior_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.LESSER_WARRIOR.get(), properties));
     public static final DeferredItem<Item> VENOCHEM_SPAWNEGG = ITEMS.registerItem("venochem_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.VENOCHEM.get(), properties));
     public static final DeferredItem<Item> GOKKUR_SPAWNEGG = ITEMS.registerItem("gokkur_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.GOKKUR.get(), properties));
     public static final DeferredItem<Item> UNDER_GOKKUR_SPAWNEGG = ITEMS.registerItem("under_gokkur_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.UNDER_GOKKUR.get(), properties));

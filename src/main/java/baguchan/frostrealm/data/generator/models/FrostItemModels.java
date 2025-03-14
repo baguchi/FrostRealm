@@ -103,7 +103,7 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateSpawnEgg(FrostItems.WOLFFLUE_SPAWNEGG.get(), 8689054, 11511178);
         this.generateSpawnEgg(FrostItems.FERRET_SPAWNEGG.get(), 7953498, 4272429);
         this.generateSpawnEgg(FrostItems.SEAL_SPAWNEGG.get(), 16777215, 16777215);
-        this.generateSpawnEgg(FrostItems.STRAY_WARRIOR_SPAWNEGG.get(), 6387319, 14543594);
+        this.generateSpawnEgg(FrostItems.LESSER_WARRIOR_SPAWNEGG.get(), 6387319, 14543594);
         this.generateSpawnEgg(FrostItems.VENOCHEM_SPAWNEGG.get(), 4195929, 13522055);
         this.generateSpawnEgg(FrostItems.GOKKUR_SPAWNEGG.get(), 10526102, 7301477);
         this.generateSpawnEgg(FrostItems.UNDER_GOKKUR_SPAWNEGG.get(), 7572368, 15098896);

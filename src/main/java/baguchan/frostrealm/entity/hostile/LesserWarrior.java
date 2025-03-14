@@ -1,9 +1,11 @@
 package baguchan.frostrealm.entity.hostile;
 
+import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import baguchan.frostrealm.entity.IGuardMob;
 import baguchan.frostrealm.entity.goal.CounterGoal;
 import baguchan.frostrealm.entity.goal.GuardAndCounterAnimationGoal;
 import baguchan.frostrealm.entity.utils.GuardHandler;
+import baguchan.frostrealm.registry.FrostDataCompnents;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import baguchi.bagus_lib.entity.AnimationScale;
@@ -20,28 +22,27 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-public class Seeker extends AbstractSkeleton implements IGuardMob {
-    private static final EntityDataAccessor<Boolean> DATA_GUARD = SynchedEntityData.defineId(Seeker.class, EntityDataSerializers.BOOLEAN);
+public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
+    private static final EntityDataAccessor<Boolean> DATA_GUARD = SynchedEntityData.defineId(LesserWarrior.class, EntityDataSerializers.BOOLEAN);
 
     public int attackAnimationTick;
-    private final int attackAnimationLength = (int) (20 * 1.25);
-    private final int attackAnimationActionPoint = (int) ((int) (20 * 0.25));
+    private final int attackAnimationLength = (int) (20 * 1.5);
+    private final int attackAnimationActionPoint = (int) ((int) (20 * 0.275));
     public int counterAnimationTick;
     private final int counterAnimationLength = (int) (20);
     private final int counterAnimationActionPoint = (int) (int) (20 * 0.2f);
@@ -54,7 +55,7 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
     public GuardAndCounterAnimationGoal guardAnimationGoal;
     public CounterGoal counterGoal;
 
-    public Seeker(EntityType<? extends Seeker> p_32133_, Level p_32134_) {
+    public LesserWarrior(EntityType<? extends LesserWarrior> p_32133_, Level p_32134_) {
         super(p_32133_, p_32134_);
         this.xpReward = 10;
     }
@@ -77,21 +78,22 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
         };
         this.goalSelector.addGoal(1, counterGoal);
         this.goalSelector.addGoal(2, guardAnimationGoal);
+        this.goalSelector.addGoal(4, new RangedBowAttackGoal<>(this, 1.0D, 30, 16));
         this.goalSelector.addGoal(4, new AnimateAttackGoal(this, 1.2D, attackAnimationActionPoint, attackAnimationLength) {
             @Override
             public boolean canUse() {
-                return !isGuard() && super.canUse();
+                return !getMainHandItem().is(Items.BOW) && !isGuard() && super.canUse();
             }
 
             @Override
             public boolean canContinueToUse() {
-                return !isGuard() && super.canContinueToUse();
+                return !getMainHandItem().is(Items.BOW) && !isGuard() && super.canContinueToUse();
             }
         });
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.MAX_HEALTH, 30F);
+        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.MAX_HEALTH, 30F).add(Attributes.FOLLOW_RANGE, 18F);
     }
 
     @Override
@@ -158,7 +160,7 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
             this.guardAnimationScale.tick(this);
         } else {
             this.guardHandler.tick(this);
-            if (this.guardHandler.isTrigger()) {
+            if (!this.getMainHandItem().is(Items.BOW) && this.guardHandler.isTrigger()) {
                 if (this.guardAnimationGoal != null) {
                     this.guardAnimationGoal.trigger();
                     this.guardHandler.setTrigger(false);
@@ -181,15 +183,24 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
         }
     }
 
+    @Override
     protected void populateDefaultEquipmentSlots(RandomSource p_218949_, DifficultyInstance p_218950_) {
-        ItemStack spear = new ItemStack(FrostItems.FROST_SPEAR.get());
+        if (p_218949_.nextBoolean()) {
+            ItemStack spear = new ItemStack(FrostItems.ASTRIUM_SWORD.get());
 
-        AuroraPowerUtils.auroraInfusionItem(p_218949_, spear, 5, false);
-        this.setItemSlot(EquipmentSlot.MAINHAND, spear);
+            AuroraPowerUtils.auroraInfusionItem(p_218949_, spear, 5, false);
+            this.setItemSlot(EquipmentSlot.MAINHAND, spear);
+        } else {
+            ItemStack spear = new ItemStack(Items.BOW);
+            this.setItemSlot(EquipmentSlot.MAINHAND, spear);
+        }
         ItemStack helmet = new ItemStack(FrostItems.YETI_FUR_HELMET.get());
         AuroraPowerUtils.auroraInfusionItem(p_218949_, helmet, 5, false);
         this.setItemSlot(EquipmentSlot.HEAD, helmet);
-        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(FrostItems.YETI_FUR_CHESTPLATE.get()));
+        ItemStack chest = new ItemStack(FrostItems.YETI_FUR_CHESTPLATE.get());
+        AuroraPowerUtils.auroraInfusionItem(p_218949_, chest, 5, false);
+
+        this.setItemSlot(EquipmentSlot.CHEST, chest);
     }
 
     @Override
@@ -243,22 +254,26 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
         return false;
     }
 
-    public static boolean checkStraySpawnRules(EntityType<Seeker> p_219121_, ServerLevelAccessor p_219122_, EntitySpawnReason p_219123_, BlockPos p_219124_, RandomSource p_219125_) {
+    public static boolean checkStraySpawnRules(EntityType<LesserWarrior> p_219121_, ServerLevelAccessor p_219122_, EntitySpawnReason p_219123_, BlockPos p_219124_, RandomSource p_219125_) {
         return checkMonsterSpawnRules(p_219121_, p_219122_, p_219123_, p_219124_, p_219125_) && (p_219123_ == EntitySpawnReason.SPAWNER || p_219122_.canSeeSky(p_219124_));
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.STRAY_AMBIENT;
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource p_33850_) {
         return SoundEvents.STRAY_HURT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.STRAY_DEATH;
     }
 
+    @Override
     protected SoundEvent getStepSound() {
         return SoundEvents.STRAY_STEP;
     }
@@ -266,11 +281,9 @@ public class Seeker extends AbstractSkeleton implements IGuardMob {
 
     @Override
     protected AbstractArrow getArrow(ItemStack p_32156_, float p_32157_, @Nullable ItemStack p_346155_) {
-        AbstractArrow abstractarrow = super.getArrow(p_32156_, p_32157_, p_346155_);
-        if (abstractarrow instanceof Arrow) {
-            ((Arrow) abstractarrow).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 600));
-        }
+        p_32156_.set(FrostDataCompnents.ATTACH_CRYSTAL, this.level().registryAccess().lookupOrThrow(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).getOrThrow(AttachableCrystals.FROST));
 
+        AbstractArrow abstractarrow = super.getArrow(p_32156_, p_32157_, p_346155_);
         return abstractarrow;
     }
 

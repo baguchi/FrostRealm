@@ -17,7 +17,7 @@ public class FrostModelLayers {
     public static final ModelLayerLocation CRYSTAL_FOX = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "crystal_fox"), "main");
     public static final ModelLayerLocation SNOW_MOLE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "snow_mole"), "main");
     public static final ModelLayerLocation FROST_BOAR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_boar"), "frost_boar");
-    public static final ModelLayerLocation SEEKER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "seeker"), "main");
+    public static final ModelLayerLocation LESSER_WARRIOR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "lesser_warrior"), "main");
 
     public static final ModelLayerLocation CORRUPTED_WALKER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker"), "main");
     public static final ModelLayerLocation CORRUPTED_WALKER_FOOT = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker_foot"), "main");

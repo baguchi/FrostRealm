@@ -2,9 +2,9 @@
   "type": "neoforge:add_spawns",
   "biomes": "#c:is_cold/overworld",
   "spawners": {
-    "type": "frostrealm:seeker",
+    "type": "frostrealm:lesser_warrior",
     "weight": 12,
-    "minCount": 2,
-    "maxCount": 3
+    "minCount": 3,
+    "maxCount": 4
   }
 }
