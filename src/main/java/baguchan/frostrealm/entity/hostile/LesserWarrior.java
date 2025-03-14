@@ -6,6 +6,7 @@ import baguchan.frostrealm.entity.goal.CounterGoal;
 import baguchan.frostrealm.entity.goal.GuardAndCounterAnimationGoal;
 import baguchan.frostrealm.entity.utils.GuardHandler;
 import baguchan.frostrealm.registry.FrostDataCompnents;
+import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import baguchi.bagus_lib.entity.AnimationScale;
@@ -228,6 +229,15 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
         }
 
         return super.hurtServer(serverLevel, p_21016_, p_21017_);
+    }
+
+    @Override
+    protected boolean considersEntityAsAlly(Entity p_360600_) {
+        if (super.considersEntityAsAlly(p_360600_)) {
+            return true;
+        } else {
+            return p_360600_.getType() != FrostEntities.LESSER_WARRIOR.get() ? false : this.getTeam() == null && p_360600_.getTeam() == null;
+        }
     }
 
     public boolean isDamageSourceBlockedBySpear(DamageSource p_21276_) {
