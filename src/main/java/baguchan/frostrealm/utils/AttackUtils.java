@@ -30,7 +30,7 @@ public class AttackUtils {
             float f2 = player.getAttackStrengthScale(0.5F);
             boolean flag3 = f2 > 0.9F;
 
-            float f7 = (float) (0.5F + player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) * 0.5F) * f;
+            float f7 = (float) (0.5F + player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) * 0.5F);
             if (flag3) {
                 for (LivingEntity livingentity2 : player.level()
                         .getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(1.5, 0.25, 1.5))) {
@@ -41,10 +41,10 @@ public class AttackUtils {
                             && (!(livingentity2 instanceof ArmorStand) || !((ArmorStand) livingentity2).isMarker())
                             && player.distanceToSqr(livingentity2) < entityReachSq) {
                         //attack bonus
-                        f += itemstack.getItem().getAttackDamageBonus(livingentity2, f, damagesource);
+                        f += itemstack.getItem().getAttackDamageBonus(player, f, damagesource);
                         //enchant
                         float f1 = (player.level() instanceof ServerLevel serverLevel) ? EnchantmentHelper.modifyDamage(serverLevel, itemstack, livingentity2, damagesource, f) : f;
-                        f = f1;
+                        f += f1;
                         f *= 0.2F + f2 * f2 * 0.8F;
 
                         livingentity2.knockback(
@@ -52,7 +52,7 @@ public class AttackUtils {
                                 (double) Mth.sin(player.getYRot() * (float) (Math.PI / 180.0)),
                                 (double) (-Mth.cos(player.getYRot() * (float) (Math.PI / 180.0)))
                         );
-                        f = (float) (f / Mth.clamp(player.distanceTo(livingentity2), 1, 4));
+                        f *= f7;
 
                         livingentity2.hurt(damagesource, f);
                         if (player.level() instanceof ServerLevel serverlevel) {
@@ -105,10 +105,10 @@ public class AttackUtils {
                                 && (!(livingentity2 instanceof ArmorStand) || !((ArmorStand) livingentity2).isMarker())
                                 && player.distanceToSqr(livingentity2) < entityReachSq) {
                             //attack bonus
-                            f += itemstack.getItem().getAttackDamageBonus(livingentity2, f, damagesource);
+                            f += itemstack.getItem().getAttackDamageBonus(player, f, damagesource);
                             //enchant
-                            float f1 = (player.level() instanceof ServerLevel serverLevel) ? EnchantmentHelper.modifyDamage(serverLevel, itemstack, livingentity2, damagesource, f) : f;
-                            f = f1;
+                            float f1 = (player.level() instanceof ServerLevel serverLevel) ? EnchantmentHelper.modifyDamage(serverLevel, itemstack, livingentity2, damagesource, f) - f : 0;
+                            f += f1;
                             f *= 0.2F + f2 * f2 * 0.8F;
 
                             float f6 = ((float) player.getAttributeValue(Attributes.ATTACK_KNOCKBACK) + 0.2F) * 0.5F;
@@ -118,8 +118,6 @@ public class AttackUtils {
                                     (double) Mth.sin(player.getYRot() * (float) (Math.PI / 180.0)),
                                     (double) (-Mth.cos(player.getYRot() * (float) (Math.PI / 180.0)))
                             );
-                            f = (float) (f / Mth.clamp(player.distanceTo(livingentity2) * 0.5F, 1F, 1.5F));
-
                             //直撃するmobの数で減少
                             f /= list.size();
 

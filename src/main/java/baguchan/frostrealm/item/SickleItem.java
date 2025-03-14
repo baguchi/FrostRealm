@@ -4,7 +4,6 @@ import baguchan.frostrealm.FrostRealm;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -27,7 +26,7 @@ public class SickleItem extends Item {
     public static final ResourceLocation SWEEP_SPEED_ID = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "sweep_speed");
 
     public SickleItem(ToolMaterial tier, float damage, float speed, Item.Properties properties) {
-        super(tier.applyToolProperties(properties.attributes(createAttributes(tier, damage, speed)), BlockTags.MINEABLE_WITH_HOE, damage, speed));
+        super(properties.attributes(createAttributes(tier, damage, speed)));
     }
 
     public static ItemAttributeModifiers createAttributes(ToolMaterial tier, float damage, float speed) {

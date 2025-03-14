@@ -1,29 +1,17 @@
 package baguchan.frostrealm.item;
 
-import baguchan.frostrealm.registry.FrostAnimations;
-import baguchi.bagus_lib.util.client.AnimationUtil;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 
-public class FrostSpearItem extends Item {
-	public static final ResourceLocation BASE_ENTITY_RANGE = ResourceLocation.withDefaultNamespace("base_entity_range");
-	public static final ResourceLocation BASE_BLOCK_RANGE = ResourceLocation.withDefaultNamespace("base_block_range");
+public class FrostSpearItem extends SpearItem {
 
 	public FrostSpearItem(Properties properties) {
 		super(properties);
@@ -42,9 +30,6 @@ public class FrostSpearItem extends Item {
 				.build();
 	}
 
-	public boolean canAttackBlock(BlockState p_43291_, Level p_43292_, BlockPos p_43293_, Player p_43294_) {
-		return !p_43294_.isCreative();
-	}
 
 	/*@Override
 	public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
@@ -60,27 +45,6 @@ public class FrostSpearItem extends Item {
 			p_43279_.setTicksFrozen(Mth.clamp(p_43279_.getTicksFrozen() + 100, 0, 600));
 		}
 		return true;
-	}
-
-	@Override
-	public void postHurtEnemy(ItemStack p_346200_, LivingEntity p_345855_, LivingEntity p_346191_) {
-		p_346200_.hurtAndBreak(1, p_346191_, EquipmentSlot.MAINHAND);
-	}
-
-	public boolean mineBlock(ItemStack p_43282_, Level p_43283_, BlockState p_43284_, BlockPos p_43285_, LivingEntity p_43286_) {
-		if (p_43284_.getDestroySpeed(p_43283_, p_43285_) != 0.0F) {
-			p_43282_.hurtAndBreak(2, p_43286_, EquipmentSlot.MAINHAND);
-		}
-
-		return true;
-	}
-
-	@Override
-	public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
-		if (!entity.swinging && entity instanceof Player player && !player.level().isClientSide()) {
-			AnimationUtil.sendAnimation(entity, FrostAnimations.ATTACK);
-		}
-		return super.onEntitySwing(stack, entity, hand);
 	}
 
 	@Override

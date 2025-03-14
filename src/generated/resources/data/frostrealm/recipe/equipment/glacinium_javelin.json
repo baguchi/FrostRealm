@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "frostrealm:glacinium_ingot",
+    "X": "#c:rods/wooden"
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    " X "
+  ],
+  "result": {
+    "count": 1,
+    "id": "frostrealm:glacinium_javelin"
+  }
+}

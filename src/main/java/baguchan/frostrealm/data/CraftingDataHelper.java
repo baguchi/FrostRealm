@@ -143,6 +143,17 @@ public abstract class CraftingDataHelper extends RecipeProvider {
 				.pattern("X  ")
 				.pattern("X  ")
 				.define('#', material)
+                .define('X', handle)
+                .unlockedBy("has_item", has(material))
+                .save(consumer, locEquip(name));
+    }
+
+    protected final void javelinItem(RecipeOutput consumer, String name, Item result, Item material, TagKey<Item> handle) {
+        ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.TOOLS, result)
+                .pattern(" # ")
+                .pattern("#X#")
+                .pattern(" X ")
+                .define('#', material)
 				.define('X', handle)
 				.unlockedBy("has_item", has(material))
 				.save(consumer, locEquip(name));
