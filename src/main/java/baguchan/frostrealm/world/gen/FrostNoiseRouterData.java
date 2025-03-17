@@ -26,24 +26,24 @@ public class FrostNoiseRouterData {
 	private static final ResourceKey<DensityFunction> Y = createKey("y");
 	private static final ResourceKey<DensityFunction> SHIFT_X = createKey("shift_x");
 	private static final ResourceKey<DensityFunction> SHIFT_Z = createKey("shift_z");
-	public static final ResourceKey<DensityFunction> CONTINENTS = createModKey("frostrelam/continents");
-	public static final ResourceKey<DensityFunction> EROSION = createModKey("frostrelam/erosion");
+	public static final ResourceKey<DensityFunction> CONTINENTS = createModKey("frostrealm/continents");
+	public static final ResourceKey<DensityFunction> EROSION = createModKey("frostrealm/erosion");
 	public static final ResourceKey<DensityFunction> RIDGES = createKey("overworld/ridges");
-	public static final ResourceKey<DensityFunction> FACTOR = createModKey("frostrelam/factor");
-	public static final ResourceKey<DensityFunction> DEPTH = createModKey("frostrelam/depth");
+	public static final ResourceKey<DensityFunction> FACTOR = createModKey("frostrealm/factor");
+	public static final ResourceKey<DensityFunction> DEPTH = createModKey("frostrealm/depth");
 	private static final ResourceKey<DensityFunction> BASE_3D_NOISE_END = createKey("end/base_3d_noise");
 	public static final ResourceKey<DensityFunction> RIDGES_FOLDED = createKey("overworld/ridges_folded");
-	public static final ResourceKey<DensityFunction> OFFSET = createModKey("frostrelam/offset");
-	public static final ResourceKey<DensityFunction> JAGGEDNESS = createModKey("frostrelam/jaggedness");
+	public static final ResourceKey<DensityFunction> OFFSET = createModKey("frostrealm/offset");
+	public static final ResourceKey<DensityFunction> JAGGEDNESS = createModKey("frostrealm/jaggedness");
 
-	public static final ResourceKey<DensityFunction> SLOPED_CHEESE = createKey("frostrelam/sloped_cheese");
+	public static final ResourceKey<DensityFunction> SLOPED_CHEESE = createKey("frostrealm/sloped_cheese");
 	private static final ResourceKey<DensityFunction> SPAGHETTI_ROUGHNESS_FUNCTION = createKey("overworld/caves/spaghetti_roughness_function");
 	private static final ResourceKey<DensityFunction> ENTRANCES = createKey("overworld/caves/entrances");
 	private static final ResourceKey<DensityFunction> NOODLE = createKey("overworld/caves/noodle");
 	private static final ResourceKey<DensityFunction> PILLARS = createKey("overworld/caves/pillars");
 	private static final ResourceKey<DensityFunction> SPAGHETTI_2D = createKey("overworld/caves/spaghetti_2d");
 
-	private static final ResourceKey<DensityFunction> BASE_3D_NOISE_DEEP_CLIFF = createModKey("frostrelam/base_3d_noise");
+	private static final ResourceKey<DensityFunction> BASE_3D_NOISE_DEEP_CLIFF = createModKey("frostrealm/base_3d_noise");
 
 
 	private final Climate.Parameter deepOceanContinentalness = Climate.Parameter.span(-1.05F, -0.455F);
@@ -59,9 +59,9 @@ public class FrostNoiseRouterData {
 		int $$4 = DimensionType.MAX_Y * 2;
 		DensityFunction $$5 = getFunction($$2, SHIFT_X);
 		DensityFunction $$6 = getFunction($$2, SHIFT_Z);
-		p_256220_.register(BASE_3D_NOISE_DEEP_CLIFF, BlendedNoise.createUnseeded(0.25, 0.125, 80.0, 160.0, 8.0));
-        Holder<DensityFunction> $$7 = p_256220_.register(CONTINENTS, DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d($$5, $$6, 0.5, $$1.getOrThrow(Noises.CONTINENTALNESS))));
-        Holder<DensityFunction> $$8 = p_256220_.register(EROSION, DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d($$5, $$6, 0.5, $$1.getOrThrow(Noises.EROSION))));
+		p_256220_.register(BASE_3D_NOISE_DEEP_CLIFF, BlendedNoise.createUnseeded(0.25, 0.15, 80.0, 160.0, 8.0));
+		Holder<DensityFunction> $$7 = p_256220_.register(CONTINENTS, DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d($$5, $$6, 0.35, $$1.getOrThrow(Noises.CONTINENTALNESS))));
+		Holder<DensityFunction> $$8 = p_256220_.register(EROSION, DensityFunctions.flatCache(DensityFunctions.shiftedNoise2d($$5, $$6, 0.35, $$1.getOrThrow(Noises.EROSION))));
 		DensityFunction $$9 = getFunction($$2, RIDGES);
 		DensityFunction $$10 = DensityFunctions.noise($$1.getOrThrow(Noises.JAGGED), 1500.0, 0.0);
 		registerTerrainNoises(p_256220_, $$2, $$10, $$7, $$8, OFFSET, FACTOR, JAGGEDNESS, DEPTH, SLOPED_CHEESE, false);

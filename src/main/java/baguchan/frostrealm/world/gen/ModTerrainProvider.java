@@ -33,7 +33,7 @@ public class ModTerrainProvider {
     public static <C, I extends ToFloatFunction<C>> CubicSpline<C, I> overworldJaggedness(I toFloatFunction, I toFloatFunction2, I toFloatFunction3, I toFloatFunction4, boolean bl) {
         ToFloatFunction<Float> toFloatFunction5 = bl ? AMPLIFIED_JAGGEDNESS : NO_TRANSFORM;
         float f = 0.65f;
-        return CubicSpline.builder(toFloatFunction, toFloatFunction5).addPoint(-0.11f, 0.0f).addPoint(0.03f, ModTerrainProvider.buildErosionJaggednessSpline(toFloatFunction2, toFloatFunction3, toFloatFunction4, 1.0f, 0.5f, 0.0f, 0.0f, toFloatFunction5)).addPoint(0.65f, ModTerrainProvider.buildErosionJaggednessSpline(toFloatFunction2, toFloatFunction3, toFloatFunction4, 1.0f, 1.0f, 1.0f, 0.0f, toFloatFunction5)).build();
+        return CubicSpline.builder(toFloatFunction, toFloatFunction5).addPoint(-0.11f, 0.0f).addPoint(0.03f, ModTerrainProvider.buildErosionJaggednessSpline(toFloatFunction2, toFloatFunction3, toFloatFunction4, 1.0f, 0.5f, 0.0f, 0.0f, toFloatFunction5)).addPoint(0.65f, ModTerrainProvider.buildErosionJaggednessSpline(toFloatFunction2, toFloatFunction3, toFloatFunction4, 1.0f, 1.0f, 1.0f, 0.0f, toFloatFunction5)).addPoint(0.8f, ModTerrainProvider.buildErosionJaggednessSpline(toFloatFunction2, toFloatFunction3, toFloatFunction4, 1.0f, 1.0f, 1.0f, 1.0f, toFloatFunction5)).build();
     }
 
     private static <C, I extends ToFloatFunction<C>> CubicSpline<C, I> buildErosionJaggednessSpline(I toFloatFunction, I toFloatFunction2, I toFloatFunction3, float f, float g, float h, float i, ToFloatFunction<Float> toFloatFunction4) {
