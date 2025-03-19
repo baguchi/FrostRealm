@@ -40,7 +40,7 @@ public class FrostNoiseRouterData {
 	private static final ResourceKey<DensityFunction> SPAGHETTI_ROUGHNESS_FUNCTION = createKey("overworld/caves/spaghetti_roughness_function");
 	private static final ResourceKey<DensityFunction> ENTRANCES = createKey("overworld/caves/entrances");
 	private static final ResourceKey<DensityFunction> NOODLE = createKey("overworld/caves/noodle");
-	private static final ResourceKey<DensityFunction> PILLARS = createKey("overworld/caves/pillars");
+    public static final ResourceKey<DensityFunction> PILLARS = createModKey("frostrealm/caves/pillars");
 	private static final ResourceKey<DensityFunction> SPAGHETTI_2D = createKey("overworld/caves/spaghetti_2d");
 
 	private static final ResourceKey<DensityFunction> BASE_3D_NOISE_DEEP_CLIFF = createModKey("frostrealm/base_3d_noise");
