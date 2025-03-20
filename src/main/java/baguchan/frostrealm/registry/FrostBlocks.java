@@ -49,7 +49,7 @@ public class FrostBlocks {
     public static final DeferredBlock<Block> FROZEN_GRASS_BLOCK = register("frozen_grass_block", (properties) -> new FrostGrassBlock(properties, FrostBlocks.FROZEN_DIRT), () -> BlockBehaviour.Properties.of().randomTicks().strength(0.6F).sound(SoundType.GRASS));
     public static final DeferredBlock<Block> FROZEN_FARMLAND = register("frozen_farmland", (properties) -> new FrozenFarmBlock(properties), () -> BlockBehaviour.Properties.of().noOcclusion().strength(0.5F).randomTicks().sound(SoundType.GRAVEL));
 
-    public static final DeferredBlock<Block> POINTED_ICE = register("pointed_ice", (properties) -> new PointedIceBlock(properties), () -> BlockBehaviour.Properties.of().friction(0.98F).randomTicks().strength(0.5F).dynamicShape().sound(SoundType.GLASS));
+    public static final DeferredBlock<Block> POINTED_ICE = register("pointed_ice", (properties) -> new PointedIceBlock(properties), () -> BlockBehaviour.Properties.of().friction(0.98F).randomTicks().strength(0.5F).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.GLASS));
 
     public static final DeferredBlock<Block> PERMA_SLATE = register("perma_slate", (properties) -> new Block(properties), () -> BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).strength(1.75F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE));
     public static final DeferredBlock<Block> PERMA_SLATE_SMOOTH = register("perma_slate_smooth", (properties) -> new Block(properties), () -> BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).strength(1.75F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE));

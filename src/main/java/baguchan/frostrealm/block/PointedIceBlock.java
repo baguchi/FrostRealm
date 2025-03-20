@@ -110,13 +110,16 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 	public void fallOn(Level p_154047_, BlockState p_154048_, BlockPos p_154049_, Entity p_154050_, float p_154051_) {
 		if (p_154048_.getValue(TIP_DIRECTION) == Direction.UP && p_154048_.getValue(THICKNESS) == DripstoneThickness.TIP) {
 			p_154050_.causeFallDamage(p_154051_ + 2.0F, 2.0F, p_154047_.damageSources().stalagmite());
-            p_154047_.destroyBlock(p_154049_, false);
+			if (p_154050_.fallDistance > 1F) {
+				p_154047_.destroyBlock(p_154049_, false);
+			}
 		} else {
 			super.fallOn(p_154047_, p_154048_, p_154049_, p_154050_, p_154051_);
 		}
 
 	}
 
+	@Override
 	public void animateTick(BlockState p_154122_, Level p_154123_, BlockPos p_154124_, RandomSource p_154125_) {
 		if (canDrip(p_154122_)) {
 			float f = p_154125_.nextFloat();
@@ -130,6 +133,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 		}
 	}
 
+	@Override
 	public void tick(BlockState p_154107_, ServerLevel p_154108_, BlockPos p_154109_, RandomSource p_154110_) {
 		if (isStalagmite(p_154107_) && !this.canSurvive(p_154107_, p_154108_, p_154109_)) {
 			p_154108_.destroyBlock(p_154109_, true);
@@ -138,6 +142,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 		}
 	}
 
+	@Override
 	public void randomTick(BlockState p_154199_, ServerLevel p_154200_, BlockPos p_154201_, RandomSource p_154202_) {
 		if (p_154202_.nextFloat() < 0.011377778F && isStalactiteStartPos(p_154199_, p_154200_, p_154201_)) {
 			growStalactiteOrStalagmiteIfPossible(p_154199_, p_154200_, p_154201_, p_154202_);
@@ -145,11 +150,13 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 
 	}
 
+	@Override
 	public PushReaction getPistonPushReaction(BlockState p_154237_) {
 		return PushReaction.DESTROY;
 	}
 
 	@Nullable
+	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext p_154040_) {
 		LevelAccessor levelaccessor = p_154040_.getLevel();
 		BlockPos blockpos = p_154040_.getClickedPos();
@@ -164,15 +171,17 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 		}
 	}
 
+	@Override
 	public FluidState getFluidState(BlockState p_154235_) {
 		return p_154235_.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(p_154235_);
 	}
 
-	public VoxelShape getOcclusionShape(BlockState p_154170_, BlockGetter p_154171_, BlockPos p_154172_) {
+	@Override
+	protected VoxelShape getOcclusionShape(BlockState p_60578_) {
 		return Shapes.empty();
 	}
 
-    @Override
+	@Override
 	public VoxelShape getShape(BlockState p_154117_, BlockGetter p_154118_, BlockPos p_154119_, CollisionContext p_154120_) {
 		DripstoneThickness dripstonethickness = p_154117_.getValue(THICKNESS);
 		VoxelShape voxelshape;
@@ -196,12 +205,9 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 		return voxelshape.move(vec3.x, 0.0D, vec3.z);
 	}
 
+	@Override
 	public boolean isCollisionShapeFullBlock(BlockState p_181235_, BlockGetter p_181236_, BlockPos p_181237_) {
 		return false;
-    }
-
-    public BlockBehaviour.OffsetType getOffsetType() {
-        return BlockBehaviour.OffsetType.XZ;
     }
 
     public float getMaxHorizontalOffset() {
