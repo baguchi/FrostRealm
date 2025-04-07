@@ -40,11 +40,10 @@ public class FrostSpearItem extends SpearItem {
 	}*/
 
 	@Override
-	public boolean hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
+	public void hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
 		if (p_43279_.isAttackable() && p_43279_.canFreeze()) {
 			p_43279_.setTicksFrozen(Mth.clamp(p_43279_.getTicksFrozen() + 100, 0, 600));
 		}
-		return true;
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package baguchan.frostrealm.entity.hostile;
 import baguchan.frostrealm.entity.goal.RollGoal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostTags;
+import baguchan.frostrealm.utils.CombatUtils;
 import baguchi.bagus_lib.client.camera.CameraCore;
 import baguchi.bagus_lib.client.camera.holder.CameraHolder;
 import baguchi.bagus_lib.util.GlobalVec3;
@@ -40,7 +41,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.ItemAbilities;
 import org.jetbrains.annotations.Nullable;
 
 public class Gokkur extends Monster {
@@ -127,8 +127,8 @@ public class Gokkur extends Monster {
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.setGrass(tag.getBoolean("Grass"));
-        this.setSnowProgress(tag.getFloat("SnowProgress"));
+        this.setGrass(tag.getBooleanOr("Grass", false));
+        this.setSnowProgress(tag.getFloatOr("SnowProgress", 0.0F));
     }
 
     @Override
@@ -196,19 +196,17 @@ public class Gokkur extends Monster {
     }
 
     protected void dealDamage(LivingEntity livingentity) {
-        if (this.isAlive() && getPose() == Pose.SPIN_ATTACK) {
-            boolean flag = livingentity.isDamageSourceBlocked(this.damageSources().mobAttack(this));
+        if (this.isAlive() && getPose() == Pose.SPIN_ATTACK && this.level() instanceof ServerLevel serverLevel) {
+            boolean flag = CombatUtils.isBlockingWithOutCheck(serverLevel, livingentity, this.damageSources().mobAttack(this), getAttackDamage() * 1.5F + this.getSnowProgress()) >= getAttackDamage();
             float f1 = (float) Mth.clamp(livingentity.getDeltaMovement().horizontalDistanceSqr() * 1.5F, 0.5F, 3.0F);
             float f2 = flag ? 0.25F + this.getSnowProgress() * 0.25F : 1.0F + this.getSnowProgress() * 0.5F;
             double d1 = this.getX() - livingentity.getX();
             double d2 = this.getZ() - livingentity.getZ();
             double d3 = livingentity.getX() - this.getX();
             double d4 = livingentity.getZ() - this.getZ();
-            if (this.level() instanceof ServerLevel serverLevel) {
                 if (livingentity.hurtServer(serverLevel, this.damageSources().mobAttack(this), Mth.floor(getAttackDamage() * 1.5F + this.getSnowProgress()))) {
                     this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                     livingentity.knockback(f2 * f1, d1, d2);
-                }
             }
         }
     }
@@ -227,10 +225,6 @@ public class Gokkur extends Monster {
         ItemStack itemstack = p_376460_.getWeaponItem();
 
         float damageScale = 1;
-
-        if (itemstack != null && itemstack.canPerformAction(ItemAbilities.PICKAXE_DIG)) {
-            damageScale = 2;
-        }
 
 
         if (p_376460_.is(DamageTypeTags.IS_PROJECTILE)) {
@@ -268,9 +262,10 @@ public class Gokkur extends Monster {
         return (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
     }
 
+
     @Override
-    protected void blockedByShield(LivingEntity p_21246_) {
-        super.blockedByShield(p_21246_);
+    protected void blockedByItem(LivingEntity p_21246_) {
+        super.blockedByItem(p_21246_);
         if (this.isAlive() && this.getPose() == Pose.SPIN_ATTACK) {
             this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
 

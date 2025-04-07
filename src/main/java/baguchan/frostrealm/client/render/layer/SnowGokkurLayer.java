@@ -6,11 +6,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.block.ModelBlockRenderer;
+import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -28,7 +29,7 @@ public class SnowGokkurLayer<T extends GokkurRenderState> extends RenderLayer<T,
             if (!p_361786_.isInvisible || flag) {
                 BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
                 int i = LivingEntityRenderer.getOverlayCoords(p_361786_, 0.0F);
-                BakedModel bakedmodel = this.blockRenderer.getBlockModel(blockstate);
+                BlockStateModel bakedmodel = this.blockRenderer.getBlockModel(blockstate);
                 p_117256_.pushPose();
                 float f = p_361786_.snowProgress;
                 this.getParentModel().root.translateAndRotate(p_117256_);
@@ -43,22 +44,12 @@ public class SnowGokkurLayer<T extends GokkurRenderState> extends RenderLayer<T,
     }
 
     private void renderBlock(
-            PoseStack p_234853_, MultiBufferSource p_234854_, int p_234855_, boolean p_234856_, BlockState p_234857_, int p_234858_, BakedModel p_234859_
+            PoseStack p_234853_, MultiBufferSource p_234854_, int p_234855_, boolean p_234856_, BlockState p_234857_, int p_234858_, BlockStateModel p_404741_
     ) {
         if (p_234856_) {
-            this.blockRenderer
-                    .getModelRenderer()
-                    .renderModel(
-                            p_234853_.last(),
-                            p_234854_.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)),
-                            p_234857_,
-                            p_234859_,
-                            0.0F,
-                            0.0F,
-                            0.0F,
-                            p_234855_,
-                            p_234858_
-                    );
+            ModelBlockRenderer.renderModel(
+                    p_234853_.last(), p_234854_.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)), p_404741_, 0.0F, 0.0F, 0.0F, p_234855_, p_234858_
+            );
         } else {
             this.blockRenderer.renderSingleBlock(p_234857_, p_234853_, p_234854_, p_234855_, p_234858_);
         }

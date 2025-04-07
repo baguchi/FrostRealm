@@ -155,7 +155,7 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends FrostPart<T>
                 flag = !p_344407_.isSpectator();
                 flag1 = p_344407_ != part && p_344407_ != part.parentMob;
                 flag2 = !part.isAlliedTo(p_344407_);
-                if (p_344407_ instanceof TamableAnimal tamableanimal && tamableanimal.isTame() && part.getUUID().equals(tamableanimal.getOwnerUUID())) {
+                if (p_344407_ instanceof TamableAnimal tamableanimal && tamableanimal.isTame() && part.getUUID().equals(tamableanimal.getOwnerReference())) {
                     flag6 = true;
                     break label62;
                 }
@@ -189,10 +189,10 @@ public class CorruptedWalkerPart<T extends CorruptedWalker> extends FrostPart<T>
     }
 
     @Override
-    public boolean causeFallDamage(float p_146828_, float p_146829_, DamageSource p_146830_) {
-        boolean flag = super.causeFallDamage(p_146828_, p_146829_, p_146830_);
+    public boolean causeFallDamage(double p_397956_, float p_146828_, DamageSource p_146830_) {
+        boolean flag = super.causeFallDamage(p_397956_, p_146828_, p_146830_);
         if (flag) {
-            parentMob.causeFallDamage(p_146828_, p_146829_, p_146830_);
+            parentMob.causeFallDamage(p_397956_, p_146828_, p_146830_);
             return true;
         } else {
             return flag;

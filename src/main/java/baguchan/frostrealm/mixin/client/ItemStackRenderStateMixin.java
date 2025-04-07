@@ -4,9 +4,7 @@ import baguchan.frostrealm.api.IGlintAurora;
 import baguchan.frostrealm.utils.ClientUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,8 +21,6 @@ public class ItemStackRenderStateMixin implements IGlintAurora {
     private ItemStackRenderState.LayerRenderState[] layers;
     @Shadow
     private ItemDisplayContext displayContext;
-    @Shadow
-    private boolean isLeftHand;
     @Unique
     private boolean frostRealm$glint;
 
@@ -33,21 +29,11 @@ public class ItemStackRenderStateMixin implements IGlintAurora {
         for (int i = 0; i < this.activeLayerCount; ++i) {
             if (this.frostRealm$glint) {
                 p_388193_.pushPose();
-                if (((LayerRenderStateAccessor) this.layers[i]).getBakedModel() != null)
-                    ((LayerRenderStateAccessor) this.layers[i]).getBakedModel().applyTransform(displayContext, p_388193_, this.isLeftHand);
-                else
-                    this.frostRealm$transform(((LayerRenderStateAccessor) this.layers[i]).getBakedModel()).apply(this.isLeftHand, p_388193_);
-                p_388193_.translate(-0.5F, -0.5F, -0.5F);
-                ClientUtils.renderItemAurora(p_388193_, p_388719_, p_386913_, p_387272_, ((LayerRenderStateAccessor) this.layers[i]).getTintLayers(), ((LayerRenderStateAccessor) this.layers[i]).getBakedModel(), ((LayerRenderStateAccessor) this.layers[i]).getRenderType());
+                ClientUtils.renderItemAurora(p_388193_, p_388719_, p_386913_, p_387272_, ((LayerRenderStateAccessor) this.layers[i]).getTintLayers(), ((LayerRenderStateAccessor) this.layers[i]).getQuads(), ((LayerRenderStateAccessor) this.layers[i]).getRenderType());
 
                 p_388193_.popPose();
             }
         }
-    }
-
-    @Unique
-    ItemTransform frostRealm$transform(BakedModel bakedModel) {
-        return bakedModel != null ? bakedModel.getTransforms().getTransform(this.displayContext) : ItemTransform.NO_TRANSFORM;
     }
 
     @Override

@@ -431,21 +431,22 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
     @Override
 	public void readAdditionalSaveData(CompoundTag p_29541_) {
 		super.readAdditionalSaveData(p_29541_);
-		ListTag listnbt = p_29541_.getList("Inventory", 10);
+		ListTag listnbt = p_29541_.getListOrEmpty("Inventory");
 
 		for (int i = 0; i < listnbt.size(); ++i) {
-			ItemStack itemstack = ItemStack.parse(this.registryAccess(), listnbt.getCompound(i)).orElse(ItemStack.EMPTY);
-			if (!itemstack.isEmpty()) {
-				this.inventory.addItem(itemstack);
+			CompoundTag compoundtag = listnbt.getCompoundOrEmpty(i);
+			int j = compoundtag.getByteOr("Slot", (byte) 0) & 255;
+			if (j < this.inventory.getContainerSize()) {
+				this.inventory.setItem(j, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
 			}
 		}
-		this.setHoldTime(p_29541_.getInt("HoldTime"));
-		this.setStateName(p_29541_.getString("State"));
-		long i = p_29541_.getLong("LastPoseTick");
+		this.setHoldTime(p_29541_.getIntOr("HoldTime", 0));
+		this.setStateName(p_29541_.getStringOr("State", "IDLING"));
+		long i = p_29541_.getLongOr("LastPoseTick", 0L);
 		if (i < 0L) {
 			this.setPose(Pose.SITTING);
 		}
-		this.ticksIdle = p_29541_.getInt("IdleTime");
+		this.ticksIdle = p_29541_.getIntOr("IdleTime", 0);
 
 		this.resetLastPoseChangeTick(i);
 	}
@@ -455,10 +456,12 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 		super.addAdditionalSaveData(p_29548_);
 		ListTag listnbt = new ListTag();
 
-		for (int i = 0; i < this.inventory.getContainerSize(); ++i) {
+		for (int i = 0; i < this.inventory.getContainerSize(); i++) {
 			ItemStack itemstack = this.inventory.getItem(i);
 			if (!itemstack.isEmpty()) {
-				listnbt.add(itemstack.save(this.registryAccess(), new CompoundTag()));
+				CompoundTag compoundtag = new CompoundTag();
+				compoundtag.putByte("Slot", (byte) i);
+				listnbt.add(itemstack.save(this.registryAccess(), compoundtag));
 			}
 		}
 

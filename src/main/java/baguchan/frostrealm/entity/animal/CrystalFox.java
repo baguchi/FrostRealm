@@ -8,14 +8,12 @@ import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostTags;
-import com.google.common.collect.Lists;
+import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -50,19 +48,21 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class CrystalFox extends FrostAnimal implements IShearable {
 	private static final EntityDimensions BABY_DIMENSIONS = FrostEntities.CRYSTAL_FOX.get().getDimensions().scale(0.5F).withEyeHeight(0.2F);
+
+	private static final Codec<List<EntityReference<LivingEntity>>> TRUSTED_LIST_CODEC = EntityReference.<LivingEntity>codec().listOf();
 
 
 	private static final EntityDataAccessor<Boolean> SHEARABLE = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<String> DATA_STATE = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.STRING);
 
 
-	private static final EntityDataAccessor<Optional<UUID>> DATA_TRUSTED_ID_0 = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.OPTIONAL_UUID);
-	private static final EntityDataAccessor<Optional<UUID>> DATA_TRUSTED_ID_1 = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.OPTIONAL_UUID);
+	private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> DATA_TRUSTED_ID_0 = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
+	private static final EntityDataAccessor<Optional<EntityReference<LivingEntity>>> DATA_TRUSTED_ID_1 = SynchedEntityData.defineId(CrystalFox.class, EntityDataSerializers.OPTIONAL_LIVING_ENTITY_REFERENCE);
 
 	public static final Predicate<LivingEntity> FROST_PREY_SELECTOR = (p_30437_) -> {
 		EntityType<?> entitytype = p_30437_.getType();
@@ -94,7 +94,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		this.goalSelector.addGoal(4, new BreedGoal(this, 0.95D));
 		this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
 		this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.6D, 1.4D, (p_28596_) -> {
-			return AVOID_PLAYERS.test(p_28596_) && !this.trusts(p_28596_.getUUID());
+			return AVOID_PLAYERS.test(p_28596_) && !this.trusts(p_28596_);
 		}));
 		this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, Wolfflue.class, 8.0F, 1.55D, 1.45D, (p_28590_) -> {
 			return !((Wolfflue) p_28590_).isTame();
@@ -155,26 +155,28 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		this.entityData.set(SHEARABLE, shear);
 	}
 
-	List<UUID> getTrustedUUIDs() {
-		List<UUID> list = Lists.newArrayList();
-		list.add(this.entityData.get(DATA_TRUSTED_ID_0).orElse(null));
-		list.add(this.entityData.get(DATA_TRUSTED_ID_1).orElse(null));
-		return list;
+
+	Stream<EntityReference<LivingEntity>> getTrustedEntities() {
+		return Stream.concat(((Optional) this.entityData.get(DATA_TRUSTED_ID_0)).stream(), ((Optional) this.entityData.get(DATA_TRUSTED_ID_1)).stream());
 	}
 
-	void addTrustedUUID(@javax.annotation.Nullable UUID p_28516_) {
+	void addTrustedEntity(LivingEntity p_393835_) {
+		this.addTrustedEntity(new EntityReference<>(p_393835_));
+	}
+
+
+	private void addTrustedEntity(EntityReference<LivingEntity> p_393599_) {
 		if (this.entityData.get(DATA_TRUSTED_ID_0).isPresent()) {
-			this.entityData.set(DATA_TRUSTED_ID_1, Optional.ofNullable(p_28516_));
+			this.entityData.set(DATA_TRUSTED_ID_1, Optional.of(p_393599_));
 		} else {
-			this.entityData.set(DATA_TRUSTED_ID_0, Optional.ofNullable(p_28516_));
+			this.entityData.set(DATA_TRUSTED_ID_0, Optional.of(p_393599_));
 		}
 
 	}
 
-	boolean trusts(UUID p_28530_) {
-		return this.getTrustedUUIDs().contains(p_28530_);
+	boolean trusts(LivingEntity p_394151_) {
+		return this.getTrustedEntities().anyMatch((p_393132_) -> p_393132_.matches(p_394151_));
 	}
-
 	@Override
 	public boolean isFood(ItemStack p_27600_) {
 		return p_27600_.is(FrostTags.Items.CRYSTAL_FOX_FOODS);
@@ -265,7 +267,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 
 	@Override
 	public List<ItemStack> onSheared(@Nullable Player player, ItemStack item, Level level, BlockPos pos) {
-		if (player == null || this.trusts(player.getUUID())) {
+		if (player == null || this.trusts(player)) {
 			level.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
 			this.gameEvent(GameEvent.SHEAR, player);
 			if (!level.isClientSide) {
@@ -290,8 +292,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 
 	public boolean hurtServer(ServerLevel serverLevel, DamageSource p_32820_, float p_32821_) {
 		if (this.isShearableWithoutConditions()) {
-            if (!p_32820_.is(DamageTypes.MAGIC) && p_32820_.getDirectEntity() instanceof LivingEntity) {
-                LivingEntity livingentity = (LivingEntity) p_32820_.getDirectEntity();
+			if (!p_32820_.is(DamageTypes.MAGIC) && p_32820_.getDirectEntity() instanceof LivingEntity livingentity) {
                 if (!p_32820_.is(DamageTypeTags.IS_EXPLOSION)) {
 					livingentity.hurtServer(serverLevel, this.damageSources().thorns(this), 2.0F);
                 }
@@ -308,7 +309,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		if (this.isSleeping()) {
 			return SoundEvents.FOX_SLEEP;
 		} else {
-			if (!this.level().isDay() && this.random.nextFloat() < 0.1F) {
+			if (!this.level().isBrightOutside() && this.random.nextFloat() < 0.1F) {
 				List<Player> list = this.level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(16.0D, 16.0D, 16.0D), EntitySelector.NO_SPECTATORS);
 				if (list.isEmpty()) {
 					return SoundEvents.FOX_SCREECH;
@@ -339,7 +340,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 	public InteractionResult mobInteract(Player p_30412_, InteractionHand p_30413_) {
 		ItemStack itemstack = p_30412_.getItemInHand(p_30413_);
 		Item item = itemstack.getItem();
-		if (this.trusts(p_30412_.getUUID())) {
+		if (this.trusts(p_30412_)) {
 			if (this.isFood(itemstack) && (this.getHealth() < this.getMaxHealth() || !this.isShearableWithoutConditions())) {
 				if (!p_30412_.getAbilities().instabuild) {
 					itemstack.shrink(1);
@@ -368,7 +369,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 			}
 
 			if (this.random.nextInt(5) == 0) {
-				this.addTrustedUUID(p_30412_.getUUID());
+				this.addTrustedEntity(p_30412_);
 				this.level().broadcastEntityEvent(this, (byte) 7);
 			} else {
 				this.level().broadcastEntityEvent(this, (byte) 6);
@@ -410,29 +411,24 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 	@Override
 	public void readAdditionalSaveData(CompoundTag p_27576_) {
 		super.readAdditionalSaveData(p_27576_);
-		ListTag listtag = p_27576_.getList("Trusted", 11);
+		this.clearTrusted();
+		p_27576_.read("Trusted", TRUSTED_LIST_CODEC).orElse(List.of()).forEach(this::addTrustedEntity);
 
-		for (int i = 0; i < listtag.size(); ++i) {
-			this.addTrustedUUID(NbtUtils.loadUUID(listtag.get(i)));
-		}
 
-		this.setShearable(p_27576_.getBoolean("Shearable"));
-		this.setStateName(p_27576_.getString("State"));
+		this.setShearable(p_27576_.getBooleanOr("Shearable", false));
+		this.setStateName(p_27576_.getStringOr("State", "IDLING"));
+	}
+
+	private void clearTrusted() {
+		this.entityData.set(DATA_TRUSTED_ID_0, Optional.empty());
+		this.entityData.set(DATA_TRUSTED_ID_1, Optional.empty());
 	}
 
 	@Override
 	public void addAdditionalSaveData(CompoundTag p_27587_) {
 		super.addAdditionalSaveData(p_27587_);
-		List<UUID> list = this.getTrustedUUIDs();
-		ListTag listtag = new ListTag();
+		p_27587_.store("Trusted", TRUSTED_LIST_CODEC, this.getTrustedEntities().toList());
 
-		for (UUID uuid : list) {
-			if (uuid != null) {
-				listtag.add(NbtUtils.createUUID(uuid));
-			}
-		}
-
-		p_27587_.put("Trusted", listtag);
 		p_27587_.putBoolean("Shearable", this.isShearableWithoutConditions());
 		p_27587_.putString("State", this.getState());
 	}
@@ -538,7 +534,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		}
 	}
 
-	public static enum State {
+	public enum State {
 		IDLING,
 		SITTING,
 		SLEEPING,

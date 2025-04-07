@@ -27,41 +27,41 @@ public class FrostBiomeDefaultFeatures {
 	}
 
 	public static void defaultMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
-		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.VENOCHEM.get(), 100, 1, 2));
-		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUR.get(), 80, 2, 3));
-		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_CRAWLER.get(), 30, 3, 4));
+		p_126813_.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(FrostEntities.VENOCHEM.get(), 1, 2));
+		p_126813_.addSpawn(MobCategory.MONSTER, 80, new MobSpawnSettings.SpawnerData(FrostEntities.GOKKUR.get(), 2, 3));
+		p_126813_.addSpawn(MobCategory.MONSTER, 30, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_CRAWLER.get(), 3, 4));
 		//p_126813_.addSpawn(FrostMobCategory.FROSTREALM_SURFACE_MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.ROOT_DEER.get(), 10, 4, 6));
 	}
 
 	public static void purpleFogMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
-		p_126813_.addSpawn(FrostMobCategory.FROSTREALM_WEATHER_MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WRAITH.get(), 100, 2, 3));
+		p_126813_.addSpawn(FrostMobCategory.FROSTREALM_WEATHER_MONSTER, 100, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_WRAITH.get(), 2, 3));
 	}
 
 	public static void plainCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.CRYSTAL_FOX.get(), 6, 2, 3));
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.MARMOT.get(), 4, 3, 4));
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL.get(), 12, 4, 6));
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_BOAR.get(), 10, 4, 5));
+		p_126813_.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(FrostEntities.CRYSTAL_FOX.get(), 2, 3));
+		p_126813_.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(FrostEntities.MARMOT.get(), 3, 4));
+		p_126813_.addSpawn(MobCategory.CREATURE, 12, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL.get(), 4, 6));
+		p_126813_.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_BOAR.get(), 4, 5));
 	}
 
 	public static void crystalFallCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.MARMOT.get(), 6, 3, 4));
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.FERRET.get(), 4, 3, 4));
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL.get(), 10, 4, 6));
+		p_126813_.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(FrostEntities.MARMOT.get(), 3, 4));
+		p_126813_.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(FrostEntities.FERRET.get(), 3, 4));
+		p_126813_.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL.get(), 4, 6));
 	}
 
 	public static void forestCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL.get(), 10, 4, 6));
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.WOLFFLUE.get(), 5, 4, 4));
+		p_126813_.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL.get(), 4, 6));
+		p_126813_.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(FrostEntities.WOLFFLUE.get(), 4, 4));
 	}
 
 	public static void frostBiteCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.CRYSTAL_FOX.get(), 10, 2, 4));
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SILK_MOON.get(), 6, 2, 3));
+		p_126813_.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(FrostEntities.CRYSTAL_FOX.get(), 2, 4));
+		p_126813_.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(FrostEntities.SILK_MOON.get(), 2, 3));
 	}
 
 	public static void mountainCreatureSpawns(MobSpawnSettings.Builder p_126813_) {
-		p_126813_.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(FrostEntities.SNOW_MOLE.get(), 6, 2, 4));
+		p_126813_.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(FrostEntities.SNOW_MOLE.get(), 2, 4));
 	}
 
 	public static void mountainMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
@@ -70,7 +70,7 @@ public class FrostBiomeDefaultFeatures {
 
 	public static void underGroundMonsterSpawns(MobSpawnSettings.Builder p_126813_) {
 		monsterSpawns(p_126813_);
-		p_126813_.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FrostEntities.UNDER_GOKKUR.get(), 80, 2, 3));
+		p_126813_.addSpawn(MobCategory.MONSTER, 80, new MobSpawnSettings.SpawnerData(FrostEntities.UNDER_GOKKUR.get(), 2, 3));
 
 	}
 

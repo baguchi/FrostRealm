@@ -68,7 +68,7 @@ public class CellingMonster extends Monster {
 
     @Override
     public void travel(Vec3 p_32394_) {
-        if (this.isControlledByLocalInstance() && this.getAttachFacing() != Direction.DOWN) {
+        if (this.isLocalInstanceAuthoritative() && this.getAttachFacing() != Direction.DOWN) {
             this.moveRelative(0.1F, p_32394_);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.6));
@@ -107,7 +107,7 @@ public class CellingMonster extends Monster {
         boolean flag = this.moveControl instanceof CellingMoveControl && ((CellingMoveControl) this.moveControl).isWalkableUpper();
         boolean flag2 = this.moveControl.hasWanted() && this.moveControl.getWantedY() - this.getY() > 0;
 
-        if (!flag && !flag2 && (this.onGround() || this.isInWaterOrBubble() || this.isInLava() || this.isInFluidType())) {
+        if (!flag && !flag2 && (this.onGround() || this.isInWater() || this.isInLava() || this.isInFluidType())) {
             this.entityData.set(ATTACHED_FACE, Direction.DOWN);
             this.setCellRotation(new Quaternionf());
         } else {
@@ -205,7 +205,7 @@ public class CellingMonster extends Monster {
     @Override
     public void readAdditionalSaveData(CompoundTag p_33432_) {
         super.readAdditionalSaveData(p_33432_);
-        this.setAttachFace(Direction.from3DDataValue(p_33432_.getByte("AttachFace")));
+        this.setAttachFace(Direction.from3DDataValue(p_33432_.getByteOr("AttachFace", (byte) 0)));
     }
 
 

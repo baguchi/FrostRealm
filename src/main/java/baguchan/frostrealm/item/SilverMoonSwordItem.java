@@ -5,14 +5,15 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 
-import java.util.List;
+import java.util.function.Consumer;
 
-public class SilverMoonSwordItem extends SwordItem {
+public class SilverMoonSwordItem extends Item {
     public SilverMoonSwordItem(ToolMaterial toolMaterial, float p_362481_, float p_364182_, Properties p_43272_) {
         super(toolMaterial.applySwordProperties(p_43272_, p_362481_, p_364182_));
     }
@@ -29,8 +30,8 @@ public class SilverMoonSwordItem extends SwordItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext tooltipContext, List<Component> components, TooltipFlag flag) {
-        super.appendHoverText(stack, tooltipContext, components, flag);
-        components.add(Component.translatable(getDescriptionId() + ".tooltip"));
+    public void appendHoverText(ItemStack p_41421_, TooltipContext p_339594_, TooltipDisplay p_399753_, Consumer<Component> p_399884_, TooltipFlag p_41424_) {
+        super.appendHoverText(p_41421_, p_339594_, p_399753_, p_399884_, p_41424_);
+        p_399884_.accept(Component.translatable(getDescriptionId() + ".tooltip"));
     }
 }

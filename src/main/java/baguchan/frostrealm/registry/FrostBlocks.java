@@ -9,6 +9,8 @@ import baguchan.frostrealm.item.block.DeferredDoubleHighBlockItem;
 import baguchan.frostrealm.world.tree.FrostTrees;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -94,7 +96,7 @@ public class FrostBlocks {
     //FROSTROOT
     public static final DeferredBlock<RotatedPillarBlock> FROSTROOT_LOG = register("frostroot_log", (properties) -> new RotatedPillarBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.PURPLE).strength(2.0F).sound(SoundType.CHERRY_WOOD));
     public static final DeferredBlock<RotatedPillarBlock> STRIPPED_FROSTROOT_LOG = register("stripped_frostroot_log", (properties) -> new RotatedPillarBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.PURPLE).strength(2.0F).sound(SoundType.CHERRY_WOOD));
-    public static final DeferredBlock<LeavesBlock> FROSTROOT_LEAVES = register("frostroot_leaves", (properties) -> new LeavesBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.PURPLE).strength(0.2F).noOcclusion().isSuffocating(FrostBlocks::never).isViewBlocking(FrostBlocks::never).sound(SoundType.GRASS));
+    public static final DeferredBlock<LeavesBlock> FROSTROOT_LEAVES = register("frostroot_leaves", (properties) -> new UntintedParticleLeavesBlock(0.01F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, 0x4F4C7C), properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.PURPLE).strength(0.2F).noOcclusion().isSuffocating(FrostBlocks::never).isViewBlocking(FrostBlocks::never).sound(SoundType.GRASS));
     public static final DeferredBlock<SaplingBlock> FROSTROOT_SAPLING = register("frostroot_sapling", (properties) -> new SaplingBlock(FrostTrees.FROSTROOT, properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.PURPLE).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS));
     public static final DeferredBlock<Block> FROSTROOT_PLANKS = register("frostroot_planks", (properties) -> new Block(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.PURPLE).strength(2.0F, 3.0F).sound(SoundType.CHERRY_WOOD));
     public static final DeferredBlock<SlabBlock> FROSTROOT_PLANKS_SLAB = register("frostroot_planks_slab", (properties) -> new SlabBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.PURPLE).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.CHERRY_WOOD));
@@ -119,7 +121,7 @@ public class FrostBlocks {
     );
     public static final DeferredBlock<RotatedPillarBlock> FROSTBITE_LOG = register("frostbite_log", (properties) -> new RotatedPillarBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.CYAN).strength(2.0F).randomTicks().sound(SoundType.NETHER_WOOD));
     public static final DeferredBlock<RotatedPillarBlock> STRIPPED_FROSTBITE_LOG = register("stripped_frostbite_log", (properties) -> new RotatedPillarBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.CYAN).strength(2.0F).sound(SoundType.NETHER_WOOD));
-    public static final DeferredBlock<LeavesBlock> FROSTBITE_LEAVES = register("frostbite_leaves", (properties) -> new LeavesBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.CYAN).strength(0.2F).noOcclusion().isSuffocating(FrostBlocks::never).isViewBlocking(FrostBlocks::never).sound(SoundType.GRASS));
+    public static final DeferredBlock<LeavesBlock> FROSTBITE_LEAVES = register("frostbite_leaves", (properties) -> new UntintedParticleLeavesBlock(0.01F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, 0x526F90), properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.CYAN).strength(0.2F).noOcclusion().isSuffocating(FrostBlocks::never).isViewBlocking(FrostBlocks::never).sound(SoundType.GRASS));
     public static final DeferredBlock<SaplingBlock> FROSTBITE_SAPLING = register("frostbite_sapling", (properties) -> new SaplingBlock(FrostTrees.FROSTBITE, properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.CYAN).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS));
     public static final DeferredBlock<Block> FROSTBITE_PLANKS = register("frostbite_planks", (properties) -> new Block(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.CYAN).strength(2.0F, 3.0F).sound(SoundType.NETHER_WOOD));
     public static final DeferredBlock<SlabBlock> FROSTBITE_PLANKS_SLAB = register("frostbite_planks_slab", (properties) -> new SlabBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.CYAN).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.NETHER_WOOD));
@@ -146,7 +148,7 @@ public class FrostBlocks {
 
     public static final DeferredBlock<RotatedPillarBlock> DRIP_LOG = register("drip_log", (properties) -> new RotatedPillarBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(2.0F).randomTicks().sound(SoundType.NETHER_WOOD));
     //public static final DeferredBlock<RotatedPillarBlock> STRIPPED_DRIP_LOG = register("stripped_drip_log", (properties) -> new RotatedPillarBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(2.0F).sound(SoundType.NETHER_WOOD));
-    public static final DeferredBlock<LeavesBlock> DRIP_LEAVES = register("drip_leaves", (properties) -> new LeavesBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(0.2F).noOcclusion().isSuffocating(FrostBlocks::never).isViewBlocking(FrostBlocks::never).sound(SoundType.GRASS));
+    public static final DeferredBlock<LeavesBlock> DRIP_LEAVES = register("drip_leaves", (properties) -> new UntintedParticleLeavesBlock(0.01F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, 0xB84727), properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(0.2F).noOcclusion().isSuffocating(FrostBlocks::never).isViewBlocking(FrostBlocks::never).sound(SoundType.GRASS));
     public static final DeferredBlock<SaplingBlock> DRIP_SAPLING = register("drip_sapling", (properties) -> new SaplingBlock(FrostTrees.DRIP, properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS));
     public static final DeferredBlock<Block> DRIP_PLANKS = register("drip_planks", (properties) -> new Block(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(2.0F, 3.0F).sound(SoundType.NETHER_WOOD));
     public static final DeferredBlock<SlabBlock> DRIP_PLANKS_SLAB = register("drip_planks_slab", (properties) -> new SlabBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.NETHER_WOOD));

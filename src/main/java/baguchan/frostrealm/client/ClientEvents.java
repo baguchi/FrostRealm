@@ -22,7 +22,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.TooltipFlag;
@@ -75,7 +75,7 @@ public class ClientEvents {
     public static void onToolTip(ItemTooltipEvent event) {
         AuroraPowerUtils.getAuroraPowers(event.getItemStack()).addToTooltip(event.getContext(), component -> {
             event.getToolTip().add(component);
-        }, TooltipFlag.NORMAL);
+        }, TooltipFlag.NORMAL, event.getItemStack());
         @Nullable Holder<AttachableCrystal> attachableCrystal = event.getItemStack().get(FrostDataCompnents.ATTACH_CRYSTAL);
         int damage = event.getItemStack().getOrDefault(FrostDataCompnents.CRYSTAL_USED, 0);
 
@@ -98,7 +98,7 @@ public class ClientEvents {
             Holder<Biome> biome = Minecraft.getInstance().player.level().getBiome(Minecraft.getInstance().player.blockPosition());
             float volume = biome.value().getBackgroundMusicVolume();
             if (Minecraft.getInstance().level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-                Optional<SimpleWeightedRandomList<Music>> musicInfo = biome.value().getBackgroundMusic();
+                Optional<WeightedList<Music>> musicInfo = biome.value().getBackgroundMusic();
                 if (!(Minecraft.getInstance().screen instanceof WinScreen)) {
                     long time = Minecraft.getInstance().player.clientLevel.getLevelData().getDayTime() % 24000L;
                     boolean day = time >= 0 && time < 12000;
@@ -109,7 +109,7 @@ public class ClientEvents {
                         event.setMusic(new MusicInfo(CALM_NIGHT, volume));
                     } else {
                         if (musicInfo.isPresent()) {
-                            Optional<Music> music = musicInfo.get().getRandomValue(Minecraft.getInstance().level.random);
+                            Optional<Music> music = musicInfo.get().getRandom(Minecraft.getInstance().level.random);
                             if (music.isPresent()) {
                                 event.setMusic(new MusicInfo(music.get()));
                             }

@@ -45,7 +45,7 @@ public abstract class TamableBiggerAnimal extends TamableAnimal {
         if (!this.canTeleportTo(new BlockPos(p_350930_, p_350303_, p_350410_))) {
             return false;
         } else {
-            this.moveTo((double) p_350930_ + (double) 0.5F, (double) p_350303_, (double) p_350410_ + (double) 0.5F, this.getYRot(), this.getXRot());
+            this.snapTo((double) p_350930_ + (double) 0.5F, (double) p_350303_, (double) p_350410_ + (double) 0.5F, this.getYRot(), this.getXRot());
             this.navigation.stop();
             return true;
         }

@@ -44,13 +44,7 @@ public class SickleItem extends Item {
     }
 
     @Override
-    public boolean canAttackBlock(BlockState p_43291_, Level p_43292_, BlockPos p_43293_, Player p_43294_) {
-        return !p_43294_.isCreative();
-    }
-
-    @Override
-    public boolean hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
-        return true;
+    public void hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
     }
 
     @Override

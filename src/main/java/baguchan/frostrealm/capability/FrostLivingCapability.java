@@ -295,8 +295,8 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
 	}
 
 	public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-		this.temperature = nbt.getInt("Temperature");
-		this.temperatureSaturation = nbt.getFloat("TemperatureSaturation");
-		this.exhaustionLevel = nbt.getFloat("TemperatureExhaustion");
+		this.temperature = nbt.getIntOr("Temperature", 20);
+		this.temperatureSaturation = nbt.getFloatOr("TemperatureSaturation", 1.0F);
+		this.exhaustionLevel = nbt.getFloatOr("TemperatureExhaustion", 0);
 	}
 }

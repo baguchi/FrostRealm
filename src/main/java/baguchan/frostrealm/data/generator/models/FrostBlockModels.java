@@ -6,10 +6,9 @@ import baguchan.frostrealm.data.provider.FrBlockstateModelProvider;
 import baguchan.frostrealm.registry.FrostBlocks;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelOutput;
-import net.minecraft.client.data.models.blockstates.BlockStateGenerator;
+import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
-import net.minecraft.client.data.models.blockstates.Variant;
-import net.minecraft.client.data.models.blockstates.VariantProperties;
 import net.minecraft.client.data.models.model.ModelInstance;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
@@ -24,7 +23,7 @@ import java.util.function.Consumer;
 
 public class FrostBlockModels extends FrBlockstateModelProvider {
 
-    public FrostBlockModels(Consumer<BlockStateGenerator> blockStateOutput, ItemModelOutput itemModelOutput, BiConsumer<ResourceLocation, ModelInstance> modelOutput) {
+    public FrostBlockModels(Consumer<BlockModelDefinitionGenerator> blockStateOutput, ItemModelOutput itemModelOutput, BiConsumer<ResourceLocation, ModelInstance> modelOutput) {
         super(blockStateOutput, itemModelOutput, modelOutput);
     }
 
@@ -151,10 +150,8 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
     public void createWolfflue(Block p_388054_) {
         TextureMapping texturemapping = FrostTextureMappings.wolfflue(p_388054_);
 
+        MultiVariant multiVariant = plainVariant(ModelTemplates.CUBE.create(p_388054_, texturemapping, this.modelOutput));
         this.blockStateOutput
-                .accept(
-                        MultiVariantGenerator.multiVariant(p_388054_, Variant.variant().with(VariantProperties.MODEL, ModelTemplates.CUBE.create(p_388054_, texturemapping, this.modelOutput)))
-                                .with(createHorizontalFacingDispatch())
-                );
+                .accept(MultiVariantGenerator.dispatch(p_388054_, multiVariant).with(ROTATION_HORIZONTAL_FACING));
     }
 }

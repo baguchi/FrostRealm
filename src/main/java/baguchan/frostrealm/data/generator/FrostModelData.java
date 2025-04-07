@@ -3,13 +3,15 @@ package baguchan.frostrealm.data.generator;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.data.generator.models.FrostBlockModels;
 import baguchan.frostrealm.data.generator.models.FrostItemModels;
+import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 import net.minecraft.client.data.models.ItemModelOutput;
 import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.blockstates.BlockStateGenerator;
+import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelInstance;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.renderer.block.model.BlockModelDefinition;
 import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.Holder;
@@ -159,8 +161,8 @@ public class FrostModelData extends ModelProvider {
     }
 
     @OnlyIn(Dist.CLIENT)
-    static class BlockStateGeneratorCollector implements Consumer<BlockStateGenerator> {
-        private final Map<Block, BlockStateGenerator> generators;
+    static class BlockStateGeneratorCollector implements Consumer<BlockModelDefinitionGenerator> {
+        private final Map<Block, BlockModelDefinitionGenerator> generators;
         private final Supplier<Stream<? extends Holder<Block>>> knownBlocks;
 
         public BlockStateGeneratorCollector(Supplier<Stream<? extends Holder<Block>>> knownBlocks) {
@@ -169,9 +171,9 @@ public class FrostModelData extends ModelProvider {
         }
 
 
-        public void accept(BlockStateGenerator p_388748_) {
-            Block block = p_388748_.getBlock();
-            BlockStateGenerator blockstategenerator = (BlockStateGenerator) this.generators.put(block, p_388748_);
+        public void accept(BlockModelDefinitionGenerator p_388748_) {
+            Block block = p_388748_.block();
+            BlockModelDefinitionGenerator blockstategenerator = (BlockModelDefinitionGenerator) this.generators.put(block, p_388748_);
             if (blockstategenerator != null) {
                 throw new IllegalStateException("Duplicate blockstate definition for " + String.valueOf(block));
             }
@@ -186,11 +188,9 @@ public class FrostModelData extends ModelProvider {
         }
 
         public CompletableFuture<?> save(CachedOutput p_388014_, PackOutput.PathProvider p_388192_) {
-            return saveAll(p_388014_, (p_387598_) -> p_388192_.json(p_387598_.builtInRegistryHolder().key().location()), this.generators);
-        }
-
-        static <T> CompletableFuture<?> saveAll(CachedOutput p_387084_, Function<T, Path> p_386455_, Map<T, ? extends Supplier<JsonElement>> p_386585_) {
-            return DataProvider.saveAll(p_387084_, Supplier::get, p_386455_, p_386585_);
+            Map<Block, BlockModelDefinition> map = Maps.transformValues(this.generators, BlockModelDefinitionGenerator::create);
+            Function<Block, Path> function = p_387598_ -> p_388192_.json(p_387598_.builtInRegistryHolder().key().location());
+            return DataProvider.saveAll(p_388014_, BlockModelDefinition.CODEC, function, map);
         }
     }
 }

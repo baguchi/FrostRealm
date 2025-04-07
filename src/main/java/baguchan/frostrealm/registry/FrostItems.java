@@ -58,16 +58,16 @@ public class FrostItems {
     public static final DeferredItem<Item> FROST_SPEAR = ITEMS.registerItem("frost_spear", (properties) -> new FrostSpearItem((properties.attributes(FrostSpearItem.createAttributes()).enchantable(20).durability(1021).rarity(Rarity.UNCOMMON))));
     public static final DeferredItem<Item> SILVER_MOON = ITEMS.registerItem("silver_moon", (properties) -> new SilverMoonSwordItem(FrostToolMaterials.SILVER_MOON, 3, -2.2F, (properties.rarity(Rarity.RARE))));
 
-    public static final DeferredItem<Item> ASTRIUM_SWORD = ITEMS.registerItem("astrium_sword", (properties) -> new SwordItem(FrostToolMaterials.ASTRIUM, 3, -2.3F, properties));
+    public static final DeferredItem<Item> ASTRIUM_SWORD = ITEMS.registerItem("astrium_sword", (properties) -> new Item(properties.sword(FrostToolMaterials.ASTRIUM, 3, -2.3F)));
     public static final DeferredItem<Item> ASTRIUM_AXE = ITEMS.registerItem("astrium_axe", (properties) -> new AxeItem(FrostToolMaterials.ASTRIUM, 6F, -3.0F, properties));
-    public static final DeferredItem<Item> ASTRIUM_PICKAXE = ITEMS.registerItem("astrium_pickaxe", (properties) -> new PickaxeItem(FrostToolMaterials.ASTRIUM, 1, -2.7F, properties));
+    public static final DeferredItem<Item> ASTRIUM_PICKAXE = ITEMS.registerItem("astrium_pickaxe", (properties) -> new Item(properties.pickaxe(FrostToolMaterials.ASTRIUM, 1, -2.7F)));
     public static final DeferredItem<Item> ASTRIUM_SHOVEL = ITEMS.registerItem("astrium_shovel", (properties) -> new ShovelItem(FrostToolMaterials.ASTRIUM, 1.5F, -2.9F, properties));
     public static final DeferredItem<Item> ASTRIUM_HOE = ITEMS.registerItem("astrium_hoe", (properties) -> new HoeItem(FrostToolMaterials.ASTRIUM, -2, -1.0F, properties));
     public static final DeferredItem<Item> ASTRIUM_SICKLE = ITEMS.registerItem("astrium_sickle", (properties) -> new SickleItem(FrostToolMaterials.ASTRIUM, 5.0F, -3.2F, properties));
 
-    public static final DeferredItem<Item> GLACINIUM_SWORD = ITEMS.registerItem("glacinium_sword", (properties) -> new SwordItem(FrostToolMaterials.GLACINIUM, 3, -2.6F, properties));
+    public static final DeferredItem<Item> GLACINIUM_SWORD = ITEMS.registerItem("glacinium_sword", (properties) -> new Item(properties.sword(FrostToolMaterials.GLACINIUM, 3, -2.6F)));
     public static final DeferredItem<Item> GLACINIUM_AXE = ITEMS.registerItem("glacinium_axe", (properties) -> new AxeItem(FrostToolMaterials.GLACINIUM, 4F, -3.1F, properties));
-    public static final DeferredItem<Item> GLACINIUM_PICKAXE = ITEMS.registerItem("glacinium_pickaxe", (properties) -> new PickaxeItem(FrostToolMaterials.GLACINIUM, 1, -2.9F, properties));
+    public static final DeferredItem<Item> GLACINIUM_PICKAXE = ITEMS.registerItem("glacinium_pickaxe", (properties) -> new Item(properties.pickaxe(FrostToolMaterials.GLACINIUM, 1, -2.9F)));
     public static final DeferredItem<Item> GLACINIUM_SHOVEL = ITEMS.registerItem("glacinium_shovel", (properties) -> new ShovelItem(FrostToolMaterials.GLACINIUM, 1.5F, -3.0F, properties));
     public static final DeferredItem<Item> GLACINIUM_HOE = ITEMS.registerItem("glacinium_hoe", (properties) -> new HoeItem(FrostToolMaterials.GLACINIUM, -2, -1.0F, properties));
     public static final DeferredItem<Item> GLACINIUM_SICKLE = ITEMS.registerItem("glacinium_sickle", (properties) -> new SickleItem(FrostToolMaterials.GLACINIUM, 3.0F, -3.3F, properties));
@@ -85,10 +85,10 @@ public class FrostItems {
     public static final DeferredItem<YetiFurArmorItem> FROST_BOAR_FUR_BOOTS = ITEMS.registerItem("frost_boar_fur_boots", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, ArmorType.BOOTS, (properties.durability(ArmorType.BOOTS.getDurability(20)))));
 
 
-    public static final DeferredItem<ArmorItem> ASTRIUM_HELMET = ITEMS.registerItem("astrium_helmet", (properties) -> new ArmorItem(FrostArmorMaterials.ASTRIUM, ArmorType.HELMET, (properties.durability(ArmorType.HELMET.getDurability(22)))));
-    public static final DeferredItem<ArmorItem> ASTRIUM_CHESTPLATE = ITEMS.registerItem("astrium_chestplate", (properties) -> new ArmorItem(FrostArmorMaterials.ASTRIUM, ArmorType.CHESTPLATE, (properties.durability(ArmorType.CHESTPLATE.getDurability(22)))));
-    public static final DeferredItem<ArmorItem> ASTRIUM_LEGGINGS = ITEMS.registerItem("astrium_leggings", (properties) -> new ArmorItem(FrostArmorMaterials.ASTRIUM, ArmorType.LEGGINGS, (properties.durability(ArmorType.LEGGINGS.getDurability(22)))));
-    public static final DeferredItem<ArmorItem> ASTRIUM_BOOTS = ITEMS.registerItem("astrium_boots", (properties) -> new ArmorItem(FrostArmorMaterials.ASTRIUM, ArmorType.BOOTS, (properties.durability(ArmorType.BOOTS.getDurability(22)))));
+    public static final DeferredItem<Item> ASTRIUM_HELMET = ITEMS.registerItem("astrium_helmet", (properties) -> new Item((properties.humanoidArmor(FrostArmorMaterials.ASTRIUM, ArmorType.HELMET))));
+    public static final DeferredItem<Item> ASTRIUM_CHESTPLATE = ITEMS.registerItem("astrium_chestplate", (properties) -> new Item((properties.humanoidArmor(FrostArmorMaterials.ASTRIUM, ArmorType.CHESTPLATE))));
+    public static final DeferredItem<Item> ASTRIUM_LEGGINGS = ITEMS.registerItem("astrium_leggings", (properties) -> new Item(properties.humanoidArmor(FrostArmorMaterials.ASTRIUM, ArmorType.LEGGINGS)));
+    public static final DeferredItem<Item> ASTRIUM_BOOTS = ITEMS.registerItem("astrium_boots", (properties) -> new Item(properties.humanoidArmor(FrostArmorMaterials.ASTRIUM, ArmorType.BOOTS)));
     public static final DeferredItem<Item> WOLFFLUE_ASTRIUM_ARMOR = ITEMS.registerItem("wolfflue_astrium_armor", (properties) -> new WolfflueArmorItem(FrostArmorMaterials.ASTRIUM, (properties.durability(ArmorType.BODY.getDurability(22)))));
     public static final DeferredItem<Item> WOLFFLUE_FROST_BOAR_ARMOR = ITEMS.registerItem("wolfflue_frost_boar_armor", (properties) -> new WolfflueArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, (properties.durability(ArmorType.BODY.getDurability(20)))));
     public static final DeferredItem<Item> HOT_SPRING_BUCKET = ITEMS.registerItem("hot_spring_bucket", (properties) -> new BucketItem(FrostFluids.HOT_SPRING.get(), (properties)));

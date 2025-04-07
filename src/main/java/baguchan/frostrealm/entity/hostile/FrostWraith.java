@@ -55,7 +55,7 @@ public class FrostWraith extends WarpedMonster {
 
 	@Override
 	public void travel(Vec3 p_21280_) {
-        if (this.isControlledByLocalInstance()) {
+		if (this.isLocalInstanceAuthoritative()) {
             if (this.isInWater()) {
                 this.moveRelative(0.02F, p_21280_);
                 this.move(MoverType.SELF, this.getDeltaMovement());

@@ -3,6 +3,6 @@
   "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "frostrealm:block/drip_door_bottom",
-    "top": "frostrealm:block/drip_door"
+    "top": "frostrealm:block/drip_door_top"
   }
 }

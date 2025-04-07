@@ -18,7 +18,7 @@ public abstract class ItemModelResolverMixin {
 
     @Inject(method = "updateForLiving", at = @At(value = "HEAD"))
     public void updateForLiving(
-            ItemStackRenderState p_387100_, ItemStack p_387635_, ItemDisplayContext p_388107_, boolean p_387193_, LivingEntity p_388201_, CallbackInfo ci
+            ItemStackRenderState p_387100_, ItemStack p_387635_, ItemDisplayContext p_388107_, LivingEntity p_388201_, CallbackInfo ci
     ) {
         if (p_387100_ instanceof IGlintAurora glintAurora) {
             glintAurora.frostRealm$setGlint(!AuroraPowerUtils.getAuroraPowers(p_387635_).isEmpty());

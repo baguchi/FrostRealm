@@ -86,12 +86,12 @@ public class SnowBallAttack<E extends Mob & SnowChargeMob, T extends LivingEntit
     public void makeBlock(E entity) {
         if (entity.level().getBlockState(entity.blockPosition()).is(Blocks.SNOW)) {
             FlyingBlockEntity flyingBlockEntity = new FlyingBlockEntity(entity.level(), entity, Blocks.SNOW_BLOCK.defaultBlockState());
-            flyingBlockEntity.moveTo(entity.getX(), entity.getY(), entity.getZ(), entity.getYRot(), 0.0F);
+            flyingBlockEntity.snapTo(entity.getX(), entity.getY(), entity.getZ(), entity.getYRot(), 0.0F);
             flyingBlockEntity.startRiding(entity);
             entity.level().addFreshEntity(flyingBlockEntity);
         } else if (entity.level().getBlockState(entity.getOnPos()).is(BlockTags.DIRT) || entity.level().getBlockState(entity.getOnPos()).is(Blocks.SNOW_BLOCK)) {
             FlyingBlockEntity flyingBlockEntity = new FlyingBlockEntity(entity.level(), entity, entity.level().getBlockState(entity.getOnPos()));
-            flyingBlockEntity.moveTo(entity.getX(), entity.getY(), entity.getZ(), entity.getYRot(), 0.0F);
+            flyingBlockEntity.snapTo(entity.getX(), entity.getY(), entity.getZ(), entity.getYRot(), 0.0F);
             flyingBlockEntity.startRiding(entity);
             entity.level().addFreshEntity(flyingBlockEntity);
         } else {

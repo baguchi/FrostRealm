@@ -7,14 +7,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ARGB;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -30,25 +26,13 @@ public class ClientUtils {
 
     }
 
+
     @OnlyIn(Dist.CLIENT)
-    public static void renderItemAurora(PoseStack p_360423_, MultiBufferSource p_360415_, int p_361265_, int p_364771_, int[] p_386517_, BakedModel p_363970_, RenderType p_388877_) {
+    public static void renderItemAurora(PoseStack p_360423_, MultiBufferSource p_360415_, int p_361265_, int p_364771_, int[] p_386517_, List<BakedQuad> p_404702_, RenderType p_388877_) {
         VertexConsumer vertexconsumer = FrostRenderType.getAurora(p_360415_, p_388877_);
 
-        renderModelLists(p_363970_, p_386517_, p_361265_, p_364771_, p_360423_, vertexconsumer);
-    }
 
-    @OnlyIn(Dist.CLIENT)
-    private static void renderModelLists(BakedModel p_115190_, int[] p_387364_, int p_115192_, int p_115193_, PoseStack p_115194_, VertexConsumer p_115195_) {
-        RandomSource randomsource = RandomSource.create();
-        long i = 42L;
-
-        for (Direction direction : Direction.values()) {
-            randomsource.setSeed(42L);
-            renderQuadList(p_115194_, p_115195_, p_115190_.getQuads((BlockState) null, direction, randomsource), p_387364_, p_115192_, p_115193_);
-        }
-
-        randomsource.setSeed(42L);
-        renderQuadList(p_115194_, p_115195_, p_115190_.getQuads((BlockState) null, (Direction) null, randomsource), p_387364_, p_115192_, p_115193_);
+        renderQuadList(p_360423_, vertexconsumer, p_404702_, p_386517_, p_361265_, p_364771_);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -66,7 +50,7 @@ public class ClientUtils {
             float f2;
             float f3;
             if (bakedquad.isTinted()) {
-                int i = getLayerColorSafe(p_387305_, bakedquad.getTintIndex());
+                int i = getLayerColorSafe(p_387305_, bakedquad.tintIndex());
                 f = (float) ARGB.alpha(i) / 255.0F;
                 f1 = (float) ARGB.red(i) / 255.0F;
                 f2 = (float) ARGB.green(i) / 255.0F;

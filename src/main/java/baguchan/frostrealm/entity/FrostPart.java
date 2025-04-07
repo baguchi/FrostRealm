@@ -112,7 +112,7 @@ public class FrostPart<T extends Entity> extends net.neoforged.neoforge.entity.P
     }
 
     public final void updateLastPos() {
-        this.moveTo(this.getX(), this.getY(), this.getZ());
+        this.snapTo(this.getX(), this.getY(), this.getZ());
         this.yRotO = this.getYRot();
         this.xRotO = this.getXRot();
         this.tickCount++;

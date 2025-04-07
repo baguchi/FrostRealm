@@ -14,7 +14,7 @@ public class RestrictFlyingSunGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.mob.level().isDay() && this.mob.getItemBySlot(EquipmentSlot.HEAD).isEmpty() && this.mob.getNavigation() instanceof SunAvoidFlyingPathNavigation;
+        return this.mob.level().isBrightOutside() && this.mob.getItemBySlot(EquipmentSlot.HEAD).isEmpty() && this.mob.getNavigation() instanceof SunAvoidFlyingPathNavigation;
     }
 
     @Override

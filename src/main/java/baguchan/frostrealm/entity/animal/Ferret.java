@@ -41,6 +41,7 @@ import java.util.function.Predicate;
 public class Ferret extends TamableAnimal {
     private static final EntityDataAccessor<Integer> DATA_COLLAR_COLOR = SynchedEntityData.defineId(Ferret.class, EntityDataSerializers.INT);
 
+    private static final DyeColor DEFAULT_COLLAR_COLOR = DyeColor.RED;
 
     public static final Predicate<LivingEntity> PREY_SELECTOR = p_348295_ -> {
         EntityType<?> entitytype = p_348295_.getType();
@@ -86,15 +87,15 @@ public class Ferret extends TamableAnimal {
     @Override
     public void addAdditionalSaveData(CompoundTag p_30418_) {
         super.addAdditionalSaveData(p_30418_);
-        p_30418_.putByte("CollarColor", (byte) this.getCollarColor().getId());
+        p_30418_.store("CollarColor", DyeColor.LEGACY_ID_CODEC, this.getCollarColor());
+
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag p_30402_) {
         super.readAdditionalSaveData(p_30402_);
-        if (p_30402_.contains("CollarColor", 99)) {
-            this.setCollarColor(DyeColor.byId(p_30402_.getInt("CollarColor")));
-        }
+        this.setCollarColor(p_30402_.read("CollarColor", DyeColor.LEGACY_ID_CODEC).orElse(DEFAULT_COLLAR_COLOR));
+
     }
 
     @Override

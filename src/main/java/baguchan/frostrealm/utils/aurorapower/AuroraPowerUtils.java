@@ -217,7 +217,7 @@ public class AuroraPowerUtils {
             p_220300_ = Mth.clamp(Math.round((float) p_220300_ + (float) p_220300_ * f), 1, Integer.MAX_VALUE);
             List<AuroraPowerInstance> list1 = getAvailableAuroraPowerResults(p_220300_, p_220299_, p_220301_);
             if (!list1.isEmpty()) {
-                WeightedRandom.getRandomItem(p_220298_, list1).ifPresent(list::add);
+                WeightedRandom.getRandomItem(p_220298_, list1, AuroraPowerInstance::weight).ifPresent(list::add);
 
                 while (p_220298_.nextInt(50) <= p_220300_) {
                     if (!list.isEmpty()) {
@@ -228,7 +228,7 @@ public class AuroraPowerUtils {
                         break;
                     }
 
-                    WeightedRandom.getRandomItem(p_220298_, list1).ifPresent(list::add);
+                    WeightedRandom.getRandomItem(p_220298_, list1, AuroraPowerInstance::weight).ifPresent(list::add);
                     p_220300_ /= 2;
                 }
             }

@@ -4,13 +4,11 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.registry.FrostAttachs;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -37,9 +35,7 @@ public class FrostOverlay implements LayeredDraw.Layer {
             int screenHeight = mc.getWindow().getGuiScaledHeight() - (mc.gui).rightHeight;
             if (entity != null && entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
                 this.random.setSeed((this.tickCount * 312871));
-                RenderSystem.enableBlend();
                 FrostLivingCapability cap = entity.getData(FrostAttachs.FROST_LIVING);
-                RenderSystem.setShader(CoreShaders.POSITION_TEX_COLOR);
                 int l = cap.getTemperatureLevel();
                 int j1 = screenWidth / 2 + 91;
                 int k1 = screenHeight;
@@ -59,7 +55,6 @@ public class FrostOverlay implements LayeredDraw.Layer {
                         guiGraphics.blitSprite(RenderType::guiTextured, ICON_1, k8, i7, 9, 9);
                     }
                 }
-                RenderSystem.disableBlend();
                 (mc.gui).rightHeight += 10;
                 this.tickCount++;
             }

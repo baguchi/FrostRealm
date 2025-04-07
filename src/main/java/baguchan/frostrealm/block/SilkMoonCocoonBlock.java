@@ -41,13 +41,13 @@ public class SilkMoonCocoonBlock extends Block {
         p_221228_.scheduleTick(p_221229_, this, 1600);
     }
 
-    @Override
-    public void fallOn(Level p_154845_, BlockState p_154846_, BlockPos p_154847_, Entity p_154848_, float p_154849_) {
-        if (!(p_154848_ instanceof Zombie)) {
-            this.destroyEgg(p_154845_, p_154846_, p_154847_, p_154848_, 5);
-        }
 
-        super.fallOn(p_154845_, p_154846_, p_154847_, p_154848_, p_154849_);
+    @Override
+    public void fallOn(Level p_152426_, BlockState p_152427_, BlockPos p_152428_, Entity p_152429_, double p_397222_) {
+        if (!(p_152429_ instanceof Zombie)) {
+            this.destroyEgg(p_152426_, p_152427_, p_152428_, p_152429_, 5);
+        }
+        super.fallOn(p_152426_, p_152427_, p_152428_, p_152429_, p_397222_);
     }
 
     private void destroyEgg(Level p_154851_, BlockState p_154852_, BlockPos p_154853_, Entity p_154854_, int p_154855_) {
@@ -84,7 +84,7 @@ public class SilkMoonCocoonBlock extends Block {
 
                 p_221182_.levelEvent(2001, p_221183_, Block.getId(p_221194_));
                 SilkMoon silkMoonWorm = FrostEntities.SILK_MOON.get().create(p_221182_, EntitySpawnReason.BREEDING);
-                silkMoonWorm.moveTo((double) p_221183_.getX() + 0.5, p_221183_.getY(), (double) p_221183_.getZ() + 0.5D, 0.0F, 0.0F);
+                silkMoonWorm.snapTo((double) p_221183_.getX() + 0.5, p_221183_.getY(), (double) p_221183_.getZ() + 0.5D, 0.0F, 0.0F);
                 p_221182_.addFreshEntity(silkMoonWorm);
                 if (!p_221182_.isClientSide) {
                     ItemStack itemstack = new ItemStack(Items.STRING, 6);

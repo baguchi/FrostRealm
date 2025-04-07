@@ -11,6 +11,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -63,33 +64,6 @@ public class ItemAuroraPower implements TooltipProvider {
 
     public int getLevel(AuroraPower p_330552_) {
         return this.enchantments.getInt(getHolder(p_330552_));
-    }
-
-    public void addToTooltip(Item.TooltipContext p_341290_, Consumer<Component> p_331119_, TooltipFlag p_330400_) {
-        if (this.showInTooltip) {
-            HolderLookup.Provider holderlookup$provider = p_341290_.registries();
-            Registry<AuroraPower> holderset = AuroraPowers.getRegistry();
-            Iterator<AuroraPower> var6 = holderset.iterator();
-
-            while (var6.hasNext()) {
-                AuroraPower holder = var6.next();
-                int i = this.enchantments.getInt(holder);
-                if (i > 0) {
-                    p_331119_.accept(holder.getFullname(i));
-                }
-            }
-
-            ObjectIterator var9 = this.enchantments.object2IntEntrySet().iterator();
-
-            while (var9.hasNext()) {
-                Object2IntMap.Entry<Holder<AuroraPower>> entry = (Object2IntMap.Entry) var9.next();
-                Holder<AuroraPower> holder1 = entry.getKey();
-                if (holderset.containsValue(holder1.value())) {
-                    p_331119_.accept(holder1.value().getFullname(entry.getIntValue()));
-                }
-            }
-        }
-
     }
 
     private static <T> HolderSet<T> getTagOrEmpty(@Nullable HolderLookup.Provider p_341186_, ResourceKey<Registry<T>> p_341113_, TagKey<T> p_341409_) {
@@ -169,6 +143,34 @@ public class ItemAuroraPower implements TooltipProvider {
 
     public static Holder<AuroraPower> getHolder(AuroraPower mobEnchant) {
         return AuroraPowers.getRegistry().wrapAsHolder(mobEnchant);
+    }
+
+    @Override
+    public void addToTooltip(Item.TooltipContext p_340892_, Consumer<Component> p_330337_, TooltipFlag p_331069_, DataComponentGetter p_399520_) {
+        if (this.showInTooltip) {
+            HolderLookup.Provider holderlookup$provider = p_340892_.registries();
+            Registry<AuroraPower> holderset = AuroraPowers.getRegistry();
+            Iterator<AuroraPower> var6 = holderset.iterator();
+
+            while (var6.hasNext()) {
+                AuroraPower holder = var6.next();
+                int i = this.enchantments.getInt(holder);
+                if (i > 0) {
+                    p_330337_.accept(holder.getFullname(i));
+                }
+            }
+
+            ObjectIterator var9 = this.enchantments.object2IntEntrySet().iterator();
+
+            while (var9.hasNext()) {
+                Object2IntMap.Entry<Holder<AuroraPower>> entry = (Object2IntMap.Entry) var9.next();
+                Holder<AuroraPower> holder1 = entry.getKey();
+                if (holderset.containsValue(holder1.value())) {
+                    p_330337_.accept(holder1.value().getFullname(entry.getIntValue()));
+                }
+            }
+        }
+
     }
 
     public static class Mutable {

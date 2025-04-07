@@ -61,7 +61,7 @@ public class SilkMoonWorm extends PathfinderMob {
     @Override
     public void readAdditionalSaveData(CompoundTag p_218698_) {
         super.readAdditionalSaveData(p_218698_);
-        this.setAge(p_218698_.getInt("Age"));
+        this.setAge(p_218698_.getIntOr("Age", 0));
     }
 
     @Override

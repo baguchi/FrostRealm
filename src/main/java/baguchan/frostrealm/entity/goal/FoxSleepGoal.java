@@ -22,7 +22,7 @@ public class FoxSleepGoal extends Goal {
         if (this.mob.hasControllingPassenger()) {
             return false;
         } else {
-            if (Objects.equals(this.mob.getState(), CrystalFox.State.SLEEPING.name()) && this.mob.level().isNight()) {
+            if (Objects.equals(this.mob.getState(), CrystalFox.State.SLEEPING.name()) && this.mob.level().isDarkOutside()) {
                 return true;
             }
             if (!Objects.equals(this.mob.getState(), CrystalFox.State.IDLING.name())) {
@@ -31,7 +31,7 @@ public class FoxSleepGoal extends Goal {
             if (this.cooldown > 0) {
                 this.cooldown--;
             }
-            if (this.cooldown <= 0 && this.mob.onGround() && !this.mob.isInWater() && (this.mob.level().isNight() || FrostWeatherSavedData.get(this.mob.level()) != null && FrostWeatherSavedData.get(this.mob.level()).isWeatherActive()) && !this.mob.level().canSeeSky(this.mob.blockPosition())) {
+            if (this.cooldown <= 0 && this.mob.onGround() && !this.mob.isInWater() && (this.mob.level().isDarkOutside() || FrostWeatherSavedData.get(this.mob.level()) != null && FrostWeatherSavedData.get(this.mob.level()).isWeatherActive()) && !this.mob.level().canSeeSky(this.mob.blockPosition())) {
                 this.cooldown = this.mob.getRandom().nextInt(600, 1800);
                 return true;
             }
@@ -41,7 +41,7 @@ public class FoxSleepGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return !this.mob.onGround() || FrostWeatherSavedData.get(this.mob.level()) != null && FrostWeatherSavedData.get(this.mob.level()).isWeatherActive() || this.mob.level().isNight();
+        return !this.mob.onGround() || FrostWeatherSavedData.get(this.mob.level()) != null && FrostWeatherSavedData.get(this.mob.level()).isWeatherActive() || this.mob.level().isDarkOutside();
     }
 
     @Override

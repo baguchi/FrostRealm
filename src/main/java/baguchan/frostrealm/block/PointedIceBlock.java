@@ -106,17 +106,16 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
         }
 	}
 
-    @Override
-	public void fallOn(Level p_154047_, BlockState p_154048_, BlockPos p_154049_, Entity p_154050_, float p_154051_) {
-		if (p_154048_.getValue(TIP_DIRECTION) == Direction.UP && p_154048_.getValue(THICKNESS) == DripstoneThickness.TIP) {
-			p_154050_.causeFallDamage(p_154051_ + 2.0F, 2.0F, p_154047_.damageSources().stalagmite());
-			if (p_154050_.fallDistance > 1F) {
-				p_154047_.destroyBlock(p_154049_, false);
+	@Override
+	public void fallOn(Level p_152426_, BlockState p_152427_, BlockPos p_152428_, Entity p_152429_, double p_397222_) {
+		if (p_152427_.getValue(TIP_DIRECTION) == Direction.UP && p_152427_.getValue(THICKNESS) == DripstoneThickness.TIP) {
+			p_152429_.causeFallDamage(p_397222_ + 2.0F, 2.0F, p_152426_.damageSources().stalagmite());
+			if (p_152429_.fallDistance > 1F) {
+				p_152426_.destroyBlock(p_152428_, false);
 			}
 		} else {
-			super.fallOn(p_154047_, p_154048_, p_154049_, p_154050_, p_154051_);
+			super.fallOn(p_152426_, p_152427_, p_152428_, p_152429_, p_397222_);
 		}
-
 	}
 
 	@Override

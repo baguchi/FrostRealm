@@ -160,7 +160,7 @@ public class CommonEvents {
         if (event.getEntity().isMultipartEntity()) {
             for (PartEntity<?> partEntity : event.getEntity().getParts()) {
                 if (partEntity instanceof FrostPart<?> part) {
-                    part.moveTo(event.getEntity().position());
+                    part.snapTo(event.getEntity().position());
                 }
             }
         }

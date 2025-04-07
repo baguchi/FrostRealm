@@ -18,11 +18,12 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class GlimmerRockItem extends Item {
 
@@ -64,11 +65,13 @@ public class GlimmerRockItem extends Item {
 		return ItemUseAnimation.DRINK;
 	}
 
+
 	@Override
-	public void appendHoverText(ItemStack p_267313_, TooltipContext p_339591_, List<Component> p_266820_, TooltipFlag p_266857_) {
-		super.appendHoverText(p_267313_, p_339591_, p_266820_, p_266857_);
-		p_266820_.add(CommonComponents.EMPTY);
-		p_266820_.add(Component.translatable("item.frostrealm.glimmerrock.tooltip"));
+	public void appendHoverText(ItemStack p_41421_, TooltipContext p_339594_, TooltipDisplay p_399753_, Consumer<Component> p_399884_, TooltipFlag p_41424_) {
+		super.appendHoverText(p_41421_, p_339594_, p_399753_, p_399884_, p_41424_);
+		p_399884_.accept(CommonComponents.EMPTY);
+		p_399884_.accept(Component.translatable("item.frostrealm.glimmerrock.tooltip"));
+
 	}
 
 	public static final class ItemRender implements IClientItemExtensions {

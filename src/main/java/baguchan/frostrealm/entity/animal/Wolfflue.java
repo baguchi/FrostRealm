@@ -26,9 +26,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -75,7 +73,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, VariantHolder<Holder<WolfflueVariant>>, Saddleable, PlayerRideableJumping, ISmartJump {
+public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerRideableJumping, ISmartJump {
     private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_SADDLE = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_COLLAR_COLOR = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
@@ -284,16 +282,16 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, Variant
     @Override
     public void readAdditionalSaveData(CompoundTag p_30402_) {
         super.readAdditionalSaveData(p_30402_);
-        if (p_30402_.contains("CollarColor", 99)) {
-            this.setCollarColor(DyeColor.byId(p_30402_.getInt("CollarColor")));
+        if (p_30402_.contains("CollarColor")) {
+            this.setCollarColor(DyeColor.byId(p_30402_.getIntOr("CollarColor", -1)));
         }
+        if (p_30402_.contains("variant")) {
 
-        Optional.ofNullable(ResourceLocation.tryParse(p_30402_.getString("variant")))
-                .map(p_332608_ -> ResourceKey.create(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, p_332608_))
-                .flatMap(p_352803_ -> this.registryAccess().lookupOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY).get((ResourceKey<WolfflueVariant>) p_352803_))
-                .ifPresent(this::setVariant);
-        this.setSaddled(p_30402_.getBoolean("Saddle"));
-
+            Optional.ofNullable(ResourceLocation.tryParse(p_30402_.getString("variant").orElseThrow()))
+                    .map(p_332608_ -> ResourceKey.create(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, p_332608_))
+                    .flatMap(p_352803_ -> this.registryAccess().lookupOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY).get((ResourceKey<WolfflueVariant>) p_352803_))
+                    .ifPresent(this::setVariant);
+        }
         this.readPersistentAngerSaveData(this.level(), p_30402_);
     }
 
@@ -324,7 +322,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, Variant
         }
     }
 
-    @Override
+    /*@Override
     protected SoundEvent getAmbientSound() {
         if (this.isAngry()) {
             return SoundEvents.WOLF_GROWL;
@@ -333,9 +331,9 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, Variant
         } else {
             return SoundEvents.WOLF_AMBIENT;
         }
-    }
+    }*/
 
-    @Override
+    /*@Override
     protected SoundEvent getHurtSound(DamageSource p_30424_) {
         return this.canArmorAbsorb(p_30424_) ? SoundEvents.WOLF_ARMOR_DAMAGE : SoundEvents.WOLF_HURT;
     }
@@ -343,7 +341,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, Variant
     @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.WOLF_DEATH;
-    }
+    }*/
 
     @Override
     protected float getSoundVolume() {
@@ -618,7 +616,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, Variant
                     }
 
 
-                    if (itemstack.getItem() instanceof SwordItem && this.isOwnedBy(p_30412_) && this.getMainHandItem().isEmpty() && !this.isBaby()) {
+                    if (itemstack.is(FrostItems.SILVER_MOON) && this.isOwnedBy(p_30412_) && this.getMainHandItem().isEmpty() && !this.isBaby()) {
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
                         itemstack.consume(1, p_30412_);
                         this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
@@ -635,9 +633,10 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, Variant
                     }
 
                     if (!this.isSaddled() && itemstack.is(Items.SADDLE) && this.isOwnedBy(p_30412_) && !this.isBaby()) {
-                        this.setSaddled(true);
+                        this.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(Items.SADDLE));
+                        this.setGuaranteedDrop(EquipmentSlot.SADDLE);
                         itemstack.consume(1, p_30412_);
-                        this.playSound(SoundEvents.STRIDER_SADDLE);
+                        this.playSound(SoundEvents.STRIDER_SADDLE.value());
                         return InteractionResult.SUCCESS;
                     } else if (itemstack.getItem() instanceof WolfflueArmorItem wolfflueArmorItem && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
                         this.setBodyArmorItem(itemstack.copyWithCount(1));
@@ -649,7 +648,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, Variant
                             && this.isSaddled()) {
                         itemstack.hurtAndBreak(1, p_30412_, getSlotForHand(p_30413_));
                         this.playSound(SoundEvents.ARMOR_UNEQUIP_WOLF);
-                        this.setSaddled(false);
+                        this.setItemSlot(EquipmentSlot.SADDLE, ItemStack.EMPTY);
                         if (this.level() instanceof ServerLevel serverLevel) {
                             this.spawnAtLocation(serverLevel, Items.SADDLE);
                         }
@@ -790,7 +789,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, Variant
                 wolf.setVariant(wolf1.getVariant());
             }
             if (this.isTame()) {
-                wolf.setOwnerUUID(this.getOwnerUUID());
+                wolf.setOwnerReference(this.getOwnerReference());
                 wolf.setTame(true, true);
                 if (this.random.nextBoolean()) {
                     wolf.setCollarColor(this.getCollarColor());
@@ -874,18 +873,6 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, Variant
         return super.getControllingPassenger();
     }
 
-    @Override
-    public boolean isSaddleable() {
-        return !this.isSaddled() && this.isTame() && this.isAlive() && !this.isBaby();
-    }
-
-    @Override
-    public void equipSaddle(ItemStack p_352360_, @org.jetbrains.annotations.Nullable SoundSource p_21748_) {
-        this.setSaddled(true);
-        if (p_21748_ != null) {
-            this.level().playSound(null, this, SoundEvents.STRIDER_SADDLE, p_21748_, 0.5F, 1.0F);
-        }
-    }
 
     @Override
     protected void tickRidden(Player p_278233_, Vec3 p_275693_) {
@@ -893,7 +880,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, Variant
         Vec2 vec2 = this.getRiddenRotation(p_278233_);
         this.setRot(vec2.y, vec2.x);
         this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
-        if (this.isControlledByLocalInstance()) {
+        if (this.isLocalInstanceAuthoritative()) {
 
             if (this.onGround()) {
                 this.setIsJumping(false);
@@ -963,15 +950,6 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, Variant
     }
 
     @Override
-    public boolean isSaddled() {
-        return this.entityData.get(DATA_SADDLE);
-    }
-
-    public void setSaddled(boolean saddle) {
-        this.entityData.set(DATA_SADDLE, saddle);
-    }
-
-    @Override
     public void onPlayerJump(int p_21696_) {
         if (this.isSaddled()) {
             if (p_21696_ < 0) {
@@ -1008,19 +986,19 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, Variant
         return true;
     }
 
+
     @Override
-    public boolean causeFallDamage(float p_149499_, float p_149500_, DamageSource p_149501_) {
-        int i = this.calculateFallDamage(p_149499_, p_149500_);
+    public boolean causeFallDamage(double p_397025_, float p_149499_, DamageSource p_149501_) {
+        if (p_397025_ > 1.0) {
+            //this.playSound(SoundEvents.HORSE_LAND, 0.4F, 1.0F);
+        }
+
+        int i = this.calculateFallDamage(p_397025_, p_149499_);
         if (i <= 0) {
             return false;
         } else {
-            this.hurt(p_149501_, (float) i);
-            if (this.isVehicle()) {
-                for (Entity entity : this.getIndirectPassengers()) {
-                    entity.hurt(p_149501_, (float) i);
-                }
-            }
-
+            this.hurt(p_149501_, i);
+            this.propagateFallToPassengers(p_397025_, p_149499_, p_149501_);
             this.playBlockFallSound();
             return true;
         }

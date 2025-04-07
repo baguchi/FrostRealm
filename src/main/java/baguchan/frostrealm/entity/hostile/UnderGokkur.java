@@ -46,7 +46,7 @@ public class UnderGokkur extends Gokkur {
     @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.setMagma(tag.getBoolean("Magma"));
+        this.setMagma(tag.getBooleanOr("Magma", true));
     }
 
     @Override

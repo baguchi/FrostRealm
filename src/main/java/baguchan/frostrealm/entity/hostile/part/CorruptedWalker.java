@@ -180,7 +180,7 @@ public class CorruptedWalker extends Monster {
         if (Arrays.stream(this.ec).noneMatch(corruptedWalkerPartContainer -> corruptedWalkerPartContainer.getParentPart().onGround())) {
             super.travel(vec3);
         } else {
-            if (this.isControlledByLocalInstance()) {
+            if (this.isLocalInstanceAuthoritative()) {
                 if (this.isInWater()) {
                     this.moveRelative(0.02F, vec3);
                     this.move(MoverType.SELF, this.getDeltaMovement());

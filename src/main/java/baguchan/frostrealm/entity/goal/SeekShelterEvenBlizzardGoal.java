@@ -28,7 +28,7 @@ public class SeekShelterEvenBlizzardGoal extends FleeSunGoal {
 			} else {
 				this.interval = 60;
 				BlockPos blockpos = this.mob.blockPosition();
-                return (this.seekDays && this.mob.level().isDay() && this.setWantedPos() || FrostWeatherSavedData.get(this.mob.level()) != null && FrostWeatherSavedData.get(this.mob.level()).isWeatherActive()) && this.mob.level().canSeeSky(blockpos) && this.setWantedPos();
+				return (this.seekDays && this.mob.level().isBrightOutside() && this.setWantedPos() || FrostWeatherSavedData.get(this.mob.level()) != null && FrostWeatherSavedData.get(this.mob.level()).isWeatherActive()) && this.mob.level().canSeeSky(blockpos) && this.setWantedPos();
 			}
 		} else {
 			return false;

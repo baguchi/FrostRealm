@@ -10,10 +10,10 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -24,8 +24,6 @@ import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -76,25 +74,13 @@ public class FrostCampfireBlock extends Block implements SimpleWaterloggedBlock 
 		return super.useItemOn(p_316304_, p_60503_, p_60504_, p_60505_, p_60506_, p_60507_, p_60508_);
 	}
 
-	@Override
-	public void entityInside(BlockState p_51269_, Level p_51270_, BlockPos p_51271_, Entity p_51272_) {
-		if (p_51269_.getValue(LIT) && p_51272_ instanceof LivingEntity) {
-			p_51272_.hurt(p_51272_.damageSources().freeze(), 2.0F);
-		}
-
-		super.entityInside(p_51269_, p_51270_, p_51271_, p_51272_);
-	}
 
 	@Override
-	public void onRemove(BlockState p_51281_, Level p_51282_, BlockPos p_51283_, BlockState p_51284_, boolean p_51285_) {
-		if (!p_51281_.is(p_51284_.getBlock())) {
-			BlockEntity blockentity = p_51282_.getBlockEntity(p_51283_);
-			if (blockentity instanceof CampfireBlockEntity) {
-				Containers.dropContents(p_51282_, p_51283_, ((CampfireBlockEntity) blockentity).getItems());
-			}
-
-			super.onRemove(p_51281_, p_51282_, p_51283_, p_51284_, p_51285_);
+	protected void entityInside(BlockState p_60495_, Level p_60496_, BlockPos p_60497_, Entity p_60498_, InsideBlockEffectApplier p_405359_) {
+		if (p_60495_.getValue(LIT) && p_60498_ instanceof LivingEntity) {
+			p_60498_.hurt(p_60498_.damageSources().freeze(), 2.0F);
 		}
+		super.entityInside(p_60495_, p_60496_, p_60497_, p_60498_, p_405359_);
 	}
 
 	@Nullable

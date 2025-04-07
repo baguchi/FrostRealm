@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Block;
@@ -88,17 +89,16 @@ public class FrostPortalBlock extends Block implements Portal {
 	}
 
 
-
 	@Override
-	protected void entityInside(BlockState p_54915_, Level p_54916_, BlockPos p_54917_, Entity p_54918_) {
-		if (p_54918_.canUsePortal(false)) {
-			p_54918_.setAsInsidePortal(this, p_54917_);
-			p_54918_.getData(FrostAttachs.FROST_LIVING.get()).setInPortal(true);
+	protected void entityInside(BlockState p_60495_, Level p_60496_, BlockPos p_60497_, Entity p_60498_, InsideBlockEffectApplier p_405359_) {
+		if (p_60498_.canUsePortal(false)) {
+			p_60498_.setAsInsidePortal(this, p_60497_);
+			p_60498_.getData(FrostAttachs.FROST_LIVING.get()).setInPortal(true);
 		}
 
 	}
 
-    @Override
+	@Override
     public void animateTick(BlockState p_221794_, Level p_221795_, BlockPos p_221796_, RandomSource p_221797_) {
         if (p_221797_.nextInt(100) == 0) {
             p_221795_.playLocalSound(

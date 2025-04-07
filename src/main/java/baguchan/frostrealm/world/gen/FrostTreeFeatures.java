@@ -7,7 +7,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -68,7 +68,7 @@ public class FrostTreeFeatures {
 	private static TreeConfiguration.TreeConfigurationBuilder createDripWood() {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.DRIP_LOG.get()), new DripWoodTrunkPlacer(32, 8, 0,
 				new WeightedListInt(
-						SimpleWeightedRandomList.<IntProvider>builder().add(ConstantInt.of(1), 1).add(ConstantInt.of(2), 1).add(ConstantInt.of(3), 1).build()
+						WeightedList.<IntProvider>builder().add(ConstantInt.of(1), 1).add(ConstantInt.of(2), 1).add(ConstantInt.of(3), 1).build()
 				),
 				UniformInt.of(4, 6),
 				UniformInt.of(-18, -10),
@@ -89,7 +89,7 @@ public class FrostTreeFeatures {
 				6,
 				0,
 				new WeightedListInt(
-						SimpleWeightedRandomList.<IntProvider>builder().add(ConstantInt.of(1), 1).add(ConstantInt.of(2), 1).add(ConstantInt.of(3), 1).build()
+						WeightedList.<IntProvider>builder().add(ConstantInt.of(1), 1).add(ConstantInt.of(2), 1).add(ConstantInt.of(3), 1).build()
 				),
 				UniformInt.of(2, 4),
 				UniformInt.of(-4, -3),

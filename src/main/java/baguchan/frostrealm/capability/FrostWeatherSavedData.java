@@ -1,19 +1,17 @@
 package baguchan.frostrealm.capability;
 
 import baguchan.frostrealm.data.resource.FrostDimensions;
-import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.utils.BlizzardUtils;
 import baguchan.frostrealm.weather.FrostWeather;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.saveddata.SavedDataType;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -22,21 +20,38 @@ import java.util.Map;
 
 public class FrostWeatherSavedData extends SavedData {
 
-	private static final String IDENTIFIER = "frost_weather_data";
+	public static final Codec<FrostWeatherSavedData> CODEC = RecordCodecBuilder.create(
+			p_400930_ -> p_400930_.group(
+							Codec.INT.fieldOf("weather_time").forGetter(p_400933_ -> p_400933_.weatherTime),
+							Codec.INT.fieldOf("weather_cooldown").forGetter(p_400933_ -> p_400933_.weatherCooldown),
+							Codec.FLOAT.fieldOf("unstable_level").forGetter(p_400933_ -> p_400933_.unstableLevel),
+							Codec.FLOAT.fieldOf("aurora_level").forGetter(p_400933_ -> p_400933_.auroraLevel)
+					)
+					.apply(p_400930_, FrostWeatherSavedData::new)
+	);
 	private int weatherTime;
-	private int weatherCooldown = 20000;
+	private int weatherCooldown;
 
 	private float unstableLevel;
-	private float auroraLevel = 1.0F;
-	private final ServerLevel serverLevel;
+	private float auroraLevel;
 	private static Map<Level, FrostWeatherSavedData> dataMap = new HashMap<>();
+	public static final SavedDataType<FrostWeatherSavedData> TYPE = new SavedDataType<>(
+			"frost_weather_data",
+			FrostWeatherSavedData::new,
+			CODEC);
 
     private FrostWeather frostWeather = FrostWeathers.NOPE.get();
 
-	public FrostWeatherSavedData(ServerLevel serverLevel) {
-		this.serverLevel = serverLevel;
+	public FrostWeatherSavedData() {
+		this(0, 20000, 0, 1.0F);
 	}
 
+	public FrostWeatherSavedData(int weatherTime, int weatherCooldown, float unstableLevel, float auroraLevel) {
+		this.weatherTime = weatherTime;
+		this.weatherCooldown = weatherCooldown;
+		this.unstableLevel = unstableLevel;
+		this.auroraLevel = auroraLevel;
+	}
 	public void setUnstableLevel(float unstableLevel) {
 		this.unstableLevel = Mth.clamp(unstableLevel, 0, 1F);
 		if (this.unstableLevel != unstableLevel) {
@@ -87,7 +102,7 @@ public class FrostWeatherSavedData extends SavedData {
 			FrostWeatherSavedData fromMap = dataMap.get(overworld);
 			if (fromMap == null) {
 				DimensionDataStorage storage = overworld.getDataStorage();
-				FrostWeatherSavedData data = storage.computeIfAbsent(FrostWeatherSavedData.factory(serverLevel), IDENTIFIER);
+				FrostWeatherSavedData data = storage.computeIfAbsent(TYPE);
 				if (data != null) {
 					data.setDirty();
 				}
@@ -99,32 +114,7 @@ public class FrostWeatherSavedData extends SavedData {
 		return null;
 	}
 
-	public static SavedData.Factory<FrostWeatherSavedData> factory(ServerLevel p_300199_) {
-		return new SavedData.Factory<>(() -> {
-			return new FrostWeatherSavedData(p_300199_);
-		}, (p_296865_, t) -> {
-			return load(p_300199_, p_296865_);
-		}, DataFixTypes.SAVED_DATA_RAIDS);
-	}
 
-	public static FrostWeatherSavedData load(ServerLevel p_300199_, CompoundTag nbt) {
-		FrostWeatherSavedData data = new FrostWeatherSavedData(p_300199_);
-		data.weatherTime = nbt.getInt("WeatherTime");
-		data.unstableLevel = nbt.getFloat("UnstableLevel");
-		data.auroraLevel = nbt.getFloat("AuroraLevel");
-		FrostWeather frostWeather = FrostWeathers.getRegistry().getValue(ResourceLocation.tryParse(nbt.getString("FrostWeather")));
-		if (frostWeather != null) {
-			data.frostWeather = frostWeather;
-		} else {
-            data.frostWeather = FrostWeathers.NOPE.get();
-		}
-        ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
-		PacketDistributor.sendToPlayersInDimension(p_300199_, message);
-
-		ChangeAuroraMessage message2 = new ChangeAuroraMessage(data.auroraLevel);
-		PacketDistributor.sendToPlayersInDimension(p_300199_, message2);
-		return data;
-	}
 
 	public void tick(Level level) {
 		if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
@@ -160,19 +150,6 @@ public class FrostWeatherSavedData extends SavedData {
 				}
 			}
 		}
-	}
-
-	@Override
-	public CompoundTag save(CompoundTag p_77763_, HolderLookup.Provider p_323640_) {
-		CompoundTag nbt = new CompoundTag();
-
-		nbt.putInt("WeatherTime", this.weatherTime);
-		nbt.putFloat("UnstableLevel", this.unstableLevel);
-		nbt.putFloat("AuroraLevel", this.auroraLevel);
-		if (this.frostWeather != null) {
-			nbt.putString("FrostWeather", FrostWeathers.getRegistry().getKey(this.frostWeather).toString());
-		}
-		return nbt;
 	}
 
 	public void setWeatherCooldown(int weatherCooldown) {

@@ -10,7 +10,6 @@ import baguchan.frostrealm.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -294,7 +293,7 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	public void addAdditionalSaveData(CompoundTag compoundTag) {
 		super.addAdditionalSaveData(compoundTag);
 		if (this.homeTarget != null) {
-			compoundTag.put("HomeTarget", NbtUtils.writeBlockPos(this.homeTarget));
+			compoundTag.store("HomeTarget", BlockPos.CODEC, this.homeTarget);
 		}
 		compoundTag.putBoolean("HasEgg", hasEgg());
 		compoundTag.putInt("TickShake", this.ticksShake);
@@ -304,10 +303,10 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	public void readAdditionalSaveData(CompoundTag compoundTag) {
 		super.readAdditionalSaveData(compoundTag);
 		if (compoundTag.contains("HomeTarget")) {
-			this.homeTarget = NbtUtils.readBlockPos(compoundTag, "HomeTarget").orElse(null);
+			this.homeTarget = compoundTag.read("HomeTarget", BlockPos.CODEC).orElse(null);
 		}
-		this.setHasEgg(compoundTag.getBoolean("HasEgg"));
-		this.ticksShake = compoundTag.getInt("TickShake");
+		this.setHasEgg(compoundTag.getBooleanOr("HasEgg", false));
+		this.ticksShake = compoundTag.getIntOr("TickShake", 0);
 	}
 
 	public void setHomeTarget(@Nullable BlockPos pos) {
@@ -366,7 +365,7 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 		public boolean canUse() {
 			BlockPos blockpos = this.quail.getHomeTarget();
 
-			double distance = this.quail.level().isDay() ? this.stopDistance : this.stopDistance / 4.0F;
+			double distance = this.quail.level().isBrightOutside() ? this.stopDistance : this.stopDistance / 4.0F;
 
 			return blockpos != null && this.isTooFarAway(blockpos, distance);
 		}

@@ -25,10 +25,7 @@ import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
@@ -522,7 +519,8 @@ public class YetiAi<E extends Yeti> {
     }
 
     public static boolean isWearingFear(LivingEntity p_34809_) {
-        for (ItemStack itemstack : p_34809_.getArmorSlots()) {
+        for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
+            ItemStack itemstack = p_34809_.getItemBySlot(equipmentSlot);
             Item item = itemstack.getItem();
             if (itemstack.is(FrostItems.YETI_FUR_HELMET.get()) || itemstack.is(FrostItems.YETI_FUR_CHESTPLATE.get()) || itemstack.is(FrostItems.YETI_FUR_LEGGINGS.get()) || itemstack.is(FrostItems.YETI_FUR_BOOTS.get())) {
                 return true;

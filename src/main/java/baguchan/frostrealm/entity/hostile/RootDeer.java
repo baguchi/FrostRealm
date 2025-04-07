@@ -27,7 +27,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -38,7 +37,6 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.common.ItemAbilities;
 
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
@@ -148,7 +146,7 @@ public class RootDeer extends Monster {
     @Override
     public void readAdditionalSaveData(CompoundTag p_33432_) {
         super.readAdditionalSaveData(p_33432_);
-        this.setAttachFace(Direction.from3DDataValue(p_33432_.getByte("AttachFace")));
+        this.setAttachFace(Direction.from3DDataValue(p_33432_.getByteOr("AttachFace", (byte) 0)));
     }
 
     @Override
@@ -383,14 +381,7 @@ public class RootDeer extends Monster {
 
     @Override
     public boolean hurtServer(ServerLevel p_376595_, DamageSource p_376181_, float p_376898_) {
-        ItemStack itemstack = p_376181_.getWeaponItem();
-
         float damageScale = 1F;
-
-        if (itemstack != null && itemstack.canPerformAction(ItemAbilities.AXE_DIG)) {
-            damageScale = 1.5F;
-        }
-
 
         if (!this.isNoAi() && !this.isDiggingOrEmerging()) {
             boolean flag = super.hurtServer(p_376595_, p_376181_, p_376898_ * damageScale);

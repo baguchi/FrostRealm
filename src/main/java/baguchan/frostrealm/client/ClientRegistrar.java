@@ -11,8 +11,6 @@ import baguchan.frostrealm.item.GlimmerRockItem;
 import baguchan.frostrealm.item.YetiFurArmorItem;
 import baguchan.frostrealm.registry.*;
 import com.mojang.blaze3d.platform.Window;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -21,11 +19,13 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.InteractionHand;
@@ -41,7 +41,6 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import org.joml.Matrix4f;
 
 
 @OnlyIn(Dist.CLIENT)
@@ -84,31 +83,6 @@ public class ClientRegistrar {
 			@Override
 			public ResourceLocation getRenderOverlayTexture(Minecraft mc) {
 				return TEXTURE_OVERLAY;
-			}
-
-
-			@Override
-			public void renderOverlay(Minecraft mc, PoseStack poseStack, MultiBufferSource buffers) {
-				ResourceLocation texture = this.getRenderOverlayTexture(mc);
-				if (texture == null) return;
-				RenderSystem.setShader(CoreShaders.POSITION_TEX);
-				RenderSystem.setShaderTexture(0, texture);
-				BufferBuilder buffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-				BlockPos playerEyePos = BlockPos.containing(mc.player.getX(), mc.player.getEyeY(), mc.player.getZ());
-				float brightness = LightTexture.getBrightness(mc.player.level().dimensionType(), mc.player.level().getMaxLocalRawBrightness(playerEyePos));
-				RenderSystem.enableBlend();
-				RenderSystem.defaultBlendFunc();
-				RenderSystem.setShaderColor(brightness, brightness, brightness, 0.65F);
-				float uOffset = -mc.player.getYRot() / 64.0F;
-				float vOffset = mc.player.getXRot() / 64.0F;
-				Matrix4f pose = poseStack.last().pose();
-				buffer.addVertex(pose, -1.0F, -1.0F, -0.5F).setUv(4.0F + uOffset, 4.0F + vOffset);
-				buffer.addVertex(pose, 1.0F, -1.0F, -0.5F).setUv(uOffset, 4.0F + vOffset);
-				buffer.addVertex(pose, 1.0F, 1.0F, -0.5F).setUv(uOffset, vOffset);
-				buffer.addVertex(pose, -1.0F, 1.0F, -0.5F).setUv(4.0F + uOffset, vOffset);
-				BufferUploader.drawWithShader(buffer.buildOrThrow());
-				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-				RenderSystem.disableBlend();
 			}
 		}, FrostFluidTypes.HOT_SPRING.get());
 	}
@@ -241,18 +215,12 @@ public class ClientRegistrar {
 				timeInPortal *= timeInPortal;
 				timeInPortal = timeInPortal * 0.8F + 0.2F;
 			}
-
-			RenderSystem.disableDepthTest();
-			RenderSystem.depthMask(false);
-			RenderSystem.enableBlend();
+			int i = ARGB.white(timeInPortal);
 			TextureAtlasSprite textureatlassprite = minecraft.getBlockRenderer().getBlockModelShaper().getParticleIcon(FrostBlocks.FROST_PORTAL.get().defaultBlockState());
 			guiGraphics.blitSprite(RenderType::guiTexturedOverlay, textureatlassprite, 0, 0,
 					guiGraphics.guiWidth(),
 					guiGraphics.guiHeight(),
-					0);
-			RenderSystem.disableBlend();
-			RenderSystem.depthMask(true);
-			RenderSystem.enableDepthTest();
+					i);
 		}
 	}
 	@SubscribeEvent
@@ -269,7 +237,7 @@ public class ClientRegistrar {
 	@SubscribeEvent
 	public static void registerRenderBuffers(RegisterRenderBuffersEvent event) {
 		event.registerRenderBuffer(FrostRenderType.AURORA_GLINT);
-		event.registerRenderBuffer(FrostRenderType.AURORA_ARMOR_GLINT);
+		event.registerRenderBuffer(FrostRenderType.AURORA_ARMOR_ENTITY_GLINT);
 		event.registerRenderBuffer(FrostRenderType.AURORA_ENTITY_GLINT);
 	}
 

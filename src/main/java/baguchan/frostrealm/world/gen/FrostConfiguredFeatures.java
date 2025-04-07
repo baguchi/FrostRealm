@@ -13,7 +13,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ClampedNormalFloat;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformFloat;
@@ -124,7 +124,7 @@ public class FrostConfiguredFeatures {
 		FeatureUtils.register(context, TUNDRA_ROCK, FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState()));
 		FeatureUtils.register(context, TUNDRA_MOSSY_ROCK, FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE_MOSSY.get().defaultBlockState()));
 		FeatureUtils.register(context, STAR_DUST_CLUSTER, FrostFeatures.SHAPE_CRYSTAL.get(), new HeightBlockStateConfiguration(BlockStateProvider.simple(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get().defaultBlockState()), UniformInt.of(8, 26)));
-		FeatureUtils.register(context, SMALL_VOLCANO, FrostFeatures.SMALL_VOLCANO.get(), new HeightBlockStateConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(FrostBlocks.FRIGID_STONE.get().defaultBlockState(), 20).add(FrostBlocks.GLIMMERROCK_ORE.get().defaultBlockState(), 2).add(FrostBlocks.ASTRIUM_ORE.get().defaultBlockState(), 1).build()), UniformInt.of(12, 18)));
+		FeatureUtils.register(context, SMALL_VOLCANO, FrostFeatures.SMALL_VOLCANO.get(), new HeightBlockStateConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder().add(FrostBlocks.FRIGID_STONE.get().defaultBlockState(), 20).add(FrostBlocks.GLIMMERROCK_ORE.get().defaultBlockState(), 2).add(FrostBlocks.ASTRIUM_ORE.get().defaultBlockState(), 1).build()), UniformInt.of(12, 18)));
 
         FeatureUtils.register(context, STONE_SPIKE, FrostFeatures.STONE_SPIKE.get());
         FeatureUtils.register(context, FLOATING_ROCK, FrostFeatures.FLOATING_ROCK.get(), new FloatingRockConfiguration(BlockStateProvider.simple(FrostBlocks.FRIGID_STONE.get()), UniformFloat.of(5, 8), UniformInt.of(5, 10)));

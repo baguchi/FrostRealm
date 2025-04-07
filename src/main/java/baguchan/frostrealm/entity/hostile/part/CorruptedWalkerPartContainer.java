@@ -165,7 +165,7 @@ public class CorruptedWalkerPartContainer {
         dy = this.parent.getY() + vector.y();
         dz = this.parent.getZ() + vector.z();
         offset = vector;
-        this.parentPart.moveTo(dx, dy, dz);
+        this.parentPart.snapTo(dx, dy, dz);
     }
 
     protected void updateOffset() {

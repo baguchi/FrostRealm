@@ -11,16 +11,16 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.neoforge.client.ClientHooks;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
-public class YetiFurArmorItem extends ArmorItem {
+public class YetiFurArmorItem extends Item {
 	public YetiFurArmorItem(ArmorMaterial p_40386_, ArmorType p_40387_, Properties p_40388_) {
-        super(p_40386_, p_40387_, p_40388_);
+		super(p_40388_.humanoidArmor(p_40386_, p_40387_));
     }
 
 	@Override
