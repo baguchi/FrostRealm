@@ -18,6 +18,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -26,6 +27,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
@@ -45,11 +47,14 @@ import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.wolf.WolfSoundVariant;
+import net.minecraft.world.entity.animal.wolf.WolfSoundVariants;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.variant.VariantUtils;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
@@ -79,6 +84,9 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
     private static final EntityDataAccessor<Integer> DATA_COLLAR_COLOR = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Holder<WolfflueVariant>> DATA_VARIANT_ID = SynchedEntityData.defineId(Wolfflue.class, FrostEntityDatas.WOLFFLUE_VARIANT.get());
+    private static final EntityDataAccessor<Holder<WolfSoundVariant>> DATA_SOUND_VARIANT_ID = SynchedEntityData.defineId(
+            Wolfflue.class, EntityDataSerializers.WOLF_SOUND_VARIANT
+    );
 
     private int ticksSinceEaten;
 
@@ -113,6 +121,14 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         this.setTame(false, false);
         this.setPathfindingMalus(PathType.POWDER_SNOW, -1.0F);
         this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
+    }
+
+    private Holder<WolfSoundVariant> getSoundVariant() {
+        return this.entityData.get(DATA_SOUND_VARIANT_ID);
+    }
+
+    private void setSoundVariant(Holder<WolfSoundVariant> p_406324_) {
+        this.entityData.set(DATA_SOUND_VARIANT_ID, p_406324_);
     }
 
     @Override
@@ -233,8 +249,10 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         p_326027_.define(DATA_COLLAR_COLOR, DyeColor.RED.getId());
         p_326027_.define(DATA_REMAINING_ANGER_TIME, 0);
         RegistryAccess registryaccess = this.registryAccess();
-        Registry<WolfflueVariant> registry = registryaccess.lookupOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY);
-        p_326027_.define(DATA_VARIANT_ID, registry.get(WolfflueVariants.DEFAULT).or(registry::getAny).orElseThrow());
+        Registry<WolfSoundVariant> registry = this.registryAccess().lookupOrThrow(Registries.WOLF_SOUND_VARIANT);
+        p_326027_.define(DATA_VARIANT_ID, VariantUtils.getDefaultOrAny(this.registryAccess(), WolfflueVariants.DEFAULT));
+        p_326027_.define(DATA_SOUND_VARIANT_ID, registry.get(WolfSoundVariants.CLASSIC).or(registry::getAny).orElseThrow());
+
     }
 
     @Override
@@ -275,7 +293,11 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         p_30418_.putByte("CollarColor", (byte) this.getCollarColor().getId());
         this.getVariant().unwrapKey().ifPresent(p_344339_ -> p_30418_.putString("variant", p_344339_.location().toString()));
         p_30418_.putBoolean("Saddle", this.isSaddled());
-
+        this.getSoundVariant()
+                .unwrapKey()
+                .ifPresent(
+                        p_409350_ -> p_30418_.store("sound_variant", ResourceKey.codec(Registries.WOLF_SOUND_VARIANT), (ResourceKey<WolfSoundVariant>) p_409350_)
+                );
         this.addPersistentAngerSaveData(p_30418_);
     }
 
@@ -292,6 +314,9 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
                     .flatMap(p_352803_ -> this.registryAccess().lookupOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY).get((ResourceKey<WolfflueVariant>) p_352803_))
                     .ifPresent(this::setVariant);
         }
+        p_30402_.read("sound_variant", ResourceKey.codec(Registries.WOLF_SOUND_VARIANT))
+                .flatMap(p_409348_ -> this.registryAccess().lookupOrThrow(Registries.WOLF_SOUND_VARIANT).get((ResourceKey<WolfSoundVariant>) p_409348_))
+                .ifPresent(this::setSoundVariant);
         this.readPersistentAngerSaveData(this.level(), p_30402_);
     }
 
@@ -309,6 +334,8 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         }
 
         this.setVariant(holder1);
+        this.setSoundVariant(WolfSoundVariants.pickRandomSoundVariant(this.registryAccess(), this.random));
+
         this.populateDefaultEquipmentSlots(random, difficultyInstance);
         this.populateDefaultEquipmentEnchantments(serverLevelAccessor, random, difficultyInstance);
 
@@ -322,26 +349,29 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         }
     }
 
-    /*@Override
+    @Override
     protected SoundEvent getAmbientSound() {
         if (this.isAngry()) {
-            return SoundEvents.WOLF_GROWL;
+            return this.getSoundVariant().value().growlSound().value();
         } else if (this.random.nextInt(3) == 0) {
-            return this.isTame() && this.getHealth() < 40.0F ? SoundEvents.WOLF_WHINE : SoundEvents.WOLF_PANT;
+            return this.isTame() && this.getHealth() < 20.0F
+                    ? this.getSoundVariant().value().whineSound().value()
+                    : this.getSoundVariant().value().pantSound().value();
         } else {
-            return SoundEvents.WOLF_AMBIENT;
+            return this.getSoundVariant().value().ambientSound().value();
         }
-    }*/
+    }
 
-    /*@Override
-    protected SoundEvent getHurtSound(DamageSource p_30424_) {
-        return this.canArmorAbsorb(p_30424_) ? SoundEvents.WOLF_ARMOR_DAMAGE : SoundEvents.WOLF_HURT;
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_406243_) {
+        return this.canArmorAbsorb(p_406243_) ? SoundEvents.WOLF_ARMOR_DAMAGE : this.getSoundVariant().value().hurtSound().value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.WOLF_DEATH;
-    }*/
+        return this.getSoundVariant().value().deathSound().value();
+    }
+
 
     @Override
     protected float getSoundVolume() {
@@ -797,6 +827,8 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
                     wolf.setCollarColor(wolf1.getCollarColor());
                 }
             }
+            wolf.setSoundVariant(WolfSoundVariants.pickRandomSoundVariant(this.registryAccess(), this.random));
+
         }
 
         return wolf;

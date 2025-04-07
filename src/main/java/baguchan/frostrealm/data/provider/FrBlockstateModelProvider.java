@@ -281,7 +281,7 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
         }
 
         this.blockStateOutput.accept(MultiVariantGenerator.dispatch(FrostBlocks.POINTED_ICE.get()).with(c2));
-        this.registerSimpleFlatItemModel(FrostBlocks.POINTED_ICE.get());
+        generator.registerSimpleFlatItemModel(FrostBlocks.POINTED_ICE.get(), "_up_tip");
     }
 
     public MultiVariant createPointedDripstoneVariant(Direction p_387068_, DripstoneThickness p_388190_) {
