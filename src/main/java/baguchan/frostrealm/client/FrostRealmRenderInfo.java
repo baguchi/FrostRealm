@@ -5,7 +5,6 @@ import baguchan.frostrealm.capability.FrostWeatherManager;
 import baguchan.frostrealm.client.sounds.FrostAmbientSoundsHandler;
 import baguchan.frostrealm.registry.FrostParticleTypes;
 import baguchan.frostrealm.registry.FrostWeathers;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -84,7 +83,6 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
         VertexConsumer vertexconsumer = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.celestial(AURORA_LOCATION));
         p_109781_.pushPose();
         float f11 = (1.0F - weatherLevel);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f11);
         p_109781_.pushPose();
         Matrix4f matrix4f1 = p_109781_.last().pose();
         float f12 = 160.0F;
@@ -93,10 +91,10 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
         float v1 = 0;
         float u2 = 1F;
         float v2 = 1F;
-        vertexconsumer.addVertex(matrix4f1, -f12, (float) f13, -f12).setUv(u1, v1);
-        vertexconsumer.addVertex(matrix4f1, f12, (float) f13, -f12).setUv(u2, v1);
-        vertexconsumer.addVertex(matrix4f1, f12, (float) f13, f12).setUv(u2, v2);
-        vertexconsumer.addVertex(matrix4f1, -f12, (float) f13, f12).setUv(u1, v2);
+        vertexconsumer.addVertex(matrix4f1, -f12, (float) f13, -f12).setUv(u1, v1).setColor(1.0F, 1.0F, 1.0F, f11);
+        vertexconsumer.addVertex(matrix4f1, f12, (float) f13, -f12).setUv(u2, v1).setColor(1.0F, 1.0F, 1.0F, f11);
+        vertexconsumer.addVertex(matrix4f1, f12, (float) f13, f12).setUv(u2, v2).setColor(1.0F, 1.0F, 1.0F, f11);
+        vertexconsumer.addVertex(matrix4f1, -f12, (float) f13, f12).setUv(u1, v2).setColor(1.0F, 1.0F, 1.0F, f11);
         p_109781_.popPose();
         Minecraft.getInstance().renderBuffers().bufferSource().endBatch();
     }
