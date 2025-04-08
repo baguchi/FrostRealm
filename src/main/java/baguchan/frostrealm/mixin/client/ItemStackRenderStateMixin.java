@@ -29,6 +29,7 @@ public class ItemStackRenderStateMixin implements IGlintAurora {
         for (int i = 0; i < this.activeLayerCount; ++i) {
             if (this.frostRealm$glint) {
                 p_388193_.pushPose();
+                ((LayerRenderStateAccessor) this.layers[i]).getTransform().apply(displayContext.leftHand(), p_388193_.last());
                 ClientUtils.renderItemAurora(p_388193_, p_388719_, p_386913_, p_387272_, ((LayerRenderStateAccessor) this.layers[i]).getTintLayers(), ((LayerRenderStateAccessor) this.layers[i]).getQuads(), ((LayerRenderStateAccessor) this.layers[i]).getRenderType());
 
                 p_388193_.popPose();
