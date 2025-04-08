@@ -689,8 +689,8 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
                         return InteractionResult.SUCCESS;
                     } else if (this.isSaddled() && !p_30412_.isShiftKeyDown()) {
                         this.doPlayerRide(p_30412_);
-                        if (this.isOrderedToSit()) {
-                            this.setOrderedToSit(false);
+                        if (this.isInSittingPose()) {
+                            this.setInSittingPose(false);
                         }
                         return InteractionResult.SUCCESS.withoutItem();
                     } else {
