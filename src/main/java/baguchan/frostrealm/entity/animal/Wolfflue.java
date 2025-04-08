@@ -617,8 +617,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
     public InteractionResult mobInteract(Player p_30412_, InteractionHand p_30413_) {
         ItemStack itemstack = p_30412_.getItemInHand(p_30413_);
         Item item = itemstack.getItem();
-        if (!this.level().isClientSide || this.isBaby() && this.isFood(itemstack)) {
-            if (this.isTame()) {
+        if (this.isTame()) {
                 if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                     FoodProperties foodproperties = itemstack.get(DataComponents.FOOD);
                     float f = foodproperties != null ? (float) foodproperties.nutrition() : 1.0F;
@@ -646,7 +645,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
                         return InteractionResult.SUCCESS;
                     }
 
-                    if (itemstack.isEmpty() && p_30412_.isShiftKeyDown() && this.isOwnedBy(p_30412_) && !this.getMainHandItem().isEmpty()) {
+                    if (itemstack.isEmpty() && p_30412_.isSecondaryUseActive() && p_30412_.getMainHandItem().isEmpty() && this.isOwnedBy(p_30412_) && !this.getMainHandItem().isEmpty()) {
                         ItemStack itemstack1 = this.getMainHandItem();
                         this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                         if (this.level() instanceof ServerLevel serverLevel) {
@@ -687,23 +686,23 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
                             this.spawnAtLocation(serverLevel, itemstack1);
                         }
                         return InteractionResult.SUCCESS;
-                    } else if (this.isSaddled() && !p_30412_.isShiftKeyDown()) {
+                    } else if (this.isSaddled() && !p_30412_.isSecondaryUseActive() && this.isOwnedBy(p_30412_)) {
                         this.doPlayerRide(p_30412_);
                         if (this.isInSittingPose()) {
                             this.setInSittingPose(false);
                         }
                         return InteractionResult.SUCCESS.withoutItem();
+                    }
+
+                    InteractionResult interactionresult = super.mobInteract(p_30412_, p_30413_);
+                    if (!interactionresult.consumesAction() && this.isOwnedBy(p_30412_)) {
+                        this.setOrderedToSit(!this.isOrderedToSit());
+                        this.jumping = false;
+                        this.navigation.stop();
+                        this.setTarget(null);
+                        return InteractionResult.SUCCESS.withoutItem();
                     } else {
-                        InteractionResult interactionresult = super.mobInteract(p_30412_, p_30413_);
-                        if (!interactionresult.consumesAction() && this.isOwnedBy(p_30412_)) {
-                            this.setOrderedToSit(!this.isOrderedToSit());
-                            this.jumping = false;
-                            this.navigation.stop();
-                            this.setTarget(null);
-                            return InteractionResult.SUCCESS.withoutItem();
-                        } else {
-                            return interactionresult;
-                        }
+                        return interactionresult;
                     }
                 }
             } else if (!this.level().isClientSide && this.isFood(itemstack) && !this.isAngry()) {
@@ -713,10 +712,6 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
             } else {
                 return super.mobInteract(p_30412_, p_30413_);
             }
-        } else {
-            boolean flag = this.isOwnedBy(p_30412_) || this.isTame() || itemstack.is(Items.BONE) && !this.isTame() && !this.isAngry();
-            return flag ? InteractionResult.CONSUME : InteractionResult.PASS;
-        }
     }
 
     @Override
