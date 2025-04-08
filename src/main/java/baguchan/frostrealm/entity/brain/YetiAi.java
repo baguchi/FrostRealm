@@ -173,7 +173,7 @@ public class YetiAi<E extends Yeti> {
             stopWalking(yeti);
             yeti.setHoldTime(80);
             yeti.setState(Yeti.State.TRADE);
-            return InteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS_SERVER;
         } else
         if (canAdmire(yeti, itemstack)) {
             ItemStack itemstack1 = itemstack.consumeAndReturn(1, p_34848_);
@@ -182,7 +182,7 @@ public class YetiAi<E extends Yeti> {
             stopWalking(yeti);
             yeti.setHoldTime(60);
             yeti.setState(Yeti.State.TRADE);
-            return InteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS_SERVER;
         } else {
             return InteractionResult.PASS;
         }
