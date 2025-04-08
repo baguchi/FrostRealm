@@ -122,10 +122,6 @@ public class YetiAi<E extends Yeti> {
         return p_34618_.isAdult() && isEnoughYeti(p_34618_);
     }
 
-    private static boolean isNotHoldingLovedItemInOffHand(Yeti yeti) {
-        return yeti.getOffhandItem().isEmpty() || !isLovedItem(yeti.getOffhandItem());
-    }
-
     private static boolean isNoEnoughYeti(Yeti yeti) {
         if (yeti.isBaby()) {
             return false;
@@ -410,25 +406,20 @@ public class YetiAi<E extends Yeti> {
                     yeti.setState(Yeti.State.IDLING);
                     yeti.holdInOffHand(ItemStack.EMPTY);
                 } else if (!flag) {
+                    putInInventory(yeti, itemstack);
 
-                    boolean flag1 = !yeti.equipItemIfPossible(serverLevel, itemstack).isEmpty();
-                    if (!flag1) {
-                        putInInventory(yeti, itemstack);
-                    }
                     yeti.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
                 }
             } else {
-                boolean flag2 = !yeti.equipItemIfPossible(serverLevel, itemstack).isEmpty();
-                if (!flag2) {
+
                     ItemStack itemstack1 = yeti.getOffhandItem();
-                    if (isLovedItem(itemstack1)) {
+                if (isFood(itemstack1)) {
                         putInInventory(yeti, itemstack1);
                     } else {
                         throwItems(yeti, Collections.singletonList(itemstack1));
                     }
 
                     yeti.holdInOffHand(itemstack);
-                }
 
                 yeti.setState(Yeti.State.IDLING);
             }
@@ -440,16 +431,12 @@ public class YetiAi<E extends Yeti> {
             return false;
         } else if (isAdmiringDisabled(p_34858_) && p_34858_.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)) {
             return false;
-        } else if (p_34859_.is(FrostTags.Items.YETI_CURRENCY)) {
-            return isNotHoldingLovedItemInOffHand(p_34858_);
         } else {
             boolean flag = p_34858_.canAddToInventory(p_34859_);
-            if (!isLovedItem(p_34859_)) {
-                return false;
-            } else if (isFood(p_34858_, p_34859_)) {
+            if (isFood(p_34859_)) {
                 return flag;
             } else {
-                return isNotHoldingLovedItemInOffHand(p_34858_);
+                return false;
             }
         }
     }
@@ -462,7 +449,7 @@ public class YetiAi<E extends Yeti> {
         return p_149966_.is(FrostTags.Items.YETI_LOVED);
     }
 
-    protected static boolean isFood(Yeti yeti, ItemStack p_149966_) {
+    public static boolean isFood(ItemStack p_149966_) {
         return p_149966_.get(DataComponents.FOOD) != null;
     }
 

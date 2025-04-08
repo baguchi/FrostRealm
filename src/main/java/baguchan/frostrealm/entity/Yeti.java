@@ -374,18 +374,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 	public void pickUpItem(ServerLevel serverLevel, ItemEntity p_175445_1_) {
 		ItemStack itemstack = p_175445_1_.getItem();
 		Item item = itemstack.getItem();
-		if (itemstack.is(FrostTags.Items.YETI_CURRENCY) && this.isAdult()) {
-			this.onItemPickup(p_175445_1_);
-			this.take(p_175445_1_, 1);
-			YetiAi.holdInOffHand(serverLevel, this, itemstack.split(1));
-			this.setState(State.TRADE);
-			if (itemstack.isEmpty()) {
-				p_175445_1_.discard();
-			} else {
-				itemstack.setCount(itemstack.getCount());
-			}
-			this.holdTime = 200;
-		} else if (itemstack.get(DataComponents.FOOD) != null) {
+		if (itemstack.get(DataComponents.FOOD) != null) {
 			this.onItemPickup(p_175445_1_);
 			this.take(p_175445_1_, itemstack.getCount());
 			ItemStack itemstack1 = this.inventory.addItem(itemstack);
@@ -398,6 +387,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 			super.pickUpItem(serverLevel, p_175445_1_);
 		}
 	}
+
 
 	public void holdInOffHand(ItemStack p_34784_) {
 		this.setItemSlotAndDropWhenKilled(EquipmentSlot.OFFHAND, p_34784_);
