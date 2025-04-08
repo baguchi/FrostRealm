@@ -1,0 +1,31 @@
+{
+  "parent": "frostrealm:astrium_age",
+  "criteria": {
+    "trade": {
+      "conditions": {
+        "item": {
+          "items": "frostrealm:stardust_crystal"
+        }
+      },
+      "trigger": "frostrealm:stardust_trade"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.frostrealm.trade_with_crystal.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "frostrealm:stardust_crystal"
+    },
+    "title": {
+      "translate": "advancements.frostrealm.trade_with_crystal.title"
+    }
+  },
+  "requirements": [
+    [
+      "trade"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -290,7 +290,8 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 			return YetiAi.mobInteract(serverlevel, this, p_34745_, p_34746_);
 		} else {
 			boolean flag = YetiAi.canAdmire(this, p_34745_.getItemInHand(p_34746_)) && State.get(this.getState()) != State.TRADE;
-			return (InteractionResult) (flag ? InteractionResult.SUCCESS : InteractionResult.PASS);
+			boolean flag2 = this.isTrade();
+			return (InteractionResult) (flag || flag2 ? InteractionResult.SUCCESS : InteractionResult.PASS);
 		}
 	}
 

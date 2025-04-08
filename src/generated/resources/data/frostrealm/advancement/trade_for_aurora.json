@@ -1,0 +1,32 @@
+{
+  "parent": "frostrealm:astrium_age",
+  "criteria": {
+    "trade": {
+      "conditions": {
+        "item": {
+          "items": "#minecraft:enchantable/armor"
+        }
+      },
+      "trigger": "frostrealm:stardust_trade"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.frostrealm.trade_for_aurora.desc"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "frostrealm:astrium_sword"
+    },
+    "title": {
+      "translate": "advancements.frostrealm.trade_for_aurora.title"
+    }
+  },
+  "requirements": [
+    [
+      "trade"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

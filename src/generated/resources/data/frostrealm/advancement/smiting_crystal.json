@@ -2,7 +2,7 @@
   "parent": "frostrealm:astrium_age",
   "criteria": {
     "put_crystal": {
-      "trigger": "frostrealm:chili_distraction"
+      "trigger": "frostrealm:put_crystal"
     }
   },
   "display": {

@@ -2,17 +2,17 @@ package baguchan.frostrealm.data;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.advancement.PutCrystalTrigger;
+import baguchan.frostrealm.advancement.StardustTradeTrigger;
 import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostItems;
+import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.critereon.ChangeDimensionTrigger;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.TameAnimalTrigger;
+import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -20,6 +20,7 @@ import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 
@@ -38,7 +39,7 @@ public class FrostAdvancementData extends AdvancementProvider {
 		@SuppressWarnings("unused")
 		@Override
         public void generate(HolderLookup.Provider provider, Consumer<AdvancementHolder> consumer) {
-			HolderLookup<Item> lookupItem = provider.lookupOrThrow(Registries.ITEM);
+			HolderGetter<Item> lookupItem = provider.lookupOrThrow(Registries.ITEM);
 			HolderLookup.RegistryLookup<EntityType<?>> lookupEntity = provider.lookupOrThrow(Registries.ENTITY_TYPE);
 
 			AdvancementHolder root = Advancement.Builder.advancement()
@@ -132,6 +133,40 @@ public class FrostAdvancementData extends AdvancementProvider {
 							PutCrystalTrigger.get()
 					)
 					.save(consumer, "frostrealm:smiting_crystal");
+
+
+			Advancement.Builder.advancement()
+					.parent(astrium_age)
+					.display(
+							FrostItems.STARDUST_CRYSTAL.get(),
+							Component.translatable("advancements.frostrealm.trade_with_crystal.title"),
+							Component.translatable("advancements.frostrealm.trade_with_crystal.desc"),
+							null,
+							AdvancementType.TASK,
+							true,
+							true,
+							false
+					)
+					.addCriterion(
+							"trade",
+							StardustTradeTrigger.Instance.usedTradeItem(lookupItem, FrostItems.STARDUST_CRYSTAL))
+					.save(consumer, "frostrealm:trade_with_crystal");
+			Advancement.Builder.advancement()
+					.parent(astrium_age)
+					.display(
+							FrostItems.ASTRIUM_SWORD.get(),
+							Component.translatable("advancements.frostrealm.trade_for_aurora.title"),
+							Component.translatable("advancements.frostrealm.trade_for_aurora.desc"),
+							null,
+							AdvancementType.GOAL,
+							true,
+							true,
+							false
+					)
+					.addCriterion(
+							"trade",
+							StardustTradeTrigger.Instance.usedTradeItem(ItemPredicate.Builder.item().of(lookupItem, FrostTags.Items.SMITHABLE_WEAPON).of(lookupItem, ItemTags.ARMOR_ENCHANTABLE).build()))
+					.save(consumer, "frostrealm:trade_for_aurora");
 
 		}
 	}

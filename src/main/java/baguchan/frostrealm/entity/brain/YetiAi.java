@@ -16,6 +16,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
@@ -172,8 +173,11 @@ public class YetiAi<E extends Yeti> {
             admireGoldItem(yeti);
             stopWalking(yeti);
             yeti.setHoldTime(80);
+            if (p_34848_ instanceof ServerPlayer serverPlayer) {
+                FrostCriterions.STARDUST_TRADE.get().trigger(serverPlayer, itemstack);
+            }
             yeti.setState(Yeti.State.TRADE);
-            return InteractionResult.SUCCESS_SERVER;
+            return InteractionResult.SUCCESS;
         } else
         if (canAdmire(yeti, itemstack)) {
             ItemStack itemstack1 = itemstack.consumeAndReturn(1, p_34848_);
@@ -181,8 +185,11 @@ public class YetiAi<E extends Yeti> {
             admireGoldItem(yeti);
             stopWalking(yeti);
             yeti.setHoldTime(60);
+            if (p_34848_ instanceof ServerPlayer serverPlayer) {
+                FrostCriterions.STARDUST_TRADE.get().trigger(serverPlayer, itemstack);
+            }
             yeti.setState(Yeti.State.TRADE);
-            return InteractionResult.SUCCESS_SERVER;
+            return InteractionResult.SUCCESS;
         } else {
             return InteractionResult.PASS;
         }

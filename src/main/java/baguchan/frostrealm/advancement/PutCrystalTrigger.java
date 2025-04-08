@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class PutCrystalTrigger extends SimpleCriterionTrigger<PutCrystalTrigger.Instance> {
 
-    public static final ResourceLocation ID = FrostRealm.prefix("chili_distraction");
+    public static final ResourceLocation ID = FrostRealm.prefix("put_crystal");
 
     public void trigger(ServerPlayer player) {
         this.trigger(player, (instance) -> true);

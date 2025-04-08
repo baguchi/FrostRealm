@@ -2,6 +2,7 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.advancement.PutCrystalTrigger;
+import baguchan.frostrealm.advancement.StardustTradeTrigger;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -12,4 +13,5 @@ public class FrostCriterions {
     public static final DeferredRegister<CriterionTrigger<?>> CRITERIONS_REGISTER = DeferredRegister.create(BuiltInRegistries.TRIGGER_TYPES, FrostRealm.MODID);
 
     public static final Supplier<PutCrystalTrigger> PUT_CRYSTAL = CRITERIONS_REGISTER.register(PutCrystalTrigger.ID.getPath(), () -> new PutCrystalTrigger());
+    public static final Supplier<StardustTradeTrigger> STARDUST_TRADE = CRITERIONS_REGISTER.register(StardustTradeTrigger.ID.getPath(), () -> new StardustTradeTrigger());
 }
