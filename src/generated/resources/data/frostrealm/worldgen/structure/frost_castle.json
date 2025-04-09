@@ -48,13 +48,7 @@
     }
   },
   "start_height": {
-    "type": "minecraft:uniform",
-    "max_inclusive": {
-      "absolute": -20
-    },
-    "min_inclusive": {
-      "absolute": -40
-    }
+    "absolute": 0
   },
   "start_pool": "frostrealm:frost_castle/entrance",
   "step": "surface_structures",

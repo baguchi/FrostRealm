@@ -20,7 +20,7 @@
           },
           "position_predicate": {
             "max_chance": 0.25,
-            "max_dist": 100,
+            "max_dist": 500,
             "min_chance": 1.0,
             "min_dist": 0,
             "predicate_type": "minecraft:linear_pos"

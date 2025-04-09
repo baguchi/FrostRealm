@@ -47,6 +47,7 @@ public class FrostStructures {
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_ENTRANCE = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/entrance"));
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_BRIDGE = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/bridge"));
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_BRIDGE_END = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/bridge/bridge_end"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_MAIN = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/main"));
 
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_LESSER_WARRIOR = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/lesser_warrior"));
 
@@ -151,6 +152,9 @@ public class FrostStructures {
 
         Holder<StructureTemplatePool> holder7 = holdergetter2.getOrThrow(FROST_CASTLE_BRIDGE_END);
 
+        context.register(FROST_CASTLE_MAIN, new StructureTemplatePool(emptyPool, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("frost_castle/main_tower"), processors.getOrThrow(FROST_CASTLE_MAGMA_PROCESSOR)), 1)
+        ), StructureTemplatePool.Projection.RIGID));
         context.register(FROST_CASTLE_BRIDGE_END, new StructureTemplatePool(emptyPool, ImmutableList.of(
                 Pair.of(StructurePoolElement.single(name("frost_castle/bridge/bridge_end"), processors.getOrThrow(FROST_CASTLE_MAGMA_PROCESSOR)), 1)
         ), StructureTemplatePool.Projection.RIGID));
@@ -177,7 +181,7 @@ public class FrostStructures {
         context.register(FROST_CASTLE_MAGMA_PROCESSOR, new StructureProcessorList(ImmutableList.of(
                 new RuleProcessor(
                         ImmutableList.of(
-                                new ProcessorRule(new RandomBlockMatchTest(FrostBlocks.PERMA_MAGMA.get(), 1F), AlwaysTrueTest.INSTANCE, new LinearPosTest(1, 0.25F, 0, 100), Blocks.LAVA.defaultBlockState())
+                                new ProcessorRule(new RandomBlockMatchTest(FrostBlocks.PERMA_MAGMA.get(), 1F), AlwaysTrueTest.INSTANCE, new LinearPosTest(1, 0.25F, 0, 500), Blocks.LAVA.defaultBlockState())
                         )))));
 
     }
