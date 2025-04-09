@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "bagus_lib:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -9204848
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -1678320
-      }
-    ]
+    "model": "frostrealm:item/under_gokkur_spawn_egg"
   }
 }

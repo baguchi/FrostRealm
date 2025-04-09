@@ -96,7 +96,7 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.WOLFFLUE_FROST_BOAR_ARMOR.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.HOT_SPRING_BUCKET.asItem(), ModelTemplates.FLAT_ITEM);
 
-        this.generateSpawnEgg(FrostItems.MARMOT_SPAWNEGG.get(), 11633478, 10185517);
+        this.generateFlatItem(FrostItems.MARMOT_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateSpawnEgg(FrostItems.SNOWPILE_QUAIL_SPAWNEGG.get(), 16777215, 16777215);
         this.generateSpawnEgg(FrostItems.YETI_SPAWNEGG.get(), 13948891, 4208214);
         this.generateSpawnEgg(FrostItems.FROST_WRAITH_SPAWNEGG.get(), 9002363, 13721278);
@@ -104,13 +104,13 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateSpawnEgg(FrostItems.SNOW_MOLE_SPAWNEGG.get(), 15001062, 11970471);
         this.generateSpawnEgg(FrostItems.ASTRA_BALL_SPAWNEGG.get(), 9654988, 14919423);
         this.generateSpawnEgg(FrostItems.FROST_BOAR_SPAWNEGG.get(), 202786, 2714505);
-        this.generateSpawnEgg(FrostItems.WOLFFLUE_SPAWNEGG.get(), 8689054, 11511178);
+        this.generateFlatItem(FrostItems.WOLFFLUE_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateSpawnEgg(FrostItems.FERRET_SPAWNEGG.get(), 7953498, 4272429);
         this.generateSpawnEgg(FrostItems.SEAL_SPAWNEGG.get(), 16777215, 16777215);
         this.generateSpawnEgg(FrostItems.LESSER_WARRIOR_SPAWNEGG.get(), 6387319, 14543594);
         this.generateSpawnEgg(FrostItems.VENOCHEM_SPAWNEGG.get(), 4195929, 13522055);
-        this.generateSpawnEgg(FrostItems.GOKKUR_SPAWNEGG.get(), 10526102, 7301477);
-        this.generateSpawnEgg(FrostItems.UNDER_GOKKUR_SPAWNEGG.get(), 7572368, 15098896);
+        this.generateFlatItem(FrostItems.GOKKUR_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.UNDER_GOKKUR_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateSpawnEgg(FrostItems.ROOT_DEER_SPAWNEGG.get(), 6390687, 11213654);
         this.generateSpawnEgg(FrostItems.SILK_MOON_SPAWNEGG.get(), 14679020, 7716503);
         this.generateSpawnEgg(FrostItems.FROST_CRAWLER_SPAWNEGG.get(), 0x5985AC, 0x15243C);

@@ -160,7 +160,7 @@ public class FrostStructures {
         ), StructureTemplatePool.Projection.RIGID));
         context.register(FROST_CASTLE_BRIDGE, new StructureTemplatePool(holder7, ImmutableList.of(
                 Pair.of(StructurePoolElement.single(name("frost_castle/bridge/bridge_watchtower"), processors.getOrThrow(FROST_CASTLE_MAGMA_PROCESSOR)), 2),
-                Pair.of(StructurePoolElement.single(name("frost_castle/bridge/bridge_1"), processors.getOrThrow(FROST_CASTLE_MAGMA_PROCESSOR)), 4),
+                Pair.of(StructurePoolElement.single(name("frost_castle/bridge/bridge_1"), processors.getOrThrow(FROST_CASTLE_MAGMA_PROCESSOR)), 5),
                 Pair.of(StructurePoolElement.single(name("frost_castle/bridge/mini_watch_tower"), processors.getOrThrow(FROST_CASTLE_MAGMA_PROCESSOR)), 2),
                 Pair.of(StructurePoolElement.single(name("frost_castle/bridge/fogotten_legend"), processors.getOrThrow(FROST_CASTLE_MAGMA_PROCESSOR)), 1),
                 Pair.of(StructurePoolElement.single(name("frost_castle/bridge/t_bridge"), processors.getOrThrow(FROST_CASTLE_MAGMA_PROCESSOR)), 2)

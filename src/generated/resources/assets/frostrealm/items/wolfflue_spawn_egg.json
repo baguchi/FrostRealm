@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "bagus_lib:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -8088162
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -5266038
-      }
-    ]
+    "model": "frostrealm:item/wolfflue_spawn_egg"
   }
 }

@@ -16,7 +16,7 @@
         "processors": "frostrealm:frost_castle/magma",
         "projection": "rigid"
       },
-      "weight": 4
+      "weight": 5
     },
     {
       "element": {
