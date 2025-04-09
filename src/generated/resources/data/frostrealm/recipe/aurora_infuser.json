@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": "frostrealm:astrium_ingot",
+    "A": "frostrealm:glacinium_ingot",
     "S": "frostrealm:stardust_crystal",
     "T": "frostrealm:frigid_stone_smooth"
   },
