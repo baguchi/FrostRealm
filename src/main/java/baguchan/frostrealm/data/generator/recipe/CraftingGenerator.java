@@ -334,8 +334,8 @@ public class CraftingGenerator extends CraftingDataHelper {
                 .pattern("TTT")
                 .define('T', FrostBlocks.FRIGID_STONE_SMOOTH.get())
                 .define('S', FrostItems.STARDUST_CRYSTAL.get())
-                .define('A', FrostItems.ASTRIUM_INGOT.get())
-				.unlockedBy("has_item", has(FrostItems.STARDUST_CRYSTAL.get())).save(this.output);
+				.define('A', FrostItems.GLACINIUM_INGOT.get())
+				.unlockedBy("has_item", has(FrostItems.GLACINIUM_INGOT.get())).save(this.output);
 
 		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, FrostItems.UNSTABLE_VENOM_CRYSTAL.get(), 1)
 				.pattern("VVV")
