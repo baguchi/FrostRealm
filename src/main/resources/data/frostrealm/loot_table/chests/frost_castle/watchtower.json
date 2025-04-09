@@ -10,7 +10,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 20,
+          "weight": 30,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -25,7 +25,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
+          "weight": 30,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -40,7 +40,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
+          "weight": 30,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -55,7 +55,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 20,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -70,7 +70,22 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 20,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 3.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ],
+          "name": "frostrealm:stardust_crystal"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
           "name": "frostrealm:astrium_sword",
           "functions": [
             {
@@ -85,7 +100,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 5,
           "name": "frostrealm:astrium_axe",
           "functions": [
             {
@@ -100,7 +115,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 5,
           "name": "frostrealm:astrium_helmet",
           "functions": [
             {
@@ -115,7 +130,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 5,
           "name": "frostrealm:astrium_chestplate",
           "functions": [
             {
@@ -130,7 +145,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 5,
           "name": "frostrealm:astrium_leggings",
           "functions": [
             {
@@ -145,7 +160,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 5,
           "name": "frostrealm:astrium_boots",
           "functions": [
             {
@@ -160,8 +175,23 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 5,
           "name": "frostrealm:astrium_pickaxe"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "frostrealm:glacinium_ingot",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1.0,
+                "max": 3.0,
+                "type": "minecraft:uniform"
+              }
+            }
+          ]
         },
         {
           "type": "minecraft:item",
@@ -182,7 +212,7 @@
     },
     {
       "rolls": {
-        "min": 1.0,
+        "min": 0.0,
         "max": 2.0,
         "type": "minecraft:uniform"
       },
