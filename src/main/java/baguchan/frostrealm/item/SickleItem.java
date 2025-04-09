@@ -26,7 +26,7 @@ public class SickleItem extends Item {
     public static final ResourceLocation SWEEP_SPEED_ID = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "sweep_speed");
 
     public SickleItem(ToolMaterial tier, float damage, float speed, Item.Properties properties) {
-        super(properties.attributes(createAttributes(tier, damage, speed)));
+        super(properties.durability(tier.durability()).enchantable(tier.enchantmentValue()).repairable(tier.repairItems()).attributes(createAttributes(tier, damage, speed)));
     }
 
     public static ItemAttributeModifiers createAttributes(ToolMaterial tier, float damage, float speed) {

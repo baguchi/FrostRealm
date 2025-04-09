@@ -72,7 +72,7 @@ public class Venochem extends CellingMonster implements RangedAttackMob {
                 return super.canContinueToUse() && this.mob.distanceToSqr(this.mob.getTarget()) <= 6 * 6;
             }
         });
-        this.goalSelector.addGoal(5, new ShootProjectileAnimationGoal(this, 0.8F, 20, 20 * 3, 10.0F));
+        this.goalSelector.addGoal(5, new ShootProjectileAnimationGoal(this, 0.8F, 20, 20 * 3, 12.0F));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 0.8F) {
             @Nullable
             protected Vec3 getPosition() {
