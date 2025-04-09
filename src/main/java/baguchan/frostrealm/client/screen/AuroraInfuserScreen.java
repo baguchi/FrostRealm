@@ -88,7 +88,7 @@ public class AuroraInfuserScreen extends AbstractContainerScreen<AuroraInfuserMe
                 if (auroraPower == null) {
                     formattedtext = Component.literal("???");
                 } else {
-                    formattedtext = auroraPower.getFullname(((AuroraInfuserMenu) this.menu).levelClue[l]).copy().withStyle(ROOT_STYLE);
+                    formattedtext = auroraPower.getFullnameWithEnglish(((AuroraInfuserMenu) this.menu).levelClue[l]).copy().withStyle(ROOT_STYLE);
                 }
 
                 int i2 = 6839882;

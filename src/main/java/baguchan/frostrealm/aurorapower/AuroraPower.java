@@ -19,6 +19,8 @@ import java.util.Map;
 public class AuroraPower {
     @Nullable
     protected String descriptionId;
+    @Nullable
+    protected String rawDescription;
     protected final Rarity rarity;
 
     private final EquipmentSlot[] slots;
@@ -126,12 +128,32 @@ public class AuroraPower {
         return this.descriptionId;
     }
 
+    protected String getOrCreateRawDescription() {
+        if (this.descriptionId == null) {
+            this.descriptionId = AuroraPowers.getRegistry().getKey(this).getPath();
+        }
+
+        return this.descriptionId;
+    }
+
     public String getDescriptionId() {
         return this.getOrCreateDescriptionId();
     }
 
     public Component getFullname(int p_44701_) {
         MutableComponent mutablecomponent = Component.translatable(this.getDescriptionId());
+        mutablecomponent.withStyle(ChatFormatting.GREEN);
+
+
+        if (p_44701_ != 1 || this.getMaxLevel() != 1) {
+            mutablecomponent.append(CommonComponents.SPACE).append(Component.translatable("enchantment.level." + p_44701_));
+        }
+
+        return mutablecomponent;
+    }
+
+    public Component getFullnameWithEnglish(int p_44701_) {
+        MutableComponent mutablecomponent = Component.literal(this.getOrCreateRawDescription());
         mutablecomponent.withStyle(ChatFormatting.GREEN);
 
 
