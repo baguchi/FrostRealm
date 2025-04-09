@@ -33,6 +33,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.PolarBear;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
@@ -84,6 +85,7 @@ public class CommonEvents {
                     }
                     carriedStack.shrink(1);
                     event.getCarriedSlotAccess().set(stack);
+                    broadcastChangesOnContainerMenu(event.getPlayer());
                     event.setCanceled(true);
                 }
             }
@@ -99,6 +101,7 @@ public class CommonEvents {
                 }
                 carriedStack.shrink(1);
                 event.getCarriedSlotAccess().set(stack);
+                broadcastChangesOnContainerMenu(event.getPlayer());
                 event.setCanceled(true);
             }
         }
@@ -117,10 +120,18 @@ public class CommonEvents {
                         if (!event.getPlayer().addItem(stack1)) {
                             event.getPlayer().drop(stack1, true);
                         }
+                        broadcastChangesOnContainerMenu(event.getPlayer());
                         event.setCanceled(true);
                     }
                 }
             }
+        }
+    }
+
+    private static void broadcastChangesOnContainerMenu(Player p_376384_) {
+        AbstractContainerMenu abstractcontainermenu = p_376384_.containerMenu;
+        if (abstractcontainermenu != null) {
+            abstractcontainermenu.slotsChanged(p_376384_.getInventory());
         }
     }
 

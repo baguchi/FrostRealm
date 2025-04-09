@@ -1,0 +1,50 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "frostrealm:frost_castle/bridge/bridge_watchtower",
+        "processors": "frostrealm:frost_castle/magma",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "frostrealm:frost_castle/bridge/bridge_1",
+        "processors": "frostrealm:frost_castle/magma",
+        "projection": "rigid"
+      },
+      "weight": 4
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "frostrealm:frost_castle/bridge/mini_watch_tower",
+        "processors": "frostrealm:frost_castle/magma",
+        "projection": "rigid"
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "frostrealm:frost_castle/bridge/fogotten_legend",
+        "processors": "frostrealm:frost_castle/magma",
+        "projection": "rigid"
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "frostrealm:frost_castle/bridge/t_bridge",
+        "processors": "frostrealm:frost_castle/magma",
+        "projection": "rigid"
+      },
+      "weight": 2
+    }
+  ],
+  "fallback": "frostrealm:frost_castle/bridge/bridge_end"
+}

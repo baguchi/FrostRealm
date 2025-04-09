@@ -184,6 +184,14 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
         }
     }
 
+    @javax.annotation.Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34717_, DifficultyInstance p_34718_, EntitySpawnReason p_361787_, @javax.annotation.Nullable SpawnGroupData p_34720_) {
+        RandomSource randomsource = p_34717_.getRandom();
+        this.populateDefaultEquipmentSlots(randomsource, p_34718_);
+        this.populateDefaultEquipmentEnchantments(p_34717_, randomsource, p_34718_);
+        return super.finalizeSpawn(p_34717_, p_34718_, p_361787_, p_34720_);
+    }
+
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource p_218949_, DifficultyInstance p_218950_) {
         if (p_218949_.nextBoolean()) {
@@ -281,6 +289,11 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
     @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.STRAY_DEATH;
+    }
+
+    @Override
+    protected boolean isSunBurnTick() {
+        return false;
     }
 
     @Override

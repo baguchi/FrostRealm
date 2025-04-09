@@ -3,8 +3,8 @@
   "pools": [
     {
       "rolls": {
-        "min": 8.0,
-        "max": 12.0,
+        "min": 7.0,
+        "max": 9.0,
         "type": "minecraft:uniform"
       },
       "entries": [
@@ -21,7 +21,7 @@
               }
             }
           ],
-          "name": "frostrealm:sugarbeet_seeds"
+          "name": "frostrealm:cryonite_cream"
         },
         {
           "type": "minecraft:item",
@@ -36,7 +36,7 @@
               }
             }
           ],
-          "name": "frostrealm:sugarbeet"
+          "name": "frostrealm:frost_crystal"
         },
         {
           "type": "minecraft:item",
@@ -51,22 +51,7 @@
               }
             }
           ],
-          "name": "frostrealm:rye"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 15,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 3.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "frostrealm:rye_seeds"
+          "name": "frostrealm:glimmerrock"
         },
         {
           "type": "minecraft:item",
@@ -81,12 +66,57 @@
               }
             }
           ],
-          "name": "frostrealm:bearberry"
+          "name": "frostrealm:astrium_ingot"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "frostrealm:astrium_sword",
+          "functions": [
+            {
+              "function": "frostrealm:aurora_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 20.0,
+                "min": 10.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "frostrealm:astrium_axe",
+          "functions": [
+            {
+              "function": "frostrealm:aurora_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 20.0,
+                "min": 10.0
+              }
+            }
+          ]
         },
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "frostrealm:astrium_hoe"
+          "name": "frostrealm:astrium_pickaxe"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "frostrealm:frost_spear",
+          "functions": [
+            {
+              "function": "frostrealm:aurora_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 20.0,
+                "min": 10.0
+              }
+            }
+          ]
         }
       ]
     },
