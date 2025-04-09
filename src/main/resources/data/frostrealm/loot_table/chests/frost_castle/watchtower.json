@@ -25,7 +25,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 20,
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -70,7 +70,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 3,
           "name": "frostrealm:astrium_sword",
           "functions": [
             {
@@ -85,8 +85,68 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 3,
           "name": "frostrealm:astrium_axe",
+          "functions": [
+            {
+              "function": "frostrealm:aurora_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 20.0,
+                "min": 10.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "frostrealm:astrium_helmet",
+          "functions": [
+            {
+              "function": "frostrealm:aurora_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 20.0,
+                "min": 10.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "frostrealm:astrium_chestplate",
+          "functions": [
+            {
+              "function": "frostrealm:aurora_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 20.0,
+                "min": 10.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "frostrealm:astrium_leggings",
+          "functions": [
+            {
+              "function": "frostrealm:aurora_with_levels",
+              "levels": {
+                "type": "minecraft:uniform",
+                "max": 20.0,
+                "min": 10.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "frostrealm:astrium_boots",
           "functions": [
             {
               "function": "frostrealm:aurora_with_levels",

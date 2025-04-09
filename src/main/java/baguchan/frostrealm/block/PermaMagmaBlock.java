@@ -21,11 +21,11 @@ public class PermaMagmaBlock extends MagmaBlock {
 
     @Override
     public @Nullable PathType getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob mob) {
-        return PathType.DAMAGE_FIRE;
+        return PathType.LAVA;
     }
 
     @Override
     public @Nullable PathType getAdjacentBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob mob, PathType originalType) {
-        return PathType.DANGER_FIRE;
+        return PathType.LAVA;
     }
 }

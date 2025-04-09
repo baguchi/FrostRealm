@@ -166,7 +166,8 @@ public class FrostStructures {
                 Pair.of(StructurePoolElement.single(name("frost_castle/bridge/t_bridge"), processors.getOrThrow(FROST_CASTLE_MAGMA_PROCESSOR)), 2)
         ), StructureTemplatePool.Projection.RIGID));
         context.register(FROST_CASTLE_LESSER_WARRIOR, new StructureTemplatePool(emptyPool, ImmutableList.of(
-                Pair.of(StructurePoolElement.single(name("frost_castle/mobs/lesser_warrior")), 1)
+                Pair.of(StructurePoolElement.single(name("frost_castle/mobs/lesser_warrior")), 1),
+                Pair.of(StructurePoolElement.single(ResourceLocation.withDefaultNamespace("empty").toString()), 2)
         ), StructureTemplatePool.Projection.RIGID));
     }
 
