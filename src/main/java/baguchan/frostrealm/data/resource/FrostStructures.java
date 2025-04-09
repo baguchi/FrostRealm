@@ -82,7 +82,7 @@ public class FrostStructures {
                 FROST_CASTLE,
                 new JigsawStructure(
                         new Structure.StructureSettings.Builder(biomes.getOrThrow(FrostTags.Biomes.HAS_CASTLE))
-                                .generationStep(GenerationStep.Decoration.SURFACE_STRUCTURES)
+                                .generationStep(GenerationStep.Decoration.UNDERGROUND_STRUCTURES)
                                 .terrainAdapation(TerrainAdjustment.BEARD_THIN)
                                 .spawnOverrides(
                                         Arrays.stream(MobCategory.values())
@@ -97,9 +97,9 @@ public class FrostStructures {
                         pools.getOrThrow(FROST_CASTLE_ENTRANCE),
                         Optional.empty(),
                         10,
-                        ConstantHeight.of(VerticalAnchor.absolute(0)),
+                        ConstantHeight.of(VerticalAnchor.absolute(-27)),
                         false,
-                        Optional.of(Heightmap.Types.WORLD_SURFACE_WG),
+                        Optional.empty(),
                         116,
                         List.of(),
                         new DimensionPadding(0),

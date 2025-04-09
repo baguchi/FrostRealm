@@ -2,6 +2,18 @@
   "feature": "frostrealm:underground_delta",
   "placement": [
     {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:matching_blocks",
+        "blocks": "frostrealm:perma_slate",
+        "offset": [
+          0,
+          -1,
+          0
+        ]
+      }
+    },
+    {
       "type": "minecraft:count_on_every_layer",
       "count": 8
     },

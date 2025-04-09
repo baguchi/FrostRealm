@@ -18,7 +18,7 @@ public class BiomeTagGenerator extends BiomeTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         this.tag(FrostTags.Biomes.HAS_IGLOO).add(FrostBiomes.TUNDRA);
-        this.tag(FrostTags.Biomes.HAS_CASTLE).add(FrostBiomes.SHERBET_DESERT);
+        this.tag(FrostTags.Biomes.HAS_CASTLE).add(FrostBiomes.DEEP_UNDERGROUND);
         this.tag(FrostTags.Biomes.GRASS_FROST_BIOME).add(FrostBiomes.TUNDRA, FrostBiomes.FRIGID_FOREST);
         this.tag(FrostTags.Biomes.HOT_BIOME).add(FrostBiomes.CRYSTAL_FALL, FrostBiomes.HOT_ROCK, FrostBiomes.SHERBET_DESERT, FrostBiomes.DEEP_UNDERGROUND);
     }
