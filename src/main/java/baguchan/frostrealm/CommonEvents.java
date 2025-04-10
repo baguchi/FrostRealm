@@ -77,7 +77,7 @@ public class CommonEvents {
         if (event.getClickAction() == ClickAction.PRIMARY) {
             if (!stack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && (stack.is(FrostItems.COATING_FUR))) {
                 Optional<Holder.Reference<AttachableCrystal>> optional1 = AttachableCrystals.getFromIngredient(event.getPlayer().registryAccess(), carriedStack);
-                if (optional1.isPresent()) {
+                if (optional1.isPresent() && carriedStack.getCount() == 1) {
                     stack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1.get());
                     event.getPlayer().playSound(SoundEvents.BUNDLE_INSERT);
                     if (event.getPlayer() instanceof ServerPlayer serverPlayer) {
@@ -91,7 +91,7 @@ public class CommonEvents {
             }
 
 
-            if (!stack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && (stack.has(DataComponents.TOOL) || carriedStack.getItem() instanceof ArrowItem)
+            if (!stack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && (stack.has(DataComponents.ATTRIBUTE_MODIFIERS) || stack.getItem() instanceof ArrowItem)
                     && carriedStack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && carriedStack.is(FrostItems.COATING_FUR)) {
                 Holder<AttachableCrystal> optional1 = carriedStack.get(FrostDataCompnents.ATTACH_CRYSTAL.get());
                 stack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1);
@@ -100,7 +100,7 @@ public class CommonEvents {
                     FrostCriterions.PUT_CRYSTAL.get().trigger(serverPlayer);
                 }
                 carriedStack.shrink(1);
-                event.getCarriedSlotAccess().set(stack.split(1));
+                event.getCarriedSlotAccess().set(stack.copyAndClear());
                 broadcastChangesOnContainerMenu(event.getPlayer());
                 event.setCanceled(true);
             }
@@ -113,13 +113,12 @@ public class CommonEvents {
                     Holder<AttachableCrystal> crystal = stack.copy().get(FrostDataCompnents.ATTACH_CRYSTAL.get());
                     if (crystal != null) {
                         event.getPlayer().playSound(SoundEvents.HONEYCOMB_WAX_ON);
-                        stack.remove(FrostDataCompnents.ATTACH_CRYSTAL.get());
-                        event.getCarriedSlotAccess().set(stack.split(1));
                         ItemStack stack1 = new ItemStack(crystal.value().getItem().value(), stack.getCount());
-                        ;
                         if (!event.getPlayer().addItem(stack1)) {
                             event.getPlayer().drop(stack1, true);
                         }
+                        stack.remove(FrostDataCompnents.ATTACH_CRYSTAL.get());
+                        event.getCarriedSlotAccess().set(stack.copyAndClear());
                         broadcastChangesOnContainerMenu(event.getPlayer());
                         event.setCanceled(true);
                     }
