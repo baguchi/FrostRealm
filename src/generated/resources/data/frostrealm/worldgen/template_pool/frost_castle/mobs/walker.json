@@ -3,7 +3,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "frostrealm:frost_castle/mobs/lesser_warrior",
+        "location": "frostrealm:frost_castle/mobs/walker",
         "processors": {
           "processors": []
         },

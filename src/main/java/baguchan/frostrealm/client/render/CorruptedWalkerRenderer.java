@@ -9,6 +9,7 @@ import baguchan.frostrealm.client.render.state.CorruptedWalkerRenderState;
 import baguchan.frostrealm.entity.hostile.part.CorruptedWalker;
 import baguchan.frostrealm.entity.hostile.part.CorruptedWalkerPart;
 import baguchan.frostrealm.entity.hostile.part.CorruptedWalkerPartContainer;
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -18,9 +19,13 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
+import net.minecraft.client.renderer.entity.state.HitboxRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.phys.AABB;
+import net.neoforged.neoforge.entity.PartEntity;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 
@@ -127,6 +132,21 @@ public class CorruptedWalkerRenderer extends MobRenderer<CorruptedWalker, Corrup
             this.footModel.renderToBuffer(poseStack, vertexconsumer, light, i, flag1 ? 654311423 : -1);
         }
         poseStack.popPose();
+    }
+
+    @Override
+    protected void extractAdditionalHitboxes(CorruptedWalker p_412673_, ImmutableList.Builder<HitboxRenderState> p_412323_, float p_412176_) {
+        super.extractAdditionalHitboxes(p_412673_, p_412323_, p_412176_);
+        double d0 = -Mth.lerp((double) p_412176_, p_412673_.xOld, p_412673_.getX());
+        double d1 = -Mth.lerp((double) p_412176_, p_412673_.yOld, p_412673_.getY());
+        double d2 = -Mth.lerp((double) p_412176_, p_412673_.zOld, p_412673_.getZ());
+
+        for (@Nullable PartEntity<?> enderdragonpart : p_412673_.getParts()) {
+            AABB aabb = enderdragonpart.getBoundingBox();
+            HitboxRenderState hitboxrenderstate = new HitboxRenderState(aabb.minX - enderdragonpart.getX(), aabb.minY - enderdragonpart.getY(), aabb.minZ - enderdragonpart.getZ(), aabb.maxX - enderdragonpart.getX(), aabb.maxY - enderdragonpart.getY(), aabb.maxZ - enderdragonpart.getZ(), (float) (d0 + Mth.lerp((double) p_412176_, enderdragonpart.xOld, enderdragonpart.getX())), (float) (d1 + Mth.lerp((double) p_412176_, enderdragonpart.yOld, enderdragonpart.getY())), (float) (d2 + Mth.lerp((double) p_412176_, enderdragonpart.zOld, enderdragonpart.getZ())), 0.25F, 1.0F, 0.0F);
+            p_412323_.add(hitboxrenderstate);
+        }
+
     }
 
     protected void setupPartRotations(CorruptedWalkerRenderState state, CorruptedWalkerPart p_115317_, PoseStack p_115318_, float p_115319_, float p_115320_, float p_115321_, float p_320045_) {

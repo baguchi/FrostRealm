@@ -16,7 +16,7 @@ public class MoveAttackerAndLookGoal extends Goal {
 
     public void tick() {
         if (this.attacker.getTarget() != null) {
-            this.attacker.getNavigation().moveTo(this.attacker.getTarget(), 1.5D);
+            this.attacker.getNavigation().moveTo(this.attacker.getTarget(), 2.0D);
             this.attacker.getLookControl().setLookAt(this.attacker.getTarget(), 1.5F, 1.5F);
         }
     }

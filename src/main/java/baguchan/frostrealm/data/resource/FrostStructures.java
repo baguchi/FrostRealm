@@ -50,6 +50,7 @@ public class FrostStructures {
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_MAIN = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/main"));
 
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_LESSER_WARRIOR = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/lesser_warrior"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_WALKER = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/walker"));
 
 
     public static final ResourceKey<StructureTemplatePool> IGLOO_ROAD = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "igloo/road"));
@@ -167,7 +168,11 @@ public class FrostStructures {
         ), StructureTemplatePool.Projection.RIGID));
         context.register(FROST_CASTLE_LESSER_WARRIOR, new StructureTemplatePool(emptyPool, ImmutableList.of(
                 Pair.of(StructurePoolElement.single(name("frost_castle/mobs/lesser_warrior")), 1),
-                Pair.of(StructurePoolElement.single(ResourceLocation.withDefaultNamespace("empty").toString()), 2)
+                Pair.of(StructurePoolElement.single(ResourceLocation.withDefaultNamespace("empty").toString()), 3)
+        ), StructureTemplatePool.Projection.RIGID));
+        context.register(FROST_CASTLE_WALKER, new StructureTemplatePool(emptyPool, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("frost_castle/mobs/walker")), 1),
+                Pair.of(StructurePoolElement.single(ResourceLocation.withDefaultNamespace("empty").toString()), 3)
         ), StructureTemplatePool.Projection.RIGID));
     }
 

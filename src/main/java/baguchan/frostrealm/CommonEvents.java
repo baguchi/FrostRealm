@@ -84,7 +84,7 @@ public class CommonEvents {
                         FrostCriterions.PUT_CRYSTAL.get().trigger(serverPlayer);
                     }
                     carriedStack.shrink(1);
-                    event.getCarriedSlotAccess().set(stack);
+                    event.getCarriedSlotAccess().set(stack.split(1));
                     broadcastChangesOnContainerMenu(event.getPlayer());
                     event.setCanceled(true);
                 }
@@ -100,7 +100,7 @@ public class CommonEvents {
                     FrostCriterions.PUT_CRYSTAL.get().trigger(serverPlayer);
                 }
                 carriedStack.shrink(1);
-                event.getCarriedSlotAccess().set(stack);
+                event.getCarriedSlotAccess().set(stack.split(1));
                 broadcastChangesOnContainerMenu(event.getPlayer());
                 event.setCanceled(true);
             }
@@ -114,7 +114,7 @@ public class CommonEvents {
                     if (crystal != null) {
                         event.getPlayer().playSound(SoundEvents.HONEYCOMB_WAX_ON);
                         stack.remove(FrostDataCompnents.ATTACH_CRYSTAL.get());
-                        event.getCarriedSlotAccess().set(stack);
+                        event.getCarriedSlotAccess().set(stack.split(1));
                         ItemStack stack1 = new ItemStack(crystal.value().getItem().value(), stack.getCount());
                         ;
                         if (!event.getPlayer().addItem(stack1)) {
