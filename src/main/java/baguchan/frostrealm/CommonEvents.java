@@ -91,7 +91,7 @@ public class CommonEvents {
             }
 
 
-            if (!stack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && (stack.has(DataComponents.ATTRIBUTE_MODIFIERS) || stack.getItem() instanceof ArrowItem)
+            if (!stack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && (stack.has(DataComponents.WEAPON) || stack.getItem() instanceof ArrowItem)
                     && carriedStack.has(FrostDataCompnents.ATTACH_CRYSTAL.get()) && carriedStack.is(FrostItems.COATING_FUR)) {
                 Holder<AttachableCrystal> optional1 = carriedStack.get(FrostDataCompnents.ATTACH_CRYSTAL.get());
                 stack.set(FrostDataCompnents.ATTACH_CRYSTAL.get(), optional1);

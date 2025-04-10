@@ -31,16 +31,6 @@ public class SpearItem extends Item {
         return super.onEntitySwing(stack, entity, hand);
     }
 
-
-    @Override
-    public void hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
-    }
-
-    @Override
-    public void postHurtEnemy(ItemStack p_345553_, LivingEntity p_345771_, LivingEntity p_346282_) {
-        p_345553_.hurtAndBreak(1, p_346282_, EquipmentSlot.MAINHAND);
-    }
-
     @Override
     public boolean mineBlock(ItemStack p_43282_, Level p_43283_, BlockState p_43284_, BlockPos p_43285_, LivingEntity p_43286_) {
         if (p_43284_.getDestroySpeed(p_43283_, p_43285_) != 0.0F) {
