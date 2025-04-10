@@ -9,12 +9,7 @@
       "type": "minecraft:block_predicate_filter",
       "predicate": {
         "type": "minecraft:matching_blocks",
-        "blocks": "frostrealm:perma_slate",
-        "offset": [
-          0,
-          -1,
-          0
-        ]
+        "blocks": "frostrealm:perma_slate"
       }
     },
     {
