@@ -1,6 +1,7 @@
 package baguchan.frostrealm.entity.hostile;
 
 import baguchan.frostrealm.capability.FrostWeatherSavedData;
+import baguchan.frostrealm.registry.FrostBiomes;
 import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.utils.BlizzardUtils;
 import net.minecraft.core.BlockPos;
@@ -41,7 +42,8 @@ public abstract class WarpedMonster extends Monster {
 
     public static boolean checkWarpedMonsterSpawnRules(EntityType<? extends WarpedMonster> p_27578_, ServerLevelAccessor p_27579_, EntitySpawnReason p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
 		return p_27579_.getDifficulty() != Difficulty.PEACEFUL
-                && (EntitySpawnReason.ignoresLightRequirements(p_27580_) || FrostWeatherSavedData.get(p_27579_.getLevel()).isWeatherActive() && FrostWeatherSavedData.get(p_27579_.getLevel()).getFrostWeather() == FrostWeathers.PURPLE_FOG.get() && BlizzardUtils.isAffectWeather(p_27579_, p_27581_) && checkMobSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_));
+                && (EntitySpawnReason.ignoresLightRequirements(p_27580_)
+                || checkMobSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_) && isDarkEnoughToSpawn(p_27579_, p_27581_, p_27582_) && p_27579_.getBiome(p_27581_).is(FrostBiomes.SHERBET_DESERT) || FrostWeatherSavedData.get(p_27579_.getLevel()).isWeatherActive() && FrostWeatherSavedData.get(p_27579_.getLevel()).getFrostWeather() == FrostWeathers.PURPLE_FOG.get() && BlizzardUtils.isAffectWeather(p_27579_, p_27581_) && checkMobSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_));
 	}
 
     @Override

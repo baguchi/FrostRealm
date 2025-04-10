@@ -83,12 +83,6 @@
         "maxCount": 3,
         "minCount": 2,
         "weight": 80
-      },
-      {
-        "type": "frostrealm:frost_crawler",
-        "maxCount": 4,
-        "minCount": 3,
-        "weight": 30
       }
     ],
     "underground_water_creature": [],

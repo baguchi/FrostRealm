@@ -387,7 +387,7 @@ public class CommonEvents {
 
         if (event.getSource().getDirectEntity() instanceof AbstractArrow arrow) {
             ItemStack stack2 = arrow.getPickupItemStackOrigin();
-            if (stack2 != null) {
+            if (event.getBlockedDamage() <= 0 && stack2 != null) {
                 @Nullable Holder<AttachableCrystal> attachableCrystal = stack2.get(FrostDataCompnents.ATTACH_CRYSTAL);
                 if (attachableCrystal != null && attachableCrystal.value().getMobEffectInstance().isPresent()) {
                     livingEntity.addEffect(new MobEffectInstance(attachableCrystal.value().getMobEffectInstance().get()));

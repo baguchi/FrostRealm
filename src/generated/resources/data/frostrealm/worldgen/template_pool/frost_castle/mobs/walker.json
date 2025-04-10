@@ -14,7 +14,7 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "minecraft:empty",
+        "location": "frostrealm:frost_castle/mobs/empty",
         "processors": {
           "processors": []
         },

@@ -86,12 +86,6 @@
         "weight": 80
       },
       {
-        "type": "frostrealm:frost_crawler",
-        "maxCount": 4,
-        "minCount": 3,
-        "weight": 30
-      },
-      {
         "type": "frostrealm:under_gokkur",
         "maxCount": 3,
         "minCount": 2,
