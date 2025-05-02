@@ -119,7 +119,7 @@ public class FrostNoiseRouterData {
 
 	public static NoiseRouter frostrealm(HolderGetter<DensityFunction> p_255681_, HolderGetter<NormalNoise.NoiseParameters> p_256005_) {
 		DensityFunction densityfunction = DensityFunctions.noise(p_256005_.getOrThrow(Noises.AQUIFER_BARRIER), 0.5D);
-		DensityFunction densityfunction1 = DensityFunctions.noise(p_256005_.getOrThrow(Noises.AQUIFER_FLUID_LEVEL_FLOODEDNESS), 0.67D);
+		DensityFunction densityfunction1 = DensityFunctions.constant(-1.0F);
 		DensityFunction densityfunction2 = DensityFunctions.noise(p_256005_.getOrThrow(Noises.AQUIFER_FLUID_LEVEL_SPREAD), 0.7142857142857143D);
 		DensityFunction densityfunction3 = DensityFunctions.noise(p_256005_.getOrThrow(Noises.AQUIFER_LAVA));
 		DensityFunction densityfunction4 = getFunction(p_255681_, SHIFT_X);
@@ -151,7 +151,7 @@ public class FrostNoiseRouterData {
 	}
 
 	private static DensityFunction slideCave(DensityFunction p_224491_) {
-		return slide(p_224491_, -64, 64, 24, 0, 0.9375, -8, 24, 2.5);
+		return slide(p_224491_, -64, 94, 34, 0, 0.9375, -8, 24, 2.5);
 	}
 
 	private static DensityFunction slideCaveUpper(DensityFunction p_224491_) {

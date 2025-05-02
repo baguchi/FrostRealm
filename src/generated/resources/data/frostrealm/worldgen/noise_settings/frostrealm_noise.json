@@ -144,9 +144,9 @@
                                         "argument1": {
                                           "type": "minecraft:y_clamped_gradient",
                                           "from_value": 1.0,
-                                          "from_y": -24,
+                                          "from_y": -4,
                                           "to_value": 0.0,
-                                          "to_y": 0
+                                          "to_y": 30
                                         },
                                         "argument2": {
                                           "type": "minecraft:add",
@@ -172,12 +172,7 @@
       },
       "argument2": "minecraft:overworld/caves/noodle"
     },
-    "fluid_level_floodedness": {
-      "type": "minecraft:noise",
-      "noise": "minecraft:aquifer_fluid_level_floodedness",
-      "xz_scale": 1.0,
-      "y_scale": 0.67
-    },
+    "fluid_level_floodedness": -1.0,
     "fluid_level_spread": {
       "type": "minecraft:noise",
       "noise": "minecraft:aquifer_fluid_level_spread",
