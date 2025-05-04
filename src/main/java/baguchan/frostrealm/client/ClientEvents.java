@@ -61,11 +61,11 @@ public class ClientEvents {
                 if (event.getEntityRenderState().getRenderData(ClientRegistrar.HOLD_SPEAR_KEY)) {
                     VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("right_arm").orElseThrow());
                     VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("left_arm").orElseThrow());
-                    if (!event.getBaguAnimationController().getAnimationState(FrostAnimations.ATTACK).isStarted()) {
+                    if (!event.getBaguAnimationController().getAnimationState(FrostAnimations.SPEAR_ATTACK).isStarted()) {
                         event.applyStatic(flag ? SpearAttackAnimations.spear_attack_right : SpearAttackAnimations.spear_attack_left);
                     }
 
-                    event.animate(event.getBaguAnimationController().getAnimationState(FrostAnimations.ATTACK), flag ? SpearAttackAnimations.spear_attack_right : SpearAttackAnimations.spear_attack_left, humanoidRenderState.ageInTicks);
+                    event.animate(event.getBaguAnimationController().getAnimationState(FrostAnimations.SPEAR_ATTACK), flag ? SpearAttackAnimations.spear_attack_right : SpearAttackAnimations.spear_attack_left, humanoidRenderState.ageInTicks);
                 }
             }
         }

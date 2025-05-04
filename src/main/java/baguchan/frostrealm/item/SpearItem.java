@@ -1,6 +1,9 @@
 package baguchan.frostrealm.item;
 
+import baguchan.frostrealm.api.IItemAnimation;
+import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.registry.FrostAnimations;
+import baguchan.frostrealm.registry.FrostAttachs;
 import baguchi.bagus_lib.util.client.AnimationUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -14,7 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.ItemAbility;
 
-public class SpearItem extends Item {
+public class SpearItem extends Item implements IItemAnimation {
     public static final ResourceLocation BASE_ENTITY_RANGE = ResourceLocation.withDefaultNamespace("base_entity_range");
     public static final ResourceLocation BASE_BLOCK_RANGE = ResourceLocation.withDefaultNamespace("base_block_range");
 
@@ -25,10 +28,20 @@ public class SpearItem extends Item {
 
     @Override
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
-        if (!entity.swinging && entity instanceof Player player && !player.level().isClientSide()) {
-            AnimationUtil.sendAnimation(entity, FrostAnimations.ATTACK);
+        if (entity instanceof Player player && !player.level().isClientSide()) {
+            if (!entity.swinging) {
+                FrostLivingCapability capability = player.getData(FrostAttachs.FROST_LIVING);
+                AnimationUtil.sendAnimation(player, FrostAnimations.SPEAR_ATTACK);
+                capability.usingItem = player.getItemBySlot(EquipmentSlot.MAINHAND).copy();
+
+            }
         }
         return super.onEntitySwing(stack, entity, hand);
+    }
+
+    @Override
+    public void onEntityStopAnimation(LivingEntity entity) {
+        AnimationUtil.sendStopAnimation(entity, FrostAnimations.SPEAR_ATTACK);
     }
 
     @Override
