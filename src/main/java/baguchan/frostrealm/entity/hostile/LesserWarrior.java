@@ -194,7 +194,7 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource p_218949_, DifficultyInstance p_218950_) {
-        if (p_218949_.nextBoolean()) {
+        if (p_218949_.nextFloat() < 0.75F) {
             ItemStack spear = new ItemStack(FrostItems.ASTRIUM_SWORD.get());
 
             AuroraPowerUtils.auroraInfusionItem(p_218949_, spear, 5, false);

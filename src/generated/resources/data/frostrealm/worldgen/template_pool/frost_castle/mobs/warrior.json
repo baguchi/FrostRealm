@@ -10,17 +10,6 @@
         "projection": "rigid"
       },
       "weight": 1
-    },
-    {
-      "element": {
-        "element_type": "minecraft:single_pool_element",
-        "location": "frostrealm:frost_castle/mobs/empty",
-        "processors": {
-          "processors": []
-        },
-        "projection": "rigid"
-      },
-      "weight": 2
     }
   ],
   "fallback": "minecraft:empty"

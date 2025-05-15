@@ -47,7 +47,7 @@
     }
   },
   "start_height": {
-    "absolute": -27
+    "absolute": -46
   },
   "start_pool": "frostrealm:frost_castle/entrance",
   "step": "underground_structures",

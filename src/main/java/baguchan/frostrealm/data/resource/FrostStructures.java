@@ -50,6 +50,7 @@ public class FrostStructures {
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_MAIN = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/main"));
 
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_LESSER_WARRIOR = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/lesser_warrior"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_WARRIOR = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/warrior"));
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_WALKER = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/walker"));
 
 
@@ -98,7 +99,7 @@ public class FrostStructures {
                         pools.getOrThrow(FROST_CASTLE_ENTRANCE),
                         Optional.empty(),
                         10,
-                        ConstantHeight.of(VerticalAnchor.absolute(-27)),
+                        ConstantHeight.of(VerticalAnchor.absolute(-46)),
                         false,
                         Optional.empty(),
                         116,
@@ -168,7 +169,10 @@ public class FrostStructures {
         ), StructureTemplatePool.Projection.RIGID));
         context.register(FROST_CASTLE_LESSER_WARRIOR, new StructureTemplatePool(emptyPool, ImmutableList.of(
                 Pair.of(StructurePoolElement.single(name("frost_castle/mobs/lesser_warrior")), 1),
-                Pair.of(StructurePoolElement.single(name("frost_castle/mobs/empty")), 1)
+                Pair.of(StructurePoolElement.single(name("frost_castle/mobs/empty")), 2)
+        ), StructureTemplatePool.Projection.RIGID));
+        context.register(FROST_CASTLE_WARRIOR, new StructureTemplatePool(emptyPool, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("frost_castle/mobs/lesser_warrior")), 1)
         ), StructureTemplatePool.Projection.RIGID));
         context.register(FROST_CASTLE_WALKER, new StructureTemplatePool(emptyPool, ImmutableList.of(
                 Pair.of(StructurePoolElement.single(name("frost_castle/mobs/walker")), 1),
