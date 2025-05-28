@@ -21,7 +21,7 @@
               }
             }
           ],
-          "name": "frostrealm:cryonite_cream"
+          "name": "frostrealm:frost_boar_fur"
         },
         {
           "type": "minecraft:item",
@@ -51,7 +51,7 @@
               }
             }
           ],
-          "name": "frostrealm:glimmerrock"
+          "name": "frostrealm:yeti_fur"
         },
         {
           "type": "minecraft:item",
@@ -86,13 +86,13 @@
         {
           "type": "minecraft:item",
           "weight": 5,
-          "name": "frostrealm:astrium_sword",
+          "name": "frostrealm:glacinium_sword",
           "functions": [
             {
               "function": "frostrealm:aurora_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
+                "max": 20.0,
                 "min": 10.0
               }
             }
@@ -101,13 +101,13 @@
         {
           "type": "minecraft:item",
           "weight": 5,
-          "name": "frostrealm:astrium_axe",
+          "name": "frostrealm:glacinium_axe",
           "functions": [
             {
               "function": "frostrealm:aurora_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
+                "max": 20.0,
                 "min": 10.0
               }
             }
@@ -122,7 +122,7 @@
               "function": "frostrealm:aurora_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
+                "max": 20.0,
                 "min": 10.0
               }
             }
@@ -137,46 +137,11 @@
               "function": "frostrealm:aurora_with_levels",
               "levels": {
                 "type": "minecraft:uniform",
-                "max": 30.0,
+                "max": 20.0,
                 "min": 10.0
               }
             }
           ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "frostrealm:astrium_leggings",
-          "functions": [
-            {
-              "function": "frostrealm:aurora_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 30.0,
-                "min": 10.0
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "frostrealm:astrium_boots",
-          "functions": [
-            {
-              "function": "frostrealm:aurora_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 30.0,
-                "min": 10.0
-              }
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 5,
-          "name": "frostrealm:astrium_pickaxe"
         },
         {
           "type": "minecraft:item",
@@ -195,8 +160,13 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 5,
+          "name": "frostrealm:frost_catalyst"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 1,
-          "name": "frostrealm:astrium_sickle",
+          "name": "frostrealm:glacinium_javelin",
           "functions": [
             {
               "function": "frostrealm:aurora_with_levels",
@@ -229,7 +199,7 @@
               }
             }
           ],
-          "name": "frostrealm:rye_bread"
+          "name": "frostrealm:rye_pancake"
         },
         {
           "type": "minecraft:item",
@@ -243,7 +213,7 @@
               }
             }
           ],
-          "name": "frostrealm:bearberry_cooked"
+          "name": "frostrealm:cooked_frost_boar_meat"
         }
       ]
     }

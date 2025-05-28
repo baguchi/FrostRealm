@@ -127,5 +127,29 @@
       }
     ],
     "subtitle": "subtitles.ambient.gravity_moving"
+  },
+  "entity.seeker.idle": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/seeker/seeker_idle"
+      }
+    ],
+    "subtitle": "subtitles.entity.seeker.idle"
+  },
+  "entity.seeker.hurt": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/seeker/seeker_hurt"
+      }
+    ],
+    "subtitle": "subtitles.entity.seeker.hurt"
+  },
+  "entity.seeker.death": {
+    "sounds": [
+      {
+        "name": "frostrealm:entity/seeker/seeker_death"
+      }
+    ],
+    "subtitle": "subtitles.entity.seeker.death"
   }
 }

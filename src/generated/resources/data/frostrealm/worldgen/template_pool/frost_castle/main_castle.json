@@ -3,8 +3,10 @@
     {
       "element": {
         "element_type": "minecraft:single_pool_element",
-        "location": "frostrealm:frost_castle/main_tower",
-        "processors": "frostrealm:frost_castle/magma",
+        "location": "frostrealm:frost_castle/main_castle",
+        "processors": {
+          "processors": []
+        },
         "projection": "rigid"
       },
       "weight": 1

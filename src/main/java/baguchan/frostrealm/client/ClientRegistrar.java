@@ -112,6 +112,7 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.SILK_MOON_WORM.get(), SilkMoonWormRenderer::new);
 		event.registerEntityRenderer(FrostEntities.SILK_MOON.get(), SilkMoonRenderer::new);
 		event.registerEntityRenderer(FrostEntities.FROST_CRAWLER.get(), FrostCrawlerRenderer::new);
+        event.registerEntityRenderer(FrostEntities.SEEKER.get(), SeekerRenderer::new);
 	}
 
 	@SubscribeEvent
@@ -150,7 +151,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.SILK_MOON, SilkMoonModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.SILK_MOON_WORM, SilkMoonWormModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.FROST_CRAWLER, FrostCrawlerModel::createBodyLayer);
-
+        event.registerLayerDefinition(FrostModelLayers.SEEKER, SeekerModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_INNER, () -> YetiFurArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION));
         event.registerLayerDefinition(FrostModelLayers.YETI_FUR_ARMOR_OUTER, () -> YetiFurArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION));

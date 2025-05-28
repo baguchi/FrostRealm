@@ -25,6 +25,9 @@ public class FrostSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> SEAL_DEATH = register("entity.seal.death");
     public static final DeferredHolder<SoundEvent, SoundEvent> SEAL_FART = register("entity.seal.fart");
     public static final DeferredHolder<SoundEvent, SoundEvent> YETI_IDLE = register("entity.yeti.idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SEEKER_IDLE = register("entity.seeker.idle");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SEEKER_HURT = register("entity.seeker.hurt");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SEEKER_DEATH = register("entity.seeker.death");
 
 
     public static final DeferredHolder<SoundEvent, SoundEvent> MORTAR = register("ambient.mortar.moving");

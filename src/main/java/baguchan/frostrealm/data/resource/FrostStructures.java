@@ -47,7 +47,9 @@ public class FrostStructures {
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_ENTRANCE = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/entrance"));
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_BRIDGE = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/bridge"));
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_BRIDGE_END = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/bridge/bridge_end"));
-    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_MAIN = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/main"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_MAIN = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/main_castle"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_ROOM_1 = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/room_1"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_ROOM_2 = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/room_2"));
 
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_LESSER_WARRIOR = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/lesser_warrior"));
     public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_WARRIOR = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/warrior"));
@@ -155,8 +157,21 @@ public class FrostStructures {
         Holder<StructureTemplatePool> holder7 = holdergetter2.getOrThrow(FROST_CASTLE_BRIDGE_END);
 
         context.register(FROST_CASTLE_MAIN, new StructureTemplatePool(emptyPool, ImmutableList.of(
-                Pair.of(StructurePoolElement.single(name("frost_castle/main_tower"), processors.getOrThrow(FROST_CASTLE_MAGMA_PROCESSOR)), 1)
+                Pair.of(StructurePoolElement.single(name("frost_castle/main_castle")), 1)
         ), StructureTemplatePool.Projection.RIGID));
+
+        context.register(FROST_CASTLE_ROOM_1, new StructureTemplatePool(emptyPool, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("frost_castle/room/room_1_1")), 1),
+                Pair.of(StructurePoolElement.single(name("frost_castle/room/room_1_2")), 1),
+                Pair.of(StructurePoolElement.single(name("frost_castle/room/room_1_3")), 1),
+                Pair.of(StructurePoolElement.single(name("frost_castle/room/room_1_4")), 1)
+        ), StructureTemplatePool.Projection.RIGID));
+        context.register(FROST_CASTLE_ROOM_2, new StructureTemplatePool(emptyPool, ImmutableList.of(
+                Pair.of(StructurePoolElement.single(name("frost_castle/room/room_2_1")), 1),
+                Pair.of(StructurePoolElement.single(name("frost_castle/room/room_2_2")), 1),
+                Pair.of(StructurePoolElement.single(name("frost_castle/room/room_2_3")), 1)
+        ), StructureTemplatePool.Projection.RIGID));
+
         context.register(FROST_CASTLE_BRIDGE_END, new StructureTemplatePool(emptyPool, ImmutableList.of(
                 Pair.of(StructurePoolElement.single(name("frost_castle/bridge/bridge_end"), processors.getOrThrow(FROST_CASTLE_MAGMA_PROCESSOR)), 1)
         ), StructureTemplatePool.Projection.RIGID));

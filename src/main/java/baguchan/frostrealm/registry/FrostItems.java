@@ -114,4 +114,5 @@ public class FrostItems {
     public static final DeferredItem<Item> ROOT_DEER_SPAWNEGG = ITEMS.registerItem("root_deer_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.ROOT_DEER.get(), properties));
     public static final DeferredItem<Item> SILK_MOON_SPAWNEGG = ITEMS.registerItem("silk_moon_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.SILK_MOON.get(), properties));
     public static final DeferredItem<Item> FROST_CRAWLER_SPAWNEGG = ITEMS.registerItem("frost_crawler_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.FROST_CRAWLER.get(), properties));
+    public static final DeferredItem<Item> SEEKER_SPAWNEGG = ITEMS.registerItem("seeker_spawn_egg", (properties) -> new SpawnEggItem(FrostEntities.SEEKER.get(), properties));
 }
