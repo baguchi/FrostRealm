@@ -31,14 +31,11 @@ public class WideMeleeAttack<E extends PathfinderMob> extends AttackWithAnimatio
                 if (entity != attacker) {
                     if (attacker.canAttack(entity) && !attacker.isAlliedTo(entity) && attacker.isWithinMeleeAttackRange(entity)) {
                         Vec3 vec3 = entity.position();
-                        Vec3 yVector = attacker.calculateViewVector(0, attacker.getYRot());
-                        Vec3 xVector = attacker.calculateViewVector(attacker.getXRot(), 0);
+                        Vec3 yVector = attacker.calculateViewVector(0, attacker.getYHeadRot());
                         Vec3 vec32 = vec3.subtract(attacker.position());
-                        Vec3 vec33 = (new Vec3(vec32.x, (double) 0, vec32.z)).normalize();
-                        Vec3 vec34 = (new Vec3(0, (double) vec32.y, 0)).normalize();
-                        double d0 = Math.acos(vec33.dot(xVector));
-                        double d1 = Math.acos(vec34.dot(yVector));
-                        if (resolveAttack(d0, range, d1, range)) {
+                        Vec3 vec33 = (new Vec3(vec32.x, (double) vec32.y, vec32.z)).normalize();
+                        double d0 = Math.acos(vec33.dot(yVector));
+                        if (resolveAttack(d0, range)) {
                             attacker.doHurtTarget(serverLevel, entity);
                         }
                     }
@@ -48,7 +45,7 @@ public class WideMeleeAttack<E extends PathfinderMob> extends AttackWithAnimatio
 
     }
 
-    private AABB getAttackBoundingBox(E attacker) {
+    public AABB getAttackBoundingBox(E attacker) {
         Entity entity = attacker.getVehicle();
         AABB aabb;
         if (entity != null) {
@@ -62,8 +59,8 @@ public class WideMeleeAttack<E extends PathfinderMob> extends AttackWithAnimatio
         return aabb.inflate(Math.sqrt((double) 2.04F) - (double) 0.6F, (double) 0.0F, Math.sqrt((double) 2.04F) - (double) 0.6F);
     }
 
-    public boolean resolveAttack(double xRot, double xRotAttackRange, double yRot, double yRotAttackRange) {
-        if (yRot > (double) (((float) Math.PI / 180F) * yRotAttackRange) && xRot > (double) (((float) Math.PI / 180F) * xRotAttackRange)) {
+    public boolean resolveAttack(double yRot, double yRotAttackRange) {
+        if (yRot > (double) (((float) Math.PI / 180F) * yRotAttackRange)) {
             return false;
         } else {
             return true;

@@ -132,6 +132,12 @@
     "sounds": [
       {
         "name": "frostrealm:entity/seeker/seeker_idle"
+      },
+      {
+        "name": "frostrealm:entity/seeker/seeker_idle2"
+      },
+      {
+        "name": "frostrealm:entity/seeker/seeker_idle3"
       }
     ],
     "subtitle": "subtitles.entity.seeker.idle"

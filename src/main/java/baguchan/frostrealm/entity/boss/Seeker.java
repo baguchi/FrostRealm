@@ -1,6 +1,7 @@
 package baguchan.frostrealm.entity.boss;
 
 import baguchan.frostrealm.entity.brain.SeekerAi;
+import baguchan.frostrealm.entity.hostile.LesserWarrior;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostSounds;
 import com.mojang.serialization.Dynamic;
@@ -91,6 +92,16 @@ public class Seeker extends Monster {
     }
 
     @Override
+    protected float getSoundVolume() {
+        return 2;
+    }
+
+    @Override
+    protected boolean shouldDespawnInPeaceful() {
+        return false;
+    }
+
+    @Override
     public void baseTick() {
         super.baseTick();
         if (this.level().isClientSide) {
@@ -130,6 +141,13 @@ public class Seeker extends Monster {
         }
     }
 
+    protected boolean considersEntityAsAlly(Entity p_360600_) {
+        if (super.considersEntityAsAlly(p_360600_) || p_360600_ instanceof Seeker || p_360600_ instanceof LesserWarrior) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     @Override
     protected void tickDeath() {
         if (this.level().isClientSide()) {

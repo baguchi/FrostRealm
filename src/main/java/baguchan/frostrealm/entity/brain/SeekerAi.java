@@ -28,8 +28,8 @@ import static net.minecraft.world.entity.ai.sensing.Sensor.isEntityAttackableIgn
 
 public class SeekerAi {
     public static final ImmutableList<? extends SensorType<? extends Sensor<? super Seeker>>> SENSOR_TYPES = ImmutableList.of(baguchi.bagus_lib.register.ModSensors.SMART_NEAREST_LIVING_ENTITY_SENSOR.get(), SensorType.HURT_BY
-            , FrostSensors.ENEMY_SENSOR.get());
-    public static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_ATTACKABLE
+            , FrostSensors.ENEMY_SENSOR.get(), SensorType.NEAREST_PLAYERS);
+    public static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYERS, MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_ATTACKABLE
             , FrostMemoryModuleType.NEAREST_ENEMYS.get(), FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get(), MemoryModuleType.AVOID_TARGET
             , MemoryModuleType.ANGRY_AT, MemoryModuleType.UNIVERSAL_ANGER, MemoryModuleType.HOME);
 
@@ -48,15 +48,15 @@ public class SeekerAi {
         Activity activity = brain.getActiveNonCoreActivity().orElse((Activity) null);
         brain.setActiveActivityToFirstValid(ImmutableList.of(Activity.FIGHT, Activity.IDLE));
         Activity activity1 = brain.getActiveNonCoreActivity().orElse((Activity) null);
-        if (activity != activity1) {
+        /*if (activity != activity1) {
             getSoundForCurrentActivity(boar).ifPresent(boar::playSound);
-        }
+        }*/
 
         boar.setAggressive(brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET));
     }
 
     private static void initFightActivity(Brain<Seeker> p_149303_) {
-        p_149303_.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 0, ImmutableList.of(StopAttackingIfTargetInvalid.create(), new SeekerMeleeAttack<>(Seeker.attackAnimationActionPoint, Seeker.attackAnimationLength, Seeker.attackAnimationLength + 2, 1.1F, 60F)), MemoryModuleType.ATTACK_TARGET);
+        p_149303_.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 0, ImmutableList.of(StopAttackingIfTargetInvalid.create(), new SeekerMeleeAttack<>(Seeker.attackAnimationActionPoint, Seeker.attackAnimationLength, Seeker.attackAnimationLength + 2, 1.25F, 60F)), MemoryModuleType.ATTACK_TARGET);
     }
 
     private static void initCoreActivity(Brain<Seeker> p_149307_) {
@@ -90,7 +90,7 @@ public class SeekerAi {
         }
 
 
-        return p_34611_.getBrain().getMemory(MemoryModuleType.NEAREST_ATTACKABLE);
+        return p_34611_.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER);
     }
 
     private static float getSpeedModifier(LivingEntity livingEntity) {
