@@ -94,12 +94,14 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
 
         PartDefinition hood = head_upper.addOrReplaceChild("hood", CubeListBuilder.create().texOffs(0, 84).addBox(-4.0F, -10.0F, -8.3333F, 8.0F, 13.0F, 8.0F, new CubeDeformation(0.2F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
+        PartDefinition orb = head.addOrReplaceChild("orb", CubeListBuilder.create().texOffs(76, 35).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -5.0F, 0.0F));
+
         PartDefinition bodyleggings = body.addOrReplaceChild("bodyleggings", CubeListBuilder.create().texOffs(0, 24).addBox(-4.6079F, 0.0F, -2.6079F, 10.0F, 16.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.1961F, -11.2163F, -1.0F));
 
         PartDefinition necklace = body.addOrReplaceChild("necklace", CubeListBuilder.create(), PartPose.offset(0.1961F, -31.2063F, -3.9556F));
 
         PartDefinition necklace_r1 = necklace.addOrReplaceChild("necklace_r1", CubeListBuilder.create().texOffs(70, 74).addBox(-1.0F, -2.0F, -2.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F))
-                .texOffs(76, 21).addBox(6.0F, -2.0F, -2.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.5F, -0.01F, -0.1523F, -0.1309F, 0.0F, 0.0F));
+                .texOffs(70, 74).addBox(6.0F, -2.0F, -2.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.5F, -0.01F, -0.1523F, -0.1309F, 0.0F, 0.0F));
 
         PartDefinition necklace_r2 = necklace.addOrReplaceChild("necklace_r2", CubeListBuilder.create().texOffs(56, 74).addBox(-1.0F, -3.0F, -2.0F, 3.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-0.5F, 3.49F, -0.1523F, -0.1309F, 0.0F, 0.0F));
 
@@ -140,9 +142,8 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
         this.neck.yRot = entity.yRot * ((float) Math.PI / 180F) * (1F / 3F);
         this.neck.xRot = entity.xRot * ((float) Math.PI / 180F) * (1F / 3F);
 
-        if (entity.state != Seeker.SeekerState.JUMP) {
-            this.animateWalk(SeekerAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 2, 2.5F);
-        }
+        this.animateWalk(SeekerAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 2, 2.5F);
+
         if (entity.state != Seeker.SeekerState.IDLE) {
             this.leftArm.resetPose();
             this.leftArm2.resetPose();
@@ -156,7 +157,6 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
         this.animate(entity.stopAttackAnimationState, SeekerAnimations.attack_stop, entity.ageInTicks);
         this.animate(entity.deathAnimationState, SeekerAnimations.death, entity.ageInTicks);
         this.animate(entity.breathAnimationState, SeekerAnimations.breath, entity.ageInTicks);
-        this.animate(entity.jumpAnimationState, SeekerAnimations.backward_jump, entity.ageInTicks);
     }
 
     private ModelPart getArm(HumanoidArm p_102923_) {

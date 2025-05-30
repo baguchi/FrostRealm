@@ -51,7 +51,6 @@ public class SeekerRenderer<T extends Seeker> extends MobRenderer<T, SeekerRende
         p_360515_.stopAttackAnimationState.copyFrom(p_362733_.stopAttackAnimationState);
         p_360515_.deathAnimationState.copyFrom(p_362733_.deathAnimationState);
         p_360515_.breathAnimationState.copyFrom(p_362733_.breathAnimationState);
-        p_360515_.jumpAnimationState.copyFrom(p_362733_.jumpAnimationState);
         p_360515_.isAgressive = p_362733_.isAggressive();
         p_360515_.state = p_362733_.getState();
     }

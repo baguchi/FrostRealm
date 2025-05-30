@@ -1,12 +1,12 @@
 package baguchan.frostrealm.entity.boss;
 
-import baguchan.frostrealm.entity.brain.SeekerAi;
+import baguchan.frostrealm.entity.goal.SeekerAttackGoal;
+import baguchan.frostrealm.entity.goal.SeekerBreathAttackGoal;
 import baguchan.frostrealm.entity.hostile.LesserWarrior;
 import baguchan.frostrealm.registry.FrostEntityDatas;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostSounds;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.Dynamic;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -19,16 +19,20 @@ import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.util.profiling.Profiler;
-import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -49,7 +53,6 @@ public class Seeker extends Monster {
     public final AnimationState stopAttackAnimationState = new AnimationState();
     public final AnimationState deathAnimationState = new AnimationState();
     public final AnimationState breathAnimationState = new AnimationState();
-    public final AnimationState jumpAnimationState = new AnimationState();
 
     private long inStateTicks = 0L;
     private long noSpecialAttackTime = 0L;
@@ -57,7 +60,20 @@ public class Seeker extends Monster {
     public Seeker(EntityType<? extends Seeker> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
         this.xpReward = 200;
-        this.getNavigation().setCanFloat(true);
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(4, new SeekerBreathAttackGoal(this));
+        this.goalSelector.addGoal(4, new SeekerAttackGoal(this, 1.2D, attackAnimationActionPoint, attackAnimationLength, 60));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, (double) 1.0F));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this, new Class[0]));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, IronGolem.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, Turtle.class, 10, true, false, Turtle.BABY_ON_LAND_SELECTOR));
 
     }
 
@@ -89,35 +105,6 @@ public class Seeker extends Monster {
 
     public void setState(SeekerState state) {
         this.entityData.set(STATE, state);
-    }
-
-
-    @Override
-    protected void customServerAiStep(ServerLevel serverLevel) {
-        ProfilerFiller profiler = Profiler.get();
-        profiler.push("seekerBrain");
-        this.getBrain().tick(serverLevel, this);
-        profiler.pop();
-        profiler.push("seekerActivityUpdate");
-        SeekerAi.updateActivity(this);
-        profiler.pop();
-    }
-
-    protected Brain.Provider<Seeker> brainProvider() {
-        return Brain.provider(SeekerAi.MEMORY_TYPES, SeekerAi.SENSOR_TYPES);
-    }
-
-    protected Brain<?> makeBrain(Dynamic<?> p_35064_) {
-        return SeekerAi.makeBrain(this, this.brainProvider().makeBrain(p_35064_));
-    }
-
-    public Brain<Seeker> getBrain() {
-        return (Brain<Seeker>) super.getBrain();
-    }
-
-    @javax.annotation.Nullable
-    public LivingEntity getTarget() {
-        return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse((LivingEntity) null);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -211,7 +198,6 @@ public class Seeker extends Monster {
         this.preAttackAnimationState.stop();
         this.stopAttackAnimationState.stop();
         this.breathAnimationState.stop();
-        this.jumpAnimationState.stop();
         switch (this.getState()) {
             case SeekerState.IDLE:
                 break;
@@ -224,9 +210,6 @@ public class Seeker extends Monster {
                 break;
             case SeekerState.BREATH:
                 this.breathAnimationState.startIfStopped(this.tickCount);
-                break;
-            case SeekerState.JUMP:
-                this.jumpAnimationState.startIfStopped(this.tickCount);
                 break;
         }
 
@@ -270,7 +253,6 @@ public class Seeker extends Monster {
         RandomSource randomsource = p_34717_.getRandom();
         this.populateDefaultEquipmentSlots(randomsource, p_34718_);
         this.populateDefaultEquipmentEnchantments(p_34717_, randomsource, p_34718_);
-        SeekerAi.initMemories(this, p_34717_.getRandom(), p_361787_);
 
         return super.finalizeSpawn(p_34717_, p_34718_, p_361787_, p_34720_);
     }
@@ -294,17 +276,6 @@ public class Seeker extends Monster {
     }
 
     @Override
-    public boolean hurtServer(ServerLevel serverLevel, DamageSource p_34503_, float p_34504_) {
-        boolean flag = super.hurtServer(serverLevel, p_34503_, p_34504_);
-
-        if (flag && p_34503_.getEntity() instanceof LivingEntity) {
-            SeekerAi.wasHurtBy(serverLevel, this, (LivingEntity) p_34503_.getEntity());
-        }
-
-        return flag;
-    }
-
-    @Override
     public boolean isLeftHanded() {
         return false;
     }
@@ -324,7 +295,7 @@ public class Seeker extends Monster {
         },
         STOP_ATTACK("stop_attack", 3, 2) {
         },
-        ATTACK("attack", 40, 3) {
+        ATTACK("attack", 80, 3) {
             public boolean canLook() {
                 return false;
             }
@@ -334,24 +305,13 @@ public class Seeker extends Monster {
                 return false;
             }
         },
-        BREATH("breath", 60, 4) {
+        BREATH("breath", -1, 4) {
             public boolean canLook() {
                 return false;
             }
 
             @Override
             public boolean canWalk() {
-                return false;
-            }
-        },
-        JUMP("jump", -1, 5) {
-            @Override
-            public boolean canWalk() {
-                return false;
-            }
-
-            @Override
-            public boolean canLook() {
                 return false;
             }
         };
