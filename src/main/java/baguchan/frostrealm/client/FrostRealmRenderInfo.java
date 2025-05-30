@@ -15,6 +15,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.phys.Vec3;
@@ -22,7 +23,7 @@ import org.joml.Matrix4f;
 
 public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     private static final ResourceLocation AURORA_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png");
-    private static final ResourceLocation ORB_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/frost_orb.png");
+    public static final ResourceLocation ORB_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/frost_orb.png");
     private static final ResourceLocation END_SKY_LOCATION = ResourceLocation.withDefaultNamespace("textures/environment/end_sky.png");
 
     private final FrostAmbientSoundsHandler soundsHandler;
@@ -119,7 +120,9 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
                     float x = level.getRandom().nextFloat() * 0.5F - level.getRandom().nextFloat();
                     float y = level.getRandom().nextFloat();
                     float z = level.getRandom().nextFloat() * 0.5F - level.getRandom().nextFloat();
-                    level.addParticle(FrostParticleTypes.SNOW.get(), camera.getPosition().x - x * 36F, camera.getPosition().y + 8 + y * 16, camera.getPosition().z - z * 36, -0.2F, -0.5F, -0.2F);
+                    if (level.canSeeSky(BlockPos.containing(new Vec3((float) (camera.getPosition().x - x * 36F), (float) (camera.getPosition().y + 8 + y * 16), (float) (camera.getPosition().z - z * 36))))) {
+                        level.addParticle(FrostParticleTypes.SNOW.get(), camera.getPosition().x - x * 36F, camera.getPosition().y + 8 + y * 16, camera.getPosition().z - z * 36, -0.2F, -0.5F, -0.2F);
+                    }
                 }
             }
         }

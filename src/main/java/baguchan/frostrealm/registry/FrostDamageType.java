@@ -5,13 +5,17 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageEffects;
 import net.minecraft.world.damagesource.DamageType;
 
 public class FrostDamageType {
+    public static final ResourceKey<DamageType> FREEZE_BREATH = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "freeze_breath"));
+
     public static final ResourceKey<DamageType> VENOM = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "venom"));
     public static final ResourceKey<DamageType> VENOM_BALL = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "venom_ball"));
 
     public static void bootstrap(BootstrapContext<DamageType> context) {
+        context.register(FREEZE_BREATH, new DamageType("freeze_breath", 0.05F, DamageEffects.FREEZING));
         context.register(VENOM, new DamageType("venom", 0.1F));
         context.register(VENOM_BALL, new DamageType("venom_ball", 0.1F));
     }

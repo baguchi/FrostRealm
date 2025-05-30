@@ -1,21 +1,29 @@
 package baguchan.frostrealm.entity.brain;
 
 import baguchan.frostrealm.entity.boss.Seeker;
+import baguchan.frostrealm.entity.brain.behavior.SeekerBreathAttack;
 import baguchan.frostrealm.entity.brain.behavior.SeekerMeleeAttack;
+import baguchan.frostrealm.entity.brain.behavior.SeekerWalkingToTarget;
 import baguchan.frostrealm.entity.hostile.LesserWarrior;
 import baguchan.frostrealm.registry.FrostMemoryModuleType;
 import baguchan.frostrealm.registry.FrostSensors;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.Unit;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
+import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
@@ -31,7 +39,7 @@ public class SeekerAi {
             , FrostSensors.ENEMY_SENSOR.get(), SensorType.NEAREST_PLAYERS);
     public static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYERS, MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_ATTACKABLE
             , FrostMemoryModuleType.NEAREST_ENEMYS.get(), FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get(), MemoryModuleType.AVOID_TARGET
-            , MemoryModuleType.ANGRY_AT, MemoryModuleType.UNIVERSAL_ANGER, MemoryModuleType.HOME);
+            , MemoryModuleType.ANGRY_AT, MemoryModuleType.UNIVERSAL_ANGER, MemoryModuleType.HOME, FrostMemoryModuleType.BREATH_COOLDOWN.get(), FrostMemoryModuleType.JUMP_COOLDOWN.get());
 
     public static Brain<?> makeBrain(Seeker frostBoar, Brain<Seeker> p_149291_) {
         initCoreActivity(p_149291_);
@@ -56,15 +64,25 @@ public class SeekerAi {
     }
 
     private static void initFightActivity(Brain<Seeker> p_149303_) {
-        p_149303_.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 0, ImmutableList.of(StopAttackingIfTargetInvalid.create(), new SeekerMeleeAttack<>(Seeker.attackAnimationActionPoint, Seeker.attackAnimationLength, Seeker.attackAnimationLength + 2, 1.25F, 60F)), MemoryModuleType.ATTACK_TARGET);
+        p_149303_.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 0, ImmutableList.of(StopAttackingIfTargetInvalid.create()
+                , BehaviorBuilder.triggerIf(SeekerAi::checkExtraAttackMoveCondition, BackUpIfTooClose.create(8, 0.85F))
+                , new SeekerWalkingToTarget<>()
+                , new GateBehavior<>(
+                        ImmutableMap.of(),
+                        ImmutableSet.of(),
+                        GateBehavior.OrderPolicy.ORDERED,
+                        GateBehavior.RunningPolicy.RUN_ONE,
+                        ImmutableList.of(Pair.of(new SeekerBreathAttack<>(), 1), Pair.of(new SeekerMeleeAttack<>(Seeker.attackAnimationActionPoint, Seeker.attackAnimationLength + 10, 10, 1.15F, 60F), 2))
+                )), MemoryModuleType.ATTACK_TARGET);
     }
 
+
     private static void initCoreActivity(Brain<Seeker> p_149307_) {
-        p_149307_.addActivity(Activity.CORE, 0, ImmutableList.of(StartAttacking.create(SeekerAi::findNearestValidAttackTarget), new Swim<>(0.8F), new LookAtTargetSink(45, 90), new MoveToTargetSink(), new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS)));
+        p_149307_.addActivity(Activity.CORE, 0, ImmutableList.of(StartAttacking.create(SeekerAi::findNearestValidAttackTarget), new Swim<>(0.8F), new LookAtTargetSink(45, 90), new MoveToTargetSink()));
     }
 
     private static void initIdleActivity(Brain<Seeker> p_149309_) {
-        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors())), ImmutableSet.of());
+        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(2, StrollToPoi.create(MemoryModuleType.HOME, 0.85F, 3, 600))), ImmutableSet.of());
     }
 
 
@@ -134,6 +152,15 @@ public class SeekerAi {
         });
     }
 
+    protected static boolean checkExtraAttackMoveCondition(Seeker mob) {
+        LivingEntity livingentity = getAttackTarget(mob);
+        return livingentity != null && mob.getState() != Seeker.SeekerState.PRE_ATTACK && mob.getState() != Seeker.SeekerState.ATTACK;
+    }
+
+    private static LivingEntity getAttackTarget(Seeker p_23533_) {
+        return p_23533_.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() ? (LivingEntity) p_23533_.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get() : null;
+    }
+
     private static SoundEvent getSoundForActivity(Seeker p_34583_, Activity p_34584_) {
         if (p_34584_ != Activity.AVOID) {
             if (p_34584_ == Activity.FIGHT) {
@@ -143,6 +170,14 @@ public class SeekerAi {
             }
         } else {
             return SoundEvents.HOGLIN_RETREAT;
+        }
+    }
+
+    public static void initMemories(Seeker p_219206_, RandomSource p_219207_, EntitySpawnReason p_29535_) {
+        p_219206_.getBrain().setMemoryWithExpiry(FrostMemoryModuleType.BREATH_COOLDOWN.get(), Unit.INSTANCE, (long) 600L);
+        if (p_29535_ == EntitySpawnReason.STRUCTURE) {
+            GlobalPos globalpos = GlobalPos.of(p_219206_.level().dimension(), p_219206_.blockPosition());
+            p_219206_.getBrain().setMemory(MemoryModuleType.HOME, globalpos);
         }
     }
 }

@@ -135,9 +135,6 @@
       },
       {
         "name": "frostrealm:entity/seeker/seeker_idle2"
-      },
-      {
-        "name": "frostrealm:entity/seeker/seeker_idle3"
       }
     ],
     "subtitle": "subtitles.entity.seeker.idle"
@@ -146,6 +143,9 @@
     "sounds": [
       {
         "name": "frostrealm:entity/seeker/seeker_hurt"
+      },
+      {
+        "name": "frostrealm:entity/seeker/seeker_hurt2"
       }
     ],
     "subtitle": "subtitles.entity.seeker.hurt"

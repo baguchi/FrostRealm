@@ -18,8 +18,6 @@ public class FrostWraithRenderer extends MobRenderer<FrostWraith, FrostWraithRen
 	private static final ResourceLocation WRAITH = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/frost_wraith/frost_wraith.png");
 	private static final RenderType WRAITH_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/frost_wraith/frost_wraith_glow.png"));
 
-	private static final float HALF_SQRT_3 = (float) (Math.sqrt(30.0) / 2.0);
-
 	public FrostWraithRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new FrostWraithModel<>(p_173952_.bakeLayer(FrostModelLayers.FROST_WRAITH)), 0.5F);
 		this.addLayer(new EyesLayer<FrostWraithRenderState, FrostWraithModel<FrostWraithRenderState>>(this) {

@@ -39,6 +39,7 @@ public class GlimmerRockItem extends Item {
 		FrostLivingCapability cap = p_151211_.getData(FrostAttachs.FROST_LIVING.get());
 		cap.setTemperatureLevel(cap.getTemperatureLevel() + 1);
 		cap.setSaturation(cap.getSaturationLevel() + 0.05F);
+        p_151211_.setTicksFrozen(0);
         p_151209_.shrink(1);
 		return p_151209_;
 	}

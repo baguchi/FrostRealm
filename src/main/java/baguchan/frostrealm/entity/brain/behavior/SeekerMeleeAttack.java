@@ -14,6 +14,19 @@ public class SeekerMeleeAttack<E extends Seeker> extends WideMeleeAttack<E> {
         super(actionPoint, attackLength, cooldownBetweenAttacks, speed, range);
     }
 
+    @Override
+    protected boolean checkExtraStartConditions(ServerLevel level, E mob) {
+        LivingEntity livingentity = this.getAttackTarget(mob);
+        return livingentity != null && super.checkExtraStartConditions(level, mob) && mob.distanceToSqr(livingentity) < 5 * 5;
+    }
+
+    @Override
+    protected boolean canStillUse(ServerLevel p_22545_, E p_22546_, long p_22547_) {
+        LivingEntity livingentity = this.getAttackTarget(p_22546_);
+
+        return livingentity != null && super.canStillUse(p_22545_, p_22546_, p_22547_) && p_22546_.distanceToSqr(livingentity) < 5 * 5;
+    }
+
     protected void tick(ServerLevel p_22551_, E p_22552_, long p_22553_) {
         LivingEntity livingentity = this.getAttackTarget(p_22552_);
         if (livingentity != null) {

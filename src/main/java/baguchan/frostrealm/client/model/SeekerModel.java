@@ -5,6 +5,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.12.4
 
 import baguchan.frostrealm.client.animation.SeekerAnimations;
 import baguchan.frostrealm.client.render.state.SeekerRenderState;
+import baguchan.frostrealm.entity.boss.Seeker;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
@@ -14,10 +15,10 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.HumanoidArm;
 
 public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> implements ArmedModel {
-    private final ModelPart all;
-    private final ModelPart body;
-    private final ModelPart neck;
-    private final ModelPart head;
+    public final ModelPart all;
+    public final ModelPart body;
+    public final ModelPart neck;
+    public final ModelPart head;
     private final ModelPart jaw;
     private final ModelPart head_upper;
     private final ModelPart hood;
@@ -139,10 +140,10 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
         this.neck.yRot = entity.yRot * ((float) Math.PI / 180F) * (1F / 3F);
         this.neck.xRot = entity.xRot * ((float) Math.PI / 180F) * (1F / 3F);
 
-
-        this.animateWalk(SeekerAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 2, 2.5F);
-
-        if (entity.isAgressive) {
+        if (entity.state != Seeker.SeekerState.JUMP) {
+            this.animateWalk(SeekerAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 2, 2.5F);
+        }
+        if (entity.state != Seeker.SeekerState.IDLE) {
             this.leftArm.resetPose();
             this.leftArm2.resetPose();
             this.leftArmGlobe.resetPose();
@@ -154,6 +155,8 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
         this.animate(entity.attackAnimationState, SeekerAnimations.attack, entity.ageInTicks);
         this.animate(entity.stopAttackAnimationState, SeekerAnimations.attack_stop, entity.ageInTicks);
         this.animate(entity.deathAnimationState, SeekerAnimations.death, entity.ageInTicks);
+        this.animate(entity.breathAnimationState, SeekerAnimations.breath, entity.ageInTicks);
+        this.animate(entity.jumpAnimationState, SeekerAnimations.backward_jump, entity.ageInTicks);
     }
 
     private ModelPart getArm(HumanoidArm p_102923_) {

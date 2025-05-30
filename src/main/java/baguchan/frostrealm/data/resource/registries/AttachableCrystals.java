@@ -44,7 +44,7 @@ public class AttachableCrystals {
 
 
     public static void bootstrap(BootstrapContext<AttachableCrystal> context) {
-        register(context, VENOM, FrostItems.UNSTABLE_VENOM_CRYSTAL, 1.0F, 64, new MobEffectInstance(MobEffects.POISON, 200));
-        register(context, FROST, FrostItems.FROST_CRYSTAL, 1.0F, 64, new MobEffectInstance(FrostEffects.COLD_SENSITIVITY, 200));
+        register(context, VENOM, FrostItems.UNSTABLE_VENOM_CRYSTAL, 1.0F, 64, new MobEffectInstance(MobEffects.POISON, 100));
+        register(context, FROST, FrostItems.FROST_CRYSTAL, 1.0F, 64, new MobEffectInstance(FrostEffects.COLD_SENSITIVITY, 100));
     }
 }

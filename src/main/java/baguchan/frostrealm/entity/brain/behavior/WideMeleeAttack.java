@@ -29,7 +29,7 @@ public class WideMeleeAttack<E extends PathfinderMob> extends AttackWithAnimatio
             List<LivingEntity> entitiesHit = serverLevel.getEntitiesOfClass(LivingEntity.class, getAttackBoundingBox(attacker));
             for (LivingEntity entity : entitiesHit) {
                 if (entity != attacker) {
-                    if (attacker.canAttack(entity) && !attacker.isAlliedTo(entity) && attacker.isWithinMeleeAttackRange(entity)) {
+                    if (attacker.canAttack(entity) && !attacker.isAlliedTo(entity)) {
                         Vec3 vec3 = entity.position();
                         Vec3 yVector = attacker.calculateViewVector(0, attacker.getYHeadRot());
                         Vec3 vec32 = vec3.subtract(attacker.position());

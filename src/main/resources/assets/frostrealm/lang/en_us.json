@@ -114,7 +114,7 @@
   "item.frostrealm.glacinium_ingot": "Glacinium Ingot",
   "item.frostrealm.cryonite": "Cryonite",
   "item.frostrealm.cryonite_cream": "Cryonite Cream",
-  "item.frostrealm.glimmerrock.tooltip": "When Use it. Increase body temperature",
+  "item.frostrealm.glimmerrock.tooltip": "When Use it. Increase body temperature and remove the frozen state",
   "item.frostrealm.frost_wraith_spawn_egg": "Frost Wraith Spawn Egg",
   "item.frostrealm.warped_insect_spawn_egg": "Warped Insect Spawn Egg",
   "item.frostrealm.yeti_spawn_egg": "Yeti Spawn Egg",
@@ -292,6 +292,7 @@
   "fluid_type.frostrealm.hot_spring": "Hot Spring",
   "death.attack.venom": "%1$s was Infected Venom",
   "death.attack.venom_ball": "%1$s was Infected Venom by %2$s",
+  "death.attack.freeze_breath": "%1$s was Freeze by %2$s 's Breath",
   "attach_crystal.frostrealm.venom": "Venom",
   "attach_crystal.frostrealm.frost": "Frost",
   "item.frostrealm.attachable": "Attachable With Weapon"
