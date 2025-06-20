@@ -60,13 +60,13 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
         poseStack.pushPose();
         //poseStack.mulPose(modelViewMatrix);
 
-        renderAurora(poseStack, FrostWeatherManager.getWeatherLevel(partialTick));
+        renderAurora(poseStack, FrostWeatherManager.getNormalWeatherLevel(partialTick));
         float f5 = FrostWeatherManager.getWeatherLevel(1.0F);
         poseStack.popPose();
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
         poseStack.mulPose(Axis.XP.rotationDegrees(f1 * 360.0F));
-        renderOrb(1.0F - FrostWeatherManager.getWeatherLevel(partialTick), Tesselator.getInstance(), poseStack);
+        renderOrb(FrostWeatherManager.getNormalWeatherLevel(partialTick), Tesselator.getInstance(), poseStack);
         poseStack.popPose();
         poseStack.popPose();
         return true;
@@ -88,7 +88,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     private void renderAurora(PoseStack p_109781_, float weatherLevel) {
         VertexConsumer vertexconsumer = Minecraft.getInstance().renderBuffers().bufferSource().getBuffer(RenderType.celestial(AURORA_LOCATION));
         p_109781_.pushPose();
-        float f11 = (1.0F - weatherLevel);
+        float f11 = (weatherLevel);
         p_109781_.pushPose();
         Matrix4f matrix4f1 = p_109781_.last().pose();
         float f12 = 160.0F;

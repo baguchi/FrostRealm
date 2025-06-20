@@ -16,7 +16,8 @@ import net.neoforged.neoforge.network.PacketDistributor;
 public class FrostWeatherManager {
     private static float weatherLevel;
     private static float oWeatherLevel;
-
+    private static float normalLevel;
+    private static float oNormalLevel;
     private static float unstableLevel;
     private static float auroraLevel;
     private static FrostWeather frostWeather = FrostWeathers.NOPE.get();
@@ -72,7 +73,12 @@ public class FrostWeatherManager {
 
                 prevFrostWeather = frostWeather;
             }
-
+            oNormalLevel = normalLevel;
+            if (frostWeather == FrostWeathers.NOPE.get()) {
+                normalLevel = Mth.clamp(normalLevel + 0.02F, 0.0F, 1.0F);
+            } else {
+                normalLevel = Mth.clamp(normalLevel - 0.02F, 0.0F, 1.0F);
+            }
         }
     }
 
@@ -108,6 +114,11 @@ public class FrostWeatherManager {
     @OnlyIn(Dist.CLIENT)
     public static float getWeatherLevel(float level) {
         return Mth.lerp(level, oWeatherLevel, weatherLevel);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static float getNormalWeatherLevel(float level) {
+        return Mth.lerp(level, oNormalLevel, normalLevel);
     }
 
     @OnlyIn(Dist.CLIENT)
