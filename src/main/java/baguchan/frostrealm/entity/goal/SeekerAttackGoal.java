@@ -16,6 +16,16 @@ public class SeekerAttackGoal extends WideMeleeAttackGoal {
         this.speed = speed;
     }
 
+    @Override
+    public boolean canUse() {
+        return super.canUse() && this.seeker.getState() != Seeker.SeekerState.JUMP && this.seeker.getState() != Seeker.SeekerState.JUMP_STOP;
+    }
+
+    @Override
+    public boolean canContinueToUse() {
+        return super.canContinueToUse() && this.seeker.getState() != Seeker.SeekerState.JUMP && this.seeker.getState() != Seeker.SeekerState.JUMP_STOP;
+    }
+
     public void tick() {
         LivingEntity livingentity = this.mob.getTarget();
         if (livingentity != null) {

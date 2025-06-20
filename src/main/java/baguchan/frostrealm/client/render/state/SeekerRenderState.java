@@ -9,7 +9,8 @@ public class SeekerRenderState extends HumanoidRenderState {
     public final AnimationState preAttackAnimationState = new AnimationState();
     public final AnimationState stopAttackAnimationState = new AnimationState();
     public final AnimationState deathAnimationState = new AnimationState();
-    public final AnimationState breathAnimationState = new AnimationState();
+    public final AnimationState jumpAnimationState = new AnimationState();
+    public final AnimationState jumpStopAnimationState = new AnimationState();
 
     public boolean isAgressive;
     public Seeker.SeekerState state = Seeker.SeekerState.IDLE;

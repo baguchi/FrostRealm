@@ -198,7 +198,7 @@ public class Gokkur extends Monster {
 
     protected void dealDamage(LivingEntity livingentity) {
         if (this.isAlive() && getPose() == Pose.SPIN_ATTACK && this.level() instanceof ServerLevel serverLevel) {
-            boolean flag = CombatUtils.isBlockingWithOutCheck(serverLevel, livingentity, this.damageSources().mobAttack(this), getAttackDamage() * 1.5F + this.getSnowProgress()) >= getAttackDamage();
+            boolean flag = CombatUtils.isBlockingWithOutCheck(serverLevel, livingentity, this.damageSources().mobAttack(this), getAttackDamage() * 1.5F + this.getSnowProgress()) >= getAttackDamage() * 1.5F + this.getSnowProgress();
             float f1 = (float) Mth.clamp(livingentity.getDeltaMovement().horizontalDistanceSqr() * 1.5F, 0.5F, 3.0F);
             float f2 = flag ? 0.25F + this.getSnowProgress() * 0.25F : 1.0F + this.getSnowProgress() * 0.5F;
             double d1 = this.getX() - livingentity.getX();

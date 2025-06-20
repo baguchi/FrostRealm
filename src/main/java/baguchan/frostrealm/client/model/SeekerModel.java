@@ -42,8 +42,9 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
     private final KeyframeAnimation preAttackAnimationState;
     private final KeyframeAnimation attackAnimationState;
     private final KeyframeAnimation stopAttackAnimationState;
-    private final KeyframeAnimation breathAnimationState;
     private final KeyframeAnimation deathAnimationState;
+    private final KeyframeAnimation jumpAnimationState;
+    private final KeyframeAnimation jumpStopAnimationState;
 
     public SeekerModel(ModelPart root) {
         super(root);
@@ -73,8 +74,9 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
         this.preAttackAnimationState = SeekerAnimations.attack_pre.bake(root);
         this.attackAnimationState = SeekerAnimations.attack.bake(root);
         this.stopAttackAnimationState = SeekerAnimations.attack_stop.bake(root);
-        this.breathAnimationState = SeekerAnimations.breath.bake(root);
         this.deathAnimationState = SeekerAnimations.death.bake(root);
+        this.jumpAnimationState = SeekerAnimations.jump_attack.bake(root);
+        this.jumpStopAnimationState = SeekerAnimations.finish_jump_attack.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -169,7 +171,8 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
         this.attackAnimationState.apply(entity.attackAnimationState, entity.ageInTicks);
         this.stopAttackAnimationState.apply(entity.stopAttackAnimationState, entity.ageInTicks);
         this.deathAnimationState.apply(entity.deathAnimationState, entity.ageInTicks);
-        this.breathAnimationState.apply(entity.breathAnimationState, entity.ageInTicks);
+        this.jumpAnimationState.apply(entity.jumpAnimationState, entity.ageInTicks);
+        this.jumpStopAnimationState.apply(entity.jumpStopAnimationState, entity.ageInTicks);
     }
 
     private ModelPart getArm(HumanoidArm p_102923_) {
