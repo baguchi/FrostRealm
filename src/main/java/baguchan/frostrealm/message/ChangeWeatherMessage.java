@@ -35,6 +35,8 @@ public class ChangeWeatherMessage implements CustomPacketPayload {
     public static void handle(ChangeWeatherMessage message, IPayloadContext context) {
         context.enqueueWork(() -> {
 			FrostWeatherManager.setFrostWeather(message.weather);
+			FrostWeatherManager.setWeatherLevel(0);
+			FrostWeatherManager.setoWeatherLevel(0);
 			});
 	}
 }

@@ -53,7 +53,7 @@ public class FrostWeatherManager {
                         //If wether not active and cooldown not active too
                         frostWeatherData.setWetherTime(((level.random.nextInt(5) + 10) * 60) * 20);
                         frostWeatherData.setFrostWeather(FrostWeathers.NOPE.get());
-                        ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
+                        ChangeWeatherMessage message = new ChangeWeatherMessage(FrostWeathers.NOPE.get());
                         PacketDistributor.sendToPlayersInDimension((ServerLevel) level, message);
                         frostWeatherData.setDirty();
                     }
@@ -65,19 +65,14 @@ public class FrostWeatherManager {
 
     public static void clientTick(ClientLevel level) {
         if (level.isClientSide()) {
-            setoWeatherLevel(Mth.clamp(getRawWeatherLevel(), 0.0F, 1.0F));
-            if (frostWeather != FrostWeathers.NOPE.get()) {
-                setWeatherLevel(getRawWeatherLevel() + 0.02F);
-                if (getWeatherLevel() == 1 && prevFrostWeather != frostWeather) {
+            setoWeatherLevel(Mth.clamp(getWeatherLevel(), 0.0F, 1.0F));
+            setWeatherLevel(getWeatherLevel() + 0.02F);
 
-                    prevFrostWeather = frostWeather;
-                }
-            } else {
-                setWeatherLevel(getRawWeatherLevel() - 0.01F);
-                if (getWeatherLevel() == 0) {
-                    prevFrostWeather = FrostWeathers.NOPE.get();
-                }
+            if (getWeatherLevel() == 1 && prevFrostWeather != frostWeather) {
+
+                prevFrostWeather = frostWeather;
             }
+
         }
     }
 
@@ -113,16 +108,6 @@ public class FrostWeatherManager {
     @OnlyIn(Dist.CLIENT)
     public static float getWeatherLevel(float level) {
         return Mth.lerp(level, oWeatherLevel, weatherLevel);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static float getRawWeatherLevel() {
-        return weatherLevel;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static float getRawOWeatherLevel() {
-        return oWeatherLevel;
     }
 
     @OnlyIn(Dist.CLIENT)
