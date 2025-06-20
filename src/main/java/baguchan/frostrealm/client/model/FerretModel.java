@@ -6,6 +6,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.11.1
 import baguchan.frostrealm.client.animation.BabyAnimations;
 import baguchan.frostrealm.client.animation.FerretAnimations;
 import baguchan.frostrealm.client.render.state.FerretRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -25,6 +26,11 @@ public class FerretModel<T extends FerretRenderState> extends EntityModel<T> {
     private final ModelPart mouth;
     private final ModelPart ear_r;
     private final ModelPart ear_l;
+    private final KeyframeAnimation sitAnimationState;
+    private final KeyframeAnimation runAnimationState;
+    private final KeyframeAnimation walkAnimationState;
+    private final KeyframeAnimation babyAnimationState;
+
 
     public FerretModel(ModelPart root) {
         super(root);
@@ -41,6 +47,10 @@ public class FerretModel<T extends FerretRenderState> extends EntityModel<T> {
         this.mouth = this.head.getChild("mouth");
         this.ear_r = this.head.getChild("ear_r");
         this.ear_l = this.head.getChild("ear_l");
+        this.sitAnimationState = FerretAnimations.sit.bake(root);
+        this.walkAnimationState = FerretAnimations.walk.bake(root);
+        this.runAnimationState = FerretAnimations.run.bake(root);
+        this.babyAnimationState = BabyAnimations.baby.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -83,15 +93,15 @@ public class FerretModel<T extends FerretRenderState> extends EntityModel<T> {
         float f = entity.partialTick;
 
         if (entity.isSitting) {
-            this.applyStatic(FerretAnimations.sit);
+            this.sitAnimationState.applyStatic();
 
         } else {
-            this.animateWalk(FerretAnimations.run, entity.walkAnimationPos, entity.walkAnimationSpeed * (entity.running), 1.0F, 2.5F);
-            this.animateWalk(FerretAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed * (1.0F - entity.running), 1.0F, 5.0F);
+            this.runAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed * (entity.running), 1.0F, 2.5F);
+            this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed * (1.0F - entity.running), 1.0F, 5.0F);
         }
 
         if (entity.isBaby) {
-            this.applyStatic(BabyAnimations.baby);
+            this.babyAnimationState.applyStatic();
         }
     }
 }

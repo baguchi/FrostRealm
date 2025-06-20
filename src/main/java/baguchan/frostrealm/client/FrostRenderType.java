@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.TriState;
 
 public abstract class FrostRenderType extends RenderType {
 
@@ -17,7 +16,7 @@ public abstract class FrostRenderType extends RenderType {
             1536,
             RenderPipelines.GLINT,
             RenderType.CompositeState.builder()
-                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), TriState.DEFAULT, false))
+                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), false))
                     .setTexturingState(GLINT_TEXTURING)
                     .createCompositeState(false)
     );
@@ -28,7 +27,7 @@ public abstract class FrostRenderType extends RenderType {
             1536,
             RenderPipelines.GLINT,
             RenderType.CompositeState.builder()
-                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), TriState.DEFAULT, false))
+                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), false))
                     .setTexturingState(ARMOR_ENTITY_GLINT_TEXTURING)
                     .setLayeringState(VIEW_OFFSET_Z_LAYERING)
                     .createCompositeState(false)
@@ -38,7 +37,7 @@ public abstract class FrostRenderType extends RenderType {
             1536,
             RenderPipelines.GLINT,
             RenderType.CompositeState.builder()
-                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), TriState.DEFAULT, false))
+                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), false))
                     .setTexturingState(ENTITY_GLINT_TEXTURING)
                     .createCompositeState(false)
     );

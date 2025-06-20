@@ -4,6 +4,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.11.2
 
 
 import baguchan.frostrealm.client.animation.SilkMoonAnimations;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -24,6 +25,8 @@ public class SilkMoonModel<T extends LivingEntityRenderState> extends EntityMode
     private final ModelPart left_leg_back;
     private final ModelPart right_wing;
     private final ModelPart left_wing;
+    private final KeyframeAnimation flyAnimationState;
+    private final KeyframeAnimation flyLegAnimationState;
 
     public SilkMoonModel(ModelPart root) {
         super(root);
@@ -40,6 +43,8 @@ public class SilkMoonModel<T extends LivingEntityRenderState> extends EntityMode
         this.left_leg_back = this.body.getChild("left_leg_back");
         this.right_wing = this.body.getChild("right_wing");
         this.left_wing = this.body.getChild("left_wing");
+        this.flyAnimationState = SilkMoonAnimations.fly.bake(root);
+        this.flyLegAnimationState = SilkMoonAnimations.fly_leg.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -78,7 +83,7 @@ public class SilkMoonModel<T extends LivingEntityRenderState> extends EntityMode
     @Override
     public void setupAnim(T entity) {
         super.setupAnim(entity);
-        this.animateWalk(SilkMoonAnimations.fly_leg, entity.walkAnimationPos, entity.walkAnimationSpeed, 2.0F, 2.0F);
-        this.animateWalk(SilkMoonAnimations.fly, entity.ageInTicks, 1.0F, 1.0F, 1.0F);
+        this.flyLegAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed, 2.0F, 2.0F);
+        this.flyAnimationState.applyWalk(entity.ageInTicks, 1.0F, 1.0F, 1.0F);
     }
 }

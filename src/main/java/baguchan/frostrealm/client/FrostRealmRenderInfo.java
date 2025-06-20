@@ -13,7 +13,6 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
-import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -27,8 +26,9 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     private static final ResourceLocation END_SKY_LOCATION = ResourceLocation.withDefaultNamespace("textures/environment/end_sky.png");
 
     private final FrostAmbientSoundsHandler soundsHandler;
-    public FrostRealmRenderInfo(float cloudHeight, boolean placebo, SkyType fogType, boolean brightenLightMap, boolean entityLightingBottomsLit) {
-        super(cloudHeight, placebo, fogType, brightenLightMap, entityLightingBottomsLit);
+
+    public FrostRealmRenderInfo(SkyType fogType, boolean brightenLightMap, boolean entityLightingBottomsLit) {
+        super(fogType, brightenLightMap, entityLightingBottomsLit);
         soundsHandler = new FrostAmbientSoundsHandler(Minecraft.getInstance().getSoundManager());
     }
 
@@ -43,9 +43,14 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     }
 
     @Override
-    public boolean renderSky(ClientLevel level, int ticks, float partialTick, Matrix4f modelViewMatrix, Camera camera, Matrix4f projectionMatrix, Runnable setupFog) {
+    public boolean renderClouds(ClientLevel level, int ticks, float partialTick, double camX, double camY, double camZ, Matrix4f modelViewMatrix) {
+        return true;
+    }
+
+
+    @Override
+    public boolean renderSky(ClientLevel level, int ticks, float partialTick, Matrix4f modelViewMatrix, Camera camera, Runnable setupFog) {
         setupFog.run();
-        RenderStateShard.MAIN_TARGET.setupRenderState();
         float f = level.getSunAngle(partialTick);
         float f1 = level.getTimeOfDay(partialTick);
         float f2 = 1.0F - level.getRainLevel(partialTick);
@@ -100,10 +105,6 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
         Minecraft.getInstance().renderBuffers().bufferSource().endBatch();
     }
 
-    @Override
-    public boolean renderClouds(ClientLevel level, int ticks, float partialTick, double camX, double camY, double camZ, Matrix4f modelViewMatrix, Matrix4f projectionMatrix) {
-        return true;
-    }
 
     @Override
     public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, double camX, double camY, double camZ) {

@@ -5,6 +5,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.0.5
 
 import baguchan.frostrealm.client.animation.SealAnimations;
 import baguchan.frostrealm.client.render.state.SealRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -13,11 +14,17 @@ import net.minecraft.client.model.geom.builders.*;
 public class SealModel<T extends SealRenderState> extends EntityModel<T> {
     private final ModelPart root;
     private final ModelPart head;
+    private final KeyframeAnimation babyAnimationState;
+    private final KeyframeAnimation swimAnimationState;
+    private final KeyframeAnimation walkAnimationState;
 
     public SealModel(ModelPart root) {
         super(root);
         this.root = root.getChild("root");
         this.head = this.root.getChild("body").getChild("head");
+        this.babyAnimationState = SealAnimations.BABY.bake(root);
+        this.swimAnimationState = SealAnimations.SWIM.bake(root);
+        this.walkAnimationState = SealAnimations.WALK.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -54,12 +61,12 @@ public class SealModel<T extends SealRenderState> extends EntityModel<T> {
         this.head.xRot = entity.xRot * ((float) Math.PI / 180F);
 
         if (entity.isBaby) {
-            this.applyStatic(SealAnimations.BABY);
+            this.babyAnimationState.applyStatic();
         }
         if (entity.isInWater) {
-            this.animateWalk(SealAnimations.SWIM, entity.walkAnimationPos, entity.walkAnimationSpeed, 1.0F, 1.5F);
+            this.swimAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed, 1.0F, 1.5F);
         } else {
-            this.animateWalk(SealAnimations.WALK, entity.walkAnimationPos, entity.walkAnimationSpeed, 1.0F, 4.0F);
+            this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed, 1.0F, 4.0F);
         }
     }
 }

@@ -4,6 +4,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.11.2
 
 
 import baguchan.frostrealm.client.animation.SilkMoonWormAnimations;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -15,12 +16,14 @@ public class SilkMoonWormModel<T extends LivingEntityRenderState> extends Entity
     private final ModelPart body;
     private final ModelPart head;
     private final ModelPart tail;
+    private final KeyframeAnimation walkAnimationState;
 
     public SilkMoonWormModel(ModelPart root) {
         super(root);
         this.body = root.getChild("body");
         this.head = this.body.getChild("head");
         this.tail = this.body.getChild("tail");
+        this.walkAnimationState = SilkMoonWormAnimations.walk.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -39,6 +42,6 @@ public class SilkMoonWormModel<T extends LivingEntityRenderState> extends Entity
     @Override
     public void setupAnim(T entity) {
         super.setupAnim(entity);
-        this.animateWalk(SilkMoonWormAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 5.0F, 4.0F);
+        this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed, 5.0F, 4.0F);
     }
 }

@@ -1,7 +1,6 @@
 package baguchan.frostrealm.entity;
 
 import baguchan.frostrealm.message.UpdateMultipartPacket;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -18,6 +17,8 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -120,11 +121,11 @@ public class FrostPart<T extends Entity> extends net.neoforged.neoforge.entity.P
 
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag p_31025_) {
+    protected void readAdditionalSaveData(ValueInput p_31025_) {
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag p_31028_) {
+    protected void addAdditionalSaveData(ValueOutput p_31028_) {
     }
 
     @Override

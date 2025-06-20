@@ -5,6 +5,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.7.2
 
 import baguchan.frostrealm.client.animation.FrostBoarAnimations;
 import baguchan.frostrealm.client.render.state.FrostBoarRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -18,7 +19,9 @@ public class FrostBoarModel<T extends FrostBoarRenderState> extends EntityModel<
     private final ModelPart leg_back_R;
     private final ModelPart leg_back_L;
     private final ModelPart body;
-
+    private final KeyframeAnimation runAnimationState;
+    private final KeyframeAnimation walkAnimationState;
+    private final KeyframeAnimation attackAnimationState;
     public FrostBoarModel(ModelPart root) {
         super(root);
         this.root = root.getChild("root");
@@ -28,6 +31,9 @@ public class FrostBoarModel<T extends FrostBoarRenderState> extends EntityModel<
         this.leg_back_R = this.root.getChild("leg_back_R");
         this.leg_back_L = this.root.getChild("leg_back_L");
         this.body = this.root.getChild("body");
+        this.runAnimationState = FrostBoarAnimations.RUN.bake(root);
+        this.walkAnimationState = FrostBoarAnimations.WALK.bake(root);
+        this.attackAnimationState = FrostBoarAnimations.ATTACK.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -64,8 +70,8 @@ public class FrostBoarModel<T extends FrostBoarRenderState> extends EntityModel<
         this.head.yRot = entity.yRot * ((float) Math.PI / 180F);
         this.head.xRot = entity.xRot * ((float) Math.PI / 180F);
 
-        this.animateWalk(FrostBoarAnimations.RUN, entity.walkAnimationPos, entity.walkAnimationSpeed * (entity.runningScale), 3.0F, 8.0F);
-        this.animateWalk(FrostBoarAnimations.WALK, entity.walkAnimationPos, entity.walkAnimationSpeed * (1.0F - entity.runningScale), 1.0F, 2.0F);
-        this.animate(entity.attackAnimation, FrostBoarAnimations.ATTACK, entity.ageInTicks);
+        this.runAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed * (entity.runningScale), 3.0F, 8.0F);
+        this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed * (1.0F - entity.runningScale), 1.0F, 2.0F);
+        this.attackAnimationState.apply(entity.attackAnimation, entity.ageInTicks);
     }
 }

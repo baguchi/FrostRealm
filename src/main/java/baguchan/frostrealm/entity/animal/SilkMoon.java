@@ -11,7 +11,6 @@ import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -39,6 +38,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -157,12 +158,12 @@ public class SilkMoon extends FrostAnimal implements IHasEgg {
 
 
     @Override
-    public void addAdditionalSaveData(CompoundTag p_218709_) {
+    public void addAdditionalSaveData(ValueOutput p_218709_) {
         super.addAdditionalSaveData(p_218709_);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag p_218698_) {
+    public void readAdditionalSaveData(ValueInput p_218698_) {
         super.readAdditionalSaveData(p_218698_);
     }
 

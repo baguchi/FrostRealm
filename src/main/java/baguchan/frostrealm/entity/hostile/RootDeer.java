@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -35,6 +34,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -144,13 +145,13 @@ public class RootDeer extends Monster {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag p_33432_) {
+    public void readAdditionalSaveData(ValueInput p_33432_) {
         super.readAdditionalSaveData(p_33432_);
         this.setAttachFace(Direction.from3DDataValue(p_33432_.getByteOr("AttachFace", (byte) 0)));
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag p_33443_) {
+    public void addAdditionalSaveData(ValueOutput p_33443_) {
         super.addAdditionalSaveData(p_33443_);
         p_33443_.putByte("AttachFace", (byte) this.getAttachFace().get3DDataValue());
     }

@@ -5,6 +5,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.10.4
 
 import baguchan.frostrealm.client.animation.GokkurAnimations;
 import baguchan.frostrealm.client.render.state.GokkurRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -16,6 +17,9 @@ public class GokkurModel<T extends GokkurRenderState> extends EntityModel<T> {
     private final ModelPart left_leg;
     private final ModelPart right_leg;
     private final ModelPart body;
+    private final KeyframeAnimation rollAnimationState;
+    private final KeyframeAnimation startRollAnimationState;
+    private final KeyframeAnimation walkAnimationState;
 
     public GokkurModel(ModelPart root) {
         super(root);
@@ -24,6 +28,9 @@ public class GokkurModel<T extends GokkurRenderState> extends EntityModel<T> {
         this.left_leg = this.body_rotation.getChild("left_leg");
         this.right_leg = this.body_rotation.getChild("right_leg");
         this.body = this.body_rotation.getChild("body");
+        this.rollAnimationState = GokkurAnimations.roll.bake(root);
+        this.startRollAnimationState = GokkurAnimations.roll_start.bake(root);
+        this.walkAnimationState = GokkurAnimations.walk.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -47,10 +54,10 @@ public class GokkurModel<T extends GokkurRenderState> extends EntityModel<T> {
     public void setupAnim(T entity) {
         super.setupAnim(entity);
         if (entity.rollAnimationState.isStarted() || entity.startRollAnimationState.isStarted()) {
-            this.animate(entity.rollAnimationState, GokkurAnimations.roll, entity.ageInTicks);
-            this.animate(entity.startRollAnimationState, GokkurAnimations.roll_start, entity.ageInTicks);
+            this.rollAnimationState.apply(entity.rollAnimationState, entity.ageInTicks);
+            this.startRollAnimationState.apply(entity.startRollAnimationState, entity.ageInTicks);
         } else {
-            this.animateWalk(GokkurAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 1.0F, 4.0F);
+            this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed, 1.0F, 4.0F);
         }
     }
 }

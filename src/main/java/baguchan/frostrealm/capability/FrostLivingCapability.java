@@ -12,8 +12,6 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
@@ -27,12 +25,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
 import net.neoforged.neoforge.network.PacketDistributor;
 
-public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
+public class FrostLivingCapability implements ValueIOSerializable {
 
     public boolean isInsidePortal = false;
     public int portalTimer = 0;
@@ -304,17 +304,15 @@ public class FrostLivingCapability implements INBTSerializable<CompoundTag> {
         return this.temperature < 12;
     }
 
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        CompoundTag nbt = new CompoundTag();
-
-        nbt.putInt("Temperature", this.temperature);
-        nbt.putFloat("TemperatureSaturation", this.temperatureSaturation);
-        nbt.putFloat("TemperatureExhaustion", this.exhaustionLevel);
-
-        return nbt;
+    @Override
+    public void serialize(ValueOutput valueOutput) {
+        valueOutput.putInt("Temperature", this.temperature);
+        valueOutput.putFloat("TemperatureSaturation", this.temperatureSaturation);
+        valueOutput.putFloat("TemperatureExhaustion", this.exhaustionLevel);
     }
 
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
+    @Override
+    public void deserialize(ValueInput nbt) {
         this.temperature = nbt.getIntOr("Temperature", 20);
         this.temperatureSaturation = nbt.getFloatOr("TemperatureSaturation", 1.0F);
         this.exhaustionLevel = nbt.getFloatOr("TemperatureExhaustion", 0);

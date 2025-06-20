@@ -8,8 +8,6 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -32,6 +30,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -40,11 +39,13 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 
-public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMob {
+public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMob, InventoryCarrier {
 	private static final EntityDataAccessor<String> DATA_STATE = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.STRING);
 	public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.LONG);
 
@@ -420,17 +421,9 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 	}
 
     @Override
-	public void readAdditionalSaveData(CompoundTag p_29541_) {
+	public void readAdditionalSaveData(ValueInput p_29541_) {
 		super.readAdditionalSaveData(p_29541_);
-		ListTag listnbt = p_29541_.getListOrEmpty("Inventory");
 
-		for (int i = 0; i < listnbt.size(); ++i) {
-			CompoundTag compoundtag = listnbt.getCompoundOrEmpty(i);
-			int j = compoundtag.getByteOr("Slot", (byte) 0) & 255;
-			if (j < this.inventory.getContainerSize()) {
-				this.inventory.setItem(j, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
-			}
-		}
 		this.setHoldTime(p_29541_.getIntOr("HoldTime", 0));
 		this.setStateName(p_29541_.getStringOr("State", "IDLING"));
 		long i = p_29541_.getLongOr("LastPoseTick", 0L);
@@ -443,20 +436,9 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 	}
 
     @Override
-	public void addAdditionalSaveData(CompoundTag p_29548_) {
+	public void addAdditionalSaveData(ValueOutput p_29548_) {
 		super.addAdditionalSaveData(p_29548_);
-		ListTag listnbt = new ListTag();
 
-		for (int i = 0; i < this.inventory.getContainerSize(); i++) {
-			ItemStack itemstack = this.inventory.getItem(i);
-			if (!itemstack.isEmpty()) {
-				CompoundTag compoundtag = new CompoundTag();
-				compoundtag.putByte("Slot", (byte) i);
-				listnbt.add(itemstack.save(this.registryAccess(), compoundtag));
-			}
-		}
-
-		p_29548_.put("Inventory", listnbt);
 		p_29548_.putInt("HoldTime", holdTime);
 		p_29548_.putInt("IdleTime", this.ticksIdle);
 		p_29548_.putString("State", this.getState());

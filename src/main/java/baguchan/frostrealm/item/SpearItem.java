@@ -4,7 +4,7 @@ import baguchan.frostrealm.api.IItemAnimation;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.registry.FrostAnimations;
 import baguchan.frostrealm.registry.FrostAttachs;
-import baguchi.bagus_lib.util.client.AnimationUtil;
+import baguchi.bagus_lib.util.client.BagusAnimationUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -31,7 +31,7 @@ public class SpearItem extends Item implements IItemAnimation {
         if (entity instanceof Player player && !player.level().isClientSide()) {
             if (!entity.swinging) {
                 FrostLivingCapability capability = player.getData(FrostAttachs.FROST_LIVING);
-                AnimationUtil.sendAnimation(player, FrostAnimations.SPEAR_ATTACK);
+                BagusAnimationUtil.sendAnimation(player, FrostAnimations.SPEAR_ATTACK);
                 capability.usingItem = player.getItemBySlot(EquipmentSlot.MAINHAND).copy();
 
             }
@@ -41,7 +41,7 @@ public class SpearItem extends Item implements IItemAnimation {
 
     @Override
     public void onEntityStopAnimation(LivingEntity entity) {
-        AnimationUtil.sendStopAnimation(entity, FrostAnimations.SPEAR_ATTACK);
+        BagusAnimationUtil.sendStopAnimation(entity, FrostAnimations.SPEAR_ATTACK);
     }
 
     @Override

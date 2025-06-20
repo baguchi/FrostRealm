@@ -24,6 +24,7 @@ public class FrostModelLayers {
     public static final ModelLayerLocation CORRUPTED_WALKER_PART = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker_part"), "main");
 
     public static final ModelLayerLocation WOLFFLUE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue"), "main");
+    public static final ModelLayerLocation WOLFFLUE_BABY = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_baby"), "main");
     public static final ModelLayerLocation WOLFFLUE_ARMOR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_armor"), "main");
 
     public static final ModelLayerLocation VENOCHEM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "venchem"), "main");
@@ -33,7 +34,6 @@ public class FrostModelLayers {
 
     public static final ModelLayerLocation SILK_MOON_WORM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "silk_moon_worm"), "main");
     public static final ModelLayerLocation SILK_MOON = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "silk_moon"), "main");
-    public static final ModelLayerLocation FROST_CRAWLER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_crawler"), "main");
     public static final ModelLayerLocation SEEKER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "seeker"), "main");
 
     public static final ModelLayerLocation SEAL = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "seal"), "main");

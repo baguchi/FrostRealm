@@ -9,7 +9,6 @@ import baguchan.frostrealm.entity.goal.StealFromYetiGoal;
 import baguchan.frostrealm.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -36,6 +35,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -290,7 +291,7 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag compoundTag) {
+	public void addAdditionalSaveData(ValueOutput compoundTag) {
 		super.addAdditionalSaveData(compoundTag);
 		if (this.homeTarget != null) {
 			compoundTag.store("HomeTarget", BlockPos.CODEC, this.homeTarget);
@@ -300,11 +301,10 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag compoundTag) {
+	public void readAdditionalSaveData(ValueInput compoundTag) {
 		super.readAdditionalSaveData(compoundTag);
-		if (compoundTag.contains("HomeTarget")) {
-			this.homeTarget = compoundTag.read("HomeTarget", BlockPos.CODEC).orElse(null);
-		}
+		this.homeTarget = compoundTag.read("HomeTarget", BlockPos.CODEC).orElse(null);
+
 		this.setHasEgg(compoundTag.getBooleanOr("HasEgg", false));
 		this.ticksShake = compoundTag.getIntOr("TickShake", 0);
 	}

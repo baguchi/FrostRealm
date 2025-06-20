@@ -2,7 +2,7 @@
   "damage": 1.0,
   "items": "frostrealm:frost_crystal",
   "mob_effects": {
-    "duration": 200,
+    "duration": 100,
     "id": "frostrealm:cold_sensitivity",
     "show_icon": true
   },

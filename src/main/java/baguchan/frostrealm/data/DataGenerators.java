@@ -16,7 +16,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = FrostRealm.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = FrostRealm.MODID)
 public class DataGenerators {
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent.Client event) {
@@ -35,7 +35,7 @@ public class DataGenerators {
 		generator.addProvider(true, new FrostDataMaps(packOutput, lookupProvider));
         BlockTagsProvider blocktags = new FrBlockTagGenerator(packOutput, lookupProvider);
 		event.getGenerator().addProvider(true, blocktags);
-        event.getGenerator().addProvider(true, new FrItemTagGenerator(packOutput, lookupProvider, blocktags.contentsGetter()));
+        event.getGenerator().addProvider(true, new FrItemTagGenerator(packOutput, lookupProvider));
         event.getGenerator().addProvider(true, new FrEntityTagGenerator(packOutput, lookupProvider));
         event.getGenerator().addProvider(true, new FrFluidTagGenerator(packOutput, lookupProvider));
         event.getGenerator().addProvider(true, new BiomeTagGenerator(packOutput, lookupProvider));

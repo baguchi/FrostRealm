@@ -8,14 +8,14 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.neoforged.neoforge.client.gui.GuiLayer;
 
 import java.util.Random;
 
-public class FrostOverlay implements LayeredDraw.Layer {
+public class FrostOverlay implements GuiLayer {
     public static final ResourceLocation ICON_0 = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "temperature/temperature_0");
     public static final ResourceLocation ICON_1 = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "temperature/temperature_1");
     public static final ResourceLocation ICON_2 = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "temperature/temperature_2");
@@ -47,12 +47,12 @@ public class FrostOverlay implements LayeredDraw.Layer {
                         i7 = k1 + this.random.nextInt(3) - 1;
                     }
                     int k8 = j1 - k6 * 8 - 9;
-                    guiGraphics.blitSprite(RenderType::guiTextured, ICON_2, k8, i7, 9, 9);
+                    guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ICON_2, k8, i7, 9, 9);
                     if (k6 * 2 + 1 < l) {
-                        guiGraphics.blitSprite(RenderType::guiTextured, ICON_0, k8, i7, 9, 9);
+                        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ICON_0, k8, i7, 9, 9);
                     }
                     if (k6 * 2 + 1 == l) {
-                        guiGraphics.blitSprite(RenderType::guiTextured, ICON_1, k8, i7, 9, 9);
+                        guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, ICON_1, k8, i7, 9, 9);
                     }
                 }
                 (mc.gui).rightHeight += 10;

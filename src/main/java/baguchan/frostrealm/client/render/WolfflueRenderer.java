@@ -8,14 +8,14 @@ import baguchan.frostrealm.client.render.layer.WolfflueHeldItemLayer;
 import baguchan.frostrealm.client.render.state.WolfflueRenderState;
 import baguchan.frostrealm.entity.animal.Wolfflue;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.HoldingEntityRenderState;
 import net.minecraft.resources.ResourceLocation;
 
-public class WolfflueRenderer<T extends Wolfflue> extends MobRenderer<T, WolfflueRenderState, WolfflueModel<WolfflueRenderState>> {
+public class WolfflueRenderer<T extends Wolfflue> extends AgeableMobRenderer<T, WolfflueRenderState, WolfflueModel<WolfflueRenderState>> {
     public WolfflueRenderer(EntityRendererProvider.Context p_173952_) {
-        super(p_173952_, new WolfflueModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFFLUE)), 0.5F);
+        super(p_173952_, new WolfflueModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFFLUE)), new WolfflueModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFFLUE_BABY)), 0.5F);
         this.addLayer(new WolfflueCollarLayer<>(this));
         this.addLayer(new WolfflueArmorLayer<>(this, p_173952_.getModelSet()));
         this.addLayer(new WolfflueHeldItemLayer<>(this));

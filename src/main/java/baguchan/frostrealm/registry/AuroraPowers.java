@@ -17,7 +17,7 @@ import net.neoforged.neoforge.registries.RegistryBuilder;
 
 import java.util.function.Supplier;
 
-@EventBusSubscriber(modid = FrostRealm.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = FrostRealm.MODID)
 public class AuroraPowers {
     public static final ResourceKey<Registry<AuroraPower>> AURORA_POWER_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "aurora_power"));
 

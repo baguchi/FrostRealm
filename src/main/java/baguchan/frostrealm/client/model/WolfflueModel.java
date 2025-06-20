@@ -3,9 +3,9 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.10.4
 // Paste this class into your mod and generate all required imports
 
 
-import baguchan.frostrealm.client.animation.BabyAnimations;
 import baguchan.frostrealm.client.animation.WolfflueAnimations;
 import baguchan.frostrealm.client.render.state.WolfflueRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -23,6 +23,14 @@ public class WolfflueModel<T extends WolfflueRenderState> extends EntityModel<T>
     private final ModelPart leftLeg2;
     private final ModelPart leftLeg3;
 
+    private final KeyframeAnimation idleSitAnimationState;
+    private final KeyframeAnimation idleSit2AnimationState;
+    private final KeyframeAnimation runAnimationState;
+    private final KeyframeAnimation walkAnimationState;
+    private final KeyframeAnimation sitAnimationState;
+    private final KeyframeAnimation jumpAnimationState;
+
+
     public WolfflueModel(ModelPart root) {
         super(root);
         this.all = root.getChild("all");
@@ -35,6 +43,13 @@ public class WolfflueModel<T extends WolfflueRenderState> extends EntityModel<T>
         this.leftLeg = this.all.getChild("leftLeg");
         this.leftLeg2 = this.leftLeg.getChild("leftLeg2");
         this.leftLeg3 = this.leftLeg.getChild("leftLeg3");
+        this.idleSitAnimationState = WolfflueAnimations.sit_idle.bake(root);
+        this.idleSit2AnimationState = WolfflueAnimations.sit_idle2.bake(root);
+        this.walkAnimationState = WolfflueAnimations.walk.bake(root);
+        this.runAnimationState = WolfflueAnimations.run.bake(root);
+        this.sitAnimationState = WolfflueAnimations.sit.bake(root);
+        this.jumpAnimationState = WolfflueAnimations.jump.bake(root);
+
     }
 
     public static LayerDefinition createBodyLayer(CubeDeformation cubeDeformation) {
@@ -86,22 +101,20 @@ public class WolfflueModel<T extends WolfflueRenderState> extends EntityModel<T>
 
         if (entity.isSitting) {
             if (entity.idleSitAnimationState.isStarted() || entity.idleSit2AnimationState.isStarted()) {
-                this.animate(entity.idleSitAnimationState, WolfflueAnimations.sit_idle, entity.ageInTicks);
-                this.animate(entity.idleSit2AnimationState, WolfflueAnimations.sit_idle2, entity.ageInTicks);
+                this.idleSitAnimationState.apply(entity.idleSitAnimationState, entity.ageInTicks);
+                this.idleSit2AnimationState.apply(entity.idleSit2AnimationState, entity.ageInTicks);
             } else {
-                this.applyStatic(WolfflueAnimations.sit);
+                this.sitAnimationState.applyStatic();
             }
         } else {
             if (entity.jumpAnimationState.isStarted()) {
-                this.animate(entity.jumpAnimationState, WolfflueAnimations.jump, entity.ageInTicks);
+                this.jumpAnimationState.apply(entity.jumpAnimationState, entity.ageInTicks);
             } else {
-                this.animateWalk(WolfflueAnimations.run, entity.walkAnimationPos, entity.walkAnimationSpeed * (entity.running), 1.0F, 2.5F);
-                this.animateWalk(WolfflueAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed * (1.0F - entity.running), 1.0F, 5.0F);
+                this.runAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed * (entity.running), 1.0F, 2.5F);
+                this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed * (1.0F - entity.running), 1.0F, 5.0F);
             }
         }
 
-        if (entity.isBaby) {
-            this.applyStatic(BabyAnimations.baby);
-        }
+
     }
 }

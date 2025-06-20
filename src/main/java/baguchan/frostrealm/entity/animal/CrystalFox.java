@@ -13,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -41,6 +40,8 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.IShearable;
 import net.neoforged.neoforge.event.EventHooks;
 import org.jetbrains.annotations.Nullable;
@@ -409,7 +410,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundTag p_27576_) {
+	public void readAdditionalSaveData(ValueInput p_27576_) {
 		super.readAdditionalSaveData(p_27576_);
 		this.clearTrusted();
 		p_27576_.read("Trusted", TRUSTED_LIST_CODEC).orElse(List.of()).forEach(this::addTrustedEntity);
@@ -425,7 +426,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag p_27587_) {
+	public void addAdditionalSaveData(ValueOutput p_27587_) {
 		super.addAdditionalSaveData(p_27587_);
 		p_27587_.store("Trusted", TRUSTED_LIST_CODEC, this.getTrustedEntities().toList());
 

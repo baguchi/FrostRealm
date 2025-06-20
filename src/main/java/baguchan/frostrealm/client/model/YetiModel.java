@@ -9,6 +9,7 @@ import baguchan.frostrealm.entity.Yeti;
 import baguchi.bagus_lib.client.layer.IArmor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
@@ -28,6 +29,15 @@ public class YetiModel<T extends YetiRenderState> extends EntityModel<T> impleme
     public final ModelPart leftArm;
     public final ModelPart rightLeg;
     public final ModelPart leftLeg;
+	private final KeyframeAnimation sitAnimationState;
+	private final KeyframeAnimation sitPoseAnimationState;
+	private final KeyframeAnimation sitUpAnimationState;
+	private final KeyframeAnimation holdingRightAnimationState;
+	private final KeyframeAnimation holdingLeftAnimationState;
+	private final KeyframeAnimation noticedStealerAnimationState;
+	private final KeyframeAnimation snowChargeAnimationState;
+	private final KeyframeAnimation idleAnimationState;
+	private final KeyframeAnimation walkAnimationState;
 
 	public YetiModel(ModelPart part) {
 		super(part);
@@ -39,6 +49,15 @@ public class YetiModel<T extends YetiRenderState> extends EntityModel<T> impleme
 		this.leftArm = this.root.getChild("left_arm");
 		this.rightLeg = this.root.getChild("right_leg");
 		this.leftLeg = this.root.getChild("left_leg");
+		this.sitAnimationState = YetiAnimations.sit_start.bake(part);
+		this.sitPoseAnimationState = YetiAnimations.sit.bake(part);
+		this.sitUpAnimationState = YetiAnimations.sit_stop.bake(part);
+		this.holdingRightAnimationState = YetiAnimations.holding_right.bake(part);
+		this.holdingLeftAnimationState = YetiAnimations.holding_left.bake(part);
+		this.noticedStealerAnimationState = YetiAnimations.noticed_stealer.bake(part);
+		this.snowChargeAnimationState = YetiAnimations.thorw_pre.bake(part);
+		this.idleAnimationState = YetiAnimations.idle.bake(part);
+		this.walkAnimationState = YetiAnimations.walk.bake(part);
 	}
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
@@ -82,9 +101,9 @@ public class YetiModel<T extends YetiRenderState> extends EntityModel<T> impleme
 			this.head.xRot = 30F * ((float) Math.PI / 180F);
 			this.head.yRot = 0.0F;
 			if (entity.mainArm == HumanoidArm.LEFT) {
-				this.applyStatic(YetiAnimations.holding_right);
+				this.holdingRightAnimationState.applyStatic();
 			} else {
-				this.applyStatic(YetiAnimations.holding_left);
+				this.holdingLeftAnimationState.applyStatic();
 			}
 		}
 
@@ -100,18 +119,18 @@ public class YetiModel<T extends YetiRenderState> extends EntityModel<T> impleme
 			}
 		}
         if (entity.isPassenger) {
-            this.applyStatic(YetiAnimations.sit);
+			this.sitPoseAnimationState.applyStatic();
         } else
 		if (entity.sitPoseAnimationState.isStarted() || entity.sitAnimationState.isStarted() || entity.sitUpAnimationState.isStarted()) {
-			this.animate(entity.sitAnimationState, YetiAnimations.sit_start, entity.ageInTicks);
-			this.animate(entity.sitPoseAnimationState, YetiAnimations.sit, entity.ageInTicks);
-			this.animate(entity.sitUpAnimationState, YetiAnimations.sit_stop, entity.ageInTicks);
+			this.sitAnimationState.apply(entity.sitAnimationState, entity.ageInTicks);
+			this.sitPoseAnimationState.apply(entity.sitPoseAnimationState, entity.ageInTicks);
+			this.sitUpAnimationState.apply(entity.sitUpAnimationState, entity.ageInTicks);
 		} else {
-			this.animateWalk(YetiAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 1.0F, 3.0F);
+			this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed, 1.0F, 3.0F);
 		}
-		this.animate(entity.noticedStealerAnimationState, YetiAnimations.noticed_stealer, entity.ageInTicks);
-		this.animate(entity.snowChargeAnimationState, YetiAnimations.thorw_pre, entity.ageInTicks);
-		this.animate(entity.idleAnimationState, YetiAnimations.idle, entity.ageInTicks);
+		this.noticedStealerAnimationState.apply(entity.noticedStealerAnimationState, entity.ageInTicks);
+		this.snowChargeAnimationState.apply(entity.snowChargeAnimationState, entity.ageInTicks);
+		this.idleAnimationState.apply(entity.idleAnimationState, entity.ageInTicks);
 	}
 
 	public ModelPart getArm(HumanoidArm p_102923_) {

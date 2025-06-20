@@ -7,6 +7,7 @@ import baguchan.frostrealm.client.animation.SeekerAnimations;
 import baguchan.frostrealm.client.render.state.SeekerRenderState;
 import baguchan.frostrealm.entity.boss.Seeker;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -37,6 +38,12 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
     private final ModelPart rightLeg2;
     private final ModelPart leftLeg;
     private final ModelPart leftLeg2;
+    private final KeyframeAnimation walkAnimationState;
+    private final KeyframeAnimation preAttackAnimationState;
+    private final KeyframeAnimation attackAnimationState;
+    private final KeyframeAnimation stopAttackAnimationState;
+    private final KeyframeAnimation breathAnimationState;
+    private final KeyframeAnimation deathAnimationState;
 
     public SeekerModel(ModelPart root) {
         super(root);
@@ -62,6 +69,12 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
         this.rightLeg2 = this.rightLeg.getChild("rightLeg2");
         this.leftLeg = this.all.getChild("leftLeg");
         this.leftLeg2 = this.leftLeg.getChild("leftLeg2");
+        this.walkAnimationState = SeekerAnimations.walk.bake(root);
+        this.preAttackAnimationState = SeekerAnimations.attack_pre.bake(root);
+        this.attackAnimationState = SeekerAnimations.attack.bake(root);
+        this.stopAttackAnimationState = SeekerAnimations.attack_stop.bake(root);
+        this.breathAnimationState = SeekerAnimations.breath.bake(root);
+        this.deathAnimationState = SeekerAnimations.death.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -142,7 +155,7 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
         this.neck.yRot = entity.yRot * ((float) Math.PI / 180F) * (1F / 3F);
         this.neck.xRot = entity.xRot * ((float) Math.PI / 180F) * (1F / 3F);
 
-        this.animateWalk(SeekerAnimations.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 2, 2.5F);
+        this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed, 2, 2.5F);
 
         if (entity.state != Seeker.SeekerState.IDLE) {
             this.leftArm.resetPose();
@@ -152,11 +165,11 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
             this.rightArm2.resetPose();
             this.rightArmGlobe.resetPose();
         }
-        this.animate(entity.preAttackAnimationState, SeekerAnimations.attack_pre, entity.ageInTicks);
-        this.animate(entity.attackAnimationState, SeekerAnimations.attack, entity.ageInTicks);
-        this.animate(entity.stopAttackAnimationState, SeekerAnimations.attack_stop, entity.ageInTicks);
-        this.animate(entity.deathAnimationState, SeekerAnimations.death, entity.ageInTicks);
-        this.animate(entity.breathAnimationState, SeekerAnimations.breath, entity.ageInTicks);
+        this.preAttackAnimationState.apply(entity.preAttackAnimationState, entity.ageInTicks);
+        this.attackAnimationState.apply(entity.attackAnimationState, entity.ageInTicks);
+        this.stopAttackAnimationState.apply(entity.stopAttackAnimationState, entity.ageInTicks);
+        this.deathAnimationState.apply(entity.deathAnimationState, entity.ageInTicks);
+        this.breathAnimationState.apply(entity.breathAnimationState, entity.ageInTicks);
     }
 
     private ModelPart getArm(HumanoidArm p_102923_) {

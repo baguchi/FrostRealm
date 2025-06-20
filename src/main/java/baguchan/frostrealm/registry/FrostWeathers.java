@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 
 import static net.minecraft.resources.ResourceKey.createRegistryKey;
 
-@EventBusSubscriber(modid = FrostRealm.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = FrostRealm.MODID)
 public class FrostWeathers {
 	public static final ResourceKey<Registry<FrostWeather>> WEATHER_RESOURCE_KEY = createRegistryKey(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_weather"));
 

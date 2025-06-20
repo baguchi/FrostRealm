@@ -2,7 +2,6 @@ package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.api.recipe.AttachableCrystal;
-import baguchan.frostrealm.client.animation.BurgerAnimations;
 import baguchan.frostrealm.client.animation.SpearAttackAnimations;
 import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
@@ -12,7 +11,6 @@ import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import baguchi.bagus_lib.client.event.BagusModelEvent;
-import baguchi.bagus_lib.util.client.VectorUtil;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.WinScreen;
@@ -34,7 +32,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.SelectMusicEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 import java.util.Optional;
 
@@ -48,24 +45,22 @@ public class ClientEvents {
         if (event.getEntityRenderState() instanceof HumanoidRenderState humanoidRenderState) {
             boolean flag = humanoidRenderState.mainArm == HumanoidArm.RIGHT;
 
-            if (event.getBaguAnimationController().getAnimationState(FrostAnimations.BURGER).isStarted()) {
-                VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("right_arm").orElseThrow());
-                VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("left_arm").orElseThrow());
-                VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("body").orElseThrow());
-                VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("right_leg").orElseThrow());
-                VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("left_leg").orElseThrow());
-
-                event.animate(event.getBaguAnimationController().getAnimationState(FrostAnimations.BURGER), BurgerAnimations.hamburger, humanoidRenderState.ageInTicks);
-            } else
             if (event.getEntityRenderState().getRenderData(ClientRegistrar.HOLD_SPEAR_KEY) != null) {
                 if (event.getEntityRenderState().getRenderData(ClientRegistrar.HOLD_SPEAR_KEY)) {
-                    VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("right_arm").orElseThrow());
-                    VectorUtil.moveVecToPart(new Vector3f(), event.getModel().getAnyDescendantWithName("left_arm").orElseThrow());
+                    event.getModel().root().getChild("right_arm").resetPose();
+                    event.getModel().root().getChild("left_arm").resetPose();
                     if (!event.getBaguAnimationController().getAnimationState(FrostAnimations.SPEAR_ATTACK).isStarted()) {
-                        event.applyStatic(flag ? SpearAttackAnimations.spear_attack_right : SpearAttackAnimations.spear_attack_left);
+                        if (flag) {
+                            SpearAttackAnimations.spear_attack_right.bake(event.getModel().root()).applyStatic();
+                        } else {
+                            SpearAttackAnimations.spear_attack_left.bake(event.getModel().root()).applyStatic();
+                        }
                     }
-
-                    event.animate(event.getBaguAnimationController().getAnimationState(FrostAnimations.SPEAR_ATTACK), flag ? SpearAttackAnimations.spear_attack_right : SpearAttackAnimations.spear_attack_left, humanoidRenderState.ageInTicks);
+                    if (flag) {
+                        SpearAttackAnimations.spear_attack_right.bake(event.getModel().root()).apply(event.getBaguAnimationController().getAnimationState(FrostAnimations.SPEAR_ATTACK), event.getEntityRenderState().ageInTicks);
+                    } else {
+                        SpearAttackAnimations.spear_attack_left.bake(event.getModel().root()).apply(event.getBaguAnimationController().getAnimationState(FrostAnimations.SPEAR_ATTACK), event.getEntityRenderState().ageInTicks);
+                    }
                 }
             }
         }

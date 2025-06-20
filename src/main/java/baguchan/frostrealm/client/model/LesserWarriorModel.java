@@ -8,6 +8,7 @@ import baguchan.frostrealm.client.render.state.LesserWarriorRenderState;
 import baguchi.bagus_lib.client.layer.IArmor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -27,6 +28,14 @@ public class LesserWarriorModel<T extends LesserWarriorRenderState> extends Enti
     private final ModelPart left_item;
     private final ModelPart right_leg;
     private final ModelPart left_leg;
+    private final KeyframeAnimation idleRightAnimationState;
+    private final KeyframeAnimation idleLeftAnimationState;
+    private final KeyframeAnimation attackRightAnimationState;
+    private final KeyframeAnimation attackLeftAnimationState;
+    private final KeyframeAnimation counterRightAnimationState;
+    private final KeyframeAnimation counterLeftAnimationState;
+    private final KeyframeAnimation guardRightAnimationState;
+    private final KeyframeAnimation guardLeftAnimationState;
 
     public LesserWarriorModel(ModelPart root) {
         super(root);
@@ -39,6 +48,14 @@ public class LesserWarriorModel<T extends LesserWarriorRenderState> extends Enti
         this.left_item = this.left_arm.getChild("left_item");
         this.right_leg = root.getChild("right_leg");
         this.left_leg = root.getChild("left_leg");
+        this.idleRightAnimationState = SpearAttackAnimations.idle_right.bake(root);
+        this.idleLeftAnimationState = SpearAttackAnimations.idle_left.bake(root);
+        this.attackRightAnimationState = SpearAttackAnimations.spear_attack_right.bake(root);
+        this.attackLeftAnimationState = SpearAttackAnimations.spear_attack_left.bake(root);
+        this.counterRightAnimationState = SpearAttackAnimations.counter_right.bake(root);
+        this.counterLeftAnimationState = SpearAttackAnimations.counter_left.bake(root);
+        this.guardRightAnimationState = SpearAttackAnimations.guard_right.bake(root);
+        this.guardLeftAnimationState = SpearAttackAnimations.guard_left.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -89,29 +106,29 @@ public class LesserWarriorModel<T extends LesserWarriorRenderState> extends Enti
         } else {
             if (!entity.attackAnimationState.isStarted() && !entity.counterAnimationState.isStarted() && entity.guardAnimationScale.getAnimationScale(f) <= 0) {
                 if (entity.mainArm == HumanoidArm.RIGHT) {
-                    this.applyStatic(SpearAttackAnimations.idle_right);
+                    this.idleRightAnimationState.applyStatic();
                 } else {
-                    this.applyStatic(SpearAttackAnimations.idle_left);
+                    this.idleLeftAnimationState.applyStatic();
                 }
             }
 
 
             if (entity.mainArm == HumanoidArm.RIGHT) {
-                this.animate(entity.attackAnimationState, SpearAttackAnimations.spear_attack_right, entity.ageInTicks);
+                this.attackRightAnimationState.apply(entity.attackAnimationState, entity.ageInTicks);
             } else {
-                this.animate(entity.attackAnimationState, SpearAttackAnimations.spear_attack_left, entity.ageInTicks);
+                this.attackLeftAnimationState.apply(entity.attackAnimationState, entity.ageInTicks);
             }
 
             if (entity.mainArm == HumanoidArm.RIGHT) {
-                this.animate(entity.counterAnimationState, SpearAttackAnimations.counter_right, entity.ageInTicks);
+                this.counterRightAnimationState.apply(entity.counterAnimationState, entity.ageInTicks);
             } else {
-                this.animate(entity.counterAnimationState, SpearAttackAnimations.counter_left, entity.ageInTicks);
+                this.counterLeftAnimationState.apply(entity.counterAnimationState, entity.ageInTicks);
             }
             if (!entity.counterAnimationState.isStarted()) {
                 if (entity.mainArm == HumanoidArm.RIGHT) {
-                    this.animateWalk(SpearAttackAnimations.guard_right, 0.0F, entity.guardAnimationScale.getAnimationScale(f), 1.0F, 1.0F);
+                    this.guardRightAnimationState.applyWalk(0.0F, entity.guardAnimationScale.getAnimationScale(f), 1.0F, 1.0F);
                 } else {
-                    this.animateWalk(SpearAttackAnimations.guard_left, 0.0F, entity.guardAnimationScale.getAnimationScale(f), 1.0F, 1.0F);
+                    this.guardLeftAnimationState.applyWalk(0.0F, entity.guardAnimationScale.getAnimationScale(f), 1.0F, 1.0F);
                 }
             }
         }

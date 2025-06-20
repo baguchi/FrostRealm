@@ -5,6 +5,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.10.4
 
 import baguchan.frostrealm.client.animation.VenochemAnimation;
 import baguchan.frostrealm.client.render.state.VenochemRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -23,6 +24,9 @@ public class VenochemModel<T extends VenochemRenderState> extends EntityModel<T>
     private final ModelPart head;
     private final ModelPart tail;
     private final ModelPart tail2;
+    private final KeyframeAnimation attackAnimationState;
+    private final KeyframeAnimation shootAnimationState;
+    private final KeyframeAnimation walkAnimationState;
 
     public VenochemModel(ModelPart root) {
         super(root);
@@ -38,6 +42,9 @@ public class VenochemModel<T extends VenochemRenderState> extends EntityModel<T>
         this.head = this.body.getChild("head");
         this.tail = this.body.getChild("tail");
         this.tail2 = this.tail.getChild("tail2");
+        this.attackAnimationState = VenochemAnimation.attack.bake(root);
+        this.shootAnimationState = VenochemAnimation.spit.bake(root);
+        this.walkAnimationState = VenochemAnimation.walk.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -78,10 +85,10 @@ public class VenochemModel<T extends VenochemRenderState> extends EntityModel<T>
         this.head.yRot = entity.yRot * ((float) Math.PI / 180F);
         this.head.xRot = entity.xRot * ((float) Math.PI / 180F);
 
-        this.animate(entity.attackAnimationState, VenochemAnimation.attack, entity.ageInTicks);
-        this.animate(entity.shootAnimationState, VenochemAnimation.spit, entity.ageInTicks);
+        this.attackAnimationState.apply(entity.attackAnimationState, entity.ageInTicks);
+        this.shootAnimationState.apply(entity.shootAnimationState, entity.ageInTicks);
 
-        this.animateWalk(VenochemAnimation.walk, entity.walkAnimationPos, entity.walkAnimationSpeed, 4.0F, 3.0F);
+        this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed, 4.0F, 3.0F);
     }
 
 }

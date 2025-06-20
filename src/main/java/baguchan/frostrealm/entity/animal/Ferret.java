@@ -4,7 +4,6 @@ import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -32,6 +31,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
@@ -85,14 +86,14 @@ public class Ferret extends TamableAnimal {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag p_30418_) {
+    public void addAdditionalSaveData(ValueOutput p_30418_) {
         super.addAdditionalSaveData(p_30418_);
         p_30418_.store("CollarColor", DyeColor.LEGACY_ID_CODEC, this.getCollarColor());
 
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag p_30402_) {
+    public void readAdditionalSaveData(ValueInput p_30402_) {
         super.readAdditionalSaveData(p_30402_);
         this.setCollarColor(p_30402_.read("CollarColor", DyeColor.LEGACY_ID_CODEC).orElse(DEFAULT_COLLAR_COLOR));
 

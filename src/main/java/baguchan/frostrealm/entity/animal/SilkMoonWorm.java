@@ -3,7 +3,6 @@ package baguchan.frostrealm.entity.animal;
 import baguchan.frostrealm.registry.FrostBlocks;
 import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
@@ -22,6 +21,8 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class SilkMoonWorm extends PathfinderMob {
     @VisibleForTesting
@@ -53,13 +54,13 @@ public class SilkMoonWorm extends PathfinderMob {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag p_218709_) {
+    public void addAdditionalSaveData(ValueOutput p_218709_) {
         super.addAdditionalSaveData(p_218709_);
         p_218709_.putInt("Age", this.age);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag p_218698_) {
+    public void readAdditionalSaveData(ValueInput p_218698_) {
         super.readAdditionalSaveData(p_218698_);
         this.setAge(p_218698_.getIntOr("Age", 0));
     }

@@ -5,6 +5,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.1.1
 
 import baguchan.frostrealm.client.animation.SnowPileQuailAnimations;
 import baguchan.frostrealm.client.render.state.SnowPileQuailRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -19,6 +20,8 @@ public class SnowPileQuailModel<T extends SnowPileQuailRenderState> extends Enti
 	private final ModelPart head;
 	private final ModelPart wingR;
 	private final ModelPart wingL;
+	private final KeyframeAnimation popEggAnimationState;
+	private final KeyframeAnimation shakeAnimationState;
 
 	public SnowPileQuailModel(ModelPart root) {
 		super(root);
@@ -28,6 +31,8 @@ public class SnowPileQuailModel<T extends SnowPileQuailRenderState> extends Enti
 		this.head = this.body.getChild("head");
 		this.wingR = this.body.getChild("wingR");
 		this.wingL = this.body.getChild("wingL");
+		this.popEggAnimationState = SnowPileQuailAnimations.pop_egg.bake(root);
+		this.shakeAnimationState = SnowPileQuailAnimations.shake.bake(root);
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -62,8 +67,8 @@ public class SnowPileQuailModel<T extends SnowPileQuailRenderState> extends Enti
 		this.wingR.zRot = f;
 		this.wingL.zRot = -f;
 
-		this.animate(entity.popEggAnimationState, SnowPileQuailAnimations.pop_egg, entity.ageInTicks);
-		this.animate(entity.shakeAnimationState, SnowPileQuailAnimations.shake, entity.ageInTicks);
+		this.popEggAnimationState.apply(entity.popEggAnimationState, entity.ageInTicks);
+		this.shakeAnimationState.apply(entity.shakeAnimationState, entity.ageInTicks);
 	}
 
 	@Override

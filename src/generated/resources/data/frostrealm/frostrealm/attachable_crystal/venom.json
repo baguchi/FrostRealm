@@ -2,7 +2,7 @@
   "damage": 1.0,
   "items": "frostrealm:unstable_venom_crystal",
   "mob_effects": {
-    "duration": 200,
+    "duration": 100,
     "id": "minecraft:poison",
     "show_icon": true
   },

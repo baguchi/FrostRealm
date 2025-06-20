@@ -8,7 +8,6 @@ import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostSounds;
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -36,6 +35,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
@@ -78,13 +79,13 @@ public class Seeker extends Monster {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag p_21484_) {
+    public void addAdditionalSaveData(ValueOutput p_21484_) {
         super.addAdditionalSaveData(p_21484_);
         p_21484_.putLong("NoAttackTime", this.noSpecialAttackTime);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag p_21450_) {
+    public void readAdditionalSaveData(ValueInput p_21450_) {
         super.readAdditionalSaveData(p_21450_);
         this.noSpecialAttackTime = p_21450_.getLongOr("NoAttackTime", 0);
     }

@@ -19,7 +19,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -69,6 +68,8 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -287,7 +288,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag p_30418_) {
+    public void addAdditionalSaveData(ValueOutput p_30418_) {
         super.addAdditionalSaveData(p_30418_);
         p_30418_.putByte("CollarColor", (byte) this.getCollarColor().getId());
         this.getVariant().unwrapKey().ifPresent(p_344339_ -> p_30418_.putString("variant", p_344339_.location().toString()));
@@ -300,18 +301,14 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag p_30402_) {
+    public void readAdditionalSaveData(ValueInput p_30402_) {
         super.readAdditionalSaveData(p_30402_);
-        if (p_30402_.contains("CollarColor")) {
             this.setCollarColor(DyeColor.byId(p_30402_.getIntOr("CollarColor", -1)));
-        }
-        if (p_30402_.contains("variant")) {
-
             Optional.ofNullable(ResourceLocation.tryParse(p_30402_.getString("variant").orElseThrow()))
                     .map(p_332608_ -> ResourceKey.create(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, p_332608_))
                     .flatMap(p_352803_ -> this.registryAccess().lookupOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY).get((ResourceKey<WolfflueVariant>) p_352803_))
                     .ifPresent(this::setVariant);
-        }
+
         p_30402_.read("sound_variant", ResourceKey.codec(Registries.WOLF_SOUND_VARIANT))
                 .flatMap(p_409348_ -> this.registryAccess().lookupOrThrow(Registries.WOLF_SOUND_VARIANT).get((ResourceKey<WolfSoundVariant>) p_409348_))
                 .ifPresent(this::setSoundVariant);

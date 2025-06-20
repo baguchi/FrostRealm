@@ -5,6 +5,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.11.2
 
 import baguchan.frostrealm.client.animation.RootDeerAnimations;
 import baguchan.frostrealm.client.render.state.RootDeerRenderState;
+import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -18,6 +19,9 @@ public class RootDeerModel<T extends RootDeerRenderState> extends EntityModel<T>
     private final ModelPart under_teeth;
     private final ModelPart joint;
     private final ModelPart corner;
+    private final KeyframeAnimation attackAnimationState;
+    private final KeyframeAnimation summonAnimationState;
+    private final KeyframeAnimation deathAnimationState;
 
     public RootDeerModel(ModelPart root) {
         super(root);
@@ -28,6 +32,9 @@ public class RootDeerModel<T extends RootDeerRenderState> extends EntityModel<T>
         this.corner = this.above_teeth.getChild("corner");
         this.under_teeth = this.head.getChild("under_teeth");
         this.joint = this.under_teeth.getChild("joint");
+        this.attackAnimationState = RootDeerAnimations.attack.bake(root);
+        this.summonAnimationState = RootDeerAnimations.spawn.bake(root);
+        this.deathAnimationState = RootDeerAnimations.death.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -71,8 +78,8 @@ public class RootDeerModel<T extends RootDeerRenderState> extends EntityModel<T>
     @Override
     public void setupAnim(T p_364104_) {
         super.setupAnim(p_364104_);
-        this.animate(p_364104_.attackAnimationState, RootDeerAnimations.attack, p_364104_.ageInTicks);
-        this.animate(p_364104_.summonAnimationState, RootDeerAnimations.spawn, p_364104_.ageInTicks);
-        this.animate(p_364104_.deathAnimationState, RootDeerAnimations.death, p_364104_.ageInTicks);
+        this.attackAnimationState.apply(p_364104_.attackAnimationState, p_364104_.ageInTicks);
+        this.summonAnimationState.apply(p_364104_.summonAnimationState, p_364104_.ageInTicks);
+        this.deathAnimationState.apply(p_364104_.deathAnimationState, p_364104_.ageInTicks);
     }
 }

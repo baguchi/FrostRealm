@@ -25,6 +25,7 @@ import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseSettings;
 
+import java.util.Optional;
 import java.util.OptionalLong;
 
 public class FrostDimensionSettings {
@@ -84,6 +85,7 @@ public class FrostDimensionSettings {
 				BlockTags.INFINIBURN_OVERWORLD, //infiburn
 				FrostRealm.prefix("renderer"), // DimensionRenderInfo
 				0f,
+				Optional.of(192),
 				new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
 		);
 	}

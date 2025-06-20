@@ -1,6 +1,7 @@
 {
   "ambient_light": 0.0,
   "bed_works": true,
+  "cloud_height": 192,
   "coordinate_scale": 1.0,
   "effects": "frostrealm:renderer",
   "has_ceiling": false,

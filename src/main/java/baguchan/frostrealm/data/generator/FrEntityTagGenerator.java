@@ -7,6 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EntityTypeTagsProvider;
 import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.entity.EntityType;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -24,18 +25,16 @@ public class FrEntityTagGenerator extends EntityTypeTagsProvider {
 				.add(FrostEntities.ROOT_DEER.get())
                 .add(FrostEntities.LESSER_WARRIOR.get()).add(FrostEntities.SEEKER.get()).add(FrostEntities.CORRUPTED_WALKER.get())
 				.add(FrostEntities.GOKKUR.get())
-				.add(FrostEntities.UNDER_GOKKUR.get())
-				.add(FrostEntities.FROST_CRAWLER.get());
+				.add(FrostEntities.UNDER_GOKKUR.get());
 		tag(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE).addTag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.MARMOT.get(), FrostEntities.FROST_BOAR.get())
 				.add(FrostEntities.FERRET.get())
 				.add(FrostEntities.VENOCHEM.get())
 				.add(FrostEntities.SILK_MOON.get())
-				.add(FrostEntities.SILK_MOON_WORM.get());
+				.add(FrostEntities.SILK_MOON_WORM.get()).add(EntityType.HAPPY_GHAST).add(EntityType.SHEEP);
 		tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS).add(FrostEntities.FERRET.get());
 		tag(EntityTypeTags.FALL_DAMAGE_IMMUNE)
-				.add(FrostEntities.FROST_CRAWLER.get())
 				.add(FrostEntities.SILK_MOON.get()).add(FrostEntities.ASTRA_BALL.get()).add(FrostEntities.SNOWPILE_QUAIL.get()).add(FrostEntities.CORRUPTED_WALKER.get());
-		tag(EntityTypeTags.UNDEAD).add(FrostEntities.FROST_CRAWLER.get()).add(FrostEntities.LESSER_WARRIOR.get());
+		tag(EntityTypeTags.UNDEAD).add(FrostEntities.LESSER_WARRIOR.get());
 		this.tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER).add(FrostEntities.CORRUPTED_WALKER.get());
 	}
 }

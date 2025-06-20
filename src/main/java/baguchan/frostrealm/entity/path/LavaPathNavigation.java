@@ -48,4 +48,9 @@ public class LavaPathNavigation extends PathNavigation {
 	public void setCanFloat(boolean p_26563_) {
 		this.nodeEvaluator.setCanFloat(p_26563_);
 	}
+
+	@Override
+	public boolean canNavigateGround() {
+		return true;
+	}
 }
