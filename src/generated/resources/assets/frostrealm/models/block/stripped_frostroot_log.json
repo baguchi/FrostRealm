@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "frostrealm:block/frostroot_log_top",
-    "side": "frostrealm:block/frostroot_log"
+    "end": "frostrealm:block/stripped_frostroot_log_top",
+    "side": "frostrealm:block/stripped_frostroot_log"
   }
 }

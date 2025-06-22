@@ -82,14 +82,18 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
         this.createTrivialCube(FrostBlocks.RAW_GLACINIUM_BLOCK.get());
 
         this.woodProvider(FrostBlocks.FROSTROOT_LOG.get())
-                .log(FrostBlocks.FROSTROOT_LOG.get())
+                .log(FrostBlocks.FROSTROOT_LOG.get());
+        this.woodProvider(FrostBlocks.STRIPPED_FROSTROOT_LOG.get())
                 .log(FrostBlocks.STRIPPED_FROSTROOT_LOG.get());
         createTrivialBlock(FrostBlocks.FROSTROOT_LEAVES.get(), LEAVES_PROVIDER);
         createCrossBlockWithDefaultItem(FrostBlocks.FROSTROOT_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
         this.woodProvider(FrostBlocks.FROSTBITE_LOG.get())
-                .log(FrostBlocks.FROSTBITE_LOG.get())
+                .log(FrostBlocks.FROSTBITE_LOG.get());
+        this.woodProvider(FrostBlocks.STRIPPED_FROSTBITE_LOG.get())
                 .log(FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
+        this.woodProvider(FrostBlocks.ROCK_WOOD.get())
+                .wood(FrostBlocks.ROCK_WOOD.get());
         createTrivialBlock(FrostBlocks.FROSTBITE_LEAVES.get(), LEAVES_PROVIDER);
         createCrossBlockWithDefaultItem(FrostBlocks.FROSTBITE_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 

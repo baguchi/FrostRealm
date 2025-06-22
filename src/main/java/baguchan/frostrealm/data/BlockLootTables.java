@@ -139,6 +139,19 @@ public class BlockLootTables extends BlockLootSubProvider {
 		this.dropSelf(FrostBlocks.FROSTBITE_BUTTON.get());
 		this.dropSelf(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get());
 
+
+		this.dropSelf(FrostBlocks.ROCK_WOOD.get());
+		this.dropSelf(FrostBlocks.ROCK_WOOD_PLANKS.get());
+		//this.dropSelf(FrostBlocks.ROCK_WOOD_CRAFTING_TABLE.get());
+		this.add(FrostBlocks.ROCK_WOOD_PLANKS_SLAB.get(), this::createSlabItemTable);
+		this.dropSelf(FrostBlocks.ROCK_WOOD_PLANKS_STAIRS.get());
+		this.dropSelf(FrostBlocks.ROCK_WOOD_FENCE.get());
+		this.dropSelf(FrostBlocks.ROCK_WOOD_FENCE_GATE.get());
+		this.add(FrostBlocks.ROCK_WOOD_DOOR.get(), this::createDoorTable);
+		this.dropSelf(FrostBlocks.FROSTROOT_TRAPDOOR.get());
+		this.dropSelf(FrostBlocks.ROCK_WOOD_BUTTON.get());
+		this.dropSelf(FrostBlocks.ROCK_WOOD_PRESSURE_PLATE.get());
+
         this.dropSelf(FrostBlocks.DRIP_LOG.get());
         //this.dropSelf(FrostBlocks.STRIPPED_DRIP_LOG.get());
         this.dropSelf(FrostBlocks.DRIP_SAPLING.get());

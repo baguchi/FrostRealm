@@ -51,7 +51,8 @@
       "frostrealm:spring_lava"
     ],
     [
-      "frostrealm:frost_fire_desert"
+      "frostrealm:frost_fire_desert",
+      "frostrealm:big_rock_wood"
     ],
     [
       "minecraft:freeze_top_layer"

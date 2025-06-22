@@ -13,7 +13,8 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 public class FrostBiomeDefaultFeatures {
     public static void addDesertFeature(BiomeGenerationSettings.Builder p_194721_) {
         p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.FROST_FIRE_DESERT);
-    }
+		p_194721_.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, FrostPlacements.BIG_ROCK_WOOD);
+	}
 
 	public static void addDefaultCarvers(BiomeGenerationSettings.Builder p_194721_) {
         p_194721_.addCarver(FrostConfiguredWorldCarvers.CAVE);

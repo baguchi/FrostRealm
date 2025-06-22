@@ -52,6 +52,7 @@ public class FrostPlacements {
 
     public static final ResourceKey<PlacedFeature> STONE_SPIKE = registerKey("stone_spike");
     public static final ResourceKey<PlacedFeature> FLOATING_ROCK = registerKey("floating_rock");
+	public static final ResourceKey<PlacedFeature> BIG_ROCK_WOOD = registerKey("big_rock_wood");
 
 
 	public static final ResourceKey<PlacedFeature> LAVA_DELTA = registerKey("delta");
@@ -124,8 +125,9 @@ public class FrostPlacements {
 
 		PlacementUtils.register(context, ICE_CLUSTER, configuredFeature.getOrThrow(FrostConfiguredFeatures.ICE_CLUSTER), CountPlacement.of(UniformInt.of(48, 96)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 		PlacementUtils.register(context, LARGE_ICE, configuredFeature.getOrThrow(FrostConfiguredFeatures.LARGE_ICE), CountPlacement.of(UniformInt.of(10, 48)), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
-        PlacementUtils.register(context, STARDUST_CRUSTER, configuredFeature.getOrThrow(FrostConfiguredFeatures.STAR_DUST_CLUSTER), RarityFilter.onAverageOnceEvery(5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+		PlacementUtils.register(context, STARDUST_CRUSTER, configuredFeature.getOrThrow(FrostConfiguredFeatures.STAR_DUST_CLUSTER), RarityFilter.onAverageOnceEvery(5), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(context, SMALL_VOLCANO, configuredFeature.getOrThrow(FrostConfiguredFeatures.SMALL_VOLCANO), RarityFilter.onAverageOnceEvery(6), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+		PlacementUtils.register(context, BIG_ROCK_WOOD, configuredFeature.getOrThrow(FrostConfiguredFeatures.BIG_ROCK_WOOD), RarityFilter.onAverageOnceEvery(10), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 
 		PlacementUtils.register(context, LOG_PLACE, configuredFeature.getOrThrow(FrostConfiguredFeatures.LOG), EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.anyOf(BlockPredicate.hasSturdyFace(new Vec3i(0, 1, 0), Direction.UP), BlockPredicate.hasSturdyFace(Direction.UP)), 32));
 		PlacementUtils.register(context, CHAIN_PLACE, configuredFeature.getOrThrow(FrostConfiguredFeatures.CHAIN), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.anyOf(BlockPredicate.hasSturdyFace(new Vec3i(0, -1, 0), Direction.DOWN), BlockPredicate.hasSturdyFace(Direction.DOWN)), 32));

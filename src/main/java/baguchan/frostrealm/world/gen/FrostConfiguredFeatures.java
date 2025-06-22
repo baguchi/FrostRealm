@@ -71,6 +71,7 @@ public class FrostConfiguredFeatures {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TUNDRA_ROCK = registerKey("tundra_rock");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> TUNDRA_MOSSY_ROCK = registerKey("tundra_mossy_rock");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> STAR_DUST_CLUSTER = registerKey("star_dust_cluster");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> BIG_ROCK_WOOD = registerKey("big_rock_wood");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SMALL_VOLCANO = registerKey("small_volcano");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> STONE_SPIKE = registerKey("stone_spike");
@@ -123,7 +124,8 @@ public class FrostConfiguredFeatures {
 
 		FeatureUtils.register(context, TUNDRA_ROCK, FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState()));
 		FeatureUtils.register(context, TUNDRA_MOSSY_ROCK, FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE_MOSSY.get().defaultBlockState()));
-		FeatureUtils.register(context, STAR_DUST_CLUSTER, FrostFeatures.SHAPE_CRYSTAL.get(), new HeightBlockStateConfiguration(BlockStateProvider.simple(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get().defaultBlockState()), UniformInt.of(8, 26)));
+		FeatureUtils.register(context, STAR_DUST_CLUSTER, FrostFeatures.SHAPE_CRYSTAL.get(), new HeightBlockStateConfiguration(BlockStateProvider.simple(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get().defaultBlockState()), UniformInt.of(10, 18)));
+		FeatureUtils.register(context, BIG_ROCK_WOOD, FrostFeatures.SHAPE_CRYSTAL.get(), new HeightBlockStateConfiguration(BlockStateProvider.simple(FrostBlocks.ROCK_WOOD.get().defaultBlockState()), UniformInt.of(10, 15)));
 		FeatureUtils.register(context, SMALL_VOLCANO, FrostFeatures.SMALL_VOLCANO.get(), new HeightBlockStateConfiguration(new WeightedStateProvider(WeightedList.<BlockState>builder().add(FrostBlocks.FRIGID_STONE.get().defaultBlockState(), 20).add(FrostBlocks.GLIMMERROCK_ORE.get().defaultBlockState(), 2).add(FrostBlocks.ASTRIUM_ORE.get().defaultBlockState(), 1).build()), UniformInt.of(12, 18)));
 
         FeatureUtils.register(context, STONE_SPIKE, FrostFeatures.STONE_SPIKE.get());

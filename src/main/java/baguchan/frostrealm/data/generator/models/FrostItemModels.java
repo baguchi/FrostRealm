@@ -26,6 +26,7 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.CRYONITE.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.CRYONITE_CREAM.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.COATING_FUR.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.ROCK_WOOD_STICK.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.WARPED_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.VENOM_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.UNSTABLE_VENOM_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);

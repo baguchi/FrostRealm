@@ -44,6 +44,16 @@
     "frostrealm:glacinium_block",
     "frostrealm:raw_glacinium_block",
     "frostrealm:silk_moon_egg",
-    "frostrealm:snowpile_quail_egg"
+    "frostrealm:snowpile_quail_egg",
+    "frostrealm:rock_wood",
+    "frostrealm:rock_wood_planks",
+    "frostrealm:rock_wood_planks_stairs",
+    "frostrealm:rock_wood_planks_slab",
+    "frostrealm:rock_wood_fence",
+    "frostrealm:rock_wood_fence_gate",
+    "frostrealm:rock_wood_door",
+    "frostrealm:rock_wood_trapdoor",
+    "frostrealm:rock_wood_pressure_plate",
+    "frostrealm:rock_wood_button"
   ]
 }

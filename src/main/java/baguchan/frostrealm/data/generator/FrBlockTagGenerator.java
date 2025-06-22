@@ -42,12 +42,16 @@ public class FrBlockTagGenerator extends BlockTagsProvider {
                 , FrostBlocks.RAW_GLACINIUM_BLOCK.get()
                 , FrostBlocks.SILK_MOON_EGG.get()
                 , FrostBlocks.SNOWPILE_QUAIL_EGG.get()
-        );
+                ).add(FrostBlocks.ROCK_WOOD.get(), FrostBlocks.ROCK_WOOD_PLANKS.get(), FrostBlocks.ROCK_WOOD_PLANKS_STAIRS.get(), FrostBlocks.ROCK_WOOD_PLANKS_SLAB.get(), FrostBlocks.ROCK_WOOD_FENCE.get(), FrostBlocks.ROCK_WOOD_FENCE_GATE.get())
+                .add(FrostBlocks.ROCK_WOOD_DOOR.get()).add(FrostBlocks.ROCK_WOOD_TRAPDOOR.get()).add(FrostBlocks.ROCK_WOOD_PRESSURE_PLATE.get()).add(FrostBlocks.ROCK_WOOD_BUTTON.get())
+        ;
         tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_PLANKS.get(), FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_FENCE_GATE.get()
                 )
                 .add(FrostBlocks.FROSTROOT_DOOR.get()).add(FrostBlocks.FROSTROOT_TRAPDOOR.get()).add(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get()).add(FrostBlocks.FROSTROOT_BUTTON.get())
                 .add(FrostBlocks.FROSTBITE_LOG.get(), FrostBlocks.STRIPPED_FROSTBITE_LOG.get(), FrostBlocks.FROSTBITE_PLANKS.get(), FrostBlocks.FROSTBITE_PLANKS_STAIRS.get(), FrostBlocks.FROSTBITE_PLANKS_SLAB.get(), FrostBlocks.FROSTBITE_FENCE.get(), FrostBlocks.FROSTBITE_FENCE_GATE.get())
                 .add(FrostBlocks.FROSTBITE_DOOR.get()).add(FrostBlocks.FROSTBITE_TRAPDOOR.get()).add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get()).add(FrostBlocks.FROSTBITE_BUTTON.get())
+                .add(FrostBlocks.ROCK_WOOD.get(), FrostBlocks.ROCK_WOOD_PLANKS.get(), FrostBlocks.ROCK_WOOD_PLANKS_STAIRS.get(), FrostBlocks.ROCK_WOOD_PLANKS_SLAB.get(), FrostBlocks.ROCK_WOOD_FENCE.get(), FrostBlocks.ROCK_WOOD_FENCE_GATE.get())
+                .add(FrostBlocks.ROCK_WOOD_DOOR.get()).add(FrostBlocks.ROCK_WOOD_TRAPDOOR.get()).add(FrostBlocks.ROCK_WOOD_PRESSURE_PLATE.get()).add(FrostBlocks.ROCK_WOOD_BUTTON.get())
                 .add(FrostBlocks.DRIP_LOG.get(), FrostBlocks.DRIP_PLANKS.get(), FrostBlocks.DRIP_PLANKS_STAIRS.get(), FrostBlocks.DRIP_PLANKS_SLAB.get(), FrostBlocks.DRIP_FENCE.get(), FrostBlocks.DRIP_FENCE_GATE.get())
                 .add(FrostBlocks.DRIP_DOOR.get()).add(FrostBlocks.DRIP_TRAPDOOR.get()).add(FrostBlocks.DRIP_PRESSURE_PLATE.get()).add(FrostBlocks.DRIP_BUTTON.get());
 
@@ -64,13 +68,22 @@ public class FrBlockTagGenerator extends BlockTagsProvider {
                 .add(FrostBlocks.DRIP_LOG.get());
         tag(BlockTags.LEAVES).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTBITE_LEAVES.get()).add(FrostBlocks.DRIP_LEAVES.get());
         tag(BlockTags.WOODEN_FENCES).add(FrostBlocks.FROSTROOT_FENCE.get()).add(FrostBlocks.FROSTBITE_FENCE.get()).add(FrostBlocks.DRIP_LEAVES.get());
-        tag(BlockTags.FENCE_GATES).add(FrostBlocks.FROSTROOT_FENCE_GATE.get()).add(FrostBlocks.FROSTBITE_FENCE_GATE.get()).add(FrostBlocks.DRIP_FENCE_GATE.get());
+        tag(BlockTags.FENCE_GATES).add(FrostBlocks.ROCK_WOOD_FENCE_GATE.get()).add(FrostBlocks.FROSTROOT_FENCE_GATE.get()).add(FrostBlocks.FROSTBITE_FENCE_GATE.get()).add(FrostBlocks.DRIP_FENCE_GATE.get());
         tag(BlockTags.WOODEN_DOORS).add(FrostBlocks.FROSTROOT_DOOR.get()).add(FrostBlocks.FROSTBITE_DOOR.get()).add(FrostBlocks.DRIP_DOOR.get());
         tag(BlockTags.WOODEN_TRAPDOORS).add(FrostBlocks.FROSTROOT_TRAPDOOR.get()).add(FrostBlocks.FROSTBITE_TRAPDOOR.get()).add(FrostBlocks.DRIP_TRAPDOOR.get());
         tag(BlockTags.WOODEN_SLABS).add(FrostBlocks.FROSTROOT_PLANKS_SLAB.get()).add(FrostBlocks.FROSTBITE_PLANKS_SLAB.get()).add(FrostBlocks.DRIP_PLANKS_SLAB.get());
+        tag(BlockTags.WOODEN_STAIRS).add(FrostBlocks.FROSTROOT_PLANKS_STAIRS.get()).add(FrostBlocks.FROSTBITE_PLANKS_STAIRS.get()).add(FrostBlocks.DRIP_PLANKS_STAIRS.get());
         tag(BlockTags.WOODEN_PRESSURE_PLATES).add(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get()).add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get()).add(FrostBlocks.DRIP_PRESSURE_PLATE.get());
         tag(BlockTags.WOODEN_BUTTONS).add(FrostBlocks.FROSTROOT_BUTTON.get()).add(FrostBlocks.FROSTBITE_BUTTON.get()).add(FrostBlocks.DRIP_BUTTON.get());
         tag(BlockTags.WALLS).add(FrostBlocks.FRIGID_STONE_BRICK_WALL.get(), FrostBlocks.PERMA_SLATE_BRICK_WALL.get());
+
+        tag(BlockTags.FENCES).add(FrostBlocks.ROCK_WOOD_FENCE.get());
+        tag(BlockTags.DOORS).add(FrostBlocks.ROCK_WOOD_DOOR.get());
+        tag(BlockTags.TRAPDOORS).add(FrostBlocks.ROCK_WOOD_TRAPDOOR.get());
+        tag(BlockTags.SLABS).add(FrostBlocks.ROCK_WOOD_PLANKS_SLAB.get());
+        tag(BlockTags.STAIRS).add(FrostBlocks.ROCK_WOOD_PLANKS_STAIRS.get());
+        tag(BlockTags.PRESSURE_PLATES).add(FrostBlocks.ROCK_WOOD_PRESSURE_PLATE.get());
+        tag(BlockTags.BUTTONS).add(FrostBlocks.ROCK_WOOD_BUTTON.get());
 
         tag(BlockTags.CROPS).add(FrostBlocks.SUGARBEET.get(), FrostBlocks.RYE.get());
         tag(BlockTags.MAINTAINS_FARMLAND).add(FrostBlocks.SUGARBEET.get(), FrostBlocks.RYE.get());

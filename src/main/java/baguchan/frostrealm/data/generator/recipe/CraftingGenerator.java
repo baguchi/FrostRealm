@@ -113,7 +113,23 @@ public class CraftingGenerator extends CraftingDataHelper {
 		makeTrapDoor(this.output, FrostBlocks.FROSTBITE_TRAPDOOR.get(), FrostBlocks.FROSTBITE_PLANKS.get());
 
 
-        ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BUILDING_BLOCKS, FrostBlocks.DRIP_PLANKS.get(), 4).requires(FrostBlocks.DRIP_LOG.get())
+		ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BUILDING_BLOCKS, FrostBlocks.ROCK_WOOD_PLANKS.get(), 4).requires(FrostBlocks.ROCK_WOOD.get())
+				.unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(FrostBlocks.ROCK_WOOD.get()).getPath(), has(FrostBlocks.ROCK_WOOD.get())).save(this.output);
+
+		makeSlab(this.output, FrostBlocks.ROCK_WOOD_PLANKS_SLAB.get(), FrostBlocks.ROCK_WOOD_PLANKS.get());
+		makeStairs(this.output, FrostBlocks.ROCK_WOOD_PLANKS_STAIRS.get(), FrostBlocks.ROCK_WOOD_PLANKS.get());
+		makeWoodFence(this.output, FrostBlocks.ROCK_WOOD_FENCE.get(), FrostBlocks.ROCK_WOOD_PLANKS.get());
+		makeFenceGate(this.output, FrostBlocks.ROCK_WOOD_FENCE_GATE.get(), FrostBlocks.ROCK_WOOD_PLANKS.get());
+		makeDoor(this.output, FrostBlocks.ROCK_WOOD_DOOR.get(), FrostBlocks.ROCK_WOOD_PLANKS.get());
+		makeTrapDoor(this.output, FrostBlocks.ROCK_WOOD_TRAPDOOR.get(), FrostBlocks.ROCK_WOOD_PLANKS.get());
+		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, FrostItems.ROCK_WOOD_STICK.get(), 4)
+				.pattern("A")
+				.pattern("A")
+				.define('A', FrostBlocks.ROCK_WOOD_PLANKS.get())
+				.unlockedBy("has_item", has(FrostBlocks.ROCK_WOOD_PLANKS.get())).save(this.output);
+
+
+		ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BUILDING_BLOCKS, FrostBlocks.DRIP_PLANKS.get(), 4).requires(FrostBlocks.DRIP_LOG.get())
                 .unlockedBy("has_" + BuiltInRegistries.BLOCK.getKey(FrostBlocks.DRIP_LOG.get()).getPath(), has(FrostBlocks.DRIP_LOG.get())).save(this.output);
 /*
 		ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BUILDING_BLOCKS, FrostBlocks.DRIP_PLANKS.get(), 4).requires(FrostBlocks.STRIPPED_DRIP_LOG.get())

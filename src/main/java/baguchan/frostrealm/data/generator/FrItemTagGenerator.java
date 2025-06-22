@@ -31,6 +31,16 @@ public class FrItemTagGenerator extends ItemTagsProvider {
         tag(ItemTags.WOODEN_PRESSURE_PLATES).add(FrostBlocks.FROSTROOT_PRESSURE_PLATE.get().asItem()).add(FrostBlocks.FROSTBITE_PRESSURE_PLATE.get().asItem()).add(FrostBlocks.DRIP_PRESSURE_PLATE.get().asItem());
         tag(ItemTags.WOODEN_BUTTONS).add(FrostBlocks.FROSTROOT_BUTTON.get().asItem()).add(FrostBlocks.FROSTBITE_BUTTON.get().asItem()).add(FrostBlocks.DRIP_BUTTON.get().asItem());
 
+        tag(ItemTags.FENCES).add(FrostBlocks.ROCK_WOOD_FENCE.get().asItem());
+        tag(ItemTags.DOORS).add(FrostBlocks.ROCK_WOOD_DOOR.get().asItem());
+        tag(ItemTags.TRAPDOORS).add(FrostBlocks.ROCK_WOOD_TRAPDOOR.get().asItem());
+        tag(ItemTags.SLABS).add(FrostBlocks.ROCK_WOOD_PLANKS_SLAB.get().asItem());
+        tag(ItemTags.STAIRS).add(FrostBlocks.ROCK_WOOD_PLANKS_STAIRS.get().asItem());
+        tag(ItemTags.BUTTONS).add(FrostBlocks.ROCK_WOOD_BUTTON.get().asItem());
+        tag(ItemTags.STONE_TOOL_MATERIALS).add(FrostBlocks.ROCK_WOOD_PLANKS.get().asItem());
+        tag(Tags.Items.RODS_WOODEN).add(FrostItems.ROCK_WOOD_STICK.value());
+
+
         tag(ItemTags.STONE_TOOL_MATERIALS).add(FrostBlocks.FRIGID_STONE.get().asItem(), FrostBlocks.PERMA_SLATE.get().asItem());
         tag(ItemTags.STONE_CRAFTING_MATERIALS).add(FrostBlocks.FRIGID_STONE.get().asItem());
         tag(Tags.Items.EGGS).add(FrostBlocks.SNOWPILE_QUAIL_EGG.get().asItem());

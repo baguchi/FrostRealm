@@ -34,6 +34,17 @@ public class FrostBlockFamilies {
             .door(FrostBlocks.FROSTBITE_DOOR.get())
             .trapdoor(FrostBlocks.FROSTBITE_TRAPDOOR.get())
             .getFamily();
+    public static final BlockFamily ROCK_WOOD = familyBuilder(FrostBlocks.ROCK_WOOD_PLANKS.get())
+            .button(FrostBlocks.ROCK_WOOD_BUTTON.get())
+            .fence(FrostBlocks.ROCK_WOOD_FENCE.get())
+            .fenceGate(FrostBlocks.ROCK_WOOD_FENCE_GATE.get())
+            .pressurePlate(FrostBlocks.ROCK_WOOD_PRESSURE_PLATE.get())
+            //.sign(FrostBlocks.ROCK_WOOD_SIGN.get(), FrostBlocks.ROCK_WOOD_WALL_SIGN.get())
+            .slab(FrostBlocks.ROCK_WOOD_PLANKS_SLAB.get())
+            .stairs(FrostBlocks.ROCK_WOOD_PLANKS_STAIRS.get())
+            .door(FrostBlocks.ROCK_WOOD_DOOR.get())
+            .trapdoor(FrostBlocks.ROCK_WOOD_TRAPDOOR.get())
+            .getFamily();
     public static final BlockFamily DRIP = familyBuilder(FrostBlocks.DRIP_PLANKS.get())
             .button(FrostBlocks.DRIP_BUTTON.get())
             .fence(FrostBlocks.DRIP_FENCE.get())

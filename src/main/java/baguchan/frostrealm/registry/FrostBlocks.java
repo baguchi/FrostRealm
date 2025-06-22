@@ -146,7 +146,30 @@ public class FrostBlocks {
                     .pushReaction(PushReaction.DESTROY)
     );
 
-    public static final DeferredBlock<RotatedPillarBlock> DRIP_LOG = register("drip_log", (properties) -> new RotatedPillarBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(2.0F).randomTicks().sound(SoundType.NETHER_WOOD));
+    public static final DeferredBlock<RotatedPillarBlock> ROCK_WOOD = register("rock_wood", (properties) -> new RotatedPillarBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.GRAY).strength(2.25F).sound(SoundType.CALCITE));
+    public static final DeferredBlock<Block> ROCK_WOOD_PLANKS = register("rock_wood_planks", (properties) -> new Block(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.GRAY).strength(2.25F, 5.0F).sound(SoundType.CALCITE));
+    public static final DeferredBlock<SlabBlock> ROCK_WOOD_PLANKS_SLAB = register("rock_wood_planks_slab", (properties) -> new SlabBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.GRAY).strength(2.25F, 5.0F).noOcclusion().sound(SoundType.CALCITE));
+    public static final DeferredBlock<StairBlock> ROCK_WOOD_PLANKS_STAIRS = register("rock_wood_planks_stairs", (properties) -> new StairBlock(ROCK_WOOD_PLANKS.get().defaultBlockState(), properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.GRAY).strength(2.25F, 5.0F).noOcclusion().sound(SoundType.CALCITE));
+    public static final DeferredBlock<FenceBlock> ROCK_WOOD_FENCE = register("rock_wood_fence", (properties) -> new FenceBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.GRAY).strength(2.25F, 3.5F).noOcclusion().sound(SoundType.CALCITE));
+    public static final DeferredBlock<FenceGateBlock> ROCK_WOOD_FENCE_GATE = register("rock_wood_fence_gate", (properties) -> new FenceGateBlock(FrostWoodTypes.ROCK_WOOD, properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.GRAY).strength(2.25F, 5.0F).noOcclusion().sound(SoundType.CALCITE));
+    public static final DeferredBlock<DoorBlock> ROCK_WOOD_DOOR = register("rock_wood_door", (properties) -> new DoorBlock(FrostBlockSetTypes.ROCK_WOOD, properties), () -> BlockBehaviour.Properties.of().strength(2.25F, 5.0F).noOcclusion().sound(SoundType.CALCITE));
+    public static final DeferredBlock<TrapDoorBlock> ROCK_WOOD_TRAPDOOR = register("rock_wood_trapdoor", (properties) -> new TrapDoorBlock(FrostBlockSetTypes.ROCK_WOOD, properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.GRAY).strength(2.25F, 5.0F).noOcclusion().sound(SoundType.CALCITE));
+
+    public static final DeferredBlock<ButtonBlock> ROCK_WOOD_BUTTON = register("rock_wood_button", (properties) -> rockWoodButton(properties, FrostBlockSetTypes.ROCK_WOOD), () -> BlockBehaviour.Properties.of());
+    public static final DeferredBlock<PressurePlateBlock> ROCK_WOOD_PRESSURE_PLATE = register(
+            "rock_wood_pressure_plate",
+            (properties) -> new PressurePlateBlock(
+                    FrostBlockSetTypes.ROCK_WOOD,
+                    properties), () -> BlockBehaviour.Properties.of()
+                    .mapColor(ROCK_WOOD_PLANKS.get().defaultMapColor())
+                    .forceSolidOn()
+                    .instrument(NoteBlockInstrument.BASS)
+                    .noCollission()
+                    .strength(0.5F, 2.5F)
+                    .pushReaction(PushReaction.DESTROY)
+    );
+
+    public static final DeferredBlock<RotatedPillarBlock> DRIP_LOG = register("drip_log", (properties) -> new RotatedPillarBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(2.0F).sound(SoundType.NETHER_WOOD));
     //public static final DeferredBlock<RotatedPillarBlock> STRIPPED_DRIP_LOG = register("stripped_drip_log", (properties) -> new RotatedPillarBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(2.0F).sound(SoundType.NETHER_WOOD));
     public static final DeferredBlock<LeavesBlock> DRIP_LEAVES = register("drip_leaves", (properties) -> new UntintedParticleLeavesBlock(0.01F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, 0xB84727), properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(0.2F).noOcclusion().isSuffocating(FrostBlocks::never).isViewBlocking(FrostBlocks::never).sound(SoundType.GRASS));
     public static final DeferredBlock<SaplingBlock> DRIP_SAPLING = register("drip_sapling", (properties) -> new SaplingBlock(FrostTrees.DRIP, properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).randomTicks().noCollission().noOcclusion().sound(SoundType.GRASS));
@@ -290,6 +313,9 @@ public class FrostBlocks {
         return new ButtonBlock(p_278239_, 30, properties.noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY));
     }
 
+    private static ButtonBlock rockWoodButton(BlockBehaviour.Properties properties, BlockSetType p_278239_) {
+        return new ButtonBlock(p_278239_, 30, properties.noCollission().strength(0.5F, 2.5F).pushReaction(PushReaction.DESTROY));
+    }
     private static boolean always(BlockState p_50775_, BlockGetter p_50776_, BlockPos p_50777_) {
         return true;
     }
