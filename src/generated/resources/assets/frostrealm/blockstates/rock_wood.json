@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "frostrealm:block/rock_wood",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "frostrealm:block/rock_wood"
+    },
+    "axis=z": {
+      "model": "frostrealm:block/rock_wood",
+      "x": 90
+    }
+  }
+}

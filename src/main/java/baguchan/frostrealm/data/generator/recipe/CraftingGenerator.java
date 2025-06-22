@@ -127,6 +127,12 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.pattern("A")
 				.define('A', FrostBlocks.ROCK_WOOD_PLANKS.get())
 				.unlockedBy("has_item", has(FrostBlocks.ROCK_WOOD_PLANKS.get())).save(this.output);
+		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, Blocks.CRAFTING_TABLE, 1)
+				.pattern("AA")
+				.pattern("AA")
+				.define('A', FrostBlocks.ROCK_WOOD_PLANKS.get())
+				.unlockedBy("has_item", has(FrostBlocks.ROCK_WOOD_PLANKS.get())).save(this.output, prefix("rock_wood_crafting_table"));
+
 
 
 		ShapelessRecipeBuilder.shapeless(lookup, RecipeCategory.BUILDING_BLOCKS, FrostBlocks.DRIP_PLANKS.get(), 4).requires(FrostBlocks.DRIP_LOG.get())

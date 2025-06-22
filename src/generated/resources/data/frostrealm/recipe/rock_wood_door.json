@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "D": "frostrealm:rock_wood_planks"
+  },
+  "pattern": [
+    "DD",
+    "DD",
+    "DD"
+  ],
+  "result": {
+    "count": 3,
+    "id": "frostrealm:rock_wood_door"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "M": "frostrealm:rock_wood_planks",
+    "S": "#c:rods/wooden"
+  },
+  "pattern": [
+    "SMS",
+    "SMS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frostrealm:rock_wood_fence_gate"
+  }
+}

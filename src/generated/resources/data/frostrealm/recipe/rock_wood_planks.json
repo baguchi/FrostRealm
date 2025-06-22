@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "frostrealm:rock_wood"
+  ],
+  "result": {
+    "count": 4,
+    "id": "frostrealm:rock_wood_planks"
+  }
+}

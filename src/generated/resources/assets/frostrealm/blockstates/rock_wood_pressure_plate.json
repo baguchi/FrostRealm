@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "frostrealm:block/rock_wood_pressure_plate"
+    },
+    "powered=true": {
+      "model": "frostrealm:block/rock_wood_pressure_plate_down"
+    }
+  }
+}

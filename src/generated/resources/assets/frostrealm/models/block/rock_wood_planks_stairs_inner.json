@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "frostrealm:block/rock_wood_planks",
+    "side": "frostrealm:block/rock_wood_planks",
+    "top": "frostrealm:block/rock_wood_planks"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "frostrealm:block/rock_wood_planks_slab"
+    },
+    "type=double": {
+      "model": "frostrealm:block/rock_wood_planks"
+    },
+    "type=top": {
+      "model": "frostrealm:block/rock_wood_planks_slab_top"
+    }
+  }
+}

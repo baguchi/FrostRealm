@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "frostrealm:block/rock_wood",
+    "side": "frostrealm:block/rock_wood"
+  }
+}
