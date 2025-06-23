@@ -217,7 +217,9 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
         boolean flag = super.doHurtTarget(serverLevel, p_21372_);
 
         if (flag && this.getMainHandItem().is(FrostItems.FROST_SPEAR.get())) {
-            p_21372_.setTicksFrozen(Mth.clamp(p_21372_.getTicksFrozen() + 100, 0, 600));
+            int freezeTick = p_21372_.canFreeze() ? 100 : 40;
+
+            p_21372_.setTicksFrozen(Mth.clamp(p_21372_.getTicksFrozen() + freezeTick, 0, 600));
 
         }
         return flag;

@@ -17,12 +17,16 @@ public class FrostWeather {
 	}
 
 	public FrostWeather() {
-		this.properties = new Properties(new FogProperties(1, 1, 1, 0.9F), Optional.empty(), Optional.empty());
+		this.properties = new Properties(new FogProperties(1, 1, 1, 0.9F), Optional.empty(), Optional.empty(), false);
 		this.useFog = false;
 	}
 
 	public void tick(LivingEntity livingEntity) {
 
+	}
+
+	public boolean getBadWeather() {
+		return properties.badWeather;
 	}
 
 	public float getRed() {
@@ -57,11 +61,13 @@ public class FrostWeather {
 		private final FogProperties fogProperties;
 		private final Optional<SoundEvent> sounds;
 		private final Optional<TagKey<Biome>> biomeTagKey;
+		private final boolean badWeather;
 
-		public Properties(FogProperties fogProperties, Optional<SoundEvent> sounds, Optional<TagKey<Biome>> biomeTagKey) {
+		public Properties(FogProperties fogProperties, Optional<SoundEvent> sounds, Optional<TagKey<Biome>> biomeTagKey, boolean badWeather) {
 			this.fogProperties = fogProperties;
 			this.sounds = sounds;
 			this.biomeTagKey = biomeTagKey;
+			this.badWeather = badWeather;
 		}
 	}
 

@@ -74,7 +74,7 @@ public class FrostWeatherManager {
                 prevFrostWeather = frostWeather;
             }
             oNormalLevel = normalLevel;
-            if (frostWeather == FrostWeathers.NOPE.get()) {
+            if (!frostWeather.getBadWeather()) {
                 normalLevel = Mth.clamp(normalLevel + 0.02F, 0.0F, 1.0F);
             } else {
                 normalLevel = Mth.clamp(normalLevel - 0.02F, 0.0F, 1.0F);

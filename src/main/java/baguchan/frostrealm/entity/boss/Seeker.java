@@ -70,7 +70,7 @@ public class Seeker extends Monster {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(3, new LeapAtTargetSeekerGoal(this, 4.0F));
+        this.goalSelector.addGoal(3, new LeapAtTargetSeekerGoal(this, 2.0F));
         this.goalSelector.addGoal(4, new SeekerAttackGoal(this, 1.2D, attackAnimationActionPoint, attackAnimationLength, 60));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, (double) 1.0F));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -118,7 +118,7 @@ public class Seeker extends Monster {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.24D).add(Attributes.MAX_HEALTH, 300F).add(Attributes.FOLLOW_RANGE, 18F).add(Attributes.ATTACK_DAMAGE, 6F).add(Attributes.KNOCKBACK_RESISTANCE, 1F);
+        return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, 0.24D).add(Attributes.MAX_HEALTH, 300F).add(Attributes.FOLLOW_RANGE, 18F).add(Attributes.ATTACK_DAMAGE, 6F).add(Attributes.SAFE_FALL_DISTANCE, 8F).add(Attributes.KNOCKBACK_RESISTANCE, 1F);
     }
 
     @Override
@@ -143,6 +143,12 @@ public class Seeker extends Monster {
 
     @Override
     protected boolean shouldDespawnInPeaceful() {
+        return false;
+    }
+
+
+    @Override
+    public boolean removeWhenFarAway(double p_21542_) {
         return false;
     }
 
@@ -275,14 +281,14 @@ public class Seeker extends Monster {
 
     protected void dealDamage(LivingEntity livingentity) {
         if (this.isAlive() && getState() == SeekerState.JUMP && this.level() instanceof ServerLevel serverLevel) {
-            boolean flag = CombatUtils.isBlockingWithOutCheck(serverLevel, livingentity, this.damageSources().mobAttack(this), getAttackDamage() * 1.5F) >= getAttackDamage() * 1.5F;
+            boolean flag = CombatUtils.isBlockingWithOutCheck(serverLevel, livingentity, this.damageSources().mobAttack(this), getAttackDamage() * 1.25F) >= getAttackDamage() * 1.25F;
             float f1 = (float) Mth.clamp(livingentity.getDeltaMovement().horizontalDistanceSqr() * 1.5F, 0.5F, 3.0F);
             float f2 = flag ? 1F : 2.0F;
             double d1 = this.getX() - livingentity.getX();
             double d2 = this.getZ() - livingentity.getZ();
             double d3 = livingentity.getX() - this.getX();
             double d4 = livingentity.getZ() - this.getZ();
-            if (livingentity.hurtServer(serverLevel, this.damageSources().mobAttack(this), Mth.floor(getAttackDamage() * 1.5F))) {
+            if (livingentity.hurtServer(serverLevel, this.damageSources().mobAttack(this), Mth.floor(getAttackDamage() * 1.25F))) {
                 this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 livingentity.knockback(f2 * f1, d1, d2);
             } else {
@@ -311,7 +317,9 @@ public class Seeker extends Monster {
         boolean flag = super.doHurtTarget(serverLevel, p_21372_);
 
         if (flag && this.getMainHandItem().is(FrostItems.FROST_SPEAR.get())) {
-            p_21372_.setTicksFrozen(Mth.clamp(p_21372_.getTicksFrozen() + 100, 0, 600));
+            int freezeTick = p_21372_.canFreeze() ? 100 : 40;
+
+            p_21372_.setTicksFrozen(Mth.clamp(p_21372_.getTicksFrozen() + freezeTick, 0, 600));
 
         }
         return flag;

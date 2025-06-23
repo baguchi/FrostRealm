@@ -30,8 +30,8 @@ public class ClientFogEvent {
 
                 float total = densityNew * (weatherLevel) + (1 - weatherLevel) * density;
 
-                near *= (total - near);
-                far *= (total - far);
+                near *= (total);
+                far *= (total);
 
                 event.setNearPlaneDistance(near);
                 event.setFarPlaneDistance(far);

@@ -310,5 +310,7 @@
   "death.attack.freeze_breath": "%1$s was Freeze by %2$s 's Breath",
   "attach_crystal.frostrealm.venom": "Venom",
   "attach_crystal.frostrealm.frost": "Frost",
-  "item.frostrealm.attachable": "Attachable With Weapon"
+  "item.frostrealm.attachable": "Attachable With Weapon",
+  "frostrealm.music.frost_moon": "でるた - Frost Moon",
+  "frostrealm.music.calm_night": "でるた - Calm Night"
 }

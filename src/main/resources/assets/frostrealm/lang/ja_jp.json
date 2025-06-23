@@ -307,5 +307,7 @@
   "death.attack.freeze_breath": "%1$sは、%2$sの息で凍えた",
   "attach_crystal.frostrealm.venom": "ベノム",
   "attach_crystal.frostrealm.frost": "フロスト",
-  "item.frostrealm.attachable": "Can be attach to weapons with a coating fur"
+  "item.frostrealm.attachable": "Can be attach to weapons with a coating fur",
+  "frostrealm.music.frost_moon": "RoundDelta - Frost Moon",
+  "frostrealm.music.calm_night": "RoundDelta - Calm Night"
 }
