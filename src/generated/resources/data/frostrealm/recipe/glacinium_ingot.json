@@ -4,9 +4,7 @@
   "ingredients": [
     "frostrealm:glacinium_crystal",
     "frostrealm:glacinium_crystal",
-    "frostrealm:frost_crystal",
-    "frostrealm:frost_crystal",
-    "frostrealm:astrium_ingot"
+    "frostrealm:frost_crystal"
   ],
   "result": {
     "count": 1,

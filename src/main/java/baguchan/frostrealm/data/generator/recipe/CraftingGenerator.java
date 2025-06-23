@@ -288,8 +288,6 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.requires(FrostItems.GLACINIUM_CRYSTAL.get())
 				.requires(FrostItems.GLACINIUM_CRYSTAL.get())
 				.requires(FrostItems.FROST_CRYSTAL.get())
-				.requires(FrostItems.FROST_CRYSTAL.get())
-				.requires(FrostItems.ASTRIUM_INGOT.get())
 				.unlockedBy("has_item", has(FrostItems.GLACINIUM_CRYSTAL.get())).save(this.output);
 		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.BUILDING_BLOCKS, FrostBlocks.GLACINIUM_BLOCK.get(), 1)
 				.pattern("AAA")
