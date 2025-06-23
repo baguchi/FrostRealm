@@ -70,6 +70,6 @@ public class FrostFireBlock extends BaseFireBlock {
 
     @Override
     public @Nullable PathType getAdjacentBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob mob, PathType originalType) {
-        return PathType.DANGER_OTHER;
+        return PathType.DAMAGE_OTHER;
     }
 }

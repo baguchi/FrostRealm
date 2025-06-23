@@ -20,6 +20,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -28,6 +29,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.util.thread.EffectiveSide;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
@@ -86,7 +88,7 @@ public class FrostRealm {
 		modBus.addListener(this::dataSetup);
 		modBus.addListener(this::setupPackets);
 		NeoForge.EVENT_BUS.addListener(this::registerCommands);
-
+		modBus.addListener(this::setupBlockEntity);
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			modBus.addListener(ClientRegistrar::setup);
 		}
@@ -107,6 +109,11 @@ public class FrostRealm {
 			map.put(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frostrealm"), FrostBiomeSources.FROSTREALM_PRESET);
 			MultiNoiseBiomeSourceParameterList.Preset.BY_NAME = map;
 		});
+
+	}
+
+	public void setupBlockEntity(BlockEntityTypeAddBlocksEvent event) {
+		event.modify(BlockEntityType.CAMPFIRE, FrostBlocks.FROST_CAMPFIRE.get());
 	}
 
 	public static void sendMSGToAll(CustomPacketPayload message) {
