@@ -22,6 +22,7 @@ public class FrostWeatherSavedData extends SavedData {
 
 	public static final Codec<FrostWeatherSavedData> CODEC = RecordCodecBuilder.create(
 			p_400930_ -> p_400930_.group(
+							FrostWeathers.getRegistry().byNameCodec().fieldOf("frost_weather").forGetter(FrostWeatherSavedData::getFrostWeather),
 							Codec.INT.fieldOf("weather_time").forGetter(p_400933_ -> p_400933_.weatherTime),
 							Codec.INT.fieldOf("weather_cooldown").forGetter(p_400933_ -> p_400933_.weatherCooldown),
 							Codec.FLOAT.fieldOf("unstable_level").forGetter(p_400933_ -> p_400933_.unstableLevel),
@@ -34,19 +35,22 @@ public class FrostWeatherSavedData extends SavedData {
 
 	private float unstableLevel;
 	private float auroraLevel;
+	private int tick;
+
 	private static Map<Level, FrostWeatherSavedData> dataMap = new HashMap<>();
 	public static final SavedDataType<FrostWeatherSavedData> TYPE = new SavedDataType<>(
 			"frost_weather_data",
 			FrostWeatherSavedData::new,
 			CODEC);
 
-    private FrostWeather frostWeather = FrostWeathers.NOPE.get();
+	private FrostWeather frostWeather;
 
 	public FrostWeatherSavedData() {
-		this(0, 20000, 0, 1.0F);
+		this(FrostWeathers.NOPE.get(), 0, 20000, 0, 1.0F);
 	}
 
-	public FrostWeatherSavedData(int weatherTime, int weatherCooldown, float unstableLevel, float auroraLevel) {
+	public FrostWeatherSavedData(FrostWeather frostWeather, int weatherTime, int weatherCooldown, float unstableLevel, float auroraLevel) {
+		this.frostWeather = frostWeather;
 		this.weatherTime = weatherTime;
 		this.weatherCooldown = weatherCooldown;
 		this.unstableLevel = unstableLevel;
@@ -90,6 +94,7 @@ public class FrostWeatherSavedData extends SavedData {
 
 	public void setFrostWeather(FrostWeather frostWeather) {
 		this.frostWeather = frostWeather;
+		this.setDirty();
 	}
 
 	public FrostWeather getFrostWeather() {
@@ -118,10 +123,12 @@ public class FrostWeatherSavedData extends SavedData {
 
 	public void tick(Level level) {
 		if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
+			this.tick++;
 			if (level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
 				if (isWeatherActive()) {
 					if (frostWeather == FrostWeathers.PURPLE_FOG.get()) {
 						unstableLevel = 0;
+						this.setDirty();
 					}
 					//If weather active
 					setWetherTime(getWeatherTime() - 1);
@@ -138,6 +145,7 @@ public class FrostWeatherSavedData extends SavedData {
 							PacketDistributor.sendToPlayersInDimension(serverLevel, message);
 
 							setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
+							this.setDirty();
 						}
 					} else {
 
@@ -146,8 +154,13 @@ public class FrostWeatherSavedData extends SavedData {
 						setFrostWeather(FrostWeathers.NOPE.get());
 						ChangeWeatherMessage message2 = new ChangeWeatherMessage(FrostWeathers.NOPE.get());
 						PacketDistributor.sendToPlayersInDimension(serverLevel, message2);
+						this.setDirty();
 					}
 				}
+			}
+
+			if (this.tick % 200 == 0) {
+				this.setDirty();
 			}
 		}
 	}
