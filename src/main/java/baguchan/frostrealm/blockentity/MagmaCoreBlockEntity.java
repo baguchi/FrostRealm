@@ -10,7 +10,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -45,12 +44,12 @@ public class MagmaCoreBlockEntity extends BlockEntity {
     public static void clientTick(Level level, BlockPos blockPos, BlockState blockState, MagmaCoreBlockEntity magmaCoreBlockEntity) {
         if (magmaCoreBlockEntity.active) {
             if (level.random.nextFloat() < 0.2) {
-                level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, blockPos.getX() + level.random.nextFloat(), blockPos.getY() + 1, blockPos.getZ() + level.random.nextFloat(), 0, 0.05F, 0);
+                level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, blockPos.getX() + level.random.nextFloat(), blockPos.getY() + 1, blockPos.getZ() + level.random.nextFloat(), 0, 0.15F, 0);
             }
             if (level.random.nextFloat() < 0.1 && magmaCoreBlockEntity.cooldown <= 0) {
                 level.addParticle(ParticleTypes.LAVA, blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5,
                         level.random.nextFloat() / 2.0F,
-                        1F,
+                        2F,
                         level.random.nextFloat() / 2.0F);
             }
         }
@@ -67,16 +66,20 @@ public class MagmaCoreBlockEntity extends BlockEntity {
             magmaCoreBlockEntity.active = false;
             magmaCoreBlockEntity.inventoryChanged();
         }
-        if (magmaCoreBlockEntity.active && --magmaCoreBlockEntity.cooldown <= 0) {
-            if (magmaCoreBlockEntity.activeTick > 0) {
-                if (level.random.nextFloat() < 0.05F) {
-                    generateMagmaEntity(level, blockPos, blockState, magmaCoreBlockEntity);
-                    level.playSound(null, blockPos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 3.0F, 1.0F);
+        if (magmaCoreBlockEntity.active) {
+            if (magmaCoreBlockEntity.cooldown <= 0) {
+                if (--magmaCoreBlockEntity.activeTick > 0) {
+                    if (level.random.nextFloat() < 0.05F) {
+                        generateMagmaEntity(level, blockPos, blockState, magmaCoreBlockEntity);
+                        level.playSound(null, blockPos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 3.0F, 1.0F);
+                    }
+                } else {
+                    magmaCoreBlockEntity.activeTick = 200 + level.random.nextInt(200);
+                    magmaCoreBlockEntity.cooldown = 600 + level.random.nextInt(600);
+                    magmaCoreBlockEntity.inventoryChanged();
                 }
             } else {
-                magmaCoreBlockEntity.activeTick = 200 + level.random.nextInt(200);
-                magmaCoreBlockEntity.cooldown = 600 + level.random.nextInt(600);
-                magmaCoreBlockEntity.inventoryChanged();
+                --magmaCoreBlockEntity.cooldown;
             }
         }
     }
@@ -155,13 +158,7 @@ public class MagmaCoreBlockEntity extends BlockEntity {
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider p_323910_) {
-        return saveWithoutMetadata(p_323910_);
-    }
-
-    @Override
-    public void onDataPacket(Connection net, ValueInput valueInput) {
-        super.onDataPacket(net, valueInput);
-        loadAdditional(valueInput);
+        return saveCustomOnly(p_323910_);
     }
 
     protected void inventoryChanged() {

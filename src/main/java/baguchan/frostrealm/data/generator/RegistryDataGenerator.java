@@ -36,6 +36,7 @@ public class RegistryDataGenerator extends DatapackBuiltinEntriesProvider {
             .add(Registries.BIOME, FrostBiomes::bootstrap)
 			.add(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, WolfflueVariants::bootstrap)
             .add(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY, AttachableCrystals::bootstrap)
+			.add(Registries.PAINTING_VARIANT, FrostPaintingVariants::bootstrap)
             .add(Registries.LEVEL_STEM, FrostDimensionSettings::bootstrapLevelStem);
 	;
 

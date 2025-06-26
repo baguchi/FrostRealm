@@ -1,0 +1,13 @@
+{
+  "asset_id": "frostrealm:wolfflue",
+  "author": {
+    "color": "gray",
+    "translate": "painting.frostrealm.wolfflue.author"
+  },
+  "height": 3,
+  "title": {
+    "color": "yellow",
+    "translate": "painting.frostrealm.wolfflue.title"
+  },
+  "width": 3
+}

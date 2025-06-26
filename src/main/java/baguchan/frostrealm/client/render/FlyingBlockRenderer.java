@@ -47,7 +47,7 @@ public class FlyingBlockRenderer extends EntityRenderer<FlyingBlockEntity, FlyBl
             List<BlockModelPart> list = this.dispatcher
                     .getBlockModel(blockstate)
                     .collectParts(state.level, state.blockPos, blockstate, RandomSource.create(blockstate.getSeed(state.startBlockPos)));
-            poseStack.mulPose(Axis.YP.rotationDegrees(state.yRot));
+            poseStack.mulPose(Axis.YP.rotationDegrees(-state.yRot));
             poseStack.mulPose(Axis.XP.rotationDegrees(state.xRot));
             poseStack.translate(-0.5, -0.5, -0.5);
 
