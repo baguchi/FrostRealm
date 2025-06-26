@@ -26,7 +26,7 @@ public class FrostWeathers {
 	public static final Supplier<FrostWeather> NOPE = FROST_WEATHER.register("nope", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(1.0F, 1.0F, 1.0F, 0.85F), Optional.empty(), Optional.empty(), false)));
 	public static final Supplier<FrostWeather> BLIZZARD = FROST_WEATHER.register("blizzard", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(0.9F, 0.9F, 0.9F, 0.1F), Optional.of(FrostSounds.BLIZZARD_AMBIENT.get()), Optional.of(FrostTags.Biomes.HOT_BIOME), true)));
 	public static final Supplier<FrostWeather> PURPLE_FOG = FROST_WEATHER.register("purple_fog", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(0.6F, 0.0F, 0.6F, 0.15F), Optional.empty(), Optional.empty(), true)));
-	public static final Supplier<FrostWeather> STARFALL = FROST_WEATHER.register("starfall", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(0.6F, 0.0F, 0.6F, 0.9F), Optional.empty(), Optional.empty(), true)));
+	public static final Supplier<FrostWeather> STARFALL = FROST_WEATHER.register("starfall", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(0.6F, 0.9F, 0.1F, 0.8F), Optional.empty(), Optional.empty(), true)));
 
     private static Registry<FrostWeather> registry;
 

@@ -78,6 +78,11 @@ public class FrostBlocks {
     public static final DeferredBlock<WallBlock> FRIGID_STONE_BRICK_WALL = register("frigid_stone_brick_wall", (properties) -> new WallBlock(properties), () -> BlockBehaviour.Properties.of().strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
     public static final DeferredBlock<Block> FRIGID_STONE_SMOOTH = register("frigid_stone_smooth", (properties) -> new Block(properties), () -> BlockBehaviour.Properties.of().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
     public static final DeferredBlock<Block> CHISELED_FRIGID_STONE_BRICK = register("chiseled_frigid_stone_brick", (properties) -> new Block(properties), () -> BlockBehaviour.Properties.of().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK));
+    public static final DeferredBlock<Block> MAGMA_CORE = register("magma_core", (properties) -> new MagmaCoreBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY)
+            .instrument(NoteBlockInstrument.BASEDRUM)
+            .requiresCorrectToolForDrops()
+            .strength(50.0F, 100.0F));
+
 
     public static final DeferredBlock<Block> FRIGID_STONE_MOSSY = register("frigid_stone_mossy", (properties) -> new Block(properties), () -> BlockBehaviour.Properties.of().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
     public static final DeferredBlock<SlabBlock> FRIGID_STONE_MOSSY_SLAB = register("frigid_stone_mossy_slab", (properties) -> new SlabBlock(properties), () -> BlockBehaviour.Properties.of().strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));

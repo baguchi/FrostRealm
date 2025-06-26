@@ -56,6 +56,8 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
         this.createTrivialCube(FrostBlocks.FRIGID_STONE_SMOOTH.get());
         this.createTrivialCube(FrostBlocks.CHISELED_FRIGID_STONE_BRICK.get());
 
+        this.createTrivialCube(FrostBlocks.MAGMA_CORE.get());
+
         family(FrostBlocks.FRIGID_STONE_BRICK.get())
                 .slab(FrostBlocks.FRIGID_STONE_BRICK_SLAB.get())
                 .stairs(FrostBlocks.FRIGID_STONE_BRICK_STAIRS.get())

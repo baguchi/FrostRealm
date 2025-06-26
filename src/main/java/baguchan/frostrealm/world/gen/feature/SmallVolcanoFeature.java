@@ -1,5 +1,6 @@
 package baguchan.frostrealm.world.gen.feature;
 
+import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.world.gen.feature.config.HeightBlockStateConfiguration;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
@@ -44,6 +45,9 @@ public class SmallVolcanoFeature extends Feature<HeightBlockStateConfiguration> 
                 }
             }
         }
+        worldgenlevel.setBlock(blockpos.above(), FrostBlocks.MAGMA_CORE.get().defaultBlockState(), 2);
+
+
         return true;
     }
 }

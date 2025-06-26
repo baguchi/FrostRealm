@@ -42,7 +42,9 @@ public class FrBlockTagGenerator extends BlockTagsProvider {
                 , FrostBlocks.RAW_GLACINIUM_BLOCK.get()
                 , FrostBlocks.SILK_MOON_EGG.get()
                 , FrostBlocks.SNOWPILE_QUAIL_EGG.get()
-                ).add(FrostBlocks.ROCK_WOOD.get(), FrostBlocks.ROCK_WOOD_PLANKS.get(), FrostBlocks.ROCK_WOOD_PLANKS_STAIRS.get(), FrostBlocks.ROCK_WOOD_PLANKS_SLAB.get(), FrostBlocks.ROCK_WOOD_FENCE.get(), FrostBlocks.ROCK_WOOD_FENCE_GATE.get())
+                )
+                .add(FrostBlocks.MAGMA_CORE.get())
+                .add(FrostBlocks.ROCK_WOOD.get(), FrostBlocks.ROCK_WOOD_PLANKS.get(), FrostBlocks.ROCK_WOOD_PLANKS_STAIRS.get(), FrostBlocks.ROCK_WOOD_PLANKS_SLAB.get(), FrostBlocks.ROCK_WOOD_FENCE.get(), FrostBlocks.ROCK_WOOD_FENCE_GATE.get())
                 .add(FrostBlocks.ROCK_WOOD_DOOR.get()).add(FrostBlocks.ROCK_WOOD_TRAPDOOR.get()).add(FrostBlocks.ROCK_WOOD_PRESSURE_PLATE.get()).add(FrostBlocks.ROCK_WOOD_BUTTON.get())
         ;
         tag(BlockTags.MINEABLE_WITH_AXE).add(FrostBlocks.FROSTROOT_LOG.get(), FrostBlocks.STRIPPED_FROSTROOT_LOG.get(), FrostBlocks.FROSTROOT_PLANKS.get(), FrostBlocks.FROSTROOT_PLANKS_STAIRS.get(), FrostBlocks.FROSTROOT_PLANKS_SLAB.get(), FrostBlocks.FROSTROOT_FENCE.get(), FrostBlocks.FROSTROOT_FENCE_GATE.get()

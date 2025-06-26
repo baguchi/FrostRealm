@@ -53,7 +53,7 @@ public class FrostEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<Seeker>> SEEKER = ENTITIES.register("seeker", () -> EntityType.Builder.of(Seeker::new, MobCategory.MONSTER).sized(0.8F, 5.4F).eyeHeight(5.15F).build(prefix("seeker")));
 
     public static final DeferredHolder<EntityType<?>, EntityType<VenomBall>> VENOM_BALL = ENTITIES.register("venom_ball", () -> EntityType.Builder.<VenomBall>of(VenomBall::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(8).updateInterval(30).build(prefix("venom_ball")));
-    public static final DeferredHolder<EntityType<?>, EntityType<FlyingBlockEntity>> FLYING_BLOCK = ENTITIES.register("flying_block", () -> EntityType.Builder.<FlyingBlockEntity>of(FlyingBlockEntity::new, MobCategory.MISC).sized(1.0F, 1.0F).clientTrackingRange(10).updateInterval(30).build(prefix("flying_block")));
+    public static final DeferredHolder<EntityType<?>, EntityType<FlyingBlockEntity>> FLYING_BLOCK = ENTITIES.register("flying_block", () -> EntityType.Builder.<FlyingBlockEntity>of(FlyingBlockEntity::new, MobCategory.MISC).sized(1.0F, 1.0F).clientTrackingRange(10).updateInterval(40).build(prefix("flying_block")));
 
 
     private static ResourceKey<EntityType<?>> prefix(String path) {

@@ -1,5 +1,6 @@
 package baguchan.frostrealm.entity.projectile;
 
+import baguchan.frostrealm.entity.hostile.Gokkur;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -10,6 +11,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
@@ -28,6 +30,7 @@ public class FlyingBlockEntity extends ThrowableProjectile {
     public static final EntityDataAccessor<BlockState> STATE = SynchedEntityData.defineId(FlyingBlockEntity.class, EntityDataSerializers.BLOCK_STATE);
 
     private boolean canPlace = false;
+    private boolean isFromVolcano = false;
 
     public FlyingBlockEntity(EntityType<? extends FlyingBlockEntity> type, Level worldIn) {
         super(type, worldIn);
@@ -45,6 +48,7 @@ public class FlyingBlockEntity extends ThrowableProjectile {
     protected void addAdditionalSaveData(ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.store("BlockState", BlockState.CODEC, this.getBlockState());
+        tag.putBoolean("Volcano", this.isFromVolcano);
     }
 
     @Override
@@ -61,10 +65,19 @@ public class FlyingBlockEntity extends ThrowableProjectile {
     }
 
 
+    public void setFromVolcano(boolean fromVolcano) {
+        isFromVolcano = fromVolcano;
+    }
+
+    public boolean isFromVolcano() {
+        return isFromVolcano;
+    }
+
     @Override
     protected void readAdditionalSaveData(ValueInput tag) {
         super.readAdditionalSaveData(tag);
         this.setBlockState(tag.read("BlockState", BlockState.CODEC).orElse(Blocks.SNOW_BLOCK.defaultBlockState()));
+        this.setFromVolcano(tag.getBooleanOr("Volcano", false));
     }
 
     @Override
@@ -92,6 +105,7 @@ public class FlyingBlockEntity extends ThrowableProjectile {
                     result.getEntity().hurt(blockAttack(this.getOwner()), 3);
                     this.playSound(getBlockState().getSoundType().getBreakSound());
                     this.level().broadcastEntityEvent(this, (byte) 3);
+                    generateMagmaEntity();
                     this.discard();
                 }
             }
@@ -108,7 +122,18 @@ public class FlyingBlockEntity extends ThrowableProjectile {
             if (this.canPlace) {
                 this.level().setBlock(this.blockPosition(), getBlockState(), 2);
             }
+            generateMagmaEntity();
             this.discard();
+        }
+    }
+
+
+    protected void generateMagmaEntity() {
+        if (this.isFromVolcano && this.random.nextFloat() < 0.005F) {
+            Gokkur flyingBlockEntity = FrostEntities.GOKKUR.get().create(this.level(), EntitySpawnReason.EVENT);
+
+            flyingBlockEntity.snapTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+            this.level().addFreshEntity(flyingBlockEntity);
         }
     }
 

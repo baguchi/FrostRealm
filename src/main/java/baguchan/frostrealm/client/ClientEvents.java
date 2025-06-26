@@ -39,6 +39,7 @@ import java.util.Optional;
 public class ClientEvents {
 
     public static final Music CALM_NIGHT = createFrostMusic(FrostSounds.CALM_NIGHT_BGM);
+    public static final Music FROST_MOON = createFrostMusic(FrostSounds.FROST_MOON_BGM);
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void clientAnimation(BagusModelEvent.PostAnimate event) {
@@ -103,12 +104,7 @@ public class ClientEvents {
                     if (night) {
                         event.setMusic(new MusicInfo(CALM_NIGHT, volume));
                     } else {
-                        if (musicInfo.isPresent()) {
-                            Optional<Music> music = musicInfo.get().getRandom(Minecraft.getInstance().level.random);
-                            if (music.isPresent()) {
-                                event.setMusic(new MusicInfo(music.get()));
-                            }
-                        }
+                        event.setMusic(new MusicInfo(FROST_MOON, volume));
                     }
                 }
             }
