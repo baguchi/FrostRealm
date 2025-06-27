@@ -43,9 +43,9 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
     private final KeyframeAnimation attackAnimationState;
     private final KeyframeAnimation stopAttackAnimationState;
     private final KeyframeAnimation deathAnimationState;
-    private final KeyframeAnimation jumpAnimationState;
-    private final KeyframeAnimation jumpStopAnimationState;
-
+    private final KeyframeAnimation breathAnimationState;
+    private final KeyframeAnimation breathPreAnimationState;
+    private final KeyframeAnimation breathStopAnimationState;
     public SeekerModel(ModelPart root) {
         super(root);
         this.all = root.getChild("all");
@@ -75,8 +75,9 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
         this.attackAnimationState = SeekerAnimations.attack.bake(root);
         this.stopAttackAnimationState = SeekerAnimations.attack_stop.bake(root);
         this.deathAnimationState = SeekerAnimations.death.bake(root);
-        this.jumpAnimationState = SeekerAnimations.jump_attack.bake(root);
-        this.jumpStopAnimationState = SeekerAnimations.finish_jump_attack.bake(root);
+        this.breathAnimationState = SeekerAnimations.breath.bake(root);
+        this.breathPreAnimationState = SeekerAnimations.breath_pre.bake(root);
+        this.breathStopAnimationState = SeekerAnimations.breath_stop.bake(root);
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -171,8 +172,9 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
         this.attackAnimationState.apply(entity.attackAnimationState, entity.ageInTicks);
         this.stopAttackAnimationState.apply(entity.stopAttackAnimationState, entity.ageInTicks);
         this.deathAnimationState.apply(entity.deathAnimationState, entity.ageInTicks);
-        this.jumpAnimationState.apply(entity.jumpAnimationState, entity.ageInTicks);
-        this.jumpStopAnimationState.apply(entity.jumpStopAnimationState, entity.ageInTicks);
+        this.breathAnimationState.apply(entity.breathAnimationState, entity.ageInTicks);
+        this.breathPreAnimationState.apply(entity.breathPreAnimationState, entity.ageInTicks);
+        this.breathStopAnimationState.apply(entity.breathStopAnimationState, entity.ageInTicks);
     }
 
     private ModelPart getArm(HumanoidArm p_102923_) {

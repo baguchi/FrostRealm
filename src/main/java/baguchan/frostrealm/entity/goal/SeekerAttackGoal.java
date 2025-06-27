@@ -18,12 +18,12 @@ public class SeekerAttackGoal extends WideMeleeAttackGoal {
 
     @Override
     public boolean canUse() {
-        return super.canUse() && this.seeker.getState() != Seeker.SeekerState.JUMP && this.seeker.getState() != Seeker.SeekerState.JUMP_STOP;
+        return this.seeker.getState() != Seeker.SeekerState.BREATH_STOP && super.canUse();
     }
 
     @Override
     public boolean canContinueToUse() {
-        return super.canContinueToUse() && this.seeker.getState() != Seeker.SeekerState.JUMP && this.seeker.getState() != Seeker.SeekerState.JUMP_STOP;
+        return super.canContinueToUse();
     }
 
     public void tick() {

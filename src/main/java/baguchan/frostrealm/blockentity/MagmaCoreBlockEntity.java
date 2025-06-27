@@ -59,7 +59,7 @@ public class MagmaCoreBlockEntity extends BlockEntity {
         FrostWeatherSavedData frostWeatherSavedData = FrostWeatherSavedData.get(level);
         if (!magmaCoreBlockEntity.active && (frostWeatherSavedData.getFrostWeather() == FrostWeathers.PURPLE_FOG.get() || frostWeatherSavedData.getFrostWeather() == FrostWeathers.STARFALL.get())) {
             magmaCoreBlockEntity.active = true;
-            magmaCoreBlockEntity.activeTick = 200 + level.random.nextInt(200);
+            magmaCoreBlockEntity.activeTick = 400 + level.random.nextInt(400);
             magmaCoreBlockEntity.cooldown = 600 + level.random.nextInt(600);
             magmaCoreBlockEntity.inventoryChanged();
         } else if (magmaCoreBlockEntity.active && !(frostWeatherSavedData.getFrostWeather() == FrostWeathers.PURPLE_FOG.get() || frostWeatherSavedData.getFrostWeather() == FrostWeathers.STARFALL.get())) {
@@ -74,7 +74,7 @@ public class MagmaCoreBlockEntity extends BlockEntity {
                         level.playSound(null, blockPos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 3.0F, 1.0F);
                     }
                 } else {
-                    magmaCoreBlockEntity.activeTick = 200 + level.random.nextInt(200);
+                    magmaCoreBlockEntity.activeTick = 400 + level.random.nextInt(400);
                     magmaCoreBlockEntity.cooldown = 600 + level.random.nextInt(600);
                     magmaCoreBlockEntity.inventoryChanged();
                 }

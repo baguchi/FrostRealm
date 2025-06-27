@@ -33,7 +33,7 @@ public class FrEntityTagGenerator extends EntityTypeTagsProvider {
 				.add(FrostEntities.SILK_MOON_WORM.get()).add(EntityType.HAPPY_GHAST).add(EntityType.SHEEP);
 		tag(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS).add(FrostEntities.FERRET.get());
 		tag(EntityTypeTags.FALL_DAMAGE_IMMUNE)
-				.add(FrostEntities.SILK_MOON.get()).add(FrostEntities.ASTRA_BALL.get()).add(FrostEntities.SNOWPILE_QUAIL.get()).add(FrostEntities.CORRUPTED_WALKER.get());
+				.add(FrostEntities.FROST_WRAITH.get()).add(FrostEntities.SILK_MOON.get()).add(FrostEntities.ASTRA_BALL.get()).add(FrostEntities.SNOWPILE_QUAIL.get()).add(FrostEntities.CORRUPTED_WALKER.get());
 		tag(EntityTypeTags.UNDEAD).add(FrostEntities.LESSER_WARRIOR.get());
 		this.tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER).add(FrostEntities.CORRUPTED_WALKER.get());
 	}

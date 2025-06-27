@@ -1,22 +1,20 @@
 package baguchan.frostrealm.entity.boss;
 
-import baguchan.frostrealm.entity.goal.LeapAtTargetSeekerGoal;
 import baguchan.frostrealm.entity.goal.SeekerAttackGoal;
-import baguchan.frostrealm.entity.hostile.Gokkur;
+import baguchan.frostrealm.entity.goal.SeekerBreathGoal;
 import baguchan.frostrealm.entity.hostile.LesserWarrior;
 import baguchan.frostrealm.registry.FrostEntityDatas;
 import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostSounds;
-import baguchan.frostrealm.utils.CombatUtils;
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -41,6 +39,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.IntFunction;
@@ -56,8 +55,9 @@ public class Seeker extends Monster {
     public final AnimationState preAttackAnimationState = new AnimationState();
     public final AnimationState stopAttackAnimationState = new AnimationState();
     public final AnimationState deathAnimationState = new AnimationState();
-    public final AnimationState jumpAnimationState = new AnimationState();
-    public final AnimationState jumpStopAnimationState = new AnimationState();
+    public final AnimationState breathAnimationState = new AnimationState();
+    public final AnimationState breathPreAnimationState = new AnimationState();
+    public final AnimationState breathStopAnimationState = new AnimationState();
 
     private long inStateTicks = 0L;
     private long noSpecialAttackTime = 0L;
@@ -70,7 +70,7 @@ public class Seeker extends Monster {
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(3, new LeapAtTargetSeekerGoal(this, 2.0F));
+        this.goalSelector.addGoal(3, new SeekerBreathGoal(this));
         this.goalSelector.addGoal(4, new SeekerAttackGoal(this, 1.2D, attackAnimationActionPoint, attackAnimationLength, 60));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, (double) 1.0F));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -82,10 +82,6 @@ public class Seeker extends Monster {
 
     }
 
-    @Override
-    public float getSecondsToDisableBlocking() {
-        return getState() == SeekerState.JUMP ? 80 : super.getSecondsToDisableBlocking();
-    }
 
     @Override
     public void addAdditionalSaveData(ValueOutput p_21484_) {
@@ -192,6 +188,9 @@ public class Seeker extends Monster {
             } else if (!this.isAggressive() && this.getState() == SeekerState.PRE_ATTACK) {
                 this.setState(SeekerState.STOP_ATTACK);
             } else if (this.shouldSwitchState()) {
+                if (this.getState() == SeekerState.BREATH_PRE) {
+                    this.setState(SeekerState.BREATH);
+                } else
                 if (this.isAggressive()) {
                     this.setState(SeekerState.PRE_ATTACK);
                 } else {
@@ -210,8 +209,9 @@ public class Seeker extends Monster {
     private void setupAnimationStates() {
         this.preAttackAnimationState.stop();
         this.stopAttackAnimationState.stop();
-        this.jumpAnimationState.stop();
-        this.jumpStopAnimationState.stop();
+        this.breathAnimationState.stop();
+        this.breathPreAnimationState.stop();
+        this.breathStopAnimationState.stop();
         switch (this.getState()) {
             case SeekerState.IDLE:
                 break;
@@ -222,14 +222,55 @@ public class Seeker extends Monster {
                 this.stopAttackAnimationState.startIfStopped(this.tickCount);
 
                 break;
-            case SeekerState.JUMP:
-                this.jumpAnimationState.startIfStopped(this.tickCount);
+            case SeekerState.BREATH_PRE:
+                this.breathPreAnimationState.startIfStopped(this.tickCount);
                 break;
-            case SeekerState.JUMP_STOP:
-                this.jumpStopAnimationState.startIfStopped(this.tickCount);
+            case SeekerState.BREATH:
+                this.breathAnimationState.startIfStopped(this.tickCount);
+                break;
+            case SeekerState.BREATH_STOP:
+                this.breathStopAnimationState.startIfStopped(this.tickCount);
                 break;
         }
 
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (this.level().isClientSide()) {
+            this.spawnParticles();
+        }
+    }
+
+    private void spawnParticles() {
+        // when ice beaming, spew particles
+        if (this.getState() == SeekerState.BREATH && this.isAlive()) {
+            Vec3 look = this.getViewVector(1.0F);
+            double dist = 3;
+            double px = this.getX() + look.x() * 1.5;
+            double py = this.getEyeY() - 0.5;
+            double pz = this.getZ() + look.z() * 1.5;
+
+            for (int i = 0; i < 10; i++) {
+                double dx = look.x();
+                double dy = look.y();
+                double dz = look.z();
+
+                double spread = 64.0D + this.getRandom().nextDouble() * 2.5D;
+                double velocity = 2.0D + this.getRandom().nextDouble() * 0.15D;
+
+                // beeeam
+                dx += this.getRandom().nextGaussian() * 0.0075D * spread;
+                dy += this.getRandom().nextGaussian() * 0.0075D * spread;
+                dz += this.getRandom().nextGaussian() * 0.0075D * spread;
+                dx *= velocity;
+                dy *= velocity;
+                dz *= velocity;
+
+                this.level().addParticle(ParticleTypes.SNOWFLAKE, px, py, pz, dx, dy, dz);
+            }
+        }
     }
 
     @Override
@@ -272,37 +313,6 @@ public class Seeker extends Monster {
         this.populateDefaultEquipmentEnchantments(p_34717_, randomsource, p_34718_);
 
         return super.finalizeSpawn(p_34717_, p_34718_, p_361787_, p_34720_);
-    }
-
-    protected float getAttackDamage() {
-        return (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
-    }
-
-
-    protected void dealDamage(LivingEntity livingentity) {
-        if (this.isAlive() && getState() == SeekerState.JUMP && this.level() instanceof ServerLevel serverLevel) {
-            boolean flag = CombatUtils.isBlockingWithOutCheck(serverLevel, livingentity, this.damageSources().mobAttack(this), getAttackDamage() * 1.25F) >= getAttackDamage() * 1.25F;
-            float f1 = (float) Mth.clamp(livingentity.getDeltaMovement().horizontalDistanceSqr() * 1.5F, 0.5F, 3.0F);
-            float f2 = flag ? 1F : 2.0F;
-            double d1 = this.getX() - livingentity.getX();
-            double d2 = this.getZ() - livingentity.getZ();
-            double d3 = livingentity.getX() - this.getX();
-            double d4 = livingentity.getZ() - this.getZ();
-            if (livingentity.hurtServer(serverLevel, this.damageSources().mobAttack(this), Mth.floor(getAttackDamage() * 1.25F))) {
-                this.playSound(SoundEvents.PLAYER_ATTACK_KNOCKBACK, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                livingentity.knockback(f2 * f1, d1, d2);
-            } else {
-                livingentity.knockback(f2 * f1, d1, d2);
-            }
-        }
-    }
-
-    @Override
-    public void push(Entity p_33636_) {
-        if (p_33636_ instanceof LivingEntity && !(p_33636_ instanceof Gokkur)) {
-            this.dealDamage((LivingEntity) p_33636_);
-        }
-        super.push(p_33636_);
     }
 
     @Override
@@ -355,7 +365,16 @@ public class Seeker extends Monster {
                 return false;
             }
         },
-        JUMP("jump", -1, 4) {
+        BREATH_PRE("breath_pre", 40, 4) {
+            public boolean canLook() {
+                return false;
+            }
+
+            @Override
+            public boolean canWalk() {
+                return false;
+            }
+        }, BREATH("breath", -1, 5) {
             public boolean canLook() {
                 return false;
             }
@@ -365,7 +384,7 @@ public class Seeker extends Monster {
                 return false;
             }
         },
-        JUMP_STOP("jump_stop", 20, 5) {
+        BREATH_STOP("breath_stop", 10, 6) {
             public boolean canLook() {
                 return false;
             }
