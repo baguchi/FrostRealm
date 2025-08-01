@@ -4,10 +4,8 @@ import baguchan.frostrealm.FrostRealm;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexMultiConsumer;
 import net.minecraft.Util;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderStateShard;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 
@@ -22,6 +20,17 @@ public abstract class FrostRenderType extends RenderType {
             RenderType.CompositeState.builder()
                     .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), false))
                     .setTexturingState(GLINT_TEXTURING)
+                    .createCompositeState(false)
+    );
+
+    public static final RenderType AURORA_GLINT_TRANSLUCENT = create(
+            "frostrealm:aurora_glint_translucent",
+            1536,
+            RenderPipelines.GLINT,
+            RenderType.CompositeState.builder()
+                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), false))
+                    .setTexturingState(GLINT_TEXTURING)
+                    .setOutputState(ITEM_ENTITY_TARGET)
                     .createCompositeState(false)
     );
 
@@ -74,8 +83,13 @@ public abstract class FrostRenderType extends RenderType {
         super(p_173178_, p_173181_, p_173182_, p_173183_, p_173184_, p_173185_);
     }
 
-    public static VertexConsumer getAurora(MultiBufferSource bufferSource, RenderType renderType) {
-        return VertexMultiConsumer.create(VertexMultiConsumer.create(bufferSource.getBuffer(FrostRenderType.AURORA_GLINT)), bufferSource.getBuffer(renderType));
+    public static VertexConsumer getAuroraBuffer(MultiBufferSource p_115212_, RenderType p_115213_, boolean p_115214_) {
+        return useTransparentGlint(p_115213_) ? VertexMultiConsumer.create(p_115212_.getBuffer(FrostRenderType.AURORA_GLINT_TRANSLUCENT), p_115212_.getBuffer(p_115213_)) : VertexMultiConsumer.create(p_115212_.getBuffer(p_115214_ ? RenderType.glint() : FrostRenderType.AURORA_GLINT), p_115212_.getBuffer(p_115213_));
+
+    }
+
+    private static boolean useTransparentGlint(RenderType p_418495_) {
+        return Minecraft.useShaderTransparency() && p_418495_ == Sheets.translucentItemSheet();
     }
 
     public static VertexConsumer getDark(MultiBufferSource bufferSource, RenderType renderType) {

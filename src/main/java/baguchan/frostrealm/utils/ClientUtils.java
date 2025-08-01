@@ -26,7 +26,7 @@ public class ClientUtils {
 
 
     public static void renderItemAurora(PoseStack p_360423_, MultiBufferSource p_360415_, int p_361265_, int p_364771_, int[] p_386517_, List<BakedQuad> p_404702_, RenderType p_388877_) {
-        VertexConsumer vertexconsumer = FrostRenderType.getAurora(p_360415_, p_388877_);
+        VertexConsumer vertexconsumer = FrostRenderType.getAuroraBuffer(p_360415_, p_388877_, true);
 
 
         renderQuadList(p_360423_, vertexconsumer, p_404702_, p_386517_, p_361265_, p_364771_);

@@ -234,6 +234,7 @@ public class ClientRegistrar {
 	@SubscribeEvent
 	public static void registerRenderBuffers(RegisterRenderBuffersEvent event) {
 		event.registerRenderBuffer(FrostRenderType.AURORA_GLINT);
+		event.registerRenderBuffer(FrostRenderType.AURORA_GLINT_TRANSLUCENT);
 		event.registerRenderBuffer(FrostRenderType.AURORA_ARMOR_ENTITY_GLINT);
 		event.registerRenderBuffer(FrostRenderType.AURORA_ENTITY_GLINT);
 		event.registerRenderBuffer(FrostRenderType.DARK_ITEM_RENDER_TYPE);

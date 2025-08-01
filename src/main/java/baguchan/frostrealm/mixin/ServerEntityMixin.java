@@ -22,6 +22,5 @@ public class ServerEntityMixin {
     private void sendDirtyEntityData(CallbackInfo ci) {
         if (entity.isMultipartEntity())
             PacketDistributor.sendToPlayersTrackingEntity(entity, new UpdateMultipartPacket(entity));
-
     }
 }

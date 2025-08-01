@@ -26,7 +26,7 @@ public class ItemStackRenderStateMixin implements IGlintAurora {
     @Unique
     private boolean frostRealm$dark;
 
-    @Inject(method = "render", at = @At("HEAD"))
+    @Inject(method = "render", at = @At("TAIL"))
     public void render(PoseStack p_388193_, MultiBufferSource p_388719_, int p_386913_, int p_387272_, CallbackInfo ci) {
         for (int i = 0; i < this.activeLayerCount; ++i) {
             if (this.frostRealm$glint) {

@@ -131,7 +131,7 @@ public class FrostRealm {
         registrar.playToClient(ChangedColdMessage.TYPE, ChangedColdMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
         registrar.playToClient(ChangeWeatherMessage.TYPE, ChangeWeatherMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
         registrar.playToClient(ChangeAuroraMessage.TYPE, ChangeAuroraMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
-        registrar.playToServer(UpdateMultipartPacket.TYPE, UpdateMultipartPacket.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
+		registrar.playToClient(UpdateMultipartPacket.TYPE, UpdateMultipartPacket.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
 	}
 
 	public static ResourceLocation prefix(String name) {
