@@ -128,14 +128,6 @@ public class AuroraPower {
         return this.descriptionId;
     }
 
-    protected String getOrCreateRawDescription() {
-        if (this.descriptionId == null) {
-            this.descriptionId = AuroraPowers.getRegistry().getKey(this).getPath();
-        }
-
-        return this.descriptionId;
-    }
-
     public String getDescriptionId() {
         return this.getOrCreateDescriptionId();
     }
@@ -153,7 +145,7 @@ public class AuroraPower {
     }
 
     public Component getFullnameWithEnglish(int p_44701_) {
-        MutableComponent mutablecomponent = Component.literal(this.getOrCreateRawDescription());
+        MutableComponent mutablecomponent = Component.translatable(this.getOrCreateDescriptionId());
         mutablecomponent.withStyle(ChatFormatting.GREEN);
 
 

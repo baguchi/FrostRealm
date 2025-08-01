@@ -84,7 +84,7 @@ public abstract class FrostRenderType extends RenderType {
     }
 
     public static VertexConsumer getAuroraBuffer(MultiBufferSource p_115212_, RenderType p_115213_, boolean p_115214_) {
-        return useTransparentGlint(p_115213_) ? VertexMultiConsumer.create(p_115212_.getBuffer(FrostRenderType.AURORA_GLINT_TRANSLUCENT), p_115212_.getBuffer(p_115213_)) : VertexMultiConsumer.create(p_115212_.getBuffer(p_115214_ ? RenderType.glint() : FrostRenderType.AURORA_GLINT), p_115212_.getBuffer(p_115213_));
+        return useTransparentGlint(p_115213_) ? VertexMultiConsumer.create(p_115212_.getBuffer(FrostRenderType.AURORA_GLINT_TRANSLUCENT), p_115212_.getBuffer(p_115213_)) : VertexMultiConsumer.create(p_115212_.getBuffer(p_115214_ ? FrostRenderType.AURORA_GLINT : FrostRenderType.AURORA_ENTITY_GLINT), p_115212_.getBuffer(p_115213_));
 
     }
 
