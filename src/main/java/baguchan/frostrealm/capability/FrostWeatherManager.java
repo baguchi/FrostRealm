@@ -9,8 +9,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class FrostWeatherManager {
@@ -82,22 +80,22 @@ public class FrostWeatherManager {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static float getoWeatherLevel() {
         return oWeatherLevel;
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static float getUnstableLevel() {
         return unstableLevel;
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static float getWeatherLevel() {
         return weatherLevel;
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static void setAuroraLevel(float auroraLevel) {
         FrostWeatherManager.auroraLevel = auroraLevel;
     }
@@ -106,28 +104,28 @@ public class FrostWeatherManager {
         return auroraLevel;
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static void setUnstableLevel(float unstableLevel) {
         FrostWeatherManager.unstableLevel = unstableLevel;
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static float getWeatherLevel(float level) {
         return Mth.lerp(level, oWeatherLevel, weatherLevel);
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static float getNormalWeatherLevel(float level) {
         return Mth.lerp(level, oNormalLevel, normalLevel);
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static void setWeatherLevel(float level) {
         float f = Mth.clamp(level, 0.0F, 1.0F);
         weatherLevel = f;
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static void setoWeatherLevel(float oWeatherLevel) {
         float f = Mth.clamp(oWeatherLevel, 0.0F, 1.0F);
         FrostWeatherManager.oWeatherLevel = f;
@@ -138,17 +136,17 @@ public class FrostWeatherManager {
         return frostWeatherData != null && frostWeatherData.isWeatherActive();
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static FrostWeather getFrostWeather() {
         return frostWeather;
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static void setFrostWeather(FrostWeather weather) {
         frostWeather = weather;
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static FrostWeather getPrevFrostWeather() {
         return prevFrostWeather;
     }

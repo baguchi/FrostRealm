@@ -13,8 +13,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
@@ -81,7 +79,7 @@ public class FrostAmbientSoundsHandler implements AmbientSoundHandler {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public static class LoopSoundInstance extends AbstractTickableSoundInstance {
         private int fadeDirection;
         private int fade;

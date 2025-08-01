@@ -9,10 +9,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
 public class FrostBoarRenderer<T extends FrostBoar> extends MobRenderer<T, FrostBoarRenderState, FrostBoarModel<FrostBoarRenderState>> {
     private static final ResourceLocation BOAR = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/frost_boar.png");
 

@@ -19,10 +19,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
 public class LesserWarriorRenderer<T extends LesserWarrior> extends MobRenderer<T, LesserWarriorRenderState, LesserWarriorModel<LesserWarriorRenderState>> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/lesser_warrior/lesser_warrior.png");
 

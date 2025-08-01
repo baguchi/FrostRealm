@@ -11,14 +11,12 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.List;
 
 public class ClientUtils {
 
-    @OnlyIn(Dist.CLIENT)
+
     public static void playPortalSound(Player localPlayer) {
         Minecraft.getInstance()
                 .getSoundManager()
@@ -27,7 +25,6 @@ public class ClientUtils {
     }
 
 
-    @OnlyIn(Dist.CLIENT)
     public static void renderItemAurora(PoseStack p_360423_, MultiBufferSource p_360415_, int p_361265_, int p_364771_, int[] p_386517_, List<BakedQuad> p_404702_, RenderType p_388877_) {
         VertexConsumer vertexconsumer = FrostRenderType.getAurora(p_360415_, p_388877_);
 
@@ -35,12 +32,19 @@ public class ClientUtils {
         renderQuadList(p_360423_, vertexconsumer, p_404702_, p_386517_, p_361265_, p_364771_);
     }
 
-    @OnlyIn(Dist.CLIENT)
+    public static void renderItemDark(PoseStack p_360423_, MultiBufferSource p_360415_, int p_361265_, int p_364771_, int[] p_386517_, List<BakedQuad> p_404702_, RenderType p_388877_) {
+        VertexConsumer vertexconsumer = FrostRenderType.getDark(p_360415_, p_388877_);
+
+
+        renderQuadList(p_360423_, vertexconsumer, p_404702_, p_386517_, p_361265_, p_364771_);
+    }
+
+    
     private static int getLayerColorSafe(int[] p_387884_, int p_388524_) {
         return p_388524_ >= p_387884_.length ? -1 : p_387884_[p_388524_];
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     private static void renderQuadList(PoseStack p_115163_, VertexConsumer p_115164_, List<BakedQuad> p_115165_, int[] p_387305_, int p_115167_, int p_115168_) {
         PoseStack.Pose posestack$pose = p_115163_.last();
 

@@ -128,10 +128,10 @@ public class FrostRealm {
 
 	public void setupPackets(RegisterPayloadHandlersEvent event) {
 		PayloadRegistrar registrar = event.registrar(MODID).versioned("1.0.0").optional();
-		registrar.playBidirectional(ChangedColdMessage.TYPE, ChangedColdMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
-		registrar.playBidirectional(ChangeWeatherMessage.TYPE, ChangeWeatherMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
-		registrar.playBidirectional(ChangeAuroraMessage.TYPE, ChangeAuroraMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
-        registrar.playBidirectional(UpdateMultipartPacket.TYPE, UpdateMultipartPacket.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
+        registrar.playToClient(ChangedColdMessage.TYPE, ChangedColdMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
+        registrar.playToClient(ChangeWeatherMessage.TYPE, ChangeWeatherMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
+        registrar.playToClient(ChangeAuroraMessage.TYPE, ChangeAuroraMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
+        registrar.playToServer(UpdateMultipartPacket.TYPE, UpdateMultipartPacket.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
 	}
 
 	public static ResourceLocation prefix(String name) {

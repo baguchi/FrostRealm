@@ -32,7 +32,6 @@ import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.GrassColor;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -44,7 +43,6 @@ import net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEve
 import net.neoforged.neoforge.common.NeoForge;
 
 
-@OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(modid = FrostRealm.MODID, value = Dist.CLIENT)
 public class ClientRegistrar {
 	public static final CubeDeformation OUTER_ARMOR_DEFORMATION = new CubeDeformation(1.0F);
@@ -238,7 +236,15 @@ public class ClientRegistrar {
 		event.registerRenderBuffer(FrostRenderType.AURORA_GLINT);
 		event.registerRenderBuffer(FrostRenderType.AURORA_ARMOR_ENTITY_GLINT);
 		event.registerRenderBuffer(FrostRenderType.AURORA_ENTITY_GLINT);
+		event.registerRenderBuffer(FrostRenderType.DARK_ITEM_RENDER_TYPE);
 	}
 
+	@SubscribeEvent
+	public static void registerPipeline(RegisterRenderPipelinesEvent event) {
+		event.registerPipeline(FrostRenderPipelines.DARK_OUTLINE_NO_CULL);
+		event.registerPipeline(FrostRenderPipelines.DARK_OUTLINE_CULL);
+		event.registerPipeline(FrostRenderPipelines.MYSTIC_NO_CULL);
+		event.registerPipeline(FrostRenderPipelines.MYSTIC_CULL);
+	}
 
 }

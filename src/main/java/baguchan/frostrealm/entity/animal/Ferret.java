@@ -33,8 +33,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Predicate;
@@ -198,7 +196,7 @@ public class Ferret extends TamableAnimal {
         return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public float getRunningScale(float p_29570_) {
         return Mth.lerp(p_29570_, this.runningScaleO, this.runningScale);
     }

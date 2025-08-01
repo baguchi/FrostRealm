@@ -3,8 +3,6 @@ package baguchan.frostrealm.client.particle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class SnowParticle extends TextureSheetParticle {
     private static final float ACCELERATION_SCALE = 0.0025F;
@@ -66,7 +64,6 @@ public class SnowParticle extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprite;
 

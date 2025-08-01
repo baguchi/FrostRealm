@@ -72,8 +72,6 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -224,7 +222,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public float getRunningScale(float p_29570_) {
         return Mth.lerp(p_29570_, this.runningScaleO, this.runningScale);
     }

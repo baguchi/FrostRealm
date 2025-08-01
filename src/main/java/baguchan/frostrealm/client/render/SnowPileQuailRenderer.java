@@ -12,10 +12,8 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.HoldingEntityRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
 public class SnowPileQuailRenderer<T extends SnowPileQuail> extends MobRenderer<T, SnowPileQuailRenderState, SnowPileQuailModel<SnowPileQuailRenderState>> {
 	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/snowpile_quail.png");
 

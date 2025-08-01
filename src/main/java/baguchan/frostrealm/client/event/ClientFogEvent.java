@@ -3,12 +3,9 @@ package baguchan.frostrealm.client.event;
 import baguchan.frostrealm.capability.FrostWeatherManager;
 import baguchan.frostrealm.data.resource.FrostDimensions;
 import net.minecraft.world.entity.Entity;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
 
-@OnlyIn(Dist.CLIENT)
 public class ClientFogEvent {
 
 

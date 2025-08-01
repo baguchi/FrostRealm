@@ -23,6 +23,8 @@ public class ItemStackRenderStateMixin implements IGlintAurora {
     private ItemDisplayContext displayContext;
     @Unique
     private boolean frostRealm$glint;
+    @Unique
+    private boolean frostRealm$dark;
 
     @Inject(method = "render", at = @At("HEAD"))
     public void render(PoseStack p_388193_, MultiBufferSource p_388719_, int p_386913_, int p_387272_, CallbackInfo ci) {
@@ -40,6 +42,22 @@ public class ItemStackRenderStateMixin implements IGlintAurora {
     @Override
     public void frostRealm$setGlint(boolean glint) {
         this.frostRealm$glint = glint;
+    }
+
+    @Inject(method = "clear", at = @At("HEAD"))
+    public void clear(CallbackInfo ci) {
+        frostRealm$setGlint(false);
+        frostRealm$setDark(false);
+    }
+
+    @Override
+    public void frostRealm$setDark(boolean dark) {
+        this.frostRealm$dark = dark;
+    }
+
+    @Override
+    public boolean frostRealm$hasDark() {
+        return this.frostRealm$dark;
     }
 
     @Override

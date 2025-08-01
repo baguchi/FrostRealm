@@ -14,10 +14,8 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.state.HoldingEntityRenderState;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
 public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxRenderState, CrystalFoxModel<CrystalFoxRenderState>> {
 	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox.png");
 	private static final ResourceLocation SHEARED_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sheared.png");

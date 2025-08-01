@@ -8,10 +8,8 @@ import baguchan.frostrealm.entity.animal.Seal;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+
 public class SealRenderer<T extends Seal> extends MobRenderer<T, SealRenderState, SealModel<SealRenderState>> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/seal/seal.png");
     private static final ResourceLocation TEXTURE_BABY = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/seal/seal_baby.png");
