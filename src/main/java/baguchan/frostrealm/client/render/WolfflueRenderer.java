@@ -7,7 +7,6 @@ import baguchan.frostrealm.client.render.layer.WolfflueCollarLayer;
 import baguchan.frostrealm.client.render.layer.WolfflueHeldItemLayer;
 import baguchan.frostrealm.client.render.state.WolfflueRenderState;
 import baguchan.frostrealm.entity.animal.Wolfflue;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.HoldingEntityRenderState;
@@ -19,12 +18,6 @@ public class WolfflueRenderer<T extends Wolfflue> extends AgeableMobRenderer<T, 
         this.addLayer(new WolfflueCollarLayer<>(this));
         this.addLayer(new WolfflueArmorLayer<>(this, p_173952_.getModelSet()));
         this.addLayer(new WolfflueHeldItemLayer<>(this));
-    }
-
-    @Override
-    protected void scale(WolfflueRenderState p_115314_, PoseStack p_115315_) {
-        p_115315_.scale(p_115314_.ageScale, p_115314_.ageScale, p_115314_.ageScale);
-        super.scale(p_115314_, p_115315_);
     }
 
 
