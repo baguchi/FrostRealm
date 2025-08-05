@@ -103,10 +103,9 @@ public class FrostWeatherSavedData extends SavedData {
 
 	public static FrostWeatherSavedData get(Level world) {
 		if (world instanceof ServerLevel serverLevel) {
-			ServerLevel overworld = world.getServer().getLevel(FrostDimensions.FROSTREALM_LEVEL);
-			FrostWeatherSavedData fromMap = dataMap.get(overworld);
+			FrostWeatherSavedData fromMap = dataMap.get(serverLevel);
 			if (fromMap == null) {
-				DimensionDataStorage storage = overworld.getDataStorage();
+				DimensionDataStorage storage = serverLevel.getDataStorage();
 				FrostWeatherSavedData data = storage.computeIfAbsent(TYPE);
 				if (data != null) {
 					data.setDirty();
