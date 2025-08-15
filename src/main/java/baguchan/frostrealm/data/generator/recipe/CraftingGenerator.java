@@ -332,7 +332,7 @@ public class CraftingGenerator extends CraftingDataHelper {
                 .pattern("WW")
                 .define('S', FrostItems.ASTRIUM_INGOT.get())
 				.define('W', ItemTags.PLANKS)
-				.unlockedBy("has_item", has(FrostItems.ASTRIUM_INGOT.get())).save(this.output);
+				.unlockedBy("has_item", has(FrostItems.ASTRIUM_INGOT.get())).save(this.output, prefix("astrium_smithing_table"));
 
 
 		smeltOre(FrostItems.ASTRIUM_RAW.get(), FrostItems.ASTRIUM_INGOT.get(), 0.2F, this.output);
