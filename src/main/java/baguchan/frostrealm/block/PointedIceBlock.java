@@ -235,18 +235,6 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
 		}
 	}
 
-	private static int getStalactiteSizeFromTip(ServerLevel p_154175_, BlockPos p_154176_, int p_154177_) {
-		int i = 1;
-		BlockPos.MutableBlockPos blockpos$mutableblockpos = p_154176_.mutable().move(Direction.UP);
-
-		while (i < p_154177_ && isStalactite(p_154175_.getBlockState(blockpos$mutableblockpos))) {
-			++i;
-			blockpos$mutableblockpos.move(Direction.UP);
-		}
-
-		return i;
-	}
-
 	private static void spawnFallingStalactite(BlockState p_154098_, ServerLevel p_154099_, BlockPos p_154100_) {
 		BlockPos.MutableBlockPos blockpos$mutableblockpos = p_154100_.mutable();
 		BlockState blockstate = p_154098_;

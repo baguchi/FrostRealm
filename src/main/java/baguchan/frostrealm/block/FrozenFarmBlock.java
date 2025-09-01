@@ -43,31 +43,31 @@ public class FrozenFarmBlock extends Block {
 		}
 		return super.updateShape(p_60541_, p_374332_, p_374457_, p_60545_, p_60542_, p_60546_, p_60543_, p_374120_);
 	}
-
+    @Override
 	public boolean canSurvive(BlockState p_53272_, LevelReader p_53273_, BlockPos p_53274_) {
 		BlockState blockstate = p_53273_.getBlockState(p_53274_.above());
 		return !blockstate.isSolid() || blockstate.getBlock() instanceof FenceGateBlock || blockstate.getBlock() instanceof MovingPistonBlock;
 	}
-
+    @Override
 	public BlockState getStateForPlacement(BlockPlaceContext p_53249_) {
 		return !this.defaultBlockState().canSurvive(p_53249_.getLevel(), p_53249_.getClickedPos()) ? FrostBlocks.FROZEN_DIRT.get().defaultBlockState() : super.getStateForPlacement(p_53249_);
 	}
-
+    @Override
 	public boolean useShapeForLightOcclusion(BlockState p_53295_) {
 		return true;
 	}
-
+    @Override
 	public VoxelShape getShape(BlockState p_53290_, BlockGetter p_53291_, BlockPos p_53292_, CollisionContext p_53293_) {
 		return SHAPE;
 	}
-
+    @Override
 	public void tick(BlockState p_53262_, ServerLevel p_53263_, BlockPos p_53264_, RandomSource p_53265_) {
 		if (!p_53262_.canSurvive(p_53263_, p_53264_)) {
 			turnToDirt(p_53262_, p_53263_, p_53264_);
 		}
 
 	}
-
+    @Override
 	public void randomTick(BlockState p_53285_, ServerLevel p_53286_, BlockPos p_53287_, RandomSource p_53288_) {
 		int i = p_53285_.getValue(MOISTURE);
 		if (!isNearWater(p_53286_, p_53287_) && !p_53286_.isRainingAt(p_53287_.above())) {
@@ -82,13 +82,14 @@ public class FrozenFarmBlock extends Block {
 
 	}
 
-	public void fallOn(Level p_153227_, BlockState p_153228_, BlockPos p_153229_, Entity p_153230_, float p_153231_) {
-		if (p_153227_ instanceof ServerLevel serverLevel && CommonHooks.onFarmlandTrample(serverLevel, p_153229_, FrostBlocks.FROZEN_DIRT.get().defaultBlockState(), p_153231_, p_153230_)) { // Forge: Move logic to Entity#canTrample
-			turnToDirt(p_153228_, p_153227_, p_153229_);
-		}
+    @Override
+    public void fallOn(Level p_152426_, BlockState p_152427_, BlockPos p_152428_, Entity p_152429_, double p_397222_) {
+        if (p_152426_ instanceof ServerLevel serverLevel && CommonHooks.onFarmlandTrample(serverLevel, p_152428_, FrostBlocks.FROZEN_DIRT.get().defaultBlockState(), p_397222_, p_152429_)) { // Forge: Move logic to Entity#canTrample
+            turnToDirt(p_152427_, p_152426_, p_152428_);
+        }
 
-		super.fallOn(p_153227_, p_153228_, p_153229_, p_153230_, p_153231_);
-	}
+        super.fallOn(p_152426_, p_152427_, p_152428_, p_152429_, p_397222_);
+    }
 
 	public static void turnToDirt(BlockState p_53297_, Level p_53298_, BlockPos p_53299_) {
 		p_53298_.setBlockAndUpdate(p_53299_, pushEntitiesUp(p_53297_, FrostBlocks.FROZEN_DIRT.get().defaultBlockState(), p_53298_, p_53299_));
@@ -108,12 +109,13 @@ public class FrozenFarmBlock extends Block {
 
 		return FarmlandWaterManager.hasBlockWaterTicket(p_53259_, p_53260_);
 	}
-
+    @Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_53283_) {
 		p_53283_.add(MOISTURE);
 	}
 
-	public boolean isPathfindable(BlockState p_53267_, BlockGetter p_53268_, BlockPos p_53269_, PathComputationType p_53270_) {
-		return false;
-	}
+    @Override
+    protected boolean isPathfindable(BlockState p_60475_, PathComputationType p_60478_) {
+        return false;
+    }
 }

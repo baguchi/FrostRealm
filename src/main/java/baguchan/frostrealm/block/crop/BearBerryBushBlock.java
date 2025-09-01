@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -53,6 +54,7 @@ public class BearBerryBushBlock extends BushBlock implements BonemealableBlock {
 		return p_57284_.getValue(AGE) < 3;
 	}
 
+    @Override
 	public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
 		int i = state.getValue(AGE);
 		if (i < 3 && level.getRawBrightness(pos.above(), 0) >= 9 && CommonHooks.canCropGrow(level, pos, state, random.nextInt(5) == 0)) {
@@ -61,12 +63,12 @@ public class BearBerryBushBlock extends BushBlock implements BonemealableBlock {
 		}
 	}
 
-	public void entityInside(BlockState p_57270_, Level p_57271_, BlockPos p_57272_, Entity p_57273_) {
-		if (p_57273_ instanceof LivingEntity && p_57273_.getType() != EntityType.FOX && p_57273_.getType() != EntityType.BEE) {
-			p_57273_.makeStuckInBlock(p_57270_, new Vec3(0.8F, 0.75D, 0.8F));
-		}
-	}
-
+    @Override
+    protected void entityInside(BlockState p_60495_, Level p_60496_, BlockPos p_60497_, Entity p_60498_, InsideBlockEffectApplier p_405359_) {
+        if (p_60498_ instanceof LivingEntity && p_60498_.getType() != EntityType.FOX && p_60498_.getType() != EntityType.BEE) {
+            p_60498_.makeStuckInBlock(p_60495_, new Vec3(0.8F, 0.75D, 0.8F));
+        }
+    }
 
 	@Override
 	protected InteractionResult useItemOn(ItemStack p_316304_, BlockState p_57275_, Level p_57276_, BlockPos p_57277_, Player p_57278_, InteractionHand p_57279_, BlockHitResult p_57280_) {

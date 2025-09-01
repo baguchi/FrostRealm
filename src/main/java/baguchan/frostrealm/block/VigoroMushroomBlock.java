@@ -23,11 +23,12 @@ public class VigoroMushroomBlock extends BushBlock implements BonemealableBlock 
 		super(p_153983_);
 	}
 
-
+    @Override
 	public VoxelShape getShape(BlockState p_54889_, BlockGetter p_54890_, BlockPos p_54891_, CollisionContext p_54892_) {
 		return SHAPE;
 	}
 
+    @Override
 	public void randomTick(BlockState p_54868_, ServerLevel p_54865_, BlockPos p_54867_, RandomSource p_54866_) {
 		if (p_54866_.nextInt(25) == 0) {
 			int i = 5;

@@ -83,9 +83,9 @@ public class FrostGrassBlock extends SpreadingSnowyDirtBlock implements Bonemeal
 				holder.value().place(p_221270_, p_221270_.getChunkSource().getGenerator(), p_221271_, blockpos1);
 			}
 		}
-
 	}
 
+    @Override
 	public void randomTick(BlockState p_56819_, ServerLevel p_56820_, BlockPos p_56821_, RandomSource p_56822_) {
 		if (!canBeGrass(p_56819_, p_56820_, p_56821_)) {
 			if (!p_56820_.isAreaLoaded(p_56821_, 3))

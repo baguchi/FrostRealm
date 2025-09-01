@@ -19,11 +19,11 @@ public class FrostTorchBlock extends TorchBlock {
 	public FrostTorchBlock(BlockBehaviour.Properties p_57491_) {
 		super(ParticleTypes.SOUL_FIRE_FLAME, p_57491_);
 	}
-
+    @Override
 	public VoxelShape getShape(BlockState p_57510_, BlockGetter p_57511_, BlockPos p_57512_, CollisionContext p_57513_) {
 		return AABB;
 	}
-
+    @Override
 	public void animateTick(BlockState p_57494_, Level p_57495_, BlockPos p_57496_, RandomSource p_57497_) {
 		double d0 = (double) p_57496_.getX() + 0.5D;
 		double d1 = (double) p_57496_.getY() + 0.7D;

@@ -7,10 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,7 +27,7 @@ public class WallFrostTorchBlock extends FrostTorchBlock {
 		super(p_58123_);
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 	}
-
+    @Override
 	public VoxelShape getShape(BlockState p_58152_, BlockGetter p_58153_, BlockPos p_58154_, CollisionContext p_58155_) {
 		return getShape(p_58152_);
 	}
@@ -38,7 +35,7 @@ public class WallFrostTorchBlock extends FrostTorchBlock {
 	public static VoxelShape getShape(BlockState p_58157_) {
 		return AABBS.get(p_58157_.getValue(FACING));
 	}
-
+    @Override
 	public boolean canSurvive(BlockState p_58133_, LevelReader p_58134_, BlockPos p_58135_) {
 		Direction direction = p_58133_.getValue(FACING);
 		BlockPos blockpos = p_58135_.relative(direction.getOpposite());
@@ -66,10 +63,11 @@ public class WallFrostTorchBlock extends FrostTorchBlock {
 		return null;
 	}
 
-	public BlockState updateShape(BlockState p_58143_, Direction p_58144_, BlockState p_58145_, LevelAccessor p_58146_, BlockPos p_58147_, BlockPos p_58148_) {
-		return p_58144_.getOpposite() == p_58143_.getValue(FACING) && !p_58143_.canSurvive(p_58146_, p_58147_) ? Blocks.AIR.defaultBlockState() : p_58143_;
-	}
-
+    @Override
+    protected BlockState updateShape(BlockState p_304418_, LevelReader p_374159_, ScheduledTickAccess p_374152_, BlockPos p_304633_, Direction p_304475_, BlockPos p_304603_, BlockState p_304669_, RandomSource p_374111_) {
+        return p_304475_.getOpposite() == p_304418_.getValue(FACING) && !p_304418_.canSurvive(p_374159_, p_304633_) ? Blocks.AIR.defaultBlockState() : p_304418_;
+    }
+    @Override
 	public void animateTick(BlockState p_58128_, Level p_58129_, BlockPos p_58130_, RandomSource p_58131_) {
 		Direction direction = p_58128_.getValue(FACING);
 		double d0 = (double) p_58130_.getX() + 0.5D;
@@ -81,14 +79,17 @@ public class WallFrostTorchBlock extends FrostTorchBlock {
 		p_58129_.addParticle(ParticleTypes.CLOUD, d0 + 0.27D * (double) direction1.getStepX(), d1 + 0.22D, d2 + 0.27D * (double) direction1.getStepZ(), 0.0D, 0.0D, 0.0D);
 	}
 
+    @Override
 	public BlockState rotate(BlockState p_58140_, Rotation p_58141_) {
 		return p_58140_.setValue(FACING, p_58141_.rotate(p_58140_.getValue(FACING)));
 	}
 
+    @Override
 	public BlockState mirror(BlockState p_58137_, Mirror p_58138_) {
 		return p_58137_.rotate(p_58138_.getRotation(p_58137_.getValue(FACING)));
 	}
 
+    @Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_58150_) {
 		p_58150_.add(FACING);
 	}
