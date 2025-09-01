@@ -6,6 +6,8 @@ import baguchan.frostrealm.registry.FrostBlocks;
 import baguchan.frostrealm.registry.FrostEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
@@ -383,6 +385,12 @@ public class RootDeer extends Monster {
     @Override
     public boolean hurtServer(ServerLevel p_376595_, DamageSource p_376181_, float p_376898_) {
         float damageScale = 1F;
+
+        if(p_376181_.getWeaponItem() != null && p_376181_.getWeaponItem().has(DataComponents.TOOL)){
+            if(p_376181_.getWeaponItem().get(DataComponents.TOOL).isCorrectForDrops(FrostBlocks.FROSTBITE_LOG.get().defaultBlockState())){
+                damageScale = 2F;
+            }
+        }
 
         if (!this.isNoAi() && !this.isDiggingOrEmerging()) {
             boolean flag = super.hurtServer(p_376595_, p_376181_, p_376898_ * damageScale);

@@ -8,6 +8,7 @@ import baguchi.bagus_lib.client.camera.CameraCore;
 import baguchi.bagus_lib.client.camera.holder.CameraHolder;
 import baguchi.bagus_lib.util.GlobalVec3;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -184,7 +185,7 @@ public class Gokkur extends Monster {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 16.0)
+                .add(Attributes.MAX_HEALTH, 24.0)
                 .add(Attributes.ARMOR, 8.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.24)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5)
@@ -227,10 +228,16 @@ public class Gokkur extends Monster {
 
         float damageScale = 1;
 
-
+        if(p_376460_.getWeaponItem() != null && p_376460_.getWeaponItem().has(DataComponents.TOOL)){
+            if(p_376460_.getWeaponItem().get(DataComponents.TOOL).isCorrectForDrops(FrostBlocks.FRIGID_STONE.get().defaultBlockState())){
+                damageScale = 2F;
+            }
+        }else
         if (p_376460_.is(DamageTypeTags.IS_PROJECTILE)) {
             damageScale = 0.25F;
         }
+
+
 
         Crackiness.Level crackiness$level = this.getCrackiness();
         boolean flag = super.hurtServer(p_376221_, p_376460_, p_376610_ * damageScale);
