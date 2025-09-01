@@ -74,27 +74,9 @@ public class FrostLivingCapability implements ValueIOSerializable {
             Difficulty difficulty = entity.level().getDifficulty();
             this.lastTemperate = this.temperature;
             hotSourceTick(entity);
-            float tempAffect = 1.0F;
-            if (difficulty == Difficulty.HARD) {
-                tempAffect *= 1.5F;
-            }
-            if (difficulty == Difficulty.EASY) {
-                tempAffect *= 0.5F;
-            }
-            if (!entity.getItemBySlot(EquipmentSlot.HEAD).isEmpty())
-                tempAffect *= 0.85F;
-            if (!entity.getItemBySlot(EquipmentSlot.CHEST).isEmpty())
-                tempAffect *= 0.65F;
-            if (entity.getItemBySlot(EquipmentSlot.CHEST).is(ItemTags.FREEZE_IMMUNE_WEARABLES))
-                tempAffect *= 0.5F;
-            if (!entity.getItemBySlot(EquipmentSlot.LEGS).isEmpty())
-                tempAffect *= 0.75F;
-            if (entity.getItemBySlot(EquipmentSlot.LEGS).is(ItemTags.FREEZE_IMMUNE_WEARABLES))
-                tempAffect *= 0.55F;
-            if (!entity.getItemBySlot(EquipmentSlot.FEET).isEmpty())
-                tempAffect *= 0.8F;
-            if (entity.isInWaterOrRain())
-                tempAffect *= 3.0F;
+
+            float tempAffect = tempModifier(entity, 2.0F);
+
             if (entity.isInFluidType(FrostFluidTypes.HOT_SPRING.get())) {
                 tempAffect *= 0.1F;
                 if (entity.tickCount % 80 == 0) {
@@ -108,7 +90,7 @@ public class FrostLivingCapability implements ValueIOSerializable {
                 FrostWeatherSavedData cap = FrostWeatherSavedData.get(entity.level());
                 if (cap != null) {
                     if (isAffectRain(entity) && cap.isWeatherActive() && cap.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
-                        addExhaustion(0.001F * (entity.canFreeze() ? 1.0F : 0.2F));
+                        addExhaustion(0.005F * tempAffect);
                     }
                 }
             }
@@ -116,7 +98,7 @@ public class FrostLivingCapability implements ValueIOSerializable {
 
             if (!biome.is(FrostTags.Biomes.HOT_BIOME)) {
                 if (this.hotSource == null) {
-                    addExhaustion(tempAffect * 0.002F);
+                    addExhaustion(tempAffect * 0.0025F);
                     if (this.exhaustionLevel > 4.0F) {
                         this.exhaustionLevel -= 4.0F;
                         if (this.temperatureSaturation > 0.0F) {
@@ -154,6 +136,36 @@ public class FrostLivingCapability implements ValueIOSerializable {
             ChangedColdMessage message = new ChangedColdMessage(entity, this.temperature, this.temperatureSaturation);
             PacketDistributor.sendToPlayersTrackingEntityAndSelf(entity, message);
         }
+    }
+
+    private float tempModifier(LivingEntity entity, float tempAffect) {
+        Difficulty difficulty = entity.level().getDifficulty();
+
+        if (difficulty == Difficulty.HARD) {
+            tempAffect *= 1.5F;
+        }
+        if (difficulty == Difficulty.EASY) {
+            tempAffect *= 0.75F;
+        }
+        if (!entity.getItemBySlot(EquipmentSlot.HEAD).isEmpty())
+            tempAffect *= 0.85F;
+        if (!entity.getItemBySlot(EquipmentSlot.HEAD).is(ItemTags.FREEZE_IMMUNE_WEARABLES))
+            tempAffect *= 0.65F;
+        if (!entity.getItemBySlot(EquipmentSlot.CHEST).isEmpty())
+            tempAffect *= 0.75F;
+        if (entity.getItemBySlot(EquipmentSlot.CHEST).is(ItemTags.FREEZE_IMMUNE_WEARABLES))
+            tempAffect *= 0.5F;
+        if (!entity.getItemBySlot(EquipmentSlot.LEGS).isEmpty())
+            tempAffect *= 0.75F;
+        if (entity.getItemBySlot(EquipmentSlot.LEGS).is(ItemTags.FREEZE_IMMUNE_WEARABLES))
+            tempAffect *= 0.55F;
+        if (!entity.getItemBySlot(EquipmentSlot.FEET).isEmpty())
+            tempAffect *= 0.8F;
+        if (!entity.getItemBySlot(EquipmentSlot.FEET).is(ItemTags.FREEZE_IMMUNE_WEARABLES))
+            tempAffect *= 0.6F;
+        if (entity.isInWaterOrRain())
+            tempAffect *= 4.0F;
+        return tempAffect;
     }
 
     private void handleAnimations(Player player) {
