@@ -62,6 +62,7 @@ public class RootDeer extends Monster {
     public RootDeer(EntityType<? extends RootDeer> p_33002_, Level p_33003_) {
         super(p_33002_, p_33003_);
         this.setAttachFace(Direction.DOWN);
+        this.xpReward = 4;
     }
 
     public void recreateFromPacket(ClientboundAddEntityPacket p_219067_) {

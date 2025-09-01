@@ -185,7 +185,7 @@ public class Gokkur extends Monster {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 24.0)
+                .add(Attributes.MAX_HEALTH, 16.0)
                 .add(Attributes.ARMOR, 8.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.24)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.5)
