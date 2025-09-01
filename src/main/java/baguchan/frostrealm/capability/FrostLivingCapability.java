@@ -147,6 +147,10 @@ public class FrostLivingCapability implements ValueIOSerializable {
         if (difficulty == Difficulty.EASY) {
             tempAffect *= 0.75F;
         }
+
+        if (entity.isInWaterOrRain())
+            tempAffect *= 4.0F;
+
         if (!entity.getItemBySlot(EquipmentSlot.HEAD).isEmpty())
             tempAffect *= 0.85F;
         if (!entity.getItemBySlot(EquipmentSlot.HEAD).is(ItemTags.FREEZE_IMMUNE_WEARABLES))
@@ -163,8 +167,6 @@ public class FrostLivingCapability implements ValueIOSerializable {
             tempAffect *= 0.8F;
         if (!entity.getItemBySlot(EquipmentSlot.FEET).is(ItemTags.FREEZE_IMMUNE_WEARABLES))
             tempAffect *= 0.6F;
-        if (entity.isInWaterOrRain())
-            tempAffect *= 4.0F;
         return tempAffect;
     }
 

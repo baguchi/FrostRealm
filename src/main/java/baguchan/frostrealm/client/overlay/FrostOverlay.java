@@ -11,6 +11,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.client.gui.GuiLayer;
 
 import java.util.Random;
@@ -30,10 +31,10 @@ public class FrostOverlay implements GuiLayer {
         Entity entity = mc.getCameraEntity();
         Options options = mc.options;
 
-        if (!options.hideGui) {
+        if (entity != null && !options.hideGui && !entity.isSpectator() && (!(entity instanceof Player player) || !player.isCreative())) {
             int screenWidth = mc.getWindow().getGuiScaledWidth();
             int screenHeight = mc.getWindow().getGuiScaledHeight() - (mc.gui).rightHeight;
-            if (entity != null && entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
+            if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
                 this.random.setSeed((this.tickCount * 312871));
                 FrostLivingCapability cap = entity.getData(FrostAttachs.FROST_LIVING);
                 int l = cap.getTemperatureLevel();
