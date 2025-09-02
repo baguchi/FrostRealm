@@ -649,19 +649,15 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
                         return InteractionResult.SUCCESS;
                     }
 
-                    if (!this.isSaddled() && itemstack.is(Items.SADDLE) && this.isOwnedBy(p_30412_) && !this.isBaby()) {
-                        this.setItemSlot(EquipmentSlot.SADDLE, new ItemStack(Items.SADDLE));
-                        this.setGuaranteedDrop(EquipmentSlot.SADDLE);
-                        itemstack.consume(1, p_30412_);
-                        return InteractionResult.SUCCESS;
+                    if (this.isEquippableInSlot(itemstack, EquipmentSlot.SADDLE) && this.isOwnedBy(p_30412_) && !this.isBaby()) {
+                        return itemstack.interactLivingEntity(p_30412_, this, p_30413_);
                     } else if (itemstack.getItem() instanceof WolfflueArmorItem wolfflueArmorItem && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
                         this.setBodyArmorItem(itemstack.copyWithCount(1));
                         this.setGuaranteedDrop(EquipmentSlot.BODY);
                         itemstack.consume(1, p_30412_);
                         return InteractionResult.SUCCESS;
-                    } else if (itemstack.canPerformAction(net.neoforged.neoforge.common.ItemAbilities.SHEARS_REMOVE_ARMOR)
-                            && this.isOwnedBy(p_30412_)
-                            && this.isSaddled()) {
+                    } /*else if (itemstack.canPerformAction(net.neoforged.neoforge.common.ItemAbilities.SHEARS_REMOVE_ARMOR)
+                            && this.isOwnedBy(p_30412_)) {
                         itemstack.hurtAndBreak(1, p_30412_, getSlotForHand(p_30413_));
                         this.playSound(SoundEvents.ARMOR_UNEQUIP_WOLF);
                         this.setItemSlot(EquipmentSlot.SADDLE, ItemStack.EMPTY);
@@ -681,7 +677,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
                             this.spawnAtLocation(serverLevel, itemstack1);
                         }
                         return InteractionResult.SUCCESS;
-                    } else if (this.isSaddled() && !p_30412_.isSecondaryUseActive() && this.isOwnedBy(p_30412_)) {
+                    }*/ else if (!this.getItemBySlot(EquipmentSlot.SADDLE).isEmpty() && !p_30412_.isSecondaryUseActive() && this.isOwnedBy(p_30412_)) {
                         this.doPlayerRide(p_30412_);
                         if (this.isInSittingPose()) {
                             this.setInSittingPose(false);
@@ -696,9 +692,9 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
                         this.navigation.stop();
                         this.setTarget(null);
                         return InteractionResult.SUCCESS.withoutItem();
-                    } else {
-                        return interactionresult;
                     }
+
+                    return interactionresult;
                 }
             } else if (!this.level().isClientSide && this.isFood(itemstack) && !this.isAngry()) {
                 itemstack.consume(1, p_30412_);
