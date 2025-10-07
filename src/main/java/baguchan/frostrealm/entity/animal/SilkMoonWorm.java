@@ -48,7 +48,7 @@ public class SilkMoonWorm extends PathfinderMob {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.setAge(this.age + 1);
         }
     }
@@ -127,8 +127,4 @@ public class SilkMoonWorm extends PathfinderMob {
         return false;
     }
 
-    @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
 }

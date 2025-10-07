@@ -5,7 +5,6 @@ import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.animal.*;
 import baguchan.frostrealm.entity.boss.Seeker;
 import baguchan.frostrealm.entity.hostile.*;
-import baguchan.frostrealm.entity.hostile.part.CorruptedWalker;
 import baguchan.frostrealm.entity.projectile.FlyingBlockEntity;
 import baguchan.frostrealm.entity.projectile.VenomBall;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -40,16 +39,15 @@ public class FrostEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<SilkMoon>> SILK_MOON = ENTITIES.register("silk_moon", () -> EntityType.Builder.of(SilkMoon::new, MobCategory.CREATURE).sized(0.5F, 0.5F).eyeHeight(0.35F).clientTrackingRange(10).build(prefix("silk_moon")));
 
     public static final DeferredHolder<EntityType<?>, EntityType<Yeti>> YETI = ENTITIES.register("yeti", () -> EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).eyeHeight(1.75F).build(prefix("yeti")));
-    public static final DeferredHolder<EntityType<?>, EntityType<FrostWraith>> FROST_WRAITH = ENTITIES.register("frost_wraith", () -> EntityType.Builder.of(FrostWraith::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(0.6F, 2.1F).build(prefix("frost_wraith")));
-    public static final DeferredHolder<EntityType<?>, EntityType<LesserWarrior>> LESSER_WARRIOR = ENTITIES.register("lesser_warrior", () -> EntityType.Builder.of(LesserWarrior::new, MobCategory.MONSTER).sized(0.6F, 1.99F).immuneTo(Blocks.POWDER_SNOW).clientTrackingRange(8).build(prefix("lesser_warrior")));
+    public static final DeferredHolder<EntityType<?>, EntityType<FrostWraith>> FROST_WRAITH = ENTITIES.register("frost_wraith", () -> EntityType.Builder.of(FrostWraith::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(0.6F, 2.1F).notInPeaceful().build(prefix("frost_wraith")));
+    public static final DeferredHolder<EntityType<?>, EntityType<LesserWarrior>> LESSER_WARRIOR = ENTITIES.register("lesser_warrior", () -> EntityType.Builder.of(LesserWarrior::new, MobCategory.MONSTER).sized(0.6F, 1.99F).notInPeaceful().immuneTo(Blocks.POWDER_SNOW).clientTrackingRange(8).build(prefix("lesser_warrior")));
 
-    public static final DeferredHolder<EntityType<?>, EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).eyeHeight(0.25F).build(prefix("astra_ball")));
+    public static final DeferredHolder<EntityType<?>, EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).notInPeaceful().eyeHeight(0.25F).build(prefix("astra_ball")));
     public static final DeferredHolder<EntityType<?>, EntityType<FrostBoar>> FROST_BOAR = ENTITIES.register("frost_boar", () -> EntityType.Builder.of(FrostBoar::new, MobCategory.CREATURE).sized(1.8F, 1.95F).eyeHeight(1.5F).build(prefix("frost_boar")));
-    public static final DeferredHolder<EntityType<?>, EntityType<CorruptedWalker>> CORRUPTED_WALKER = ENTITIES.register("corruped_walker", () -> EntityType.Builder.of(CorruptedWalker::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(1.0F, 1.0F).eyeHeight(0.8F).fireImmune().build(prefix("corruped_walker")));
-    public static final DeferredHolder<EntityType<?>, EntityType<Venochem>> VENOCHEM = ENTITIES.register("venochem", () -> EntityType.Builder.of(Venochem::new, MobCategory.MONSTER).sized(0.8F, 0.8F).eyeHeight(0.45F).build(prefix("venochem")));
-    public static final DeferredHolder<EntityType<?>, EntityType<Gokkur>> GOKKUR = ENTITIES.register("gokkur", () -> EntityType.Builder.of(Gokkur::new, MobCategory.MONSTER).sized(1.0F, 1.2F).eyeHeight(0.525F).fireImmune().build(prefix("gokkur")));
-    public static final DeferredHolder<EntityType<?>, EntityType<UnderGokkur>> UNDER_GOKKUR = ENTITIES.register("under_gokkur", () -> EntityType.Builder.of(UnderGokkur::new, MobCategory.MONSTER).sized(1.0F, 1.2F).eyeHeight(0.525F).fireImmune().build(prefix("under_gokkur")));
-    public static final DeferredHolder<EntityType<?>, EntityType<RootDeer>> ROOT_DEER = ENTITIES.register("root_deer", () -> EntityType.Builder.of(RootDeer::new, MobCategory.MONSTER).sized(0.5F, 2.375F).eyeHeight(0.35F).build(prefix("root_deer")));
+    public static final DeferredHolder<EntityType<?>, EntityType<Venochem>> VENOCHEM = ENTITIES.register("venochem", () -> EntityType.Builder.of(Venochem::new, MobCategory.MONSTER).sized(0.8F, 0.8F).notInPeaceful().eyeHeight(0.45F).build(prefix("venochem")));
+    public static final DeferredHolder<EntityType<?>, EntityType<Gokkur>> GOKKUR = ENTITIES.register("gokkur", () -> EntityType.Builder.of(Gokkur::new, MobCategory.MONSTER).sized(1.0F, 1.2F).notInPeaceful().eyeHeight(0.525F).fireImmune().build(prefix("gokkur")));
+    public static final DeferredHolder<EntityType<?>, EntityType<UnderGokkur>> UNDER_GOKKUR = ENTITIES.register("under_gokkur", () -> EntityType.Builder.of(UnderGokkur::new, MobCategory.MONSTER).sized(1.0F, 1.2F).notInPeaceful().eyeHeight(0.525F).fireImmune().build(prefix("under_gokkur")));
+    public static final DeferredHolder<EntityType<?>, EntityType<RootDeer>> ROOT_DEER = ENTITIES.register("root_deer", () -> EntityType.Builder.of(RootDeer::new, MobCategory.MONSTER).sized(0.5F, 2.375F).notInPeaceful().eyeHeight(0.35F).build(prefix("root_deer")));
     public static final DeferredHolder<EntityType<?>, EntityType<Seeker>> SEEKER = ENTITIES.register("seeker", () -> EntityType.Builder.of(Seeker::new, MobCategory.MONSTER).sized(0.8F, 5.4F).eyeHeight(5.15F).build(prefix("seeker")));
 
     public static final DeferredHolder<EntityType<?>, EntityType<VenomBall>> VENOM_BALL = ENTITIES.register("venom_ball", () -> EntityType.Builder.<VenomBall>of(VenomBall::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(8).updateInterval(30).build(prefix("venom_ball")));
@@ -78,7 +76,6 @@ public class FrostEntities {
         event.put(LESSER_WARRIOR.get(), LesserWarrior.createAttributes().build());
         event.put(ASTRA_BALL.get(), AstraBall.createAttributes().build());
         event.put(FROST_BOAR.get(), FrostBoar.createAttributes().build());
-        event.put(CORRUPTED_WALKER.get(), CorruptedWalker.createAttributeMap().build());
         event.put(VENOCHEM.get(), Venochem.createAttributes().build());
         event.put(GOKKUR.get(), Gokkur.createAttributes().build());
         event.put(UNDER_GOKKUR.get(), UnderGokkur.createAttributes().build());

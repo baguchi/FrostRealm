@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -19,18 +20,19 @@ public class FerretCollarLayer<T extends FerretRenderState> extends RenderLayer<
         super(p_117707_);
     }
 
-    public void render(
-            PoseStack p_117720_,
-            MultiBufferSource p_117721_,
+    @Override
+    public void submit(
+            PoseStack poseStack,
+            SubmitNodeCollector submitNodeCollector,
             int p_117722_,
-            T p_117723_,
+            T renderState,
             float p_117724_,
             float p_117725_
     ) {
-        if (p_117723_.collarColor != null && !p_117723_.isInvisible) {
-            int i = p_117723_.collarColor.getTextureDiffuseColor();
-            VertexConsumer vertexconsumer = p_117721_.getBuffer(RenderType.entityCutoutNoCull(COLLAR_LOCATION));
-            this.getParentModel().renderToBuffer(p_117720_, vertexconsumer, p_117722_, OverlayTexture.NO_OVERLAY, i);
+        if (renderState.collarColor != null && !renderState.isInvisible) {
+            int i = renderState.collarColor.getTextureDiffuseColor();
+            submitNodeCollector.submitModel(this.getParentModel(), renderState, poseStack, RenderType.entityCutoutNoCull(COLLAR_LOCATION), i, OverlayTexture.NO_OVERLAY, -1, null, renderState.outlineColor, null);
+
         }
     }
 }

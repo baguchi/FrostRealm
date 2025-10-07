@@ -16,6 +16,7 @@ import net.minecraft.client.model.HeadedModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
@@ -142,7 +143,7 @@ public class YetiModel<T extends YetiRenderState> extends EntityModel<T> impleme
 	}
 
 	@Override
-    public void translateToHand(HumanoidArm p_102925_, PoseStack p_102926_) {
+    public void translateToHand(EntityRenderState entityRenderState, HumanoidArm p_102925_, PoseStack p_102926_) {
 		this.root.translateAndRotate(p_102926_);
 		this.getArm(p_102925_).translateAndRotate(p_102926_);
 		p_102926_.translate(0, 0.8D, 0);

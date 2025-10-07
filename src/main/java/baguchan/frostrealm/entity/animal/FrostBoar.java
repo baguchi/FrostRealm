@@ -88,7 +88,7 @@ public class FrostBoar extends FrostAnimal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.level().isClientSide ? null : FrostBoarAi.getSoundForCurrentActivity(this).orElse(null);
+        return this.level().isClientSide() ? null : FrostBoarAi.getSoundForCurrentActivity(this).orElse(null);
     }
 
     @Override

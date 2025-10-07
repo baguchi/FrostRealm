@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
@@ -25,7 +26,7 @@ public class AuroraInfuserScreen extends AbstractContainerScreen<AuroraInfuserMe
     private static final ResourceLocation ENCHANTMENT_SLOT_HIGHLIGHTED_SPRITE = ResourceLocation.withDefaultNamespace("container/enchanting_table/enchantment_slot_highlighted");
     private static final ResourceLocation ENCHANTMENT_SLOT_SPRITE = ResourceLocation.withDefaultNamespace("container/enchanting_table/enchantment_slot");
     private static final ResourceLocation ENCHANTING_TABLE_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/gui/container/aurora_infuser.png");
-    private static final ResourceLocation ALT_FONT = ResourceLocation.fromNamespaceAndPath("minecraft", "alt");
+    private static final FontDescription ALT_FONT = new FontDescription.Resource(ResourceLocation.withDefaultNamespace("alt"));
     private static final Style ROOT_STYLE = Style.EMPTY.withFont(ALT_FONT);
 
     public int time;
@@ -50,20 +51,21 @@ public class AuroraInfuserScreen extends AbstractContainerScreen<AuroraInfuserMe
         super.containerTick();
     }
 
-    public boolean mouseClicked(double p_98758_, double p_98759_, int p_98760_) {
+    @Override
+    public boolean mouseClicked(MouseButtonEvent p_446670_, boolean p_434078_) {
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
 
-        for (int k = 0; k < 3; ++k) {
-            double d0 = p_98758_ - (double) (i + 60);
-            double d1 = p_98759_ - (double) (j + 14 + 19 * k);
+        for (int k = 0; k < 3; k++) {
+            double d0 = p_446670_.x() - (i + 60);
+            double d1 = p_446670_.y() - (j + 14 + 19 * k);
             if (d0 >= 0.0 && d1 >= 0.0 && d0 < 108.0 && d1 < 19.0 && this.menu.clickMenuButton(this.minecraft.player, k)) {
                 this.minecraft.gameMode.handleInventoryButtonClick(this.menu.containerId, k);
                 return true;
             }
         }
 
-        return super.mouseClicked(p_98758_, p_98759_, p_98760_);
+        return super.mouseClicked(p_446670_, p_434078_);
     }
 
     protected void renderBg(GuiGraphics p_282430_, float p_282530_, int p_281621_, int p_283333_) {

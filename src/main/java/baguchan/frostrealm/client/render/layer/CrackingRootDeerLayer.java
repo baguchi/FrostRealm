@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -30,16 +31,16 @@ public class CrackingRootDeerLayer<T extends RootDeerRenderState> extends Render
         super(p_116994_);
     }
 
-    public void render(PoseStack p_117007_, MultiBufferSource p_117008_, int p_117009_, RootDeerRenderState p_117010_, float p_117011_, float p_117012_) {
-        p_117007_.pushPose();
+    @Override
+    public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int i, T t, float v, float v1) {
+        poseStack.pushPose();
 
-        Crackiness.Level level = p_117010_.crackiness;
-        if (!p_117010_.isInvisible) {
+        Crackiness.Level level = t.crackiness;
+        if (!t.isInvisible) {
             if (level != Crackiness.Level.NONE) {
-                VertexConsumer vertexconsumer = p_117008_.getBuffer(RenderType.entityCutoutNoCull(resourceLocations.get(level)));
-                this.getParentModel().renderToBuffer(p_117007_, vertexconsumer, p_117009_, OverlayTexture.NO_OVERLAY);
+                submitNodeCollector.submitModel(this.getParentModel(), t, poseStack, RenderType.entityCutoutNoCull(resourceLocations.get(level)), i, OverlayTexture.NO_OVERLAY, -1, null, t.outlineColor, null);
             }
         }
-        p_117007_.popPose();
+        poseStack.popPose();
     }
 }

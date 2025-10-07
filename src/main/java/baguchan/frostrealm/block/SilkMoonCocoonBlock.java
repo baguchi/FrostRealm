@@ -51,7 +51,7 @@ public class SilkMoonCocoonBlock extends Block {
     }
 
     private void destroyEgg(Level p_154851_, BlockState p_154852_, BlockPos p_154853_, Entity p_154854_, int p_154855_) {
-        if (!p_154851_.isClientSide && p_154851_.random.nextInt(p_154855_) == 0 && p_154852_.is(FrostBlocks.SILK_MOON_COCOON.get())) {
+        if (!p_154851_.isClientSide() && p_154851_.random.nextInt(p_154855_) == 0 && p_154852_.is(FrostBlocks.SILK_MOON_COCOON.get())) {
             this.decreaseEggs(p_154851_, p_154853_, p_154852_);
         }
     }
@@ -86,7 +86,7 @@ public class SilkMoonCocoonBlock extends Block {
                 SilkMoon silkMoonWorm = FrostEntities.SILK_MOON.get().create(p_221182_, EntitySpawnReason.BREEDING);
                 silkMoonWorm.snapTo((double) p_221183_.getX() + 0.5, p_221183_.getY(), (double) p_221183_.getZ() + 0.5D, 0.0F, 0.0F);
                 p_221182_.addFreshEntity(silkMoonWorm);
-                if (!p_221182_.isClientSide) {
+                if (!p_221182_.isClientSide()) {
                     ItemStack itemstack = new ItemStack(Items.STRING, 6);
                     ItemEntity itementity = new ItemEntity(p_221182_, (double) p_221183_.getX(), (double) p_221183_.getY(), (double) p_221183_.getZ(), itemstack);
                     itementity.setDefaultPickUpDelay();

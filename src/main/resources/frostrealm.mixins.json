@@ -6,7 +6,8 @@
   "refmap": "frostrealm.refmap.json",
   "mixins": [
     "MobMixin",
-    "ServerEntityMixin"
+    "ServerEntityMixin",
+    "ServerLevelMixin"
   ],
   "client": [
     "client.CustomArmorLayerMixin",

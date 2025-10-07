@@ -89,7 +89,7 @@ public class FrostRealm {
 		modBus.addListener(this::setupPackets);
 		NeoForge.EVENT_BUS.addListener(this::registerCommands);
 		modBus.addListener(this::setupBlockEntity);
-		if (FMLEnvironment.dist == Dist.CLIENT) {
+		if (FMLEnvironment.getDist() == Dist.CLIENT) {
 			modBus.addListener(ClientRegistrar::setup);
 		}
 	}

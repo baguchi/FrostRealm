@@ -132,7 +132,7 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
     @Override
     public void baseTick() {
         super.baseTick();
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             if (this.attackAnimationTick < this.attackAnimationLength) {
                 this.attackAnimationTick++;
             }

@@ -23,7 +23,8 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
@@ -53,10 +54,10 @@ public class ClientRegistrar {
 
 	@SubscribeEvent
 	public static void registerLayer(RegisterRenderStateModifiersEvent event) {
-		event.registerEntityModifier(PlayerRenderer.class, (abstractClientPlayer, playerRenderState) -> {
+		/*event.registerEntityModifier(LivingEntityRenderer.class, (abstractClientPlayer, playerRenderState) -> {
 			boolean flag = abstractClientPlayer.getItemInHand(InteractionHand.MAIN_HAND).is(FrostTags.Items.SPEAR) && abstractClientPlayer.onGround();
 			playerRenderState.setRenderData(HOLD_SPEAR_KEY, flag);
-		});
+		});*/
 	}
 
 	@SubscribeEvent
@@ -101,8 +102,7 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.FROST_BOAR.get(), FrostBoarRenderer::new);
 		event.registerEntityRenderer(FrostEntities.LESSER_WARRIOR.get(), LesserWarriorRenderer::new);
         event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
-		event.registerEntityRenderer(FrostEntities.CORRUPTED_WALKER.get(), CorruptedWalkerRenderer::new);
-        event.registerEntityRenderer(FrostEntities.VENOM_BALL.get(), VenomBallRenderer::new);
+	   event.registerEntityRenderer(FrostEntities.VENOM_BALL.get(), VenomBallRenderer::new);
 		event.registerEntityRenderer(FrostEntities.VENOCHEM.get(), VenochemRenderer::new);
 		event.registerEntityRenderer(FrostEntities.GOKKUR.get(), GokkurRenderer::new);
 		event.registerEntityRenderer(FrostEntities.UNDER_GOKKUR.get(), UnderGokkurRenderer::new);
@@ -126,7 +126,10 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.0F)));
 		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.0F)).apply(WolfModel.BABY_TRANSFORMER));
 		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_ARMOR, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.2F)));
-		event.registerLayerDefinition(FrostModelLayers.FERRET, FerretModel::createBodyLayer);
+        event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY_ARMOR, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.2F)).apply(WolfModel.BABY_TRANSFORMER));
+        event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_SADDLE, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.21F)));
+        event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY_SADDLE, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.21F)).apply(WolfModel.BABY_TRANSFORMER));
+        event.registerLayerDefinition(FrostModelLayers.FERRET, FerretModel::createBodyLayer);
 
 
 		event.registerLayerDefinition(FrostModelLayers.CRYSTAL_FOX, CrystalFoxModel::createBodyLayer);
@@ -140,10 +143,6 @@ public class ClientRegistrar {
 
 		event.registerLayerDefinition(FrostModelLayers.VENOCHEM, VenochemModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.VENOM_BALL, VenomBallModel::createBodyLayer);
-
-        event.registerLayerDefinition(FrostModelLayers.CORRUPTED_WALKER, CorruptedWalkerModel::createBodyLayer);
-        event.registerLayerDefinition(FrostModelLayers.CORRUPTED_WALKER_FOOT, CorruptedWalkerFootModel::createBodyLayer);
-        event.registerLayerDefinition(FrostModelLayers.CORRUPTED_WALKER_PART, CorruptedWalkerPartModel::createBodyLayer);
 
 		event.registerLayerDefinition(FrostModelLayers.ROOT_DEER, RootDeerModel::createBodyLayer);
 

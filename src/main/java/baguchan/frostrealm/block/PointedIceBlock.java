@@ -100,7 +100,7 @@ public class PointedIceBlock extends Block implements Fallable, SimpleWaterlogge
         super.onProjectileHit(p_60453_, p_60454_, p_60455_, p_60456_);
         BlockPos blockpos = p_60455_.getBlockPos();
         if (p_60453_ instanceof ServerLevel serverLevel) {
-            if (!p_60453_.isClientSide && p_60456_.mayInteract(serverLevel, blockpos) && p_60456_ instanceof ThrownTrident && p_60456_.getDeltaMovement().length() > 0.6D) {
+            if (!p_60453_.isClientSide() && p_60456_.mayInteract(serverLevel, blockpos) && p_60456_ instanceof ThrownTrident && p_60456_.getDeltaMovement().length() > 0.6D) {
                 p_60453_.destroyBlock(blockpos, true);
             }
         }

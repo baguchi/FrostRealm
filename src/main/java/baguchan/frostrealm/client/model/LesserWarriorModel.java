@@ -14,6 +14,7 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
@@ -200,9 +201,9 @@ public class LesserWarriorModel<T extends LesserWarriorRenderState> extends Enti
 
 
     @Override
-    public void translateToHand(HumanoidArm p_102108_, PoseStack p_102109_) {
-        this.getArm(p_102108_).translateAndRotate(p_102109_);
-        this.getArmItem(p_102108_).translateAndRotate(p_102109_);
-        p_102109_.translate(0, -(8F / 16F), 0);
+    public void translateToHand(EntityRenderState entityRenderState, HumanoidArm humanoidArm, PoseStack poseStack) {
+        this.getArm(humanoidArm).translateAndRotate(poseStack);
+        this.getArmItem(humanoidArm).translateAndRotate(poseStack);
+        poseStack.translate(0, -(8F / 16F), 0);
     }
 }

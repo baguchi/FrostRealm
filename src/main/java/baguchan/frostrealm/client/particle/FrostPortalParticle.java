@@ -2,15 +2,17 @@ package baguchan.frostrealm.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 
-public class FrostPortalParticle extends TextureSheetParticle {
+public class FrostPortalParticle extends SingleQuadParticle {
     private final double xStart;
     private final double yStart;
     private final double zStart;
 
-    public FrostPortalParticle(ClientLevel p_107551_, double p_107552_, double p_107553_, double p_107554_, double p_107555_, double p_107556_, double p_107557_) {
-        super(p_107551_, p_107552_, p_107553_, p_107554_);
+    public FrostPortalParticle(ClientLevel p_107551_, double p_107552_, double p_107553_, double p_107554_, double p_107555_, double p_107556_, double p_107557_, TextureAtlasSprite sprite) {
+        super(p_107551_, p_107552_, p_107553_, p_107554_, sprite);
         this.xd = p_107555_;
         this.yd = p_107556_;
         this.zd = p_107557_;
@@ -29,8 +31,8 @@ public class FrostPortalParticle extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+    public SingleQuadParticle.Layer getLayer() {
+        return Layer.OPAQUE;
     }
 
     @Override
@@ -89,19 +91,9 @@ public class FrostPortalParticle extends TextureSheetParticle {
             this.sprite = p_107570_;
         }
 
-        public Particle createParticle(
-                SimpleParticleType p_107581_,
-                ClientLevel p_107582_,
-                double p_107583_,
-                double p_107584_,
-                double p_107585_,
-                double p_107586_,
-                double p_107587_,
-                double p_107588_
-        ) {
-            FrostPortalParticle portalparticle = new FrostPortalParticle(p_107582_, p_107583_, p_107584_, p_107585_, p_107586_, p_107587_, p_107588_);
-            portalparticle.pickSprite(this.sprite);
-            return portalparticle;
+        @Override
+        public Particle createParticle(SimpleParticleType p_446632_, ClientLevel p_107095_, double x, double y, double z, double motionX, double motionY, double motionZ, RandomSource random) {
+            return new FrostPortalParticle(p_107095_, x, y, z, motionX, motionY, motionZ, this.sprite.get(random));
         }
     }
 }

@@ -162,7 +162,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 	}
 
 	void addTrustedEntity(LivingEntity p_393835_) {
-		this.addTrustedEntity(new EntityReference<>(p_393835_));
+		this.addTrustedEntity(EntityReference.of(p_393835_));
 	}
 
 
@@ -185,7 +185,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 
 	@Override
 	public void aiStep() {
-		if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
+		if (!this.level().isClientSide() && this.isAlive() && this.isEffectiveAi()) {
 			++this.ticksSinceEaten;
 			ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
 			if (this.canEat(itemstack)) {
@@ -241,7 +241,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 	}
 
 	private void spitOutItem(ItemStack p_28602_) {
-		if (!p_28602_.isEmpty() && !this.level().isClientSide) {
+		if (!p_28602_.isEmpty() && !this.level().isClientSide()) {
 			ItemEntity itementity = new ItemEntity(this.level(), this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, p_28602_);
 			itementity.setPickUpDelay(40);
 			itementity.setThrower(this);
@@ -271,7 +271,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		if (player == null || this.trusts(player)) {
 			level.playSound(null, this, SoundEvents.SHEEP_SHEAR, player == null ? SoundSource.BLOCKS : SoundSource.PLAYERS, 1.0F, 1.0F);
 			this.gameEvent(GameEvent.SHEAR, player);
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				this.setShearable(false);
 				int i = 1 + this.random.nextInt(3);
 

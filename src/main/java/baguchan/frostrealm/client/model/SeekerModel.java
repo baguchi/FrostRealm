@@ -13,6 +13,7 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.world.entity.HumanoidArm;
 
 public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> implements ArmedModel {
@@ -187,7 +188,7 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
 
 
     @Override
-    public void translateToHand(HumanoidArm p_102108_, PoseStack p_102109_) {
+    public void translateToHand(EntityRenderState entityRenderState, HumanoidArm p_102108_, PoseStack p_102109_) {
         this.all.translateAndRotate(p_102109_);
         this.body.translateAndRotate(p_102109_);
         this.getArm(p_102108_).translateAndRotate(p_102109_);

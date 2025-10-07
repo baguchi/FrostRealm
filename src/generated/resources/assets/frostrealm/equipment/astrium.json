@@ -1,5 +1,10 @@
 {
   "layers": {
+    "frostrealm/wolfflue": [
+      {
+        "texture": "frostrealm:astrium"
+      }
+    ],
     "humanoid": [
       {
         "texture": "frostrealm:astrium"

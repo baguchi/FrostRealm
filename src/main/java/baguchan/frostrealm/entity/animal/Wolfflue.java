@@ -406,7 +406,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
 
     @Override
     public void aiStep() {
-        if (!this.level().isClientSide && this.isAlive() && this.isEffectiveAi()) {
+        if (!this.level().isClientSide() && this.isAlive() && this.isEffectiveAi()) {
             ++this.ticksSinceEaten;
             ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
             if (this.isFood(itemstack)) {
@@ -428,7 +428,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
             }
         }
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.updatePersistentAnger((ServerLevel) this.level(), true);
             if (this.onGround()) {
                 if (this.getPose() == Pose.LONG_JUMPING) {
@@ -461,7 +461,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
     }
 
     private void spitOutItem(ItemStack p_28602_) {
-        if (!p_28602_.isEmpty() && !this.level().isClientSide) {
+        if (!p_28602_.isEmpty() && !this.level().isClientSide()) {
             ItemEntity itementity = new ItemEntity(this.level(), this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, p_28602_);
             itementity.setPickUpDelay(40);
             itementity.setThrower(this);
@@ -498,7 +498,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         if (this.isInvulnerableTo(serverLevel, p_30386_)) {
             return false;
         } else {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 this.setOrderedToSit(false);
             }
 
@@ -601,7 +601,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
 
     protected void doPlayerRide(Player p_30634_) {
         this.setOrderedToSit(false);
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             p_30634_.setYRot(this.getYRot());
             p_30634_.setXRot(this.getXRot());
             p_30634_.startRiding(this);
@@ -696,7 +696,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
 
                     return interactionresult;
                 }
-            } else if (!this.level().isClientSide && this.isFood(itemstack) && !this.isAngry()) {
+            } else if (!this.level().isClientSide() && this.isFood(itemstack) && !this.isAngry()) {
                 itemstack.consume(1, p_30412_);
                 this.tryToTame(p_30412_);
                 return InteractionResult.SUCCESS_SERVER;
@@ -961,7 +961,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         }
 
         return super.getPassengerAttachmentPoint(p_294748_, p_295089_, p_295230_).add(
-                new Vec3(0.0, 0.0F - f3 + (double) (f2 * p_295230_ * 0.75F), -0.25F)
+                new Vec3(0.0, 0.0F + f3 + (double) (f2 * p_295230_ * 0.75F), -0.25F)
                         .yRot(-this.getYRot() * (float) (Math.PI / 180.0))
         );
     }

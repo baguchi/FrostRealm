@@ -12,7 +12,8 @@ public class WolfflueRenderState extends HoldingEntityRenderState {
     private static final ResourceLocation DEFAULT_TEXTURE = ResourceLocation.withDefaultNamespace("textures/entity/wolf/wolf.png");
     public boolean isAngry;
     public boolean isSitting;
-    public boolean saddle;
+    public ItemStack saddle = ItemStack.EMPTY;
+
     public ResourceLocation texture = DEFAULT_TEXTURE;
     @Nullable
     public DyeColor collarColor;

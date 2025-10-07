@@ -101,7 +101,7 @@ public class Ferret extends TamableAnimal {
     public InteractionResult mobInteract(Player p_30412_, InteractionHand p_30413_) {
         ItemStack itemstack = p_30412_.getItemInHand(p_30413_);
         Item item = itemstack.getItem();
-        if (!this.level().isClientSide || this.isBaby() && this.isFood(itemstack)) {
+        if (!this.level().isClientSide() || this.isBaby() && this.isFood(itemstack)) {
             if (this.isTame()) {
                 if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                     FoodProperties foodproperties = itemstack.get(DataComponents.FOOD);
@@ -132,7 +132,7 @@ public class Ferret extends TamableAnimal {
                         return interactionresult;
                     }
                 }
-            } else if (!this.level().isClientSide && this.isFood(itemstack) && this.getTarget() != p_30412_) {
+            } else if (!this.level().isClientSide() && this.isFood(itemstack) && this.getTarget() != p_30412_) {
                 itemstack.consume(1, p_30412_);
                 this.tryToTame(p_30412_);
                 return InteractionResult.SUCCESS_SERVER;

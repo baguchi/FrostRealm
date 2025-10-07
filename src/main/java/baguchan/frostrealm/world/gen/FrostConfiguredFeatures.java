@@ -152,7 +152,7 @@ public class FrostConfiguredFeatures {
 		FeatureUtils.register(context, FROSTROOT_TREE, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(holder2), 0.33333334F)), PlacementUtils.inlinePlaced(holder1)));
 		FeatureUtils.register(context, FROSTBITE_TREE, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(PlacementUtils.inlinePlaced(holder4), 0.33333334F)), PlacementUtils.inlinePlaced(holder3)));
 		FeatureUtils.register(context, LOG, Feature.BLOCK_COLUMN, new BlockColumnConfiguration(List.of(BlockColumnConfiguration.layer(ConstantInt.of(32), BlockStateProvider.simple(FrostBlocks.FROSTROOT_LOG.get()))), Direction.DOWN, BlockPredicate.not(BlockPredicate.hasSturdyFace(new Vec3i(0, 1, 0), Direction.UP)), true));
-		FeatureUtils.register(context, CHAIN, Feature.BLOCK_COLUMN, new BlockColumnConfiguration(List.of(BlockColumnConfiguration.layer(ConstantInt.of(32), BlockStateProvider.simple(Blocks.CHAIN))), Direction.UP, BlockPredicate.not(BlockPredicate.hasSturdyFace(new Vec3i(0, -1, 0), Direction.DOWN)), true));
+		FeatureUtils.register(context, CHAIN, Feature.BLOCK_COLUMN, new BlockColumnConfiguration(List.of(BlockColumnConfiguration.layer(ConstantInt.of(32), BlockStateProvider.simple(Blocks.IRON_CHAIN))), Direction.UP, BlockPredicate.not(BlockPredicate.hasSturdyFace(new Vec3i(0, -1, 0), Direction.DOWN)), true));
 	}
 	public static String prefix(String name) {
 		return FrostRealm.MODID + ":" + name;

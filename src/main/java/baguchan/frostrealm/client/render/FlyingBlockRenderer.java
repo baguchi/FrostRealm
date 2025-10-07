@@ -5,11 +5,14 @@ import baguchan.frostrealm.entity.projectile.FlyingBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.BlockModelPart;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.FallingBlockRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -39,35 +42,20 @@ public class FlyingBlockRenderer extends EntityRenderer<FlyingBlockEntity, FlyBl
         return super.shouldRender(p_362415_, p_364047_, p_362218_, p_363427_, p_361722_);
     }
 
-    public void render(FlyBlockRenderState state, PoseStack poseStack, MultiBufferSource p_114638_, int p_114639_) {
-        BlockState blockstate = state.blockState;
+    public void submit(FlyBlockRenderState p_450955_, PoseStack poseStack, SubmitNodeCollector p_433266_, CameraRenderState p_451470_) {
+        BlockState blockstate = p_450955_.movingBlockRenderState.blockState;
         if (blockstate.getRenderShape() == RenderShape.MODEL) {
             poseStack.pushPose();
-            poseStack.translate(0, 0.5, -0);
-            List<BlockModelPart> list = this.dispatcher
-                    .getBlockModel(blockstate)
-                    .collectParts(state.level, state.blockPos, blockstate, RandomSource.create(blockstate.getSeed(state.startBlockPos)));
-            poseStack.mulPose(Axis.YP.rotationDegrees(-state.yRot));
-            poseStack.mulPose(Axis.XP.rotationDegrees(state.xRot));
-            poseStack.translate(-0.5, -0.5, -0.5);
+            poseStack.translate(0, -0.5, 0);
+            poseStack.mulPose(Axis.YP.rotationDegrees(-p_450955_.yRot));
+            poseStack.mulPose(Axis.XP.rotationDegrees(p_450955_.xRot));
 
-            this.dispatcher
-                    .getModelRenderer()
-                    .tesselateBlock(
-                            state,
-                            list,
-                            blockstate,
-                            state.blockPos,
-                            poseStack,
-                            renderType -> p_114638_.getBuffer(net.neoforged.neoforge.client.RenderTypeHelper.getMovingBlockRenderType(renderType)),
-                            false,
-                            OverlayTexture.NO_OVERLAY
-                    );
+            poseStack.translate(-0.5, -0.5, -0.5);
+            p_433266_.submitMovingBlock(poseStack, p_450955_.movingBlockRenderState);
             poseStack.popPose();
-            super.render(state, poseStack, p_114638_, p_114639_);
+            super.submit(p_450955_, poseStack, p_433266_, p_451470_);
         }
     }
-
 
     public FlyBlockRenderState createRenderState() {
         return new FlyBlockRenderState();
@@ -76,11 +64,11 @@ public class FlyingBlockRenderer extends EntityRenderer<FlyingBlockEntity, FlyBl
     public void extractRenderState(FlyingBlockEntity p_364559_, FlyBlockRenderState p_360509_, float p_361019_) {
         super.extractRenderState(p_364559_, p_360509_, p_361019_);
         BlockPos blockpos = BlockPos.containing(p_364559_.getX(), p_364559_.getBoundingBox().maxY, p_364559_.getZ());
-        //p_360509_.startBlockPos = p_364559_.getStartPos();
-        p_360509_.blockPos = blockpos;
-        p_360509_.blockState = p_364559_.getBlockState();
-        p_360509_.biome = p_364559_.level().getBiome(blockpos);
-        p_360509_.level = p_364559_.level();
+        //p_360509_.movingBlockRenderState.randomSeedPos = p_364559_.getStartPos();
+        p_360509_.movingBlockRenderState.blockPos = blockpos;
+        p_360509_.movingBlockRenderState.blockState = p_364559_.getBlockState();
+        p_360509_.movingBlockRenderState.biome = p_364559_.level().getBiome(blockpos);
+        p_360509_.movingBlockRenderState.level = p_364559_.level();
         p_360509_.xRot = p_364559_.getXRot(p_361019_);
         p_360509_.yRot = p_364559_.getYRot(p_361019_);
     }

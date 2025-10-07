@@ -2,9 +2,11 @@ package baguchan.frostrealm.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 
-public class SnowParticle extends TextureSheetParticle {
+public class SnowParticle extends SingleQuadParticle {
     private static final float ACCELERATION_SCALE = 0.0025F;
     private static final int INITIAL_LIFETIME = 300;
     private static final int CURVE_ENDPOINT_TIME = 300;
@@ -14,8 +16,8 @@ public class SnowParticle extends TextureSheetParticle {
     private final float particleRandom;
     private final float spinAcceleration;
 
-    public SnowParticle(ClientLevel p_277612_, double p_278010_, double p_277614_, double p_277673_, double xd, double yd, double zd) {
-        super(p_277612_, p_278010_, p_277614_, p_277673_);
+    public SnowParticle(ClientLevel p_277612_, double p_278010_, double p_277614_, double p_277673_, double xd, double yd, double zd, TextureAtlasSprite sprite) {
+        super(p_277612_, p_278010_, p_277614_, p_277673_, sprite);
         this.rotSpeed = (float) Math.toRadians(this.random.nextBoolean() ? -30.0 : 30.0);
         this.particleRandom = this.random.nextFloat();
         this.spinAcceleration = (float) Math.toRadians(this.random.nextBoolean() ? -5.0 : 5.0);
@@ -34,8 +36,8 @@ public class SnowParticle extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+    public SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.OPAQUE;
     }
 
     @Override
@@ -71,19 +73,9 @@ public class SnowParticle extends TextureSheetParticle {
             this.sprite = p_105793_;
         }
 
-        public Particle createParticle(
-                SimpleParticleType p_105804_,
-                ClientLevel p_105805_,
-                double p_105806_,
-                double p_105807_,
-                double p_105808_,
-                double p_105809_,
-                double p_105810_,
-                double p_105811_
-        ) {
-            SnowParticle bubbleparticle = new SnowParticle(p_105805_, p_105806_, p_105807_, p_105808_, p_105809_, p_105810_, p_105811_);
-            bubbleparticle.pickSprite(this.sprite);
-            return bubbleparticle;
+        @Override
+        public Particle createParticle(SimpleParticleType p_446632_, ClientLevel p_107095_, double x, double y, double z, double motionX, double motionY, double motionZ, RandomSource random) {
+            return new SnowParticle(p_107095_, x, y, z, motionX, motionY, motionZ, this.sprite.get(random));
         }
     }
 }

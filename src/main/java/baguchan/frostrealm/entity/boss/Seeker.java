@@ -138,12 +138,6 @@ public class Seeker extends Monster {
     }
 
     @Override
-    protected boolean shouldDespawnInPeaceful() {
-        return false;
-    }
-
-
-    @Override
     public boolean removeWhenFarAway(double p_21542_) {
         return false;
     }
@@ -171,7 +165,7 @@ public class Seeker extends Monster {
     @Override
     public void baseTick() {
         super.baseTick();
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             if (this.attackAnimationTick < this.attackAnimationLength) {
                 this.attackAnimationTick++;
             }

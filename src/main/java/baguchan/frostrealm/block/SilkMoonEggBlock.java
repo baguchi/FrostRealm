@@ -64,7 +64,7 @@ public class SilkMoonEggBlock extends Block {
     }
 
     private void destroyEgg(Level p_154851_, BlockState p_154852_, BlockPos p_154853_, Entity p_154854_, int p_154855_) {
-        if (!p_154851_.isClientSide && p_154851_.random.nextInt(p_154855_) == 0 && p_154852_.is(FrostBlocks.SILK_MOON_EGG.get())) {
+        if (!p_154851_.isClientSide() && p_154851_.random.nextInt(p_154855_) == 0 && p_154852_.is(FrostBlocks.SILK_MOON_EGG.get())) {
             this.decreaseEggs(p_154851_, p_154853_, p_154852_);
         }
     }

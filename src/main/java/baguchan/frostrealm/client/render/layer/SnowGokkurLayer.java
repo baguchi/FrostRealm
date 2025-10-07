@@ -3,14 +3,18 @@ package baguchan.frostrealm.client.render.layer;
 import baguchan.frostrealm.client.model.GokkurModel;
 import baguchan.frostrealm.client.render.state.GokkurRenderState;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.block.model.BlockStateModel;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.entity.state.SnowGolemRenderState;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,35 +27,24 @@ public class SnowGokkurLayer<T extends GokkurRenderState> extends RenderLayer<T,
         this.blockRenderer = p_234851_;
     }
 
-    public void render(PoseStack p_117256_, MultiBufferSource p_117257_, int p_117258_, T p_361786_, float p_117260_, float p_117261_) {
-        if (!p_361786_.isBaby) {
-            boolean flag = p_361786_.appearsGlowing && p_361786_.isInvisible;
-            if (!p_361786_.isInvisible || flag) {
+    @Override
+    public void submit(PoseStack poseStack, SubmitNodeCollector p_435807_, int p_433104_, T p_434616_, float p_433223_, float p_433380_) {
+
+            if (!p_434616_.isInvisible || p_434616_.appearsGlowing()) {
+                poseStack.pushPose();
+                float f = p_434616_.snowProgress;
+                this.getParentModel().root.translateAndRotate(poseStack);
+                this.getParentModel().body_rotation.translateAndRotate(poseStack);
+                poseStack.scale(f, f, f);
                 BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
-                int i = LivingEntityRenderer.getOverlayCoords(p_361786_, 0.0F);
-                BlockStateModel bakedmodel = this.blockRenderer.getBlockModel(blockstate);
-                p_117256_.pushPose();
-                float f = p_361786_.snowProgress;
-                this.getParentModel().root.translateAndRotate(p_117256_);
-                this.getParentModel().body_rotation.translateAndRotate(p_117256_);
-                p_117256_.scale(f, f, f);
-
-                p_117256_.translate(-0.5F, -0.5F, -0.5F);
-                this.renderBlock(p_117256_, p_117257_, p_117258_, flag, blockstate, i, bakedmodel);
-                p_117256_.popPose();
+                BlockStateModel blockstatemodel = this.blockRenderer.getBlockModel(blockstate);
+                int i = LivingEntityRenderer.getOverlayCoords(p_434616_, 0.0F);
+                poseStack.translate(-0.5F, -0.5F, -0.5F);
+                RenderType rendertype = p_434616_.appearsGlowing() && p_434616_.isInvisible
+                        ? RenderType.outline(TextureAtlas.LOCATION_BLOCKS)
+                        : ItemBlockRenderTypes.getRenderType(blockstate);
+                p_435807_.submitBlockModel(poseStack, rendertype, blockstatemodel, 0.0F, 0.0F, 0.0F, p_433104_, i, p_434616_.outlineColor);
+                poseStack.popPose();
             }
-        }
-    }
-
-    private void renderBlock(
-            PoseStack p_234853_, MultiBufferSource p_234854_, int p_234855_, boolean p_234856_, BlockState p_234857_, int p_234858_, BlockStateModel p_404741_
-    ) {
-        if (p_234856_) {
-            ModelBlockRenderer.renderModel(
-                    p_234853_.last(), p_234854_.getBuffer(RenderType.outline(TextureAtlas.LOCATION_BLOCKS)), p_404741_, 0.0F, 0.0F, 0.0F, p_234855_, p_234858_
-            );
-        } else {
-            this.blockRenderer.renderSingleBlock(p_234857_, p_234853_, p_234854_, p_234855_, p_234858_);
-        }
     }
 }

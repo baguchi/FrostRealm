@@ -22,8 +22,8 @@ public class FrostEquipmentAssetProvider implements DataProvider {
 
 
     private static void bootstrap(BiConsumer<ResourceKey<EquipmentAsset>, EquipmentClientInfo> p_387865_) {
-        p_387865_.accept(FrostEquipmentAssets.ASTRIUM, onlyHumanoid("astrium"));
-        p_387865_.accept(FrostEquipmentAssets.FROST_BOAR_FUR, onlyHumanoid("frost_boar_fur"));
+        p_387865_.accept(FrostEquipmentAssets.ASTRIUM, onlyHumanoidAndWolfflue("astrium"));
+        p_387865_.accept(FrostEquipmentAssets.FROST_BOAR_FUR, onlyHumanoidAndWolfflue("frost_boar_fur"));
         p_387865_.accept(FrostEquipmentAssets.YETI_FUR, onlyHumanoid("yeti_fur"));
     }
 
@@ -32,8 +32,8 @@ public class FrostEquipmentAssetProvider implements DataProvider {
         return EquipmentClientInfo.builder().addHumanoidLayers(FrostRealm.prefix(p_371738_)).build();
     }
 
-    private static EquipmentClientInfo onlyHumanoidAndWolf(String p_371738_) {
-        return EquipmentClientInfo.builder().addHumanoidLayers(FrostRealm.prefix(p_371738_)).addLayers(EquipmentClientInfo.LayerType.WOLF_BODY, EquipmentClientInfo.Layer.onlyIfDyed(FrostRealm.prefix(p_371738_), false)).build();
+    private static EquipmentClientInfo onlyHumanoidAndWolfflue(String p_371738_) {
+        return EquipmentClientInfo.builder().addHumanoidLayers(FrostRealm.prefix(p_371738_)).addLayers(EquipmentClientInfo.LayerType.valueOf("FROSTREALM_WOLFFLUE"), EquipmentClientInfo.Layer.onlyIfDyed(FrostRealm.prefix(p_371738_), false)).build();
     }
 
     @Override

@@ -32,6 +32,18 @@
         false,
         128
       ]
+    },
+    {
+      "enum": "net/minecraft/client/resources/model/EquipmentClientInfo$LayerType",
+      "name": "FROSTREALM_WOLFFLUE",
+      "constructor": "(Ljava/lang/String;)V",
+      "parameters": [ "frostrealm:wolfflue" ]
+    },
+    {
+      "enum": "net/minecraft/client/resources/model/EquipmentClientInfo$LayerType",
+      "name": "FROSTREALM_WOLFFLUE_SADDLE",
+      "constructor": "(Ljava/lang/String;)V",
+      "parameters": [ "frostrealm:wolfflue_saddle" ]
     }
   ]
 }

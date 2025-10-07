@@ -99,7 +99,7 @@ public class Seal extends Animal {
     @Override
     public void baseTick() {
         super.baseTick();
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             if (this.gasTick > 0) {
                 this.gasTick--;
             }

@@ -14,7 +14,7 @@ public class GuardHandler {
     }
 
     public void tick(Mob entity) {
-        if (!entity.level().isClientSide) {
+        if (!entity.level().isClientSide()) {
             if (this.hurtCount > this.hurtTriggerCount) {
                 this.trigger = true;
             }

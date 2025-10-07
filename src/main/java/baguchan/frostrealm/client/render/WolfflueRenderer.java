@@ -7,16 +7,23 @@ import baguchan.frostrealm.client.render.layer.WolfflueCollarLayer;
 import baguchan.frostrealm.client.render.layer.WolfflueHeldItemLayer;
 import baguchan.frostrealm.client.render.state.WolfflueRenderState;
 import baguchan.frostrealm.entity.animal.Wolfflue;
+import net.minecraft.client.model.PigModel;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
 import net.minecraft.client.renderer.entity.state.HoldingEntityRenderState;
+import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 
 public class WolfflueRenderer<T extends Wolfflue> extends AgeableMobRenderer<T, WolfflueRenderState, WolfflueModel<WolfflueRenderState>> {
     public WolfflueRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new WolfflueModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFFLUE)), new WolfflueModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFFLUE_BABY)), 0.5F);
         this.addLayer(new WolfflueCollarLayer<>(this));
-        this.addLayer(new WolfflueArmorLayer<>(this, p_173952_.getModelSet()));
+        this.addLayer(new WolfflueArmorLayer<>(this, p_173952_.getModelSet(), p_173952_.getEquipmentRenderer()));
+        this.addLayer(new SimpleEquipmentLayer<>(this, p_173952_.getEquipmentRenderer(), EquipmentClientInfo.LayerType.valueOf("FROSTREALM_WOLFFLUE_SADDLE"), (p_397421_) -> p_397421_.saddle, new WolfflueModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFFLUE_SADDLE)), new WolfflueModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFFLUE_BABY_SADDLE))));
+
         this.addLayer(new WolfflueHeldItemLayer<>(this));
     }
 
@@ -28,7 +35,7 @@ public class WolfflueRenderer<T extends Wolfflue> extends AgeableMobRenderer<T, 
 
         p_363549_.isAngry = p_363274_.isAngry();
         p_363549_.isSitting = p_363274_.isInSittingPose();
-        p_363549_.saddle = p_363274_.isSaddled();
+        p_363549_.saddle = p_363274_.getItemBySlot(EquipmentSlot.SADDLE);
         p_363549_.tailAngle = p_363274_.getTailAngle();
         p_363549_.headRollAngle = p_363274_.getHeadRollAngle(p_362105_);
         p_363549_.texture = p_363274_.getTexture();

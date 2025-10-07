@@ -1,5 +1,10 @@
 {
   "layers": {
+    "frostrealm/wolfflue": [
+      {
+        "texture": "frostrealm:frost_boar_fur"
+      }
+    ],
     "humanoid": [
       {
         "texture": "frostrealm:frost_boar_fur"

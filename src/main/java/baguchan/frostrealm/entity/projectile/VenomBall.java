@@ -60,7 +60,7 @@ public class VenomBall extends ThrowableProjectile {
     @Override
     public void tick() {
         super.tick();
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             double d0 = 0.08;
             this.level()
                     .addParticle(
@@ -103,7 +103,7 @@ public class VenomBall extends ThrowableProjectile {
     @Override
     protected void onHit(HitResult p_326337_) {
         super.onHit(p_326337_);
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.level().broadcastEntityEvent(this, (byte) 3);
             this.playSound(SoundEvents.SLIME_BLOCK_BREAK, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
 

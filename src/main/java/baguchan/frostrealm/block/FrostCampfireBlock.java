@@ -64,7 +64,7 @@ public class FrostCampfireBlock extends CampfireBlock implements SimpleWaterlogg
 	public void onProjectileHit(Level p_51244_, BlockState p_51245_, BlockHitResult p_51246_, Projectile p_51247_) {
 		BlockPos blockpos = p_51246_.getBlockPos();
 		if (p_51244_ instanceof ServerLevel serverLevel) {
-			if (!p_51244_.isClientSide && p_51247_.isOnFire() && p_51247_.mayInteract(serverLevel, blockpos) && !p_51245_.getValue(LIT) && !p_51245_.getValue(WATERLOGGED)) {
+			if (!p_51244_.isClientSide() && p_51247_.isOnFire() && p_51247_.mayInteract(serverLevel, blockpos) && !p_51245_.getValue(LIT) && !p_51245_.getValue(WATERLOGGED)) {
 				p_51244_.setBlock(blockpos, p_51245_.setValue(BlockStateProperties.LIT, Boolean.valueOf(true)), 11);
 			}
 		}

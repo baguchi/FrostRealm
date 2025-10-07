@@ -105,7 +105,7 @@ public class FrostStructures {
                         ConstantHeight.of(VerticalAnchor.absolute(-46)),
                         false,
                         Optional.empty(),
-                        116,
+                        new JigsawStructure.MaxDistance(116),
                         List.of(),
                         new DimensionPadding(0),
                         LiquidSettings.IGNORE_WATERLOGGING

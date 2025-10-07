@@ -4,11 +4,14 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.GokkurModel;
 import baguchan.frostrealm.client.render.layer.CrackingGokkurLayer;
+import baguchan.frostrealm.client.render.state.CrystalFoxRenderState;
 import baguchan.frostrealm.client.render.state.UnderGokkurRenderState;
+import baguchan.frostrealm.entity.animal.CrystalFox;
 import baguchan.frostrealm.entity.hostile.UnderGokkur;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
@@ -24,9 +27,10 @@ public class UnderGokkurRenderer<T extends UnderGokkur> extends MobRenderer<T, U
         this.addLayer(new EyesLayer<>(this) {
 
             @Override
-            public void render(PoseStack p_116983_, MultiBufferSource p_116984_, int p_116985_, UnderGokkurRenderState p_363277_, float p_116987_, float p_116988_) {
-                if (p_363277_.magma) {
-                    super.render(p_116983_, p_116984_, p_116985_, p_363277_, p_116987_, p_116988_);
+            public void submit(PoseStack p_433452_, SubmitNodeCollector p_433171_, int p_434650_, UnderGokkurRenderState p_435883_, float p_433542_, float p_435619_)
+            {
+                if (p_435883_.magma) {
+                    super.submit(p_433452_, p_433171_, p_434650_, p_435883_, p_433542_, p_435619_);
                 }
             }
 

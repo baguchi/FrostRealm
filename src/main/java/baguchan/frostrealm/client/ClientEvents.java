@@ -96,7 +96,7 @@ public class ClientEvents {
             if (Minecraft.getInstance().level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
                 Optional<WeightedList<Music>> musicInfo = biome.value().getBackgroundMusic();
                 if (!(Minecraft.getInstance().screen instanceof WinScreen)) {
-                    long time = Minecraft.getInstance().player.clientLevel.getLevelData().getDayTime() % 24000L;
+                    long time = Minecraft.getInstance().player.level().getLevelData().getDayTime() % 24000L;
                     boolean day = time >= 0 && time < 12000;
                     boolean sunset = time >= 12000 && time < 14000;
                     boolean night = time >= 14000 && time < 22000;

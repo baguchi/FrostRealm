@@ -9,6 +9,7 @@ import baguchan.frostrealm.entity.animal.CrystalFox;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
@@ -28,25 +29,28 @@ public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxRender
 	public CrystalFoxRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new CrystalFoxModel<>(p_173952_.bakeLayer(FrostModelLayers.CRYSTAL_FOX)), 0.5F);
 		this.addLayer(new EyesLayer<>(this) {
-			@Override
-			public void render(PoseStack p_116983_, MultiBufferSource p_116984_, int p_116985_, CrystalFoxRenderState p_363277_, float p_116987_, float p_116988_) {
-				if (p_363277_.shearable) {
-					super.render(p_116983_, p_116984_, p_116985_, p_363277_, p_116987_, p_116988_);
-				}
-			}
 
-			@Override
+            @Override
+            public void submit(PoseStack p_433452_, SubmitNodeCollector p_433171_, int p_434650_, CrystalFoxRenderState p_435883_, float p_433542_, float p_435619_)
+            {
+                if (p_435883_.shearable) {
+                    super.submit(p_433452_, p_433171_, p_434650_, p_435883_, p_433542_, p_435619_);
+                }
+            }
+
+            @Override
 			public RenderType renderType() {
 				return FOX_GLOW;
 			}
 		});
 		this.addLayer(new EyesLayer<>(this) {
-			@Override
-			public void render(PoseStack p_116983_, MultiBufferSource p_116984_, int p_116985_, CrystalFoxRenderState p_363277_, float p_116987_, float p_116988_) {
-				if (p_363277_.state != CrystalFox.State.SLEEPING) {
-					super.render(p_116983_, p_116984_, p_116985_, p_363277_, p_116987_, p_116988_);
-				}
-			}
+            @Override
+            public void submit(PoseStack p_433452_, SubmitNodeCollector p_433171_, int p_434650_, CrystalFoxRenderState p_435883_, float p_433542_, float p_435619_)
+            {
+                if (p_435883_.state != CrystalFox.State.SLEEPING) {
+                    super.submit(p_433452_, p_433171_, p_434650_, p_435883_, p_433542_, p_435619_);
+                }
+            }
 
 			@Override
 			public RenderType renderType() {

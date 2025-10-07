@@ -19,13 +19,12 @@ public class FrostModelLayers {
     public static final ModelLayerLocation FROST_BOAR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_boar"), "frost_boar");
     public static final ModelLayerLocation LESSER_WARRIOR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "lesser_warrior"), "main");
 
-    public static final ModelLayerLocation CORRUPTED_WALKER = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker"), "main");
-    public static final ModelLayerLocation CORRUPTED_WALKER_FOOT = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker_foot"), "main");
-    public static final ModelLayerLocation CORRUPTED_WALKER_PART = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "corrupted_walker_part"), "main");
-
     public static final ModelLayerLocation WOLFFLUE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue"), "main");
     public static final ModelLayerLocation WOLFFLUE_BABY = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_baby"), "main");
     public static final ModelLayerLocation WOLFFLUE_ARMOR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_armor"), "main");
+    public static final ModelLayerLocation WOLFFLUE_BABY_ARMOR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_baby_armor"), "main");
+    public static final ModelLayerLocation WOLFFLUE_SADDLE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_saddle"), "main");
+    public static final ModelLayerLocation WOLFFLUE_BABY_SADDLE = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_baby_saddle"), "main");
 
     public static final ModelLayerLocation VENOCHEM = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "venchem"), "main");
     public static final ModelLayerLocation GOKKUR = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "gokkur"), "main");

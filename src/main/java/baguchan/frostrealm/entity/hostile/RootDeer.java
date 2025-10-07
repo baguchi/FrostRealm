@@ -285,7 +285,7 @@ public class RootDeer extends Monster {
     @Override
     public void baseTick() {
         super.baseTick();
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             if (this.attackAnimationTick < this.attackAnimationLength) {
                 this.attackAnimationTick++;
             }
@@ -301,7 +301,7 @@ public class RootDeer extends Monster {
         super.tick();
 
 
-        if (!this.level().isClientSide && !this.isPassenger() && !this.canStayAt(this.blockPosition(), this.getAttachFace())) {
+        if (!this.level().isClientSide() && !this.isPassenger() && !this.canStayAt(this.blockPosition(), this.getAttachFace())) {
             this.findNewAttachment();
         }
 

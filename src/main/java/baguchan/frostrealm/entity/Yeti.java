@@ -487,7 +487,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 	@Override
 	public boolean hurtServer(ServerLevel serverLevel, DamageSource p_34503_, float p_34504_) {
 		boolean flag = super.hurtServer(serverLevel, p_34503_, p_34504_);
-		if (this.level().isClientSide) {
+		if (this.level().isClientSide()) {
 			return false;
 		} else {
 			this.standUpInstantly();

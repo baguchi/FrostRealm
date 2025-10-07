@@ -2,12 +2,14 @@ package baguchan.frostrealm.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 
-public class VenomBubbleParticle extends TextureSheetParticle {
-    protected VenomBubbleParticle(ClientLevel p_105773_, double p_105774_, double p_105775_, double p_105776_, double p_105777_, double p_105778_, double p_105779_) {
-        super(p_105773_, p_105774_, p_105775_, p_105776_);
+public class VenomBubbleParticle extends SingleQuadParticle {
+    protected VenomBubbleParticle(ClientLevel p_105773_, double p_105774_, double p_105775_, double p_105776_, double p_105777_, double p_105778_, double p_105779_, TextureAtlasSprite sprite) {
+        super(p_105773_, p_105774_, p_105775_, p_105776_, sprite);
         this.setSize(0.02F, 0.02F);
         this.quadSize = this.quadSize * (this.random.nextFloat() * 0.6F + 0.2F);
         this.xd = p_105777_ * 0.2F + (Math.random() * 2.0 - 1.0) * 0.02F;
@@ -36,8 +38,8 @@ public class VenomBubbleParticle extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+    public SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.OPAQUE;
     }
 
     public static class Provider implements ParticleProvider<SimpleParticleType> {
@@ -47,19 +49,9 @@ public class VenomBubbleParticle extends TextureSheetParticle {
             this.sprite = p_105793_;
         }
 
-        public Particle createParticle(
-                SimpleParticleType p_105804_,
-                ClientLevel p_105805_,
-                double p_105806_,
-                double p_105807_,
-                double p_105808_,
-                double p_105809_,
-                double p_105810_,
-                double p_105811_
-        ) {
-            VenomBubbleParticle bubbleparticle = new VenomBubbleParticle(p_105805_, p_105806_, p_105807_, p_105808_, p_105809_, p_105810_, p_105811_);
-            bubbleparticle.pickSprite(this.sprite);
-            return bubbleparticle;
+        @Override
+        public Particle createParticle(SimpleParticleType p_446632_, ClientLevel p_107095_, double x, double y, double z, double motionX, double motionY, double motionZ, RandomSource random) {
+            return new VenomBubbleParticle(p_107095_, x, y, z, motionX, motionY, motionZ, this.sprite.get(random));
         }
     }
 }
