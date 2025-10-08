@@ -24,21 +24,6 @@ public class ClientUtils {
 
     }
 
-
-    public static void renderItemAurora(PoseStack p_360423_, MultiBufferSource p_360415_, int p_361265_, int p_364771_, int[] p_386517_, List<BakedQuad> p_404702_, RenderType p_388877_) {
-        VertexConsumer vertexconsumer = FrostRenderType.getAuroraBuffer(p_360415_, p_388877_, true);
-
-
-        renderQuadList(p_360423_, vertexconsumer, p_404702_, p_386517_, p_361265_, p_364771_);
-    }
-
-    public static void renderItemDark(PoseStack p_360423_, MultiBufferSource p_360415_, int p_361265_, int p_364771_, int[] p_386517_, List<BakedQuad> p_404702_, RenderType p_388877_) {
-        VertexConsumer vertexconsumer = FrostRenderType.getDark(p_360415_, p_388877_);
-
-
-        renderQuadList(p_360423_, vertexconsumer, p_404702_, p_386517_, p_361265_, p_364771_);
-    }
-
     
     private static int getLayerColorSafe(int[] p_387884_, int p_388524_) {
         return p_388524_ >= p_387884_.length ? -1 : p_387884_[p_388524_];
