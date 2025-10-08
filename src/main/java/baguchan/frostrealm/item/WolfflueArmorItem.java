@@ -16,19 +16,11 @@ import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.Equippable;
 
 public class WolfflueArmorItem extends Item {
-    private final ResourceLocation textureLocation;
 
     public WolfflueArmorItem(ArmorMaterial armorMaterial, Item.Properties p_316341_) {
         super(p_316341_.durability(ArmorType.BODY.getDurability(armorMaterial.durability())).attributes(armorMaterial.createAttributes(ArmorType.BODY)).repairable(armorMaterial.repairIngredient()).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.BODY).setEquipSound(armorMaterial.equipSound()).setAsset(armorMaterial.assetId()).setAllowedEntities(HolderSet.direct(FrostEntities.WOLFFLUE))     .setCanBeSheared(true)
                 .setShearingSound(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.ARMOR_UNEQUIP_WOLF))
                 .build()).component(DataComponents.BREAK_SOUND, SoundEvents.WOLF_ARMOR_BREAK).stacksTo(1));
-        ResourceLocation resourcelocation = armorMaterial.assetId().location().withPath(p_323717_ -> "textures/entity/wolfflue/armor/" + p_323717_);
-        this.textureLocation = resourcelocation.withSuffix(".png");
-
-    }
-
-    public ResourceLocation getTexture() {
-        return this.textureLocation;
     }
 
     @Override

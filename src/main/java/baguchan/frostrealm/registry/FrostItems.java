@@ -88,11 +88,11 @@ public class FrostItems {
     public static final DeferredItem<YetiFurArmorItem> FROST_BOAR_FUR_BOOTS = ITEMS.registerItem("frost_boar_fur_boots", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, ArmorType.BOOTS, (properties.durability(ArmorType.BOOTS.getDurability(20)))));
 
 
-    public static final DeferredItem<Item> ASTRIUM_HELMET = ITEMS.registerItem("astrium_helmet", (properties) -> new Item((properties.humanoidArmor(FrostArmorMaterials.ASTRIUM, ArmorType.HELMET))));
-    public static final DeferredItem<Item> ASTRIUM_CHESTPLATE = ITEMS.registerItem("astrium_chestplate", (properties) -> new Item((properties.humanoidArmor(FrostArmorMaterials.ASTRIUM, ArmorType.CHESTPLATE))));
-    public static final DeferredItem<Item> ASTRIUM_LEGGINGS = ITEMS.registerItem("astrium_leggings", (properties) -> new Item(properties.humanoidArmor(FrostArmorMaterials.ASTRIUM, ArmorType.LEGGINGS)));
-    public static final DeferredItem<Item> ASTRIUM_BOOTS = ITEMS.registerItem("astrium_boots", (properties) -> new Item(properties.humanoidArmor(FrostArmorMaterials.ASTRIUM, ArmorType.BOOTS)));
-    public static final DeferredItem<Item> WOLFFLUE_ASTRIUM_ARMOR = ITEMS.registerItem("wolfflue_astrium_armor", (properties) -> new WolfflueArmorItem(FrostArmorMaterials.ASTRIUM, (properties.durability(ArmorType.BODY.getDurability(22)))));
+    public static final DeferredItem<Item> ASTRIUM_HELMET = ITEMS.registerItem("astrium_helmet", (properties) -> new Item((AstriumArmorItem.astriumArmor(properties, FrostArmorMaterials.ASTRIUM, ArmorType.HELMET))));
+    public static final DeferredItem<Item> ASTRIUM_CHESTPLATE = ITEMS.registerItem("astrium_chestplate", (properties) -> new Item((AstriumArmorItem.astriumArmor(properties, FrostArmorMaterials.ASTRIUM, ArmorType.CHESTPLATE))));
+    public static final DeferredItem<Item> ASTRIUM_LEGGINGS = ITEMS.registerItem("astrium_leggings", (properties) -> new Item(AstriumArmorItem.astriumArmor(properties, FrostArmorMaterials.ASTRIUM, ArmorType.LEGGINGS)));
+    public static final DeferredItem<Item> ASTRIUM_BOOTS = ITEMS.registerItem("astrium_boots", (properties) -> new Item(AstriumArmorItem.astriumArmor(properties, FrostArmorMaterials.ASTRIUM, ArmorType.BOOTS)));
+    public static final DeferredItem<Item> WOLFFLUE_ASTRIUM_ARMOR = ITEMS.registerItem("wolfflue_astrium_armor", (properties) -> new AstriumWolfflueArmorItem(FrostArmorMaterials.ASTRIUM, (properties.durability(ArmorType.BODY.getDurability(22)))));
     public static final DeferredItem<Item> WOLFFLUE_FROST_BOAR_ARMOR = ITEMS.registerItem("wolfflue_frost_boar_armor", (properties) -> new WolfflueArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, (properties.durability(ArmorType.BODY.getDurability(20)))));
     public static final DeferredItem<Item> HOT_SPRING_BUCKET = ITEMS.registerItem("hot_spring_bucket", (properties) -> new BucketItem(FrostFluids.HOT_SPRING.get(), (properties)));
 
