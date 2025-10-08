@@ -40,7 +40,7 @@ public class AstriumArmorItem extends Item {
         });
         ResourceLocation resourcelocation = ResourceLocation.withDefaultNamespace("armor." + p_371239_.getName());
 
-        if(p_371239_.getSlot() == EquipmentSlot.FEET) {
+        if(p_371239_.getSlot() == EquipmentSlot.FEET || p_371239_.getSlot() == EquipmentSlot.BODY) {
             itemattributemodifiers$builder.add(Attributes.SAFE_FALL_DISTANCE, new AttributeModifier(resourcelocation, 2.0F, AttributeModifier.Operation.ADD_VALUE), equipmentslotgroup);
         }
         itemattributemodifiers$builder.add(Attributes.BURNING_TIME, new AttributeModifier(resourcelocation, -0.1F, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), equipmentslotgroup);
