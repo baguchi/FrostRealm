@@ -7,6 +7,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.Equippable;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -94,6 +95,7 @@ public class FrostItems {
     public static final DeferredItem<Item> ASTRIUM_BOOTS = ITEMS.registerItem("astrium_boots", (properties) -> new Item(AstriumArmorItem.astriumArmor(properties, FrostArmorMaterials.ASTRIUM, ArmorType.BOOTS)));
     public static final DeferredItem<Item> WOLFFLUE_ASTRIUM_ARMOR = ITEMS.registerItem("wolfflue_astrium_armor", (properties) -> new AstriumWolfflueArmorItem(FrostArmorMaterials.ASTRIUM, (properties.durability(ArmorType.BODY.getDurability(22)))));
     public static final DeferredItem<Item> WOLFFLUE_FROST_BOAR_ARMOR = ITEMS.registerItem("wolfflue_frost_boar_armor", (properties) -> new WolfflueArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, (properties.durability(ArmorType.BODY.getDurability(20)))));
+    public static final DeferredItem<Item> WOLFFLUE_SADDLE = ITEMS.registerItem("wolfflue_saddle", (properties) -> new Item((properties.stacksTo(1).component(DataComponents.EQUIPPABLE, FrostEquippable.saddle()))));
     public static final DeferredItem<Item> HOT_SPRING_BUCKET = ITEMS.registerItem("hot_spring_bucket", (properties) -> new BucketItem(FrostFluids.HOT_SPRING.get(), (properties)));
 
 
@@ -115,4 +117,6 @@ public class FrostItems {
     public static final DeferredItem<Item> ROOT_DEER_SPAWNEGG = ITEMS.registerItem("root_deer_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.ROOT_DEER.get())));
     public static final DeferredItem<Item> SILK_MOON_SPAWNEGG = ITEMS.registerItem("silk_moon_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.SILK_MOON.get())));
     public static final DeferredItem<Item> SEEKER_SPAWNEGG = ITEMS.registerItem("seeker_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.SEEKER.get())));
+
+
 }

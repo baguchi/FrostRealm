@@ -651,7 +651,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
 
                     if (this.isEquippableInSlot(itemstack, EquipmentSlot.SADDLE) && this.isOwnedBy(p_30412_) && !this.isBaby()) {
                         return itemstack.interactLivingEntity(p_30412_, this, p_30413_);
-                    } else if (itemstack.getItem() instanceof WolfflueArmorItem wolfflueArmorItem && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
+                    } else if (this.isEquippableInSlot(itemstack, EquipmentSlot.BODY) && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
                         this.setBodyArmorItem(itemstack.copyWithCount(1));
                         this.setGuaranteedDrop(EquipmentSlot.BODY);
                         itemstack.consume(1, p_30412_);

@@ -89,9 +89,9 @@ public class FrostPortalBlock extends Block implements Portal {
 	}
 
 
-	@Override
-	protected void entityInside(BlockState p_60495_, Level p_60496_, BlockPos p_60497_, Entity p_60498_, InsideBlockEffectApplier p_405359_) {
-		if (p_60498_.canUsePortal(false)) {
+    @Override
+    protected void entityInside(BlockState p_60495_, Level p_60496_, BlockPos p_60497_, Entity p_60498_, InsideBlockEffectApplier p_405359_, boolean p_451772_) {
+        if (p_60498_.canUsePortal(false)) {
 			p_60498_.setAsInsidePortal(this, p_60497_);
 			p_60498_.getData(FrostAttachs.FROST_LIVING.get()).setInPortal(true);
 		}

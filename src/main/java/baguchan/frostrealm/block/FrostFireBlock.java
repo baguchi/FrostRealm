@@ -52,9 +52,9 @@ public class FrostFireBlock extends BaseFireBlock {
     }
 
     @Override
-    protected void entityInside(BlockState p_49260_, Level p_49261_, BlockPos p_49262_, Entity p_49263_, InsideBlockEffectApplier p_404795_) {
-        if (p_49261_ instanceof ServerLevel serverLevel) {
-            p_49263_.setTicksFrozen(Mth.clamp(p_49263_.getTicksFrozen() + 5, 0, 600));
+    protected void entityInside(BlockState p_60495_, Level p_60496_, BlockPos p_60497_, Entity p_60498_, InsideBlockEffectApplier p_405359_, boolean p_451772_) {
+        if (p_60496_ instanceof ServerLevel serverLevel) {
+            p_60498_.setTicksFrozen(Mth.clamp(p_60498_.getTicksFrozen() + 5, 0, 600));
         }
     }
 

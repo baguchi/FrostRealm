@@ -64,13 +64,13 @@ public class BearBerryBushBlock extends BushBlock implements BonemealableBlock {
 	}
 
     @Override
-    protected void entityInside(BlockState p_60495_, Level p_60496_, BlockPos p_60497_, Entity p_60498_, InsideBlockEffectApplier p_405359_) {
+    protected void entityInside(BlockState p_60495_, Level p_60496_, BlockPos p_60497_, Entity p_60498_, InsideBlockEffectApplier p_405359_, boolean p_451772_) {
         if (p_60498_ instanceof LivingEntity && p_60498_.getType() != EntityType.FOX && p_60498_.getType() != EntityType.BEE) {
             p_60498_.makeStuckInBlock(p_60495_, new Vec3(0.8F, 0.75D, 0.8F));
         }
     }
 
-	@Override
+    @Override
 	protected InteractionResult useItemOn(ItemStack p_316304_, BlockState p_57275_, Level p_57276_, BlockPos p_57277_, Player p_57278_, InteractionHand p_57279_, BlockHitResult p_57280_) {
 		int i = p_57275_.getValue(AGE);
 		boolean flag = i == 3;

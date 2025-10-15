@@ -33,9 +33,9 @@ public class FrostCampfireBlock extends CampfireBlock implements SimpleWaterlogg
 	}
 
 
-	@Override
-	protected void entityInside(BlockState p_60495_, Level p_60496_, BlockPos p_60497_, Entity p_60498_, InsideBlockEffectApplier p_405359_) {
-		if (p_60495_.getValue(LIT) && p_60498_ instanceof LivingEntity) {
+    @Override
+    protected void entityInside(BlockState p_60495_, Level p_60496_, BlockPos p_60497_, Entity p_60498_, InsideBlockEffectApplier p_405359_, boolean p_451772_) {
+        if (p_60495_.getValue(LIT) && p_60498_ instanceof LivingEntity) {
 			p_60498_.hurt(p_60498_.damageSources().freeze(), 2.0F);
 		}
 	}

@@ -13,11 +13,16 @@ import com.mojang.blaze3d.textures.GpuTextureView;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Axis;
 import net.minecraft.client.Camera;
+import net.minecraft.client.CloudStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.state.LevelRenderState;
+import net.minecraft.client.renderer.state.SkyRenderState;
+import net.minecraft.client.renderer.state.WeatherRenderState;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.core.BlockPos;
@@ -78,33 +83,30 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
         return false;
     }
 
+
     @Override
-    public boolean renderClouds(ClientLevel level, int ticks, float partialTick, double camX, double camY, double camZ, Matrix4f modelViewMatrix) {
+    public boolean renderClouds(LevelRenderState levelRenderState, Vec3 camPos, CloudStatus cloudStatus, int cloudColor, float cloudHeight, Matrix4f modelViewMatrix) {
         return true;
     }
 
-
     @Override
-    public boolean renderSky(ClientLevel level, int ticks, float partialTick, Matrix4f modelViewMatrix, Camera camera, Runnable setupFog) {
-        setupFog.run();
-        float f = level.getSunAngle(partialTick);
-        float f1 = level.getTimeOfDay(partialTick);
-        float f2 = 1.0F - level.getRainLevel(partialTick);
-        float f3 = level.getStarBrightness(partialTick) * f2;
+    public boolean renderSky(LevelRenderState levelRenderState, SkyRenderState skyRenderState, Matrix4f modelViewMatrix, Runnable setupFog) {
+       setupFog.run();
+        /*float f2 = 1.0F - levelRenderState.getRainLevel(partialTick)
         PoseStack poseStack = new PoseStack();
         poseStack.pushPose();
         poseStack.pushPose();
         //poseStack.mulPose(modelViewMatrix);
 
-        renderAurora(poseStack, FrostWeatherManager.getNormalWeatherLevel(partialTick));
+        renderAurora(poseStack, FrostWeatherManager.getNormalWeatherLevel(levelRenderState.skyRenderState.));
         float f5 = FrostWeatherManager.getWeatherLevel(1.0F);
         poseStack.popPose();
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
-        poseStack.mulPose(Axis.XP.rotationDegrees(f1 * 360.0F));
+        poseStack.mulPose(Axis.XP.rotationDegrees(levelRenderState.skyRenderState.sunAngle * 360.0F));
         renderOrb(FrostWeatherManager.getNormalWeatherLevel(partialTick), poseStack);
         poseStack.popPose();
-        poseStack.popPose();
+        poseStack.popPose();*/
         return true;
     }
 
@@ -212,7 +214,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
 
     @Override
-    public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, double camX, double camY, double camZ) {
+    public boolean renderSnowAndRain(LevelRenderState levelRenderState, WeatherRenderState weatherRenderState, MultiBufferSource bufferSource, Vec3 camPos) {
         return true;
     }
 

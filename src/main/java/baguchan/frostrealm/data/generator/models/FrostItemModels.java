@@ -95,6 +95,7 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.ASTRIUM_BOOTS.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.WOLFFLUE_ASTRIUM_ARMOR.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.WOLFFLUE_FROST_BOAR_ARMOR.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.WOLFFLUE_SADDLE.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.HOT_SPRING_BUCKET.asItem(), ModelTemplates.FLAT_ITEM);
 
         this.generateFlatItem(FrostItems.MARMOT_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);

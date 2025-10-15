@@ -36,7 +36,7 @@
     },
     "trunk_placer": {
       "type": "frostrealm:drip_wood_trunk",
-      "base_height": 8,
+      "base_height": 32,
       "height_rand_a": 8,
       "height_rand_b": 0
     },

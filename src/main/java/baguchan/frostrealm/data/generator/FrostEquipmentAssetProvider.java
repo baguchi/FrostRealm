@@ -6,7 +6,9 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.equipment.EquipmentAsset;
+import net.minecraft.world.item.equipment.EquipmentAssets;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +27,13 @@ public class FrostEquipmentAssetProvider implements DataProvider {
         p_387865_.accept(FrostEquipmentAssets.ASTRIUM, onlyHumanoidAndWolfflue("astrium"));
         p_387865_.accept(FrostEquipmentAssets.FROST_BOAR_FUR, onlyHumanoidAndWolfflue("frost_boar_fur"));
         p_387865_.accept(FrostEquipmentAssets.YETI_FUR, onlyHumanoid("yeti_fur"));
+        EquipmentClientInfo.Layer equipmentclientinfo$layer = new EquipmentClientInfo.Layer(ResourceLocation.withDefaultNamespace("saddle"));
+        p_387865_.accept(
+                FrostEquipmentAssets.WOLFFLUE_SADDLE,
+                EquipmentClientInfo.builder()
+                        .addLayers(EquipmentClientInfo.LayerType.valueOf("FROSTREALM_WOLFFLUE_SADDLE"), equipmentclientinfo$layer)
+                        .build()
+        );
     }
 
 
@@ -33,7 +42,7 @@ public class FrostEquipmentAssetProvider implements DataProvider {
     }
 
     private static EquipmentClientInfo onlyHumanoidAndWolfflue(String p_371738_) {
-        return EquipmentClientInfo.builder().addHumanoidLayers(FrostRealm.prefix(p_371738_)).addLayers(EquipmentClientInfo.LayerType.valueOf("FROSTREALM_WOLFFLUE"), EquipmentClientInfo.Layer.onlyIfDyed(FrostRealm.prefix(p_371738_), false)).build();
+        return EquipmentClientInfo.builder().addHumanoidLayers(FrostRealm.prefix(p_371738_)).addLayers(EquipmentClientInfo.LayerType.valueOf("FROSTREALM_WOLFFLUE"), EquipmentClientInfo.Layer.leatherDyeable(FrostRealm.prefix(p_371738_), false)).build();
     }
 
     @Override

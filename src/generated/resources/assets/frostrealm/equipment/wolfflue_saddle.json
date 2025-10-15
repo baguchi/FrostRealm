@@ -1,0 +1,9 @@
+{
+  "layers": {
+    "frostrealm/wolfflue_saddle": [
+      {
+        "texture": "minecraft:saddle"
+      }
+    ]
+  }
+}

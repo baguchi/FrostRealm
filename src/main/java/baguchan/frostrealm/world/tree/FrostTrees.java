@@ -29,7 +29,7 @@ public class FrostTrees {
     public static final TreeGrower DRIP = new TreeGrower(
             "drip",
             0.15F,
-            Optional.empty(),
+            Optional.of(FrostTreeFeatures.DRIP_WOOD_TREE_BIG),
             Optional.empty(),
             Optional.of(FrostTreeFeatures.DRIP_WOOD_TREE),
             Optional.empty(),

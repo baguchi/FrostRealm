@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "frostrealm:frost_boar_fur",
+    "I": "frostrealm:astrium_ingot"
+  },
+  "pattern": [
+    " A ",
+    "AIA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frostrealm:wolfflue_saddle"
+  }
+}
