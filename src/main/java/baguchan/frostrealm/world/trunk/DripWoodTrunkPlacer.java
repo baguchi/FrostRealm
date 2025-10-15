@@ -63,7 +63,7 @@ public class DripWoodTrunkPlacer extends TrunkPlacer {
 
         int i1 = p_226127_.getY() + k;
         int l = Math.min(1, Mth.floor(1.382 + Math.pow(1.0 * j / 13.0, 2.0)));
-        int j1 = j - p_226126_ + 5;
+        int j1 = j - 5;
         BlockPos blockpos = p_226127_.below();
         setDirtAt(p_226123_, p_226124_, p_226125_, blockpos, p_226128_);
         setDirtAt(p_226123_, p_226124_, p_226125_, blockpos.east(), p_226128_);

@@ -31,8 +31,19 @@ public class WolfflueCollarLayer<T extends WolfflueRenderState> extends RenderLa
     ) {
         if (renderState.collarColor != null && !renderState.isInvisible) {
             int i = renderState.collarColor.getTextureDiffuseColor();
-            submitNodeCollector.submitModel(this.getParentModel(), renderState, poseStack, RenderType.entityCutoutNoCull(WOLF_COLLAR_LOCATION), i, OverlayTexture.NO_OVERLAY, -1, null, renderState.outlineColor, null);
-
+            submitNodeCollector.order(1)
+                    .submitModel(
+                            this.getParentModel(),
+                            renderState,
+                            poseStack,
+                            RenderType.entityCutoutNoCull(WOLF_COLLAR_LOCATION),
+                            p_117722_,
+                            OverlayTexture.NO_OVERLAY,
+                            i,
+                            null,
+                            renderState.outlineColor,
+                            null
+                    );
         }
     }
 }

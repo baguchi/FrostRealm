@@ -27,7 +27,7 @@ public class FrostEquipmentAssetProvider implements DataProvider {
         p_387865_.accept(FrostEquipmentAssets.ASTRIUM, onlyHumanoidAndWolfflue("astrium"));
         p_387865_.accept(FrostEquipmentAssets.FROST_BOAR_FUR, onlyHumanoidAndWolfflue("frost_boar_fur"));
         p_387865_.accept(FrostEquipmentAssets.YETI_FUR, onlyHumanoid("yeti_fur"));
-        EquipmentClientInfo.Layer equipmentclientinfo$layer = new EquipmentClientInfo.Layer(ResourceLocation.withDefaultNamespace("saddle"));
+        EquipmentClientInfo.Layer equipmentclientinfo$layer = new EquipmentClientInfo.Layer(FrostRealm.prefix("saddle"));
         p_387865_.accept(
                 FrostEquipmentAssets.WOLFFLUE_SADDLE,
                 EquipmentClientInfo.builder()
