@@ -47,10 +47,10 @@ public class ClientEvents {
             boolean flag = humanoidRenderState.mainArm == HumanoidArm.RIGHT;
 
             if (event.getEntityRenderState().getRenderData(ClientRegistrar.HOLD_SPEAR_KEY) != null) {
-                if (event.getEntityRenderState().getRenderData(ClientRegistrar.HOLD_SPEAR_KEY)) {
+                if (event.getEntityRenderState().getRenderDataOrDefault(ClientRegistrar.HOLD_SPEAR_KEY, false)) {
                     event.getModel().root().getChild("right_arm").resetPose();
                     event.getModel().root().getChild("left_arm").resetPose();
-                    if (!event.getBaguAnimationController().getAnimationState(FrostAnimations.SPEAR_ATTACK).isStarted()) {
+                    if (event.getBaguAnimationController() != null && !event.getBaguAnimationController().getAnimationState(FrostAnimations.SPEAR_ATTACK).isStarted()) {
                         if (flag) {
                             SpearAttackAnimations.spear_attack_right.bake(event.getModel().root()).applyStatic();
                         } else {
