@@ -29,6 +29,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
+import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
@@ -53,12 +54,15 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     private AbstractTexture orbTexture;
     @Nullable
     private AbstractTexture auroraTexture;
+    public static ContextKey<Float> NORMAL_WEATHER_LEVEL_KEY = new ContextKey<>(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "normal_weather_level"));
+
 
     public FrostRealmRenderInfo(SkyType fogType, boolean brightenLightMap, boolean entityLightingBottomsLit) {
         super(fogType, brightenLightMap, entityLightingBottomsLit);
         soundsHandler = new FrostAmbientSoundsHandler(Minecraft.getInstance().getSoundManager());
         this.auroraBuffer = this.buildAurora();
         this.orbBuffer = this.buildOrbQuad();
+        this.initTextures();
     }
 
     protected void initTextures() {
@@ -92,21 +96,20 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     @Override
     public boolean renderSky(LevelRenderState levelRenderState, SkyRenderState skyRenderState, Matrix4f modelViewMatrix, Runnable setupFog) {
        setupFog.run();
-        /*float f2 = 1.0F - levelRenderState.getRainLevel(partialTick)
         PoseStack poseStack = new PoseStack();
         poseStack.pushPose();
         poseStack.pushPose();
         //poseStack.mulPose(modelViewMatrix);
 
-        renderAurora(poseStack, FrostWeatherManager.getNormalWeatherLevel(levelRenderState.skyRenderState.));
-        float f5 = FrostWeatherManager.getWeatherLevel(1.0F);
+        renderAurora(poseStack, levelRenderState.getRenderDataOrDefault(FrostRealmRenderInfo.NORMAL_WEATHER_LEVEL_KEY, 0.0F));
         poseStack.popPose();
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
-        poseStack.mulPose(Axis.XP.rotationDegrees(levelRenderState.skyRenderState.sunAngle * 360.0F));
-        renderOrb(FrostWeatherManager.getNormalWeatherLevel(partialTick), poseStack);
+        float f4 = Mth.sin(levelRenderState.skyRenderState.sunAngle) < 0.0F ? 180.0F : 0.0F;
+        poseStack.mulPose(Axis.ZP.rotationDegrees(f4 + 90.0F));
+        renderOrb(levelRenderState.getRenderDataOrDefault(FrostRealmRenderInfo.NORMAL_WEATHER_LEVEL_KEY, 0.0F), poseStack);
         poseStack.popPose();
-        poseStack.popPose();*/
+        poseStack.popPose();
         return true;
     }
 
@@ -148,6 +151,8 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
                 Matrix4fStack matrix4fstack = RenderSystem.getModelViewStack();
                 matrix4fstack.pushMatrix();
                 matrix4fstack.mul(p_362809_.last().pose());
+                matrix4fstack.translate(0.0F, 100.0F, 0.0F);
+                matrix4fstack.scale(5.0F, 1.0F, 5.0F);
                 GpuBufferSlice gpubufferslice = RenderSystem.getDynamicUniforms()
                         .writeTransform(matrix4fstack, new Vector4f(1F, 1F, 1F, weatherLevel), new Vector3f(), new Matrix4f(), 0.0F);
                 GpuTextureView gputextureview = Minecraft.getInstance().getMainRenderTarget().getColorTextureView();
@@ -163,8 +168,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
                     renderpass.bindSampler("Sampler0", this.auroraTexture.getTextureView());
                     renderpass.setVertexBuffer(0, this.auroraBuffer);
                     renderpass.setIndexBuffer(gpubuffer, this.quadIndices.type());
-
-                    renderpass.draw(0, 18);
+                    renderpass.drawIndexed(0, 0, 6, 1);
                 }
 
                 matrix4fstack.popMatrix();
@@ -205,7 +209,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
             bufferbuilder.addVertex(matrix4f, -f12, (float) f13, f12).setUv(0.0F, 1.0F);
 
             try (MeshData meshdata = bufferbuilder.buildOrThrow()) {
-                gpubuffer = RenderSystem.getDevice().createBuffer(() -> "Sun quad", 40, meshdata.vertexBuffer());
+                gpubuffer = RenderSystem.getDevice().createBuffer(() -> "Aurora quad", 40, meshdata.vertexBuffer());
             }
         }
 

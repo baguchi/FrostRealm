@@ -2,6 +2,7 @@ package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.capability.FrostLivingCapability;
+import baguchan.frostrealm.capability.FrostWeatherManager;
 import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.*;
 import baguchan.frostrealm.client.overlay.FrostOverlay;
@@ -246,5 +247,9 @@ public class ClientRegistrar {
 		event.registerPipeline(FrostRenderPipelines.MYSTIC_NO_CULL);
 		event.registerPipeline(FrostRenderPipelines.MYSTIC_CULL);
 	}
+    @SubscribeEvent
+    public static void registerLevelRenderState(ExtractLevelRenderStateEvent event) {
+        event.getRenderState().setRenderData(FrostRealmRenderInfo.NORMAL_WEATHER_LEVEL_KEY, FrostWeatherManager.getNormalWeatherLevel(event.getDeltaTracker().getGameTimeDeltaPartialTick(false)));
+    }
 
 }
