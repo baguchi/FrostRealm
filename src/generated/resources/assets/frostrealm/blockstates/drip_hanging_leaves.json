@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "tip=false": {
+      "model": "frostrealm:block/drip_hanging_leaves"
+    },
+    "tip=true": {
+      "model": "frostrealm:block/drip_hanging_leaves_tip"
+    }
+  }
+}
