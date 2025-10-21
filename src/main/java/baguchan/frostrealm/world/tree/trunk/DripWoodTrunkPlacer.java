@@ -1,4 +1,4 @@
-package baguchan.frostrealm.world.trunk;
+package baguchan.frostrealm.world.tree.trunk;
 
 import baguchan.frostrealm.registry.FrostTrunkPlacerTypes;
 import com.google.common.collect.Lists;
@@ -10,22 +10,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.LevelSimulatedReader;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 public class DripWoodTrunkPlacer extends TrunkPlacer {
     private static final Codec<UniformInt> BRANCH_START_CODEC = UniformInt.CODEC.codec().validate((p_275181_) -> p_275181_.getMaxValue() - p_275181_.getMinValue() < 1 ? DataResult.error(() -> "Need at least 2 blocks variation for the branch starts to fit both branches") : DataResult.success(p_275181_));

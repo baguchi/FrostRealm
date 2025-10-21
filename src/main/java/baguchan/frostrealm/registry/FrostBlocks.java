@@ -143,6 +143,12 @@ public class FrostBlocks {
     public static final DeferredBlock<RotatedPillarBlock> DRIP_LOG = register("drip_log", (properties) -> new RotatedPillarBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(2.0F).sound(SoundType.NETHER_WOOD));
     //public static final DeferredBlock<RotatedPillarBlock> STRIPPED_DRIP_LOG = register("stripped_drip_log", (properties) -> new RotatedPillarBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(2.0F).sound(SoundType.NETHER_WOOD));
     public static final DeferredBlock<LeavesBlock> DRIP_LEAVES = register("drip_leaves", (properties) -> new UntintedParticleLeavesBlock(0.01F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, 0xB84727), properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(0.2F).noOcclusion().isSuffocating(FrostBlocks::never).isViewBlocking(FrostBlocks::never).sound(SoundType.GRASS));
+    public static final DeferredBlock<DripHangingMossBlock> DRIP_HANGING_LEAVES = register("drip_hanging_leaves", DripHangingMossBlock::new, () -> BlockBehaviour.Properties.of()
+            .ignitedByLava()
+            .mapColor(DyeColor.BROWN)
+            .noCollision()
+            .sound(SoundType.MOSS_CARPET)
+            .pushReaction(PushReaction.DESTROY));
     public static final DeferredBlock<Block> FROST_TORCH = registerTorchBlock("frost_torch", (properties) -> new FrostTorchBlock(properties), WALL_FROST_TORCH, BlockBehaviour.Properties.of().noCollision().instabreak().lightLevel(p_220871_ -> 14).sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY));
     public static final DeferredBlock<Block> DRIP_PLANKS = register("drip_planks", (properties) -> new Block(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(2.0F, 3.0F).sound(SoundType.NETHER_WOOD));
     public static final DeferredBlock<SlabBlock> DRIP_PLANKS_SLAB = register("drip_planks_slab", (properties) -> new SlabBlock(properties), () -> BlockBehaviour.Properties.of().mapColor(DyeColor.BROWN).strength(2.0F, 3.0F).noOcclusion().sound(SoundType.NETHER_WOOD));
@@ -353,6 +359,7 @@ public class FrostBlocks {
 
         fireblock.setFlammable(DRIP_SAPLING.get(), 60, 100);
         fireblock.setFlammable(DRIP_LEAVES.get(), 60, 100);
+        fireblock.setFlammable(DRIP_HANGING_LEAVES.get(), 60, 100);
         fireblock.setFlammable(DRIP_LOG.get(), 5, 5);
         //fireblock.setFlammable(STRIPPED_DRIP_LOG.get(), 5, 5);
         fireblock.setFlammable(DRIP_PLANKS.get(), 5, 20);

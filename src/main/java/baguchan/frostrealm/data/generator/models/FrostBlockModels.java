@@ -103,7 +103,7 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
                 .log(FrostBlocks.DRIP_LOG.get());
         createTrivialBlock(FrostBlocks.DRIP_LEAVES.get(), LEAVES_PROVIDER);
         createCrossBlockWithDefaultItem(FrostBlocks.DRIP_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
-
+        createHangingMoss(FrostBlocks.DRIP_HANGING_LEAVES.get());
 
         createCrossBlockWithDefaultItem(FrostBlocks.VIGOROSHROOM.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         createCrossBlockWithDefaultItem(FrostBlocks.ARCTIC_POPPY.get(), BlockModelGenerators.PlantType.NOT_TINTED);

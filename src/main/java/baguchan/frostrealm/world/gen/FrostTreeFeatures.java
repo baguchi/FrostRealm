@@ -2,7 +2,9 @@ package baguchan.frostrealm.world.gen;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBlocks;
-import baguchan.frostrealm.world.trunk.DripWoodTrunkPlacer;
+import baguchan.frostrealm.world.tree.decorator.DripHangingLeavesDecorator;
+import baguchan.frostrealm.world.tree.trunk.DripWoodTrunkPlacer;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlac
 import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.treedecorators.PaleMossDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
@@ -71,13 +74,13 @@ public class FrostTreeFeatures {
 	private static TreeConfiguration.TreeConfigurationBuilder createDripWoodBig() {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.DRIP_LOG.get()), new DripWoodTrunkPlacer(32, 8, 0), BlockStateProvider.simple(FrostBlocks.DRIP_LEAVES.get()), new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
-		)).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
+		)).decorators(ImmutableList.of(new DripHangingLeavesDecorator(0.15F, 0.4F, 0.8F))).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
 	}
 
     private static TreeConfiguration.TreeConfigurationBuilder createDripWood() {
         return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.DRIP_LOG.get()), new DripWoodTrunkPlacer(8, 8, 0), BlockStateProvider.simple(FrostBlocks.DRIP_LEAVES.get()), new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
                 new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
-        )).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
+        )).decorators(ImmutableList.of(new DripHangingLeavesDecorator(0.15F, 0.4F, 0.8F))).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
     }
 
 	private static TreeConfiguration.TreeConfigurationBuilder createFrostBite() {

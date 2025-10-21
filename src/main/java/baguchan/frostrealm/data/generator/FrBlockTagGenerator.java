@@ -58,7 +58,7 @@ public class FrBlockTagGenerator extends BlockTagsProvider {
                 .add(FrostBlocks.DRIP_DOOR.get()).add(FrostBlocks.DRIP_TRAPDOOR.get()).add(FrostBlocks.DRIP_PRESSURE_PLATE.get()).add(FrostBlocks.DRIP_BUTTON.get());
 
 
-        tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTROOT_SAPLING.get()).add(FrostBlocks.DRIP_LEAVES.get()).add(FrostBlocks.DRIP_SAPLING.get())
+        tag(BlockTags.MINEABLE_WITH_HOE).add(FrostBlocks.FROSTROOT_LEAVES.get()).add(FrostBlocks.FROSTROOT_SAPLING.get()).add(FrostBlocks.DRIP_LEAVES.get()).add(FrostBlocks.DRIP_HANGING_LEAVES.get()).add(FrostBlocks.DRIP_SAPLING.get())
                 .add(FrostBlocks.SILK_MOON_COCOON.get()).add(FrostBlocks.FROSTBITE_LEAVES.get()).add(FrostBlocks.FROSTBITE_SAPLING.get()).add(FrostBlocks.RYE_BLOCK.get());
 
         tag(BlockTags.NEEDS_STONE_TOOL)

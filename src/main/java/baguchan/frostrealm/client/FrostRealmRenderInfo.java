@@ -95,20 +95,19 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
     @Override
     public boolean renderSky(LevelRenderState levelRenderState, SkyRenderState skyRenderState, Matrix4f modelViewMatrix, Runnable setupFog) {
-       setupFog.run();
         PoseStack poseStack = new PoseStack();
-        poseStack.pushPose();
-        poseStack.pushPose();
-        //poseStack.mulPose(modelViewMatrix);
-
-        renderAurora(poseStack, levelRenderState.getRenderDataOrDefault(FrostRealmRenderInfo.NORMAL_WEATHER_LEVEL_KEY, 0.0F));
-        poseStack.popPose();
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
         float f4 = Mth.sin(levelRenderState.skyRenderState.sunAngle) < 0.0F ? 180.0F : 0.0F;
         poseStack.mulPose(Axis.ZP.rotationDegrees(f4 + 90.0F));
         renderOrb(levelRenderState.getRenderDataOrDefault(FrostRealmRenderInfo.NORMAL_WEATHER_LEVEL_KEY, 0.0F), poseStack);
         poseStack.popPose();
+        setupFog.run();
+
+        poseStack.pushPose();
+
+        renderAurora(poseStack, levelRenderState.getRenderDataOrDefault(FrostRealmRenderInfo.NORMAL_WEATHER_LEVEL_KEY, 0.0F));
+
         poseStack.popPose();
         return true;
     }
@@ -129,7 +128,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
             try (RenderPass renderpass = RenderSystem.getDevice()
                     .createCommandEncoder()
-                    .createRenderPass(() -> "Sky sun", gputextureview, OptionalInt.empty(), gputextureview1, OptionalDouble.empty())) {
+                    .createRenderPass(() -> "Sky Orb", gputextureview, OptionalInt.empty(), gputextureview1, OptionalDouble.empty())) {
                 renderpass.setPipeline(RenderPipelines.CELESTIAL);
                 RenderSystem.bindDefaultUniforms(renderpass);
                 renderpass.setUniform("DynamicTransforms", gpubufferslice);

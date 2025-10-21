@@ -1,7 +1,7 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.world.trunk.DripWoodTrunkPlacer;
+import baguchan.frostrealm.world.tree.trunk.DripWoodTrunkPlacer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 import net.neoforged.neoforge.registries.DeferredHolder;

@@ -21,6 +21,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HangingMossBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -47,6 +48,15 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
         this.registerSimpleTintedItemModel(p_388714_, ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(p_388714_), TextureMapping.layer0(getBlockTexture(p_388714_).withSuffix("_top")), this.modelOutput), new GrassColorSource());
     }
 
+    @Override
+    public void createHangingMoss(Block p_386702_) {
+        this.registerSimpleFlatItemModel(p_386702_);
+        this.blockStateOutput.accept(MultiVariantGenerator.dispatch(p_386702_).with(PropertyDispatch.initial(HangingMossBlock.TIP).generate(p_408963_ -> {
+            String s = p_408963_ ? "_tip" : "";
+            TextureMapping texturemapping = TextureMapping.cross(TextureMapping.getBlockTexture(p_386702_, s));
+            return plainVariant(BlockModelGenerators.PlantType.NOT_TINTED.getCross().extend().renderType("cutout").build().createWithSuffix(p_386702_, s, texturemapping, this.modelOutput));
+        })));
+    }
 
     public void createTintedDoublePlant(Block p_388276_) {
         ResourceLocation resourcelocation = this.createFlatItemModelWithBlockTexture(p_388276_.asItem(), p_388276_, "_top");
