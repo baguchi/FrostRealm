@@ -70,7 +70,7 @@
         "type": "frostrealm:snowpile_quail",
         "maxCount": 6,
         "minCount": 4,
-        "weight": 10
+        "weight": 12
       },
       {
         "type": "frostrealm:wolfflue",

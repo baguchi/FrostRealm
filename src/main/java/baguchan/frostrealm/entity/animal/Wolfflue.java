@@ -28,6 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -61,6 +62,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
@@ -120,6 +122,13 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         this.setTame(false, false);
         this.setPathfindingMalus(PathType.POWDER_SNOW, -1.0F);
         this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
+    }
+
+    public static boolean checkWolfSpawnRules(
+            EntityType<? extends Animal> p_218105_, LevelAccessor p_218106_, EntitySpawnReason p_360742_, BlockPos p_218108_, RandomSource p_218109_
+    ) {
+        boolean flag = EntitySpawnReason.ignoresLightRequirements(p_360742_) || isBrightEnoughToSpawn(p_218106_, p_218108_);
+        return p_218106_.getBlockState(p_218108_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE) && flag;
     }
 
     private Holder<WolfSoundVariant> getSoundVariant() {
@@ -877,10 +886,9 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         return new Vec3(0.0, 0.6F * this.getEyeHeight(), this.getBbWidth() * 0.4F);
     }
 
-    public static boolean checkWolfSpawnRules(
-            EntityType<Wolfflue> p_218292_, LevelAccessor p_218293_, EntitySpawnReason p_218294_, BlockPos p_218295_, RandomSource p_218296_
-    ) {
-        return p_218293_.getBlockState(p_218295_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE) && isBrightEnoughToSpawn(p_218293_, p_218295_);
+    @Override
+    public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
+        return p_27574_.getBlockState(p_27573_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE) ? 10.0F : p_27574_.getPathfindingCostFromLightLevels(p_27573_) - 0.5F;
     }
 
     @Nullable

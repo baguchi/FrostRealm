@@ -96,7 +96,7 @@ public class FrostPlacements {
 		PlacementUtils.register(context, FROSTBITE_TREES, configuredFeature.getOrThrow(FrostConfiguredFeatures.FROSTBITE_TREE), treePlacement(PlacementUtils.countExtra(8, 0.1F, 1), FrostBlocks.FROSTBITE_SAPLING.get()));
 
         PlacementUtils.register(context, DRIP_TREES, configuredFeature.getOrThrow(FrostTreeFeatures.DRIP_WOOD_TREE), treePlacement(PlacementUtils.countExtra(4, 0.1F, 1), FrostBlocks.DRIP_SAPLING.get()));
-        PlacementUtils.register(context, DRIP_TREES_BIG, configuredFeature.getOrThrow(FrostTreeFeatures.DRIP_WOOD_TREE_BIG), treePlacement(PlacementUtils.countExtra(10, 0.1F, 1), FrostBlocks.DRIP_SAPLING.get()));
+        PlacementUtils.register(context, DRIP_TREES_BIG, configuredFeature.getOrThrow(FrostTreeFeatures.DRIP_WOOD_TREE_BIG), treePlacement(PlacementUtils.countExtra(7, 0.1F, 1), FrostBlocks.DRIP_SAPLING.get()));
 
 		PlacementUtils.register(context, PATCH_TUNDRA_GRASS, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_TUNDRA_GRASS), NoiseThresholdCountPlacement.of(-0.8D, 5, 10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
 		PlacementUtils.register(context, PATCH_DRIP_GRASS, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_TUNDRA_GRASS), NoiseThresholdCountPlacement.of(-0.8D, 3, 5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());

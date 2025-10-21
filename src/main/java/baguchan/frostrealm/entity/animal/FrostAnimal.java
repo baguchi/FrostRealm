@@ -15,8 +15,11 @@ public abstract class FrostAnimal extends Animal {
         super(p_27557_, p_27558_);
     }
 
-    public static boolean checkFrostAnimalSpawnRules(EntityType<? extends Animal> p_27578_, LevelAccessor p_27579_, EntitySpawnReason p_27580_, BlockPos p_27581_, RandomSource p_27582_) {
-        return (p_27579_.getBlockState(p_27581_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE)) && p_27579_.getRawBrightness(p_27581_, 0) > 8;
+    public static boolean checkFrostAnimalSpawnRules(
+            EntityType<? extends Animal> p_218105_, LevelAccessor p_218106_, EntitySpawnReason p_360742_, BlockPos p_218108_, RandomSource p_218109_
+    ) {
+        boolean flag = EntitySpawnReason.ignoresLightRequirements(p_360742_) || isBrightEnoughToSpawn(p_218106_, p_218108_);
+        return p_218106_.getBlockState(p_218108_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE) && flag;
     }
 
     @Override
