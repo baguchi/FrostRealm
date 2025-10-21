@@ -101,7 +101,10 @@ public class FrBlockTagGenerator extends BlockTagsProvider {
 
         tag(FrostTags.Blocks.ANIMAL_SPAWNABLE).add(FrostBlocks.FROZEN_GRASS_BLOCK.get(), FrostBlocks.FRIGID_GRASS_BLOCK.get());
         tag(BlockTags.DIRT).add(FrostBlocks.FROZEN_DIRT.get(), FrostBlocks.FROZEN_GRASS_BLOCK.get()).add(FrostBlocks.FRIGID_GRASS_BLOCK.get());
-
+        this.tag(BlockTags.CLIMBABLE)
+                .add(
+                        FrostBlocks.DRIP_HANGING_LEAVES.get()
+                );
         tag(Tags.Blocks.ORES).add(FrostBlocks.ASTRIUM_ORE.get(), FrostBlocks.STARDUST_CRYSTAL_ORE.get(), FrostBlocks.GLIMMERROCK_ORE.get(), FrostBlocks.FROST_CRYSTAL_ORE.get())
                 .add(FrostBlocks.ASTRIUM_SLATE_ORE.get(), FrostBlocks.GLIMMERROCK_SLATE_ORE.get(), FrostBlocks.FROST_CRYSTAL_SLATE_ORE.get());
         tag(FrostTags.Blocks.NON_FREEZE_CROP).add(FrostBlocks.SUGARBEET.get(), FrostBlocks.RYE.get());
