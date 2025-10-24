@@ -7,7 +7,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.item.equipment.ArmorType;
-import net.minecraft.world.item.equipment.Equippable;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -75,7 +74,7 @@ public class FrostItems {
     public static final DeferredItem<Item> GLACINIUM_SHOVEL = ITEMS.registerItem("glacinium_shovel", (properties) -> new ShovelItem(FrostToolMaterials.GLACINIUM, 1.5F, -3.0F, properties));
     public static final DeferredItem<Item> GLACINIUM_HOE = ITEMS.registerItem("glacinium_hoe", (properties) -> new HoeItem(FrostToolMaterials.GLACINIUM, -2, -1.0F, properties));
     public static final DeferredItem<Item> GLACINIUM_SICKLE = ITEMS.registerItem("glacinium_sickle", (properties) -> new SickleItem(FrostToolMaterials.GLACINIUM, 3.0F, -3.3F, properties));
-    public static final DeferredItem<Item> GLACINIUM_JAVELIN = ITEMS.registerItem("glacinium_javelin", (properties) -> new TierSpearItem(FrostToolMaterials.GLACINIUM, 3.0F, -2.7F, properties));
+    public static final DeferredItem<Item> GLACINIUM_SPEAR = ITEMS.registerItem("glacinium_spear", (properties) -> new TierSpearItem(FrostToolMaterials.GLACINIUM, 3.0F, -2.7F, properties));
 
 
     public static final DeferredItem<YetiFurArmorItem> YETI_FUR_HELMET = ITEMS.registerItem("yeti_fur_helmet", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorType.HELMET, (properties.durability(ArmorType.HELMET.getDurability(20)))));

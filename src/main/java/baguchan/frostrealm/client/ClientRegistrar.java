@@ -24,14 +24,11 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.context.ContextKey;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.GrassColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -237,15 +234,14 @@ public class ClientRegistrar {
 		event.registerRenderBuffer(FrostRenderType.AURORA_GLINT_TRANSLUCENT);
 		event.registerRenderBuffer(FrostRenderType.AURORA_ARMOR_ENTITY_GLINT);
 		event.registerRenderBuffer(FrostRenderType.AURORA_ENTITY_GLINT);
-		event.registerRenderBuffer(FrostRenderType.DARK_ITEM_RENDER_TYPE);
 	}
 
 	@SubscribeEvent
 	public static void registerPipeline(RegisterRenderPipelinesEvent event) {
 		event.registerPipeline(FrostRenderPipelines.DARK_OUTLINE_NO_CULL);
 		event.registerPipeline(FrostRenderPipelines.DARK_OUTLINE_CULL);
-		event.registerPipeline(FrostRenderPipelines.MYSTIC_NO_CULL);
-		event.registerPipeline(FrostRenderPipelines.MYSTIC_CULL);
+		event.registerPipeline(FrostRenderPipelines.GLOW_OUTLINE_NO_CULL);
+		event.registerPipeline(FrostRenderPipelines.GLOW_OUTLINE_CULL);
 	}
     @SubscribeEvent
     public static void registerLevelRenderState(ExtractLevelRenderStateEvent event) {

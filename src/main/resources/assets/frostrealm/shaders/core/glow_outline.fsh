@@ -16,5 +16,10 @@ void main() {
         discard;
     }
     float gray = length(color.rgb);
-    fragColor = vec4(vec3(step(0.5, fwidth(gray))), color.a);
+    if(step(0.5, fwidth(gray)) > 0.5){
+        fragColor = vec4(color.rgb * 1.5, color.a);
+        discard;
+    }
+
+    fragColor = color;
 }

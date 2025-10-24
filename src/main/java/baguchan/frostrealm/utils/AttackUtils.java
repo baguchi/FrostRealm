@@ -29,12 +29,11 @@ public class AttackUtils {
 
             float f2 = player.getAttackStrengthScale(0.5F);
             boolean flag3 = f2 > 0.9F;
-
-            float f7 = (float) (0.5F + player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) * 0.5F);
             if (flag3) {
+                double entityReachSq = Mth.square(player.entityInteractionRange() + 0.5F); // Use entity reach instead of constant 9.0. Vanilla uses bottom center-to-center checks here, so don't update player to use canReach, since it uses closest-corner checks.
+
                 for (LivingEntity livingentity2 : player.level()
-                        .getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(1.5, 0.25, 1.5))) {
-                    double entityReachSq = Mth.square(player.entityInteractionRange() + 0.5F); // Use entity reach instead of constant 9.0. Vanilla uses bottom center-to-center checks here, so don't update player to use canReach, since it uses closest-corner checks.
+                        .getEntitiesOfClass(LivingEntity.class, target.getBoundingBox().inflate(entityReachSq, 0.25, entityReachSq))) {
                     if (livingentity2 != player
                             && livingentity2 != target
                             && !player.isAlliedTo(livingentity2)
@@ -52,8 +51,7 @@ public class AttackUtils {
                                 (double) Mth.sin(player.getYRot() * (float) (Math.PI / 180.0)),
                                 (double) (-Mth.cos(player.getYRot() * (float) (Math.PI / 180.0)))
                         );
-                        f *= f7;
-
+                        f /= (float) Math.max(1F, player.distanceTo(livingentity2) / (player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) + 1));
                         livingentity2.hurt(damagesource, f);
                         if (player.level() instanceof ServerLevel serverlevel) {
                             EnchantmentHelper.doPostAttackEffects(serverlevel, livingentity2, damagesource);

@@ -6,7 +6,6 @@ import com.mojang.blaze3d.vertex.VertexMultiConsumer;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.BiFunction;
@@ -66,18 +65,16 @@ public abstract class FrostRenderType extends RenderType {
             )
     );
 
-    public static final BiFunction<ResourceLocation, Boolean, RenderType> MYSTIC = Util.memoize(
+    public static final BiFunction<ResourceLocation, Boolean, RenderType> GLOW_OUTLINE = Util.memoize(
             (p_414959_, p_414960_) -> RenderType.create(
-                    "frostrealm:mystic",
+                    "frostrealm:glow_outline",
                     1536,
-                    p_414960_ ? FrostRenderPipelines.MYSTIC_CULL : FrostRenderPipelines.MYSTIC_NO_CULL,
+                    p_414960_ ? FrostRenderPipelines.GLOW_OUTLINE_CULL : FrostRenderPipelines.GLOW_OUTLINE_NO_CULL,
                     RenderType.CompositeState.builder()
                             .setTextureState(new RenderStateShard.TextureStateShard(p_414959_, false))
                             .createCompositeState(false)
             )
     );
-
-    public static final RenderType DARK_ITEM_RENDER_TYPE = FrostRenderType.DARK_OUTLINE.apply(TextureAtlas.LOCATION_BLOCKS, false);
 
     public FrostRenderType(String p_173178_, int p_173181_, boolean p_173182_, boolean p_173183_, Runnable p_173184_, Runnable p_173185_) {
         super(p_173178_, p_173181_, p_173182_, p_173183_, p_173184_, p_173185_);
@@ -90,9 +87,5 @@ public abstract class FrostRenderType extends RenderType {
 
     private static boolean useTransparentGlint(RenderType p_418495_) {
         return Minecraft.useShaderTransparency() && p_418495_ == Sheets.translucentItemSheet();
-    }
-
-    public static VertexConsumer getDark(MultiBufferSource bufferSource, RenderType renderType) {
-        return VertexMultiConsumer.create(VertexMultiConsumer.create(bufferSource.getBuffer(DARK_ITEM_RENDER_TYPE)), bufferSource.getBuffer(renderType));
     }
 }

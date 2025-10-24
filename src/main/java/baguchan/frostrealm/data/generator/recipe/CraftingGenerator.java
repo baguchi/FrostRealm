@@ -210,7 +210,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 		shovelItem(this.output, "glacinium_shovel", FrostItems.GLACINIUM_SHOVEL.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
 		hoeItem(this.output, "glacinium_hoe", FrostItems.GLACINIUM_HOE.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
 		sickleItem(this.output, "glacinium_sickle", FrostItems.GLACINIUM_SICKLE.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
-        javelinItem(this.output, "glacinium_javelin", FrostItems.GLACINIUM_JAVELIN.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+        javelinItem(this.output, "glacinium_javelin", FrostItems.GLACINIUM_SPEAR.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
 
 		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.COMBAT, Items.ARROW, 4)
 				.pattern("B")

@@ -2,6 +2,7 @@ package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
+import baguchan.frostrealm.client.FrostRenderType;
 import baguchan.frostrealm.client.model.GokkurModel;
 import baguchan.frostrealm.client.render.layer.CrackingGokkurLayer;
 import baguchan.frostrealm.client.render.state.CrystalFoxRenderState;
@@ -19,7 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class UnderGokkurRenderer<T extends UnderGokkur> extends MobRenderer<T, UnderGokkurRenderState, GokkurModel<UnderGokkurRenderState>> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/under_gokkur.png");
-    private static final RenderType GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/under_gokkur_hot.png"));
+    private static final RenderType GLOW = FrostRenderType.DARK_OUTLINE.apply(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/under_gokkur_hot.png"), false);
 
     public UnderGokkurRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(FrostModelLayers.GOKKUR)), 0.5F);

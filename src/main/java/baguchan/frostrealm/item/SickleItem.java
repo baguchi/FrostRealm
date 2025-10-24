@@ -19,6 +19,9 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.ItemAbility;
 
+import static baguchan.frostrealm.item.SpearItem.BASE_BLOCK_RANGE;
+import static baguchan.frostrealm.item.SpearItem.BASE_ENTITY_RANGE;
+
 public class SickleItem extends Item {
     public static final ResourceLocation SWEEP_SPEED_ID = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "sweep_speed");
 
@@ -35,8 +38,9 @@ public class SickleItem extends Item {
                         Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_ID, speed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND
                 )
                 .add(
-                        Attributes.SWEEPING_DAMAGE_RATIO, new AttributeModifier(SWEEP_SPEED_ID, 1.0F, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND
+                        Attributes.SWEEPING_DAMAGE_RATIO, new AttributeModifier(SWEEP_SPEED_ID, 0.1F, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND
                 )
+                .add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(BASE_ENTITY_RANGE, 0.5F, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                 .build();
     }
 

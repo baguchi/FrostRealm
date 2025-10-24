@@ -21,15 +21,15 @@ public class FrostRenderPipelines {
     public static final RenderPipeline DARK_OUTLINE_NO_CULL = RenderPipeline.builder(new RenderPipeline.Snippet[]{DARK_OUTLINE_SNIPPET}).withLocation(FrostRealm.prefix("pipeline/dark_outline_no_cull")).withCull(false).build();
 
 
-    public static final RenderPipeline.Snippet MYSTIC_SNIPPET = RenderPipeline.builder(MATRICES_PROJECTION_SNIPPET, FOG_SNIPPET, GLOBALS_SNIPPET)
-            .withVertexShader(FrostRealm.prefix("core/mystic"))
-            .withFragmentShader(FrostRealm.prefix("core/mystic"))
+    public static final RenderPipeline.Snippet MAGMA_SNIPPET = RenderPipeline.builder(MATRICES_PROJECTION_SNIPPET, FOG_SNIPPET, GLOBALS_SNIPPET)
+            .withVertexShader(FrostRealm.prefix("core/glow_outline"))
+            .withFragmentShader(FrostRealm.prefix("core/glow_outline"))
             .withSampler("Sampler0")
             .withDepthTestFunction(DepthTestFunction.LEQUAL_DEPTH_TEST)
             .withDepthWrite(false)
             .withVertexFormat(DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS)
             .buildSnippet();
-    public static final RenderPipeline MYSTIC_CULL = RenderPipeline.builder(new RenderPipeline.Snippet[]{MYSTIC_SNIPPET}).withLocation(FrostRealm.prefix("pipeline/mystic_cull")).build();
-    public static final RenderPipeline MYSTIC_NO_CULL = RenderPipeline.builder(new RenderPipeline.Snippet[]{MYSTIC_SNIPPET}).withLocation(FrostRealm.prefix("pipeline/mystic_no_cull")).withCull(false).build();
+    public static final RenderPipeline GLOW_OUTLINE_CULL = RenderPipeline.builder(new RenderPipeline.Snippet[]{MAGMA_SNIPPET}).withLocation(FrostRealm.prefix("pipeline/glow_outline_cull")).build();
+    public static final RenderPipeline GLOW_OUTLINE_NO_CULL = RenderPipeline.builder(new RenderPipeline.Snippet[]{MAGMA_SNIPPET}).withLocation(FrostRealm.prefix("pipeline/glow_outline_no_cull")).withCull(false).build();
 
 }
