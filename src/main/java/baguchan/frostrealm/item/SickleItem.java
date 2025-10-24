@@ -13,11 +13,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.ItemAbility;
+
+import java.util.List;
 
 import static baguchan.frostrealm.item.SpearItem.BASE_BLOCK_RANGE;
 import static baguchan.frostrealm.item.SpearItem.BASE_ENTITY_RANGE;
@@ -26,7 +29,11 @@ public class SickleItem extends Item {
     public static final ResourceLocation SWEEP_SPEED_ID = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "sweep_speed");
 
     public SickleItem(ToolMaterial tier, float damage, float speed, Item.Properties properties) {
-        super(properties.durability(tier.durability()).enchantable(tier.enchantmentValue()).repairable(tier.repairItems()).attributes(createAttributes(tier, damage, speed)).component(DataComponents.WEAPON, new Weapon(1)));
+        super(properties.durability(tier.durability()).enchantable(tier.enchantmentValue()).repairable(tier.repairItems()).attributes(createAttributes(tier, damage, speed)).component(DataComponents.TOOL, createToolProperties()).component(DataComponents.WEAPON, new Weapon(1)));
+    }
+
+    public static Tool createToolProperties() {
+        return new Tool(List.of(), 1.0F, 2, false);
     }
 
     public static ItemAttributeModifiers createAttributes(ToolMaterial tier, float damage, float speed) {

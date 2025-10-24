@@ -13,9 +13,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.ItemAbility;
+
+import java.util.List;
 
 public class SpearItem extends Item implements IItemAnimation {
     public static final ResourceLocation BASE_ENTITY_RANGE = ResourceLocation.withDefaultNamespace("base_entity_range");
@@ -24,6 +27,10 @@ public class SpearItem extends Item implements IItemAnimation {
 
     public SpearItem(Properties properties) {
         super(properties);
+    }
+
+    public static Tool createToolProperties() {
+        return new Tool(List.of(), 1.0F, 2, false);
     }
 
     @Override

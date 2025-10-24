@@ -11,7 +11,7 @@ import net.minecraft.world.item.component.Weapon;
 
 public class TierSpearItem extends SpearItem {
     public TierSpearItem(ToolMaterial tier, float damage, float speed, Item.Properties properties) {
-        super(properties.durability(tier.durability()).repairable(tier.repairItems()).enchantable(tier.enchantmentValue()).attributes(createAttributes(tier, damage, speed)).component(DataComponents.WEAPON, new Weapon(1)));
+        super(properties.durability(tier.durability()).repairable(tier.repairItems()).enchantable(tier.enchantmentValue()).attributes(createAttributes(tier, damage, speed)).component(DataComponents.TOOL, createToolProperties()).component(DataComponents.WEAPON, new Weapon(1)));
     }
 
     public static ItemAttributeModifiers createAttributes(ToolMaterial tier, float damage, float speed) {

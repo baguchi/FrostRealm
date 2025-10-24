@@ -16,5 +16,5 @@ void main() {
         discard;
     }
     float gray = length(color.rgb);
-    fragColor = vec4(vec3(step(0.5, fwidth(gray))), color.a);
+    fragColor = vec4(vec3(step(1, fwidth(gray))), color.a);
 }
