@@ -100,7 +100,9 @@ public class FrostBiomeBuilders {
 		MobSpawnSettings.Builder builder1 = new MobSpawnSettings.Builder();
 		FrostBiomeDefaultFeatures.addDripFeatures(builder);
 		FrostBiomeDefaultFeatures.forestCreatureSpawns(builder1);
-		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
+        builder1.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(FrostEntities.GLACIER_BOAR.get(), 4, 6));
+
+        FrostBiomeDefaultFeatures.addSpringFeatures(builder);
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
 		return makeDefaultBiome(builder, builder1);
 	}

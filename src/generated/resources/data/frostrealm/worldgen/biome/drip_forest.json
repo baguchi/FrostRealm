@@ -77,6 +77,12 @@
         "maxCount": 4,
         "minCount": 4,
         "weight": 5
+      },
+      {
+        "type": "frostrealm:glacier_boar",
+        "maxCount": 6,
+        "minCount": 4,
+        "weight": 10
       }
     ],
     "frostrealm:frostrealm_weather_monster": [
