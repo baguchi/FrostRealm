@@ -99,13 +99,13 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.HOT_SPRING_BUCKET.asItem(), ModelTemplates.FLAT_ITEM);
 
         this.generateFlatItem(FrostItems.MARMOT_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(FrostItems.SNOWPILE_QUAIL_SPAWNEGG.get(), 16777215, 16777215);
+        this.generateFlatItem(FrostItems.SNOWPILE_QUAIL_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateSpawnEgg(FrostItems.YETI_SPAWNEGG.get(), 13948891, 4208214);
         this.generateSpawnEgg(FrostItems.FROST_WRAITH_SPAWNEGG.get(), 9002363, 13721278);
         this.generateSpawnEgg(FrostItems.CRYSTAL_FOX_SPAWNEGG.get(), 16252923, 9491432);
         this.generateSpawnEgg(FrostItems.SNOW_MOLE_SPAWNEGG.get(), 15001062, 11970471);
         this.generateSpawnEgg(FrostItems.ASTRA_BALL_SPAWNEGG.get(), 9654988, 14919423);
-        this.generateSpawnEgg(FrostItems.GLACIER_BOAR_SPAWNEGG.get(), 202786, 2714505);
+        this.generateFlatItem(FrostItems.GLACIER_BOAR_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.WOLFFLUE_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateSpawnEgg(FrostItems.FERRET_SPAWNEGG.get(), 7953498, 4272429);
         this.generateSpawnEgg(FrostItems.SEAL_SPAWNEGG.get(), 16777215, 16777215);
