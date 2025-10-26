@@ -46,8 +46,8 @@ public class FrostItems {
     public static final DeferredItem<Item> COOKED_SNOWPILE_QUAIL_EGG = ITEMS.registerItem("cooked_snowpile_quail_egg", (properties) -> new Item(properties.food(FrostFoods.COOKED_SNOWPILE_QUAIL_EGG)));
     public static final DeferredItem<Item> SNOWPILE_QUAIL_MEAT = ITEMS.registerItem("snowpile_quail_meat", (properties) -> new Item(properties.food(FrostFoods.SNOWPILE_QUAIL_MEAT)));
     public static final DeferredItem<Item> COOKED_SNOWPILE_QUAIL_MEAT = ITEMS.registerItem("cooked_snowpile_quail_meat", (properties) -> new Item(properties.food(FrostFoods.COOKED_SNOWPILE_QUAIL_MEAT)));
-    public static final DeferredItem<Item> FROST_BOAR_MEAT = ITEMS.registerItem("frost_boar_meat", (properties) -> new Item(properties.food(FrostFoods.FROST_BOAR_MEAT)));
-    public static final DeferredItem<Item> COOKED_FROST_BOAR_MEAT = ITEMS.registerItem("cooked_frost_boar_meat", (properties) -> new Item(properties.food(FrostFoods.COOKED_FROST_BOAR_MEAT)));
+    public static final DeferredItem<Item> GLACIER_BOAR_MEAT = ITEMS.registerItem("glacier_boar_meat", (properties) -> new Item(properties.food(FrostFoods.GLACIER_BOAR_MEAT)));
+    public static final DeferredItem<Item> COOKED_GLACIER_BOAR_MEAT = ITEMS.registerItem("cooked_glacier_boar_meat", (properties) -> new Item(properties.food(FrostFoods.COOKED_GLACIER_BOAR_MEAT)));
     public static final DeferredItem<Item> SILK_MOON_MEAT = ITEMS.registerItem("silk_moon_meat", (properties) -> new Item(properties.food(FrostFoods.SILK_MOON_MEAT, Consumable.builder().consumeSeconds(0.6F).build())));
     public static final DeferredItem<Item> COOKED_SILK_MOON_MEAT = ITEMS.registerItem("cooked_silk_moon_meat", (properties) -> new Item(properties.food(FrostFoods.COOKED_SILK_MOON_MEAT, Consumable.builder().consumeSeconds(0.6F).build())));
 
@@ -56,8 +56,8 @@ public class FrostItems {
     public static final DeferredItem<Item> STRAY_NECKLACE_PART = ITEMS.registerItem("stray_necklace_part", (properties) -> new Item(properties));
 
     public static final DeferredItem<Item> YETI_FUR = ITEMS.registerItem("yeti_fur", (properties) -> new Item(properties));
-    public static final DeferredItem<Item> FROST_BOAR_FUR = ITEMS.registerItem("frost_boar_fur", (properties) -> new Item(properties));
-    public static final DeferredItem<Item> FROST_BOAR_HORN = ITEMS.registerItem("frost_boar_horn", (properties) -> new Item(properties));
+    public static final DeferredItem<Item> GLACIER_BOAR_FUR = ITEMS.registerItem("glacier_boar_fur", (properties) -> new Item(properties));
+    public static final DeferredItem<Item> GLACIER_BOAR_HORN = ITEMS.registerItem("glacier_boar_horn", (properties) -> new Item(properties));
     public static final DeferredItem<Item> FROST_SPEAR = ITEMS.registerItem("frost_spear", (properties) -> new FrostSpearItem((properties.attributes(FrostSpearItem.createAttributes()).enchantable(20).durability(1021).repairable(FrostTags.Items.RARE_TOOL_MATERIAL).component(DataComponents.TOOL, SpearItem.createToolProperties()).component(DataComponents.WEAPON, new Weapon(1)).rarity(Rarity.UNCOMMON))));
     public static final DeferredItem<Item> SILVER_MOON = ITEMS.registerItem("silver_moon", (properties) -> new SilverMoonSwordItem(FrostToolMaterials.SILVER_MOON, 3, -2.2F, (properties.rarity(Rarity.RARE))));
 
@@ -82,10 +82,10 @@ public class FrostItems {
     public static final DeferredItem<YetiFurArmorItem> YETI_FUR_LEGGINGS = ITEMS.registerItem("yeti_fur_leggings", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorType.LEGGINGS, (properties.durability(ArmorType.LEGGINGS.getDurability(20)))));
     public static final DeferredItem<YetiFurArmorItem> YETI_FUR_BOOTS = ITEMS.registerItem("yeti_fur_boots", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorType.BOOTS, (properties.durability(ArmorType.BOOTS.getDurability(20)))));
 
-    public static final DeferredItem<YetiFurArmorItem> FROST_BOAR_FUR_HELMET = ITEMS.registerItem("frost_boar_fur_helmet", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, ArmorType.HELMET, (properties.durability(ArmorType.HELMET.getDurability(20)))));
-    public static final DeferredItem<YetiFurArmorItem> FROST_BOAR_FUR_CHESTPLATE = ITEMS.registerItem("frost_boar_fur_chestplate", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, ArmorType.CHESTPLATE, (properties.durability(ArmorType.CHESTPLATE.getDurability(20)))));
-    public static final DeferredItem<YetiFurArmorItem> FROST_BOAR_FUR_LEGGINGS = ITEMS.registerItem("frost_boar_fur_leggings", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, ArmorType.LEGGINGS, (properties.durability(ArmorType.LEGGINGS.getDurability(20)))));
-    public static final DeferredItem<YetiFurArmorItem> FROST_BOAR_FUR_BOOTS = ITEMS.registerItem("frost_boar_fur_boots", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, ArmorType.BOOTS, (properties.durability(ArmorType.BOOTS.getDurability(20)))));
+    public static final DeferredItem<YetiFurArmorItem> GLACIER_BOAR_FUR_HELMET = ITEMS.registerItem("glacier_boar_fur_helmet", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.GLACIER_BOAR_FUR, ArmorType.HELMET, (properties.durability(ArmorType.HELMET.getDurability(20)))));
+    public static final DeferredItem<YetiFurArmorItem> GLACIER_BOAR_FUR_CHESTPLATE = ITEMS.registerItem("glacier_boar_fur_chestplate", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.GLACIER_BOAR_FUR, ArmorType.CHESTPLATE, (properties.durability(ArmorType.CHESTPLATE.getDurability(20)))));
+    public static final DeferredItem<YetiFurArmorItem> GLACIER_BOAR_FUR_LEGGINGS = ITEMS.registerItem("glacier_boar_fur_leggings", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.GLACIER_BOAR_FUR, ArmorType.LEGGINGS, (properties.durability(ArmorType.LEGGINGS.getDurability(20)))));
+    public static final DeferredItem<YetiFurArmorItem> GLACIER_BOAR_FUR_BOOTS = ITEMS.registerItem("glacier_boar_fur_boots", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.GLACIER_BOAR_FUR, ArmorType.BOOTS, (properties.durability(ArmorType.BOOTS.getDurability(20)))));
 
 
     public static final DeferredItem<Item> ASTRIUM_HELMET = ITEMS.registerItem("astrium_helmet", (properties) -> new Item((AstriumArmorItem.astriumArmor(properties, FrostArmorMaterials.ASTRIUM, ArmorType.HELMET))));
@@ -93,7 +93,7 @@ public class FrostItems {
     public static final DeferredItem<Item> ASTRIUM_LEGGINGS = ITEMS.registerItem("astrium_leggings", (properties) -> new Item(AstriumArmorItem.astriumArmor(properties, FrostArmorMaterials.ASTRIUM, ArmorType.LEGGINGS)));
     public static final DeferredItem<Item> ASTRIUM_BOOTS = ITEMS.registerItem("astrium_boots", (properties) -> new Item(AstriumArmorItem.astriumArmor(properties, FrostArmorMaterials.ASTRIUM, ArmorType.BOOTS)));
     public static final DeferredItem<Item> WOLFFLUE_ASTRIUM_ARMOR = ITEMS.registerItem("wolfflue_astrium_armor", (properties) -> new AstriumWolfflueArmorItem(FrostArmorMaterials.ASTRIUM, (properties.durability(ArmorType.BODY.getDurability(22)))));
-    public static final DeferredItem<Item> WOLFFLUE_FROST_BOAR_ARMOR = ITEMS.registerItem("wolfflue_frost_boar_armor", (properties) -> new WolfflueArmorItem(FrostArmorMaterials.FROST_BOAR_FUR, (properties.durability(ArmorType.BODY.getDurability(20)))));
+    public static final DeferredItem<Item> WOLFFLUE_GLACIER_BOAR_ARMOR = ITEMS.registerItem("wolfflue_glacier_boar_armor", (properties) -> new WolfflueArmorItem(FrostArmorMaterials.GLACIER_BOAR_FUR, (properties.durability(ArmorType.BODY.getDurability(20)))));
     public static final DeferredItem<Item> WOLFFLUE_SADDLE = ITEMS.registerItem("wolfflue_saddle", (properties) -> new Item((properties.stacksTo(1).component(DataComponents.EQUIPPABLE, FrostEquippable.saddle()))));
     public static final DeferredItem<Item> HOT_SPRING_BUCKET = ITEMS.registerItem("hot_spring_bucket", (properties) -> new BucketItem(FrostFluids.HOT_SPRING.get(), (properties)));
 
@@ -105,7 +105,7 @@ public class FrostItems {
     public static final DeferredItem<Item> CRYSTAL_FOX_SPAWNEGG = ITEMS.registerItem("crystal_fox_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.CRYSTAL_FOX.get())));
     public static final DeferredItem<Item> SNOW_MOLE_SPAWNEGG = ITEMS.registerItem("snow_mole_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.SNOW_MOLE.get())));
     public static final DeferredItem<Item> ASTRA_BALL_SPAWNEGG = ITEMS.registerItem("astra_ball_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.ASTRA_BALL.get())));
-    public static final DeferredItem<Item> FROST_BOAR_SPAWNEGG = ITEMS.registerItem("frost_boar_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.FROST_BOAR.get())));
+    public static final DeferredItem<Item> GLACIER_BOAR_SPAWNEGG = ITEMS.registerItem("glacier_boar_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.GLACIER_BOAR.get())));
     public static final DeferredItem<Item> WOLFFLUE_SPAWNEGG = ITEMS.registerItem("wolfflue_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.WOLFFLUE.get())));
     public static final DeferredItem<Item> FERRET_SPAWNEGG = ITEMS.registerItem("ferret_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.FERRET.get())));
     public static final DeferredItem<Item> SEAL_SPAWNEGG = ITEMS.registerItem("seal_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.SEAL.get())));

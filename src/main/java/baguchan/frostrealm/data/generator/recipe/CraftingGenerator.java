@@ -154,7 +154,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 		foodCooking(FrostItems.BEARBERRY.get(), FrostItems.COOKED_BEARBERRY.get(), 0.1F, this.output);
 		foodCooking(FrostBlocks.SNOWPILE_QUAIL_EGG.get().asItem(), FrostItems.COOKED_SNOWPILE_QUAIL_EGG.get(), 0.2F, this.output);
 		foodCooking(FrostItems.SNOWPILE_QUAIL_MEAT.get(), FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get(), 0.15F, this.output);
-		foodCooking(FrostItems.FROST_BOAR_MEAT.get(), FrostItems.COOKED_FROST_BOAR_MEAT.get(), 0.15F, this.output);
+		foodCooking(FrostItems.GLACIER_BOAR_MEAT.get(), FrostItems.COOKED_GLACIER_BOAR_MEAT.get(), 0.15F, this.output);
 		foodCooking(FrostItems.SILK_MOON_MEAT.get(), FrostItems.COOKED_SILK_MOON_MEAT.get(), 0.05F, this.output);
 
 		SimpleCookingRecipeBuilder.smelting(Ingredient.of(FrostItems.CRYONITE.get()), RecipeCategory.MISC, FrostItems.CRYONITE_CREAM.get(), 0.1F, 200).unlockedBy("has_item", has(FrostItems.CRYONITE.get())).save(this.output, prefix("smelting_" + BuiltInRegistries.ITEM.getKey(FrostItems.CRYONITE.get()).getPath()));
@@ -165,10 +165,10 @@ public class CraftingGenerator extends CraftingDataHelper {
 		leggingsItem(this.output, "yeti_fur_leggings", FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR.get());
 		bootsItem(this.output, "yeti_fur_boots", FrostItems.YETI_FUR_BOOTS.get(), FrostItems.YETI_FUR.get());
 
-		helmetItem(this.output, "frost_boar_fur_helmet", FrostItems.FROST_BOAR_FUR_HELMET.get(), FrostItems.FROST_BOAR_FUR.get());
-		chestplateItem(this.output, "frost_boar_fur_chestplate", FrostItems.FROST_BOAR_FUR_CHESTPLATE.get(), FrostItems.FROST_BOAR_FUR.get());
-		leggingsItem(this.output, "frost_boar_fur_leggings", FrostItems.FROST_BOAR_FUR_LEGGINGS.get(), FrostItems.FROST_BOAR_FUR.get());
-		bootsItem(this.output, "frost_boar_fur_boots", FrostItems.FROST_BOAR_FUR_BOOTS.get(), FrostItems.FROST_BOAR_FUR.get());
+		helmetItem(this.output, "frost_boar_fur_helmet", FrostItems.GLACIER_BOAR_FUR_HELMET.get(), FrostItems.GLACIER_BOAR_FUR.get());
+		chestplateItem(this.output, "frost_boar_fur_chestplate", FrostItems.GLACIER_BOAR_FUR_CHESTPLATE.get(), FrostItems.GLACIER_BOAR_FUR.get());
+		leggingsItem(this.output, "frost_boar_fur_leggings", FrostItems.GLACIER_BOAR_FUR_LEGGINGS.get(), FrostItems.GLACIER_BOAR_FUR.get());
+		bootsItem(this.output, "frost_boar_fur_boots", FrostItems.GLACIER_BOAR_FUR_BOOTS.get(), FrostItems.GLACIER_BOAR_FUR.get());
 
 		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.COMBAT, FrostItems.WOLFFLUE_ASTRIUM_ARMOR.get(), 1)
 				.pattern("AAA")
@@ -177,19 +177,19 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.define('A', FrostItems.ASTRIUM_INGOT.get())
 				.define('S', Items.STRING)
 				.unlockedBy("has_item", has(FrostItems.ASTRIUM_INGOT.get())).save(this.output);
-		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.COMBAT, FrostItems.WOLFFLUE_FROST_BOAR_ARMOR.get(), 1)
+		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.COMBAT, FrostItems.WOLFFLUE_GLACIER_BOAR_ARMOR.get(), 1)
 				.pattern("AAA")
 				.pattern("SAA")
 				.pattern("  S")
-				.define('A', FrostItems.FROST_BOAR_FUR.get())
+				.define('A', FrostItems.GLACIER_BOAR_FUR.get())
 				.define('S', Items.STRING)
-				.unlockedBy("has_item", has(FrostItems.FROST_BOAR_FUR.get())).save(this.output);
+				.unlockedBy("has_item", has(FrostItems.GLACIER_BOAR_FUR.get())).save(this.output);
         ShapedRecipeBuilder.shaped(lookup, RecipeCategory.COMBAT, FrostItems.WOLFFLUE_SADDLE.get(), 1)
                 .pattern(" A ")
                 .pattern("AIA")
-                .define('A', FrostItems.FROST_BOAR_FUR.get())
+                .define('A', FrostItems.GLACIER_BOAR_FUR.get())
                 .define('I', FrostItems.ASTRIUM_INGOT)
-                .unlockedBy("has_item", has(FrostItems.FROST_BOAR_FUR.get())).save(this.output);
+                .unlockedBy("has_item", has(FrostItems.GLACIER_BOAR_FUR.get())).save(this.output);
 
 
 		helmetItem(this.output, "astrium_helmet", FrostItems.ASTRIUM_HELMET.get(), FrostItems.ASTRIUM_INGOT.get());
@@ -216,10 +216,10 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.pattern("B")
 				.pattern("S")
 				.pattern("F")
-				.define('B', FrostItems.FROST_BOAR_HORN.get())
+				.define('B', FrostItems.GLACIER_BOAR_HORN.get())
 				.define('S', Items.STICK)
 				.define('F', Items.FEATHER)
-				.unlockedBy("has_item", has(FrostItems.FROST_BOAR_HORN.get())).save(this.output, prefix("horn_arrow"));
+				.unlockedBy("has_item", has(FrostItems.GLACIER_BOAR_HORN.get())).save(this.output, prefix("horn_arrow"));
 
 
 		makeFrostTorch(this.output, FrostBlocks.FROST_TORCH.get().asItem());
@@ -376,14 +376,14 @@ public class CraftingGenerator extends CraftingDataHelper {
 				.pattern("S")
 				.pattern("L")
 				.define('S', Items.STRING)
-				.define('L', FrostItems.FROST_BOAR_FUR.get())
-				.unlockedBy("has_item", has(FrostItems.FROST_BOAR_FUR.get())).save(this.output, prefix("bundle_frost_boar_fur"));
+				.define('L', FrostItems.GLACIER_BOAR_FUR.get())
+				.unlockedBy("has_item", has(FrostItems.GLACIER_BOAR_FUR.get())).save(this.output, prefix("bundle_frost_boar_fur"));
 
 		ShapedRecipeBuilder.shaped(lookup, RecipeCategory.MISC, FrostItems.COATING_FUR, 1)
 				.pattern("S")
 				.pattern("L")
 				.define('S', FrostItems.CRYONITE_CREAM)
-				.define('L', FrostItems.FROST_BOAR_FUR.get())
+				.define('L', FrostItems.GLACIER_BOAR_FUR.get())
 				.unlockedBy("has_item", has(FrostItems.CRYONITE_CREAM.get())).save(this.output);
 
 

@@ -45,29 +45,29 @@ public class FrItemTagGenerator extends ItemTagsProvider {
         tag(ItemTags.STONE_CRAFTING_MATERIALS).add(FrostBlocks.FRIGID_STONE.get().asItem());
         tag(Tags.Items.EGGS).add(FrostBlocks.SNOWPILE_QUAIL_EGG.get().asItem());
         tag(ItemTags.FREEZE_IMMUNE_WEARABLES).add(FrostItems.YETI_FUR_HELMET.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_BOOTS.get())
-                .add(FrostItems.FROST_BOAR_FUR_HELMET.get(), FrostItems.FROST_BOAR_FUR_CHESTPLATE.get(), FrostItems.FROST_BOAR_FUR_LEGGINGS.get(), FrostItems.FROST_BOAR_FUR_BOOTS.get());
+                .add(FrostItems.GLACIER_BOAR_FUR_HELMET.get(), FrostItems.GLACIER_BOAR_FUR_CHESTPLATE.get(), FrostItems.GLACIER_BOAR_FUR_LEGGINGS.get(), FrostItems.GLACIER_BOAR_FUR_BOOTS.get());
         tag(FrostTags.Items.AURORA_FUELS).add(FrostItems.WARPED_CRYSTAL.get());
         tag(FrostTags.Items.YETI_CURRENCY).add(FrostItems.STARDUST_CRYSTAL.get());
         //tag(FrostTags.Items.YETI_BIG_CURRENCY).add(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get().asItem());
-        tag(FrostTags.Items.YETI_LOVED).addTags(FrostTags.Items.YETI_CURRENCY).add(FrostItems.FROST_BOAR_MEAT.get(), FrostItems.COOKED_FROST_BOAR_MEAT.get(), FrostItems.SNOWPILE_QUAIL_MEAT.get(), FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get());
+        tag(FrostTags.Items.YETI_LOVED).addTags(FrostTags.Items.YETI_CURRENCY).add(FrostItems.GLACIER_BOAR_MEAT.get(), FrostItems.COOKED_GLACIER_BOAR_MEAT.get(), FrostItems.SNOWPILE_QUAIL_MEAT.get(), FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get());
         tag(FrostTags.Items.YETI_SCARED).add(FrostItems.YETI_FUR_HELMET.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_BOOTS.get());
         tag(ItemTags.TRIMMABLE_ARMOR).add(FrostItems.YETI_FUR_HELMET.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_BOOTS.get())
-                .add(FrostItems.FROST_BOAR_FUR_HELMET.get(), FrostItems.FROST_BOAR_FUR_CHESTPLATE.get(), FrostItems.FROST_BOAR_FUR_LEGGINGS.get(), FrostItems.FROST_BOAR_FUR_BOOTS.get())
+                .add(FrostItems.GLACIER_BOAR_FUR_HELMET.get(), FrostItems.GLACIER_BOAR_FUR_CHESTPLATE.get(), FrostItems.GLACIER_BOAR_FUR_LEGGINGS.get(), FrostItems.GLACIER_BOAR_FUR_BOOTS.get())
                 .add(FrostItems.ASTRIUM_HELMET.get(), FrostItems.ASTRIUM_CHESTPLATE.get(), FrostItems.ASTRIUM_LEGGINGS.get(), FrostItems.ASTRIUM_BOOTS.get());
         tag(ItemTags.VILLAGER_PLANTABLE_SEEDS).add(FrostItems.RYE_SEEDS.get());
         tag(Tags.Items.SEEDS).add(FrostItems.RYE_SEEDS.get());
 
-        this.tag(ItemTags.FOOT_ARMOR).add(FrostItems.FROST_BOAR_FUR_BOOTS.get()).add(FrostItems.YETI_FUR_BOOTS.get()).add(FrostItems.ASTRIUM_BOOTS.get());
+        this.tag(ItemTags.FOOT_ARMOR).add(FrostItems.GLACIER_BOAR_FUR_BOOTS.get()).add(FrostItems.YETI_FUR_BOOTS.get()).add(FrostItems.ASTRIUM_BOOTS.get());
 
-        this.tag(ItemTags.LEG_ARMOR).add(FrostItems.FROST_BOAR_FUR_LEGGINGS.get()).add(FrostItems.YETI_FUR_LEGGINGS.get()).add(FrostItems.ASTRIUM_LEGGINGS.get());
-        this.tag(ItemTags.CHEST_ARMOR).add(FrostItems.FROST_BOAR_FUR_CHESTPLATE.get()).add(FrostItems.YETI_FUR_CHESTPLATE.get()).add(FrostItems.ASTRIUM_CHESTPLATE.get())
+        this.tag(ItemTags.LEG_ARMOR).add(FrostItems.GLACIER_BOAR_FUR_LEGGINGS.get()).add(FrostItems.YETI_FUR_LEGGINGS.get()).add(FrostItems.ASTRIUM_LEGGINGS.get());
+        this.tag(ItemTags.CHEST_ARMOR).add(FrostItems.GLACIER_BOAR_FUR_CHESTPLATE.get()).add(FrostItems.YETI_FUR_CHESTPLATE.get()).add(FrostItems.ASTRIUM_CHESTPLATE.get())
                 .add(FrostItems.WOLFFLUE_ASTRIUM_ARMOR.get());
-        this.tag(ItemTags.HEAD_ARMOR).add(FrostItems.FROST_BOAR_FUR_HELMET.get()).add(FrostItems.YETI_FUR_HELMET.get()).add(FrostItems.ASTRIUM_HELMET.get());
+        this.tag(ItemTags.HEAD_ARMOR).add(FrostItems.GLACIER_BOAR_FUR_HELMET.get()).add(FrostItems.YETI_FUR_HELMET.get()).add(FrostItems.ASTRIUM_HELMET.get());
 
-        this.tag(ItemTags.MEAT).add(FrostItems.FROST_BOAR_MEAT.get()).add(FrostItems.COOKED_FROST_BOAR_MEAT.get()).add(FrostItems.SNOWPILE_QUAIL_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get());
+        this.tag(ItemTags.MEAT).add(FrostItems.GLACIER_BOAR_MEAT.get()).add(FrostItems.COOKED_GLACIER_BOAR_MEAT.get()).add(FrostItems.SNOWPILE_QUAIL_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get());
 
         this.tag(FrostTags.Items.CRYSTAL_FOX_FOODS).add(FrostItems.BEARBERRY.get());
-        this.tag(FrostTags.Items.FROST_BOAR_FOODS).add(FrostItems.RYE.get());
+        this.tag(FrostTags.Items.GLACIER_BOAR_FOODS).add(FrostItems.RYE.get());
         this.tag(FrostTags.Items.SNOWPILE_FOODS).add(FrostItems.SUGARBEET_SEEDS.get()).add(FrostItems.RYE_SEEDS.get());
         this.tag(FrostTags.Items.WOLFFLUE_FOODS).addTag(ItemTags.WOLF_FOOD);
         this.tag(FrostTags.Items.FERRET_FOODS).add(Items.CHICKEN).add(Items.COOKED_CHICKEN).add(FrostItems.SNOWPILE_QUAIL_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get());
@@ -87,14 +87,14 @@ public class FrItemTagGenerator extends ItemTagsProvider {
         this.tag(FrostTags.Items.GLACINIUM_TOOL_MATERIAL).add(FrostItems.GLACINIUM_INGOT.get());
         this.tag(FrostTags.Items.RARE_TOOL_MATERIAL).add(FrostItems.ASTRIUM_INGOT.asItem());
         this.tag(FrostTags.Items.YETI_FUR_MATERIAL).add(FrostItems.YETI_FUR.asItem());
-        this.tag(FrostTags.Items.BOAR_FUR_MATERIAL).add(FrostItems.FROST_BOAR_FUR.asItem());
+        this.tag(FrostTags.Items.BOAR_FUR_MATERIAL).add(FrostItems.GLACIER_BOAR_FUR.asItem());
 
         //.add(FrostItems.GLACINIUM_HELMET.get()).add(FrostItems.GLACINIUM_CHESTPLATE.get()).add(FrostItems.GLACINIUM_LEGGINGS.get()).add(FrostItems.GLACINIUM_BOOTS.get());
         this.tag(ItemTags.LEAVES).add(FrostBlocks.FROSTBITE_LEAVES.asItem()).add(FrostBlocks.FROSTROOT_LEAVES.asItem());
-        this.tag(Tags.Items.LEATHERS).add(FrostItems.FROST_BOAR_FUR.get());
-        this.tag(ItemTags.MEAT).add(FrostItems.COOKED_FROST_BOAR_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get())
+        this.tag(Tags.Items.LEATHERS).add(FrostItems.GLACIER_BOAR_FUR.get());
+        this.tag(ItemTags.MEAT).add(FrostItems.COOKED_GLACIER_BOAR_MEAT.get()).add(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.get())
                 .add(FrostItems.SILK_MOON_MEAT.get()).add(FrostItems.COOKED_SILK_MOON_MEAT.get())
-                .add(FrostItems.FROST_BOAR_MEAT.get()).add(FrostItems.SNOWPILE_QUAIL_MEAT.get());
+                .add(FrostItems.GLACIER_BOAR_MEAT.get()).add(FrostItems.SNOWPILE_QUAIL_MEAT.get());
 
         this.tag(FrostTags.Items.DEBUG).add(FrostBlocks.WOLFFLUE_BLOCK.asItem());
     }

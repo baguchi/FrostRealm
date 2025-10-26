@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "#": "frostrealm:frost_boar_fur"
+    "#": "frostrealm:glacier_boar_fur"
   },
   "pattern": [
     "###",
@@ -11,6 +11,6 @@
   ],
   "result": {
     "count": 1,
-    "id": "frostrealm:frost_boar_fur_leggings"
+    "id": "frostrealm:glacier_boar_fur_leggings"
   }
 }

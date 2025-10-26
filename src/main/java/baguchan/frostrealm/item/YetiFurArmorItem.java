@@ -25,7 +25,7 @@ public class YetiFurArmorItem extends Item {
 
 	@Override
 	public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
-		return stack.is(FrostItems.YETI_FUR_BOOTS.get()) || stack.is(FrostItems.FROST_BOAR_FUR_BOOTS.get());
+		return stack.is(FrostItems.YETI_FUR_BOOTS.get()) || stack.is(FrostItems.GLACIER_BOAR_FUR_BOOTS.get());
 	}
 
 	public static final class ArmorRender implements IClientItemExtensions {

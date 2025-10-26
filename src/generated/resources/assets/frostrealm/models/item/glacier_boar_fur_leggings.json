@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "frostrealm:item/glacier_boar_fur_leggings"
+  }
+}

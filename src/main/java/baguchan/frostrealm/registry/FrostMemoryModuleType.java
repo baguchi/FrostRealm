@@ -2,7 +2,7 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.entity.Yeti;
-import baguchan.frostrealm.entity.animal.FrostBoar;
+import baguchan.frostrealm.entity.animal.GlacierBoar;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Unit;
@@ -17,7 +17,7 @@ import java.util.function.Supplier;
 public class FrostMemoryModuleType {
     public static final DeferredRegister<MemoryModuleType<?>> MEMORY_MODULE_TYPES = DeferredRegister.create(BuiltInRegistries.MEMORY_MODULE_TYPE, FrostRealm.MODID);
 
-    public static final Supplier<MemoryModuleType<List<FrostBoar>>> NEAREST_FROST_BOARS = MEMORY_MODULE_TYPES.register("nearest_frost_boar", () -> new MemoryModuleType<>(Optional.empty()));
+    public static final Supplier<MemoryModuleType<List<GlacierBoar>>> NEAREST_FROST_BOARS = MEMORY_MODULE_TYPES.register("nearest_frost_boar", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Integer>> FROST_BOAR_COUNT = MEMORY_MODULE_TYPES.register("frost_boar_count", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<List<Yeti>>> NEAREST_YETIS = MEMORY_MODULE_TYPES.register("nearest_yeti", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Integer>> YETI_COUNT = MEMORY_MODULE_TYPES.register("yeti_count", () -> new MemoryModuleType<>(Optional.empty()));

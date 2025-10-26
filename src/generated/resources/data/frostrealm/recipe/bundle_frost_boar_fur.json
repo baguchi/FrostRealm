@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "L": "frostrealm:frost_boar_fur",
+    "L": "frostrealm:glacier_boar_fur",
     "S": "minecraft:string"
   },
   "pattern": [

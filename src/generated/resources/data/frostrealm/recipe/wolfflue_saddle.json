@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "A": "frostrealm:frost_boar_fur",
+    "A": "frostrealm:glacier_boar_fur",
     "I": "frostrealm:astrium_ingot"
   },
   "pattern": [

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.15,
+  "ingredient": "frostrealm:glacier_boar_meat",
+  "result": {
+    "count": 1,
+    "id": "frostrealm:cooked_glacier_boar_meat"
+  }
+}

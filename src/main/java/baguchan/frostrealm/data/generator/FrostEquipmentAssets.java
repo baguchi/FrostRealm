@@ -8,7 +8,7 @@ import net.minecraft.world.item.equipment.EquipmentAssets;
 
 public interface FrostEquipmentAssets {
     ResourceKey<EquipmentAsset> ASTRIUM = createId("astrium");
-    ResourceKey<EquipmentAsset> FROST_BOAR_FUR = createId("frost_boar_fur");
+    ResourceKey<EquipmentAsset> GLACIER_BOAR_FUR = createId("glacier_boar_fur");
     ResourceKey<EquipmentAsset> YETI_FUR = createId("yeti_fur");
     ResourceKey<EquipmentAsset> WOLFFLUE_SADDLE = createId("wolfflue_saddle");
 

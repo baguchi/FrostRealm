@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": "frostrealm:frost_boar_horn",
+    "B": "frostrealm:glacier_boar_horn",
     "F": "minecraft:feather",
     "S": "minecraft:stick"
   },

@@ -42,7 +42,7 @@ public class FrostBiomeDefaultFeatures {
 		p_126813_.addSpawn(MobCategory.CREATURE, 6, new MobSpawnSettings.SpawnerData(FrostEntities.CRYSTAL_FOX.get(), 2, 3));
 		p_126813_.addSpawn(MobCategory.CREATURE, 4, new MobSpawnSettings.SpawnerData(FrostEntities.MARMOT.get(), 3, 4));
 		p_126813_.addSpawn(MobCategory.CREATURE, 12, new MobSpawnSettings.SpawnerData(FrostEntities.SNOWPILE_QUAIL.get(), 4, 6));
-		p_126813_.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(FrostEntities.FROST_BOAR.get(), 4, 5));
+		p_126813_.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(FrostEntities.GLACIER_BOAR.get(), 4, 5));
 	}
 
 	public static void crystalFallCreatureSpawns(MobSpawnSettings.Builder p_126813_) {

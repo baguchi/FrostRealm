@@ -26,7 +26,7 @@ public class FrEntityTagGenerator extends EntityTypeTagsProvider {
                 .add(FrostEntities.LESSER_WARRIOR.get()).add(FrostEntities.SEEKER.get())
 				.add(FrostEntities.GOKKUR.get())
 				.add(FrostEntities.UNDER_GOKKUR.get());
-		tag(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE).addTag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.MARMOT.get(), FrostEntities.FROST_BOAR.get())
+		tag(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE).addTag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.MARMOT.get(), FrostEntities.GLACIER_BOAR.get())
 				.add(FrostEntities.FERRET.get())
 				.add(FrostEntities.VENOCHEM.get())
 				.add(FrostEntities.SILK_MOON.get())

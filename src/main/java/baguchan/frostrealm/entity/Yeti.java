@@ -472,7 +472,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 
 	protected void populateDefaultEquipmentSlots(RandomSource p_219165_, DifficultyInstance p_219166_) {
 		if (p_219165_.nextFloat() < 0.1F) {
-			this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(FrostItems.FROST_BOAR_FUR_HELMET.get()));
+			this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(FrostItems.GLACIER_BOAR_FUR_HELMET.get()));
 		}
 	}
 

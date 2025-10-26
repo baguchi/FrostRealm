@@ -1,7 +1,7 @@
 package baguchan.frostrealm.entity.brain.sensor;
 
 import baguchan.frostrealm.entity.Yeti;
-import baguchan.frostrealm.entity.animal.FrostBoar;
+import baguchan.frostrealm.entity.animal.GlacierBoar;
 import baguchan.frostrealm.entity.brain.YetiAi;
 import baguchan.frostrealm.registry.FrostMemoryModuleType;
 import com.google.common.collect.ImmutableSet;
@@ -25,7 +25,7 @@ public class YetiSensor extends Sensor<Yeti> {
         Brain<?> brain = p_26660_.getBrain();
         //brain.setMemory(MemoryModuleType.NEAREST_REPELLENT, this.findNearestRepellent(p_26659_, p_26660_));
         List<Yeti> list = Lists.newArrayList();
-        List<FrostBoar> list2 = Lists.newArrayList();
+        List<GlacierBoar> list2 = Lists.newArrayList();
         List<LivingEntity> list3 = Lists.newArrayList();
         NearestVisibleLivingEntities nearestvisiblelivingentities = brain.getMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES).orElse(NearestVisibleLivingEntities.empty());
 
@@ -37,7 +37,7 @@ public class YetiSensor extends Sensor<Yeti> {
             if (livingentity instanceof Yeti yeti) {
                 list.add(yeti);
             }
-            if (livingentity instanceof FrostBoar boar) {
+            if (livingentity instanceof GlacierBoar boar) {
                 list2.add(boar);
             }
             /*if (YetiAi.isWearingFear(livingentity)) {

@@ -4,14 +4,14 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.7.2
 
 
 import baguchan.frostrealm.client.animation.FrostBoarAnimations;
-import baguchan.frostrealm.client.render.state.FrostBoarRenderState;
+import baguchan.frostrealm.client.render.state.GlacierBoarRenderState;
 import net.minecraft.client.animation.KeyframeAnimation;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class FrostBoarModel<T extends FrostBoarRenderState> extends EntityModel<T> {
+public class FrostBoarModel<T extends GlacierBoarRenderState> extends EntityModel<T> {
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart leg_R;

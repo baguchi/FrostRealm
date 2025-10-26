@@ -25,6 +25,6 @@ public class WolfflueArmorItem extends Item {
 
     @Override
     public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
-        return stack.is(FrostItems.WOLFFLUE_FROST_BOAR_ARMOR);
+        return stack.is(FrostItems.WOLFFLUE_GLACIER_BOAR_ARMOR);
     }
 }

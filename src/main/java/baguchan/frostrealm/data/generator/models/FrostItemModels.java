@@ -49,8 +49,8 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.COOKED_SNOWPILE_QUAIL_EGG.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.SNOWPILE_QUAIL_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.COOKED_SNOWPILE_QUAIL_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.FROST_BOAR_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.COOKED_FROST_BOAR_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.GLACIER_BOAR_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.COOKED_GLACIER_BOAR_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.SILK_MOON_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.COOKED_SILK_MOON_MEAT.asItem(), ModelTemplates.FLAT_ITEM);
 
@@ -58,8 +58,8 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.STRAY_NECKLACE_PART.asItem(), ModelTemplates.FLAT_ITEM);
 
         this.generateFlatItem(FrostItems.YETI_FUR.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.FROST_BOAR_FUR.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.FROST_BOAR_HORN.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.GLACIER_BOAR_FUR.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.GLACIER_BOAR_HORN.asItem(), ModelTemplates.FLAT_ITEM);
 
         this.generateFlatItem(FrostItems.SILVER_MOON.asItem(), ModelTemplates.FLAT_ITEM);
 
@@ -84,17 +84,17 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.YETI_FUR_LEGGINGS.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.YETI_FUR_BOOTS.asItem(), ModelTemplates.FLAT_ITEM);
 
-        this.generateFlatItem(FrostItems.FROST_BOAR_FUR_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.FROST_BOAR_FUR_CHESTPLATE.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.FROST_BOAR_FUR_LEGGINGS.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.FROST_BOAR_FUR_BOOTS.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.GLACIER_BOAR_FUR_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.GLACIER_BOAR_FUR_CHESTPLATE.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.GLACIER_BOAR_FUR_LEGGINGS.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.GLACIER_BOAR_FUR_BOOTS.asItem(), ModelTemplates.FLAT_ITEM);
 
         this.generateFlatItem(FrostItems.ASTRIUM_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.ASTRIUM_CHESTPLATE.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.ASTRIUM_LEGGINGS.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.ASTRIUM_BOOTS.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.WOLFFLUE_ASTRIUM_ARMOR.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.WOLFFLUE_FROST_BOAR_ARMOR.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.WOLFFLUE_GLACIER_BOAR_ARMOR.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.WOLFFLUE_SADDLE.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.HOT_SPRING_BUCKET.asItem(), ModelTemplates.FLAT_ITEM);
 
@@ -105,7 +105,7 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateSpawnEgg(FrostItems.CRYSTAL_FOX_SPAWNEGG.get(), 16252923, 9491432);
         this.generateSpawnEgg(FrostItems.SNOW_MOLE_SPAWNEGG.get(), 15001062, 11970471);
         this.generateSpawnEgg(FrostItems.ASTRA_BALL_SPAWNEGG.get(), 9654988, 14919423);
-        this.generateSpawnEgg(FrostItems.FROST_BOAR_SPAWNEGG.get(), 202786, 2714505);
+        this.generateSpawnEgg(FrostItems.GLACIER_BOAR_SPAWNEGG.get(), 202786, 2714505);
         this.generateFlatItem(FrostItems.WOLFFLUE_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateSpawnEgg(FrostItems.FERRET_SPAWNEGG.get(), 7953498, 4272429);
         this.generateSpawnEgg(FrostItems.SEAL_SPAWNEGG.get(), 16777215, 16777215);

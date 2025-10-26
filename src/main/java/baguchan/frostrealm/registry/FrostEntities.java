@@ -43,7 +43,7 @@ public class FrostEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<LesserWarrior>> LESSER_WARRIOR = ENTITIES.register("lesser_warrior", () -> EntityType.Builder.of(LesserWarrior::new, MobCategory.MONSTER).sized(0.6F, 1.99F).notInPeaceful().immuneTo(Blocks.POWDER_SNOW).clientTrackingRange(8).build(prefix("lesser_warrior")));
 
     public static final DeferredHolder<EntityType<?>, EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).notInPeaceful().eyeHeight(0.25F).build(prefix("astra_ball")));
-    public static final DeferredHolder<EntityType<?>, EntityType<FrostBoar>> FROST_BOAR = ENTITIES.register("frost_boar", () -> EntityType.Builder.of(FrostBoar::new, MobCategory.CREATURE).sized(1.8F, 1.95F).eyeHeight(1.5F).build(prefix("frost_boar")));
+    public static final DeferredHolder<EntityType<?>, EntityType<GlacierBoar>> GLACIER_BOAR = ENTITIES.register("glacier_boar", () -> EntityType.Builder.of(GlacierBoar::new, MobCategory.CREATURE).sized(1.8F, 1.95F).eyeHeight(1.5F).build(prefix("glacier_boar")));
     public static final DeferredHolder<EntityType<?>, EntityType<Venochem>> VENOCHEM = ENTITIES.register("venochem", () -> EntityType.Builder.of(Venochem::new, MobCategory.MONSTER).sized(0.8F, 0.8F).notInPeaceful().eyeHeight(0.45F).build(prefix("venochem")));
     public static final DeferredHolder<EntityType<?>, EntityType<Gokkur>> GOKKUR = ENTITIES.register("gokkur", () -> EntityType.Builder.of(Gokkur::new, MobCategory.MONSTER).sized(1.0F, 1.2F).notInPeaceful().eyeHeight(0.525F).fireImmune().build(prefix("gokkur")));
     public static final DeferredHolder<EntityType<?>, EntityType<UnderGokkur>> UNDER_GOKKUR = ENTITIES.register("under_gokkur", () -> EntityType.Builder.of(UnderGokkur::new, MobCategory.MONSTER).sized(1.0F, 1.2F).notInPeaceful().eyeHeight(0.525F).fireImmune().build(prefix("under_gokkur")));
@@ -75,7 +75,7 @@ public class FrostEntities {
         event.put(FROST_WRAITH.get(), FrostWraith.createAttributes().build());
         event.put(LESSER_WARRIOR.get(), LesserWarrior.createAttributes().build());
         event.put(ASTRA_BALL.get(), AstraBall.createAttributes().build());
-        event.put(FROST_BOAR.get(), FrostBoar.createAttributes().build());
+        event.put(GLACIER_BOAR.get(), GlacierBoar.createAttributes().build());
         event.put(VENOCHEM.get(), Venochem.createAttributes().build());
         event.put(GOKKUR.get(), Gokkur.createAttributes().build());
         event.put(UNDER_GOKKUR.get(), UnderGokkur.createAttributes().build());
@@ -102,7 +102,7 @@ public class FrostEntities {
 
         event.register(LESSER_WARRIOR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LesserWarrior::checkStraySpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(ASTRA_BALL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
-        event.register(FROST_BOAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FrostBoar::checkFrostAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(GLACIER_BOAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GlacierBoar::checkFrostAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(VENOCHEM.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Venochem::checkVenochemSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(GOKKUR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(UNDER_GOKKUR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
