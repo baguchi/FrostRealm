@@ -29,9 +29,10 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class GlacierBoar extends FrostAnimal {
+    private static final EntityDimensions BABY_DIMENSIONS = FrostEntities.GLACIER_BOAR.get().getDimensions().scale(0.5F).withEyeHeight(0.75F);
+
     protected static final ImmutableList<? extends SensorType<? extends Sensor<? super GlacierBoar>>> SENSOR_TYPES = ImmutableList.of(ModSensors.SMART_NEAREST_LIVING_ENTITY_SENSOR.get(), SensorType.NEAREST_ADULT, SensorType.HURT_BY
             , FrostSensors.FROST_BOAR_SENSOR.get(), FrostSensors.ENEMY_SENSOR.get());
-    private static final EntityDimensions BABY_DIMENSIONS = FrostEntities.GLACIER_BOAR.get().getDimensions().scale(0.5F).withEyeHeight(0.75F);
     protected static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.BREED_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.ANGRY_AT, MemoryModuleType.NEAREST_ATTACKABLE, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED, MemoryModuleType.HAS_HUNTING_COOLDOWN, MemoryModuleType.IS_PANICKING
             , FrostMemoryModuleType.NEAREST_ENEMYS.get(), FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get(), MemoryModuleType.AVOID_TARGET, FrostMemoryModuleType.NEAREST_FROST_BOARS.get(), FrostMemoryModuleType.FROST_BOAR_COUNT.get());
 
@@ -41,6 +42,11 @@ public class GlacierBoar extends FrostAnimal {
     public GlacierBoar(EntityType<? extends GlacierBoar> p_27557_, Level p_27558_) {
         super(p_27557_, p_27558_);
         this.getNavigation().setCanFloat(true);
+    }
+
+    @Override
+    protected float getWaterSlowDown() {
+        return 0.85F;
     }
 
     @Override

@@ -2,7 +2,7 @@ package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
-import baguchan.frostrealm.client.model.FrostBoarModel;
+import baguchan.frostrealm.client.model.GlacierBoarModel;
 import baguchan.frostrealm.client.render.state.GlacierBoarRenderState;
 import baguchan.frostrealm.entity.animal.GlacierBoar;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -10,12 +10,12 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 
-public class GlacierBoarRenderer<T extends GlacierBoar> extends MobRenderer<T, GlacierBoarRenderState, FrostBoarModel<GlacierBoarRenderState>> {
+public class GlacierBoarRenderer<T extends GlacierBoar> extends MobRenderer<T, GlacierBoarRenderState, GlacierBoarModel<GlacierBoarRenderState>> {
     private static final ResourceLocation BOAR = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/glacier_boar.png");
 
 
     public GlacierBoarRenderer(EntityRendererProvider.Context p_173952_) {
-        super(p_173952_, new FrostBoarModel<>(p_173952_.bakeLayer(FrostModelLayers.GLACIER_BOAR)), 0.6F);
+        super(p_173952_, new GlacierBoarModel<>(p_173952_.bakeLayer(FrostModelLayers.GLACIER_BOAR)), 0.6F);
     }
 
     @Override

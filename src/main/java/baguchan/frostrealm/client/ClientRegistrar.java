@@ -133,7 +133,7 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.CRYSTAL_FOX, CrystalFoxModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SNOW_MOLE, SnowMoleModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.ASTRA_BALL, AstraBallModel::createBodyLayer);
-        event.registerLayerDefinition(FrostModelLayers.GLACIER_BOAR, FrostBoarModel::createBodyLayer);
+        event.registerLayerDefinition(FrostModelLayers.GLACIER_BOAR, GlacierBoarModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.LESSER_WARRIOR, LesserWarriorModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SEAL, SealModel::createBodyLayer);
 
