@@ -77,8 +77,8 @@ public class GlacierBoarModel<T extends GlacierBoarRenderState> extends EntityMo
 
         PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -4.0F, -4.0F, 10.0F, 8.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 4.0F, -8.0F));
 
-        PartDefinition horn = nose.addOrReplaceChild("horn", CubeListBuilder.create().texOffs(-1, 23).addBox(-7.0F, -6.0F, -2.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F))
-                .texOffs(-1, 23).addBox(5.0F, -6.0F, -2.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 2.0F, 0.0F, 0.2618F, 0.0F, 0.0F));
+        PartDefinition horn = nose.addOrReplaceChild("horn", CubeListBuilder.create().texOffs(1, 23).addBox(-7.0F, -6.0F, -2.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 23).addBox(5.0F, -6.0F, -2.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 2.0F, 0.0F, 0.2618F, 0.0F, 0.0F));
 
         PartDefinition hair_front = head.addOrReplaceChild("hair_front", CubeListBuilder.create().texOffs(148, 0).addBox(-10.0F, 0.0F, 0.0F, 20.0F, 9.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -10.0F, -8.0F, -0.0873F, 0.0F, 0.0F));
 
