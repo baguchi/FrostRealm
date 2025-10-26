@@ -98,7 +98,7 @@ public class GlacierBoarModel<T extends GlacierBoarRenderState> extends EntityMo
         super.setupAnim(entity);
         this.head.yRot = entity.yRot * ((float) Math.PI / 180F);
         this.head.xRot = entity.xRot * ((float) Math.PI / 180F);
-        this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed, 1.0F, 2.0F);
+        this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed, 2.0F, 2.0F);
         this.attackAnimationState.apply(entity.attackAnimation, entity.ageInTicks);
     }
 }
