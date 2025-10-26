@@ -18,7 +18,7 @@
               "add": false
             }
           ],
-          "name": "frostrealm:frost_boar_horn"
+          "name": "frostrealm:glacier_boar_horn"
         }
       ]
     },
@@ -48,7 +48,7 @@
               "function": "minecraft:enchanted_count_increase"
             }
           ],
-          "name": "frostrealm:frost_boar_fur"
+          "name": "frostrealm:glacier_boar_fur"
         }
       ]
     },
@@ -92,7 +92,7 @@
               "function": "minecraft:enchanted_count_increase"
             }
           ],
-          "name": "frostrealm:frost_boar_meat"
+          "name": "frostrealm:glacier_boar_meat"
         }
       ]
     }
