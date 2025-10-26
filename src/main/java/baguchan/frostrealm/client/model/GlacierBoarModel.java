@@ -6,12 +6,18 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.7.2
 import baguchan.frostrealm.client.animation.GlacierBoarAnimations;
 import baguchan.frostrealm.client.render.state.GlacierBoarRenderState;
 import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.BabyModelTransform;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
+import java.util.Set;
+
 public class GlacierBoarModel<T extends GlacierBoarRenderState> extends EntityModel<T> {
+
+    public static final MeshTransformer BABY_TRANSFORMER = new BabyModelTransform(Set.of());
+
     private final ModelPart body;
     private final ModelPart bone;
     private final ModelPart right_hind_leg;
