@@ -49,7 +49,7 @@ public class AttackUtils {
                         if (resolveRange(d0)) {
 
                             //attack bonus
-                            f += itemstack.getItem().getAttackDamageBonus(player, f, damagesource);
+                            f += itemstack.getItem().getAttackDamageBonus(target, f, damagesource);
                             //enchant
                             float f1 = (player.level() instanceof ServerLevel serverLevel) ? EnchantmentHelper.modifyDamage(serverLevel, itemstack, livingentity2, damagesource, f) : f;
                             f += f1;
@@ -120,7 +120,7 @@ public class AttackUtils {
                                 && (!(livingentity2 instanceof ArmorStand) || !((ArmorStand) livingentity2).isMarker())
                                 && player.distanceToSqr(livingentity2) < entityReachSq) {
                             //attack bonus
-                            f += itemstack.getItem().getAttackDamageBonus(player, f, damagesource);
+                            f += itemstack.getItem().getAttackDamageBonus(target, f, damagesource);
                             //enchant
                             float f1 = (player.level() instanceof ServerLevel serverLevel) ? EnchantmentHelper.modifyDamage(serverLevel, itemstack, livingentity2, damagesource, f) - f : 0;
                             f += f1;
