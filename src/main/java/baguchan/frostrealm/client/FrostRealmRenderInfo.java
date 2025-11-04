@@ -106,7 +106,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
 
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(skyRenderState.timeOfDay * 90F + 90.0F));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(skyRenderState.timeOfDay * 360F));
         renderOrb(levelRenderState.getRenderDataOrDefault(FrostRealmRenderInfo.NORMAL_WEATHER_LEVEL_KEY, 0.0F), poseStack);
         poseStack.popPose();
 
