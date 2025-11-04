@@ -16,10 +16,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.CloudStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.DimensionSpecialEffects;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.state.LevelRenderState;
 import net.minecraft.client.renderer.state.SkyRenderState;
 import net.minecraft.client.renderer.state.WeatherRenderState;
@@ -46,6 +43,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     private static final ResourceLocation END_SKY_LOCATION = ResourceLocation.withDefaultNamespace("textures/environment/end_sky.png");
 
     private final FrostAmbientSoundsHandler soundsHandler;
+    private final SkyRenderer skyRenderer = new SkyRenderer();
 
     private final GpuBuffer auroraBuffer;
     private final GpuBuffer orbBuffer;
@@ -96,19 +94,38 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     @Override
     public boolean renderSky(LevelRenderState levelRenderState, SkyRenderState skyRenderState, Matrix4f modelViewMatrix, Runnable setupFog) {
         PoseStack poseStack = new PoseStack();
+        setupFog.run();
+
+        float f = ARGB.redFloat(skyRenderState.skyColor);
+        float f1 = ARGB.greenFloat(skyRenderState.skyColor);
+        float f2 = ARGB.blueFloat(skyRenderState.skyColor);
+        this.skyRenderer.renderSkyDisc(f, f1, f2);
+        if (skyRenderState.isSunriseOrSunset) {
+            this.skyRenderer.renderSunriseAndSunset(poseStack, skyRenderState.sunAngle, skyRenderState.sunriseAndSunsetColor);
+        }
+
+        this.skyRenderer
+                .renderSunMoonAndStars(
+                        poseStack, skyRenderState.timeOfDay, skyRenderState.moonPhase, skyRenderState.rainBrightness, skyRenderState.starBrightness
+                );
+
+
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
         float f4 = Mth.sin(levelRenderState.skyRenderState.sunAngle) < 0.0F ? 180.0F : 0.0F;
         poseStack.mulPose(Axis.ZP.rotationDegrees(f4 + 90.0F));
         renderOrb(levelRenderState.getRenderDataOrDefault(FrostRealmRenderInfo.NORMAL_WEATHER_LEVEL_KEY, 0.0F), poseStack);
         poseStack.popPose();
-        setupFog.run();
 
         poseStack.pushPose();
 
+        poseStack.popPose();
+        if (skyRenderState.shouldRenderDarkDisc) {
+            this.skyRenderer.renderDarkDisc();
+        }
+
         renderAurora(poseStack, levelRenderState.getRenderDataOrDefault(FrostRealmRenderInfo.NORMAL_WEATHER_LEVEL_KEY, 0.0F));
 
-        poseStack.popPose();
         return true;
     }
 
