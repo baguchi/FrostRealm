@@ -100,32 +100,23 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
         float f1 = ARGB.greenFloat(skyRenderState.skyColor);
         float f2 = ARGB.blueFloat(skyRenderState.skyColor);
         this.skyRenderer.renderSkyDisc(f, f1, f2);
-        if (skyRenderState.isSunriseOrSunset) {
+        /*if (skyRenderState.isSunriseOrSunset) {
             this.skyRenderer.renderSunriseAndSunset(poseStack, skyRenderState.sunAngle, skyRenderState.sunriseAndSunsetColor);
-        }
-
-        this.skyRenderer
-                .renderSunMoonAndStars(
-                        poseStack, skyRenderState.timeOfDay, skyRenderState.moonPhase, skyRenderState.rainBrightness, skyRenderState.starBrightness
-                );
-
+        }*/
 
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
-        float f4 = Mth.sin(levelRenderState.skyRenderState.sunAngle) < 0.0F ? 180.0F : 0.0F;
-        poseStack.mulPose(Axis.ZP.rotationDegrees(f4 + 90.0F));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(skyRenderState.timeOfDay * 90F + 90.0F));
         renderOrb(levelRenderState.getRenderDataOrDefault(FrostRealmRenderInfo.NORMAL_WEATHER_LEVEL_KEY, 0.0F), poseStack);
         poseStack.popPose();
 
-        poseStack.pushPose();
-
-        poseStack.popPose();
         if (skyRenderState.shouldRenderDarkDisc) {
             this.skyRenderer.renderDarkDisc();
         }
 
+        poseStack.pushPose();
         renderAurora(poseStack, levelRenderState.getRenderDataOrDefault(FrostRealmRenderInfo.NORMAL_WEATHER_LEVEL_KEY, 0.0F));
-
+        poseStack.popPose();
         return true;
     }
 
