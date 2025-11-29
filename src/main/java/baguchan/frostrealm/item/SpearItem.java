@@ -6,7 +6,7 @@ import baguchan.frostrealm.registry.FrostAnimations;
 import baguchan.frostrealm.registry.FrostAttachs;
 import baguchi.bagus_lib.util.client.BagusAnimationUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,8 +21,8 @@ import net.neoforged.neoforge.common.ItemAbility;
 import java.util.List;
 
 public class SpearItem extends Item implements IItemAnimation {
-    public static final ResourceLocation BASE_ENTITY_RANGE = ResourceLocation.withDefaultNamespace("base_entity_range");
-    public static final ResourceLocation BASE_BLOCK_RANGE = ResourceLocation.withDefaultNamespace("base_block_range");
+    public static final Identifier BASE_ENTITY_RANGE = Identifier.withDefaultNamespace("base_entity_range");
+    public static final Identifier BASE_BLOCK_RANGE = Identifier.withDefaultNamespace("base_block_range");
 
 
     public SpearItem(Properties properties) {

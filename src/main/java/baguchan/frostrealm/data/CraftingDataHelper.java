@@ -7,7 +7,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -228,7 +228,7 @@ public abstract class CraftingDataHelper extends RecipeProvider {
     }
 
 	public static ResourceKey<Recipe<?>> prefix(String name) {
-		return ResourceKey.create(Registries.RECIPE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name.toLowerCase(Locale.ROOT)));
+		return ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(FrostRealm.MODID, name.toLowerCase(Locale.ROOT)));
 	}
 
 	protected final ResourceKey<Recipe<?>> locEquip(String name) {

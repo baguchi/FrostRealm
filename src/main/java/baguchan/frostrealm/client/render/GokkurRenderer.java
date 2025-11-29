@@ -7,16 +7,17 @@ import baguchan.frostrealm.client.render.layer.CrackingGokkurLayer;
 import baguchan.frostrealm.client.render.layer.SnowGokkurLayer;
 import baguchan.frostrealm.client.render.state.GokkurRenderState;
 import baguchan.frostrealm.entity.hostile.Gokkur;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 
 public class GokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurRenderState, GokkurModel<GokkurRenderState>> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/gokkur.png");
-    private static final ResourceLocation GRASS_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/gokkur_grass.png");
-    private static final RenderType GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/gokkur_eye.png"));
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/gokkur.png");
+    private static final Identifier GRASS_TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/gokkur_grass.png");
+    private static final RenderType GLOW = RenderTypes.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/gokkur_eye.png"));
 
     public GokkurRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(FrostModelLayers.GOKKUR)), 0.5F);
@@ -46,7 +47,7 @@ public class GokkurRenderer<T extends Gokkur> extends MobRenderer<T, GokkurRende
     }
 
     @Override
-    public ResourceLocation getTextureLocation(GokkurRenderState entity) {
+    public Identifier getTextureLocation(GokkurRenderState entity) {
         if (entity.grass) {
             return GRASS_TEXTURE;
         }

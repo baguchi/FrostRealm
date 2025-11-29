@@ -3,7 +3,7 @@ package baguchan.frostrealm.item;
 import baguchan.frostrealm.FrostRealm;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -26,7 +26,7 @@ import static baguchan.frostrealm.item.SpearItem.BASE_BLOCK_RANGE;
 import static baguchan.frostrealm.item.SpearItem.BASE_ENTITY_RANGE;
 
 public class SickleItem extends Item {
-    public static final ResourceLocation SWEEP_SPEED_ID = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "sweep_speed");
+    public static final Identifier SWEEP_SPEED_ID = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "sweep_speed");
 
     public SickleItem(ToolMaterial tier, float damage, float speed, Item.Properties properties) {
         super(properties.durability(tier.durability()).enchantable(tier.enchantmentValue()).repairable(tier.repairItems()).attributes(createAttributes(tier, damage, speed)).component(DataComponents.TOOL, createToolProperties()).component(DataComponents.WEAPON, new Weapon(1)));

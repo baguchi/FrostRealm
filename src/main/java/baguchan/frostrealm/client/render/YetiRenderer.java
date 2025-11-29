@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
@@ -24,8 +24,8 @@ import net.minecraft.world.item.ItemStack;
 
 
 public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiRenderState, YetiModel<YetiRenderState>> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/yeti.png");
-    private static final RenderType YETI_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/yeti_glow.png"));
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/yeti.png");
+    private static final RenderType YETI_GLOW = RenderType.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/yeti_glow.png"));
 
 	public YetiRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new YetiModel<>(p_173952_.bakeLayer(FrostModelLayers.YETI)), 0.75F);
@@ -96,7 +96,7 @@ public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiRenderState
     }
 
     @Override
-    public ResourceLocation getTextureLocation(YetiRenderState p_110775_1_) {
+    public Identifier getTextureLocation(YetiRenderState p_110775_1_) {
         return TEXTURE;
 	}
 }

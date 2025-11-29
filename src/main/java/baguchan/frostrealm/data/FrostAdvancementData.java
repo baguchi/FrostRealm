@@ -19,7 +19,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -46,7 +46,7 @@ public class FrostAdvancementData extends AdvancementProvider {
 					.display(FrostItems.STRAY_NECKLACE_PART.get(),
 							Component.translatable("advancement.frostrealm.warriors_lost_item"),
 							Component.translatable("advancement.frostrealm.warriors_lost_item.desc"),
-							ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/block/frigid_stone.png"),
+							Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/block/frigid_stone.png"),
 							AdvancementType.TASK, false, false, false)
 					.addCriterion("warriors_lost_item", InventoryChangeTrigger.TriggerInstance.hasItems(FrostItems.STRAY_NECKLACE_PART.get()))
 					.save(consumer, "frostrealm:root");
@@ -55,7 +55,7 @@ public class FrostAdvancementData extends AdvancementProvider {
 					.display(FrostBlocks.FROZEN_GRASS_BLOCK.get(),
 							Component.translatable("advancement.frostrealm.enter_frostrealm"),
 							Component.translatable("advancement.frostrealm.enter_frostrealm.desc"),
-							ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/block/frozen_dirt.png"),
+							Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/block/frozen_dirt.png"),
 							AdvancementType.TASK, true, true, false)
 					.addCriterion("enter_frostrealm", ChangeDimensionTrigger.TriggerInstance.changedDimensionTo(FrostDimensions.FROSTREALM_LEVEL))
 					.save(consumer, "frostrealm:enter_frostrealm");

@@ -2,7 +2,7 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -33,7 +33,7 @@ public class FrostSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> MORTAR = register("ambient.mortar.moving");
 
     private static DeferredHolder<SoundEvent, SoundEvent> register(String sound) {
-        ResourceLocation name = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, sound);
+        Identifier name = Identifier.fromNamespaceAndPath(FrostRealm.MODID, sound);
 		return SOUND_EVENTS.register(sound, () -> SoundEvent.createVariableRangeEvent(name));
 	}
 }

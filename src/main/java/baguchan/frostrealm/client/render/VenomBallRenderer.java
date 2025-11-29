@@ -14,10 +14,10 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class VenomBallRenderer<T extends VenomBall> extends EntityRenderer<T, ProjectileRenderState> {
-    private static final ResourceLocation LLAMA_SPIT_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/venom_ball.png");
+    private static final Identifier LLAMA_SPIT_LOCATION = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/venom_ball.png");
     private final VenomBallModel<ProjectileRenderState> model;
 
     public VenomBallRenderer(EntityRendererProvider.Context context) {
@@ -53,7 +53,7 @@ public class VenomBallRenderer<T extends VenomBall> extends EntityRenderer<T, Pr
         p_361028_.yRot = p_362104_.getYRot(p_362204_);
     }
 
-    public ResourceLocation getTextureLocation(ProjectileRenderState llamaSpit) {
+    public Identifier getTextureLocation(ProjectileRenderState llamaSpit) {
         return LLAMA_SPIT_LOCATION;
     }
 }

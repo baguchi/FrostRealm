@@ -2,7 +2,7 @@ package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -18,7 +18,7 @@ public class FrostTags {
 		public static final TagKey<Biome> HAS_CASTLE = tag("has_structure/castle");
 
         private static TagKey<Biome> tag(String name) {
-			return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name));
+			return TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(FrostRealm.MODID, name));
         }
     }
 	public static class Blocks {
@@ -32,7 +32,7 @@ public class FrostTags {
 		public static final TagKey<Block> ANIMAL_SPAWNABLE = tag("frost_animal_spawnable");
 
 		private static TagKey<Block> tag(String name) {
-			return BlockTags.create(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name));
+			return BlockTags.create(Identifier.fromNamespaceAndPath(FrostRealm.MODID, name));
 		}
 	}
 
@@ -62,7 +62,7 @@ public class FrostTags {
 
 
 		private static TagKey<Item> tag(String p_203849_) {
-			return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_203849_));
+			return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(FrostRealm.MODID, p_203849_));
         }
     }
 
@@ -71,7 +71,7 @@ public class FrostTags {
         public static final TagKey<EntityType<?>> EQUIPPABLE_FROST_SADDLE = tag("equippable_frost_saddle");
 
 		private static TagKey<EntityType<?>> tag(String p_203849_) {
-			return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_203849_));
+			return TagKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(FrostRealm.MODID, p_203849_));
 		}
 	}
 }

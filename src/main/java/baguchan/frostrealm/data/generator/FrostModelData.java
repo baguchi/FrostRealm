@@ -19,7 +19,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -108,7 +108,7 @@ public class FrostModelData extends ModelProvider {
             (this.knownItems.get()).map(Holder::value).forEach((p_388426_) -> {
                 if (!this.copies.containsKey(p_388426_) && p_388426_ instanceof BlockItem blockitem) {
                     if (!this.itemInfos.containsKey(blockitem)) {
-                        ResourceLocation resourcelocation = ModelLocationUtils.getModelLocation(blockitem.getBlock());
+                        Identifier resourcelocation = ModelLocationUtils.getModelLocation(blockitem.getBlock());
                         this.accept(blockitem, ItemModelUtils.plainModel(resourcelocation));
                     }
                 }
@@ -123,7 +123,7 @@ public class FrostModelData extends ModelProvider {
                     this.register(p_386494_, clientitem);
                 }
             });
-            List<ResourceLocation> list = (this.knownItems.get()).filter((p_388636_) -> !this.itemInfos.containsKey(p_388636_.value())).map((p_388278_) -> ((ResourceKey) p_388278_.unwrapKey().orElseThrow()).location()).toList();
+            List<Identifier> list = (this.knownItems.get()).filter((p_388636_) -> !this.itemInfos.containsKey(p_388636_.value())).map((p_388278_) -> ((ResourceKey) p_388278_.unwrapKey().orElseThrow()).location()).toList();
             if (!list.isEmpty()) {
                 throw new IllegalStateException("Missing item model definitions for: " + String.valueOf(list));
             }
@@ -135,13 +135,13 @@ public class FrostModelData extends ModelProvider {
     }
 
 
-    static class SimpleModelCollector implements BiConsumer<ResourceLocation, ModelInstance> {
-        private final Map<ResourceLocation, ModelInstance> models = new HashMap();
+    static class SimpleModelCollector implements BiConsumer<Identifier, ModelInstance> {
+        private final Map<Identifier, ModelInstance> models = new HashMap();
 
         SimpleModelCollector() {
         }
 
-        public void accept(ResourceLocation p_388633_, ModelInstance p_388119_) {
+        public void accept(Identifier p_388633_, ModelInstance p_388119_) {
             Supplier<JsonElement> supplier = (Supplier) this.models.put(p_388633_, p_388119_);
             if (supplier != null) {
                 throw new IllegalStateException("Duplicate model definition for " + String.valueOf(p_388633_));
@@ -179,7 +179,7 @@ public class FrostModelData extends ModelProvider {
 
         public void validate() {
             Stream<? extends Holder<Block>> stream = this.knownBlocks.get();
-            List<ResourceLocation> list = stream.filter((p_386843_) -> !this.generators.containsKey(p_386843_.value())).map((p_386823_) -> ((ResourceKey) p_386823_.unwrapKey().orElseThrow()).location()).toList();
+            List<Identifier> list = stream.filter((p_386843_) -> !this.generators.containsKey(p_386843_.value())).map((p_386823_) -> ((ResourceKey) p_386823_.unwrapKey().orElseThrow()).location()).toList();
             if (!list.isEmpty()) {
                 throw new IllegalStateException("Missing blockstate definitions for: " + String.valueOf(list));
             }

@@ -7,7 +7,7 @@ import baguchan.frostrealm.aurorapower.LightSlasherPower;
 import baguchan.frostrealm.aurorapower.WeaponPower;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -19,9 +19,9 @@ import java.util.function.Supplier;
 
 @EventBusSubscriber(modid = FrostRealm.MODID)
 public class AuroraPowers {
-    public static final ResourceKey<Registry<AuroraPower>> AURORA_POWER_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "aurora_power"));
+    public static final ResourceKey<Registry<AuroraPower>> AURORA_POWER_KEY = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "aurora_power"));
 
-    public static final DeferredRegister<AuroraPower> AURORA_POWER = DeferredRegister.create(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "aurora_power"), FrostRealm.MODID);
+    public static final DeferredRegister<AuroraPower> AURORA_POWER = DeferredRegister.create(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "aurora_power"), FrostRealm.MODID);
 
     public static final Supplier<AuroraPower> AURORA_PROTECTION = AURORA_POWER.register("aurora_protection", () -> new ArmorPower(new AuroraPower.Properties(AuroraPower.Rarity.COMMON, 3), new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET, EquipmentSlot.BODY}));
 

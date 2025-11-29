@@ -4,7 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.weather.FrostWeather;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -18,10 +18,10 @@ import static net.minecraft.resources.ResourceKey.createRegistryKey;
 
 @EventBusSubscriber(modid = FrostRealm.MODID)
 public class FrostWeathers {
-	public static final ResourceKey<Registry<FrostWeather>> WEATHER_RESOURCE_KEY = createRegistryKey(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_weather"));
+	public static final ResourceKey<Registry<FrostWeather>> WEATHER_RESOURCE_KEY = createRegistryKey(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_weather"));
 
 
-	public static final DeferredRegister<FrostWeather> FROST_WEATHER = DeferredRegister.create(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_weather"), FrostRealm.MODID);
+	public static final DeferredRegister<FrostWeather> FROST_WEATHER = DeferredRegister.create(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_weather"), FrostRealm.MODID);
 
 	public static final Supplier<FrostWeather> NOPE = FROST_WEATHER.register("nope", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(1.0F, 1.0F, 1.0F, 0.85F), Optional.empty(), Optional.empty(), false)));
 	public static final Supplier<FrostWeather> BLIZZARD = FROST_WEATHER.register("blizzard", () -> new FrostWeather(new FrostWeather.Properties(new FrostWeather.FogProperties(0.9F, 0.9F, 0.9F, 0.1F), Optional.of(FrostSounds.BLIZZARD_AMBIENT.get()), Optional.of(FrostTags.Biomes.HOT_BIOME), true)));

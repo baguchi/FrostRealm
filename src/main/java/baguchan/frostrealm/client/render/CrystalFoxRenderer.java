@@ -7,24 +7,24 @@ import baguchan.frostrealm.client.render.layer.CrystalFoxHeldItemLayer;
 import baguchan.frostrealm.client.render.state.CrystalFoxRenderState;
 import baguchan.frostrealm.entity.animal.CrystalFox;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.state.HoldingEntityRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 
 
 public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxRenderState, CrystalFoxModel<CrystalFoxRenderState>> {
-	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox.png");
-	private static final ResourceLocation SHEARED_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sheared.png");
-	private static final ResourceLocation SLEEP_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sleep.png");
-	private static final ResourceLocation SLEEP_SHEARED_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sleep_sheared.png");
+	private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox.png");
+	private static final Identifier SHEARED_TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sheared.png");
+	private static final Identifier SLEEP_TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sleep.png");
+	private static final Identifier SLEEP_SHEARED_TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_sleep_sheared.png");
 
-	private static final RenderType FOX_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_glow.png"));
-	private static final RenderType FOX_EYES_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_eyes_glow.png"));
+	private static final RenderType FOX_GLOW = RenderTypes.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_glow.png"));
+	private static final RenderType FOX_EYES_GLOW = RenderTypes.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/crystal_fox/crystal_fox_eyes_glow.png"));
 
 	public CrystalFoxRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new CrystalFoxModel<>(p_173952_.bakeLayer(FrostModelLayers.CRYSTAL_FOX)), 0.5F);
@@ -82,7 +82,7 @@ public class CrystalFoxRenderer extends MobRenderer<CrystalFox, CrystalFoxRender
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(CrystalFoxRenderState p_110775_1_) {
+	public Identifier getTextureLocation(CrystalFoxRenderState p_110775_1_) {
 		if (p_110775_1_.state == CrystalFox.State.SLEEPING) {
 			return p_110775_1_.shearable ? SLEEP_TEXTURE : SLEEP_SHEARED_TEXTURE;
 		}

@@ -10,12 +10,12 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
 public class WolfflueVariants {
-    public static final ResourceKey<Registry<WolfflueVariant>> WOLFFLUE_VARIANT_REGISTRY_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_variant"));
+    public static final ResourceKey<Registry<WolfflueVariant>> WOLFFLUE_VARIANT_REGISTRY_KEY = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_variant"));
 
     public static final ResourceKey<WolfflueVariant> FROST = createKey("frost");
     public static final ResourceKey<WolfflueVariant> SNOW = createKey("snow");
@@ -23,7 +23,7 @@ public class WolfflueVariants {
     public static final ResourceKey<WolfflueVariant> DEFAULT = FROST;
 
     private static ResourceKey<WolfflueVariant> createKey(String name) {
-        return ResourceKey.create(WOLFFLUE_VARIANT_REGISTRY_KEY, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name));
+        return ResourceKey.create(WOLFFLUE_VARIANT_REGISTRY_KEY, Identifier.fromNamespaceAndPath(FrostRealm.MODID, name));
     }
 
     static void register(BootstrapContext<WolfflueVariant> context, ResourceKey<WolfflueVariant> key, String name, ResourceKey<Biome> biomeResourceKey) {
@@ -35,8 +35,8 @@ public class WolfflueVariants {
     }
 
     static void register(BootstrapContext<WolfflueVariant> context, ResourceKey<WolfflueVariant> key, String name, HolderSet<Biome> biomeHolderSet) {
-        ResourceLocation resourcelocation = FrostRealm.prefix("entity/wolfflue/" + name);
-        ResourceLocation resourcelocation2 = FrostRealm.prefix("entity/wolfflue/" + name + "_angry");
+        Identifier resourcelocation = FrostRealm.prefix("entity/wolfflue/" + name);
+        Identifier resourcelocation2 = FrostRealm.prefix("entity/wolfflue/" + name + "_angry");
         context.register(key, new WolfflueVariant(resourcelocation, resourcelocation2, biomeHolderSet));
     }
 

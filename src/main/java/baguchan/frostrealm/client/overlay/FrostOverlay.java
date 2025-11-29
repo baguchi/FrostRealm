@@ -9,7 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.client.gui.GuiLayer;
@@ -17,9 +17,9 @@ import net.neoforged.neoforge.client.gui.GuiLayer;
 import java.util.Random;
 
 public class FrostOverlay implements GuiLayer {
-    public static final ResourceLocation ICON_0 = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "temperature/temperature_0");
-    public static final ResourceLocation ICON_1 = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "temperature/temperature_1");
-    public static final ResourceLocation ICON_2 = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "temperature/temperature_2");
+    public static final Identifier ICON_0 = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "temperature/temperature_0");
+    public static final Identifier ICON_1 = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "temperature/temperature_1");
+    public static final Identifier ICON_2 = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "temperature/temperature_2");
 
     protected final Random random = new Random();
 

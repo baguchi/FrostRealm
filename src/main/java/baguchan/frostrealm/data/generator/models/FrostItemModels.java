@@ -9,13 +9,13 @@ import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelInstance;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 import java.util.function.BiConsumer;
 
 public class FrostItemModels extends ItemModelGenerators {
-    public FrostItemModels(ItemModelOutput itemModelOutput, BiConsumer<ResourceLocation, ModelInstance> modelOutput) {
+    public FrostItemModels(ItemModelOutput itemModelOutput, BiConsumer<Identifier, ModelInstance> modelOutput) {
         super(itemModelOutput, modelOutput);
     }
 
@@ -120,7 +120,7 @@ public class FrostItemModels extends ItemModelGenerators {
     }
 
     public void generateSpawnEgg(Item p_387114_, int p_387737_, int p_387138_) {
-        ResourceLocation resourcelocation = ModelLocationUtils.decorateItemModelLocation("bagus_lib:template_spawn_egg");
+        Identifier resourcelocation = ModelLocationUtils.decorateItemModelLocation("bagus_lib:template_spawn_egg");
         this.itemModelOutput.accept(p_387114_, ItemModelUtils.tintedModel(resourcelocation, new ItemTintSource[]{ItemModelUtils.constantTint(p_387737_), ItemModelUtils.constantTint(p_387138_)}));
     }
 }

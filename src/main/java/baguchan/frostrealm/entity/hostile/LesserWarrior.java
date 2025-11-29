@@ -27,9 +27,9 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -294,11 +294,6 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
     }
 
     @Override
-    protected boolean isSunBurnTick() {
-        return false;
-    }
-
-    @Override
     protected SoundEvent getStepSound() {
         return SoundEvents.STRAY_STEP;
     }
@@ -313,7 +308,7 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
     }
 
     @Override
-    protected AABB getAttackBoundingBox() {
-        return this.getMainHandItem().is(FrostItems.FROST_SPEAR.get()) ? super.getAttackBoundingBox().inflate(1F, 0, 1F) : super.getAttackBoundingBox();
+    protected AABB getAttackBoundingBox(double b) {
+        return this.getMainHandItem().is(FrostItems.FROST_SPEAR.get()) ? super.getAttackBoundingBox(b).inflate(1F, 0, 1F) : super.getAttackBoundingBox(b);
     }
 }

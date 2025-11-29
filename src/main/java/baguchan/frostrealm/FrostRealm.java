@@ -17,7 +17,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -98,19 +98,8 @@ public class FrostRealm {
 	private void dataSetup(final DataPackRegistryEvent.NewRegistry event) {
 	}
 
-	public void setup(FMLCommonSetupEvent event) {
-		event.enqueueWork(() -> {
-            FrostBlockSetTypes.init();
-            FrostWoodTypes.init();
-			FrostInteractionInformations.init();
-			FrostBlocks.burnables();
-			FrostBiomes.addBiomeTypes();
-			Map<ResourceLocation, MultiNoiseBiomeSourceParameterList.Preset> map = Maps.newHashMap();
-			map.putAll(Map.copyOf(MultiNoiseBiomeSourceParameterList.Preset.BY_NAME));
-			map.put(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frostrealm"), FrostBiomeSources.FROSTREALM_PRESET);
-			MultiNoiseBiomeSourceParameterList.Preset.BY_NAME = map;
-		});
-
+	public static Identifier prefix(String name) {
+		return Identifier.fromNamespaceAndPath(FrostRealm.MODID, name.toLowerCase(Locale.ROOT));
 	}
 
 	public void setupBlockEntity(BlockEntityTypeAddBlocksEvent event) {
@@ -135,8 +124,19 @@ public class FrostRealm {
 		registrar.playToClient(UpdateMultipartPacket.TYPE, UpdateMultipartPacket.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
 	}
 
-	public static ResourceLocation prefix(String name) {
-		return ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name.toLowerCase(Locale.ROOT));
+	public void setup(FMLCommonSetupEvent event) {
+		event.enqueueWork(() -> {
+            FrostBlockSetTypes.init();
+            FrostWoodTypes.init();
+			FrostInteractionInformations.init();
+			FrostBlocks.burnables();
+			FrostBiomes.addBiomeTypes();
+			Map<Identifier, MultiNoiseBiomeSourceParameterList.Preset> map = Maps.newHashMap();
+			map.putAll(Map.copyOf(MultiNoiseBiomeSourceParameterList.Preset.BY_NAME));
+			map.put(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frostrealm"), FrostBiomeSources.FROSTREALM_PRESET);
+			MultiNoiseBiomeSourceParameterList.Preset.BY_NAME = map;
+		});
+
 	}
 
 	public static String prefixOnString(String name) {

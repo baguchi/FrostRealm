@@ -5,13 +5,13 @@ import baguchan.frostrealm.registry.FrostAttachs;
 import baguchan.frostrealm.registry.FrostParticleTypes;
 import baguchan.frostrealm.world.FrostPortalForcer;
 import baguchan.frostrealm.world.FrostPortalShape;
-import net.minecraft.BlockUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.BlockUtil;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.portal.PortalShape;
 import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.Vec3;
@@ -139,10 +140,10 @@ public class FrostPortalBlock extends Block implements Portal {
 				? Math.max(
 				1,
 				p_350689_.getGameRules()
-						.getInt(
+						.get(
 								player.getAbilities().invulnerable
-										? GameRules.RULE_PLAYERS_NETHER_PORTAL_CREATIVE_DELAY
-										: GameRules.RULE_PLAYERS_NETHER_PORTAL_DEFAULT_DELAY
+										? GameRules.PLAYERS_NETHER_PORTAL_CREATIVE_DELAY
+										: GameRules.PLAYERS_NETHER_PORTAL_DEFAULT_DELAY
 						)
 		)
 				: 0;

@@ -10,12 +10,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.HoldingEntityRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 
 public class SnowPileQuailRenderer<T extends SnowPileQuail> extends MobRenderer<T, SnowPileQuailRenderState, SnowPileQuailModel<SnowPileQuailRenderState>> {
-	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/snowpile_quail.png");
+	private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/snowpile_quail.png");
 
 	public SnowPileQuailRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new SnowPileQuailModel<>(p_173952_.bakeLayer(FrostModelLayers.SNOWPILE_QUAIL)), 0.4F);
@@ -45,7 +45,7 @@ public class SnowPileQuailRenderer<T extends SnowPileQuail> extends MobRenderer<
 	}
 
 	@Override
-    public ResourceLocation getTextureLocation(SnowPileQuailRenderState p_110775_1_) {
+    public Identifier getTextureLocation(SnowPileQuailRenderState p_110775_1_) {
 		return TEXTURE;
 	}
 }

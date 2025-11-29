@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,7 +18,7 @@ public class FrostPoiTypes {
     public static final ResourceKey<PoiType> FROST_PORTAL = createKey("frostrealm_portal");
 
     private static ResourceKey<PoiType> createKey(String p_218091_) {
-        return ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_218091_));
+        return ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, Identifier.fromNamespaceAndPath(FrostRealm.MODID, p_218091_));
     }
 
     private static Set<BlockState> getBlockStates(Block p_218074_) {

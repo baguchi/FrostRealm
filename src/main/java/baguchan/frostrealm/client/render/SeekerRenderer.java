@@ -13,11 +13,11 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class SeekerRenderer<T extends Seeker> extends MobRenderer<T, SeekerRenderState, SeekerModel<SeekerRenderState>> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/seeker/seeker.png");
-    private static final RenderType WRAITH_GLOW = RenderType.eyes(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/seeker/seeker_eye.png"));
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/seeker/seeker.png");
+    private static final RenderType WRAITH_GLOW = RenderType.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/seeker/seeker_eye.png"));
 
     private static final float HALF_SQRT_3 = (float) (Math.sqrt(60.0) / 2.0);
 
@@ -63,7 +63,7 @@ public class SeekerRenderer<T extends Seeker> extends MobRenderer<T, SeekerRende
     }
 
     @Override
-    public ResourceLocation getTextureLocation(SeekerRenderState p_110775_1_) {
+    public Identifier getTextureLocation(SeekerRenderState p_110775_1_) {
         return TEXTURE;
     }
 }

@@ -11,15 +11,14 @@ import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostSounds;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import baguchi.bagus_lib.client.event.BagusModelEvent;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.WinScreen;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
-import net.minecraft.client.sounds.MusicInfo;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Util;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ArrowItem;
@@ -37,10 +36,6 @@ import java.util.Optional;
 
 @EventBusSubscriber(modid = FrostRealm.MODID, value = Dist.CLIENT)
 public class ClientEvents {
-
-    public static final Music CALM_NIGHT = createFrostMusic(FrostSounds.CALM_NIGHT_BGM);
-    public static final Music FROST_MOON = createFrostMusic(FrostSounds.FROST_MOON_BGM);
-
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void clientAnimation(BagusModelEvent.PostAnimate event) {
         if (event.getEntityRenderState() instanceof HumanoidRenderState humanoidRenderState) {
@@ -78,40 +73,11 @@ public class ClientEvents {
         if (attachableCrystal != null) {
             int damage2 = (attachableCrystal.value().getUse() - damage);
             if (event.getItemStack().getItem() instanceof ArrowItem || event.getItemStack().is(FrostItems.COATING_FUR)) {
-                event.getToolTip().add(Component.translatable(Util.makeDescriptionId("attach_crystal", event.getContext().registries().lookup(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).get().getOrThrow(attachableCrystal.getKey()).getKey().location())));
+                event.getToolTip().add(Component.translatable(Util.makeDescriptionId("attach_crystal", event.getContext().registries().lookup(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).get().getOrThrow(attachableCrystal.getKey()).getKey().identifier())));
             } else {
-                event.getToolTip().add(Component.translatable(Util.makeDescriptionId("attach_crystal", event.getContext().registries().lookup(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).get().getOrThrow(attachableCrystal.getKey()).getKey().location()))
+                event.getToolTip().add(Component.translatable(Util.makeDescriptionId("attach_crystal", event.getContext().registries().lookup(AttachableCrystals.ATTACHABLE_CRYSTAL_REGISTRY_KEY).get().getOrThrow(attachableCrystal.getKey()).getKey().identifier()))
                         .append(" ").append(damage2 + " / " + attachableCrystal.value().getUse()));
             }
         }
-    }
-
-    //handle frostreallam music
-    @SubscribeEvent
-    public static void onMusicPlayed(SelectMusicEvent event) {
-
-        if (Minecraft.getInstance().level != null && Minecraft.getInstance().player != null) {
-            Holder<Biome> biome = Minecraft.getInstance().player.level().getBiome(Minecraft.getInstance().player.blockPosition());
-            float volume = biome.value().getBackgroundMusicVolume();
-            if (Minecraft.getInstance().level.dimension() == FrostDimensions.FROSTREALM_LEVEL) {
-                Optional<WeightedList<Music>> musicInfo = biome.value().getBackgroundMusic();
-                if (!(Minecraft.getInstance().screen instanceof WinScreen)) {
-                    long time = Minecraft.getInstance().player.level().getLevelData().getDayTime() % 24000L;
-                    boolean day = time >= 0 && time < 12000;
-                    boolean sunset = time >= 12000 && time < 14000;
-                    boolean night = time >= 14000 && time < 22000;
-                    boolean sunrise = time >= 22000;
-                    if (night) {
-                        event.setMusic(new MusicInfo(CALM_NIGHT, volume));
-                    } else {
-                        event.setMusic(new MusicInfo(FROST_MOON, volume));
-                    }
-                }
-            }
-        }
-    }
-
-    public static Music createFrostMusic(Holder<SoundEvent> event) {
-        return new Music(event, 3600, 10800, false);
     }
 }

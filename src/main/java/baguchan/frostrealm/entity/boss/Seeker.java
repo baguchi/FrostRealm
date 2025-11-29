@@ -29,8 +29,8 @@ import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.animal.golem.IronGolem;
+import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -335,8 +335,8 @@ public class Seeker extends Monster {
     }
 
     @Override
-    protected AABB getAttackBoundingBox() {
-        return this.getMainHandItem().is(FrostItems.FROST_SPEAR.get()) ? super.getAttackBoundingBox().inflate(1.5F, 0, 1.5F) : super.getAttackBoundingBox();
+    protected AABB getAttackBoundingBox(double d) {
+        return this.getMainHandItem().is(FrostItems.FROST_SPEAR.get()) ? super.getAttackBoundingBox(d).inflate(1.5F, 0, 1.5F) : super.getAttackBoundingBox(d);
     }
 
     public static enum SeekerState implements StringRepresentable {

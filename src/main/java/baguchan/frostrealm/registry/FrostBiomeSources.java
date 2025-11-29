@@ -8,7 +8,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
@@ -18,7 +18,7 @@ import java.util.function.Function;
 public class FrostBiomeSources {
     public static final ResourceKey<MultiNoiseBiomeSourceParameterList> FROSTREALM = registerPreset("frostrealm");
 
-    public static final MultiNoiseBiomeSourceParameterList.Preset FROSTREALM_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frostrealm"), new MultiNoiseBiomeSourceParameterList.Preset.SourceProvider() {
+    public static final MultiNoiseBiomeSourceParameterList.Preset FROSTREALM_PRESET = new MultiNoiseBiomeSourceParameterList.Preset(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frostrealm"), new MultiNoiseBiomeSourceParameterList.Preset.SourceProvider() {
         public <T> Climate.ParameterList<T> apply(Function<ResourceKey<Biome>, T> p_275530_) {
             return generateFrostBiome(p_275530_);
         }
@@ -33,7 +33,7 @@ public class FrostBiomeSources {
     }
 
     private static ResourceKey<MultiNoiseBiomeSourceParameterList> registerPreset(String p_275281_) {
-        return ResourceKey.create(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_275281_));
+        return ResourceKey.create(Registries.MULTI_NOISE_BIOME_SOURCE_PARAMETER_LIST, Identifier.fromNamespaceAndPath(FrostRealm.MODID, p_275281_));
     }
 
     public static void bootstrapPreset(BootstrapContext<MultiNoiseBiomeSourceParameterList> p_275387_) {

@@ -11,7 +11,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFileCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.biome.Biome;
 
 import java.util.Objects;
@@ -19,21 +19,21 @@ import java.util.Objects;
 public class WolfflueVariant {
     public static final Codec<WolfflueVariant> DIRECT_CODEC = RecordCodecBuilder.create(
             p_332779_ -> p_332779_.group(
-                            ResourceLocation.CODEC.fieldOf("wild_texture").forGetter(p_335261_ -> p_335261_.wildTexture),
-                            ResourceLocation.CODEC.fieldOf("angry_texture").forGetter(p_335264_ -> p_335264_.angryTexture),
+                            Identifier.CODEC.fieldOf("wild_texture").forGetter(p_335261_ -> p_335261_.wildTexture),
+                            Identifier.CODEC.fieldOf("angry_texture").forGetter(p_335264_ -> p_335264_.angryTexture),
                             RegistryCodecs.homogeneousList(Registries.BIOME).fieldOf("biomes").forGetter(WolfflueVariant::biomes)
                     )
                     .apply(p_332779_, WolfflueVariant::new)
     );
     public static final Codec<Holder<WolfflueVariant>> CODEC = RegistryFileCodec.create(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, DIRECT_CODEC);
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<WolfflueVariant>> STREAM_CODEC = ByteBufCodecs.holderRegistry(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY);
-    private final ResourceLocation wildTexture;
-    private final ResourceLocation angryTexture;
-    private final ResourceLocation wildTextureFull;
-    private final ResourceLocation angryTextureFull;
+    private final Identifier wildTexture;
+    private final Identifier angryTexture;
+    private final Identifier wildTextureFull;
+    private final Identifier angryTextureFull;
     private final HolderSet<Biome> biomes;
 
-    public WolfflueVariant(ResourceLocation p_332712_, ResourceLocation p_332788_, HolderSet<Biome> p_332717_) {
+    public WolfflueVariant(Identifier p_332712_, Identifier p_332788_, HolderSet<Biome> p_332717_) {
         this.wildTexture = p_332712_;
         this.wildTextureFull = fullTextureId(p_332712_);
         this.angryTexture = p_332788_;
@@ -41,15 +41,15 @@ public class WolfflueVariant {
         this.biomes = p_332717_;
     }
 
-    private static ResourceLocation fullTextureId(ResourceLocation p_336042_) {
+    private static Identifier fullTextureId(Identifier p_336042_) {
         return p_336042_.withPath(p_335262_ -> "textures/" + p_335262_ + ".png");
     }
 
-    public ResourceLocation wildTexture() {
+    public Identifier wildTexture() {
         return this.wildTextureFull;
     }
 
-    public ResourceLocation angryTexture() {
+    public Identifier angryTexture() {
         return this.angryTextureFull;
     }
 

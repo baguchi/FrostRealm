@@ -24,12 +24,12 @@ public class ChangeWeatherMessage implements CustomPacketPayload {
         return TYPE;
 	}
 
-	public void write(FriendlyByteBuf buf) {
-		buf.writeResourceLocation(FrostWeathers.getRegistry().getKey(this.weather));
+	public ChangeWeatherMessage(FriendlyByteBuf buf) {
+		this(FrostWeathers.getRegistry().getValue(buf.readIdentifier()));
 	}
 
-	public ChangeWeatherMessage(FriendlyByteBuf buf) {
-		this(FrostWeathers.getRegistry().getValue(buf.readResourceLocation()));
+	public void write(FriendlyByteBuf buf) {
+		buf.writeIdentifier(FrostWeathers.getRegistry().getKey(this.weather));
 	}
 
     public static void handle(ChangeWeatherMessage message, IPayloadContext context) {

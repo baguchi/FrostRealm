@@ -24,7 +24,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -272,7 +272,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         }
     }
 
-    public ResourceLocation getTexture() {
+    public Identifier getTexture() {
         WolfflueVariant wolfvariant = this.getVariant().value();
         if (this.isTame()) {
             return wolfvariant.wildTexture();
@@ -311,7 +311,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
     public void readAdditionalSaveData(ValueInput p_30402_) {
         super.readAdditionalSaveData(p_30402_);
             this.setCollarColor(DyeColor.byId(p_30402_.getIntOr("CollarColor", -1)));
-            Optional.ofNullable(ResourceLocation.tryParse(p_30402_.getString("variant").orElseThrow()))
+            Optional.ofNullable(Identifier.tryParse(p_30402_.getString("variant").orElseThrow()))
                     .map(p_332608_ -> ResourceKey.create(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, p_332608_))
                     .flatMap(p_352803_ -> this.registryAccess().lookupOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY).get((ResourceKey<WolfflueVariant>) p_352803_))
                     .ifPresent(this::setVariant);

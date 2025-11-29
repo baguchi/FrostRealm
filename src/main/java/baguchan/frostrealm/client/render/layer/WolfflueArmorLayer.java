@@ -23,7 +23,7 @@ import net.minecraft.client.renderer.entity.state.WolfRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Crackiness;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.Equippable;
@@ -33,15 +33,15 @@ import java.util.Map;
 public class WolfflueArmorLayer<T extends WolfflueRenderState> extends RenderLayer<T, WolfflueModel<T>> {
     private final WolfflueModel<T> model;
     private final WolfflueModel<T> babyModel;
-    private static final Map<Crackiness.Level, ResourceLocation> ARMOR_CRACK_LOCATIONS = Map.of(
+    private static final Map<Crackiness.Level, Identifier> ARMOR_CRACK_LOCATIONS = Map.of(
             Crackiness.Level.LOW,
-            ResourceLocation.withDefaultNamespace("textures/entity/wolf/wolf_armor_crackiness_low.png"),
+            Identifier.withDefaultNamespace("textures/entity/wolf/wolf_armor_crackiness_low.png"),
             Crackiness.Level.MEDIUM,
-            ResourceLocation.withDefaultNamespace("textures/entity/wolf/wolf_armor_crackiness_medium.png"),
+            Identifier.withDefaultNamespace("textures/entity/wolf/wolf_armor_crackiness_medium.png"),
             Crackiness.Level.HIGH,
-            ResourceLocation.withDefaultNamespace("textures/entity/wolf/wolf_armor_crackiness_high.png")
+            Identifier.withDefaultNamespace("textures/entity/wolf/wolf_armor_crackiness_high.png")
     );
-    private static final ResourceLocation SADDLE_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/wolfflue/armor/saddle.png");
+    private static final Identifier SADDLE_LOCATION = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/wolfflue/armor/saddle.png");
 
     private final EquipmentLayerRenderer equipmentRenderer;
 
@@ -79,7 +79,7 @@ public class WolfflueArmorLayer<T extends WolfflueRenderState> extends RenderLay
     ) {
         Crackiness.Level crackiness$level = Crackiness.WOLF_ARMOR.byDamage(p_331187_);
         if (crackiness$level != Crackiness.Level.NONE) {
-            ResourceLocation resourcelocation = ARMOR_CRACK_LOCATIONS.get(crackiness$level);
+            Identifier resourcelocation = ARMOR_CRACK_LOCATIONS.get(crackiness$level);
             p_434578_.submitModel(
                     p_364428_,
                     p_433708_,

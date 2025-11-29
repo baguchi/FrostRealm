@@ -23,7 +23,7 @@ import net.minecraft.client.renderer.state.WeatherRenderState;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.context.ContextKey;
@@ -38,9 +38,9 @@ import java.util.OptionalDouble;
 import java.util.OptionalInt;
 
 public class FrostRealmRenderInfo extends DimensionSpecialEffects {
-    private static final ResourceLocation AURORA_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png");
-    public static final ResourceLocation ORB_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/frost_orb.png");
-    private static final ResourceLocation END_SKY_LOCATION = ResourceLocation.withDefaultNamespace("textures/environment/end_sky.png");
+    public static final Identifier ORB_LOCATION = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/frost_orb.png");
+    private static final Identifier AURORA_LOCATION = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png");
+    private static final Identifier END_SKY_LOCATION = Identifier.withDefaultNamespace("textures/environment/end_sky.png");
 
     private final FrostAmbientSoundsHandler soundsHandler;
     private final SkyRenderer skyRenderer = new SkyRenderer();
@@ -52,7 +52,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
     private AbstractTexture orbTexture;
     @Nullable
     private AbstractTexture auroraTexture;
-    public static ContextKey<Float> NORMAL_WEATHER_LEVEL_KEY = new ContextKey<>(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "normal_weather_level"));
+    public static ContextKey<Float> NORMAL_WEATHER_LEVEL_KEY = new ContextKey<>(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "normal_weather_level"));
 
 
     public FrostRealmRenderInfo(SkyType fogType, boolean brightenLightMap, boolean entityLightingBottomsLit) {
@@ -68,7 +68,7 @@ public class FrostRealmRenderInfo extends DimensionSpecialEffects {
         this.auroraTexture = this.getTexture(AURORA_LOCATION);
     }
 
-    private AbstractTexture getTexture(ResourceLocation p_449048_) {
+    private AbstractTexture getTexture(Identifier p_449048_) {
         TextureManager texturemanager = Minecraft.getInstance().getTextureManager();
         AbstractTexture abstracttexture = texturemanager.getTexture(p_449048_);
         abstracttexture.setUseMipmaps(false);

@@ -6,7 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 
 import java.util.Optional;
@@ -41,6 +41,6 @@ public class FrostPaintingVariants {
     }
 
     private static ResourceKey<PaintingVariant> create(String p_218945_) {
-        return ResourceKey.create(Registries.PAINTING_VARIANT, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_218945_));
+        return ResourceKey.create(Registries.PAINTING_VARIANT, Identifier.fromNamespaceAndPath(FrostRealm.MODID, p_218945_));
     }
 }

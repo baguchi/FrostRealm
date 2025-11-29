@@ -3,82 +3,46 @@ package baguchan.frostrealm.client;
 import baguchan.frostrealm.FrostRealm;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexMultiConsumer;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.rendertype.*;
+import net.minecraft.resources.Identifier;
 
 import java.util.function.BiFunction;
 
-public abstract class FrostRenderType extends RenderType {
+public class FrostRenderType {
 
-    public static final RenderType AURORA_GLINT = create(
-            "frostrealm:aurora_glint",
-            1536,
-            RenderPipelines.GLINT,
-            RenderType.CompositeState.builder()
-                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), false))
-                    .setTexturingState(GLINT_TEXTURING)
-                    .createCompositeState(false)
-    );
-
-    public static final RenderType AURORA_GLINT_TRANSLUCENT = create(
-            "frostrealm:aurora_glint_translucent",
-            1536,
-            RenderPipelines.GLINT,
-            RenderType.CompositeState.builder()
-                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), false))
-                    .setTexturingState(GLINT_TEXTURING)
-                    .setOutputState(ITEM_ENTITY_TARGET)
-                    .createCompositeState(false)
-    );
-
-
-    public static final RenderType AURORA_ARMOR_ENTITY_GLINT = create(
+    private static final RenderType AURORA_ARMOR_ENTITY_GLINT = RenderType.create(
             "frostrealm:aurora_armor_entity_glint",
-            1536,
-            RenderPipelines.GLINT,
-            RenderType.CompositeState.builder()
-                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), false))
-                    .setTexturingState(ARMOR_ENTITY_GLINT_TEXTURING)
-                    .setLayeringState(VIEW_OFFSET_Z_LAYERING)
-                    .createCompositeState(false)
+            RenderSetup.builder(RenderPipelines.GLINT)
+                    .withTexture("Sampler0", Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"))
+                    .setTextureTransform(TextureTransform.ARMOR_ENTITY_GLINT_TEXTURING)
+                    .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+                    .createRenderSetup()
     );
-    public static final RenderType AURORA_ENTITY_GLINT = create(
+    private static final RenderType AURORA_GLINT_TRANSLUCENT = RenderType.create(
+            "frostrealm:aurora_glint_translucent",
+            RenderSetup.builder(RenderPipelines.GLINT)
+                    .withTexture("Sampler0", Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"))
+                    .setTextureTransform(TextureTransform.GLINT_TEXTURING)
+                    .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                    .createRenderSetup()
+    );
+    private static final RenderType AURORA_GLINT = RenderType.create(
+            "frostrealm:aurora_glint",
+            RenderSetup.builder(RenderPipelines.GLINT)
+                    .withTexture("Sampler0", Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"))
+                    .setTextureTransform(TextureTransform.GLINT_TEXTURING)
+                    .createRenderSetup()
+    );
+    private static final RenderType AURORA_ENTITY_GLINT = RenderType.create(
             "frostrealm:aurora_entity_glint",
-            1536,
-            RenderPipelines.GLINT,
-            RenderType.CompositeState.builder()
-                    .setTextureState(new RenderStateShard.TextureStateShard(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"), false))
-                    .setTexturingState(ENTITY_GLINT_TEXTURING)
-                    .createCompositeState(false)
+            RenderSetup.builder(RenderPipelines.GLINT)
+                    .withTexture("Sampler0", Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"))
+                    .setTextureTransform(TextureTransform.ENTITY_GLINT_TEXTURING)
+                    .createRenderSetup()
     );
-
-    public static final BiFunction<ResourceLocation, Boolean, RenderType> DARK_OUTLINE = Util.memoize(
-            (p_414959_, p_414960_) -> RenderType.create(
-                    "frostrealm:dark_outline",
-                    1536,
-                    p_414960_ ? FrostRenderPipelines.DARK_OUTLINE_CULL : FrostRenderPipelines.DARK_OUTLINE_NO_CULL,
-                    RenderType.CompositeState.builder()
-                            .setTextureState(new RenderStateShard.TextureStateShard(p_414959_, false))
-                            .createCompositeState(false)
-            )
-    );
-
-    public static final BiFunction<ResourceLocation, Boolean, RenderType> GLOW_OUTLINE = Util.memoize(
-            (p_414959_, p_414960_) -> RenderType.create(
-                    "frostrealm:glow_outline",
-                    1536,
-                    p_414960_ ? FrostRenderPipelines.GLOW_OUTLINE_CULL : FrostRenderPipelines.GLOW_OUTLINE_NO_CULL,
-                    RenderType.CompositeState.builder()
-                            .setTextureState(new RenderStateShard.TextureStateShard(p_414959_, false))
-                            .createCompositeState(false)
-            )
-    );
-
-    public FrostRenderType(String p_173178_, int p_173181_, boolean p_173182_, boolean p_173183_, Runnable p_173184_, Runnable p_173185_) {
-        super(p_173178_, p_173181_, p_173182_, p_173183_, p_173184_, p_173185_);
-    }
 
     public static VertexConsumer getAuroraBuffer(MultiBufferSource p_115212_, RenderType p_115213_, boolean p_115214_) {
         return useTransparentGlint(p_115213_) ? VertexMultiConsumer.create(p_115212_.getBuffer(FrostRenderType.AURORA_GLINT_TRANSLUCENT), p_115212_.getBuffer(p_115213_)) : VertexMultiConsumer.create(p_115212_.getBuffer(p_115214_ ? FrostRenderType.AURORA_GLINT : FrostRenderType.AURORA_ENTITY_GLINT), p_115212_.getBuffer(p_115213_));

@@ -8,13 +8,13 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 
 public class VenomBallModel<T extends ProjectileRenderState> extends EntityModel<T> {
     private final ModelPart root;
 
     public VenomBallModel(ModelPart root) {
-        super(root, RenderType::eyes);
+        super(root, RenderTypes::eyes);
         this.root = root.getChild("root");
     }
 

@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
@@ -22,7 +22,7 @@ import net.minecraft.world.item.Items;
 
 
 public class LesserWarriorRenderer<T extends LesserWarrior> extends MobRenderer<T, LesserWarriorRenderState, LesserWarriorModel<LesserWarriorRenderState>> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/lesser_warrior/lesser_warrior.png");
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/lesser_warrior/lesser_warrior.png");
 
     public LesserWarriorRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new LesserWarriorModel<>(p_173952_.bakeLayer(FrostModelLayers.LESSER_WARRIOR)), 0.5F);
@@ -82,7 +82,7 @@ public class LesserWarriorRenderer<T extends LesserWarrior> extends MobRenderer<
 
 
     @Override
-    public ResourceLocation getTextureLocation(LesserWarriorRenderState p_110775_1_) {
+    public Identifier getTextureLocation(LesserWarriorRenderState p_110775_1_) {
         return TEXTURE;
     }
 }

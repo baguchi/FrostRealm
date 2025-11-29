@@ -8,11 +8,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 
 public class SnowMoleRenderer<T extends SnowMole> extends MobRenderer<T, LivingEntityRenderState, SnowMoleModel<LivingEntityRenderState>> {
-	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/snow_mole.png");
+	private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/snow_mole.png");
 
 	public SnowMoleRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new SnowMoleModel<>(p_173952_.bakeLayer(FrostModelLayers.SNOW_MOLE)), 0.4F);
@@ -30,7 +30,7 @@ public class SnowMoleRenderer<T extends SnowMole> extends MobRenderer<T, LivingE
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(LivingEntityRenderState p_110775_1_) {
+	public Identifier getTextureLocation(LivingEntityRenderState p_110775_1_) {
 		return TEXTURE;
 	}
 }

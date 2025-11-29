@@ -9,10 +9,10 @@ import baguchan.frostrealm.entity.animal.Ferret;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class FerretRenderer<T extends Ferret> extends MobRenderer<T, FerretRenderState, FerretModel<FerretRenderState>> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/ferret/ferret.png");
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/ferret/ferret.png");
 
     public FerretRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new FerretModel<>(p_173952_.bakeLayer(FrostModelLayers.FERRET)), 0.5F);
@@ -40,7 +40,7 @@ public class FerretRenderer<T extends Ferret> extends MobRenderer<T, FerretRende
     }
 
     @Override
-    public ResourceLocation getTextureLocation(FerretRenderState entity) {
+    public Identifier getTextureLocation(FerretRenderState entity) {
         return TEXTURE;
     }
 }

@@ -11,10 +11,10 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class FerretCollarLayer<T extends FerretRenderState> extends RenderLayer<T, FerretModel<T>> {
-    private static final ResourceLocation COLLAR_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/ferret/ferret_collar.png");
+    private static final Identifier COLLAR_LOCATION = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/ferret/ferret_collar.png");
 
     public FerretCollarLayer(RenderLayerParent<T, FerretModel<T>> p_117707_) {
         super(p_117707_);

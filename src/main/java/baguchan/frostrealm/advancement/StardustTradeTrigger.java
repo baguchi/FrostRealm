@@ -5,12 +5,12 @@ import baguchan.frostrealm.registry.FrostCriterions;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.criterion.ContextAwarePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +20,7 @@ import java.util.Optional;
 
 public class StardustTradeTrigger extends SimpleCriterionTrigger<StardustTradeTrigger.Instance> {
 
-    public static final ResourceLocation ID = FrostRealm.prefix("stardust_trade");
+    public static final Identifier ID = FrostRealm.prefix("stardust_trade");
 
     public void trigger(ServerPlayer player, ItemStack itemStack) {
         this.trigger(player, p_74436_ -> p_74436_.matches(itemStack));

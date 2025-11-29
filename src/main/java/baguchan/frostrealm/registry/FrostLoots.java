@@ -1,8 +1,8 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class FrostLoots {
-    public static final ResourceLocation YETI_BARTERING = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "gameplay/yeti/yeti_bartering");
+    public static final Identifier YETI_BARTERING = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "gameplay/yeti/yeti_bartering");
 }

@@ -10,17 +10,17 @@ import baguchan.frostrealm.client.render.state.UnderGokkurRenderState;
 import baguchan.frostrealm.entity.animal.CrystalFox;
 import baguchan.frostrealm.entity.hostile.UnderGokkur;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 
 public class UnderGokkurRenderer<T extends UnderGokkur> extends MobRenderer<T, UnderGokkurRenderState, GokkurModel<UnderGokkurRenderState>> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/under_gokkur.png");
-    private static final RenderType GLOW = FrostRenderType.GLOW_OUTLINE.apply(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/under_gokkur_hot.png"), false);
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/under_gokkur.png");
+    private static final RenderType GLOW = RenderTypes.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/under_gokkur_hot.png"), false);
 
     public UnderGokkurRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(FrostModelLayers.GOKKUR)), 0.5F);
@@ -58,7 +58,7 @@ public class UnderGokkurRenderer<T extends UnderGokkur> extends MobRenderer<T, U
     }
 
     @Override
-    public ResourceLocation getTextureLocation(UnderGokkurRenderState entity) {
+    public Identifier getTextureLocation(UnderGokkurRenderState entity) {
         return TEXTURE;
     }
 }

@@ -16,16 +16,14 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.WolfModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.context.ContextKey;
@@ -47,7 +45,7 @@ public class ClientRegistrar {
 	public static final CubeDeformation OUTER_ARMOR_DEFORMATION = new CubeDeformation(1.0F);
 	public static final CubeDeformation INNER_ARMOR_DEFORMATION = new CubeDeformation(0.5F);
 
-	public static ContextKey<Boolean> HOLD_SPEAR_KEY = new ContextKey<>(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "hold_spear_id"));
+	public static ContextKey<Boolean> HOLD_SPEAR_KEY = new ContextKey<>(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "hold_spear_id"));
 
 
 	@SubscribeEvent
@@ -64,22 +62,22 @@ public class ClientRegistrar {
 		event.registerItem(YetiFurArmorItem.ArmorRender.INSTANCE, FrostItems.YETI_FUR_BOOTS.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_HELMET.get());
 		event.registerItem(YetiFurArmorItem.ArmorRender.INSTANCE, FrostItems.GLACIER_BOAR_FUR_BOOTS.get(), FrostItems.GLACIER_BOAR_FUR_LEGGINGS.get(), FrostItems.GLACIER_BOAR_FUR_CHESTPLATE.get(), FrostItems.GLACIER_BOAR_FUR_HELMET.get());
 		event.registerFluidType(new IClientFluidTypeExtensions() {
-			private static final ResourceLocation TEXTURE_STILL = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "block/hot_spring_still");
-			private static final ResourceLocation TEXTURE_FLOW = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "block/hot_spring_flow");
-			private static final ResourceLocation TEXTURE_OVERLAY = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/block/hot_spring_still_overlay.png");
+			private static final Identifier TEXTURE_STILL = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "block/hot_spring_still");
+			private static final Identifier TEXTURE_FLOW = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "block/hot_spring_flow");
+			private static final Identifier TEXTURE_OVERLAY = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/block/hot_spring_still_overlay.png");
 
 			@Override
-			public ResourceLocation getStillTexture() {
+			public Identifier getStillTexture() {
 				return TEXTURE_STILL;
 			}
 
 			@Override
-			public ResourceLocation getFlowingTexture() {
+			public Identifier getFlowingTexture() {
 				return TEXTURE_FLOW;
 			}
 
 			@Override
-			public ResourceLocation getRenderOverlayTexture(Minecraft mc) {
+			public Identifier getRenderOverlayTexture(Minecraft mc) {
 				return TEXTURE_OVERLAY;
 			}
 		}, FrostFluidTypes.HOT_SPRING.get());
@@ -157,7 +155,7 @@ public class ClientRegistrar {
 	}
 
 	private static ModelLayerLocation createLocation(String p_171301_, String p_171302_) {
-		return new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, p_171301_), p_171302_);
+		return new ModelLayerLocation(Identifier.fromNamespaceAndPath(FrostRealm.MODID, p_171301_), p_171302_);
 	}
 
 	public static void renderTileEntity() {
@@ -190,7 +188,7 @@ public class ClientRegistrar {
 	@SubscribeEvent
 	public static void renderHudEvent(RegisterGuiLayersEvent event) {
 		event.registerAbove(VanillaGuiLayers.FOOD_LEVEL, FrostRealm.prefix("frost_overlay"), new FrostOverlay());
-		event.registerAboveAll(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_portal_overlay"), (guiGraphics, partialTicks) -> {
+		event.registerAboveAll(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_portal_overlay"), (guiGraphics, partialTicks) -> {
 			Minecraft minecraft = Minecraft.getInstance();
 			Window window = minecraft.getWindow();
 			LocalPlayer player = minecraft.player;

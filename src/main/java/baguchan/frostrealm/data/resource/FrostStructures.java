@@ -11,7 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.Pools;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
@@ -38,34 +38,34 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class FrostStructures {
-    public static final ResourceKey<Structure> IGLOO = ResourceKey.create(Registries.STRUCTURE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "igloo"));
-    public static final ResourceKey<Structure> FROST_CASTLE = ResourceKey.create(Registries.STRUCTURE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle"));
+    public static final ResourceKey<Structure> IGLOO = ResourceKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "igloo"));
+    public static final ResourceKey<Structure> FROST_CASTLE = ResourceKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle"));
 
-    public static final ResourceKey<StructureSet> IGLOO_SET = ResourceKey.create(Registries.STRUCTURE_SET, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "igloo"));
-    public static final ResourceKey<StructureSet> FROST_CASTLE_SET = ResourceKey.create(Registries.STRUCTURE_SET, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle"));
+    public static final ResourceKey<StructureSet> IGLOO_SET = ResourceKey.create(Registries.STRUCTURE_SET, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "igloo"));
+    public static final ResourceKey<StructureSet> FROST_CASTLE_SET = ResourceKey.create(Registries.STRUCTURE_SET, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle"));
 
-    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_ENTRANCE = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/entrance"));
-    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_BRIDGE = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/bridge"));
-    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_BRIDGE_END = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/bridge/bridge_end"));
-    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_MAIN = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/main_castle"));
-    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_ROOM_1 = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/room_1"));
-    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_ROOM_2 = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/room_2"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_ENTRANCE = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/entrance"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_BRIDGE = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/bridge"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_BRIDGE_END = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/bridge/bridge_end"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_MAIN = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/main_castle"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_ROOM_1 = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/room_1"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_ROOM_2 = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/room_2"));
 
-    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_LESSER_WARRIOR = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/lesser_warrior"));
-    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_WARRIOR = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/warrior"));
-    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_WALKER = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/walker"));
-    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_SEEKER = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/seeker"));
-
-
-    public static final ResourceKey<StructureTemplatePool> IGLOO_ROAD = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "igloo/road"));
-    public static final ResourceKey<StructureTemplatePool> IGLOO_HOUSE = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "igloo/igloo"));
-    public static final ResourceKey<StructureTemplatePool> IGLOO_ENTRANCE = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "igloo/igloo_entrance"));
-
-    public static final ResourceKey<StructureTemplatePool> YETI = ResourceKey.create(Registries.TEMPLATE_POOL, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "igloo/mobs/yeti"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_LESSER_WARRIOR = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/lesser_warrior"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_WARRIOR = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/warrior"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_WALKER = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/walker"));
+    public static final ResourceKey<StructureTemplatePool> FROST_CASTLE_SEEKER = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/mobs/seeker"));
 
 
-    public static final ResourceKey<StructureProcessorList> IGLOO_ROAD_PROCESSOR = ResourceKey.create(Registries.PROCESSOR_LIST, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "igloo_road"));
-    public static final ResourceKey<StructureProcessorList> FROST_CASTLE_MAGMA_PROCESSOR = ResourceKey.create(Registries.PROCESSOR_LIST, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/magma"));
+    public static final ResourceKey<StructureTemplatePool> IGLOO_ROAD = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "igloo/road"));
+    public static final ResourceKey<StructureTemplatePool> IGLOO_HOUSE = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "igloo/igloo"));
+    public static final ResourceKey<StructureTemplatePool> IGLOO_ENTRANCE = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "igloo/igloo_entrance"));
+
+    public static final ResourceKey<StructureTemplatePool> YETI = ResourceKey.create(Registries.TEMPLATE_POOL, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "igloo/mobs/yeti"));
+
+
+    public static final ResourceKey<StructureProcessorList> IGLOO_ROAD_PROCESSOR = ResourceKey.create(Registries.PROCESSOR_LIST, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "igloo_road"));
+    public static final ResourceKey<StructureProcessorList> FROST_CASTLE_MAGMA_PROCESSOR = ResourceKey.create(Registries.PROCESSOR_LIST, Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_castle/magma"));
 
     public static void bootstrapStructures(BootstrapContext<Structure> context) {
         HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
@@ -215,6 +215,6 @@ public class FrostStructures {
     }
 
     private static String name(String name) {
-        return ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name).toString();
+        return Identifier.fromNamespaceAndPath(FrostRealm.MODID, name).toString();
     }
 }

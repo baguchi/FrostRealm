@@ -4,7 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
 public class FrostNoises {
@@ -14,7 +14,7 @@ public class FrostNoises {
 
 
     private static ResourceKey<NormalNoise.NoiseParameters> createKey(String name) {
-        return ResourceKey.create(Registries.NOISE, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name));
+        return ResourceKey.create(Registries.NOISE, Identifier.fromNamespaceAndPath(FrostRealm.MODID, name));
     }
 
     public static void bootstrap(BootstrapContext<NormalNoise.NoiseParameters> ctx) {

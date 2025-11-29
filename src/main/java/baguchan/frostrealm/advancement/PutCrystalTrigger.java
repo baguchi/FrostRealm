@@ -5,17 +5,17 @@ import baguchan.frostrealm.registry.FrostCriterions;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.advancements.criterion.ContextAwarePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
 
 public class PutCrystalTrigger extends SimpleCriterionTrigger<PutCrystalTrigger.Instance> {
 
-    public static final ResourceLocation ID = FrostRealm.prefix("put_crystal");
+    public static final Identifier ID = FrostRealm.prefix("put_crystal");
 
     public void trigger(ServerPlayer player) {
         this.trigger(player, (instance) -> true);

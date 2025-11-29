@@ -11,10 +11,10 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class WolfflueCollarLayer<T extends WolfflueRenderState> extends RenderLayer<T, WolfflueModel<T>> {
-    private static final ResourceLocation WOLF_COLLAR_LOCATION = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/wolfflue/wolfflue_collar.png");
+    private static final Identifier WOLF_COLLAR_LOCATION = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/wolfflue/wolfflue_collar.png");
 
     public WolfflueCollarLayer(RenderLayerParent<T, WolfflueModel<T>> p_117707_) {
         super(p_117707_);

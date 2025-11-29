@@ -5,7 +5,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -38,7 +38,7 @@ public class AstriumArmorItem extends Item {
         itemAttributeModifiers.forEach(equipmentslotgroup, (attributeHolder, attributeModifier, s) -> {
             itemattributemodifiers$builder.add(attributeHolder, attributeModifier, equipmentslotgroup);
         });
-        ResourceLocation resourcelocation = ResourceLocation.withDefaultNamespace("armor." + p_371239_.getName());
+        Identifier resourcelocation = Identifier.withDefaultNamespace("armor." + p_371239_.getName());
 
         if(p_371239_.getSlot() == EquipmentSlot.FEET || p_371239_.getSlot() == EquipmentSlot.BODY) {
             itemattributemodifiers$builder.add(Attributes.SAFE_FALL_DISTANCE, new AttributeModifier(resourcelocation, 2.0F, AttributeModifier.Operation.ADD_VALUE), equipmentslotgroup);

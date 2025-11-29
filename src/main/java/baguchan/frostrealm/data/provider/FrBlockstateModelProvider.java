@@ -18,7 +18,7 @@ import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HangingMossBlock;
@@ -40,7 +40,7 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
     public static final TexturedModel.Provider LEAVES_PROVIDER = createDefault(TextureMapping::cube, ModelTemplates.LEAVES.extend().renderType("cutout_mipped").build());
     public static final TexturedModel.Provider COLUMN_CUTOUT = createDefault(TextureMapping::column, ModelTemplates.CUBE_COLUMN.extend().renderType("cutout").build());
 
-    public FrBlockstateModelProvider(Consumer<BlockModelDefinitionGenerator> blockStateOutput, ItemModelOutput itemModelOutput, BiConsumer<ResourceLocation, ModelInstance> modelOutput) {
+    public FrBlockstateModelProvider(Consumer<BlockModelDefinitionGenerator> blockStateOutput, ItemModelOutput itemModelOutput, BiConsumer<Identifier, ModelInstance> modelOutput) {
         super(blockStateOutput, itemModelOutput, modelOutput);
     }
 
@@ -58,10 +58,9 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
         })));
     }
 
-    public void createTintedDoublePlant(Block p_388276_) {
-        ResourceLocation resourcelocation = this.createFlatItemModelWithBlockTexture(p_388276_.asItem(), p_388276_, "_top");
-        this.registerSimpleTintedItemModel(p_388276_, resourcelocation, new GrassColorSource());
-        createDoublePlant(p_388276_, BlockModelGenerators.PlantType.TINTED);
+    public static String getBlockName(Block p_387523_) {
+        Identifier resourcelocation = BuiltInRegistries.BLOCK.getKey(p_387523_);
+        return resourcelocation.getPath();
     }
 
     public void createDoublePlant(Block p_388543_, BlockModelGenerators.PlantType p_388551_) {
@@ -70,10 +69,19 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
         this.createDoubleBlock(p_388543_, resourcelocation, resourcelocation1);
     }
 
+    public static MultiVariantGenerator createSimpleBlock(Block p_387997_, Identifier p_388814_) {
+        return MultiVariantGenerator.dispatch(p_387997_, plainVariant(p_388814_));
+    }
+
+    public void createTintedDoublePlant(Block p_388276_) {
+        Identifier resourcelocation = this.createFlatItemModelWithBlockTexture(p_388276_.asItem(), p_388276_, "_top");
+        this.registerSimpleTintedItemModel(p_388276_, resourcelocation, new GrassColorSource());
+        createDoublePlant(p_388276_, BlockModelGenerators.PlantType.TINTED);
+    }
 
     @Override
     public void createCrossBlock(Block block, PlantType type, TextureMapping mapping) {
-        ResourceLocation resourcelocation = type.getCross().extend().renderType(ResourceLocation.withDefaultNamespace("cutout")).build().create(block, mapping, this.modelOutput);
+        Identifier resourcelocation = type.getCross().extend().renderType(Identifier.withDefaultNamespace("cutout")).build().create(block, mapping, this.modelOutput);
         this.blockStateOutput.accept(createSimpleBlock(block, resourcelocation));
     }
 
@@ -81,28 +89,8 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
     public void createPlant(Block plant, Block pot, PlantType type) {
         this.createCrossBlock(plant, type);
         TextureMapping texturemapping = type.getPlantTextureMapping(plant);
-        ResourceLocation resourcelocation = type.getCrossPot().extend().renderType(ResourceLocation.withDefaultNamespace("cutout")).build().create(pot, texturemapping, this.modelOutput);
+        Identifier resourcelocation = type.getCrossPot().extend().renderType(Identifier.withDefaultNamespace("cutout")).build().create(pot, texturemapping, this.modelOutput);
         this.blockStateOutput.accept(createSimpleBlock(pot, resourcelocation));
-    }
-
-    @Override
-    public void createTrapdoor(Block p_387551_) {
-        TextureMapping texturemapping = TextureMapping.defaultTexture(p_387551_);
-        MultiVariant multivariant = plainVariant(ModelTemplates.TRAPDOOR_TOP.extend().renderType("cutout").build().create(p_387551_, texturemapping, this.modelOutput));
-        ResourceLocation resourcelocation = ModelTemplates.TRAPDOOR_BOTTOM.extend().renderType("cutout").build().create(p_387551_, texturemapping, this.modelOutput);
-        MultiVariant multivariant1 = plainVariant(ModelTemplates.TRAPDOOR_OPEN.extend().renderType("cutout").build().create(p_387551_, texturemapping, this.modelOutput));
-        this.blockStateOutput.accept(createTrapdoor(p_387551_, multivariant, plainVariant(resourcelocation), multivariant1));
-        this.registerSimpleItemModel(p_387551_, resourcelocation);
-    }
-
-
-    public void createOrientableTrapdoor(Block p_388937_) {
-        TextureMapping texturemapping = TextureMapping.defaultTexture(p_388937_);
-        MultiVariant multivariant = plainVariant(ModelTemplates.ORIENTABLE_TRAPDOOR_TOP.extend().renderType("cutout").build().create(p_388937_, texturemapping, this.modelOutput));
-        ResourceLocation resourcelocation = ModelTemplates.ORIENTABLE_TRAPDOOR_BOTTOM.extend().renderType("cutout").build().create(p_388937_, texturemapping, this.modelOutput);
-        MultiVariant multivariant1 = plainVariant(ModelTemplates.ORIENTABLE_TRAPDOOR_OPEN.extend().renderType("cutout").build().create(p_388937_, texturemapping, this.modelOutput));
-        this.blockStateOutput.accept(createOrientableTrapdoor(p_388937_, multivariant, plainVariant(resourcelocation), multivariant1));
-        this.registerSimpleItemModel(p_388937_, resourcelocation);
     }
 
     @Override
@@ -131,8 +119,14 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
         this.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, plainVariant(ModelTemplates.CUBE_ALL.extend().renderType("translucent").build().create(block, TextureMapping.cube(block), this.modelOutput))));
     }
 
-    public ResourceLocation createTranslucentItemModelWithBlockTexture(Item item, Block block) {
-        return ModelTemplates.FLAT_ITEM.extend().renderType("translucent").build().create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(block), this.modelOutput);
+    @Override
+    public void createTrapdoor(Block p_387551_) {
+        TextureMapping texturemapping = TextureMapping.defaultTexture(p_387551_);
+        MultiVariant multivariant = plainVariant(ModelTemplates.TRAPDOOR_TOP.extend().renderType("cutout").build().create(p_387551_, texturemapping, this.modelOutput));
+        Identifier resourcelocation = ModelTemplates.TRAPDOOR_BOTTOM.extend().renderType("cutout").build().create(p_387551_, texturemapping, this.modelOutput);
+        MultiVariant multivariant1 = plainVariant(ModelTemplates.TRAPDOOR_OPEN.extend().renderType("cutout").build().create(p_387551_, texturemapping, this.modelOutput));
+        this.blockStateOutput.accept(createTrapdoor(p_387551_, multivariant, plainVariant(resourcelocation), multivariant1));
+        this.registerSimpleItemModel(p_387551_, resourcelocation);
     }
 
     public void createCubeColumn(Block side, Block top) {
@@ -229,9 +223,13 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
         }
     }
 
-    public static String getBlockName(Block p_387523_) {
-        ResourceLocation resourcelocation = BuiltInRegistries.BLOCK.getKey(p_387523_);
-        return resourcelocation.getPath();
+    public void createOrientableTrapdoor(Block p_388937_) {
+        TextureMapping texturemapping = TextureMapping.defaultTexture(p_388937_);
+        MultiVariant multivariant = plainVariant(ModelTemplates.ORIENTABLE_TRAPDOOR_TOP.extend().renderType("cutout").build().create(p_388937_, texturemapping, this.modelOutput));
+        Identifier resourcelocation = ModelTemplates.ORIENTABLE_TRAPDOOR_BOTTOM.extend().renderType("cutout").build().create(p_388937_, texturemapping, this.modelOutput);
+        MultiVariant multivariant1 = plainVariant(ModelTemplates.ORIENTABLE_TRAPDOOR_OPEN.extend().renderType("cutout").build().create(p_388937_, texturemapping, this.modelOutput));
+        this.blockStateOutput.accept(createOrientableTrapdoor(p_388937_, multivariant, plainVariant(resourcelocation), multivariant1));
+        this.registerSimpleItemModel(p_388937_, resourcelocation);
     }
 
     public Variant createEggModel(Block block, int p_387392_, String p_387935_, TextureMapping p_388813_) {
@@ -261,8 +259,8 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
         this.blockStateOutput.accept(MultiVariantGenerator.dispatch(FrostBlocks.FROZEN_FARMLAND.get()).with(BlockModelGenerators.createEmptyOrFullDispatch(BlockStateProperties.MOISTURE, 7, resourcelocation1, resourcelocation)));
     }
 
-    public static MultiVariantGenerator createSimpleBlock(Block p_387997_, ResourceLocation p_388814_) {
-        return MultiVariantGenerator.dispatch(p_387997_, plainVariant(p_388814_));
+    public Identifier createTranslucentItemModelWithBlockTexture(Item item, Block block) {
+        return ModelTemplates.FLAT_ITEM.extend().renderType("translucent").build().create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(block), this.modelOutput);
     }
 
     public void createFrostPortalBlock() {
@@ -305,7 +303,7 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
         if (p_386757_.getPossibleValues().size() != p_388514_.length) {
             throw new IllegalArgumentException();
         } else {
-            Int2ObjectMap<ResourceLocation> int2objectmap = new Int2ObjectOpenHashMap<>();
+            Int2ObjectMap<Identifier> int2objectmap = new Int2ObjectOpenHashMap<>();
             this.blockStateOutput
                     .accept(
                             MultiVariantGenerator.dispatch(p_387553_)

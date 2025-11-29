@@ -10,7 +10,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.WeightedRandom;
@@ -200,7 +200,7 @@ public class AuroraPowerUtils {
         stack.set(FrostDataCompnents.AURORA_POWER, mutable.toImmutable());
     }
 
-    private static ResourceLocation getAuroraPowerId(AuroraPower p41664) {
+    private static Identifier getAuroraPowerId(AuroraPower p41664) {
         return AuroraPowers.getRegistry().getKey(p41664);
     }
 

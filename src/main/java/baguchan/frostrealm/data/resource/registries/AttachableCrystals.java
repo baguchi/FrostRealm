@@ -9,7 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
@@ -18,12 +18,12 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Optional;
 
 public class AttachableCrystals {
-    public static final ResourceKey<Registry<AttachableCrystal>> ATTACHABLE_CRYSTAL_REGISTRY_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "attachable_crystal"));
+    public static final ResourceKey<Registry<AttachableCrystal>> ATTACHABLE_CRYSTAL_REGISTRY_KEY = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "attachable_crystal"));
 
     public static final ResourceKey<AttachableCrystal> VENOM = createKey("venom");
     public static final ResourceKey<AttachableCrystal> FROST = createKey("frost");
     private static ResourceKey<AttachableCrystal> createKey(String name) {
-        return ResourceKey.create(ATTACHABLE_CRYSTAL_REGISTRY_KEY, ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, name));
+        return ResourceKey.create(ATTACHABLE_CRYSTAL_REGISTRY_KEY, Identifier.fromNamespaceAndPath(FrostRealm.MODID, name));
     }
 
     public static Optional<Holder.Reference<AttachableCrystal>> getFromIngredient(HolderLookup.Provider p_335701_, ItemStack p_267327_) {

@@ -8,12 +8,12 @@ import baguchan.frostrealm.entity.animal.Marmot;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 
 public class MarmotRenderer<T extends Marmot> extends MobRenderer<T, MarmotRenderState, MarmotModel<MarmotRenderState>> {
-	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/marmot/marmot.png");
-	private static final ResourceLocation ANGRY_TEXTURE = ResourceLocation.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/marmot/marmot_angry.png");
+	private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/marmot/marmot.png");
+	private static final Identifier ANGRY_TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/marmot/marmot_angry.png");
 
 
 	public MarmotRenderer(EntityRendererProvider.Context p_173952_) {
@@ -38,7 +38,7 @@ public class MarmotRenderer<T extends Marmot> extends MobRenderer<T, MarmotRende
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(MarmotRenderState p_110775_1_) {
+	public Identifier getTextureLocation(MarmotRenderState p_110775_1_) {
 		return TEXTURE;
 	}
 }
