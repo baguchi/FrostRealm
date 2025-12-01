@@ -19,7 +19,6 @@ public class FrostModelTemplates {
     public static final ModelTemplate LADDER = create("block/ladder", TextureSlot.ALL);
     public static final ModelTemplate TRANSLUCENT_CUBE = create("block/translucent_cube", TextureSlot.ALL);
     public static final ModelTemplate BIG_HANDHELD = create("item/big_handheld", TextureSlot.LAYER0);
-    public static final ModelTemplate BIG_SPEAR = create("item/big_spear", TextureSlot.LAYER0);
     public static ModelTemplate create(String p_386521_, TextureSlot... p_388561_) {
         return new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(FrostRealm.MODID, p_386521_)), Optional.empty(), p_388561_);
     }

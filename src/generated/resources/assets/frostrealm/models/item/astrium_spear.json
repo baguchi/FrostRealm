@@ -1,5 +1,5 @@
 {
-  "parent": "frostrealm:item/big_spear",
+  "parent": "frostrealm:item/big_handheld",
   "textures": {
     "layer0": "frostrealm:item/astrium_spear"
   }

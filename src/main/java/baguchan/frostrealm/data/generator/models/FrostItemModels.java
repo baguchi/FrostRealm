@@ -76,8 +76,8 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.GLACINIUM_SHOVEL.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_HOE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_SICKLE.asItem(), FrostModelTemplates.BIG_HANDHELD);
-        this.generateFlatItem(FrostItems.GLACINIUM_SPEAR.asItem(), FrostModelTemplates.BIG_SPEAR);
-        this.generateFlatItem(FrostItems.ASTRIUM_SPEAR.asItem(), FrostModelTemplates.BIG_SPEAR);
+        this.generateFlatItem(FrostItems.GLACINIUM_SPEAR.asItem(), FrostModelTemplates.BIG_HANDHELD);
+        this.generateFlatItem(FrostItems.ASTRIUM_SPEAR.asItem(), FrostModelTemplates.BIG_HANDHELD);
 
 
         this.generateFlatItem(FrostItems.YETI_FUR_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
