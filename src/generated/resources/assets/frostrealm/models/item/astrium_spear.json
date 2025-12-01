@@ -1,0 +1,6 @@
+{
+  "parent": "frostrealm:item/big_spear",
+  "textures": {
+    "layer0": "frostrealm:item/astrium_spear"
+  }
+}

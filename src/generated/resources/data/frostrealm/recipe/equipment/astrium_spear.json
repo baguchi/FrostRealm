@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "frostrealm:astrium_spear",
+    "X": "#c:rods/wooden"
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    " X "
+  ],
+  "result": {
+    "count": 1,
+    "id": "frostrealm:astrium_spear"
+  }
+}
