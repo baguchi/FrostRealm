@@ -1,14 +1,14 @@
 {
   "parent": "frostrealm:enter_frostrealm",
   "criteria": {
-    "has_item": {
+    "has_entity": {
       "conditions": {
         "entity": [
           {
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "frostrealm:wolfflue"
+              "type": "#frostrealm:wolfflue"
             }
           }
         ]
@@ -30,7 +30,7 @@
   },
   "requirements": [
     [
-      "has_item"
+      "has_entity"
     ]
   ],
   "sends_telemetry_event": true

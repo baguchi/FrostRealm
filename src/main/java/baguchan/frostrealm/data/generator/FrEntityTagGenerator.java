@@ -25,7 +25,8 @@ public class FrEntityTagGenerator extends EntityTypeTagsProvider {
 				.add(FrostEntities.ROOT_DEER.get())
                 .add(FrostEntities.LESSER_WARRIOR.get()).add(FrostEntities.SEEKER.get())
 				.add(FrostEntities.GOKKUR.get())
-				.add(FrostEntities.UNDER_GOKKUR.get());
+				.add(FrostEntities.UNDER_GOKKUR.get())
+                .add(FrostEntities.STRAY_WOLFFLUE.get());
 		tag(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE).addTag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(FrostEntities.MARMOT.get(), FrostEntities.GLACIER_BOAR.get())
 				.add(FrostEntities.FERRET.get())
 				.add(FrostEntities.VENOCHEM.get())
@@ -35,8 +36,9 @@ public class FrEntityTagGenerator extends EntityTypeTagsProvider {
 		tag(EntityTypeTags.FALL_DAMAGE_IMMUNE)
 				.add(FrostEntities.FROST_WRAITH.get()).add(FrostEntities.SILK_MOON.get()).add(FrostEntities.ASTRA_BALL.get()).add(FrostEntities.SNOWPILE_QUAIL.get());
 		tag(EntityTypeTags.UNDEAD).add(FrostEntities.LESSER_WARRIOR.get());
-        tag(EntityTypeTags.BURN_IN_DAYLIGHT).add(FrostEntities.LESSER_WARRIOR.get()).add(FrostEntities.FROST_WRAITH.get());
-        tag(FrostTags.EntityTypes.EQUIPPABLE_FROST_SADDLE).add(FrostEntities.WOLFFLUE.get());
-		this.tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER);
+        tag(EntityTypeTags.BURN_IN_DAYLIGHT).add(FrostEntities.LESSER_WARRIOR.get()).add(FrostEntities.STRAY_WOLFFLUE.get()).add(FrostEntities.FROST_WRAITH.get());
+        tag(FrostTags.EntityTypes.EQUIPPABLE_FROST_SADDLE).add(FrostEntities.WOLFFLUE.get()).add(FrostEntities.STRAY_WOLFFLUE.get());
+        tag(FrostTags.EntityTypes.WOLFFLUE).add(FrostEntities.WOLFFLUE.get()).add(FrostEntities.STRAY_WOLFFLUE.get());
+        this.tag(EntityTypeTags.CAN_BREATHE_UNDER_WATER);
 	}
 }

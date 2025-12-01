@@ -27,6 +27,7 @@ import net.minecraft.world.item.Item;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class FrostAdvancementData extends AdvancementProvider {
     public FrostAdvancementData(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
@@ -113,7 +114,7 @@ public class FrostAdvancementData extends AdvancementProvider {
 							Component.translatable("advancement.frostrealm.tame_wolfflue.desc"),
 							null,
 							AdvancementType.TASK, true, true, false)
-					.addCriterion("has_item", TameAnimalTrigger.TriggerInstance.tamedAnimal(EntityPredicate.Builder.entity().of(lookupEntity, FrostEntities.WOLFFLUE.get())))
+					.addCriterion("has_entity", TameAnimalTrigger.TriggerInstance.tamedAnimal(EntityPredicate.Builder.entity().of(lookupEntity, FrostTags.EntityTypes.WOLFFLUE)))
 					.save(consumer, "frostrealm:tame_wolfflue");
 
 			Advancement.Builder.advancement()

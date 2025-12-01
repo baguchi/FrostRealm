@@ -44,7 +44,7 @@ public class FrostRealmRenderer  {
     public static final Identifier ORB_LOCATION = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/frost_orb.png");
     private static final Identifier AURORA_LOCATION = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png");
 
-    //private final FrostAmbientSoundsHandler soundsHandler;
+    private final FrostAmbientSoundsHandler soundsHandler;
     private final GpuBuffer auroraBuffer;
     private final GpuBuffer orbBuffer;
     private final RenderSystem.AutoStorageIndexBuffer quadIndices;
@@ -54,7 +54,7 @@ public class FrostRealmRenderer  {
 
 
     public FrostRealmRenderer(AtlasManager p_455011_) {
-        //soundsHandler = new FrostAmbientSoundsHandler(Minecraft.getInstance().getSoundManager());
+        soundsHandler = new FrostAmbientSoundsHandler(Minecraft.getInstance().getSoundManager());
         this.quadIndices = RenderSystem.getSequentialBuffer(VertexFormat.Mode.QUADS);
         this.celestialsAtlas = p_455011_.getAtlasOrThrow(AtlasIds.CELESTIALS);
         this.orbBuffer = buildOrbQuad(this.celestialsAtlas);
@@ -88,8 +88,9 @@ public class FrostRealmRenderer  {
         return buildCelestialQuad("Aurora quad", p_455519_.getSprite(AURORA_LOCATION));
     }
 
-
-
+    public FrostAmbientSoundsHandler getSoundsHandler() {
+        return soundsHandler;
+    }
 
     /*@Override
     public boolean tickRain(ClientLevel level, int ticks, Camera camera) {
@@ -131,6 +132,7 @@ public class FrostRealmRenderer  {
             renderpass.setPipeline(RenderPipelines.CELESTIAL);
             RenderSystem.bindDefaultUniforms(renderpass);
             renderpass.setUniform("DynamicTransforms", gpubufferslice);
+            renderpass.bindTexture("Sampler0", this.celestialsAtlas.getTextureView(), this.celestialsAtlas.getSampler());
             renderpass.setVertexBuffer(0, this.orbBuffer);
             renderpass.setIndexBuffer(gpubuffer, this.quadIndices.type());
             renderpass.drawIndexed(0, 0, 6, 1);
@@ -160,6 +162,7 @@ public class FrostRealmRenderer  {
                     renderpass.setPipeline(RenderPipelines.CELESTIAL);
                     RenderSystem.bindDefaultUniforms(renderpass);
                     renderpass.setUniform("DynamicTransforms", gpubufferslice);
+                    renderpass.bindTexture("Sampler0", this.celestialsAtlas.getTextureView(), this.celestialsAtlas.getSampler());
                     renderpass.setVertexBuffer(0, this.auroraBuffer);
                     renderpass.setIndexBuffer(gpubuffer, this.quadIndices.type());
                     renderpass.drawIndexed(0, 0, 6, 1);

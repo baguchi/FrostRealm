@@ -3,6 +3,7 @@ package baguchan.frostrealm.client.render;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.LesserWarriorModel;
+import baguchan.frostrealm.client.render.layer.LesserWarriorItemInHandLayer;
 import baguchan.frostrealm.client.render.state.LesserWarriorRenderState;
 import baguchan.frostrealm.entity.hostile.LesserWarrior;
 import baguchi.bagus_lib.client.layer.CustomArmorLayer;
@@ -27,7 +28,7 @@ public class LesserWarriorRenderer<T extends LesserWarrior> extends MobRenderer<
 
     public LesserWarriorRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new LesserWarriorModel<>(p_173952_.bakeLayer(FrostModelLayers.LESSER_WARRIOR)), 0.5F);
-        this.addLayer(new ItemInHandLayer<>(this));
+        this.addLayer(new LesserWarriorItemInHandLayer<>(this));
         this.addLayer(new CustomArmorLayer<>(this, p_173952_));
     }
 

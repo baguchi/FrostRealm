@@ -99,6 +99,12 @@
         "maxCount": 3,
         "minCount": 2,
         "weight": 80
+      },
+      {
+        "type": "frostrealm:stray_wolfflue",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 2
       }
     ],
     "underground_water_creature": [],

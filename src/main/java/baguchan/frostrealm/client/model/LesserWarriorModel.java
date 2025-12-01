@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class LesserWarriorModel<T extends LesserWarriorRenderState> extends EntityModel<T> implements IArmor, ArmedModel {
+public class LesserWarriorModel<T extends LesserWarriorRenderState> extends EntityModel<T> implements IArmor, ArmedModel<T> {
     public final ModelPart root;
     public final ModelPart body;
     public final ModelPart head;
@@ -101,6 +101,17 @@ public class LesserWarriorModel<T extends LesserWarriorRenderState> extends Enti
         this.right_leg.zRot = 0.0F;
         this.left_leg.zRot = 0.0F;
 
+        if (entity.isPassenger) {
+            this.right_arm.xRot += (float) (-Math.PI / 5);
+            this.left_arm.xRot += (float) (-Math.PI / 5);
+            this.right_leg.xRot = -1.4137167F;
+            this.right_leg.yRot = (float) (Math.PI / 10);
+            this.right_leg.zRot = 0.07853982F;
+            this.left_leg.xRot = -1.4137167F;
+            this.left_leg.yRot = (float) (-Math.PI / 10);
+            this.left_leg.zRot = -0.07853982F;
+        }
+
         float f = entity.partialTick;
 
         if(entity.isHoldingSpear){
@@ -114,7 +125,6 @@ public class LesserWarriorModel<T extends LesserWarriorRenderState> extends Enti
             }
             }else {
                 if (entity.mainArm == HumanoidArm.RIGHT) {
-
                     SpearAnimations.thirdPersonHandUse(this.right_arm, this.head, true, entity.getUseItemStackForArm(HumanoidArm.RIGHT), entity);
                 }else {
                     SpearAnimations.thirdPersonHandUse(this.left_arm, this.head, false, entity.getUseItemStackForArm(HumanoidArm.LEFT), entity);
@@ -222,7 +232,7 @@ public class LesserWarriorModel<T extends LesserWarriorRenderState> extends Enti
 
 
     @Override
-    public void translateToHand(EntityRenderState entityRenderState, HumanoidArm humanoidArm, PoseStack poseStack) {
+    public void translateToHand(T entityRenderState, HumanoidArm humanoidArm, PoseStack poseStack) {
         this.getArm(humanoidArm).translateAndRotate(poseStack);
         this.getArmItem(humanoidArm).translateAndRotate(poseStack);
         poseStack.translate(0, -(8F / 16F), 0);

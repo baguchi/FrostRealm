@@ -97,8 +97,8 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, Player.class, 16.0F, 1.6D, 1.4D, (p_28596_) -> {
 			return AVOID_PLAYERS.test(p_28596_) && !this.trusts(p_28596_);
 		}));
-		this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, Wolfflue.class, 8.0F, 1.55D, 1.45D, (p_28590_) -> {
-			return !((Wolfflue) p_28590_).isTame();
+		this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, AbstractWolfflue.class, 8.0F, 1.55D, 1.45D, (p_28590_) -> {
+			return !((AbstractWolfflue) p_28590_).isTame();
 		}));
 		this.goalSelector.addGoal(7, new FoxMeleeAttackGoal(1.2F, true));
 		this.goalSelector.addGoal(8, new SeekShelterEvenBlizzardGoal(this, 1.25D, true));

@@ -67,6 +67,7 @@ public class FrostItems {
     public static final DeferredItem<Item> ASTRIUM_SHOVEL = ITEMS.registerItem("astrium_shovel", (properties) -> new ShovelItem(FrostToolMaterials.ASTRIUM, 1.5F, -2.9F, properties));
     public static final DeferredItem<Item> ASTRIUM_HOE = ITEMS.registerItem("astrium_hoe", (properties) -> new HoeItem(FrostToolMaterials.ASTRIUM, -2, -1.0F, properties));
     public static final DeferredItem<Item> ASTRIUM_SICKLE = ITEMS.registerItem("astrium_sickle", (properties) -> new SickleItem(FrostToolMaterials.ASTRIUM, 5.0F, -3.2F, properties));
+    public static final DeferredItem<Item> ASTRIUM_SPEAR = ITEMS.registerItem("astrium_spear", (properties) -> new Item(properties.spear(FrostToolMaterials.ASTRIUM, 0.85F, 0.82F, 0.65F, 4.0F, 9.0F, 5.0F, 5.1F, 12.5F, 4.6F)));
 
     public static final DeferredItem<Item> GLACINIUM_SWORD = ITEMS.registerItem("glacinium_sword", (properties) -> new Item(properties.sword(FrostToolMaterials.GLACINIUM, 3, -2.6F)));
     public static final DeferredItem<Item> GLACINIUM_AXE = ITEMS.registerItem("glacinium_axe", (properties) -> new AxeItem(FrostToolMaterials.GLACINIUM, 4F, -3.1F, properties));
@@ -74,7 +75,7 @@ public class FrostItems {
     public static final DeferredItem<Item> GLACINIUM_SHOVEL = ITEMS.registerItem("glacinium_shovel", (properties) -> new ShovelItem(FrostToolMaterials.GLACINIUM, 1.5F, -3.0F, properties));
     public static final DeferredItem<Item> GLACINIUM_HOE = ITEMS.registerItem("glacinium_hoe", (properties) -> new HoeItem(FrostToolMaterials.GLACINIUM, -2, -1.0F, properties));
     public static final DeferredItem<Item> GLACINIUM_SICKLE = ITEMS.registerItem("glacinium_sickle", (properties) -> new SickleItem(FrostToolMaterials.GLACINIUM, 3.0F, -3.3F, properties));
-    public static final DeferredItem<Item> GLACINIUM_SPEAR = ITEMS.registerItem("glacinium_spear", (properties) -> new Item(properties.spear(FrostToolMaterials.GLACINIUM, 1.1F, 1.2F, 0.4F, 2.5F, 7.0F, 3.5F, 5.1F, 8.75F, 4.6F)));
+    public static final DeferredItem<Item> GLACINIUM_SPEAR = ITEMS.registerItem("glacinium_spear", (properties) -> new Item(properties.spear(FrostToolMaterials.GLACINIUM, 1.15F, 1.2F, 0.4F, 2.5F, 7.0F, 3.5F, 5.1F, 8.75F, 4.6F)));
 
 
     public static final DeferredItem<YetiFurArmorItem> YETI_FUR_HELMET = ITEMS.registerItem("yeti_fur_helmet", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorType.HELMET, (properties.durability(ArmorType.HELMET.getDurability(20)))));
@@ -107,6 +108,7 @@ public class FrostItems {
     public static final DeferredItem<Item> ASTRA_BALL_SPAWNEGG = ITEMS.registerItem("astra_ball_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.ASTRA_BALL.get())));
     public static final DeferredItem<Item> GLACIER_BOAR_SPAWNEGG = ITEMS.registerItem("glacier_boar_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.GLACIER_BOAR.get())));
     public static final DeferredItem<Item> WOLFFLUE_SPAWNEGG = ITEMS.registerItem("wolfflue_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.WOLFFLUE.get())));
+    public static final DeferredItem<Item> STRAY_WOLFFLUE_SPAWNEGG = ITEMS.registerItem("stray_wolfflue_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.STRAY_WOLFFLUE.get())));
     public static final DeferredItem<Item> FERRET_SPAWNEGG = ITEMS.registerItem("ferret_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.FERRET.get())));
     public static final DeferredItem<Item> SEAL_SPAWNEGG = ITEMS.registerItem("seal_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.SEAL.get())));
     public static final DeferredItem<Item> LESSER_WARRIOR_SPAWNEGG = ITEMS.registerItem("lesser_warrior_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(FrostEntities.LESSER_WARRIOR.get())));

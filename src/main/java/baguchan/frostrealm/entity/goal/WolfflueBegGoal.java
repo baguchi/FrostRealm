@@ -1,6 +1,6 @@
 package baguchan.frostrealm.entity.goal;
 
-import baguchan.frostrealm.entity.animal.Wolfflue;
+import baguchan.frostrealm.entity.animal.AbstractWolfflue;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 import java.util.EnumSet;
 
 public class WolfflueBegGoal extends Goal {
-    private final Wolfflue wolf;
+    private final AbstractWolfflue wolf;
     @Nullable
     private Player player;
     private final Level level;
@@ -21,7 +21,7 @@ public class WolfflueBegGoal extends Goal {
     private int lookTime;
     private final TargetingConditions begTargeting;
 
-    public WolfflueBegGoal(Wolfflue p_25063_, float p_25064_) {
+    public WolfflueBegGoal(AbstractWolfflue p_25063_, float p_25064_) {
         this.wolf = p_25063_;
         this.level = p_25063_.level();
         this.lookDistance = p_25064_;

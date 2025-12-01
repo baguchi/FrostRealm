@@ -203,6 +203,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 		shovelItem(this.output, "astrium_shovel", FrostItems.ASTRIUM_SHOVEL.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
 		hoeItem(this.output, "astrium_hoe", FrostItems.ASTRIUM_HOE.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
 		sickleItem(this.output, "astrium_sickle", FrostItems.ASTRIUM_SICKLE.get(), FrostItems.ASTRIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
+        javelinItem(this.output, "astrium_spear", FrostItems.ASTRIUM_SPEAR.get(), FrostItems.ASTRIUM_SPEAR.get(), Tags.Items.RODS_WOODEN);
 
 		swordItem(this.output, "glacinium_sword", FrostItems.GLACINIUM_SWORD.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);
 		axeItem(this.output, "glacinium_axe", FrostItems.GLACINIUM_AXE.get(), FrostItems.GLACINIUM_INGOT.get(), Tags.Items.RODS_WOODEN);

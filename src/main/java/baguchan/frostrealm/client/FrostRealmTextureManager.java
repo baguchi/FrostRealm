@@ -1,6 +1,7 @@
 package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.client.render.dimension.FrostRealmRenderer;
+import baguchan.frostrealm.client.render.dimension.FrostRealmWeatherSpecialRender;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
@@ -11,14 +12,13 @@ public class FrostRealmTextureManager implements ResourceManagerReloadListener {
     public static final FrostRealmTextureManager INSTANCE = new FrostRealmTextureManager();
 
 
-    private @Nullable FrostRealmRenderer tofuWorldRenderer;
-
+    private @Nullable FrostRealmRenderer frostrealmRenderer;
     @Override
     public void onResourceManagerReload(ResourceManager resourceManager) {
-        tofuWorldRenderer = new FrostRealmRenderer(Minecraft.getInstance().getAtlasManager());
+        frostrealmRenderer = new FrostRealmRenderer(Minecraft.getInstance().getAtlasManager());
     }
 
     public @Nullable FrostRealmRenderer getFrostrealmRenderer() {
-        return tofuWorldRenderer;
+        return frostrealmRenderer;
     }
 }

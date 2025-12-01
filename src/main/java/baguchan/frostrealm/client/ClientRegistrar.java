@@ -95,7 +95,8 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.CRYSTAL_FOX.get(), CrystalFoxRenderer::new);
         event.registerEntityRenderer(FrostEntities.SNOW_MOLE.get(), SnowMoleRenderer::new);
 		event.registerEntityRenderer(FrostEntities.WOLFFLUE.get(), WolfflueRenderer::new);
-		event.registerEntityRenderer(FrostEntities.FERRET.get(), FerretRenderer::new);
+        event.registerEntityRenderer(FrostEntities.STRAY_WOLFFLUE.get(), StrayWolfflueRenderer::new);
+        event.registerEntityRenderer(FrostEntities.FERRET.get(), FerretRenderer::new);
 
         event.registerEntityRenderer(FrostEntities.YETI.get(), YetiRenderer::new);
         event.registerEntityRenderer(FrostEntities.FROST_WRAITH.get(), FrostWraithRenderer::new);

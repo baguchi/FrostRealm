@@ -9,6 +9,7 @@ import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
@@ -103,8 +104,11 @@ public class FrostBiomeBuilders {
         builder1.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(FrostEntities.GLACIER_BOAR.get(), 4, 6));
 
         FrostBiomeDefaultFeatures.addSpringFeatures(builder);
-		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
-		return makeDefaultBiome(builder, builder1);
+
+        FrostBiomeDefaultFeatures.monsterSpawns(builder1);
+        builder1.addSpawn(MobCategory.MONSTER, 2, new MobSpawnSettings.SpawnerData(FrostEntities.STRAY_WOLFFLUE.get(), 1, 1));
+
+        return makeDefaultBiome(builder, builder1);
 	}
 
 	public static Biome tundraBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {
@@ -114,7 +118,9 @@ public class FrostBiomeBuilders {
 		FrostBiomeDefaultFeatures.plainCreatureSpawns(builder1);
 		FrostBiomeDefaultFeatures.addSpringFeatures(builder);
 		FrostBiomeDefaultFeatures.monsterSpawns(builder1);
-		return makeDefaultBiome(builder, builder1);
+        builder1.addSpawn(MobCategory.MONSTER, 2, new MobSpawnSettings.SpawnerData(FrostEntities.STRAY_WOLFFLUE.get(), 1, 1));
+
+        return makeDefaultBiome(builder, builder1);
 	}
 
 	public static Biome riverBiome(HolderGetter<PlacedFeature> placedFeatures, HolderGetter<ConfiguredWorldCarver<?>> worldCarvers) {

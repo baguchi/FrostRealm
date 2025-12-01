@@ -166,7 +166,7 @@ public abstract class FrBlockstateModelProvider extends BlockModelGenerators {
                 .copySlot(TextureSlot.BOTTOM, TextureSlot.PARTICLE)
                 .put(FrostTextureMappings.OVERLAY, getBlockTexture(block, "_side_overlay"));
 
-        this.blockStateOutput.accept(createSimpleBlock(block, FrostModelTemplates.GRASS_BLOCK.extend().renderType("cutout_mipped").build().create(block, texturemapping, this.modelOutput)));
+        this.blockStateOutput.accept(createSimpleBlock(block, FrostModelTemplates.GRASS_BLOCK.extend().renderType("cutout").build().create(block, texturemapping, this.modelOutput)));
         this.registerSimpleTintedItemModel(block, ModelLocationUtils.getModelLocation(block), new GrassColorSource());
     }
 

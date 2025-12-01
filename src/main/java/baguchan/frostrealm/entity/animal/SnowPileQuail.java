@@ -75,8 +75,8 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 		this.goalSelector.addGoal(0, new FloatGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
 		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, CrystalFox.class, 8.0F, 1.55D, 1.45D));
-		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Wolfflue.class, 8.0F, 1.55D, 1.45D, (p_28590_) -> {
-			return !((Wolfflue) p_28590_).isTame();
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, AbstractWolfflue.class, 8.0F, 1.55D, 1.45D, (p_28590_) -> {
+			return !((AbstractWolfflue) p_28590_).isTame();
 		}));
 		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Ferret.class, 8.0F, 1.55D, 1.45D, (p_28590_) -> {
 			return !((Ferret) p_28590_).isTame();

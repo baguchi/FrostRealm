@@ -1,0 +1,812 @@
+package baguchan.frostrealm.entity.animal;
+
+import baguchan.frostrealm.api.entity.WolfflueVariant;
+import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
+import baguchan.frostrealm.entity.goal.LeapAtTargetWolfflueGoal;
+import baguchan.frostrealm.entity.goal.WolfflueBegGoal;
+import baguchan.frostrealm.registry.FrostEntities;
+import baguchan.frostrealm.registry.FrostEntityDatas;
+import baguchan.frostrealm.registry.FrostItems;
+import baguchan.frostrealm.registry.FrostTags;
+import baguchi.bagus_lib.entity.ISmartJump;
+import baguchi.bagus_lib.entity.path.node.SmartNodeEvaluator;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import net.minecraft.world.entity.animal.wolf.WolfSoundVariant;
+import net.minecraft.world.entity.animal.wolf.WolfSoundVariants;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.variant.VariantUtils;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.equipment.Equippable;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.level.pathfinder.PathFinder;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
+
+import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.function.Predicate;
+
+public abstract class AbstractWolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerRideableJumping, ISmartJump {
+    public static final Predicate<LivingEntity> PREY_SELECTOR = p_348295_ -> {
+        EntityType<?> entitytype = p_348295_.getType();
+        return entitytype == FrostEntities.CRYSTAL_FOX.get() || entitytype == FrostEntities.SNOWPILE_QUAIL.get() || entitytype == EntityType.FOX || entitytype == EntityType.SHEEP;
+    };
+    private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(AbstractWolfflue.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> DATA_COLLAR_COLOR = SynchedEntityData.defineId(AbstractWolfflue.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Long> DATA_ANGER_END_TIME = SynchedEntityData.defineId(AbstractWolfflue.class, EntityDataSerializers.LONG);
+    private static final EntityDataAccessor<Holder<WolfSoundVariant>> DATA_SOUND_VARIANT_ID = SynchedEntityData.defineId(
+            AbstractWolfflue.class, EntityDataSerializers.WOLF_SOUND_VARIANT
+    );
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    private static final float START_HEALTH = 20.0F;
+    private static final float TAME_HEALTH = 80.0F;
+    private static final float ARMOR_REPAIR_UNIT = 0.125F;
+    public final AnimationState idleSitAnimationState = new AnimationState();
+    public final AnimationState idleSit2AnimationState = new AnimationState();
+    public final AnimationState jumpAnimationState = new AnimationState();
+    protected float playerJumpPendingScale;
+    private @org.jspecify.annotations.Nullable EntityReference<LivingEntity> persistentAngerTarget;
+    private float interestedAngle;
+    private float interestedAngleO;
+    private int idleAnimationTimeout = 0;
+    private int idleAnimationRemainTick = 0;
+    private float runningScale;
+    private float runningScaleO;
+    private boolean isJumping;
+
+    public AbstractWolfflue(EntityType<? extends AbstractWolfflue> p_30369_, Level p_30370_) {
+        super(p_30369_, p_30370_);
+        this.setTame(false, false);
+        this.setPathfindingMalus(PathType.POWDER_SNOW, -1.0F);
+        this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
+    }
+
+    public static boolean checkWolfSpawnRules(
+            EntityType<? extends Animal> p_218105_, LevelAccessor p_218106_, EntitySpawnReason p_360742_, BlockPos p_218108_, RandomSource p_218109_
+    ) {
+        boolean flag = EntitySpawnReason.ignoresLightRequirements(p_360742_) || isBrightEnoughToSpawn(p_218106_, p_218108_);
+        return p_218106_.getBlockState(p_218108_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE) && flag;
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return Animal.createAnimalAttributes().add(Attributes.MOVEMENT_SPEED, 0.3F).add(Attributes.MAX_HEALTH, 20.0).add(Attributes.SAFE_FALL_DISTANCE, 8.0).add(Attributes.FOLLOW_RANGE, 18.0F).add(Attributes.ATTACK_DAMAGE, 5.0);
+    }
+
+    public Holder<WolfSoundVariant> getSoundVariant() {
+        return this.entityData.get(DATA_SOUND_VARIANT_ID);
+    }
+
+    public void setSoundVariant(Holder<WolfSoundVariant> p_406324_) {
+        this.entityData.set(DATA_SOUND_VARIANT_ID, p_406324_);
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level p_21480_) {
+        return new GroundPathNavigation(this, p_21480_) {
+            protected PathFinder createPathFinder(int p_219479_) {
+                this.nodeEvaluator = new SmartNodeEvaluator();
+                this.nodeEvaluator.setCanPassDoors(true);
+                this.nodeEvaluator.setCanOpenDoors(false);
+                this.nodeEvaluator.setCanFloat(true);
+                return new PathFinder(this.nodeEvaluator, p_219479_);
+            }
+        };
+    }
+
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> p_312373_) {
+        if (this.level().isClientSide() && DATA_POSE.equals(p_312373_)) {
+            this.stopAllAnimation();
+            Pose pose = this.getPose();
+            switch (pose) {
+                case LONG_JUMPING:
+                    this.jumpAnimationState.startIfStopped(this.tickCount);
+                    break;
+            }
+        }
+
+        super.onSyncedDataUpdated(p_312373_);
+    }
+
+    @Override
+    protected void registerGoals() {
+
+    }
+
+    private void setupAnimationStates() {
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = this.random.nextInt(80) + 80;
+            if (this.isInSittingPose()) {
+                if (this.random.nextBoolean()) {
+                    this.stopIdleAnimation();
+                    this.idleSitAnimationState.start(this.tickCount);
+                    this.idleAnimationRemainTick = 20 * 2;
+                } else {
+                    this.stopIdleAnimation();
+                    this.idleSit2AnimationState.start(this.tickCount);
+                    this.idleAnimationRemainTick = (int) (20 * 1.75F);
+                }
+            }
+        } else {
+            this.idleAnimationTimeout--;
+        }
+
+        if (this.idleAnimationRemainTick <= 0) {
+            this.stopIdleAnimation();
+        } else {
+            this.idleAnimationRemainTick--;
+        }
+        if (!this.isInSittingPose()) {
+            this.stopIdleAnimation();
+        }
+
+    }
+
+
+    private boolean isDashing() {
+        return this.getDeltaMovement().horizontalDistanceSqr() > 0.02D;
+    }
+
+    private boolean isMoving() {
+        return this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6D;
+    }
+
+
+    public float getRunningScale(float p_29570_) {
+        return Mth.lerp(p_29570_, this.runningScaleO, this.runningScale);
+    }
+
+    protected void stopIdleAnimation() {
+        if (this.idleSitAnimationState.isStarted()) {
+            this.idleSitAnimationState.stop();
+        }
+        if (this.idleSit2AnimationState.isStarted()) {
+            this.idleSit2AnimationState.stop();
+        }
+    }
+
+    protected void stopAllAnimation() {
+        this.jumpAnimationState.stop();
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder p_326027_) {
+        super.defineSynchedData(p_326027_);
+        p_326027_.define(DATA_INTERESTED_ID, false);
+        p_326027_.define(DATA_COLLAR_COLOR, DyeColor.RED.getId());
+        p_326027_.define(DATA_ANGER_END_TIME, 0L);
+        Registry<WolfSoundVariant> registry = this.registryAccess().lookupOrThrow(Registries.WOLF_SOUND_VARIANT);
+        p_326027_.define(DATA_SOUND_VARIANT_ID, registry.get(WolfSoundVariants.CLASSIC).or(registry::getAny).orElseThrow());
+
+    }
+
+    @Override
+    public void setCustomName(@org.jetbrains.annotations.Nullable Component p_20053_) {
+        super.setCustomName(p_20053_);
+    }
+
+    @Override
+    protected void playStepSound(BlockPos p_30415_, BlockState p_30416_) {
+        this.playSound(SoundEvents.WOLF_STEP, 0.5F, 1.0F);
+    }
+
+    @Override
+    public void addAdditionalSaveData(ValueOutput p_30418_) {
+        super.addAdditionalSaveData(p_30418_);
+        p_30418_.putByte("CollarColor", (byte) this.getCollarColor().getId());
+
+        this.getSoundVariant()
+                .unwrapKey()
+                .ifPresent(
+                        p_409350_ -> p_30418_.store("sound_variant", ResourceKey.codec(Registries.WOLF_SOUND_VARIANT), (ResourceKey<WolfSoundVariant>) p_409350_)
+                );
+        this.addPersistentAngerSaveData(p_30418_);
+    }
+
+    @Override
+    public void readAdditionalSaveData(ValueInput p_30402_) {
+        super.readAdditionalSaveData(p_30402_);
+        this.setCollarColor(DyeColor.byId(p_30402_.getIntOr("CollarColor", -1)));
+
+        p_30402_.read("sound_variant", ResourceKey.codec(Registries.WOLF_SOUND_VARIANT))
+                .flatMap(p_409348_ -> this.registryAccess().lookupOrThrow(Registries.WOLF_SOUND_VARIANT).get((ResourceKey<WolfSoundVariant>) p_409348_))
+                .ifPresent(this::setSoundVariant);
+        this.readPersistentAngerSaveData(this.level(), p_30402_);
+    }
+
+    @Override
+    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance p_217056_) {
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        if (this.isAngry()) {
+            return this.getSoundVariant().value().growlSound().value();
+        } else if (this.random.nextInt(3) == 0) {
+            return this.isTame() && this.getHealth() < 20.0F
+                    ? this.getSoundVariant().value().whineSound().value()
+                    : this.getSoundVariant().value().pantSound().value();
+        } else {
+            return this.getSoundVariant().value().ambientSound().value();
+        }
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource p_406243_) {
+        return this.canArmorAbsorb(p_406243_) ? SoundEvents.WOLF_ARMOR_DAMAGE : this.getSoundVariant().value().hurtSound().value();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return this.getSoundVariant().value().deathSound().value();
+    }
+
+
+    @Override
+    protected float getSoundVolume() {
+        return 1.2F;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.isAlive()) {
+            this.interestedAngleO = this.interestedAngle;
+            if (this.isInterested()) {
+                this.interestedAngle = this.interestedAngle + (1.0F - this.interestedAngle) * 0.4F;
+            } else {
+                this.interestedAngle = this.interestedAngle + (0.0F - this.interestedAngle) * 0.4F;
+            }
+        }
+
+        if (this.level().isClientSide()) {
+            this.setupAnimationStates();
+        }
+        //need client but also need to use apply the riding point
+        this.setupRunning();
+    }
+
+    private void setupRunning() {
+        runningScaleO = runningScale;
+        if (this.isMoving()) {
+
+            if (isDashing()) {
+                runningScale = Mth.clamp(runningScale + 0.1F, 0, 1);
+            } else {
+                runningScale = Mth.clamp(runningScale - 0.1F, 0, 1);
+            }
+        } else {
+            //idleAnimationState.startIfStopped(this.tickCount);
+        }
+    }
+
+
+    @Override
+    public void aiStep() {
+        if (!this.level().isClientSide()) {
+            this.updatePersistentAnger((ServerLevel) this.level(), true);
+            if (this.onGround()) {
+                if (this.getPose() == Pose.LONG_JUMPING) {
+                    this.setPose(Pose.STANDING);
+                }
+            }
+        }
+        super.aiStep();
+    }
+
+    public float getHeadRollAngle(float p_30449_) {
+        return Mth.lerp(p_30449_, this.interestedAngleO, this.interestedAngle) * 0.15F * (float) Math.PI;
+    }
+
+    @Override
+    public int getMaxHeadXRot() {
+        return this.isInSittingPose() ? 20 : super.getMaxHeadXRot();
+    }
+
+
+    @Override
+    public boolean hurtServer(ServerLevel serverLevel, DamageSource p_30386_, float p_30387_) {
+        if (this.isInvulnerableTo(serverLevel, p_30386_)) {
+            return false;
+        } else {
+            if (!this.level().isClientSide()) {
+                this.setOrderedToSit(false);
+            }
+
+            return super.hurtServer(serverLevel, p_30386_, p_30387_);
+        }
+    }
+
+    @Override
+    public boolean doHurtTarget(ServerLevel serverLevel, Entity p_21372_) {
+        float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        DamageSource damagesource = this.damageSources().mobAttack(this);
+        if (this.level() instanceof ServerLevel serverlevel) {
+            f = EnchantmentHelper.modifyDamage(serverlevel, this.getWeaponItem(), p_21372_, damagesource, f);
+            if (!this.getMainHandItem().isEmpty()) {
+                f += this.getMainHandItem().getItem().getAttackDamageBonus(p_21372_, f, damagesource);
+            }
+        }
+
+        boolean flag = p_21372_.hurtServer(serverLevel, damagesource, f);
+        if (flag) {
+            float f1 = this.getKnockback(p_21372_, damagesource);
+            if (f1 > 0.0F && p_21372_ instanceof LivingEntity livingentity) {
+                livingentity.knockback(
+                        (double) (f1 * 0.5F),
+                        (double) Mth.sin(this.getYRot() * (float) (Math.PI / 180.0)),
+                        (double) (-Mth.cos(this.getYRot() * (float) (Math.PI / 180.0)))
+                );
+                this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
+            }
+
+            if (this.level() instanceof ServerLevel serverlevel1) {
+                EnchantmentHelper.doPostAttackEffects(serverlevel1, p_21372_, damagesource);
+            }
+
+            this.setLastHurtMob(p_21372_);
+            this.playAttackSound();
+        }
+
+        return flag;
+    }
+
+    @Override
+    protected void actuallyHurt(ServerLevel serverLevel, DamageSource p_331935_, float p_330695_) {
+        if (!this.canArmorAbsorb(p_331935_)) {
+            super.actuallyHurt(serverLevel, p_331935_, p_330695_);
+        } else {
+            ItemStack itemstack = this.getBodyArmorItem();
+            int i = itemstack.getDamageValue();
+            int j = itemstack.getMaxDamage();
+            itemstack.hurtAndBreak(Mth.ceil(p_330695_), this, EquipmentSlot.BODY);
+            if (Crackiness.WOLF_ARMOR.byDamage(i, j) != Crackiness.WOLF_ARMOR.byDamage(this.getBodyArmorItem())) {
+                this.playSound(SoundEvents.WOLF_ARMOR_CRACK);
+                if (this.level() instanceof ServerLevel serverlevel) {
+                    serverlevel.sendParticles(
+                            new ItemParticleOption(ParticleTypes.ITEM, Items.ARMADILLO_SCUTE.getDefaultInstance()),
+                            this.getX(),
+                            this.getY() + 1.0,
+                            this.getZ(),
+                            20,
+                            0.2,
+                            0.1,
+                            0.2,
+                            0.1
+                    );
+                }
+            }
+        }
+    }
+
+    private boolean canArmorAbsorb(DamageSource p_331524_) {
+        return false;
+    }
+
+    @Override
+    protected Holder<SoundEvent> getEquipSound(EquipmentSlot p_397157_, ItemStack p_397978_, Equippable p_397221_) {
+        return p_397157_ == EquipmentSlot.SADDLE ? SoundEvents.STRIDER_SADDLE : super.getEquipSound(p_397157_, p_397978_, p_397221_);
+    }
+
+    @Override
+    protected void applyTamingSideEffects() {
+        if (this.isTame()) {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(80.0);
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(6.0);
+            this.setHealth(80.0F);
+        } else {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0);
+            this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(5.0);
+        }
+    }
+
+    @Override
+    protected void hurtArmor(DamageSource p_332118_, float p_330593_) {
+        this.doHurtEquipment(p_332118_, p_330593_, EquipmentSlot.BODY);
+    }
+
+    @Override
+    protected void dropEquipment(ServerLevel p_376551_) {
+        super.dropEquipment(p_376551_);
+    }
+
+    protected void doPlayerRide(Player p_30634_) {
+        this.setOrderedToSit(false);
+        if (!this.level().isClientSide()) {
+            p_30634_.setYRot(this.getYRot());
+            p_30634_.setXRot(this.getXRot());
+            p_30634_.startRiding(this);
+        }
+    }
+
+    @Override
+    protected boolean canDispenserEquipIntoSlot(EquipmentSlot p_371599_) {
+        return (p_371599_ == EquipmentSlot.BODY || p_371599_ == EquipmentSlot.SADDLE) && this.isTame() || super.canDispenserEquipIntoSlot(p_371599_);
+    }
+
+    @Override
+    public boolean canUseSlot(EquipmentSlot p_397737_) {
+        return p_397737_ != EquipmentSlot.SADDLE ? super.canUseSlot(p_397737_) : this.isAlive() && !this.isBaby() && this.isTame();
+    }
+
+    public void tryToTame(Player p_333736_) {
+        if (this.random.nextInt(3) == 0 && !net.neoforged.neoforge.event.EventHooks.onAnimalTame(this, p_333736_)) {
+            this.tame(p_333736_);
+            this.navigation.stop();
+            this.setTarget(null);
+            this.setOrderedToSit(true);
+            this.level().broadcastEntityEvent(this, (byte) 7);
+        } else {
+            this.level().broadcastEntityEvent(this, (byte) 6);
+        }
+    }
+
+    @Override
+    public void handleEntityEvent(byte p_30379_) {
+        if (p_30379_ == 8) {
+        } else if (p_30379_ == 56) {
+        } else {
+            super.handleEntityEvent(p_30379_);
+        }
+    }
+
+    public float getTailAngle() {
+        if (this.isAngry() && !this.isTame()) {
+            return 1.5393804F;
+        } else if (this.isTame()) {
+            float f = this.getMaxHealth();
+            float f1 = (f - this.getHealth()) / f;
+            return 0.2F - (f1 * 0.4F) * (float) Math.PI;
+        } else {
+            return (float) (0.0F);
+        }
+    }
+
+    @Override
+    public boolean isFood(ItemStack p_30440_) {
+        return p_30440_.is(FrostTags.Items.WOLFFLUE_FOODS);
+    }
+
+    @Override
+    public int getMaxSpawnClusterSize() {
+        return 8;
+    }
+
+    public boolean isMaxGroupSizeReached(int p_21489_) {
+        return false;
+    }
+
+    @Override
+    public long getPersistentAngerEndTime() {
+        return (Long)this.entityData.get(DATA_ANGER_END_TIME);
+    }
+
+    public void setPersistentAngerEndTime(long p_455794_) {
+        this.entityData.set(DATA_ANGER_END_TIME, p_455794_);
+    }
+
+    public void startPersistentAngerTimer() {
+        this.setTimeToRemainAngry((long)PERSISTENT_ANGER_TIME.sample(this.random));
+    }
+
+    public @org.jspecify.annotations.Nullable EntityReference<LivingEntity> getPersistentAngerTarget() {
+        return this.persistentAngerTarget;
+    }
+
+    public void setPersistentAngerTarget(@org.jspecify.annotations.Nullable EntityReference<LivingEntity> p_455947_) {
+        this.persistentAngerTarget = p_455947_;
+    }
+    public DyeColor getCollarColor() {
+        return DyeColor.byId(this.entityData.get(DATA_COLLAR_COLOR));
+    }
+
+    public void setCollarColor(DyeColor p_30398_) {
+        this.entityData.set(DATA_COLLAR_COLOR, p_30398_.getId());
+    }
+
+    public boolean hasArmor() {
+        return !this.getBodyArmorItem().isEmpty();
+    }
+
+    public void setIsInterested(boolean p_30445_) {
+        this.entityData.set(DATA_INTERESTED_ID, p_30445_);
+    }
+
+    @Override
+    public boolean canMate(Animal p_30392_) {
+        if (p_30392_ == this) {
+            return false;
+        } else if (!this.isTame()) {
+            return false;
+        } else if (!(p_30392_ instanceof AbstractWolfflue wolf)) {
+            return false;
+        } else if (!wolf.isTame()) {
+            return false;
+        } else {
+            return !wolf.isInSittingPose() && this.isInLove() && wolf.isInLove();
+        }
+    }
+
+    public boolean isInterested() {
+        return this.entityData.get(DATA_INTERESTED_ID);
+    }
+
+    @Override
+    public boolean wantsToAttack(LivingEntity p_30389_, LivingEntity p_30390_) {
+        if (p_30389_ instanceof Creeper || p_30389_ instanceof Ghast || p_30389_ instanceof ArmorStand) {
+            return false;
+        } else if (p_30389_ instanceof AbstractWolfflue wolf) {
+            return !wolf.isTame() || wolf.getOwner() != p_30390_;
+        } else {
+            if (p_30389_ instanceof Player player && p_30390_ instanceof Player player1 && !player1.canHarmPlayer(player)) {
+                return false;
+            }
+
+            if (p_30389_ instanceof AbstractHorse abstracthorse && abstracthorse.isTamed()) {
+                return false;
+            }
+
+            return !(p_30389_ instanceof TamableAnimal tamableanimal) || !tamableanimal.isTame();
+        }
+    }
+
+    @Override
+    public boolean canBeLeashed() {
+        return !this.isAngry();
+    }
+
+    @Override
+    public Vec3 getLeashOffset() {
+        return new Vec3(0.0, 0.6F * this.getEyeHeight(), this.getBbWidth() * 0.4F);
+    }
+
+    @Override
+    public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
+        return p_27574_.getBlockState(p_27573_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE) ? 10.0F : p_27574_.getPathfindingCostFromLightLevels(p_27573_);
+    }
+
+    @Nullable
+    @Override
+    public LivingEntity getControllingPassenger() {
+        if (this.isSaddled()) {
+            Entity entity = this.getFirstPassenger();
+            if (entity instanceof Player) {
+                return (Player) entity;
+            }
+        }
+
+        return super.getControllingPassenger();
+    }
+
+
+    @Override
+    protected void tickRidden(Player p_278233_, Vec3 p_275693_) {
+        super.tickRidden(p_278233_, p_275693_);
+        Vec2 vec2 = this.getRiddenRotation(p_278233_);
+        this.setRot(vec2.y, vec2.x);
+        this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+        if (this.isLocalInstanceAuthoritative()) {
+
+            if (this.onGround()) {
+                this.setIsJumping(false);
+                if (this.getPose() == Pose.LONG_JUMPING) {
+                    this.setPose(Pose.STANDING);
+                }
+                if (this.playerJumpPendingScale > 0.0F && !this.isJumping()) {
+                    this.executeRidersJump(this.playerJumpPendingScale, p_275693_);
+                }
+
+                this.playerJumpPendingScale = 0.0F;
+            }
+        }
+    }
+
+    public boolean isJumping() {
+        return this.isJumping;
+    }
+
+    public void setIsJumping(boolean p_30656_) {
+        this.isJumping = p_30656_;
+    }
+
+    @Override
+    protected float nextStep() {
+        return super.nextStep();
+    }
+
+    protected Vec2 getRiddenRotation(LivingEntity p_275502_) {
+        return new Vec2(p_275502_.getXRot() * 0.5F, p_275502_.getYRot());
+    }
+
+    @Override
+    protected Vec3 getRiddenInput(Player p_278278_, Vec3 p_275506_) {
+        float f = p_278278_.xxa * 0.5F;
+        float f1 = p_278278_.zza;
+        if (f1 <= 0.0F) {
+            f1 *= 0.25F;
+        }
+
+        return new Vec3((double) f, 0.0, (double) f1);
+    }
+
+    @Override
+    protected Vec3 getPassengerAttachmentPoint(Entity p_294748_, EntityDimensions p_295089_, float p_295230_) {
+        float f = Math.min(0.25F, this.walkAnimation.speed());
+        float f1 = this.walkAnimation.position();
+        float scale = (2.5F * (0.0F + runningScale));
+        float f2 = 0.12F * Mth.cos(f1) * scale * f;
+        float f3 = this.runningScale * 0.15F;
+
+        if (this.getPose() == Pose.LONG_JUMPING) {
+            f3 = 0.0F;
+            f2 = 0.0F;
+        }
+
+        return super.getPassengerAttachmentPoint(p_294748_, p_295089_, p_295230_).add(
+                new Vec3(0.0, 0.0F - f3 + (double) (f2 * p_295230_ * 0.75F), -0.25F)
+                        .yRot(-this.getYRot() * (float) (Math.PI / 180.0))
+        );
+    }
+
+    @Override
+    protected float getRiddenSpeed(Player p_278241_) {
+        float f = p_278241_.isSprinting() ? 0.05F : 0.0F;
+        return (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED) + f - 0.1F;
+    }
+
+    @Override
+    public void onPlayerJump(int p_21696_) {
+        if (this.isSaddled()) {
+            if (p_21696_ < 0) {
+                p_21696_ = 0;
+            }
+
+            if (p_21696_ >= 90) {
+                this.playerJumpPendingScale = 1.0F;
+            } else {
+                this.playerJumpPendingScale = 0.4F + 0.4F * (float) p_21696_ / 90.0F;
+            }
+        }
+    }
+
+    @Override
+    public boolean canJump() {
+        return this.isSaddled();
+    }
+
+    @Override
+    public void handleStartJump(int p_21695_) {
+        this.makeSound(SoundEvents.GOAT_LONG_JUMP);
+        this.gameEvent(GameEvent.ENTITY_ACTION);
+
+    }
+
+    @Override
+    public void handleStopJump() {
+
+    }
+
+    @Override
+    public boolean canSprint() {
+        return true;
+    }
+
+
+    @Override
+    public boolean causeFallDamage(double p_397025_, float p_149499_, DamageSource p_149501_) {
+        if (p_397025_ > 1.0) {
+            //this.playSound(SoundEvents.HORSE_LAND, 0.4F, 1.0F);
+        }
+
+        int i = this.calculateFallDamage(p_397025_, p_149499_);
+        if (i <= 0) {
+            return false;
+        } else {
+            this.hurt(p_149501_, i);
+            this.propagateFallToPassengers(p_397025_, p_149499_, p_149501_);
+            this.playBlockFallSound();
+            return true;
+        }
+    }
+
+    protected void executeRidersJump(float p_248808_, Vec3 p_275435_) {
+        double d0 = (double) this.getJumpPower(p_248808_ * 1.75F);
+        Vec3 vec3 = this.getDeltaMovement();
+        this.setDeltaMovement(vec3.x, d0, vec3.z);
+        this.setIsJumping(true);
+        this.setPose(Pose.LONG_JUMPING);
+        this.needsSync = true;
+        net.neoforged.neoforge.common.CommonHooks.onLivingJump(this);
+        if (p_275435_.z > 0.0) {
+            float f = Mth.sin(this.getYRot() * (float) (Math.PI / 180.0));
+            float f1 = Mth.cos(this.getYRot() * (float) (Math.PI / 180.0));
+            this.setDeltaMovement(this.getDeltaMovement().add((double) (-0.4F * f * p_248808_), 0.0, (double) (0.4F * f1 * p_248808_)));
+        }
+    }
+
+    @Override
+    protected float getJumpPower() {
+        float f = 0.42F;
+
+        Path path = this.navigation.getPath();
+        if (path != null && !path.isDone()) {
+            Vec3 vec3 = path.getNextEntityPos(this);
+            if (vec3.y > this.getY() + 0.5) {
+                f = 0.5F;
+            }
+            if (vec3.y > this.getY() + 1.5) {
+                f = 0.65F;
+            }
+
+            /*if (vec3.y > this.getY() + 2.5) {
+                f = 1.0F;
+            }*/
+        }
+
+        return super.getJumpPower((float) (f / this.getAttributeValue(Attributes.JUMP_STRENGTH)));
+    }
+
+    @Override
+    public void jumpFromGround() {
+        super.jumpFromGround();
+        if (getJumpPower() >= (0.6F / 0.42F) * this.getAttributeValue(Attributes.JUMP_STRENGTH)) {
+            this.setPose(Pose.LONG_JUMPING);
+            this.makeSound(SoundEvents.GOAT_LONG_JUMP);
+        }
+    }
+
+    @Override
+    public float getSuppportJump() {
+        return 2.125F;
+    }
+}

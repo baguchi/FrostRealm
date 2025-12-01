@@ -76,7 +76,8 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.GLACINIUM_SHOVEL.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_HOE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_SICKLE.asItem(), FrostModelTemplates.BIG_HANDHELD);
-        this.generateFlatItem(FrostItems.GLACINIUM_SPEAR.asItem(), FrostModelTemplates.BIG_HANDHELD);
+        this.generateFlatItem(FrostItems.GLACINIUM_SPEAR.asItem(), FrostModelTemplates.BIG_SPEAR);
+        this.generateFlatItem(FrostItems.ASTRIUM_SPEAR.asItem(), FrostModelTemplates.BIG_SPEAR);
 
 
         this.generateFlatItem(FrostItems.YETI_FUR_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
@@ -107,6 +108,7 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateSpawnEgg(FrostItems.ASTRA_BALL_SPAWNEGG.get(), 9654988, 14919423);
         this.generateFlatItem(FrostItems.GLACIER_BOAR_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.WOLFFLUE_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.STRAY_WOLFFLUE_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateSpawnEgg(FrostItems.FERRET_SPAWNEGG.get(), 7953498, 4272429);
         this.generateSpawnEgg(FrostItems.SEAL_SPAWNEGG.get(), 16777215, 16777215);
         this.generateSpawnEgg(FrostItems.LESSER_WARRIOR_SPAWNEGG.get(), 6387319, 14543594);

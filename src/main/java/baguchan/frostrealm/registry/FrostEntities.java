@@ -3,6 +3,7 @@ package baguchan.frostrealm.registry;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.animal.*;
+import baguchan.frostrealm.entity.animal.hostile.StrayWolfflue;
 import baguchan.frostrealm.entity.boss.Seeker;
 import baguchan.frostrealm.entity.hostile.*;
 import baguchan.frostrealm.entity.projectile.FlyingBlockEntity;
@@ -34,13 +35,17 @@ public class FrostEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<SnowMole>> SNOW_MOLE = ENTITIES.register("snow_mole", () -> EntityType.Builder.of(SnowMole::new, MobCategory.CREATURE).sized(0.6F, 0.6F).eyeHeight(0.3F).clientTrackingRange(8).immuneTo(Blocks.POWDER_SNOW).immuneTo(Blocks.POWDER_SNOW_CAULDRON).build(prefix("snow_mole")));
     public static final DeferredHolder<EntityType<?>, EntityType<Seal>> SEAL = ENTITIES.register("seal", () -> EntityType.Builder.of(Seal::new, MobCategory.CREATURE).sized(0.95F, 0.8F).eyeHeight(0.45F).clientTrackingRange(10).build(prefix("seal")));
     public static final DeferredHolder<EntityType<?>, EntityType<Wolfflue>> WOLFFLUE = ENTITIES.register("wolfflue", () -> EntityType.Builder.of(Wolfflue::new, MobCategory.CREATURE).sized(1.25F, 1.4F).eyeHeight(1.2F).clientTrackingRange(10).build(prefix("wolfflue")));
+    public static final DeferredHolder<EntityType<?>, EntityType<StrayWolfflue>> STRAY_WOLFFLUE = ENTITIES.register("stray_wolfflue", () -> EntityType.Builder.of(StrayWolfflue::new, MobCategory.MONSTER).sized(1.25F, 1.4F).eyeHeight(1.2F).clientTrackingRange(10).build(prefix("stray_wolfflue")));
     public static final DeferredHolder<EntityType<?>, EntityType<Ferret>> FERRET = ENTITIES.register("ferret", () -> EntityType.Builder.of(Ferret::new, MobCategory.CREATURE).sized(1.0F, 0.4F).eyeHeight(0.3F).clientTrackingRange(10).build(prefix("ferret")));
     public static final DeferredHolder<EntityType<?>, EntityType<SilkMoonWorm>> SILK_MOON_WORM = ENTITIES.register("silk_moon_worm", () -> EntityType.Builder.of(SilkMoonWorm::new, MobCategory.CREATURE).sized(0.5F, 0.3F).eyeHeight(0.15F).clientTrackingRange(10).build(prefix("silk_moon_worm")));
     public static final DeferredHolder<EntityType<?>, EntityType<SilkMoon>> SILK_MOON = ENTITIES.register("silk_moon", () -> EntityType.Builder.of(SilkMoon::new, MobCategory.CREATURE).sized(0.5F, 0.5F).eyeHeight(0.35F).clientTrackingRange(10).build(prefix("silk_moon")));
 
     public static final DeferredHolder<EntityType<?>, EntityType<Yeti>> YETI = ENTITIES.register("yeti", () -> EntityType.Builder.of(Yeti::new, MobCategory.CREATURE).sized(1.6F, 1.95F).eyeHeight(1.75F).build(prefix("yeti")));
     public static final DeferredHolder<EntityType<?>, EntityType<FrostWraith>> FROST_WRAITH = ENTITIES.register("frost_wraith", () -> EntityType.Builder.of(FrostWraith::new, FrostMobCategory.FROSTREALM_WEATHER_MONSTER).sized(0.6F, 2.1F).notInPeaceful().build(prefix("frost_wraith")));
-    public static final DeferredHolder<EntityType<?>, EntityType<LesserWarrior>> LESSER_WARRIOR = ENTITIES.register("lesser_warrior", () -> EntityType.Builder.of(LesserWarrior::new, MobCategory.MONSTER).sized(0.6F, 1.99F).notInPeaceful().immuneTo(Blocks.POWDER_SNOW).clientTrackingRange(8).build(prefix("lesser_warrior")));
+    public static final DeferredHolder<EntityType<?>, EntityType<LesserWarrior>> LESSER_WARRIOR = ENTITIES.register("lesser_warrior", () -> EntityType.Builder.of(LesserWarrior::new, MobCategory.MONSTER)      .sized(0.6F, 1.99F)
+            .eyeHeight(1.74F)
+            .ridingOffset(-0.7F)
+            .clientTrackingRange(8).notInPeaceful().immuneTo(Blocks.POWDER_SNOW).build(prefix("lesser_warrior")));
 
     public static final DeferredHolder<EntityType<?>, EntityType<AstraBall>> ASTRA_BALL = ENTITIES.register("astra_ball", () -> EntityType.Builder.of(AstraBall::new, MobCategory.MONSTER).sized(0.5F, 0.5F).notInPeaceful().eyeHeight(0.25F).build(prefix("astra_ball")));
     public static final DeferredHolder<EntityType<?>, EntityType<GlacierBoar>> GLACIER_BOAR = ENTITIES.register("glacier_boar", () -> EntityType.Builder.of(GlacierBoar::new, MobCategory.CREATURE).sized(1.8F, 2.1F).eyeHeight(1.5F).build(prefix("glacier_boar")));
@@ -66,7 +71,8 @@ public class FrostEntities {
         event.put(CRYSTAL_FOX.get(), CrystalFox.createAttributes().build());
         event.put(SNOW_MOLE.get(), SnowMole.createAttributes().build());
         event.put(SEAL.get(), Seal.createAttributes().build());
-        event.put(WOLFFLUE.get(), Wolfflue.createAttributes().build());
+        event.put(WOLFFLUE.get(), AbstractWolfflue.createAttributes().build());
+        event.put(STRAY_WOLFFLUE.get(), AbstractWolfflue.createAttributes().build());
         event.put(FERRET.get(), Ferret.createAttributes().build());
         event.put(SILK_MOON_WORM.get(), SilkMoonWorm.createAttributes().build());
         event.put(SILK_MOON.get(), SilkMoon.createAttributes().build());
@@ -91,7 +97,8 @@ public class FrostEntities {
         event.register(CRYSTAL_FOX.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrystalFox::checkFrostAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(SNOW_MOLE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnowMole::checkSnowMoleSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(SEAL.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seal::checkSealSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
-        event.register(WOLFFLUE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Wolfflue::checkWolfSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(WOLFFLUE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AbstractWolfflue::checkWolfSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
+        event.register(STRAY_WOLFFLUE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(FERRET.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Ferret::checkWolfSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(SILK_MOON_WORM.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
         event.register(SILK_MOON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SilkMoon::checkSilkSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);

@@ -177,7 +177,7 @@ public class Ferret extends TamableAnimal {
 
     @Override
     public float getWalkTargetValue(BlockPos p_27573_, LevelReader p_27574_) {
-        return p_27574_.getBlockState(p_27573_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE) ? 10.0F : p_27574_.getPathfindingCostFromLightLevels(p_27573_) - 0.5F;
+        return p_27574_.getBlockState(p_27573_.below()).is(FrostTags.Blocks.ANIMAL_SPAWNABLE) ? 10.0F : p_27574_.getPathfindingCostFromLightLevels(p_27573_);
     }
 
 

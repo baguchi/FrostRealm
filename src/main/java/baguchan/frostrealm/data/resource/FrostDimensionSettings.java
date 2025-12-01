@@ -3,6 +3,7 @@ package baguchan.frostrealm.data.resource;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.registry.FrostBiomeSources;
 import baguchan.frostrealm.registry.FrostBlocks;
+import baguchan.frostrealm.registry.FrostMusics;
 import baguchan.frostrealm.world.biome.FrostrealmBiomeBuilder;
 import baguchan.frostrealm.world.gen.FrostChunkGenerator;
 import baguchan.frostrealm.world.gen.FrostNoiseRouterData;
@@ -81,7 +82,7 @@ public class FrostDimensionSettings {
                 .set(EnvironmentAttributes.SKY_COLOR, OverworldBiomes.calculateSkyColor(0.8F))
                 .set(EnvironmentAttributes.CLOUD_COLOR, ARGB.white(0.8F))
                 .set(EnvironmentAttributes.CLOUD_HEIGHT, 192.33F)
-                .set(EnvironmentAttributes.BACKGROUND_MUSIC, BackgroundMusic.OVERWORLD)
+                .set(EnvironmentAttributes.BACKGROUND_MUSIC, new BackgroundMusic(FrostMusics.FROSTREALM))
                 .set(EnvironmentAttributes.BED_RULE, BedRule.CAN_SLEEP_WHEN_DARK)
                 .set(EnvironmentAttributes.RESPAWN_ANCHOR_WORKS, false)
                 .set(EnvironmentAttributes.NETHER_PORTAL_SPAWNS_PIGLINS, true)

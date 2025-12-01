@@ -25,7 +25,7 @@ import java.util.OptionalInt;
 public class FrostRealmSkySpecialRender implements CustomSkyboxRenderer {
     @Override
     public boolean renderSky(LevelRenderState levelRenderState, SkyRenderState skyRenderState, Matrix4f modelViewMatrix, Runnable setupFog) {
-       FrostRealmRenderer frostrealmRenderer = FrostRealmTextureManager.INSTANCE.getFrostrealmRenderer();
+        FrostRealmRenderer frostrealmRenderer = FrostRealmTextureManager.INSTANCE.getFrostrealmRenderer();
 
         PoseStack poseStack = new PoseStack();
         setupFog.run();
@@ -33,16 +33,17 @@ public class FrostRealmSkySpecialRender implements CustomSkyboxRenderer {
         float f = ARGB.redFloat(skyRenderState.skyColor);
         float f1 = ARGB.greenFloat(skyRenderState.skyColor);
         float f2 = ARGB.blueFloat(skyRenderState.skyColor);
+        if (frostrealmRenderer != null) {
+            poseStack.pushPose();
+            poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(skyRenderState.sunAngle));
+            frostrealmRenderer.renderOrb(levelRenderState.getRenderDataOrDefault(FrostRealmRenderer.NORMAL_WEATHER_LEVEL_KEY, 0.0F), poseStack);
+            poseStack.popPose();
 
-        poseStack.pushPose();
-        poseStack.mulPose(Axis.YP.rotationDegrees(-90.0F));
-        poseStack.mulPose(Axis.ZP.rotationDegrees(skyRenderState.sunAngle));
-        frostrealmRenderer.renderOrb(levelRenderState.getRenderDataOrDefault(FrostRealmRenderer.NORMAL_WEATHER_LEVEL_KEY, 0.0F), poseStack);
-        poseStack.popPose();
-
-        poseStack.pushPose();
-        frostrealmRenderer.renderAurora(poseStack, levelRenderState.getRenderDataOrDefault(FrostRealmRenderer.NORMAL_WEATHER_LEVEL_KEY, 0.0F));
-        poseStack.popPose();
+            poseStack.pushPose();
+            frostrealmRenderer.renderAurora(poseStack, levelRenderState.getRenderDataOrDefault(FrostRealmRenderer.NORMAL_WEATHER_LEVEL_KEY, 0.0F));
+            poseStack.popPose();
+        }
         return true;
     }
 }

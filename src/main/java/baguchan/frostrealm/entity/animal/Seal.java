@@ -174,7 +174,7 @@ public class Seal extends Animal {
         if (p_27574_.getBlockState(p_27573_.below()).is(FrostTags.Blocks.SEAL_SPAWNABLE) || p_27574_.getBlockState(p_27573_.below()).is(Blocks.SNOW_BLOCK)) {
             return 12.0F;
         }
-        return p_27574_.getBlockState(p_27573_).is(Blocks.WATER) ? 10.0F : p_27574_.getPathfindingCostFromLightLevels(p_27573_) - 0.5F;
+        return p_27574_.getBlockState(p_27573_).is(Blocks.WATER) ? 10.0F : p_27574_.getPathfindingCostFromLightLevels(p_27573_);
     }
 
     public static boolean checkSealSpawnRules(EntityType<? extends Animal> p_218105_, LevelAccessor p_218106_, EntitySpawnReason p_218107_, BlockPos p_218108_, RandomSource p_218109_) {

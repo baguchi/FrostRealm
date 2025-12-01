@@ -68,6 +68,7 @@ public class FrostTags {
 	public static class EntityTypes {
 		public static final TagKey<EntityType<?>> COLD_WEATHER_IMMUNE = tag("cold_weather_immune");
         public static final TagKey<EntityType<?>> EQUIPPABLE_FROST_SADDLE = tag("equippable_frost_saddle");
+        public static final TagKey<EntityType<?>> WOLFFLUE = tag("wolfflue");
 
 		private static TagKey<EntityType<?>> tag(String p_203849_) {
 			return TagKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(FrostRealm.MODID, p_203849_));

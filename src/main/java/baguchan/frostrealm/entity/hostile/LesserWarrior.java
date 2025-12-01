@@ -82,7 +82,7 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
         this.goalSelector.addGoal(1, counterGoal);
         this.goalSelector.addGoal(2, guardAnimationGoal);
         this.goalSelector.addGoal(4, new RangedBowAttackGoal<>(this, 1.0D, 30, 16));
-        this.goalSelector.addGoal(4, new SpearUseGoal<>(this, 1.0, 1.0, 10.0F, 2.0F));
+        this.goalSelector.addGoal(4, new SpearUseGoal<>(this, 1.1, 1.05, 10.0F, 2.0F));
 
         this.goalSelector.addGoal(4, new AnimateAttackGoal(this, 1.2D, attackAnimationActionPoint, attackAnimationLength) {
             @Override
@@ -200,13 +200,8 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource p_218949_, DifficultyInstance p_218950_) {
-        if (p_218949_.nextFloat() < 0.5F) {
+        if (p_218949_.nextFloat() < 0.75F) {
             ItemStack spear = new ItemStack(FrostItems.ASTRIUM_SWORD.get());
-
-            AuroraPowerUtils.auroraInfusionItem(p_218949_, spear, 5, false);
-            this.setItemSlot(EquipmentSlot.MAINHAND, spear);
-        }else if (p_218949_.nextFloat() < 0.5F) {
-            ItemStack spear = new ItemStack(FrostItems.GLACINIUM_SPEAR.get());
 
             AuroraPowerUtils.auroraInfusionItem(p_218949_, spear, 5, false);
             this.setItemSlot(EquipmentSlot.MAINHAND, spear);

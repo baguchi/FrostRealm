@@ -2,15 +2,11 @@
   "ambient_light": 0.0,
   "attributes": {
     "minecraft:audio/background_music": {
-      "creative": {
-        "max_delay": 24000,
-        "min_delay": 12000,
-        "sound": "minecraft:music.creative"
-      },
       "default": {
         "max_delay": 24000,
-        "min_delay": 12000,
-        "sound": "minecraft:music.game"
+        "min_delay": 6000,
+        "replace_current_music": true,
+        "sound": "frostrealm:music.frostrealm"
       }
     },
     "minecraft:gameplay/bed_rule": {
