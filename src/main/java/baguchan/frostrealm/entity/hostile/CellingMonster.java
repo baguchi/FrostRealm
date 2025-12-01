@@ -20,14 +20,15 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
+import org.joml.Quaternionfc;
 
 import static net.neoforged.neoforge.common.util.TransformationHelper.quatFromXYZ;
 
 public class CellingMonster extends Monster {
     public static final EntityDataAccessor<Direction> ATTACHED_FACE = SynchedEntityData.defineId(CellingMonster.class, EntityDataSerializers.DIRECTION);
-    public static final EntityDataAccessor<Quaternionf> CELL_ROTATION = SynchedEntityData.defineId(CellingMonster.class, EntityDataSerializers.QUATERNION);
+    public static final EntityDataAccessor<Quaternionfc> CELL_ROTATION = SynchedEntityData.defineId(CellingMonster.class, EntityDataSerializers.QUATERNION);
 
-    public Quaternionf prevRotation = new Quaternionf();
+    public Quaternionfc prevRotation =  new Quaternionf();
 
     public float prevAttachChangeProgress;
 
@@ -224,11 +225,11 @@ public class CellingMonster extends Monster {
         return this.entityData.get(ATTACHED_FACE);
     }
 
-    private void setCellRotation(Quaternionf quaternionf) {
-        this.entityData.set(CELL_ROTATION, quaternionf);
+    public Quaternionfc getCellRotation() {
+        return this.entityData.get(CELL_ROTATION);
     }
 
-    public Quaternionf getCellRotation() {
-        return this.entityData.get(CELL_ROTATION);
+    private void setCellRotation(Quaternionfc quaternionf) {
+        this.entityData.set(CELL_ROTATION, quaternionf);
     }
 }

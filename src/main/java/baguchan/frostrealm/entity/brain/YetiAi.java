@@ -39,7 +39,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -330,7 +330,7 @@ public class YetiAi<E extends Yeti> {
             yeti.getBrain().eraseMemory(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
             yeti.getBrain().setMemoryWithExpiry(MemoryModuleType.ANGRY_AT, target.getUUID(), 600L);
 
-            if (target.getType() == EntityType.PLAYER && p_376847_.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+            if (target.getType() == EntityType.PLAYER && p_376847_.getGameRules().get(GameRules.UNIVERSAL_ANGER)) {
                 yeti.getBrain().setMemoryWithExpiry(MemoryModuleType.UNIVERSAL_ANGER, true, 600L);
             }
 

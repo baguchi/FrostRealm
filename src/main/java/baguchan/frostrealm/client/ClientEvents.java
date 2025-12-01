@@ -36,32 +36,6 @@ import java.util.Optional;
 
 @EventBusSubscriber(modid = FrostRealm.MODID, value = Dist.CLIENT)
 public class ClientEvents {
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void clientAnimation(BagusModelEvent.PostAnimate event) {
-        if (event.getEntityRenderState() instanceof HumanoidRenderState humanoidRenderState) {
-            boolean flag = humanoidRenderState.mainArm == HumanoidArm.RIGHT;
-
-            if (event.getEntityRenderState().getRenderData(ClientRegistrar.HOLD_SPEAR_KEY) != null) {
-                if (event.getEntityRenderState().getRenderDataOrDefault(ClientRegistrar.HOLD_SPEAR_KEY, false)) {
-                    event.getModel().root().getChild("right_arm").resetPose();
-                    event.getModel().root().getChild("left_arm").resetPose();
-                    if (event.getBaguAnimationController() != null && !event.getBaguAnimationController().getAnimationState(FrostAnimations.SPEAR_ATTACK).isStarted()) {
-                        if (flag) {
-                            SpearAttackAnimations.spear_attack_right.bake(event.getModel().root()).applyStatic();
-                        } else {
-                            SpearAttackAnimations.spear_attack_left.bake(event.getModel().root()).applyStatic();
-                        }
-                    }
-                    if (flag) {
-                        SpearAttackAnimations.spear_attack_right.bake(event.getModel().root()).apply(event.getBaguAnimationController().getAnimationState(FrostAnimations.SPEAR_ATTACK), event.getEntityRenderState().ageInTicks);
-                    } else {
-                        SpearAttackAnimations.spear_attack_left.bake(event.getModel().root()).apply(event.getBaguAnimationController().getAnimationState(FrostAnimations.SPEAR_ATTACK), event.getEntityRenderState().ageInTicks);
-                    }
-                }
-            }
-        }
-    }
-
     @SubscribeEvent
     public static void onToolTip(ItemTooltipEvent event) {
         AuroraPowerUtils.getAuroraPowers(event.getItemStack()).addToTooltip(event.getContext(), component -> {

@@ -12,10 +12,14 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TimelineTags;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.attribute.*;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
 import net.minecraft.world.level.block.Blocks;
@@ -24,6 +28,7 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseSettings;
+import net.minecraft.world.timeline.Timeline;
 
 import java.util.Optional;
 import java.util.OptionalLong;
@@ -47,7 +52,7 @@ public class FrostDimensionSettings {
 	}
 
 	public static void bootstrapDimensionType(BootstrapContext<DimensionType> p_256376_) {
-		p_256376_.register(FrostDimensions.FROSTREALM_TYPE, frostDimType());
+		p_256376_.register(FrostDimensions.FROSTREALM_TYPE, frostDimType(p_256376_));
 	}
 
 	public static void bootstrapLevelStem(BootstrapContext<LevelStem> context) {
@@ -69,25 +74,34 @@ public class FrostDimensionSettings {
 		context.register(FROSTREALM_LEVEL_STEM, stem);
 	}
 
-	private static DimensionType frostDimType() {
+	private static DimensionType frostDimType(BootstrapContext<DimensionType> p_321848_) {
+        HolderGetter<Timeline> holdergetter = p_321848_.lookup(Registries.TIMELINE);
+        EnvironmentAttributeMap environmentattributemap = EnvironmentAttributeMap.builder()
+                .set(EnvironmentAttributes.FOG_COLOR, -4138753)
+                .set(EnvironmentAttributes.SKY_COLOR, OverworldBiomes.calculateSkyColor(0.8F))
+                .set(EnvironmentAttributes.CLOUD_COLOR, ARGB.white(0.8F))
+                .set(EnvironmentAttributes.CLOUD_HEIGHT, 192.33F)
+                .set(EnvironmentAttributes.BACKGROUND_MUSIC, BackgroundMusic.OVERWORLD)
+                .set(EnvironmentAttributes.BED_RULE, BedRule.CAN_SLEEP_WHEN_DARK)
+                .set(EnvironmentAttributes.RESPAWN_ANCHOR_WORKS, false)
+                .set(EnvironmentAttributes.NETHER_PORTAL_SPAWNS_PIGLINS, true)
+                .build();
 		return new DimensionType(
-				OptionalLong.empty(),
-				true, //skylight
-				false, //ceiling
-				false, //ultrawarm
-				true, //natural
-				1.0D, //coordinate scale
-				true, //bed works
-				false, //respawn anchor works
-				-64,
-				384,
-				384, // Logical Height
-				BlockTags.INFINIBURN_OVERWORLD, //infiburn
-				FrostRealm.prefix("renderer"), // DimensionRenderInfo
-				0f,
-				Optional.of(192),
-				new DimensionType.MonsterSettings(false, false, UniformInt.of(0, 7), 0)
-		);
+                false,
+                true,
+                false,
+                1.0,
+                -64,
+                384,
+                384,
+                BlockTags.INFINIBURN_OVERWORLD,
+                0.0F,
+                new DimensionType.MonsterSettings(UniformInt.of(0, 7), 0),
+                DimensionType.Skybox.OVERWORLD,
+                DimensionType.CardinalLightType.DEFAULT,
+                environmentattributemap,
+                holdergetter.getOrThrow(TimelineTags.IN_OVERWORLD)
+        );
 	}
 
 	public static NoiseSettings create(int p_224526_, int p_224527_, int p_224528_, int p_224529_) {

@@ -10,16 +10,14 @@ import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.WolfModel;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.WolfRenderState;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.core.component.DataComponents;
@@ -84,7 +82,7 @@ public class WolfflueArmorLayer<T extends WolfflueRenderState> extends RenderLay
                     p_364428_,
                     p_433708_,
                     p_331222_,
-                    RenderType.armorTranslucent(resourcelocation),
+                    RenderTypes.armorTranslucent(resourcelocation),
                     p_330931_,
                     OverlayTexture.NO_OVERLAY,
                     p_433708_.outlineColor,

@@ -2,7 +2,6 @@
   "values": [
     "#minecraft:swords",
     "#minecraft:axes",
-    "#frostrealm:sickle",
-    "#frostrealm:spear"
+    "#frostrealm:sickle"
   ]
 }

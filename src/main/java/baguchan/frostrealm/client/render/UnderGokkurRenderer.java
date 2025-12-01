@@ -20,7 +20,7 @@ import net.minecraft.resources.Identifier;
 
 public class UnderGokkurRenderer<T extends UnderGokkur> extends MobRenderer<T, UnderGokkurRenderState, GokkurModel<UnderGokkurRenderState>> {
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/under_gokkur.png");
-    private static final RenderType GLOW = RenderTypes.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/under_gokkur_hot.png"), false);
+    private static final RenderType GLOW = RenderTypes.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/gokkur/under_gokkur_hot.png"));
 
     public UnderGokkurRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new GokkurModel<>(p_173952_.bakeLayer(FrostModelLayers.GOKKUR)), 0.5F);

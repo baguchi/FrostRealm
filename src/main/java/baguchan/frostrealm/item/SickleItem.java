@@ -21,11 +21,11 @@ import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.ItemAbility;
 
 import java.util.List;
-
-import static baguchan.frostrealm.item.SpearItem.BASE_BLOCK_RANGE;
-import static baguchan.frostrealm.item.SpearItem.BASE_ENTITY_RANGE;
-
 public class SickleItem extends Item {
+    public static final Identifier BASE_ENTITY_RANGE = Identifier.withDefaultNamespace("base_entity_range");
+    public static final Identifier BASE_BLOCK_RANGE = Identifier.withDefaultNamespace("base_block_range");
+
+
     public static final Identifier SWEEP_SPEED_ID = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "sweep_speed");
 
     public SickleItem(ToolMaterial tier, float damage, float speed, Item.Properties properties) {

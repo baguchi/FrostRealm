@@ -7,12 +7,12 @@ import baguchan.frostrealm.registry.FrostDataCompnents;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.ChatFormatting;
-import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.util.random.WeightedRandom;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -221,7 +221,7 @@ public class AuroraPowerUtils {
 
                 while (p_220298_.nextInt(50) <= p_220300_) {
                     if (!list.isEmpty()) {
-                        filterCompatibleAuroraPowers(p_220299_, list1, Util.lastOf(list));
+                        filterCompatibleAuroraPowers(p_220299_, list1, list.getLast());
                     }
 
                     if (list1.isEmpty()) {

@@ -1,8 +1,8 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.data.generator.FrostEquipmentAssets;
-import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Util;
 import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.item.equipment.ArmorType;
 

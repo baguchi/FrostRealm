@@ -1,7 +1,6 @@
 package baguchan.frostrealm.item;
 
 import baguchan.frostrealm.capability.FrostLivingCapability;
-import baguchan.frostrealm.client.FrostArmPoses;
 import baguchan.frostrealm.registry.FrostAttachs;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -77,11 +76,6 @@ public class GlimmerRockItem extends Item {
 
 	public static final class ItemRender implements IClientItemExtensions {
 		private static final ItemRender INSTANCE = new ItemRender();
-
-		@Override
-		public HumanoidModel.@Nullable ArmPose getArmPose(LivingEntity entityLiving, InteractionHand hand, ItemStack itemStack) {
-			return FrostArmPoses.RUB_HAND.getValue();
-		}
 
 		@Override
 		public boolean applyForgeHandTransform(PoseStack poseStack, LocalPlayer player, HumanoidArm arm, ItemStack itemInHand, float partialTick, float equipProcess, float swingProcess) {

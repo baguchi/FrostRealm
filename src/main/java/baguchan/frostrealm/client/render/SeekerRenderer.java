@@ -7,17 +7,18 @@ import baguchan.frostrealm.client.render.state.SeekerRenderState;
 import baguchan.frostrealm.entity.boss.Seeker;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 
 public class SeekerRenderer<T extends Seeker> extends MobRenderer<T, SeekerRenderState, SeekerModel<SeekerRenderState>> {
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/seeker/seeker.png");
-    private static final RenderType WRAITH_GLOW = RenderType.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/seeker/seeker_eye.png"));
+    private static final RenderType WRAITH_GLOW = RenderTypes.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/seeker/seeker_eye.png"));
 
     private static final float HALF_SQRT_3 = (float) (Math.sqrt(60.0) / 2.0);
 
@@ -40,7 +41,7 @@ public class SeekerRenderer<T extends Seeker> extends MobRenderer<T, SeekerRende
     @Override
     public void extractRenderState(T p_362733_, SeekerRenderState p_360515_, float p_361157_) {
         super.extractRenderState(p_362733_, p_360515_, p_361157_);
-        ArmedEntityRenderState.extractArmedEntityRenderState(p_362733_, p_360515_, this.itemModelResolver);
+        ArmedEntityRenderState.extractArmedEntityRenderState(p_362733_, p_360515_, this.itemModelResolver, p_361157_);
         p_360515_.attackAnimationState.copyFrom(p_362733_.attackAnimationState);
         p_360515_.preAttackAnimationState.copyFrom(p_362733_.preAttackAnimationState);
         p_360515_.stopAttackAnimationState.copyFrom(p_362733_.stopAttackAnimationState);

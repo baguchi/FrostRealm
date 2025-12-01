@@ -8,16 +8,17 @@ import baguchan.frostrealm.client.render.state.RootDeerRenderState;
 import baguchan.frostrealm.entity.hostile.RootDeer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 
 public class RootDeerRenderer<T extends RootDeer> extends MobRenderer<T, RootDeerRenderState, RootDeerModel<RootDeerRenderState>> {
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/root_deer/root_deer.png");
-    private static final RenderType GLOW = RenderType.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/root_deer/root_deer_eye.png"));
+    private static final RenderType GLOW = RenderTypes.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/root_deer/root_deer_eye.png"));
 
     public RootDeerRenderer(EntityRendererProvider.Context p_173952_) {
         super(p_173952_, new RootDeerModel<>(p_173952_.bakeLayer(FrostModelLayers.ROOT_DEER)), 0.5F);

@@ -12,6 +12,7 @@ import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import baguchi.bagus_lib.entity.AnimationScale;
 import baguchi.bagus_lib.entity.goal.AnimateAttackGoal;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -27,6 +28,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
+import net.minecraft.world.entity.ai.goal.SpearUseGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
@@ -80,15 +82,17 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
         this.goalSelector.addGoal(1, counterGoal);
         this.goalSelector.addGoal(2, guardAnimationGoal);
         this.goalSelector.addGoal(4, new RangedBowAttackGoal<>(this, 1.0D, 30, 16));
+        this.goalSelector.addGoal(4, new SpearUseGoal<>(this, 1.0, 1.0, 10.0F, 2.0F));
+
         this.goalSelector.addGoal(4, new AnimateAttackGoal(this, 1.2D, attackAnimationActionPoint, attackAnimationLength) {
             @Override
             public boolean canUse() {
-                return !getMainHandItem().is(Items.BOW) && !isGuard() && super.canUse();
+                return !isHolding(Items.BOW) && !this.mob.getMainHandItem().has(DataComponents.KINETIC_WEAPON) && !isGuard() && super.canUse();
             }
 
             @Override
             public boolean canContinueToUse() {
-                return !getMainHandItem().is(Items.BOW) && !isGuard() && super.canContinueToUse();
+                return !isHolding(Items.BOW) && !this.mob.getMainHandItem().has(DataComponents.KINETIC_WEAPON) && !isGuard() && super.canContinueToUse();
             }
         });
     }
@@ -174,8 +178,10 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
     @Override
     public void handleEntityEvent(byte p_21375_) {
         if (p_21375_ == 4) {
-            this.attackAnimationState.start(this.tickCount);
-            this.attackAnimationTick = 0;
+            if(!this.getMainHandItem().has(DataComponents.KINETIC_WEAPON)) {
+                this.attackAnimationState.start(this.tickCount);
+                this.attackAnimationTick = 0;
+            }
         } else if (p_21375_ == 61) {
             this.counterAnimationState.start(this.tickCount);
             this.counterAnimationTick = 0;
@@ -194,8 +200,13 @@ public class LesserWarrior extends AbstractSkeleton implements IGuardMob {
 
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource p_218949_, DifficultyInstance p_218950_) {
-        if (p_218949_.nextFloat() < 0.75F) {
+        if (p_218949_.nextFloat() < 0.5F) {
             ItemStack spear = new ItemStack(FrostItems.ASTRIUM_SWORD.get());
+
+            AuroraPowerUtils.auroraInfusionItem(p_218949_, spear, 5, false);
+            this.setItemSlot(EquipmentSlot.MAINHAND, spear);
+        }else if (p_218949_.nextFloat() < 0.5F) {
+            ItemStack spear = new ItemStack(FrostItems.GLACINIUM_SPEAR.get());
 
             AuroraPowerUtils.auroraInfusionItem(p_218949_, spear, 5, false);
             this.setItemSlot(EquipmentSlot.MAINHAND, spear);

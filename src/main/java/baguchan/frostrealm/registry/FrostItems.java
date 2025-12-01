@@ -58,7 +58,7 @@ public class FrostItems {
     public static final DeferredItem<Item> YETI_FUR = ITEMS.registerItem("yeti_fur", (properties) -> new Item(properties));
     public static final DeferredItem<Item> GLACIER_BOAR_FUR = ITEMS.registerItem("glacier_boar_fur", (properties) -> new Item(properties));
     public static final DeferredItem<Item> GLACIER_BOAR_HORN = ITEMS.registerItem("glacier_boar_horn", (properties) -> new Item(properties));
-    public static final DeferredItem<Item> FROST_SPEAR = ITEMS.registerItem("frost_spear", (properties) -> new FrostSpearItem((properties.attributes(FrostSpearItem.createAttributes()).enchantable(20).durability(1021).repairable(FrostTags.Items.RARE_TOOL_MATERIAL).component(DataComponents.TOOL, SpearItem.createToolProperties()).component(DataComponents.WEAPON, new Weapon(1)).rarity(Rarity.UNCOMMON))));
+    public static final DeferredItem<Item> FROST_SPEAR = ITEMS.registerItem("frost_spear", (properties) -> new FrostSpearItem((properties.spear(FrostToolMaterials.FROST_SPEAR, 0.85F, 0.95F, 0.6F, 2.5F, 8.0F, 4.5F, 5.1F, 11.25F, 4.6F).rarity(Rarity.UNCOMMON))));
     public static final DeferredItem<Item> SILVER_MOON = ITEMS.registerItem("silver_moon", (properties) -> new SilverMoonSwordItem(FrostToolMaterials.SILVER_MOON, 3, -2.2F, (properties.rarity(Rarity.RARE))));
 
     public static final DeferredItem<Item> ASTRIUM_SWORD = ITEMS.registerItem("astrium_sword", (properties) -> new Item(properties.sword(FrostToolMaterials.ASTRIUM, 3, -2.3F)));
@@ -74,7 +74,7 @@ public class FrostItems {
     public static final DeferredItem<Item> GLACINIUM_SHOVEL = ITEMS.registerItem("glacinium_shovel", (properties) -> new ShovelItem(FrostToolMaterials.GLACINIUM, 1.5F, -3.0F, properties));
     public static final DeferredItem<Item> GLACINIUM_HOE = ITEMS.registerItem("glacinium_hoe", (properties) -> new HoeItem(FrostToolMaterials.GLACINIUM, -2, -1.0F, properties));
     public static final DeferredItem<Item> GLACINIUM_SICKLE = ITEMS.registerItem("glacinium_sickle", (properties) -> new SickleItem(FrostToolMaterials.GLACINIUM, 3.0F, -3.3F, properties));
-    public static final DeferredItem<Item> GLACINIUM_SPEAR = ITEMS.registerItem("glacinium_spear", (properties) -> new TierSpearItem(FrostToolMaterials.GLACINIUM, 3.0F, -2.7F, properties));
+    public static final DeferredItem<Item> GLACINIUM_SPEAR = ITEMS.registerItem("glacinium_spear", (properties) -> new Item(properties.spear(FrostToolMaterials.GLACINIUM, 1.1F, 1.2F, 0.4F, 2.5F, 7.0F, 3.5F, 5.1F, 8.75F, 4.6F)));
 
 
     public static final DeferredItem<YetiFurArmorItem> YETI_FUR_HELMET = ITEMS.registerItem("yeti_fur_helmet", (properties) -> new YetiFurArmorItem(FrostArmorMaterials.YETI_FUR, ArmorType.HELMET, (properties.durability(ArmorType.HELMET.getDurability(20)))));

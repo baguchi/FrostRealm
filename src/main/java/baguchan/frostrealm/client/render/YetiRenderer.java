@@ -7,13 +7,14 @@ import baguchan.frostrealm.client.render.state.YetiRenderState;
 import baguchan.frostrealm.entity.Yeti;
 import baguchi.bagus_lib.client.layer.CustomArmorLayer;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -25,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiRenderState, YetiModel<YetiRenderState>> {
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/yeti.png");
-    private static final RenderType YETI_GLOW = RenderType.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/yeti_glow.png"));
+    private static final RenderType YETI_GLOW = RenderTypes.eyes(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/entity/yeti/yeti_glow.png"));
 
 	public YetiRenderer(EntityRendererProvider.Context p_173952_) {
 		super(p_173952_, new YetiModel<>(p_173952_.bakeLayer(FrostModelLayers.YETI)), 0.75F);
@@ -42,7 +43,7 @@ public class YetiRenderer<T extends Yeti> extends MobRenderer<T, YetiRenderState
     @Override
     public void extractRenderState(T p_365075_, YetiRenderState p_361774_, float p_363123_) {
         super.extractRenderState(p_365075_, p_361774_, p_363123_);
-        ArmedEntityRenderState.extractArmedEntityRenderState(p_365075_, p_361774_, this.itemModelResolver);
+        ArmedEntityRenderState.extractArmedEntityRenderState(p_365075_, p_361774_, this.itemModelResolver, p_363123_);
         p_361774_.sitAnimationState.copyFrom(p_365075_.sitAnimationState);
         p_361774_.sitPoseAnimationState.copyFrom(p_365075_.sitPoseAnimationState);
         p_361774_.sitUpAnimationState.copyFrom(p_365075_.sitUpAnimationState);

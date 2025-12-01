@@ -5,8 +5,6 @@ import baguchan.frostrealm.client.render.state.GokkurRenderState;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.ModelBlockRenderer;
@@ -15,6 +13,8 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.SnowGolemRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,7 +41,7 @@ public class SnowGokkurLayer<T extends GokkurRenderState> extends RenderLayer<T,
                 int i = LivingEntityRenderer.getOverlayCoords(p_434616_, 0.0F);
                 poseStack.translate(-0.5F, -0.5F, -0.5F);
                 RenderType rendertype = p_434616_.appearsGlowing() && p_434616_.isInvisible
-                        ? RenderType.outline(TextureAtlas.LOCATION_BLOCKS)
+                        ? RenderTypes.outline(TextureAtlas.LOCATION_BLOCKS)
                         : ItemBlockRenderTypes.getRenderType(blockstate);
                 p_435807_.submitBlockModel(poseStack, rendertype, blockstatemodel, 0.0F, 0.0F, 0.0F, p_433104_, i, p_434616_.outlineColor);
                 poseStack.popPose();

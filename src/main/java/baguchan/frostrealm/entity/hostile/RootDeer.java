@@ -406,8 +406,8 @@ public class RootDeer extends Monster {
 
 
     @Override
-    protected AABB getAttackBoundingBox() {
-        return super.getAttackBoundingBox().deflate(0.1F, 0, 0.1F).inflate(0, 0.1F, 0);
+    protected AABB getAttackBoundingBox(double d) {
+        return super.getAttackBoundingBox(d).deflate(0.1F, 0, 0.1F).inflate(0, 0.1F, 0);
     }
 
     static class VineBodyRotationControl extends BodyRotationControl {

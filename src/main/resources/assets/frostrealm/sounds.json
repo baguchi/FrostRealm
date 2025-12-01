@@ -15,6 +15,18 @@
       }
     ]
   },
+  "music.frostrealm": {
+    "sounds": [
+      {
+        "name": "frostrealm:music/frost_moon",
+        "stream": true
+      },
+      {
+        "name": "frostrealm:music/calm_night",
+        "stream": true
+      }
+    ]
+  },
   "ambient.blizzard": {
     "sounds": [
       {

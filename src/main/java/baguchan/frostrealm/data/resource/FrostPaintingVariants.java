@@ -7,7 +7,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraft.world.entity.decoration.painting.PaintingVariant;
 
 import java.util.Optional;
 
@@ -31,10 +31,10 @@ public class FrostPaintingVariants {
                 new PaintingVariant(
                         p_362008_,
                         p_360993_,
-                        p_364083_.location(),
-                        Optional.of(Component.translatable(p_364083_.location().toLanguageKey("painting", "title")).withStyle(ChatFormatting.YELLOW)),
+                        p_364083_.identifier(),
+                        Optional.of(Component.translatable(p_364083_.identifier().toLanguageKey("painting", "title")).withStyle(ChatFormatting.YELLOW)),
                         p_365507_
-                                ? Optional.of(Component.translatable(p_364083_.location().toLanguageKey("painting", "author")).withStyle(ChatFormatting.GRAY))
+                                ? Optional.of(Component.translatable(p_364083_.identifier().toLanguageKey("painting", "author")).withStyle(ChatFormatting.GRAY))
                                 : Optional.empty()
                 )
         );

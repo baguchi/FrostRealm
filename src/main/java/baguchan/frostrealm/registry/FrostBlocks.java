@@ -377,13 +377,13 @@ public class FrostBlocks {
 
     public static <T extends Block> DeferredBlock<T> registerDoubleBlockItem(String name, Function<BlockBehaviour.Properties, T> block, BlockBehaviour.Properties properties) {
         DeferredBlock<T> ret = BLOCKS.register(name, () -> block.apply(properties.setId(ResourceKey.create(Registries.BLOCK, FrostRealm.prefix(name)))));
-        FrostItems.ITEMS.registerItem(name, itemProps -> new DeferredDoubleHighBlockItem(ret, itemProps.useBlockDescriptionPrefix()), new Item.Properties());
+        FrostItems.ITEMS.registerItem(name, itemProps -> new DeferredDoubleHighBlockItem(ret, itemProps.useBlockDescriptionPrefix()));
         return ret;
     }
 
     private static <T extends Block> DeferredBlock<T> registerTorchBlock(String name, Function<BlockBehaviour.Properties, T> block, DeferredBlock<T> wallTorchBlock, BlockBehaviour.Properties properties) {
         DeferredBlock<T> ret = BLOCKS.register(name, () -> block.apply(properties.setId(ResourceKey.create(Registries.BLOCK, FrostRealm.prefix(name)))));
-        FrostItems.ITEMS.registerItem(name, itemProps -> new StandingAndWallBlockItem(ret.get(), wallTorchBlock.get(), Direction.DOWN, itemProps.useBlockDescriptionPrefix()), new Item.Properties());
+        FrostItems.ITEMS.registerItem(name, itemProps -> new StandingAndWallBlockItem(ret.get(), wallTorchBlock.get(), Direction.DOWN, itemProps.useBlockDescriptionPrefix()));
         return ret;
 
     }

@@ -46,7 +46,8 @@ import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.animal.wolf.WolfSoundVariant;
 import net.minecraft.world.entity.animal.wolf.WolfSoundVariants;
 import net.minecraft.world.entity.decoration.ArmorStand;
@@ -83,11 +84,14 @@ import java.util.function.Predicate;
 public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerRideableJumping, ISmartJump {
     private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> DATA_COLLAR_COLOR = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Long> DATA_ANGER_END_TIME = SynchedEntityData.defineId(Wolfflue.class, EntityDataSerializers.LONG);
     private static final EntityDataAccessor<Holder<WolfflueVariant>> DATA_VARIANT_ID = SynchedEntityData.defineId(Wolfflue.class, FrostEntityDatas.WOLFFLUE_VARIANT.get());
     private static final EntityDataAccessor<Holder<WolfSoundVariant>> DATA_SOUND_VARIANT_ID = SynchedEntityData.defineId(
             Wolfflue.class, EntityDataSerializers.WOLF_SOUND_VARIANT
     );
+
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    private @org.jspecify.annotations.Nullable EntityReference<LivingEntity> persistentAngerTarget;
 
     private int ticksSinceEaten;
 
@@ -100,9 +104,6 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
     private static final float ARMOR_REPAIR_UNIT = 0.125F;
     private float interestedAngle;
     private float interestedAngleO;
-    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-    @Nullable
-    private UUID persistentAngerTarget;
 
     public final AnimationState idleSitAnimationState = new AnimationState();
     public final AnimationState idleSit2AnimationState = new AnimationState();
@@ -254,7 +255,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         super.defineSynchedData(p_326027_);
         p_326027_.define(DATA_INTERESTED_ID, false);
         p_326027_.define(DATA_COLLAR_COLOR, DyeColor.RED.getId());
-        p_326027_.define(DATA_REMAINING_ANGER_TIME, 0);
+        p_326027_.define(DATA_ANGER_END_TIME, 0L);
         RegistryAccess registryaccess = this.registryAccess();
         Registry<WolfSoundVariant> registry = this.registryAccess().lookupOrThrow(Registries.WOLF_SOUND_VARIANT);
         p_326027_.define(DATA_VARIANT_ID, VariantUtils.getDefaultOrAny(this.registryAccess(), WolfflueVariants.DEFAULT));
@@ -298,7 +299,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
     public void addAdditionalSaveData(ValueOutput p_30418_) {
         super.addAdditionalSaveData(p_30418_);
         p_30418_.putByte("CollarColor", (byte) this.getCollarColor().getId());
-        this.getVariant().unwrapKey().ifPresent(p_344339_ -> p_30418_.putString("variant", p_344339_.location().toString()));
+        this.getVariant().unwrapKey().ifPresent(p_344339_ -> p_30418_.putString("variant", p_344339_.identifier().toString()));
         this.getSoundVariant()
                 .unwrapKey()
                 .ifPresent(
@@ -772,31 +773,25 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
     }
 
     @Override
-    public int getRemainingPersistentAngerTime() {
-        return this.entityData.get(DATA_REMAINING_ANGER_TIME);
+    public long getPersistentAngerEndTime() {
+        return (Long)this.entityData.get(DATA_ANGER_END_TIME);
     }
 
-    @Override
-    public void setRemainingPersistentAngerTime(int p_30404_) {
-        this.entityData.set(DATA_REMAINING_ANGER_TIME, p_30404_);
+    public void setPersistentAngerEndTime(long p_455794_) {
+        this.entityData.set(DATA_ANGER_END_TIME, p_455794_);
     }
 
-    @Override
     public void startPersistentAngerTimer() {
-        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+        this.setTimeToRemainAngry((long)PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
-    @Nullable
-    @Override
-    public UUID getPersistentAngerTarget() {
+    public @org.jspecify.annotations.Nullable EntityReference<LivingEntity> getPersistentAngerTarget() {
         return this.persistentAngerTarget;
     }
 
-    @Override
-    public void setPersistentAngerTarget(@Nullable UUID p_30400_) {
-        this.persistentAngerTarget = p_30400_;
+    public void setPersistentAngerTarget(@org.jspecify.annotations.Nullable EntityReference<LivingEntity> p_455947_) {
+        this.persistentAngerTarget = p_455947_;
     }
-
     public DyeColor getCollarColor() {
         return DyeColor.byId(this.entityData.get(DATA_COLLAR_COLOR));
     }
@@ -1041,7 +1036,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         this.setDeltaMovement(vec3.x, d0, vec3.z);
         this.setIsJumping(true);
         this.setPose(Pose.LONG_JUMPING);
-        this.hasImpulse = true;
+        this.needsSync = true;
         net.neoforged.neoforge.common.CommonHooks.onLivingJump(this);
         if (p_275435_.z > 0.0) {
             float f = Mth.sin(this.getYRot() * (float) (Math.PI / 180.0));

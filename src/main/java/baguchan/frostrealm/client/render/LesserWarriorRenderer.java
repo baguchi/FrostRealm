@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -33,13 +34,14 @@ public class LesserWarriorRenderer<T extends LesserWarrior> extends MobRenderer<
     @Override
     public void extractRenderState(T p_365075_, LesserWarriorRenderState p_361774_, float p_363123_) {
         super.extractRenderState(p_365075_, p_361774_, p_363123_);
-        ArmedEntityRenderState.extractArmedEntityRenderState(p_365075_, p_361774_, this.itemModelResolver);
+        ArmedEntityRenderState.extractArmedEntityRenderState(p_365075_, p_361774_, this.itemModelResolver, p_363123_);
 
         p_361774_.attackAnimationState.copyFrom(p_365075_.attackAnimationState);
         p_361774_.counterAnimationState.copyFrom(p_365075_.counterAnimationState);
         p_361774_.guardAnimationScale = p_365075_.guardAnimationScale;
         p_361774_.isAggressive = p_365075_.isAggressive();
-        p_361774_.isHoldingBow = p_365075_.getMainHandItem().is(Items.BOW);
+        p_361774_.isHoldingBow = p_365075_.isHolding(Items.BOW);
+        p_361774_.isHoldingSpear = p_365075_.getMainHandItem().has(DataComponents.KINETIC_WEAPON);
         p_361774_.isCrouching = p_365075_.isCrouching();
         p_361774_.isFallFlying = p_365075_.isFallFlying();
         p_361774_.isVisuallySwimming = p_365075_.isVisuallySwimming();

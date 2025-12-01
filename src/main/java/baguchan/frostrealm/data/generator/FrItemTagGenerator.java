@@ -76,11 +76,11 @@ public class FrItemTagGenerator extends ItemTagsProvider {
         this.tag(ItemTags.AXES).add(FrostItems.ASTRIUM_AXE.get()).add(FrostItems.GLACINIUM_AXE.get());
         this.tag(ItemTags.SHOVELS).add(FrostItems.ASTRIUM_SHOVEL.get()).add(FrostItems.ASTRIUM_SHOVEL.get());
         this.tag(ItemTags.HOES).add(FrostItems.ASTRIUM_HOE.get()).add(FrostItems.GLACINIUM_HOE.get());
-        this.tag(FrostTags.Items.SPEAR).add(FrostItems.FROST_SPEAR.get()).add(FrostItems.GLACINIUM_SPEAR.get());
+        this.tag(ItemTags.SPEARS).add(FrostItems.FROST_SPEAR.get()).add(FrostItems.GLACINIUM_SPEAR.get());
         this.tag(FrostTags.Items.SICKLE).add(FrostItems.ASTRIUM_SICKLE.get()).add(FrostItems.GLACINIUM_SICKLE.get());
-        this.tag(FrostTags.Items.SMITHABLE_WEAPON).addTag(ItemTags.SWORDS).addTag(ItemTags.AXES).addTag(FrostTags.Items.SICKLE).addTag(FrostTags.Items.SPEAR);
-        this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(FrostTags.Items.SPEAR).addTag(FrostTags.Items.SICKLE);
-        this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(FrostTags.Items.SPEAR).addTag(FrostTags.Items.SICKLE);
+        this.tag(FrostTags.Items.SMITHABLE_WEAPON).addTag(ItemTags.SWORDS).addTag(ItemTags.AXES).addTag(FrostTags.Items.SICKLE);
+        this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(FrostTags.Items.SICKLE);
+        this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(FrostTags.Items.SICKLE);
 
         this.tag(FrostTags.Items.ASTRIUM_TOOL_MATERIAL).add(FrostItems.ASTRIUM_INGOT.asItem());
 

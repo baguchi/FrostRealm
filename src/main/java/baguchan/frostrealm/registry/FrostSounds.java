@@ -11,8 +11,9 @@ public class FrostSounds {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, FrostRealm.MODID);
 
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> FROST_MOON_BGM = register("music.frost_moon");
-    public static final DeferredHolder<SoundEvent, SoundEvent> CALM_NIGHT_BGM = register("music.calm_night");
+    public static final DeferredHolder<SoundEvent, SoundEvent> FROST_MOON = register("music.frost_moon");
+    public static final DeferredHolder<SoundEvent, SoundEvent> CALM_NIGHT = register("music.calm_night");
+    public static final DeferredHolder<SoundEvent, SoundEvent> FROSTREALM_BGM = register("music.frostrealm");
     public static final DeferredHolder<SoundEvent, SoundEvent> BLIZZARD_AMBIENT = register("ambient.blizzard");
     public static final DeferredHolder<SoundEvent, SoundEvent> MARMOT_IDLE = register("entity.marmot.idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> MARMOT_HURT = register("entity.marmot.hurt");

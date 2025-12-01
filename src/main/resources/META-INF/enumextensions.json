@@ -1,15 +1,6 @@
 {
   "entries": [
     {
-      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
-      "name": "FROSTREALM_RUB_HAND",
-      "constructor": "(ZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
-      "parameters": {
-        "class": "baguchan/frostrealm/client/FrostArmPoses",
-        "field": "RUB_HAND"
-      }
-    },
-    {
       "enum": "net/minecraft/world/entity/MobCategory",
       "name": "FROSTREALM_SURFACE_MONSTER",
       "constructor": "(Ljava/lang/String;IZZI)V",

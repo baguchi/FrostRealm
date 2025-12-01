@@ -9,6 +9,6 @@ public class LesserWarriorRenderState extends SkeletonRenderState {
     public final AnimationState counterAnimationState = new AnimationState();
     public AnimationScale guardAnimationScale = new AnimationScale(0.2F);
     public boolean isAggressive;
-    public boolean isShaking;
     public boolean isHoldingBow;
+    public boolean isHoldingSpear;
 }

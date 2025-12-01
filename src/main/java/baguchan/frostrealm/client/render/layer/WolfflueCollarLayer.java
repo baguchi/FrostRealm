@@ -4,12 +4,10 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.model.WolfflueModel;
 import baguchan.frostrealm.client.render.state.WolfflueRenderState;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 
@@ -36,7 +34,7 @@ public class WolfflueCollarLayer<T extends WolfflueRenderState> extends RenderLa
                             this.getParentModel(),
                             renderState,
                             poseStack,
-                            RenderType.entityCutoutNoCull(WOLF_COLLAR_LOCATION),
+                            RenderTypes.entityCutoutNoCull(WOLF_COLLAR_LOCATION),
                             p_117722_,
                             OverlayTexture.NO_OVERLAY,
                             i,

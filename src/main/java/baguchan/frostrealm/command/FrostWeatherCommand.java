@@ -18,6 +18,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.permissions.LevelBasedPermissionSet;
+import net.minecraft.server.permissions.PermissionSet;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Optional;
@@ -31,7 +33,7 @@ public class FrostWeatherCommand {
 	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 
 		LiteralArgumentBuilder<CommandSourceStack> frostWeatherCommand = Commands.literal("frost_weather")
-				.requires(player -> player.hasPermission(2));
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
 
 		frostWeatherCommand.then(Commands.literal("clear").executes((p_139190_) -> {
 			return setClear(p_139190_.getSource(), 6000);
@@ -68,7 +70,7 @@ public class FrostWeatherCommand {
 			CommandContext<CommandSourceStack> p_248662_, String p_252172_, ResourceKey<Registry<T>> p_249701_, DynamicCommandExceptionType p_249790_
 	) throws CommandSyntaxException {
 		ResourceKey<T> resourcekey = getRegistryKey(p_248662_, p_252172_, p_249701_, p_249790_);
-        return getRegistry(p_248662_, p_249701_).get(resourcekey).orElseThrow(() -> p_249790_.create(resourcekey.location()));
+        return getRegistry(p_248662_, p_249701_).get(resourcekey).orElseThrow(() -> p_249790_.create(resourcekey.identifier()));
 	}
 
 	private static int setClear(CommandSourceStack p_139173_, int p_139174_) {

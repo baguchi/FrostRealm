@@ -71,7 +71,7 @@ public class FrostChunkGenerator extends NoiseBasedChunkGenerator {
                     for (int bz = -1; bz <= 1; bz++) {
                         BlockPos p = blockpos.offset((dX + bx) << 2, 0, (dZ + bz) << 2);
                         Biome biome = biomeSource.getNoiseBiome(p.getX() >> 2, 256, p.getZ() >> 2, randomState.sampler()).value();
-                        if (FrostBiomes.CRYSTAL_FALL.location().equals(primer.registryAccess().lookupOrThrow(Registries.BIOME).getKey(biome))) {
+                        if (FrostBiomes.CRYSTAL_FALL.identifier().equals(primer.registryAccess().lookupOrThrow(Registries.BIOME).getKey(biome))) {
                             thicks[dX + dZ * 5]++;
                             biomeFound = true;
                             stony_islands = true;

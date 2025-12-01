@@ -45,31 +45,4 @@ public abstract class WarpedMonster extends Monster {
                 && (EntitySpawnReason.ignoresLightRequirements(p_27580_)
                 || checkMobSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_) && isDarkEnoughToSpawn(p_27579_, p_27581_, p_27582_) && p_27579_.getBiome(p_27581_).is(FrostBiomes.SHERBET_DESERT) || FrostWeatherSavedData.get(p_27579_.getLevel()).isWeatherActive() && FrostWeatherSavedData.get(p_27579_.getLevel()).getFrostWeather() == FrostWeathers.PURPLE_FOG.get() && BlizzardUtils.isAffectWeather(p_27579_, p_27581_) && checkMobSpawnRules(p_27578_, p_27579_, p_27580_, p_27581_, p_27582_));
 	}
-
-    @Override
-    public void aiStep() {
-        if (this.isAlive()) {
-            boolean flag = this.isSunBurnTick();
-            if (flag) {
-                ItemStack itemstack = this.getItemBySlot(EquipmentSlot.HEAD);
-                if (!itemstack.isEmpty()) {
-                    if (itemstack.isDamageableItem()) {
-                        itemstack.setDamageValue(itemstack.getDamageValue() + this.random.nextInt(2));
-                        if (itemstack.getDamageValue() >= itemstack.getMaxDamage()) {
-                            this.onEquippedItemBroken(itemstack.getItem(), EquipmentSlot.HEAD);
-                            this.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
-                        }
-                    }
-
-                    flag = false;
-                }
-
-                if (flag) {
-                    this.igniteForSeconds(8);
-                }
-            }
-        }
-
-        super.aiStep();
-    }
 }

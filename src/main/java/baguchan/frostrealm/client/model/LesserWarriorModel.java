@@ -9,8 +9,10 @@ import baguchi.bagus_lib.client.layer.IArmor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.effects.SpearAnimations;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -101,7 +103,26 @@ public class LesserWarriorModel<T extends LesserWarriorRenderState> extends Enti
 
         float f = entity.partialTick;
 
-        if (entity.isHoldingBow && !entity.isAggressive) {
+        if(entity.isHoldingSpear){
+            if(entity.counterAnimationState.isStarted()){
+                this.right_arm.resetPose();
+                this.left_arm.resetPose();
+            if (entity.mainArm == HumanoidArm.RIGHT) {
+                this.counterRightAnimationState.apply(entity.counterAnimationState, entity.ageInTicks);
+            } else {
+                this.counterLeftAnimationState.apply(entity.counterAnimationState, entity.ageInTicks);
+            }
+            }else {
+                if (entity.mainArm == HumanoidArm.RIGHT) {
+
+                    SpearAnimations.thirdPersonHandUse(this.right_arm, this.head, true, entity.getUseItemStackForArm(HumanoidArm.RIGHT), entity);
+                }else {
+                    SpearAnimations.thirdPersonHandUse(this.left_arm, this.head, false, entity.getUseItemStackForArm(HumanoidArm.LEFT), entity);
+
+                }
+            }
+        }
+        else if (entity.isHoldingBow && !entity.isAggressive) {
             this.right_arm.xRot = Mth.cos(f1 * 0.6662F + (float) Math.PI) * 2.0F * f2 * 0.5F / entity.speedValue;
             this.left_arm.xRot = Mth.cos(f1 * 0.6662F) * 2.0F * f2 * 0.5F / entity.speedValue;
         } else {

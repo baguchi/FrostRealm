@@ -88,9 +88,9 @@ public class FrostModelData extends ModelProvider {
             this.knownItems = knownItems;
         }
 
-
-        public void accept(Item p_387063_, ItemModel.Unbaked p_388578_) {
-            this.register(p_387063_, new ClientItem(p_388578_, ClientItem.Properties.DEFAULT));
+        @Override
+        public void accept(Item p_456234_, ItemModel.Unbaked p_454728_, ClientItem.Properties p_455827_) {
+            this.register(p_456234_, new ClientItem(p_454728_, p_455827_));
         }
 
         public void register(Item p_388205_, ClientItem p_388233_) {
@@ -123,14 +123,14 @@ public class FrostModelData extends ModelProvider {
                     this.register(p_386494_, clientitem);
                 }
             });
-            List<Identifier> list = (this.knownItems.get()).filter((p_388636_) -> !this.itemInfos.containsKey(p_388636_.value())).map((p_388278_) -> ((ResourceKey) p_388278_.unwrapKey().orElseThrow()).location()).toList();
+            List<Identifier> list = (this.knownItems.get()).filter((p_388636_) -> !this.itemInfos.containsKey(p_388636_.value())).map((p_388278_) -> ((ResourceKey) p_388278_.unwrapKey().orElseThrow()).identifier()).toList();
             if (!list.isEmpty()) {
                 throw new IllegalStateException("Missing item model definitions for: " + String.valueOf(list));
             }
         }
 
         public CompletableFuture<?> save(CachedOutput p_387552_, PackOutput.PathProvider p_388501_) {
-            return DataProvider.saveAll(p_387552_, ClientItem.CODEC, (p_388594_) -> p_388501_.json(p_388594_.builtInRegistryHolder().key().location()), this.itemInfos);
+            return DataProvider.saveAll(p_387552_, ClientItem.CODEC, (p_388594_) -> p_388501_.json(p_388594_.builtInRegistryHolder().key().identifier()), this.itemInfos);
         }
     }
 
@@ -179,7 +179,7 @@ public class FrostModelData extends ModelProvider {
 
         public void validate() {
             Stream<? extends Holder<Block>> stream = this.knownBlocks.get();
-            List<Identifier> list = stream.filter((p_386843_) -> !this.generators.containsKey(p_386843_.value())).map((p_386823_) -> ((ResourceKey) p_386823_.unwrapKey().orElseThrow()).location()).toList();
+            List<Identifier> list = stream.filter((p_386843_) -> !this.generators.containsKey(p_386843_.value())).map((p_386823_) -> ((ResourceKey) p_386823_.unwrapKey().orElseThrow()).identifier()).toList();
             if (!list.isEmpty()) {
                 throw new IllegalStateException("Missing blockstate definitions for: " + String.valueOf(list));
             }
@@ -187,7 +187,7 @@ public class FrostModelData extends ModelProvider {
 
         public CompletableFuture<?> save(CachedOutput p_388014_, PackOutput.PathProvider p_388192_) {
             Map<Block, BlockModelDefinition> map = Maps.transformValues(this.generators, BlockModelDefinitionGenerator::create);
-            Function<Block, Path> function = p_387598_ -> p_388192_.json(p_387598_.builtInRegistryHolder().key().location());
+            Function<Block, Path> function = p_387598_ -> p_388192_.json(p_387598_.builtInRegistryHolder().key().identifier());
             return DataProvider.saveAll(p_388014_, BlockModelDefinition.CODEC, function, map);
         }
     }

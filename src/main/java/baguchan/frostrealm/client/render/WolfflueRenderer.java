@@ -7,8 +7,6 @@ import baguchan.frostrealm.client.render.layer.WolfflueCollarLayer;
 import baguchan.frostrealm.client.render.layer.WolfflueHeldItemLayer;
 import baguchan.frostrealm.client.render.state.WolfflueRenderState;
 import baguchan.frostrealm.entity.animal.Wolfflue;
-import net.minecraft.client.model.PigModel;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;

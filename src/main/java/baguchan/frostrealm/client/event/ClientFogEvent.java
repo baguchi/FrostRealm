@@ -11,7 +11,7 @@ public class ClientFogEvent {
 
     @SubscribeEvent
     public void setFog(ViewportEvent.RenderFog event) {
-        Entity entity = event.getCamera().getEntity();
+        Entity entity = event.getCamera().entity();
         float partialTicks = (float) event.getPartialTick();
         if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
             float weatherLevel = FrostWeatherManager.getWeatherLevel(partialTicks);
@@ -38,7 +38,7 @@ public class ClientFogEvent {
 
     @SubscribeEvent
     public void setFogColor(ViewportEvent.ComputeFogColor event) {
-        Entity entity = event.getCamera().getEntity();
+        Entity entity = event.getCamera().entity();
         if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL) {
             float partialTicks = (float) event.getPartialTick();
             float weatherLevel = FrostWeatherManager.getWeatherLevel(partialTicks);

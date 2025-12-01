@@ -7,7 +7,10 @@ import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.*;
 import baguchan.frostrealm.client.overlay.FrostOverlay;
 import baguchan.frostrealm.client.render.*;
+import baguchan.frostrealm.client.render.dimension.FrostRealmRenderer;
+import baguchan.frostrealm.client.render.dimension.FrostRealmSkySpecialRender;
 import baguchan.frostrealm.client.screen.AuroraInfuserScreen;
+import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.item.GlimmerRockItem;
 import baguchan.frostrealm.item.YetiFurArmorItem;
 import baguchan.frostrealm.registry.*;
@@ -16,6 +19,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.animal.wolf.WolfModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -32,6 +36,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.CustomEnvironmentEffectsRendererManager;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
@@ -98,7 +103,7 @@ public class ClientRegistrar {
         event.registerEntityRenderer(FrostEntities.GLACIER_BOAR.get(), GlacierBoarRenderer::new);
 		event.registerEntityRenderer(FrostEntities.LESSER_WARRIOR.get(), LesserWarriorRenderer::new);
         event.registerEntityRenderer(FrostEntities.SEAL.get(), SealRenderer::new);
-	   event.registerEntityRenderer(FrostEntities.VENOM_BALL.get(), VenomBallRenderer::new);
+        event.registerEntityRenderer(FrostEntities.VENOM_BALL.get(), VenomBallRenderer::new);
 		event.registerEntityRenderer(FrostEntities.VENOCHEM.get(), VenochemRenderer::new);
 		event.registerEntityRenderer(FrostEntities.GOKKUR.get(), GokkurRenderer::new);
 		event.registerEntityRenderer(FrostEntities.UNDER_GOKKUR.get(), UnderGokkurRenderer::new);
@@ -216,11 +221,24 @@ public class ClientRegistrar {
 					i);
 		}
 	}
-	@SubscribeEvent
-	public static void registerDimensionEffect(RegisterDimensionSpecialEffectsEvent event) {
-		FrostRealmRenderInfo renderInfo = new FrostRealmRenderInfo(DimensionSpecialEffects.SkyType.OVERWORLD, false, false);
-		event.register(FrostRealm.prefix("renderer"), renderInfo);
-	}
+
+    @SubscribeEvent
+    public static void registerDimensionEffect(RegisterCustomEnvironmentEffectRendererEvent event) {
+        event.registerSkyboxRenderer(FrostRealm.prefix("frostrealm"), new FrostRealmSkySpecialRender());
+    }
+
+    @SubscribeEvent
+    public static void registerClientReloadListeners(AddClientReloadListenersEvent event) {
+        event.addListener(FrostRealm.prefix("frostrealm_render"), FrostRealmTextureManager.INSTANCE);
+    }
+
+    @SubscribeEvent
+    public static void extractDimensionEffect(ExtractLevelRenderStateEvent event) {
+        if (event.getLevel().dimensionTypeRegistration().is(FrostDimensions.FROSTREALM_TYPE)) {
+            event.getRenderState().customSkyboxRenderer = CustomEnvironmentEffectsRendererManager.getCustomSkyboxRenderer(FrostRealm.prefix("frostrealm"));
+        }
+    }
+
 
     @SubscribeEvent
     public static void screenEvent(RegisterMenuScreensEvent event) {
@@ -244,7 +262,7 @@ public class ClientRegistrar {
 	}
     @SubscribeEvent
     public static void registerLevelRenderState(ExtractLevelRenderStateEvent event) {
-        event.getRenderState().setRenderData(FrostRealmRenderInfo.NORMAL_WEATHER_LEVEL_KEY, FrostWeatherManager.getNormalWeatherLevel(event.getDeltaTracker().getGameTimeDeltaPartialTick(false)));
+        event.getRenderState().setRenderData(FrostRealmRenderer.NORMAL_WEATHER_LEVEL_KEY, FrostWeatherManager.getNormalWeatherLevel(event.getDeltaTracker().getGameTimeDeltaPartialTick(false)));
     }
 
 }

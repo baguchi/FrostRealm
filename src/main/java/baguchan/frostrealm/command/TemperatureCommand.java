@@ -19,7 +19,7 @@ public class TemperatureCommand {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 
         LiteralArgumentBuilder<CommandSourceStack> temperatureCommand = Commands.literal("temperature")
-                .requires(player -> player.hasPermission(2));
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS));
         temperatureCommand.then(Commands.argument("target", EntityArgument.entity()).then(Commands.argument("temperature", IntegerArgumentType.integer()).then(Commands.argument("saturation", FloatArgumentType.floatArg()).executes((ctx) -> {
             return setTemperature(ctx.getSource(), EntityArgument.getEntity(ctx, "target"), IntegerArgumentType.getInteger(ctx, "temperature"), FloatArgumentType.getFloat(ctx, "saturation"));
         }))));

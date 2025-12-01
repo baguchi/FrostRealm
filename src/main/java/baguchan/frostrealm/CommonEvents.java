@@ -30,9 +30,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.animal.PolarBear;
+import net.minecraft.world.entity.animal.polarbear.PolarBear;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.item.ArrowItem;
@@ -140,7 +140,6 @@ public class CommonEvents {
         Entity target = event.getTarget();
         ItemStack itemstack = player.getWeaponItem();
         AttackUtils.sickleAttack(player, target, itemstack);
-        AttackUtils.spearAttack(player, target, itemstack);
     }
 
     @SubscribeEvent
@@ -220,7 +219,7 @@ public class CommonEvents {
 
     @SubscribeEvent
     public static void onWorldLoad(LevelEvent.Load event) {
-        if (event.getLevel() instanceof ServerLevel level && level.dimension().location().equals(FrostDimensions.FROSTREALM_LEVEL.location())) {
+        if (event.getLevel() instanceof ServerLevel level && level.dimension().identifier().equals(FrostDimensions.FROSTREALM_LEVEL.identifier())) {
             FrostLevelData levelData = new FrostLevelData(level.getServer().getWorldData(), level.getServer().getWorldData().overworldData());
             level.serverLevelData = levelData;
             level.levelData = levelData;

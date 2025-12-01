@@ -13,7 +13,7 @@ import java.util.function.BiFunction;
 
 public class FrostRenderType {
 
-    private static final RenderType AURORA_ARMOR_ENTITY_GLINT = RenderType.create(
+    public static final RenderType AURORA_ARMOR_ENTITY_GLINT = RenderType.create(
             "frostrealm:aurora_armor_entity_glint",
             RenderSetup.builder(RenderPipelines.GLINT)
                     .withTexture("Sampler0", Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"))
@@ -21,7 +21,7 @@ public class FrostRenderType {
                     .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
                     .createRenderSetup()
     );
-    private static final RenderType AURORA_GLINT_TRANSLUCENT = RenderType.create(
+    public static final RenderType AURORA_GLINT_TRANSLUCENT = RenderType.create(
             "frostrealm:aurora_glint_translucent",
             RenderSetup.builder(RenderPipelines.GLINT)
                     .withTexture("Sampler0", Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"))
@@ -29,14 +29,14 @@ public class FrostRenderType {
                     .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
                     .createRenderSetup()
     );
-    private static final RenderType AURORA_GLINT = RenderType.create(
+    public static final RenderType AURORA_GLINT = RenderType.create(
             "frostrealm:aurora_glint",
             RenderSetup.builder(RenderPipelines.GLINT)
                     .withTexture("Sampler0", Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"))
                     .setTextureTransform(TextureTransform.GLINT_TEXTURING)
                     .createRenderSetup()
     );
-    private static final RenderType AURORA_ENTITY_GLINT = RenderType.create(
+    public static final RenderType AURORA_ENTITY_GLINT = RenderType.create(
             "frostrealm:aurora_entity_glint",
             RenderSetup.builder(RenderPipelines.GLINT)
                     .withTexture("Sampler0", Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png"))

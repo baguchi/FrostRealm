@@ -25,6 +25,9 @@
                 {
                   "chance": 0.125,
                   "condition": "minecraft:random_chance"
+                },
+                {
+                  "condition": "minecraft:survives_explosion"
                 }
               ],
               "functions": [
@@ -35,9 +38,6 @@
                   "parameters": {
                     "bonusMultiplier": 2
                   }
-                },
-                {
-                  "function": "minecraft:explosion_decay"
                 }
               ],
               "name": "frostrealm:rye_seeds"
