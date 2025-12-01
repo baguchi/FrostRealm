@@ -93,7 +93,10 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     private @org.jspecify.annotations.Nullable EntityReference<LivingEntity> persistentAngerTarget;
 
+    private static final int EAT_COOLDOWN = 20 * 60 * 2;
+
     private int ticksSinceEaten;
+    private int eatCooldown;
 
     public static final Predicate<LivingEntity> PREY_SELECTOR = p_348295_ -> {
         EntityType<?> entitytype = p_348295_.getType();
@@ -186,7 +189,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(3, new HurtByTargetGoal(this).setAlertOthers());
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
-        this.targetSelector.addGoal(5, new NonTameRandomTargetGoal<>(this, Animal.class, false, (living, serverLevel) -> PREY_SELECTOR.test(living)).setUnseenMemoryTicks(300));
+        this.targetSelector.addGoal(5, new NonTameRandomTargetGoal<>(this, Animal.class, false, (living, serverLevel) -> PREY_SELECTOR.test(living) && this.eatCooldown <= 0).setUnseenMemoryTicks(300));
         this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
     }
 
@@ -300,6 +303,8 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
         super.addAdditionalSaveData(p_30418_);
         p_30418_.putByte("CollarColor", (byte) this.getCollarColor().getId());
         this.getVariant().unwrapKey().ifPresent(p_344339_ -> p_30418_.putString("variant", p_344339_.identifier().toString()));
+        p_30418_.putInt("eat_cooldown", this.eatCooldown);
+
         this.getSoundVariant()
                 .unwrapKey()
                 .ifPresent(
@@ -316,6 +321,8 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
                     .map(p_332608_ -> ResourceKey.create(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY, p_332608_))
                     .flatMap(p_352803_ -> this.registryAccess().lookupOrThrow(WolfflueVariants.WOLFFLUE_VARIANT_REGISTRY_KEY).get((ResourceKey<WolfflueVariant>) p_352803_))
                     .ifPresent(this::setVariant);
+
+        this.eatCooldown = p_30402_.getIntOr("eat_cooldown", 0);
 
         p_30402_.read("sound_variant", ResourceKey.codec(Registries.WOLF_SOUND_VARIANT))
                 .flatMap(p_409348_ -> this.registryAccess().lookupOrThrow(Registries.WOLF_SOUND_VARIANT).get((ResourceKey<WolfSoundVariant>) p_409348_))
@@ -395,6 +402,10 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
 
         if (this.level().isClientSide()) {
             this.setupAnimationStates();
+        }else {
+            if(this.eatCooldown > 0) {
+                this.eatCooldown--;
+            }
         }
         //need client but also need to use apply the riding point
         this.setupRunning();
@@ -415,6 +426,12 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
     }
 
     @Override
+    public boolean killedEntity(ServerLevel p_216988_, LivingEntity p_216989_, DamageSource p_432749_) {
+        this.eatCooldown = EAT_COOLDOWN;
+        return super.killedEntity(p_216988_, p_216989_, p_432749_);
+    }
+
+    @Override
     public void aiStep() {
         if (!this.level().isClientSide() && this.isAlive() && this.isEffectiveAi()) {
             ++this.ticksSinceEaten;
@@ -431,6 +448,7 @@ public class Wolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerR
                     }
 
                     this.ticksSinceEaten = 0;
+                    this.eatCooldown = EAT_COOLDOWN;
                 } else if (this.ticksSinceEaten > 560 && this.ticksSinceEaten % 5 == 0) {
                     this.playSound(SoundEvents.GENERIC_EAT.value(), 1.0F, 1.0F);
                     this.level().broadcastEntityEvent(this, (byte) 45);
