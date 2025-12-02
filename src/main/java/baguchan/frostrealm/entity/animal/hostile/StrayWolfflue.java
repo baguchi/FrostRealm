@@ -161,6 +161,7 @@ public class StrayWolfflue extends AbstractWolfflue {
     public InteractionResult mobInteract(Player p_30412_, InteractionHand p_30413_) {
         ItemStack itemstack = p_30412_.getItemInHand(p_30413_);
         Item item = itemstack.getItem();
+        this.setPersistenceRequired();
         if (this.isTame()) {
             if (this.isFood(itemstack) && this.getHealth() < this.getMaxHealth()) {
                 FoodProperties foodproperties = itemstack.get(DataComponents.FOOD);
@@ -300,6 +301,11 @@ public class StrayWolfflue extends AbstractWolfflue {
     @Override
     public boolean canFallInLove() {
         return false;
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double p_479978_) {
+        return true;
     }
 
 

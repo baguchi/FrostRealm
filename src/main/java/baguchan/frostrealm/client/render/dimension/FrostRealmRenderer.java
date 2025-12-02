@@ -41,8 +41,8 @@ import java.util.OptionalDouble;
 import java.util.OptionalInt;
 
 public class FrostRealmRenderer  {
-    public static final Identifier ORB_LOCATION = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/frost_orb.png");
-    private static final Identifier AURORA_LOCATION = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/environment/aurora.png");
+    public static final Identifier ORB_LOCATION = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "frost_orb");
+    private static final Identifier AURORA_LOCATION = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "aurora");
 
     private final FrostAmbientSoundsHandler soundsHandler;
     private final GpuBuffer auroraBuffer;
