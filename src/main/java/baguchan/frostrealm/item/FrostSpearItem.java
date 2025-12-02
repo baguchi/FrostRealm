@@ -21,7 +21,7 @@ public class FrostSpearItem extends Item {
     @Override
 	public void hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
 		if (p_43279_.isAttackable() && p_43279_.canFreeze()) {
-			p_43279_.setTicksFrozen(Mth.clamp(p_43279_.getTicksFrozen() + 100, 0, 600));
+			p_43279_.setTicksFrozen(Mth.clamp(p_43279_.getTicksFrozen() + 400, 0, 600));
 		}
 	}
 
