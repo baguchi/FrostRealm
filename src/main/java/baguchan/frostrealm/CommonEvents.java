@@ -7,6 +7,7 @@ import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import baguchan.frostrealm.entity.FrostPart;
 import baguchan.frostrealm.entity.animal.Seal;
+import baguchan.frostrealm.entity.animal.SnowPileQuail;
 import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.registry.*;
@@ -54,6 +55,7 @@ import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.event.ItemStackedOnOtherEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.SweepAttackEvent;
@@ -140,6 +142,17 @@ public class CommonEvents {
         Entity target = event.getTarget();
         ItemStack itemstack = player.getWeaponItem();
         AttackUtils.sickleAttack(player, target, itemstack);
+    }
+
+    @SubscribeEvent
+    public static void onDecreaseFollowRange(LivingEvent.LivingVisibilityEvent event) {
+        Entity target = event.getLookingEntity();
+
+        if (target instanceof SnowPileQuail snowPileQuail) {
+            if (snowPileQuail.getBlockStateOn().is(Blocks.SNOW) || snowPileQuail.getBlockStateOn().is(Blocks.SNOW_BLOCK)) {
+                event.modifyVisibility(0.4F);
+            }
+        }
     }
 
     @SubscribeEvent
