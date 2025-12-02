@@ -76,8 +76,8 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.GLACINIUM_SHOVEL.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_HOE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_SICKLE.asItem(), FrostModelTemplates.BIG_HANDHELD);
-        this.generateFlatItem(FrostItems.GLACINIUM_SPEAR.asItem(), FrostModelTemplates.BIG_HANDHELD);
-        this.generateFlatItem(FrostItems.ASTRIUM_SPEAR.asItem(), FrostModelTemplates.BIG_HANDHELD);
+        this.generateFlatItem(FrostItems.GLACINIUM_SPEAR.asItem(), FrostModelTemplates.BIG_SPEAR);
+        this.generateFlatItem(FrostItems.ASTRIUM_SPEAR.asItem(), FrostModelTemplates.BIG_SPEAR);
 
 
         this.generateFlatItem(FrostItems.YETI_FUR_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
@@ -118,7 +118,7 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateSpawnEgg(FrostItems.ROOT_DEER_SPAWNEGG.get(), 6390687, 11213654);
         this.generateSpawnEgg(FrostItems.SILK_MOON_SPAWNEGG.get(), 14679020, 7716503);
         this.generateSpawnEgg(FrostItems.SEEKER_SPAWNEGG.get(), 0xFFFFFF, 0xFFFFFF);
-        this.generateFlatItem(FrostItems.FROST_SPEAR.asItem(), FrostModelTemplates.BIG_HANDHELD);
+        this.generateFlatItem(FrostItems.FROST_SPEAR.asItem(), FrostModelTemplates.BIG_SPEAR);
     }
 
     public void generateSpawnEgg(Item p_387114_, int p_387737_, int p_387138_) {
