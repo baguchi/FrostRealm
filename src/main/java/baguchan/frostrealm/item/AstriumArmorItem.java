@@ -1,8 +1,7 @@
 package baguchan.frostrealm.item;
 
-import baguchan.frostrealm.registry.FrostEntities;
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
+import baguchan.frostrealm.registry.FrostTags;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -27,8 +26,10 @@ public class AstriumArmorItem extends Item {
         return properties.durability(p_393823_.getDurability(p_394389_.durability())).attributes(createAstriumAttributes(p_394389_.createAttributes(p_393823_), p_393823_)).enchantable(p_394389_.enchantmentValue()).component(DataComponents.EQUIPPABLE, Equippable.builder(p_393823_.getSlot()).setEquipSound(p_394389_.equipSound()).setAsset(p_394389_.assetId()).build()).repairable(p_394389_.repairIngredient());
     }
 
-    public static Properties astriumWolfArmor(Properties properties, ArmorMaterial p_399934_) {
-        return properties.durability(ArmorType.BODY.getDurability(p_399934_.durability())).attributes(createAstriumAttributes(p_399934_.createAttributes(ArmorType.BODY), ArmorType.BODY)).repairable(p_399934_.repairIngredient()).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.BODY).setEquipSound(p_399934_.equipSound()).setAsset(p_399934_.assetId()).setAllowedEntities(HolderSet.direct(FrostEntities.WOLFFLUE)).setCanBeSheared(true).setShearingSound(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.ARMOR_UNEQUIP_WOLF)).build()).component(DataComponents.BREAK_SOUND, SoundEvents.WOLF_ARMOR_BREAK).stacksTo(1);
+    public static Properties astriumWolfflueArmor(Properties properties, ArmorMaterial p_399934_) {
+        HolderGetter<EntityType<?>> holdergetter = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.ENTITY_TYPE);
+
+        return properties.durability(ArmorType.BODY.getDurability(p_399934_.durability())).attributes(createAstriumAttributes(p_399934_.createAttributes(ArmorType.BODY), ArmorType.BODY)).repairable(p_399934_.repairIngredient()).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.BODY).setEquipSound(p_399934_.equipSound()).setAsset(p_399934_.assetId()).setAllowedEntities(holdergetter.getOrThrow(FrostTags.EntityTypes.WOLFFLUE)).setCanBeSheared(true).setShearingSound(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.ARMOR_UNEQUIP_WOLF)).build()).component(DataComponents.BREAK_SOUND, SoundEvents.WOLF_ARMOR_BREAK).stacksTo(1);
     }
 
     public static ItemAttributeModifiers createAstriumAttributes(ItemAttributeModifiers itemAttributeModifiers, ArmorType p_371239_) {
