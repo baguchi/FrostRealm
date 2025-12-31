@@ -19,7 +19,7 @@ public class FrostRealmWeatherSpecialRender implements CustomWeatherEffectRender
             float f = FrostWeatherManager.getWeatherLevel(1.0F);
             if (!(f <= 0.0F) && FrostWeatherManager.getFrostWeather() == FrostWeathers.BLIZZARD.get()) {
                 for (int i = 0; i < 2; i++) {
-                    if (level.random.nextInt(2) != 0) {
+                    if (level.getRandom().nextInt(2) != 0) {
                         float x = level.getRandom().nextFloat() * 0.5F - level.getRandom().nextFloat();
                         float y = level.getRandom().nextFloat();
                         float z = level.getRandom().nextFloat() * 0.5F - level.getRandom().nextFloat();

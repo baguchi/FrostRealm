@@ -1,9 +1,8 @@
 package baguchan.frostrealm.registry;
 
 import baguchan.frostrealm.FrostRealm;
-import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.animal.GlacierBoar;
-import com.mojang.serialization.Codec;
+import baguchan.frostrealm.entity.npc.Yeti;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;

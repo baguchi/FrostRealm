@@ -1,10 +1,10 @@
 package baguchan.frostrealm.entity.brain;
 
-import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.brain.behavior.SnowBallAttack;
 import baguchan.frostrealm.entity.brain.behavior.StartAdmiringItemIfSeen;
 import baguchan.frostrealm.entity.brain.behavior.StopAdmiringIfItemTooFarAway;
 import baguchan.frostrealm.entity.brain.behavior.TakeBackFromStealer;
+import baguchan.frostrealm.entity.npc.Yeti;
 import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import com.google.common.collect.ImmutableList;

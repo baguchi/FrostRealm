@@ -483,7 +483,7 @@ public class CrystalFox extends FrostAnimal implements IShearable {
 		private void pickBearBerry(BlockState p_148929_) {
 			int i = p_148929_.getValue(BearBerryBushBlock.AGE);
 			p_148929_.setValue(BearBerryBushBlock.AGE, Integer.valueOf(1));
-			int j = 1 + CrystalFox.this.level().random.nextInt(2) + (i == 3 ? 1 : 0);
+			int j = 1 + CrystalFox.this.level().getRandom().nextInt(2) + (i == 3 ? 1 : 0);
 			ItemStack itemstack = CrystalFox.this.getItemBySlot(EquipmentSlot.MAINHAND);
 			if (itemstack.isEmpty()) {
 				CrystalFox.this.heal(1);

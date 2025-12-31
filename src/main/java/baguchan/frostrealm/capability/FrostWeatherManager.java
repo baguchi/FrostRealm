@@ -36,21 +36,21 @@ public class FrostWeatherManager {
                         //If weather not active and cooldown active
                         frostWeatherData.setFrostWeather(FrostWeathers.NOPE.get());
                         if (frostWeatherData.getWeatherTime() <= 0) {
-                            frostWeatherData.setUnstableLevel((float) (frostWeatherData.getUnstableLevel() + level.random.nextDouble() * 0.1F));
-                            frostWeatherData.setAuroraLevel((float) (frostWeatherData.getAuroraLevel() + 0.1F + level.random.nextDouble() * 0.1F));
-                            FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.random, frostWeatherData.getUnstableLevel());
+                            frostWeatherData.setUnstableLevel((float) (frostWeatherData.getUnstableLevel() + level.getRandom().nextDouble() * 0.1F));
+                            frostWeatherData.setAuroraLevel((float) (frostWeatherData.getAuroraLevel() + 0.1F + level.getRandom().nextDouble() * 0.1F));
+                            FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.getRandom(), frostWeatherData.getUnstableLevel());
 
                             frostWeatherData.setFrostWeather(frostWeather);
                             ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
                             PacketDistributor.sendToPlayersInDimension((ServerLevel) level, message);
 
-                            frostWeatherData.setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
+                            frostWeatherData.setWetherTime(((level.getRandom().nextInt(5) + 5) * 60) * 20);
                             frostWeatherData.setDirty();
                         }
                     } else {
 
                         //If wether not active and cooldown not active too
-                        frostWeatherData.setWetherTime(((level.random.nextInt(5) + 10) * 60) * 20);
+                        frostWeatherData.setWetherTime(((level.getRandom().nextInt(5) + 10) * 60) * 20);
                         frostWeatherData.setFrostWeather(FrostWeathers.NOPE.get());
                         ChangeWeatherMessage message = new ChangeWeatherMessage(FrostWeathers.NOPE.get());
                         PacketDistributor.sendToPlayersInDimension((ServerLevel) level, message);

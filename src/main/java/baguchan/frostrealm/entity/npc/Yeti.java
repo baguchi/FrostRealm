@@ -1,5 +1,7 @@
-package baguchan.frostrealm.entity;
+package baguchan.frostrealm.entity.npc;
 
+import baguchan.frostrealm.entity.HasContainerEntity;
+import baguchan.frostrealm.entity.SnowChargeMob;
 import baguchan.frostrealm.entity.brain.YetiAi;
 import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.*;

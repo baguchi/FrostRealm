@@ -65,13 +65,13 @@ public class SnowPileQuailEggBlock extends Block {
 	}
 
 	private void destroyEgg(Level p_154851_, BlockState p_154852_, BlockPos p_154853_, Entity p_154854_, int p_154855_) {
-		if (!p_154851_.isClientSide() && p_154851_.random.nextInt(p_154855_) == 0 && p_154852_.is(FrostBlocks.SNOWPILE_QUAIL_EGG.get())) {
+		if (!p_154851_.isClientSide() && p_154851_.getRandom().nextInt(p_154855_) == 0 && p_154852_.is(FrostBlocks.SNOWPILE_QUAIL_EGG.get())) {
 			this.decreaseEggs(p_154851_, p_154853_, p_154852_);
 		}
 	}
 
 	private void decreaseEggs(Level p_57792_, BlockPos p_57793_, BlockState p_57794_) {
-		p_57792_.playSound(null, p_57793_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + p_57792_.random.nextFloat() * 0.2F);
+		p_57792_.playSound(null, p_57793_, SoundEvents.WOOL_BREAK, SoundSource.BLOCKS, 0.7F, 0.9F + p_57792_.getRandom().nextFloat() * 0.2F);
 		int i = p_57794_.getValue(EGGS);
 		if (i <= 1) {
 			p_57792_.destroyBlock(p_57793_, false);

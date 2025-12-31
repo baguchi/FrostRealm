@@ -2,10 +2,10 @@ package baguchan.frostrealm.entity.animal;
 
 import baguchan.frostrealm.block.SnowPileQuailEggBlock;
 import baguchan.frostrealm.entity.IHasEgg;
-import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.goal.BreedAndEggGoal;
 import baguchan.frostrealm.entity.goal.FindAndPlaceEggGoal;
 import baguchan.frostrealm.entity.goal.StealFromYetiGoal;
+import baguchan.frostrealm.entity.npc.Yeti;
 import baguchan.frostrealm.registry.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -87,7 +87,7 @@ public class SnowPileQuail extends FrostAnimal implements IHasEgg {
 		this.goalSelector.addGoal(3, new FindAndPlaceEggGoal<>(this, 0.8D) {
 			@Override
 			public void afterPlaceEgg() {
-				level().playSound(null, blockPos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level().random.nextFloat() * 0.2F);
+				level().playSound(null, blockPos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level().getRandom().nextFloat() * 0.2F);
 				level().setBlock(blockPos, FrostBlocks.SNOWPILE_QUAIL_EGG.get().defaultBlockState().setValue(SnowPileQuailEggBlock.EGGS, random.nextInt(1) + 1), 3);
 				setHomeTarget(blockPos);
 				//egg animation

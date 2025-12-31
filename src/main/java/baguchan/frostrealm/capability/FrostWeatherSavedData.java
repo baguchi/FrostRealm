@@ -136,20 +136,20 @@ public class FrostWeatherSavedData extends SavedData {
 						//If weather not active and cooldown active
 						setWeatherCooldown(getWeatherCooldown() - 1);
 						if (getWeatherCooldown() <= 0) {
-							unstableLevel += (float) (level.random.nextDouble() * 0.1F);
-							FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.random, this.unstableLevel);
+							unstableLevel += (float) (level.getRandom().nextDouble() * 0.1F);
+							FrostWeather frostWeather = BlizzardUtils.makeRandomWeather(level.getRandom(), this.unstableLevel);
 
 							setFrostWeather(frostWeather);
 							ChangeWeatherMessage message = new ChangeWeatherMessage(frostWeather);
 							PacketDistributor.sendToPlayersInDimension(serverLevel, message);
 
-							setWetherTime(((level.random.nextInt(5) + 5) * 60) * 20);
+							setWetherTime(((level.getRandom().nextInt(5) + 5) * 60) * 20);
 							this.setDirty();
 						}
 					} else {
 
 						//If wether not active and cooldown not active too
-						setWeatherCooldown(((level.random.nextInt(5) + 10) * 60) * 20);
+						setWeatherCooldown(((level.getRandom().nextInt(5) + 10) * 60) * 20);
 						setFrostWeather(FrostWeathers.NOPE.get());
 						ChangeWeatherMessage message2 = new ChangeWeatherMessage(FrostWeathers.NOPE.get());
 						PacketDistributor.sendToPlayersInDimension(serverLevel, message2);

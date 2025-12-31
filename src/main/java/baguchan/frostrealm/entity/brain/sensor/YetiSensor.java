@@ -1,8 +1,8 @@
 package baguchan.frostrealm.entity.brain.sensor;
 
-import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.animal.GlacierBoar;
 import baguchan.frostrealm.entity.brain.YetiAi;
+import baguchan.frostrealm.entity.npc.Yeti;
 import baguchan.frostrealm.registry.FrostMemoryModuleType;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;

@@ -1,8 +1,8 @@
 package baguchan.frostrealm.entity.goal;
 
-import baguchan.frostrealm.entity.Yeti;
 import baguchan.frostrealm.entity.animal.SnowPileQuail;
 import baguchan.frostrealm.entity.brain.YetiAi;
+import baguchan.frostrealm.entity.npc.Yeti;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.List;

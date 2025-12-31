@@ -76,7 +76,7 @@ public class SilkMoon extends FrostAnimal implements IHasEgg {
         this.goalSelector.addGoal(0, new FindAndPlaceEggGoal<>(this, 0.85D) {
             @Override
             public void afterPlaceEgg() {
-                level().playSound(null, blockPos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level().random.nextFloat() * 0.2F);
+                level().playSound(null, blockPos, SoundEvents.TURTLE_LAY_EGG, SoundSource.BLOCKS, 0.3F, 0.9F + level().getRandom().nextFloat() * 0.2F);
                 level().setBlock(blockPos, FrostBlocks.SILK_MOON_EGG.get().defaultBlockState().setValue(SilkMoonEggBlock.EGGS, random.nextInt(1) + 1), 3);
             }
 

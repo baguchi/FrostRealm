@@ -113,6 +113,7 @@ public class ClientRegistrar {
 		event.registerEntityRenderer(FrostEntities.SILK_MOON_WORM.get(), SilkMoonWormRenderer::new);
 		event.registerEntityRenderer(FrostEntities.SILK_MOON.get(), SilkMoonRenderer::new);
 		event.registerEntityRenderer(FrostEntities.SEEKER.get(), SeekerRenderer::new);
+		event.registerEntityRenderer(FrostEntities.GROUNDED_WEAPON.get(), GroundedWeaponRenderer::new);
 	}
 
 	@SubscribeEvent

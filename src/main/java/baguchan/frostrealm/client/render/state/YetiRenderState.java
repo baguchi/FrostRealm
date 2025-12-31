@@ -1,6 +1,6 @@
 package baguchan.frostrealm.client.render.state;
 
-import baguchan.frostrealm.entity.Yeti;
+import baguchan.frostrealm.entity.npc.Yeti;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.world.entity.AnimationState;
 

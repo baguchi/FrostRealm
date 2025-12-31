@@ -4,7 +4,7 @@ import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
 import baguchan.frostrealm.client.model.YetiModel;
 import baguchan.frostrealm.client.render.state.YetiRenderState;
-import baguchan.frostrealm.entity.Yeti;
+import baguchan.frostrealm.entity.npc.Yeti;
 import baguchi.bagus_lib.client.layer.CustomArmorLayer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

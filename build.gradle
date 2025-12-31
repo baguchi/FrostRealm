@@ -1,9 +1,8 @@
 plugins {
     id 'java-library'
-    id 'eclipse'
-    id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.107'
+    id 'net.neoforged.moddev' version '2.0.135'
+    id 'idea'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -27,7 +26,7 @@ base {
 }
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 // Default run configurations.
 // These can be tweaked, removed, or duplicated as needed.
@@ -137,8 +136,8 @@ dependencies {
     // If the group id is "net.minecraft" and the artifact id is one of ["client", "server", "joined"],
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     //implementation "net.neoforged:neoforge:${neo_version}"
-    implementation "baguchi.bagus_lib:BagusLib:${bagus_lib_version}"
-    //implementation "maven.modrinth:bagus-lib:${bagus_lib_version}"
+    //implementation "baguchi.bagus_lib:BagusLib:${bagus_lib_version}"
+    implementation "maven.modrinth:bagus-lib:${bagus_lib_version}"
 
     //implementation "baguchi.bagus_lib:BagusLib:${bagus_lib_version}"
     //compileOnly("mezz.jei:jei-1.21.1-common-api:19.16.1.156")

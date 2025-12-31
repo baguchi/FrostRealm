@@ -182,7 +182,7 @@ public class AuroraInfuserMenu extends AbstractContainerMenu {
                         this.enchantSlots.setChanged();
                         this.enchantmentSeed.set(p_39465_.getEnchantmentSeed());
                         this.slotsChanged(this.enchantSlots);
-                        p_39481_.playSound((Player) null, p_39482_, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, p_39481_.random.nextFloat() * 0.1F + 0.9F);
+                        p_39481_.playSound((Player) null, p_39482_, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, p_39481_.getRandom().nextFloat() * 0.1F + 0.9F);
                     }
                 });
                 return true;

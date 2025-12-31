@@ -10,6 +10,9 @@
     "ServerLevelMixin"
   ],
   "client": [
+    "client.BlockModelWrapperMixin",
+    "client.CustomArmorLayerMixin",
+    "client.EquipmentLayerRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

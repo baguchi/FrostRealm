@@ -70,7 +70,7 @@ public class FrostLivingCapability implements ValueIOSerializable {
         /*
          *  Body temperature stuff
          */
-        if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL && (!entity.getType().is(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE) && !((entity instanceof Player && ((Player) entity).isCreative()) || entity.isSpectator())) && !entity.hasEffect(FrostEffects.COLD_RESISTANCE)) {
+        if (entity.level().dimension() == FrostDimensions.FROSTREALM_LEVEL && (!entity.is(FrostTags.EntityTypes.COLD_WEATHER_IMMUNE) && !((entity instanceof Player && ((Player) entity).isCreative()) || entity.isSpectator())) && !entity.hasEffect(FrostEffects.COLD_RESISTANCE)) {
             Difficulty difficulty = entity.level().getDifficulty();
             this.lastTemperate = this.temperature;
             hotSourceTick(entity);
@@ -108,7 +108,7 @@ public class FrostLivingCapability implements ValueIOSerializable {
                         }
                     }
                 }
-                if (entity.getType().is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)) {
+                if (entity.is(EntityTypeTags.FREEZE_HURTS_EXTRA_TYPES)) {
                     this.temperature = Math.max(this.temperature - 1, 0);
                     this.temperatureSaturation = 0.0F;
                     entity.setTicksFrozen(Mth.clamp(entity.getTicksFrozen() + 4, 0, 200));

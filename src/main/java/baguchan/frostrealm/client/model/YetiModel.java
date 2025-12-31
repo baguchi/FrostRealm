@@ -5,7 +5,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.0.3
 
 import baguchan.frostrealm.client.animation.YetiAnimations;
 import baguchan.frostrealm.client.render.state.YetiRenderState;
-import baguchan.frostrealm.entity.Yeti;
+import baguchan.frostrealm.entity.npc.Yeti;
 import baguchi.bagus_lib.client.layer.IArmor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;

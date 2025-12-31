@@ -1,7 +1,10 @@
 package baguchan.frostrealm.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.SingleQuadParticle;
+import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
@@ -51,8 +54,8 @@ public class FrostPortalParticle extends SingleQuadParticle {
     }
 
     @Override
-    public int getLightColor(float p_107564_) {
-        int i = super.getLightColor(p_107564_);
+    public int getLightCoords(float p_107564_) {
+        int i = super.getLightCoords(p_107564_);
         float f = (float) this.age / (float) this.lifetime;
         f *= f;
         f *= f;

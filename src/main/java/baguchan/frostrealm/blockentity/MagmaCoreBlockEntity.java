@@ -43,14 +43,14 @@ public class MagmaCoreBlockEntity extends BlockEntity {
 
     public static void clientTick(Level level, BlockPos blockPos, BlockState blockState, MagmaCoreBlockEntity magmaCoreBlockEntity) {
         if (magmaCoreBlockEntity.active) {
-            if (level.random.nextFloat() < 0.2) {
-                level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, blockPos.getX() + level.random.nextFloat(), blockPos.getY() + 1, blockPos.getZ() + level.random.nextFloat(), 0, 0.15F, 0);
+            if (level.getRandom().nextFloat() < 0.2) {
+                level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, blockPos.getX() + level.getRandom().nextFloat(), blockPos.getY() + 1, blockPos.getZ() + level.getRandom().nextFloat(), 0, 0.15F, 0);
             }
-            if (level.random.nextFloat() < 0.1 && magmaCoreBlockEntity.cooldown <= 0) {
+            if (level.getRandom().nextFloat() < 0.1 && magmaCoreBlockEntity.cooldown <= 0) {
                 level.addParticle(ParticleTypes.LAVA, blockPos.getX() + 0.5, blockPos.getY() + 1, blockPos.getZ() + 0.5,
-                        level.random.nextFloat() / 2.0F,
+                        level.getRandom().nextFloat() / 2.0F,
                         2F,
-                        level.random.nextFloat() / 2.0F);
+                        level.getRandom().nextFloat() / 2.0F);
             }
         }
     }
@@ -59,8 +59,8 @@ public class MagmaCoreBlockEntity extends BlockEntity {
         FrostWeatherSavedData frostWeatherSavedData = FrostWeatherSavedData.get(level);
         if (!magmaCoreBlockEntity.active && (frostWeatherSavedData.getFrostWeather() == FrostWeathers.PURPLE_FOG.get() || frostWeatherSavedData.getFrostWeather() == FrostWeathers.STARFALL.get())) {
             magmaCoreBlockEntity.active = true;
-            magmaCoreBlockEntity.activeTick = 400 + level.random.nextInt(400);
-            magmaCoreBlockEntity.cooldown = 600 + level.random.nextInt(600);
+            magmaCoreBlockEntity.activeTick = 400 + level.getRandom().nextInt(400);
+            magmaCoreBlockEntity.cooldown = 600 + level.getRandom().nextInt(600);
             magmaCoreBlockEntity.inventoryChanged();
         } else if (magmaCoreBlockEntity.active && !(frostWeatherSavedData.getFrostWeather() == FrostWeathers.PURPLE_FOG.get() || frostWeatherSavedData.getFrostWeather() == FrostWeathers.STARFALL.get())) {
             magmaCoreBlockEntity.active = false;
@@ -69,13 +69,13 @@ public class MagmaCoreBlockEntity extends BlockEntity {
         if (magmaCoreBlockEntity.active) {
             if (magmaCoreBlockEntity.cooldown <= 0) {
                 if (--magmaCoreBlockEntity.activeTick > 0) {
-                    if (level.random.nextFloat() < 0.05F) {
+                    if (level.getRandom().nextFloat() < 0.05F) {
                         generateMagmaEntity(level, blockPos, blockState, magmaCoreBlockEntity);
                         level.playSound(null, blockPos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 3.0F, 1.0F);
                     }
                 } else {
-                    magmaCoreBlockEntity.activeTick = 400 + level.random.nextInt(400);
-                    magmaCoreBlockEntity.cooldown = 600 + level.random.nextInt(600);
+                    magmaCoreBlockEntity.activeTick = 400 + level.getRandom().nextInt(400);
+                    magmaCoreBlockEntity.cooldown = 600 + level.getRandom().nextInt(600);
                     magmaCoreBlockEntity.inventoryChanged();
                 }
             } else {
@@ -98,11 +98,11 @@ public class MagmaCoreBlockEntity extends BlockEntity {
         float velocity = 1.2F;
 
         Vec3 originVec = blockPos.getCenter();
-        int targetOffsetX = level.random.nextBoolean() ? magmaCoreBlockEntity.getRange() : -magmaCoreBlockEntity.getRange();
-        int targetOffsetZ = level.random.nextBoolean() ? magmaCoreBlockEntity.getRange() : -magmaCoreBlockEntity.getRange();
+        int targetOffsetX = level.getRandom().nextBoolean() ? magmaCoreBlockEntity.getRange() : -magmaCoreBlockEntity.getRange();
+        int targetOffsetZ = level.getRandom().nextBoolean() ? magmaCoreBlockEntity.getRange() : -magmaCoreBlockEntity.getRange();
 
-        targetOffsetX += level.random.nextInt(6) - level.random.nextInt(6);
-        targetOffsetZ += level.random.nextInt(6) - level.random.nextInt(6);
+        targetOffsetX += level.getRandom().nextInt(6) - level.getRandom().nextInt(6);
+        targetOffsetZ += level.getRandom().nextInt(6) - level.getRandom().nextInt(6);
 
         Vec3 targetVec = blockPos.offset(targetOffsetX, 2, targetOffsetZ).getCenter();
 
