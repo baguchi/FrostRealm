@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.profiling.Profiler;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.monster.Monster;
@@ -97,6 +98,17 @@ public class CellingMonster extends Monster {
 
     public float getAttachAmount(float p_20999_) {
         return Mth.lerp(p_20999_, this.prevAttachChangeProgress, this.attachChangeProgress);
+    }
+
+    @Override
+    public void die(DamageSource source) {
+        super.die(source);
+        this.stopCelling();
+    }
+
+    public void stopCelling() {
+        this.entityData.set(ATTACHED_FACE, Direction.DOWN);
+        this.setCellRotation(new Quaternionf());
     }
 
     @Override
