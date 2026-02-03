@@ -22,27 +22,22 @@ import org.jspecify.annotations.Nullable;
 public class GroundedWeapon extends Entity implements TraceableEntity {
     protected static final EntityDataAccessor<Direction> DATA_ATTACH_FACE_ID = SynchedEntityData.defineId(GroundedWeapon.class, EntityDataSerializers.DIRECTION);
 
-    public static final int ATTACK_DURATION = 30;
-    public static final int LIFE_OFFSET = 2;
-    public static final int ATTACK_TRIGGER_TICKS = 24;
-    private static final int DEFAULT_WARMUP_DELAY = 0;
-    private int warmupDelayTicks;
+    public static final int ATTACK_TRIGGER_TICKS = 52;
     private boolean sentSpikeEvent;
-    private int lifeTicks;
-    private boolean clientSideAttackStarted;
+    private int lifeTicks = 52;
     private float weaponAnimation;
     private float weaponAnimationOld;
+    private float glowAnimation;
+    private float glowAnimationOld;
+
     private @Nullable EntityReference<LivingEntity> owner;
 
     public GroundedWeapon(EntityType<? extends GroundedWeapon> p_36923_, Level p_36924_) {
         super(p_36923_, p_36924_);
-        this.warmupDelayTicks = 0;
-        this.lifeTicks = 32;
     }
 
     public GroundedWeapon(Level p_36926_, double p_36927_, double p_36928_, double p_36929_, float p_36930_, int p_36931_, LivingEntity p_36932_) {
         this(FrostEntities.GROUNDED_WEAPON.get(), p_36926_);
-        this.warmupDelayTicks = p_36931_;
         this.setOwner(p_36932_);
         this.setYRot(p_36930_ * (180F / (float) Math.PI));
         this.setPos(p_36927_, p_36928_, p_36929_);
@@ -96,72 +91,68 @@ public class GroundedWeapon extends Entity implements TraceableEntity {
 
     @Override
     protected void readAdditionalSaveData(ValueInput p_422390_) {
-        this.warmupDelayTicks = p_422390_.getIntOr("Warmup", 0);
         this.owner = EntityReference.read(p_422390_, "Owner");
         this.setAttachFace(Direction.from3DDataValue(p_422390_.getByteOr("AttachFace", (byte) 0)));
     }
 
     @Override
     protected void addAdditionalSaveData(ValueOutput p_422710_) {
-        p_422710_.putInt("Warmup", this.warmupDelayTicks);
         EntityReference.store(this.owner, p_422710_, "Owner");
         p_422710_.putByte("AttachFace", (byte) this.getAttachFace().get3DDataValue());
     }
 
     public void tick() {
         super.tick();
+        --this.lifeTicks;
+
         if (this.level().isClientSide()) {
-            if (this.clientSideAttackStarted) {
-                this.weaponAnimationOld = this.weaponAnimation;
-                --this.lifeTicks;
-
-                if (this.lifeTicks > 20) {
-                    this.weaponAnimation = Mth.clamp(this.weaponAnimation + 0.5F, 0, 1F);
-                }
-
-                if (this.lifeTicks == 24) {
-                    for (int i = 0; i < 12; ++i) {
-                        double d0 = this.getX() + (this.random.nextDouble() * (double) 2.0F - (double) 1.0F) * (double) this.getBbWidth() * (double) 0.5F;
-                        double d1 = this.getY() + 0.05 + this.random.nextDouble();
-                        double d2 = this.getZ() + (this.random.nextDouble() * (double) 2.0F - (double) 1.0F) * (double) this.getBbWidth() * (double) 0.5F;
-                        double d3 = (this.random.nextDouble() * (double) 2.0F - (double) 1.0F) * 0.3;
-                        double d4 = 0.3 + this.random.nextDouble() * 0.3;
-                        double d5 = (this.random.nextDouble() * (double) 2.0F - (double) 1.0F) * 0.3;
-                        this.level().addParticle(ParticleTypes.CRIT, d0, d1 + (double) 1.0F, d2, d3, d4, d5);
-                    }
-                }
-
-                if (this.lifeTicks <= 5) {
-                    this.weaponAnimation = Mth.clamp(this.weaponAnimation - 0.25F, 0, 1F);
-                }
-            }
-        } else if (--this.warmupDelayTicks < 0) {
-            if (this.warmupDelayTicks == -8) {
-                for (Entity entity : this.level().getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(0.2, (double) 0.0F, 0.2))) {
-                    this.dealDamageTo(entity);
-                }
-            } else if (this.warmupDelayTicks < -8) {
-                for (Entity entity : this.level().getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(0.2, (double) 0.0F, 0.2))) {
-                    this.dealTouchDamageTo(entity);
-                }
-            }
-
-            if (!this.sentSpikeEvent) {
-                this.level().broadcastEntityEvent(this, (byte) 4);
-                this.sentSpikeEvent = true;
-            }
-
-
             this.weaponAnimationOld = this.weaponAnimation;
 
-            if (this.lifeTicks > 20) {
+
+            this.glowAnimationOld = this.glowAnimation;
+
+            if (this.lifeTicks <= 5) {
+                this.glowAnimation = Mth.clamp(this.glowAnimation - 0.5F, 0, 1F);
+            } else {
+                this.glowAnimation = Mth.clamp(this.glowAnimation + 0.1F, 0, 1F);
+            }
+
+            if (this.lifeTicks > 40 && this.lifeTicks < 44) {
                 this.weaponAnimation = Mth.clamp(this.weaponAnimation + 0.5F, 0, 1F);
             }
 
-            if (this.lifeTicks <= 5) {
+            if (this.lifeTicks == 43) {
+                if (!this.isSilent()) {
+                    this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.SPEAR_HIT.value(), this.getSoundSource(), 1.0F, this.random.nextFloat() * 0.2F + 1.25F, false);
+                }
+            }
+
+            if (this.lifeTicks == 42) {
+                for (int i = 0; i < 12; ++i) {
+                    double d0 = this.getX() + (this.random.nextDouble() * (double) 2.0F - (double) 1.0F) * (double) this.getBbWidth() * (double) 0.5F;
+                    double d1 = this.getY() + 0.05 + this.random.nextDouble();
+                    double d2 = this.getZ() + (this.random.nextDouble() * (double) 2.0F - (double) 1.0F) * (double) this.getBbWidth() * (double) 0.5F;
+                    double d3 = (this.random.nextDouble() * (double) 2.0F - (double) 1.0F) * 0.3;
+                    double d4 = 0.3 + this.random.nextDouble() * 0.3;
+                    double d5 = (this.random.nextDouble() * (double) 2.0F - (double) 1.0F) * 0.3;
+                    this.level().addParticle(ParticleTypes.CRIT, d0, d1 + (double) 1.0F, d2, d3, d4, d5);
+                }
+            }
+
+            if (this.lifeTicks <= 15) {
                 this.weaponAnimation = Mth.clamp(this.weaponAnimation - 0.25F, 0, 1F);
             }
-            if (--this.lifeTicks < 0) {
+        } else {
+            if (this.lifeTicks == 42) {
+                for (Entity entity : this.level().getEntitiesOfClass(Entity.class, this.getBoundingBox().inflate(0.1, (double) 0.0F, 0.1))) {
+                    this.dealDamageTo(entity);
+                }
+            } else if (this.lifeTicks > 15 && this.lifeTicks < 42) {
+                for (Entity entity : this.level().getEntitiesOfClass(Entity.class, this.getBoundingBox())) {
+                    this.dealTouchDamageTo(entity);
+                }
+            }
+            if (this.lifeTicks < 0) {
                 this.discard();
             }
         }
@@ -214,19 +205,12 @@ public class GroundedWeapon extends Entity implements TraceableEntity {
 
     }
 
-    @Override
-    public void handleEntityEvent(byte p_36935_) {
-        super.handleEntityEvent(p_36935_);
-        if (p_36935_ == 4) {
-            this.clientSideAttackStarted = true;
-            if (!this.isSilent()) {
-                this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.SPEAR_HIT.value(), this.getSoundSource(), 1.0F, this.random.nextFloat() * 0.2F + 1.25F, false);
-            }
-        }
-    }
-
     public float getAnimationScale(float p_480499_) {
         return Mth.lerp(p_480499_, this.weaponAnimationOld, this.weaponAnimation);
+    }
+
+    public float getGlowAnimationScale(float p_480499_) {
+        return Mth.lerp(p_480499_, this.glowAnimationOld, this.glowAnimation);
     }
 
     @Override

@@ -78,7 +78,7 @@ public class FrItemTagGenerator extends ItemTagsProvider {
         this.tag(ItemTags.HOES).add(FrostItems.ASTRIUM_HOE.get()).add(FrostItems.GLACINIUM_HOE.get());
         this.tag(ItemTags.SPEARS).add(FrostItems.FROST_SPEAR.get()).add(FrostItems.ASTRIUM_SPEAR.get()).add(FrostItems.GLACINIUM_SPEAR.get());
         this.tag(FrostTags.Items.SICKLE).add(FrostItems.ASTRIUM_SICKLE.get()).add(FrostItems.GLACINIUM_SICKLE.get());
-        this.tag(FrostTags.Items.SMITHABLE_WEAPON).addTag(ItemTags.SWORDS).addTag(ItemTags.AXES).addTag(FrostTags.Items.SICKLE);
+        this.tag(FrostTags.Items.SMITHABLE_WEAPON).addTag(ItemTags.SWORDS).addTag(ItemTags.AXES).addTag(ItemTags.SPEARS).addTag(FrostTags.Items.SICKLE);
         this.tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(FrostTags.Items.SICKLE);
         this.tag(ItemTags.SHARP_WEAPON_ENCHANTABLE).addTag(FrostTags.Items.SICKLE);
 

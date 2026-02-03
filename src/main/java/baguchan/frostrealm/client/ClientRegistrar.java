@@ -259,8 +259,8 @@ public class ClientRegistrar {
 	public static void registerPipeline(RegisterRenderPipelinesEvent event) {
 		event.registerPipeline(FrostRenderPipelines.DARK_OUTLINE_NO_CULL);
 		event.registerPipeline(FrostRenderPipelines.DARK_OUTLINE_CULL);
-		event.registerPipeline(FrostRenderPipelines.GLOW_OUTLINE_NO_CULL);
-		event.registerPipeline(FrostRenderPipelines.GLOW_OUTLINE_CULL);
+        event.registerPipeline(FrostRenderPipelines.AURORA_GLINT);
+        event.registerPipeline(FrostRenderPipelines.ENTITY_GLOW_SHADOW);
 	}
     @SubscribeEvent
     public static void registerLevelRenderState(ExtractLevelRenderStateEvent event) {

@@ -37,7 +37,7 @@ public class BlockModelWrapperMixin {
     @Final
     private Supplier<Vector3fc[]> extents;
 
-    @Inject(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState;setFoilType(Lnet/minecraft/client/renderer/item/ItemStackRenderState$FoilType;)V"))
+    @Inject(method = "update", at = @At(value = "TAIL"))
     public void update(
             ItemStackRenderState p_386488_, ItemStack p_386443_, ItemModelResolver p_388726_, ItemDisplayContext p_388231_, ClientLevel p_387522_, ItemOwner p_434975_, int p_388300_, CallbackInfo ci
     ) {
