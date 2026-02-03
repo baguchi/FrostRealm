@@ -12,6 +12,7 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
@@ -157,7 +158,7 @@ public class CraftingGenerator extends CraftingDataHelper {
 		foodCooking(FrostItems.GLACIER_BOAR_MEAT.get(), FrostItems.COOKED_GLACIER_BOAR_MEAT.get(), 0.15F, this.output);
 		foodCooking(FrostItems.SILK_MOON_MEAT.get(), FrostItems.COOKED_SILK_MOON_MEAT.get(), 0.05F, this.output);
 
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(FrostItems.CRYONITE.get()), RecipeCategory.MISC, FrostItems.CRYONITE_CREAM.get(), 0.1F, 200).unlockedBy("has_item", has(FrostItems.CRYONITE.get())).save(this.output, prefix("smelting_" + BuiltInRegistries.ITEM.getKey(FrostItems.CRYONITE.get()).getPath()));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(FrostItems.CRYONITE.get()), RecipeCategory.MISC, CookingBookCategory.MISC, FrostItems.CRYONITE_CREAM.get(), 0.1F, 200).unlockedBy("has_item", has(FrostItems.CRYONITE.get())).save(this.output, prefix("smelting_" + BuiltInRegistries.ITEM.getKey(FrostItems.CRYONITE.get()).getPath()));
 
 
 		helmetItem(this.output, "yeti_fur_helmet", FrostItems.YETI_FUR_HELMET.get(), FrostItems.YETI_FUR.get());

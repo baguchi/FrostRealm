@@ -6,10 +6,11 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Block;
@@ -23,25 +24,25 @@ public abstract class CraftingDataHelper extends RecipeProvider {
     }
 
     protected final void foodCooking(Item material, Item result, float xp, RecipeOutput consumer) {
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), RecipeCategory.FOOD, result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, prefix("smelting_" + BuiltInRegistries.ITEM.getKey(result).getPath()));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), RecipeCategory.FOOD, CookingBookCategory.FOOD, result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, prefix("smelting_" + BuiltInRegistries.ITEM.getKey(result).getPath()));
 		SimpleCookingRecipeBuilder.smoking(Ingredient.of(material), RecipeCategory.FOOD, result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, prefix("smoking_" + BuiltInRegistries.ITEM.getKey(result).getPath()));
 		SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(material), RecipeCategory.FOOD, result, xp, 600).unlockedBy("has_item", has(material)).save(consumer, prefix("campfire_cooking_" + BuiltInRegistries.ITEM.getKey(result).getPath()));
 	}
 
     protected final void foodCooking(Item material, Item result, float xp, RecipeOutput consumer, String recipeName) {
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), RecipeCategory.FOOD, result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, prefix("smelting_" + recipeName));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), RecipeCategory.FOOD, CookingBookCategory.FOOD, result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, prefix("smelting_" + recipeName));
 		SimpleCookingRecipeBuilder.smoking(Ingredient.of(material), RecipeCategory.FOOD, result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, prefix("smoking_" + recipeName));
 		SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(material), RecipeCategory.FOOD, result, xp, 600).unlockedBy("has_item", has(material)).save(consumer, prefix("campfire_cooking_" + recipeName));
 	}
 
     protected final void smeltOre(Item material, Item result, float xp, RecipeOutput consumer) {
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), RecipeCategory.MISC, result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, prefix("smelting_" + BuiltInRegistries.ITEM.getKey(result).getPath()));
-		SimpleCookingRecipeBuilder.blasting(Ingredient.of(material), RecipeCategory.MISC, result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, prefix("blasting_" + BuiltInRegistries.ITEM.getKey(result).getPath()));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), RecipeCategory.MISC, CookingBookCategory.MISC, result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, prefix("smelting_" + BuiltInRegistries.ITEM.getKey(result).getPath()));
+		SimpleCookingRecipeBuilder.blasting(Ingredient.of(material), RecipeCategory.MISC, CookingBookCategory.MISC, result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, prefix("blasting_" + BuiltInRegistries.ITEM.getKey(result).getPath()));
 	}
 
     protected final void smeltOre(Item material, Item result, float xp, RecipeOutput consumer, String recipeName) {
-		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), RecipeCategory.MISC, result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, prefix("smelting_" + BuiltInRegistries.ITEM.getKey(result).getPath()));
-		SimpleCookingRecipeBuilder.blasting(Ingredient.of(material), RecipeCategory.MISC, result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, prefix("blasting_" + BuiltInRegistries.ITEM.getKey(result).getPath()));
+		SimpleCookingRecipeBuilder.smelting(Ingredient.of(material), RecipeCategory.MISC, CookingBookCategory.MISC, result, xp, 200).unlockedBy("has_item", has(material)).save(consumer, prefix("smelting_" + BuiltInRegistries.ITEM.getKey(result).getPath()));
+		SimpleCookingRecipeBuilder.blasting(Ingredient.of(material), RecipeCategory.MISC, CookingBookCategory.MISC, result, xp, 100).unlockedBy("has_item", has(material)).save(consumer, prefix("blasting_" + BuiltInRegistries.ITEM.getKey(result).getPath()));
 	}
 
     protected final void helmetItem(RecipeOutput consumer, String name, Item result, Item material) {

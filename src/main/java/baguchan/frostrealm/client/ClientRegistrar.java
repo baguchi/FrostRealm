@@ -19,7 +19,6 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.animal.wolf.WolfModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
@@ -127,11 +126,11 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.MARMOT, MarmotModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SNOWPILE_QUAIL, SnowPileQuailModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.0F)));
-		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.0F)).apply(WolfModel.BABY_TRANSFORMER));
+		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.0F)).apply(WolfflueModel.BABY_TRANSFORMER));
 		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_ARMOR, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.2F)));
-        event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY_ARMOR, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.2F)).apply(WolfModel.BABY_TRANSFORMER));
+		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY_ARMOR, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.2F)).apply(WolfflueModel.BABY_TRANSFORMER));
         event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_SADDLE, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.21F)));
-        event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY_SADDLE, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.21F)).apply(WolfModel.BABY_TRANSFORMER));
+		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY_SADDLE, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.21F)).apply(WolfflueModel.BABY_TRANSFORMER));
         event.registerLayerDefinition(FrostModelLayers.FERRET, FerretModel::createBodyLayer);
 
 

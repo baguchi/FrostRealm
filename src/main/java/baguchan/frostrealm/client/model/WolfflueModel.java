@@ -12,6 +12,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
 public class WolfflueModel<T extends WolfflueRenderState> extends EntityModel<T> {
+    public static final MeshTransformer BABY_TRANSFORMER = MeshTransformer.scaling(0.5F);
     public final ModelPart all;
     public final ModelPart head;
     private final ModelPart body;

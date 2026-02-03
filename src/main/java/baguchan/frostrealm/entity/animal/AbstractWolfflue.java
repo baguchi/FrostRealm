@@ -1,20 +1,12 @@
 package baguchan.frostrealm.entity.animal;
 
-import baguchan.frostrealm.api.entity.WolfflueVariant;
-import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
-import baguchan.frostrealm.entity.goal.LeapAtTargetWolfflueGoal;
-import baguchan.frostrealm.entity.goal.WolfflueBegGoal;
 import baguchan.frostrealm.registry.FrostEntities;
-import baguchan.frostrealm.registry.FrostEntityDatas;
-import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostTags;
 import baguchi.bagus_lib.entity.ISmartJump;
 import baguchi.bagus_lib.entity.path.node.SmartNodeEvaluator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -23,24 +15,18 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -48,20 +34,17 @@ import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.animal.wolf.WolfSoundVariant;
 import net.minecraft.world.entity.animal.wolf.WolfSoundVariants;
 import net.minecraft.world.entity.decoration.ArmorStand;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.variant.VariantUtils;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.Path;
@@ -73,7 +56,6 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 public abstract class AbstractWolfflue extends TamableBiggerAnimal implements NeutralMob, PlayerRideableJumping, ISmartJump {
@@ -237,7 +219,11 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
 
     @Override
     protected void playStepSound(BlockPos p_30415_, BlockState p_30416_) {
-        this.playSound(SoundEvents.WOLF_STEP, 0.5F, 1.0F);
+        this.playSound(this.getSoundSet().deathSound().value(), 0.5F, 1.0F);
+    }
+
+    private WolfSoundVariant.WolfSoundSet getSoundSet() {
+        return this.isBaby() ? ((WolfSoundVariant) this.getSoundVariant().value()).babySounds() : ((WolfSoundVariant) this.getSoundVariant().value()).adultSounds();
     }
 
     @Override
@@ -270,25 +256,36 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
 
     @Override
     protected SoundEvent getAmbientSound() {
+        if (this.isBaby()) {
+            if (this.isAngry()) {
+                return this.getSoundVariant().value().babySounds().growlSound().value();
+            } else if (this.random.nextInt(3) == 0) {
+                return this.isTame() && this.getHealth() < 20.0F
+                        ? this.getSoundVariant().value().babySounds().whineSound().value()
+                        : this.getSoundVariant().value().babySounds().pantSound().value();
+            } else {
+                return this.getSoundVariant().value().babySounds().ambientSound().value();
+            }
+        }
         if (this.isAngry()) {
-            return this.getSoundVariant().value().growlSound().value();
+            return this.getSoundVariant().value().adultSounds().growlSound().value();
         } else if (this.random.nextInt(3) == 0) {
             return this.isTame() && this.getHealth() < 20.0F
-                    ? this.getSoundVariant().value().whineSound().value()
-                    : this.getSoundVariant().value().pantSound().value();
+                    ? this.getSoundVariant().value().adultSounds().whineSound().value()
+                    : this.getSoundVariant().value().adultSounds().pantSound().value();
         } else {
-            return this.getSoundVariant().value().ambientSound().value();
+            return this.getSoundVariant().value().adultSounds().ambientSound().value();
         }
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_406243_) {
-        return this.canArmorAbsorb(p_406243_) ? SoundEvents.WOLF_ARMOR_DAMAGE : this.getSoundVariant().value().hurtSound().value();
+        return this.canArmorAbsorb(p_406243_) ? SoundEvents.WOLF_ARMOR_DAMAGE : this.getSoundSet().hurtSound().value();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return this.getSoundVariant().value().deathSound().value();
+        return this.getSoundSet().deathSound().value();
     }
 
 
@@ -414,7 +411,7 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
                 this.playSound(SoundEvents.WOLF_ARMOR_CRACK);
                 if (this.level() instanceof ServerLevel serverlevel) {
                     serverlevel.sendParticles(
-                            new ItemParticleOption(ParticleTypes.ITEM, Items.ARMADILLO_SCUTE.getDefaultInstance()),
+                            new ItemParticleOption(ParticleTypes.ITEM, Items.ARMADILLO_SCUTE),
                             this.getX(),
                             this.getY() + 1.0,
                             this.getZ(),

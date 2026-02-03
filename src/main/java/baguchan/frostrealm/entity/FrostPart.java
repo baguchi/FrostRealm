@@ -139,8 +139,8 @@ public class FrostPart<T extends Entity> extends net.neoforged.neoforge.entity.P
     }
 
     @Override
-    public InteractionResult interact(Player player, InteractionHand hand) {
-        return this.getParent().interact(player, hand);
+    public InteractionResult interact(Player player, InteractionHand hand, Vec3 vec3) {
+        return this.getParent().interact(player, hand, vec3);
     }
 
     @Override

@@ -14,13 +14,18 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TimelineTags;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.attribute.*;
+import net.minecraft.world.attribute.BackgroundMusic;
+import net.minecraft.world.attribute.BedRule;
+import net.minecraft.world.attribute.EnvironmentAttributeMap;
+import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.clock.WorldClock;
+import net.minecraft.world.clock.WorldClocks;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
 import net.minecraft.world.level.block.Blocks;
@@ -32,7 +37,6 @@ import net.minecraft.world.level.levelgen.NoiseSettings;
 import net.minecraft.world.timeline.Timeline;
 
 import java.util.Optional;
-import java.util.OptionalLong;
 
 public class FrostDimensionSettings {
 	public static final Identifier EFFECTS = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "renderer");
@@ -75,9 +79,10 @@ public class FrostDimensionSettings {
 		context.register(FROSTREALM_LEVEL_STEM, stem);
 	}
 
-	private static DimensionType frostDimType(BootstrapContext<DimensionType> p_321848_) {
-        HolderGetter<Timeline> holdergetter = p_321848_.lookup(Registries.TIMELINE);
-        EnvironmentAttributeMap environmentattributemap = EnvironmentAttributeMap.builder()
+	private static DimensionType frostDimType(BootstrapContext<DimensionType> context) {
+		HolderGetter<Timeline> timelines = context.lookup(Registries.TIMELINE);
+		HolderGetter<WorldClock> clocks = context.lookup(Registries.WORLD_CLOCK);
+		EnvironmentAttributeMap environmentattributemap = EnvironmentAttributeMap.builder()
                 .set(EnvironmentAttributes.FOG_COLOR, -4138753)
                 .set(EnvironmentAttributes.SKY_COLOR, OverworldBiomes.calculateSkyColor(0.8F))
                 .set(EnvironmentAttributes.CLOUD_COLOR, ARGB.white(0.8F))
@@ -101,7 +106,8 @@ public class FrostDimensionSettings {
                 DimensionType.Skybox.OVERWORLD,
                 DimensionType.CardinalLightType.DEFAULT,
                 environmentattributemap,
-                holdergetter.getOrThrow(TimelineTags.IN_OVERWORLD)
+				timelines.getOrThrow(TimelineTags.IN_OVERWORLD),
+				Optional.of(clocks.getOrThrow(WorldClocks.OVERWORLD))
         );
 	}
 
