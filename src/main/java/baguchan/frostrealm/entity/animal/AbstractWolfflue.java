@@ -223,7 +223,7 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
     }
 
     private WolfSoundVariant.WolfSoundSet getSoundSet() {
-        return this.isBaby() ? ((WolfSoundVariant) this.getSoundVariant().value()).babySounds() : ((WolfSoundVariant) this.getSoundVariant().value()).adultSounds();
+        return this.isBaby() ? this.getSoundVariant().value().babySounds() : this.getSoundVariant().value().adultSounds();
     }
 
     @Override
@@ -234,7 +234,7 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
         this.getSoundVariant()
                 .unwrapKey()
                 .ifPresent(
-                        p_409350_ -> p_30418_.store("sound_variant", ResourceKey.codec(Registries.WOLF_SOUND_VARIANT), (ResourceKey<WolfSoundVariant>) p_409350_)
+                        p_409350_ -> p_30418_.store("sound_variant", ResourceKey.codec(Registries.WOLF_SOUND_VARIANT), p_409350_)
                 );
         this.addPersistentAngerSaveData(p_30418_);
     }
@@ -245,7 +245,7 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
         this.setCollarColor(DyeColor.byId(p_30402_.getIntOr("CollarColor", -1)));
 
         p_30402_.read("sound_variant", ResourceKey.codec(Registries.WOLF_SOUND_VARIANT))
-                .flatMap(p_409348_ -> this.registryAccess().lookupOrThrow(Registries.WOLF_SOUND_VARIANT).get((ResourceKey<WolfSoundVariant>) p_409348_))
+                .flatMap(p_409348_ -> this.registryAccess().lookupOrThrow(Registries.WOLF_SOUND_VARIANT).get(p_409348_))
                 .ifPresent(this::setSoundVariant);
         this.readPersistentAngerSaveData(this.level(), p_30402_);
     }
@@ -256,25 +256,14 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
 
     @Override
     protected SoundEvent getAmbientSound() {
-        if (this.isBaby()) {
-            if (this.isAngry()) {
-                return this.getSoundVariant().value().babySounds().growlSound().value();
-            } else if (this.random.nextInt(3) == 0) {
-                return this.isTame() && this.getHealth() < 20.0F
-                        ? this.getSoundVariant().value().babySounds().whineSound().value()
-                        : this.getSoundVariant().value().babySounds().pantSound().value();
-            } else {
-                return this.getSoundVariant().value().babySounds().ambientSound().value();
-            }
-        }
         if (this.isAngry()) {
-            return this.getSoundVariant().value().adultSounds().growlSound().value();
+            return this.getSoundSet().growlSound().value();
         } else if (this.random.nextInt(3) == 0) {
             return this.isTame() && this.getHealth() < 20.0F
-                    ? this.getSoundVariant().value().adultSounds().whineSound().value()
-                    : this.getSoundVariant().value().adultSounds().pantSound().value();
+                    ? this.getSoundSet().whineSound().value()
+                    : this.getSoundSet().pantSound().value();
         } else {
-            return this.getSoundVariant().value().adultSounds().ambientSound().value();
+            return this.getSoundSet().ambientSound().value();
         }
     }
 
@@ -380,9 +369,9 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
             float f1 = this.getKnockback(p_21372_, damagesource);
             if (f1 > 0.0F && p_21372_ instanceof LivingEntity livingentity) {
                 livingentity.knockback(
-                        (double) (f1 * 0.5F),
-                        (double) Mth.sin(this.getYRot() * (float) (Math.PI / 180.0)),
-                        (double) (-Mth.cos(this.getYRot() * (float) (Math.PI / 180.0)))
+                        f1 * 0.5F,
+                        Mth.sin(this.getYRot() * (float) (Math.PI / 180.0)),
+                        -Mth.cos(this.getYRot() * (float) (Math.PI / 180.0))
                 );
                 this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
             }
@@ -505,7 +494,7 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
             float f1 = (f - this.getHealth()) / f;
             return 0.2F - (f1 * 0.4F) * (float) Math.PI;
         } else {
-            return (float) (0.0F);
+            return 0.0F;
         }
     }
 
@@ -525,7 +514,7 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
 
     @Override
     public long getPersistentAngerEndTime() {
-        return (Long)this.entityData.get(DATA_ANGER_END_TIME);
+        return this.entityData.get(DATA_ANGER_END_TIME);
     }
 
     public void setPersistentAngerEndTime(long p_455794_) {
@@ -533,7 +522,7 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
     }
 
     public void startPersistentAngerTimer() {
-        this.setTimeToRemainAngry((long)PERSISTENT_ANGER_TIME.sample(this.random));
+        this.setTimeToRemainAngry(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
     public @org.jspecify.annotations.Nullable EntityReference<LivingEntity> getPersistentAngerTarget() {
@@ -673,7 +662,7 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
             f1 *= 0.25F;
         }
 
-        return new Vec3((double) f, 0.0, (double) f1);
+        return new Vec3(f, 0.0, f1);
     }
 
     @Override
@@ -757,7 +746,7 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
     }
 
     protected void executeRidersJump(float p_248808_, Vec3 p_275435_) {
-        double d0 = (double) this.getJumpPower(p_248808_ * 1.75F);
+        double d0 = this.getJumpPower(p_248808_ * 1.75F);
         Vec3 vec3 = this.getDeltaMovement();
         this.setDeltaMovement(vec3.x, d0, vec3.z);
         this.setIsJumping(true);
@@ -767,7 +756,7 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
         if (p_275435_.z > 0.0) {
             float f = Mth.sin(this.getYRot() * (float) (Math.PI / 180.0));
             float f1 = Mth.cos(this.getYRot() * (float) (Math.PI / 180.0));
-            this.setDeltaMovement(this.getDeltaMovement().add((double) (-0.4F * f * p_248808_), 0.0, (double) (0.4F * f1 * p_248808_)));
+            this.setDeltaMovement(this.getDeltaMovement().add(-0.4F * f * p_248808_, 0.0, 0.4F * f1 * p_248808_));
         }
     }
 

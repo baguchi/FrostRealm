@@ -23,9 +23,7 @@ public class FrostModelLayers {
     public static final ModelLayerLocation WOLFFLUE = new ModelLayerLocation(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue"), "main");
     public static final ModelLayerLocation WOLFFLUE_BABY = new ModelLayerLocation(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_baby"), "main");
     public static final ModelLayerLocation WOLFFLUE_ARMOR = new ModelLayerLocation(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_armor"), "main");
-    public static final ModelLayerLocation WOLFFLUE_BABY_ARMOR = new ModelLayerLocation(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_baby_armor"), "main");
     public static final ModelLayerLocation WOLFFLUE_SADDLE = new ModelLayerLocation(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_saddle"), "main");
-    public static final ModelLayerLocation WOLFFLUE_BABY_SADDLE = new ModelLayerLocation(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "wolfflue_baby_saddle"), "main");
 
     public static final ModelLayerLocation VENOCHEM = new ModelLayerLocation(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "venchem"), "main");
     public static final ModelLayerLocation GOKKUR = new ModelLayerLocation(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "gokkur"), "main");

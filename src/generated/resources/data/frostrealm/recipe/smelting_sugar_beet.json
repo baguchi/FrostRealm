@@ -1,11 +1,10 @@
 {
   "type": "minecraft:smelting",
-  "category": "misc",
+  "category": "food",
   "cookingtime": 200,
   "experience": 0.05,
   "ingredient": "frostrealm:sugarbeet",
   "result": {
-    "count": 1,
     "id": "minecraft:sugar"
   }
 }

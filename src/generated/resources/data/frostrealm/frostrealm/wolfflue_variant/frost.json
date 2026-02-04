@@ -1,5 +1,7 @@
 {
+  "angry_baby_texture": "frostrealm:entity/wolfflue/wolfflue_baby_angry",
   "angry_texture": "frostrealm:entity/wolfflue/wolfflue_angry",
   "biomes": "frostrealm:frigid_forest",
+  "wild_baby_texture": "frostrealm:entity/wolfflue/wolfflue_baby",
   "wild_texture": "frostrealm:entity/wolfflue/wolfflue"
 }

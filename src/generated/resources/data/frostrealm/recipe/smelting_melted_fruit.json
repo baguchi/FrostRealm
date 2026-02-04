@@ -5,7 +5,6 @@
   "experience": 0.1,
   "ingredient": "frostrealm:frozen_fruit",
   "result": {
-    "count": 1,
     "id": "frostrealm:melted_fruit"
   }
 }

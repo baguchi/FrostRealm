@@ -5,7 +5,6 @@
   "experience": 0.1,
   "ingredient": "frostrealm:cryonite",
   "result": {
-    "count": 1,
     "id": "frostrealm:cryonite_cream"
   }
 }

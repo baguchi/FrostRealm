@@ -2,21 +2,15 @@ package baguchan.frostrealm.client.render.layer;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
-import baguchan.frostrealm.client.FrostRenderType;
 import baguchan.frostrealm.client.model.WolfflueModel;
 import baguchan.frostrealm.client.render.state.WolfflueRenderState;
-import baguchan.frostrealm.item.WolfflueArmorItem;
-import baguchan.frostrealm.utils.aurorapower.AuroraPowerUtils;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.state.WolfRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
@@ -30,7 +24,6 @@ import java.util.Map;
 
 public class WolfflueArmorLayer<T extends WolfflueRenderState> extends RenderLayer<T, WolfflueModel<T>> {
     private final WolfflueModel<T> model;
-    private final WolfflueModel<T> babyModel;
     private static final Map<Crackiness.Level, Identifier> ARMOR_CRACK_LOCATIONS = Map.of(
             Crackiness.Level.LOW,
             Identifier.withDefaultNamespace("textures/entity/wolf/wolf_armor_crackiness_low.png"),
@@ -47,28 +40,27 @@ public class WolfflueArmorLayer<T extends WolfflueRenderState> extends RenderLay
     public WolfflueArmorLayer(RenderLayerParent<T, WolfflueModel<T>> p_316639_, EntityModelSet p_316756_, EquipmentLayerRenderer p_371602_) {
         super(p_316639_);
         this.model = new WolfflueModel<>(p_316756_.bakeLayer(FrostModelLayers.WOLFFLUE_ARMOR));
-        this.babyModel = new WolfflueModel<>(p_316756_.bakeLayer(FrostModelLayers.WOLFFLUE_BABY_ARMOR));
         this.equipmentRenderer = p_371602_;
     }
 
-    public void submit(PoseStack p_436050_, SubmitNodeCollector p_434212_, int p_433618_, T p_435660_, float p_435015_, float p_434923_) {
-        ItemStack itemstack = p_435660_.bodyArmorItem;
+    public void submit(PoseStack p_436050_, SubmitNodeCollector p_434212_, int p_433618_, T entity, float p_435015_, float p_434923_) {
+        ItemStack itemstack = entity.bodyArmorItem;
         Equippable equippable = itemstack.get(DataComponents.EQUIPPABLE);
-        if (equippable != null && !equippable.assetId().isEmpty()) {
-            WolfflueModel<T> wolfmodel = p_435660_.isBaby ? this.babyModel : this.model;
+        if (!entity.isBaby && equippable != null && !equippable.assetId().isEmpty()) {
+            WolfflueModel<T> wolfmodel = this.model;
             this.equipmentRenderer
                     .renderLayers(
                             EquipmentClientInfo.LayerType.valueOf("FROSTREALM_WOLFFLUE"),
                             equippable.assetId().get(),
                             wolfmodel,
-                            p_435660_,
+                            entity,
                             itemstack,
                             p_436050_,
                             p_434212_,
                             p_433618_,
-                            p_435660_.outlineColor
+                            entity.outlineColor
                     );
-            this.maybeRenderCracks(p_436050_, p_434212_, p_433618_, itemstack, wolfmodel, p_435660_);
+            this.maybeRenderCracks(p_436050_, p_434212_, p_433618_, itemstack, wolfmodel, entity);
         }
     }
 

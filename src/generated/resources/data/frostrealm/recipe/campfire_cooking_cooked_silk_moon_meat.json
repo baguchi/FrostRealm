@@ -5,7 +5,6 @@
   "experience": 0.05,
   "ingredient": "frostrealm:silk_moon_meat",
   "result": {
-    "count": 1,
     "id": "frostrealm:cooked_silk_moon_meat"
   }
 }

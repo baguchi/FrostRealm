@@ -5,7 +5,6 @@
   "experience": 0.1,
   "ingredient": "frostrealm:bearberry",
   "result": {
-    "count": 1,
     "id": "frostrealm:bearberry_cooked"
   }
 }

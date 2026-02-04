@@ -6,8 +6,8 @@ import baguchan.frostrealm.client.render.layer.WolfflueArmorLayer;
 import baguchan.frostrealm.client.render.layer.WolfflueCollarLayer;
 import baguchan.frostrealm.client.render.layer.WolfflueHeldItemLayer;
 import baguchan.frostrealm.client.render.state.WolfflueRenderState;
-import baguchan.frostrealm.entity.animal.AbstractWolfflue;
 import baguchan.frostrealm.entity.animal.Wolfflue;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.AgeableMobRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.SimpleEquipmentLayer;
@@ -21,7 +21,7 @@ public class WolfflueRenderer<T extends Wolfflue> extends AgeableMobRenderer<T, 
         super(p_173952_, new WolfflueModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFFLUE)), new WolfflueModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFFLUE_BABY)), 0.5F);
         this.addLayer(new WolfflueCollarLayer<>(this));
         this.addLayer(new WolfflueArmorLayer<>(this, p_173952_.getModelSet(), p_173952_.getEquipmentRenderer()));
-        this.addLayer(new SimpleEquipmentLayer<>(this, p_173952_.getEquipmentRenderer(), EquipmentClientInfo.LayerType.valueOf("FROSTREALM_WOLFFLUE_SADDLE"), (p_397421_) -> p_397421_.saddle, new WolfflueModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFFLUE_SADDLE)), new WolfflueModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFFLUE_BABY_SADDLE))));
+        this.addLayer(new SimpleEquipmentLayer<>(this, p_173952_.getEquipmentRenderer(), EquipmentClientInfo.LayerType.valueOf("FROSTREALM_WOLFFLUE_SADDLE"), (p_397421_) -> p_397421_.saddle, new WolfflueModel<>(p_173952_.bakeLayer(FrostModelLayers.WOLFFLUE_SADDLE)), (EntityModel) null));
 
         this.addLayer(new WolfflueHeldItemLayer<>(this));
     }

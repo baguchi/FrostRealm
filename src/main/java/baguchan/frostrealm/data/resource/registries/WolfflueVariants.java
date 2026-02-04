@@ -9,8 +9,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
@@ -37,7 +37,10 @@ public class WolfflueVariants {
     static void register(BootstrapContext<WolfflueVariant> context, ResourceKey<WolfflueVariant> key, String name, HolderSet<Biome> biomeHolderSet) {
         Identifier resourcelocation = FrostRealm.prefix("entity/wolfflue/" + name);
         Identifier resourcelocation2 = FrostRealm.prefix("entity/wolfflue/" + name + "_angry");
-        context.register(key, new WolfflueVariant(resourcelocation, resourcelocation2, biomeHolderSet));
+        Identifier resourcelocation3 = FrostRealm.prefix("entity/wolfflue/" + name + "_baby");
+        Identifier resourcelocation4 = FrostRealm.prefix("entity/wolfflue/" + name + "_baby_angry");
+
+        context.register(key, new WolfflueVariant(resourcelocation, resourcelocation2, resourcelocation3, resourcelocation4, biomeHolderSet));
     }
 
     public static Holder<WolfflueVariant> getSpawnVariant(RegistryAccess p_332694_, Holder<Biome> p_332773_) {

@@ -126,12 +126,10 @@ public class ClientRegistrar {
 		event.registerLayerDefinition(FrostModelLayers.MARMOT, MarmotModel::createBodyLayer);
         event.registerLayerDefinition(FrostModelLayers.SNOWPILE_QUAIL, SnowPileQuailModel::createBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.0F)));
-		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.0F)).apply(WolfflueModel.BABY_TRANSFORMER));
+		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY, WolfflueModel::createBabyBodyLayer);
 		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_ARMOR, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.2F)));
-		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY_ARMOR, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.2F)).apply(WolfflueModel.BABY_TRANSFORMER));
-        event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_SADDLE, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.21F)));
-		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_BABY_SADDLE, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.21F)).apply(WolfflueModel.BABY_TRANSFORMER));
-        event.registerLayerDefinition(FrostModelLayers.FERRET, FerretModel::createBodyLayer);
+		event.registerLayerDefinition(FrostModelLayers.WOLFFLUE_SADDLE, () -> WolfflueModel.createBodyLayer(new CubeDeformation(0.21F)));
+		event.registerLayerDefinition(FrostModelLayers.FERRET, FerretModel::createBodyLayer);
 
 
 		event.registerLayerDefinition(FrostModelLayers.CRYSTAL_FOX, CrystalFoxModel::createBodyLayer);
