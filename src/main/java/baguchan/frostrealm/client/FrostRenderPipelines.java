@@ -2,8 +2,10 @@ package baguchan.frostrealm.client;
 
 import baguchan.frostrealm.FrostRealm;
 import com.mojang.blaze3d.pipeline.BlendFunction;
+import com.mojang.blaze3d.pipeline.ColorTargetState;
+import com.mojang.blaze3d.pipeline.DepthStencilState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
-import com.mojang.blaze3d.platform.DepthTestFunction;
+import com.mojang.blaze3d.platform.CompareOp;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 
@@ -14,8 +16,7 @@ public class FrostRenderPipelines {
             .withVertexShader(FrostRealm.prefix("core/dark_outline"))
             .withFragmentShader(FrostRealm.prefix("core/dark_outline"))
             .withSampler("Sampler0")
-            .withDepthTestFunction(DepthTestFunction.LEQUAL_DEPTH_TEST)
-            .withDepthWrite(false)
+            .withDepthStencilState(new DepthStencilState(CompareOp.LESS_THAN_OR_EQUAL, false))
             .withVertexFormat(DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS)
             .buildSnippet();
     public static final RenderPipeline DARK_OUTLINE_CULL = RenderPipeline.builder(new RenderPipeline.Snippet[]{DARK_OUTLINE_SNIPPET}).withLocation(FrostRealm.prefix("pipeline/dark_outline_cull")).build();
@@ -28,9 +29,10 @@ public class FrostRenderPipelines {
                     .withFragmentShader("core/rendertype_entity_shadow")
                     .withShaderDefine("EMISSIVE")
                     .withSampler("Sampler0")
-                    .withBlend(BlendFunction.TRANSLUCENT)
-                    .withDepthWrite(false)
-                    .withVertexFormat(DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS)
+                    .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
+                    .withVertexFormat(DefaultVertexFormat.ENTITY, VertexFormat.Mode.QUADS)
+                    .withDepthStencilState(DepthStencilState.DEFAULT)
+                    .withDepthStencilState(new DepthStencilState(CompareOp.LESS_THAN_OR_EQUAL, false))
                     .build();
 
     public static final RenderPipeline AURORA_GLINT =
@@ -38,12 +40,11 @@ public class FrostRenderPipelines {
                     .withLocation(FrostRealm.prefix("pipeline/aurora_glint"))
                     .withVertexShader("core/glint")
                     .withFragmentShader("core/glint")
-            .withSampler("Sampler0")
-            .withDepthWrite(false)
+                    .withSampler("Sampler0")
                     .withCull(false)
-                    .withDepthTestFunction(DepthTestFunction.EQUAL_DEPTH_TEST)
-                    .withBlend(BlendFunction.GLINT)
+                    .withColorTargetState(new ColorTargetState(BlendFunction.GLINT))
                     .withVertexFormat(DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS)
+                    .withDepthStencilState(new DepthStencilState(CompareOp.EQUAL, false))
                     .build();
 
 }

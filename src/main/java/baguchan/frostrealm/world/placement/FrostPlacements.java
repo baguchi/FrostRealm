@@ -98,19 +98,25 @@ public class FrostPlacements {
         PlacementUtils.register(context, DRIP_TREES, configuredFeature.getOrThrow(FrostTreeFeatures.DRIP_WOOD_TREE), treePlacement(PlacementUtils.countExtra(4, 0.1F, 1), FrostBlocks.DRIP_SAPLING.get()));
         PlacementUtils.register(context, DRIP_TREES_BIG, configuredFeature.getOrThrow(FrostTreeFeatures.DRIP_WOOD_TREE_BIG), treePlacement(PlacementUtils.countExtra(7, 0.1F, 1), FrostBlocks.DRIP_SAPLING.get()));
 
-		PlacementUtils.register(context, PATCH_TUNDRA_GRASS, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_TUNDRA_GRASS), NoiseThresholdCountPlacement.of(-0.8D, 5, 10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-		PlacementUtils.register(context, PATCH_DRIP_GRASS, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_TUNDRA_GRASS), NoiseThresholdCountPlacement.of(-0.8D, 3, 5), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-		PlacementUtils.register(context, PATCH_TUNDRA_GRASS_SKY, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_TUNDRA_GRASS), NoiseThresholdCountPlacement.of(-0.8D, 5, 10), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+		PlacementUtils.register(context, PATCH_TUNDRA_GRASS, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_TUNDRA_GRASS), NoiseThresholdCountPlacement.of(-0.8D, 5, 10),
+				CountPlacement.of(32),
+				RandomOffsetPlacement.ofTriangle(7, 3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+		PlacementUtils.register(context, PATCH_DRIP_GRASS, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_TUNDRA_GRASS), NoiseThresholdCountPlacement.of(-0.8D, 3, 5),
+				CountPlacement.of(32),
+				RandomOffsetPlacement.ofTriangle(7, 3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+		PlacementUtils.register(context, PATCH_TUNDRA_GRASS_SKY, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_TUNDRA_GRASS), NoiseThresholdCountPlacement.of(-0.8D, 5, 10),
+				CountPlacement.of(32),
+				RandomOffsetPlacement.ofTriangle(7, 3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
 		PlacementUtils.register(context, PATCH_TUNDRA_GRASS_BONEMEAL, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_TUNDRA_GRASS), PlacementUtils.isEmpty());
 
-		PlacementUtils.register(context, PATCH_BEAR_BERRY, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_BEARBERRY), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+		PlacementUtils.register(context, PATCH_BEAR_BERRY, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_BEARBERRY), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, CountPlacement.of(96), RandomOffsetPlacement.ofTriangle(7, 3), BiomeFilter.biome());
 
 
-		PlacementUtils.register(context, PATCH_ARTIC_POPPY, configuredFeature.getOrThrow(FrostConfiguredFeatures.ARCTIC_POPPY), CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-		PlacementUtils.register(context, PATCH_ARTIC_WILLOW, configuredFeature.getOrThrow(FrostConfiguredFeatures.ARCTIC_WILLOW), CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
-		PlacementUtils.register(context, PATCH_ARTIC_POPPY_SKY, configuredFeature.getOrThrow(FrostConfiguredFeatures.ARCTIC_POPPY), CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
-		PlacementUtils.register(context, PATCH_VIGOROSHROOM, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_VIGOROSHROOM), CountPlacement.of(3), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+		PlacementUtils.register(context, PATCH_ARTIC_POPPY, configuredFeature.getOrThrow(FrostConfiguredFeatures.ARCTIC_POPPY), CountPlacement.of(96), RandomOffsetPlacement.ofTriangle(7, 3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+		PlacementUtils.register(context, PATCH_ARTIC_WILLOW, configuredFeature.getOrThrow(FrostConfiguredFeatures.ARCTIC_WILLOW), CountPlacement.of(96), RandomOffsetPlacement.ofTriangle(7, 3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
+		PlacementUtils.register(context, PATCH_ARTIC_POPPY_SKY, configuredFeature.getOrThrow(FrostConfiguredFeatures.ARCTIC_POPPY), CountPlacement.of(96), RandomOffsetPlacement.ofTriangle(7, 3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
+		PlacementUtils.register(context, PATCH_VIGOROSHROOM, configuredFeature.getOrThrow(FrostConfiguredFeatures.PATCH_VIGOROSHROOM), CountPlacement.of(98), RandomOffsetPlacement.ofTriangle(7, 3), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
 
 		PlacementUtils.register(context, PATCH_TUNDRA_ROCK, configuredFeature.getOrThrow(FrostConfiguredFeatures.TUNDRA_ROCK), RarityFilter.onAverageOnceEvery(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
@@ -137,12 +143,12 @@ public class FrostPlacements {
 		PlacementUtils.register(context, LOG_PLACE, configuredFeature.getOrThrow(FrostConfiguredFeatures.LOG), EnvironmentScanPlacement.scanningFor(Direction.UP, BlockPredicate.anyOf(BlockPredicate.hasSturdyFace(new Vec3i(0, 1, 0), Direction.UP), BlockPredicate.hasSturdyFace(Direction.UP)), 32));
 		PlacementUtils.register(context, CHAIN_PLACE, configuredFeature.getOrThrow(FrostConfiguredFeatures.CHAIN), EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.anyOf(BlockPredicate.hasSturdyFace(new Vec3i(0, -1, 0), Direction.DOWN), BlockPredicate.hasSturdyFace(Direction.DOWN)), 32));
 
-		List<PlacementModifier> list = List.of(
-				CountPlacement.of(UniformInt.of(0, 5)), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
-		);
-
 		List<PlacementModifier> list2 = List.of(
-				RarityFilter.onAverageOnceEvery(4), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome()
+				RarityFilter.onAverageOnceEvery(4), CountPlacement.of(96), InSquarePlacement.spread(),
+				RandomOffsetPlacement.ofTriangle(7, 3), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome(),
+				BlockPredicateFilter.forPredicate(
+						BlockPredicate.allOf(BlockPredicate.ONLY_IN_AIR_PREDICATE, BlockPredicate.matchesBlocks(Direction.DOWN.getUnitVec3i(), FrostBlocks.SHERBET_SAND.get()))
+				)
 		);
 		PlacementUtils.register(context, FROST_FIRE_DESERT, configuredFeature.getOrThrow(FrostConfiguredFeatures.FROST_FIRE_DESERT), list2);
 	}

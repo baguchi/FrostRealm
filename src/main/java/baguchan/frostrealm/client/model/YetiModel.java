@@ -6,7 +6,7 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.0.3
 import baguchan.frostrealm.client.animation.YetiAnimations;
 import baguchan.frostrealm.client.render.state.YetiRenderState;
 import baguchan.frostrealm.entity.npc.Yeti;
-import baguchi.bagus_lib.client.layer.IArmor;
+import baguchi.bagus_lib.client.layer.CustomArmorRender;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.animation.KeyframeAnimation;
@@ -20,7 +20,7 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class YetiModel<T extends YetiRenderState> extends EntityModel<T> implements HeadedModel, ArmedModel, IArmor {
+public class YetiModel<T extends YetiRenderState> extends EntityModel<T> implements HeadedModel, ArmedModel, CustomArmorRender<T> {
     private final ModelPart realRoot;
     private final ModelPart root;
 
@@ -180,7 +180,7 @@ public class YetiModel<T extends YetiRenderState> extends EntityModel<T> impleme
 	}
 
 	@Override
-	public void translateToHead(ModelPart modelPart, PoseStack poseStack) {
+	public void translateToHead(T entity, ModelPart modelPart, PoseStack poseStack) {
 		this.root.translateAndRotate(poseStack);
 		modelPart.translateAndRotate(poseStack);
 		poseStack.translate(0, 0.25F, -0.325F);
@@ -188,7 +188,7 @@ public class YetiModel<T extends YetiRenderState> extends EntityModel<T> impleme
 	}
 
 	@Override
-	public void translateToChest(ModelPart modelPart, PoseStack poseStack) {
+	public void translateToChest(T entity, ModelPart modelPart, PoseStack poseStack) {
 		this.root.translateAndRotate(poseStack);
 		modelPart.translateAndRotate(poseStack);
 		poseStack.translate(0, -0.1F, -0.1F);
@@ -196,14 +196,14 @@ public class YetiModel<T extends YetiRenderState> extends EntityModel<T> impleme
 	}
 
 	@Override
-	public void translateToLeg(ModelPart modelPart, PoseStack poseStack) {
+	public void translateToLeg(T entity, ModelPart modelPart, PoseStack poseStack) {
 		this.root.translateAndRotate(poseStack);
 		modelPart.translateAndRotate(poseStack);
 		poseStack.scale(2F, 1.01F, 2F);
 	}
 
 	@Override
-	public void translateToChestPat(ModelPart modelPart, PoseStack poseStack) {
+	public void translateToChestPat(T entity, ModelPart modelPart, PoseStack poseStack) {
 		this.root.translateAndRotate(poseStack);
 		modelPart.translateAndRotate(poseStack);
 		if (modelPart == rightArm) {

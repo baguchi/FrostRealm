@@ -90,7 +90,7 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
         super(p_30369_, p_30370_);
         this.setTame(false, false);
         this.setPathfindingMalus(PathType.POWDER_SNOW, -1.0F);
-        this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
+        this.setPathfindingMalus(PathType.ON_TOP_OF_POWDER_SNOW, -1.0F);
     }
 
     public static boolean checkWolfSpawnRules(
@@ -219,7 +219,7 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
 
     @Override
     protected void playStepSound(BlockPos p_30415_, BlockState p_30416_) {
-        this.playSound(this.getSoundSet().deathSound().value(), 0.5F, 1.0F);
+        this.playSound(this.getSoundSet().stepSound().value(), 0.5F, 1.0F);
     }
 
     private WolfSoundVariant.WolfSoundSet getSoundSet() {

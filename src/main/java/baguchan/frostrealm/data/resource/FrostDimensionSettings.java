@@ -26,6 +26,7 @@ import net.minecraft.world.attribute.EnvironmentAttributeMap;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.clock.WorldClock;
 import net.minecraft.world.clock.WorldClocks;
+import net.minecraft.world.level.CardinalLighting;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
 import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
 import net.minecraft.world.level.block.Blocks;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseSettings;
 import net.minecraft.world.timeline.Timeline;
+import net.neoforged.neoforge.common.world.NeoForgeEnvironmentAttributes;
 
 import java.util.Optional;
 
@@ -91,11 +93,13 @@ public class FrostDimensionSettings {
                 .set(EnvironmentAttributes.BED_RULE, BedRule.CAN_SLEEP_WHEN_DARK)
                 .set(EnvironmentAttributes.RESPAWN_ANCHOR_WORKS, false)
                 .set(EnvironmentAttributes.NETHER_PORTAL_SPAWNS_PIGLINS, true)
+				.set(NeoForgeEnvironmentAttributes.CUSTOM_SKYBOX, FrostRealm.prefix("frostrealm"))
                 .build();
 		return new DimensionType(
                 false,
                 true,
                 false,
+				false,
                 1.0,
                 -64,
                 384,
@@ -104,7 +108,7 @@ public class FrostDimensionSettings {
                 0.0F,
                 new DimensionType.MonsterSettings(UniformInt.of(0, 7), 0),
                 DimensionType.Skybox.OVERWORLD,
-                DimensionType.CardinalLightType.DEFAULT,
+				CardinalLighting.Type.DEFAULT,
                 environmentattributemap,
 				timelines.getOrThrow(TimelineTags.IN_OVERWORLD),
 				Optional.of(clocks.getOrThrow(WorldClocks.OVERWORLD))

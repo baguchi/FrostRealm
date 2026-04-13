@@ -43,8 +43,8 @@ public class LargeIceFeature extends Feature<LargeDripstoneConfiguration> {
 					return false;
 				} else {
 					int i = (int) ((float) column$range.height() * largedripstoneconfiguration.maxColumnRadiusToCaveHeightRatio);
-					int j = Mth.clamp(i, largedripstoneconfiguration.columnRadius.getMinValue(), largedripstoneconfiguration.columnRadius.getMaxValue());
-					int k = Mth.randomBetweenInclusive(random, largedripstoneconfiguration.columnRadius.getMinValue(), j);
+					int j = Mth.clamp(i, largedripstoneconfiguration.columnRadius.minInclusive(), largedripstoneconfiguration.columnRadius.maxInclusive());
+					int k = Mth.randomBetweenInclusive(random, largedripstoneconfiguration.columnRadius.minInclusive(), j);
 					LargeIceFeature.LargeDripstone LargeIceFeature$largedripstone = makeDripstone(blockpos.atY(column$range.ceiling() - 1), false, random, k, largedripstoneconfiguration.stalactiteBluntness, largedripstoneconfiguration.heightScale);
 					LargeIceFeature.LargeDripstone LargeIceFeature$largedripstone1 = makeDripstone(blockpos.atY(column$range.floor() + 1), true, random, k, largedripstoneconfiguration.stalagmiteBluntness, largedripstoneconfiguration.heightScale);
 					LargeIceFeature.WindOffsetter LargeIceFeature$windoffsetter;

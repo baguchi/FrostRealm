@@ -36,7 +36,7 @@ public class SmallVolcanoFeature extends Feature<HeightBlockStateConfiguration> 
                     if (blockpos.distSqr(blockpos1) < (width * width + height)) {
                         if (!worldgenlevel.getBlockState(blockpos1).is(BlockTags.FEATURES_CANNOT_REPLACE)) {
                             if (blockpos.above(y).distSqr(blockpos1) >= (width)) {
-                                worldgenlevel.setBlock(blockpos1, blockstateconfiguration.config().block().getState(random, blockpos1), 2);
+                                worldgenlevel.setBlock(blockpos1, blockstateconfiguration.config().block().getState(worldgenlevel, random, blockpos1), 2);
                             } else if (y >= 1) {
                                 worldgenlevel.setBlock(blockpos1, Blocks.LAVA.defaultBlockState(), 2);
                             }

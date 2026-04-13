@@ -18,9 +18,9 @@ import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.neoforge.common.ItemAbility;
 
 import java.util.List;
+
 public class SickleItem extends Item {
     public static final Identifier BASE_ENTITY_RANGE = Identifier.withDefaultNamespace("base_entity_range");
     public static final Identifier BASE_BLOCK_RANGE = Identifier.withDefaultNamespace("base_block_range");
@@ -49,11 +49,6 @@ public class SickleItem extends Item {
                 )
                 .add(Attributes.ENTITY_INTERACTION_RANGE, new AttributeModifier(BASE_ENTITY_RANGE, 0.5F, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                 .build();
-    }
-
-    @Override
-    public boolean canPerformAction(ItemStack stack, ItemAbility itemAbility) {
-        return super.canPerformAction(stack, itemAbility);
     }
 
     @Override

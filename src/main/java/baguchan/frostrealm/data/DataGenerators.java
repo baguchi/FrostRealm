@@ -38,6 +38,7 @@ public class DataGenerators {
         event.getGenerator().addProvider(true, new FrItemTagGenerator(packOutput, lookupProvider));
         event.getGenerator().addProvider(true, new FrEntityTagGenerator(packOutput, lookupProvider));
         event.getGenerator().addProvider(true, new FrFluidTagGenerator(packOutput, lookupProvider));
+		event.getGenerator().addProvider(true, new CustomTagGenerator.ConfiguredFeatureTagGenerator(packOutput, lookupProvider));
 		event.getGenerator().addProvider(true, new FrostPaintingTagsProvider(packOutput, lookupProvider));
 		event.getGenerator().addProvider(true, new BiomeTagGenerator(packOutput, lookupProvider));
         event.getGenerator().addProvider(true, new FrDamageTypeTagGenerator(packOutput, lookupProvider));

@@ -10,6 +10,7 @@ import baguchan.frostrealm.registry.FrostTags;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -24,7 +25,6 @@ import net.minecraft.world.entity.animal.wolf.WolfSoundVariants;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -41,7 +41,7 @@ public class StrayWolfflue extends AbstractWolfflue {
         super(p_30369_, p_30370_);
         this.setTame(false, false);
         this.setPathfindingMalus(PathType.POWDER_SNOW, -1.0F);
-        this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
+        this.setPathfindingMalus(PathType.ON_TOP_OF_POWDER_SNOW, -1.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -114,8 +114,8 @@ public class StrayWolfflue extends AbstractWolfflue {
     }
 
     @Override
-    public InteractionResult mobInteract(Player p_30412_, InteractionHand p_30413_) {
-        ItemStack itemstack = p_30412_.getItemInHand(p_30413_);
+    public InteractionResult mobInteract(Player player, InteractionHand p_30413_) {
+        ItemStack itemstack = player.getItemInHand(p_30413_);
         Item item = itemstack.getItem();
         this.setPersistenceRequired();
         if (this.isTame()) {
@@ -123,30 +123,30 @@ public class StrayWolfflue extends AbstractWolfflue {
                 FoodProperties foodproperties = itemstack.get(DataComponents.FOOD);
                 float f = foodproperties != null ? (float) foodproperties.nutrition() : 1.0F;
                 this.heal(4.0F * f);
-                itemstack.consume(1, p_30412_);
+                itemstack.consume(1, player);
                 this.gameEvent(GameEvent.EAT); // Neo: add EAT game event
                 return InteractionResult.SUCCESS_SERVER;
             } else {
-                if (item instanceof DyeItem dyeitem && this.isOwnedBy(p_30412_)) {
-                    DyeColor dyecolor = dyeitem.getDyeColor();
-                    if (dyecolor != this.getCollarColor()) {
-                        this.setCollarColor(dyecolor);
-                        itemstack.consume(1, p_30412_);
+                if (itemstack.is(ItemTags.WOLF_COLLAR_DYES) && this.isOwnedBy(player)) {
+                    DyeColor color = itemstack.get(DataComponents.DYE);
+                    if (color != null && color != this.getCollarColor()) {
+                        this.setCollarColor(color);
+                        itemstack.consume(1, player);
                         return InteractionResult.SUCCESS;
                     }
 
-                    return super.mobInteract(p_30412_, p_30413_);
+                    return super.mobInteract(player, p_30413_);
                 }
 
 
-                if (itemstack.is(FrostItems.SILVER_MOON) && this.isOwnedBy(p_30412_) && this.getMainHandItem().isEmpty() && !this.isBaby()) {
+                if (itemstack.is(FrostItems.SILVER_MOON) && this.isOwnedBy(player) && this.getMainHandItem().isEmpty() && !this.isBaby()) {
                     this.setItemSlot(EquipmentSlot.MAINHAND, itemstack.copyWithCount(1));
-                    itemstack.consume(1, p_30412_);
+                    itemstack.consume(1, player);
                     this.setGuaranteedDrop(EquipmentSlot.MAINHAND);
                     return InteractionResult.SUCCESS;
                 }
 
-                if (itemstack.isEmpty() && p_30412_.isSecondaryUseActive() && p_30412_.getMainHandItem().isEmpty() && this.isOwnedBy(p_30412_) && !this.getMainHandItem().isEmpty()) {
+                if (itemstack.isEmpty() && player.isSecondaryUseActive() && player.getMainHandItem().isEmpty() && this.isOwnedBy(player) && !this.getMainHandItem().isEmpty()) {
                     ItemStack itemstack1 = this.getMainHandItem();
                     this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                     if (this.level() instanceof ServerLevel serverLevel) {
@@ -155,12 +155,12 @@ public class StrayWolfflue extends AbstractWolfflue {
                     return InteractionResult.SUCCESS;
                 }
 
-                if (this.isEquippableInSlot(itemstack, EquipmentSlot.SADDLE) && this.isOwnedBy(p_30412_) && !this.isBaby()) {
-                    return itemstack.interactLivingEntity(p_30412_, this, p_30413_);
-                } else if (this.isEquippableInSlot(itemstack, EquipmentSlot.BODY) && this.isOwnedBy(p_30412_) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
+                if (this.isEquippableInSlot(itemstack, EquipmentSlot.SADDLE) && this.isOwnedBy(player) && !this.isBaby()) {
+                    return itemstack.interactLivingEntity(player, this, p_30413_);
+                } else if (this.isEquippableInSlot(itemstack, EquipmentSlot.BODY) && this.isOwnedBy(player) && this.getBodyArmorItem().isEmpty() && !this.isBaby()) {
                     this.setBodyArmorItem(itemstack.copyWithCount(1));
                     this.setGuaranteedDrop(EquipmentSlot.BODY);
-                    itemstack.consume(1, p_30412_);
+                    itemstack.consume(1, player);
                     return InteractionResult.SUCCESS;
                 } /*else if (itemstack.canPerformAction(net.neoforged.neoforge.common.ItemAbilities.SHEARS_REMOVE_ARMOR)
                             && this.isOwnedBy(p_30412_)) {
@@ -183,16 +183,16 @@ public class StrayWolfflue extends AbstractWolfflue {
                             this.spawnAtLocation(serverLevel, itemstack1);
                         }
                         return InteractionResult.SUCCESS;
-                    }*/ else if (!this.getItemBySlot(EquipmentSlot.SADDLE).isEmpty() && !p_30412_.isSecondaryUseActive() && this.isOwnedBy(p_30412_)) {
-                    this.doPlayerRide(p_30412_);
+                    }*/ else if (!this.getItemBySlot(EquipmentSlot.SADDLE).isEmpty() && !player.isSecondaryUseActive() && this.isOwnedBy(player)) {
+                    this.doPlayerRide(player);
                     if (this.isInSittingPose()) {
                         this.setInSittingPose(false);
                     }
                     return InteractionResult.SUCCESS.withoutItem();
                 }
 
-                InteractionResult interactionresult = super.mobInteract(p_30412_, p_30413_);
-                if (!interactionresult.consumesAction() && this.isOwnedBy(p_30412_)) {
+                InteractionResult interactionresult = super.mobInteract(player, p_30413_);
+                if (!interactionresult.consumesAction() && this.isOwnedBy(player)) {
                     this.setOrderedToSit(!this.isOrderedToSit());
                     this.jumping = false;
                     this.navigation.stop();
@@ -203,11 +203,11 @@ public class StrayWolfflue extends AbstractWolfflue {
                 return interactionresult;
             }
         } else if (!this.level().isClientSide() && this.isFood(itemstack) && !this.isAngry()) {
-            itemstack.consume(1, p_30412_);
-            this.tryToTame(p_30412_);
+            itemstack.consume(1, player);
+            this.tryToTame(player);
             return InteractionResult.SUCCESS_SERVER;
         } else {
-            return super.mobInteract(p_30412_, p_30413_);
+            return super.mobInteract(player, p_30413_);
         }
     }
 

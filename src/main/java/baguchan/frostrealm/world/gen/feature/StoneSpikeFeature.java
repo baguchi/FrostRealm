@@ -3,6 +3,7 @@ package baguchan.frostrealm.world.gen.feature;
 import baguchan.frostrealm.registry.FrostBlocks;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -49,13 +50,13 @@ public class StoneSpikeFeature extends Feature<NoneFeatureConfiguration> {
                         if ((i1 == 0 && j1 == 0 || !(f1 * f1 + f2 * f2 > f * f))
                                 && (i1 != -l && i1 != l && j1 != -l && j1 != l || !(randomsource.nextFloat() > 0.75F))) {
                             BlockState blockstate = worldgenlevel.getBlockState(blockpos.offset(i1, k, j1));
-                            if (blockstate.isAir() || isDirt(blockstate) || blockstate.is(Blocks.SNOW_BLOCK) || blockstate.is(FrostBlocks.FRIGID_GRASS_BLOCK.get())) {
+                            if (blockstate.isAir() || blockstate.is(BlockTags.DIRT) || blockstate.is(Blocks.SNOW_BLOCK) || blockstate.is(FrostBlocks.FRIGID_GRASS_BLOCK.get())) {
                                 this.setBlock(worldgenlevel, blockpos.offset(i1, k, j1), FrostBlocks.FRIGID_STONE_MOSSY.get().defaultBlockState());
                             }
 
                             if (k != 0 && l > 1) {
                                 blockstate = worldgenlevel.getBlockState(blockpos.offset(i1, -k, j1));
-                                if (blockstate.isAir() || isDirt(blockstate) || blockstate.is(Blocks.SNOW_BLOCK) || blockstate.is(FrostBlocks.FRIGID_GRASS_BLOCK.get())) {
+                                if (blockstate.isAir() || blockstate.is(BlockTags.DIRT) || blockstate.is(Blocks.SNOW_BLOCK) || blockstate.is(FrostBlocks.FRIGID_GRASS_BLOCK.get())) {
                                     this.setBlock(worldgenlevel, blockpos.offset(i1, -k, j1), FrostBlocks.FRIGID_STONE_MOSSY.get().defaultBlockState());
                                 }
                             }
@@ -82,7 +83,7 @@ public class StoneSpikeFeature extends Feature<NoneFeatureConfiguration> {
                     while (blockpos1.getY() > 50) {
                         BlockState blockstate1 = worldgenlevel.getBlockState(blockpos1);
                         if (!blockstate1.isAir()
-                                && !isDirt(blockstate1)
+                                && !blockstate1.is(BlockTags.DIRT)
                                 && !blockstate1.is(Blocks.SNOW_BLOCK)
                                 && !blockstate1.is(Blocks.ICE)
                                 && !blockstate1.is(Blocks.PACKED_ICE)) {

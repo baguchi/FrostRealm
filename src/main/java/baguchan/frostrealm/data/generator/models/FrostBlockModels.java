@@ -48,7 +48,7 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
                 .stairs(FrostBlocks.PERMA_SLATE_BRICK_STAIRS.get())
                 .wall(FrostBlocks.PERMA_SLATE_BRICK_WALL.get());
         this.createTrivialCube(FrostBlocks.PERMA_SLATE_SMOOTH.get());
-        createGlowCube(FrostBlocks.PERMA_MAGMA.get());
+        this.createTrivialCube(FrostBlocks.PERMA_MAGMA.get());
 
         family(FrostBlocks.FRIGID_STONE.get())
                 .slab(FrostBlocks.FRIGID_STONE_SLAB.get())
@@ -87,7 +87,7 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
                 .log(FrostBlocks.FROSTROOT_LOG.get());
         this.woodProvider(FrostBlocks.STRIPPED_FROSTROOT_LOG.get())
                 .log(FrostBlocks.STRIPPED_FROSTROOT_LOG.get());
-        createTrivialBlock(FrostBlocks.FROSTROOT_LEAVES.get(), LEAVES_PROVIDER);
+        createTrivialBlock(FrostBlocks.FROSTROOT_LEAVES.get(), TexturedModel.LEAVES);
         createCrossBlockWithDefaultItem(FrostBlocks.FROSTROOT_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
         this.woodProvider(FrostBlocks.FROSTBITE_LOG.get())
@@ -96,12 +96,12 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
                 .log(FrostBlocks.STRIPPED_FROSTBITE_LOG.get());
         this.woodProvider(FrostBlocks.ROCK_WOOD.get())
                 .wood(FrostBlocks.ROCK_WOOD.get());
-        createTrivialBlock(FrostBlocks.FROSTBITE_LEAVES.get(), LEAVES_PROVIDER);
+        createTrivialBlock(FrostBlocks.FROSTBITE_LEAVES.get(), TexturedModel.LEAVES);
         createCrossBlockWithDefaultItem(FrostBlocks.FROSTBITE_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
         this.woodProvider(FrostBlocks.DRIP_LOG.get())
                 .log(FrostBlocks.DRIP_LOG.get());
-        createTrivialBlock(FrostBlocks.DRIP_LEAVES.get(), LEAVES_PROVIDER);
+        createTrivialBlock(FrostBlocks.DRIP_LEAVES.get(), TexturedModel.LEAVES);
         createCrossBlockWithDefaultItem(FrostBlocks.DRIP_SAPLING.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         createHangingMoss(FrostBlocks.DRIP_HANGING_LEAVES.get());
 
@@ -117,21 +117,21 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
         this.createCropBlock(FrostBlocks.SUGARBEET.get(), BlockStateProperties.AGE_3, 0, 1, 2, 3);
         this.createCropBlock(FrostBlocks.RYE.get(), BlockStateProperties.AGE_7, 0, 1, 2, 3, 4, 5, 6, 7);
 
-        createGlowCube(FrostBlocks.FROST_CRYSTAL_ORE.get());
-        createGlowCube(FrostBlocks.GLIMMERROCK_ORE.get());
+        this.createTrivialCube(FrostBlocks.FROST_CRYSTAL_ORE.get());
+        this.createTrivialCube(FrostBlocks.GLIMMERROCK_ORE.get());
         this.createTrivialCube(FrostBlocks.FROST_CRYSTAL_BLOCK.get());
         this.createNormalTorch(FrostBlocks.FROST_TORCH.get(), FrostBlocks.WALL_FROST_TORCH.get());
 
         this.createTrivialCube(FrostBlocks.ASTRIUM_ORE.get());
 
-        createGlowCube(FrostBlocks.FROST_CRYSTAL_SLATE_ORE.get());
-        createGlowCube(FrostBlocks.GLIMMERROCK_SLATE_ORE.get());
+        this.createTrivialCube(FrostBlocks.FROST_CRYSTAL_SLATE_ORE.get());
+        this.createTrivialCube(FrostBlocks.GLIMMERROCK_SLATE_ORE.get());
         this.createTrivialCube(FrostBlocks.ASTRIUM_SLATE_ORE.get());
         this.createTrivialCube(FrostBlocks.ASTRIUM_BLOCK.get());
         this.createTrivialCube(FrostBlocks.RAW_ASTRIUM_BLOCK.get());
         this.createTrivialCube(FrostBlocks.GLIMMERROCK_BLOCK.get());
 
-        createGlowCube(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
+        this.createTrivialCube(FrostBlocks.STARDUST_CRYSTAL_ORE.get());
         createTranslucentCube(FrostBlocks.STARDUST_CRYSTAL_CLUSTER.get());
         createTranslucentCube(FrostBlocks.WARPED_CRYSTAL_BLOCK.get());
 
@@ -150,7 +150,7 @@ public class FrostBlockModels extends FrBlockstateModelProvider {
 
     public void createAuroraInfuser(Block p_388054_) {
         TextureMapping texturemapping = FrostTextureMappings.auroraInfuser(p_388054_);
-        this.blockStateOutput.accept(createSimpleBlock(p_388054_, ModelTemplates.CUBE.create(p_388054_, texturemapping, this.modelOutput)));
+        this.blockStateOutput.accept(createSimpleBlock(p_388054_, BlockModelGenerators.plainVariant(ModelTemplates.CUBE.create(p_388054_, texturemapping, this.modelOutput))));
     }
 
     public void createWolfflue(Block p_388054_) {

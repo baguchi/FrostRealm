@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -26,7 +27,10 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -56,7 +60,7 @@ public class Ferret extends TamableAnimal {
         super(p_21803_, p_21804_);
         this.setTame(false, false);
         this.setPathfindingMalus(PathType.POWDER_SNOW, -1.0F);
-        this.setPathfindingMalus(PathType.DANGER_POWDER_SNOW, -1.0F);
+        this.setPathfindingMalus(PathType.ON_TOP_OF_POWDER_SNOW, -1.0F);
     }
 
     @Override
@@ -99,8 +103,8 @@ public class Ferret extends TamableAnimal {
     }
 
     @Override
-    public InteractionResult mobInteract(Player p_30412_, InteractionHand p_30413_) {
-        ItemStack itemstack = p_30412_.getItemInHand(p_30413_);
+    public InteractionResult mobInteract(Player player, InteractionHand p_30413_) {
+        ItemStack itemstack = player.getItemInHand(p_30413_);
         Item item = itemstack.getItem();
         if (!this.level().isClientSide() || this.isBaby() && this.isFood(itemstack)) {
             if (this.isTame()) {
@@ -108,22 +112,22 @@ public class Ferret extends TamableAnimal {
                     FoodProperties foodproperties = itemstack.get(DataComponents.FOOD);
                     float f = foodproperties != null ? (float) foodproperties.nutrition() : 1.0F;
                     this.heal(f);
-                    itemstack.consume(1, p_30412_);
+                    itemstack.consume(1, player);
                     this.gameEvent(GameEvent.EAT); // Neo: add EAT game event
                     return InteractionResult.SUCCESS_SERVER;
                 } else {
-                    if (item instanceof DyeItem dyeitem && this.isOwnedBy(p_30412_)) {
-                        DyeColor dyecolor = dyeitem.getDyeColor();
-                        if (dyecolor != this.getCollarColor()) {
-                            this.setCollarColor(dyecolor);
-                            itemstack.consume(1, p_30412_);
+                    if (itemstack.is(ItemTags.WOLF_COLLAR_DYES) && this.isOwnedBy(player)) {
+                        DyeColor color = itemstack.get(DataComponents.DYE);
+                        if (color != null && color != this.getCollarColor()) {
+                            this.setCollarColor(color);
+                            itemstack.consume(1, player);
                             return InteractionResult.SUCCESS;
                         }
 
-                        return super.mobInteract(p_30412_, p_30413_);
+                        return super.mobInteract(player, p_30413_);
                     }
-                    InteractionResult interactionresult = super.mobInteract(p_30412_, p_30413_);
-                    if (!interactionresult.consumesAction() && this.isOwnedBy(p_30412_)) {
+                    InteractionResult interactionresult = super.mobInteract(player, p_30413_);
+                    if (!interactionresult.consumesAction() && this.isOwnedBy(player)) {
                         this.setOrderedToSit(!this.isOrderedToSit());
                         this.jumping = false;
                         this.navigation.stop();
@@ -133,15 +137,15 @@ public class Ferret extends TamableAnimal {
                         return interactionresult;
                     }
                 }
-            } else if (!this.level().isClientSide() && this.isFood(itemstack) && this.getTarget() != p_30412_) {
-                itemstack.consume(1, p_30412_);
-                this.tryToTame(p_30412_);
+            } else if (!this.level().isClientSide() && this.isFood(itemstack) && this.getTarget() != player) {
+                itemstack.consume(1, player);
+                this.tryToTame(player);
                 return InteractionResult.SUCCESS_SERVER;
             } else {
-                return super.mobInteract(p_30412_, p_30413_);
+                return super.mobInteract(player, p_30413_);
             }
         } else {
-            boolean flag = this.isOwnedBy(p_30412_) || this.isTame() || itemstack.is(Items.BONE) && !this.isTame() && this.getTarget() != p_30412_;
+            boolean flag = this.isOwnedBy(player) || this.isTame() || itemstack.is(Items.BONE) && !this.isTame() && this.getTarget() != player;
             return flag ? InteractionResult.CONSUME : InteractionResult.PASS;
         }
     }

@@ -1,7 +1,9 @@
 {
   "parent": "minecraft:block/cube_all",
-  "render_type": "minecraft:translucent",
   "textures": {
-    "all": "frostrealm:block/warped_crystal_block"
+    "all": {
+      "force_translucent": true,
+      "sprite": "frostrealm:block/warped_crystal_block"
+    }
   }
 }

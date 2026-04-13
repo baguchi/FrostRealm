@@ -73,12 +73,12 @@ public class FrostCampfireBlock extends CampfireBlock implements SimpleWaterlogg
 
 	@Override
 	public @org.jetbrains.annotations.Nullable PathType getAdjacentBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @org.jetbrains.annotations.Nullable Mob mob, PathType originalType) {
-		return PathType.DANGER_OTHER;
+		return PathType.DAMAGING_IN_NEIGHBOR;
 	}
 
 	@Override
 	public @org.jetbrains.annotations.Nullable PathType getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @org.jetbrains.annotations.Nullable Mob mob) {
-		return PathType.DAMAGE_OTHER;
+		return PathType.DAMAGING;
 	}
 
 	@Override

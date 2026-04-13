@@ -27,6 +27,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
@@ -58,18 +59,10 @@ public class YetiAi<E extends Yeti> {
     private static final TargetingConditions ATTACK_TARGET_CONDITIONS_IGNORE_LINE_OF_SIGHT = TargetingConditions.forCombat().range(24.0D).ignoreLineOfSight();
     private static final TargetingConditions ATTACK_TARGET_CONDITIONS_IGNORE_INVISIBILITY_AND_LINE_OF_SIGHT = TargetingConditions.forCombat().range(24.0D).ignoreLineOfSight().ignoreInvisibilityTesting();
 
-    public static Brain<?> makeBrain(Yeti Yeti, Brain<Yeti> p_149291_) {
-        initCoreActivity(p_149291_);
-        initIdleActivity(p_149291_);
-        initFightActivity(p_149291_);
-        initTakeBack(p_149291_);
-        initAdmireItemActivity(p_149291_);
-        initRetreatActivity(p_149291_);
-        p_149291_.setCoreActivities(ImmutableSet.of(Activity.CORE));
-        p_149291_.setDefaultActivity(Activity.IDLE);
-        p_149291_.useDefaultActivity();
-        return p_149291_;
+    public static List<ActivityData<Yeti>> getActivities() {
+        return List.of(initCoreActivity(), initIdleActivity(), initFightActivity(), initTakeBack(), initAdmireItemActivity(), initRetreatActivity());
     }
+
 
     public static void updateActivity(Yeti yeti) {
         Brain<Yeti> brain = yeti.getBrain();
@@ -86,28 +79,28 @@ public class YetiAi<E extends Yeti> {
         yeti.setAggressive(brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET));
     }
 
-    private static void initFightActivity(Brain<Yeti> p_149303_) {
-        p_149303_.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 0, ImmutableList.of(StopAttackingIfTargetInvalid.create(), SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(YetiAi::getSpeedModifierChasing), new SnowBallAttack<>(), BehaviorBuilder.triggerIf(Yeti::isMeleeAttack, MeleeAttack.create(25)), EraseMemoryIf.<Mob>create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)), MemoryModuleType.ATTACK_TARGET);
+    private static ActivityData<Yeti> initFightActivity() {
+        return ActivityData.create(Activity.FIGHT, 0, ImmutableList.of(StopAttackingIfTargetInvalid.create(), SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(YetiAi::getSpeedModifierChasing), new SnowBallAttack<>(), BehaviorBuilder.triggerIf(Yeti::isMeleeAttack, MeleeAttack.create(25)), EraseMemoryIf.<Mob>create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)), MemoryModuleType.ATTACK_TARGET);
     }
 
-    private static void initCoreActivity(Brain<Yeti> p_149307_) {
-        p_149307_.addActivity(Activity.CORE, 0, ImmutableList.of(StartAttacking.create((p_381522_, p_381523_) -> p_381523_.isAdult(), YetiAi::findNearestValidAttackTarget), new Swim<>(0.8F), new LookAtTargetSink(45, 90), StopBeingAngryIfTargetDead.create(), StartAdmiringItemIfSeen.create(120), new MoveToTargetSink()));
+    private static ActivityData<Yeti> initCoreActivity() {
+        return ActivityData.create(Activity.CORE, 0, ImmutableList.of(StartAttacking.create((p_381522_, p_381523_) -> p_381523_.isAdult(), YetiAi::findNearestValidAttackTarget), new Swim<>(0.8F), new LookAtTargetSink(45, 90), StopBeingAngryIfTargetDead.create(), StartAdmiringItemIfSeen.create(120), new MoveToTargetSink()));
     }
 
-    private static void initIdleActivity(Brain<Yeti> p_149309_) {
-        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(1, new RandomSitting(20)), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F)), Pair.of(2, StrollToPoi.create(MemoryModuleType.HOME, 0.85F, 3, 600))), ImmutableSet.of());
+    private static ActivityData<Yeti> initIdleActivity() {
+        return ActivityData.create(Activity.IDLE, ImmutableList.of(Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(1, new RandomSitting(20)), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F)), Pair.of(2, StrollToPoi.create(MemoryModuleType.HOME, 0.85F, 3, 600))), ImmutableSet.of());
     }
 
-    private static void initTakeBack(Brain<Yeti> p_34941_) {
-        p_34941_.addActivityAndRemoveMemoryWhenStopped(FrostActivity.TAKE_BACK.get(), 10, ImmutableList.of(TakeBackFromStealer.create(living -> true)), FrostMemoryModuleType.TAKE_BACK_TARGET.get());
+    private static ActivityData<Yeti> initTakeBack() {
+        return ActivityData.create(FrostActivity.TAKE_BACK.get(), 10, ImmutableList.of(TakeBackFromStealer.create(living -> true)), FrostMemoryModuleType.TAKE_BACK_TARGET.get());
     }
 
-    private static void initAdmireItemActivity(Brain<Yeti> p_34941_) {
-        p_34941_.addActivityAndRemoveMemoryWhenStopped(Activity.ADMIRE_ITEM, 10, ImmutableList.of(GoToWantedItem.create(1.2F, true, 9), StopAdmiringIfItemTooFarAway.create(9), StopAdmiringIfTiredOfTryingToReachItem.create(200, 200)), MemoryModuleType.ADMIRING_ITEM);
+    private static ActivityData<Yeti> initAdmireItemActivity() {
+        return ActivityData.create(Activity.ADMIRE_ITEM, 10, ImmutableList.of(GoToWantedItem.create(1.2F, true, 9), StopAdmiringIfItemTooFarAway.create(9), StopAdmiringIfTiredOfTryingToReachItem.create(200, 200)), MemoryModuleType.ADMIRING_ITEM);
     }
 
-    private static void initRetreatActivity(Brain<Yeti> p_34616_) {
-        p_34616_.addActivityAndRemoveMemoryWhenStopped(Activity.AVOID, 10, ImmutableList.of(SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 1.35F, 15, false), createIdleMovementBehaviors(), SetEntityLookTargetSometimes.create(8.0F, UniformInt.of(30, 60)), EraseMemoryIf.create(YetiAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)), MemoryModuleType.AVOID_TARGET);
+    private static ActivityData<Yeti> initRetreatActivity() {
+        return ActivityData.create(Activity.AVOID, 10, ImmutableList.of(SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 1.35F, 15, false), createIdleMovementBehaviors(), SetEntityLookTargetSometimes.create(8.0F, UniformInt.of(30, 60)), EraseMemoryIf.create(YetiAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)), MemoryModuleType.AVOID_TARGET);
     }
 
     private static RunOne<LivingEntity> createLookBehaviors() {

@@ -3,7 +3,10 @@ package baguchan.frostrealm.capability;
 import baguchan.frostrealm.api.IItemAnimation;
 import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.message.ChangedColdMessage;
-import baguchan.frostrealm.registry.*;
+import baguchan.frostrealm.registry.FrostAttachs;
+import baguchan.frostrealm.registry.FrostEffects;
+import baguchan.frostrealm.registry.FrostTags;
+import baguchan.frostrealm.registry.FrostWeathers;
 import baguchan.frostrealm.utils.ClientUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.DeathScreen;
@@ -77,13 +80,13 @@ public class FrostLivingCapability implements ValueIOSerializable {
 
             float tempAffect = tempModifier(entity, 2.0F);
 
-            if (entity.isInFluidType(FrostFluidTypes.HOT_SPRING.get())) {
+            /*if (entity.isInFluidType(FrostFluidTypes.HOT_SPRING.get())) {
                 tempAffect *= 0.1F;
                 if (entity.tickCount % 80 == 0) {
                     this.temperatureSaturation = Math.min(this.temperatureSaturation + 0.05F, 1.0F);
                     this.temperature = Math.min(this.temperature + 1, 20);
                 }
-            }
+            }*/
 
 
             if (this.hotSource == null) {

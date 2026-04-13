@@ -5,22 +5,20 @@ package baguchan.frostrealm.client.model;// Made with Blockbench 4.7.4
 
 import baguchan.frostrealm.client.animation.SpearAttackAnimations;
 import baguchan.frostrealm.client.render.state.LesserWarriorRenderState;
-import baguchi.bagus_lib.client.layer.IArmor;
+import baguchi.bagus_lib.client.layer.CustomArmorRender;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.animation.KeyframeAnimation;
-import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.effects.SpearAnimations;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-public class LesserWarriorModel<T extends LesserWarriorRenderState> extends EntityModel<T> implements IArmor, ArmedModel<T> {
+public class LesserWarriorModel<T extends LesserWarriorRenderState> extends EntityModel<T> implements CustomArmorRender<T>, ArmedModel<T> {
     public final ModelPart root;
     public final ModelPart body;
     public final ModelPart head;
@@ -173,22 +171,22 @@ public class LesserWarriorModel<T extends LesserWarriorRenderState> extends Enti
     }
 
     @Override
-    public void translateToHead(ModelPart modelPart, PoseStack poseStack) {
+    public void translateToHead(T entity, ModelPart modelPart, PoseStack poseStack) {
         modelPart.translateAndRotate(poseStack);
     }
 
     @Override
-    public void translateToChest(ModelPart modelPart, PoseStack poseStack) {
+    public void translateToChest(T entity, ModelPart modelPart, PoseStack poseStack) {
         modelPart.translateAndRotate(poseStack);
     }
 
     @Override
-    public void translateToLeg(ModelPart modelPart, PoseStack poseStack) {
+    public void translateToLeg(T entity, ModelPart modelPart, PoseStack poseStack) {
         modelPart.translateAndRotate(poseStack);
     }
 
     @Override
-    public void translateToChestPat(ModelPart modelPart, PoseStack poseStack) {
+    public void translateToChestPat(T entity, ModelPart modelPart, PoseStack poseStack) {
         modelPart.translateAndRotate(poseStack);
     }
 

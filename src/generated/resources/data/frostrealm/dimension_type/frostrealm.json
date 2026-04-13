@@ -21,11 +21,13 @@
     "minecraft:visual/cloud_color": "#ccffffff",
     "minecraft:visual/cloud_height": 192.33,
     "minecraft:visual/fog_color": "#c0d8ff",
-    "minecraft:visual/sky_color": "#78a7ff"
+    "minecraft:visual/sky_color": "#78a7ff",
+    "neoforge:custom_skybox": "frostrealm:frostrealm"
   },
   "coordinate_scale": 1.0,
   "default_clock": "minecraft:overworld",
   "has_ceiling": false,
+  "has_ender_dragon_fight": false,
   "has_skylight": true,
   "height": 384,
   "infiniburn": "#minecraft:infiniburn_overworld",

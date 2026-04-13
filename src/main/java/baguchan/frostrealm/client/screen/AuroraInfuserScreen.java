@@ -8,7 +8,7 @@ import baguchan.frostrealm.menu.AuroraInfuserMenu;
 import baguchan.frostrealm.registry.AuroraPowers;
 import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -43,14 +43,6 @@ public class AuroraInfuserScreen extends AbstractContainerScreen<AuroraInfuserMe
         this.last = ItemStack.EMPTY;
     }
 
-    protected void init() {
-        super.init();
-    }
-
-    public void containerTick() {
-        super.containerTick();
-    }
-
     @Override
     public boolean mouseClicked(MouseButtonEvent p_446670_, boolean p_434078_) {
         int i = (this.width - this.imageWidth) / 2;
@@ -68,10 +60,12 @@ public class AuroraInfuserScreen extends AbstractContainerScreen<AuroraInfuserMe
         return super.mouseClicked(p_446670_, p_434078_);
     }
 
-    protected void renderBg(GuiGraphics p_282430_, float p_282530_, int p_281621_, int p_283333_) {
+    @Override
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractBackground(graphics, mouseX, mouseY, a);
         int i = (this.width - this.imageWidth) / 2;
         int j = (this.height - this.imageHeight) / 2;
-        p_282430_.blit(RenderPipelines.GUI_TEXTURED, ENCHANTING_TABLE_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, ENCHANTING_TABLE_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
         int k = this.menu.getGoldCount();
 
         for (int l = 0; l < 3; ++l) {
@@ -79,7 +73,7 @@ public class AuroraInfuserScreen extends AbstractContainerScreen<AuroraInfuserMe
             int j1 = i1 + 20;
             int k1 = this.menu.costs[l];
             if (k1 == 0) {
-                p_282430_.blitSprite(RenderPipelines.GUI_TEXTURED, ENCHANTMENT_SLOT_DISABLED_SPRITE, i1, j + 14 + 19 * l, 108, 19);
+                graphics.blitSprite(RenderPipelines.GUI_TEXTURED, ENCHANTMENT_SLOT_DISABLED_SPRITE, i1, j + 14 + 19 * l, 108, 19);
             } else {
                 String s = "" + k1;
                 int l1 = 86 - this.font.width(s);
@@ -95,35 +89,36 @@ public class AuroraInfuserScreen extends AbstractContainerScreen<AuroraInfuserMe
 
                 int i2 = 6839882;
                 if (this.minecraft.player.level().dimension() == FrostDimensions.FROSTREALM_LEVEL && (k >= l + 1 && FrostWeatherManager.getAuroraLevel() >= k1 * 0.01F || this.minecraft.player.getAbilities().instabuild) && this.menu.levelClue[l] != -1) {
-                    int j2 = p_281621_ - (i + 60);
-                    int k2 = p_283333_ - (j + 14 + 19 * l);
+                    int j2 = mouseX - (i + 60);
+                    int k2 = mouseY - (j + 14 + 19 * l);
                     if (j2 >= 0 && k2 >= 0 && j2 < 108 && k2 < 19) {
-                        p_282430_.blitSprite(RenderPipelines.GUI_TEXTURED, ENCHANTMENT_SLOT_HIGHLIGHTED_SPRITE, i1, j + 14 + 19 * l, 108, 19);
+                        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, ENCHANTMENT_SLOT_HIGHLIGHTED_SPRITE, i1, j + 14 + 19 * l, 108, 19);
                         i2 = 16777088;
                     } else {
-                        p_282430_.blitSprite(RenderPipelines.GUI_TEXTURED, ENCHANTMENT_SLOT_SPRITE, i1, j + 14 + 19 * l, 108, 19);
+                        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, ENCHANTMENT_SLOT_SPRITE, i1, j + 14 + 19 * l, 108, 19);
                     }
 
-                    p_282430_.blitSprite(RenderPipelines.GUI_TEXTURED, ENABLED_LEVEL_SPRITES[l], i1 + 1, j + 15 + 19 * l, 16, 16);
-                    p_282430_.drawWordWrap(this.font, formattedtext, j1, j + 16 + 19 * l, l1, i2);
+                    graphics.blitSprite(RenderPipelines.GUI_TEXTURED, ENABLED_LEVEL_SPRITES[l], i1 + 1, j + 15 + 19 * l, 16, 16);
+                    graphics.textWithWordWrap(this.font, formattedtext, j1, j + 16 + 19 * l, l1, i2);
                     i2 = 8453920;
                 } else {
-                    p_282430_.blitSprite(RenderPipelines.GUI_TEXTURED, ENCHANTMENT_SLOT_DISABLED_SPRITE, i1, j + 14 + 19 * l, 108, 19);
-                    p_282430_.blitSprite(RenderPipelines.GUI_TEXTURED, DISABLED_LEVEL_SPRITES[l], i1 + 1, j + 15 + 19 * l, 16, 16);
-                    p_282430_.drawWordWrap(this.font, formattedtext, j1, j + 16 + 19 * l, l1, (i2 & 16711422) >> 1);
+                    graphics.blitSprite(RenderPipelines.GUI_TEXTURED, ENCHANTMENT_SLOT_DISABLED_SPRITE, i1, j + 14 + 19 * l, 108, 19);
+                    graphics.blitSprite(RenderPipelines.GUI_TEXTURED, DISABLED_LEVEL_SPRITES[l], i1 + 1, j + 15 + 19 * l, 16, 16);
+                    graphics.textWithWordWrap(this.font, formattedtext, j1, j + 16 + 19 * l, l1, (i2 & 16711422) >> 1);
                     i2 = 4226832;
                 }
 
-                p_282430_.drawString(this.font, s, j1 + 86 - this.font.width(s), j + 16 + 19 * l + 7, i2);
+                graphics.text(this.font, s, j1 + 86 - this.font.width(s), j + 16 + 19 * l + 7, i2);
             }
         }
 
     }
 
-    public void render(GuiGraphics p_283462_, int p_282491_, int p_281953_, float p_282182_) {
-        p_282182_ = this.minecraft.getDeltaTracker().getGameTimeDeltaTicks();
-        super.render(p_283462_, p_282491_, p_281953_, p_282182_);
-        this.renderTooltip(p_283462_, p_282491_, p_281953_);
+    @Override
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        super.extractRenderState(graphics, mouseX, mouseY, a);
+        a = this.minecraft.getDeltaTracker().getGameTimeDeltaTicks();
+        this.extractTooltip(graphics, mouseX, mouseY);
         boolean flag = this.minecraft.player.getAbilities().instabuild;
         int i = this.menu.getGoldCount();
 
@@ -132,7 +127,7 @@ public class AuroraInfuserScreen extends AbstractContainerScreen<AuroraInfuserMe
             AuroraPower auroraPower = AuroraPowers.getRegistry().byId(this.menu.auroraClue[j]);
             int l = this.menu.levelClue[j];
             int i1 = j + 1;
-            if (this.isHovering(60, 14 + 19 * j, 108, 17, p_282491_, p_281953_) && k > 0) {
+            if (this.isHovering(60, 14 + 19 * j, 108, 17, mouseX, mouseY) && k > 0) {
                 List<Component> list = Lists.newArrayList();
                 if (this.minecraft.player.level().dimension() != FrostDimensions.FROSTREALM_LEVEL) {
                     list.add(Component.literal(""));
@@ -167,10 +162,9 @@ public class AuroraInfuserScreen extends AbstractContainerScreen<AuroraInfuserMe
                     }
                 }
 
-                p_283462_.setComponentTooltipForNextFrame(this.font, list, p_282491_, p_281953_);
+                graphics.setComponentTooltipForNextFrame(this.font, list, mouseX, mouseY);
                 break;
             }
         }
-
     }
 }

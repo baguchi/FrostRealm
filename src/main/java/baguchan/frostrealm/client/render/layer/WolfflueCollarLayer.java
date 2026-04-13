@@ -34,7 +34,7 @@ public class WolfflueCollarLayer<T extends WolfflueRenderState> extends RenderLa
                             this.getParentModel(),
                             renderState,
                             poseStack,
-                            RenderTypes.entityCutoutNoCull(WOLF_COLLAR_LOCATION),
+                            RenderTypes.entityCutout(WOLF_COLLAR_LOCATION),
                             p_117722_,
                             OverlayTexture.NO_OVERLAY,
                             i,

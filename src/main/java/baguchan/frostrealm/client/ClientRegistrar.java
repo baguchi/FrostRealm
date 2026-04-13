@@ -10,32 +10,31 @@ import baguchan.frostrealm.client.render.*;
 import baguchan.frostrealm.client.render.dimension.FrostRealmRenderer;
 import baguchan.frostrealm.client.render.dimension.FrostRealmSkySpecialRender;
 import baguchan.frostrealm.client.screen.AuroraInfuserScreen;
-import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.item.GlimmerRockItem;
 import baguchan.frostrealm.item.YetiFurArmorItem;
 import baguchan.frostrealm.registry.*;
 import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.color.block.BlockTintSources;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.context.ContextKey;
-import net.minecraft.world.level.GrassColor;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.CustomEnvironmentEffectsRendererManager;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
@@ -43,12 +42,21 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
+import java.util.List;
+
 
 @EventBusSubscriber(modid = FrostRealm.MODID, value = Dist.CLIENT)
 public class ClientRegistrar {
 	public static final CubeDeformation OUTER_ARMOR_DEFORMATION = new CubeDeformation(1.0F);
 	public static final CubeDeformation INNER_ARMOR_DEFORMATION = new CubeDeformation(0.5F);
 
+
+	private static final FluidModel.Unbaked HOT_SPRING_MODEL = new FluidModel.Unbaked(
+			new Material(FrostRealm.prefix("block/hot_spring_still")),
+			new Material(FrostRealm.prefix("block/hot_spring_flow")),
+			new Material(FrostRealm.prefix("block/hot_spring_overlay")),
+			null
+	);
 	public static ContextKey<Boolean> HOLD_SPEAR_KEY = new ContextKey<>(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "hold_spear_id"));
 
 
@@ -66,25 +74,18 @@ public class ClientRegistrar {
 		event.registerItem(YetiFurArmorItem.ArmorRender.INSTANCE, FrostItems.YETI_FUR_BOOTS.get(), FrostItems.YETI_FUR_LEGGINGS.get(), FrostItems.YETI_FUR_CHESTPLATE.get(), FrostItems.YETI_FUR_HELMET.get());
 		event.registerItem(YetiFurArmorItem.ArmorRender.INSTANCE, FrostItems.GLACIER_BOAR_FUR_BOOTS.get(), FrostItems.GLACIER_BOAR_FUR_LEGGINGS.get(), FrostItems.GLACIER_BOAR_FUR_CHESTPLATE.get(), FrostItems.GLACIER_BOAR_FUR_HELMET.get());
 		event.registerFluidType(new IClientFluidTypeExtensions() {
-			private static final Identifier TEXTURE_STILL = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "block/hot_spring_still");
-			private static final Identifier TEXTURE_FLOW = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "block/hot_spring_flow");
 			private static final Identifier TEXTURE_OVERLAY = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "textures/block/hot_spring_still_overlay.png");
-
-			@Override
-			public Identifier getStillTexture() {
-				return TEXTURE_STILL;
-			}
-
-			@Override
-			public Identifier getFlowingTexture() {
-				return TEXTURE_FLOW;
-			}
 
 			@Override
 			public Identifier getRenderOverlayTexture(Minecraft mc) {
 				return TEXTURE_OVERLAY;
 			}
 		}, FrostFluidTypes.HOT_SPRING.get());
+	}
+
+	@SubscribeEvent
+	public static void fluidModelEvent(RegisterFluidModelsEvent event) {
+		event.register(HOT_SPRING_MODEL, FrostFluids.HOT_SPRING.get(), FrostFluids.HOT_SPRING_FLOW.get());
 	}
 
 	@SubscribeEvent
@@ -169,20 +170,10 @@ public class ClientRegistrar {
 	}
 
 	@SubscribeEvent
-	public static void renderItemTint(RegisterColorHandlersEvent.Block event) {
-		event.register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
-			return p_92622_ != null && p_92623_ != null ? BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : GrassColor.get(0.5D, 1.0D);
-		}, FrostBlocks.FROZEN_GRASS_BLOCK.get());
-
-		event.register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
-			return p_92622_ != null && p_92623_ != null ? BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : GrassColor.get(0.5D, 1.0D);
-		}, FrostBlocks.COLD_GRASS.get());
-		event.register((p_92621_, p_92622_, p_92623_, p_92624_) -> {
-			return p_92622_ != null && p_92623_ != null ? BiomeColors.getAverageGrassColor(p_92622_, p_92623_) : GrassColor.get(0.5D, 1.0D);
-		}, FrostBlocks.COLD_TALL_GRASS.get());
-
+	public static void registerColorBlock(RegisterColorHandlersEvent.BlockTintSources event) {
+		event.register(List.of(BlockTintSources.grassBlock()), FrostBlocks.FROZEN_GRASS_BLOCK.get());
+		event.register(List.of(BlockTintSources.grass()), FrostBlocks.COLD_GRASS.get(), FrostBlocks.COLD_TALL_GRASS.get());
 	}
-
 
 	public static void setup(FMLCommonSetupEvent event) {
         NeoForge.EVENT_BUS.register(new ClientFogEvent());
@@ -203,8 +194,7 @@ public class ClientRegistrar {
 	}
 
 
-
-	private static void renderPortalOverlay(GuiGraphics guiGraphics, Minecraft minecraft, Window window, FrostLivingCapability handler, DeltaTracker partialTicks) {
+	private static void renderPortalOverlay(GuiGraphicsExtractor guiGraphics, Minecraft minecraft, Window window, FrostLivingCapability handler, DeltaTracker partialTicks) {
 		float timeInPortal = Mth.lerp(partialTicks.getGameTimeDeltaPartialTick(false), handler.getPrevPortalAnimTime(), handler.getPortalAnimTime());
 		if (timeInPortal > 0.0F) {
 			if (timeInPortal < 1.0F) {
@@ -213,7 +203,7 @@ public class ClientRegistrar {
 				timeInPortal = timeInPortal * 0.8F + 0.2F;
 			}
 			int i = ARGB.white(timeInPortal);
-			TextureAtlasSprite textureatlassprite = minecraft.getBlockRenderer().getBlockModelShaper().getParticleIcon(FrostBlocks.FROST_PORTAL.get().defaultBlockState());
+			TextureAtlasSprite textureatlassprite = minecraft.getModelManager().getBlockStateModelSet().get(FrostBlocks.FROST_PORTAL.get().defaultBlockState()).particleMaterial().sprite();
 			guiGraphics.blitSprite(RenderPipelines.GUI_TEXTURED, textureatlassprite, 0, 0,
 					guiGraphics.guiWidth(),
 					guiGraphics.guiHeight(),
@@ -230,14 +220,6 @@ public class ClientRegistrar {
     public static void registerClientReloadListeners(AddClientReloadListenersEvent event) {
         event.addListener(FrostRealm.prefix("frostrealm_render"), FrostRealmTextureManager.INSTANCE);
     }
-
-    @SubscribeEvent
-    public static void extractDimensionEffect(ExtractLevelRenderStateEvent event) {
-        if (event.getLevel().dimensionTypeRegistration().is(FrostDimensions.FROSTREALM_TYPE)) {
-            event.getRenderState().customSkyboxRenderer = CustomEnvironmentEffectsRendererManager.getCustomSkyboxRenderer(FrostRealm.prefix("frostrealm"));
-        }
-    }
-
 
     @SubscribeEvent
     public static void screenEvent(RegisterMenuScreensEvent event) {

@@ -112,15 +112,15 @@ public class FrostConfiguredFeatures {
 				new DeltaFeatureConfiguration(Blocks.LAVA.defaultBlockState(), FrostBlocks.PERMA_MAGMA.get().defaultBlockState(), UniformInt.of(3, 7), UniformInt.of(0, 2)));
 
 
-		FeatureUtils.register(context, PATCH_TUNDRA_GRASS, Feature.RANDOM_PATCH, grassPatch(BlockStateProvider.simple(FrostBlocks.COLD_GRASS.get()), 32));
+		FeatureUtils.register(context, PATCH_TUNDRA_GRASS, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(FrostBlocks.COLD_GRASS.get())));
 
-		FeatureUtils.register(context, PATCH_BEARBERRY, Feature.RANDOM_PATCH, grassPatch(BlockStateProvider.simple(FrostBlocks.BEARBERRY_BUSH.get().defaultBlockState().setValue(BearBerryBushBlock.AGE, 3)), 32));
+		FeatureUtils.register(context, PATCH_BEARBERRY, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(FrostBlocks.BEARBERRY_BUSH.get().defaultBlockState().setValue(BearBerryBushBlock.AGE, 3))));
 
-		FeatureUtils.register(context, PATCH_VIGOROSHROOM, Feature.RANDOM_PATCH, grassPatch(BlockStateProvider.simple(FrostBlocks.VIGOROSHROOM.get()), 32));
+		FeatureUtils.register(context, PATCH_VIGOROSHROOM, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(FrostBlocks.VIGOROSHROOM.get())));
 
 
-		FeatureUtils.register(context, ARCTIC_POPPY, Feature.FLOWER, grassPatch(BlockStateProvider.simple(FrostBlocks.ARCTIC_POPPY.get()), 32));
-		FeatureUtils.register(context, ARCTIC_WILLOW, Feature.FLOWER, grassPatch(BlockStateProvider.simple(FrostBlocks.ARCTIC_WILLOW.get()), 32));
+		FeatureUtils.register(context, ARCTIC_POPPY, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(FrostBlocks.ARCTIC_POPPY.get())));
+		FeatureUtils.register(context, ARCTIC_WILLOW, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(FrostBlocks.ARCTIC_WILLOW.get())));
 
 		FeatureUtils.register(context, TUNDRA_ROCK, FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE.get().defaultBlockState()));
 		FeatureUtils.register(context, TUNDRA_MOSSY_ROCK, FrostFeatures.BIG_ROCK.get(), new BlockStateConfiguration(FrostBlocks.FRIGID_STONE_MOSSY.get().defaultBlockState()));
@@ -139,9 +139,8 @@ public class FrostConfiguredFeatures {
 
 		FeatureUtils.register(context, ICE_CLUSTER, FrostFeatures.ICE_CLUSTER.get(), new DripstoneClusterConfiguration(12, UniformInt.of(3, 6), UniformInt.of(2, 8), 1, 3, UniformInt.of(2, 4), UniformFloat.of(0.3F, 0.7F), ClampedNormalFloat.of(0.1F, 0.3F, 0.1F, 0.9F), 0.1F, 3, 8));
 		FeatureUtils.register(context, LARGE_ICE, FrostFeatures.LARGE_ICE.get(), new LargeDripstoneConfiguration(30, UniformInt.of(3, 19), UniformFloat.of(0.4F, 2.0F), 0.33F, UniformFloat.of(0.3F, 0.9F), UniformFloat.of(0.4F, 1.0F), UniformFloat.of(0.0F, 0.3F), 4, 0.6F));
-        FeatureUtils.register(context, FROST_FIRE_DESERT, Feature.RANDOM_PATCH,
-                FeatureUtils.simplePatchConfiguration(
-                        Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(FrostBlocks.FROST_FIRE.get())), List.of(FrostBlocks.SHERBET_SAND.get())));
+		FeatureUtils.register(context, FROST_FIRE_DESERT,
+				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(FrostBlocks.FROST_FIRE.get())));
 
 
 		Holder<ConfiguredFeature<?, ?>> holder1 = holdergetter.getOrThrow(FrostTreeFeatures.FROST_TREE);
@@ -158,9 +157,5 @@ public class FrostConfiguredFeatures {
 		return FrostRealm.MODID + ":" + name;
 	}
 
-
-	private static RandomPatchConfiguration grassPatch(BlockStateProvider p_195203_, int p_195204_) {
-		return FeatureUtils.simpleRandomPatchConfiguration(p_195204_, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(p_195203_)));
-	}
 
 }

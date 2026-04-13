@@ -2,16 +2,13 @@ package baguchan.frostrealm.world.tree.trunk;
 
 import baguchan.frostrealm.registry.FrostTrunkPlacerTypes;
 import com.google.common.collect.Lists;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.level.LevelSimulatedReader;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -24,7 +21,6 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 
 public class DripWoodTrunkPlacer extends TrunkPlacer {
-    private static final Codec<UniformInt> BRANCH_START_CODEC = UniformInt.CODEC.codec().validate((p_275181_) -> p_275181_.getMaxValue() - p_275181_.getMinValue() < 1 ? DataResult.error(() -> "Need at least 2 blocks variation for the branch starts to fit both branches") : DataResult.success(p_275181_));
     public static final MapCodec<DripWoodTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((p_338099_) -> trunkPlacerParts(p_338099_).apply(p_338099_, DripWoodTrunkPlacer::new));
 
     public DripWoodTrunkPlacer(int p_70165_, int p_70166_, int p_70167_) {
@@ -52,70 +48,70 @@ public class DripWoodTrunkPlacer extends TrunkPlacer {
         }
     }
 
-    public List<FoliagePlacer.FoliageAttachment> placeTrunk(LevelSimulatedReader p_226123_, BiConsumer<BlockPos, BlockState> p_226124_, RandomSource p_226125_, int p_226126_, BlockPos p_226127_, TreeConfiguration p_226128_) {
-
+    @Override
+    public List<FoliagePlacer.FoliageAttachment> placeTrunk(WorldGenLevel level, BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, int p_226126_, BlockPos p_226127_, TreeConfiguration config) {
         int j = p_226126_ + 2;
         int k = Mth.floor(j * 0.618);
 
         int i1 = p_226127_.getY() + k;
         int l = Math.min(1, Mth.floor(1.382 + Math.pow(1.0 * j / 13.0, 2.0)));
         int j1 = j - 5;
-        BlockPos blockpos = p_226127_.below();
-        setDirtAt(p_226123_, p_226124_, p_226125_, blockpos, p_226128_);
-        setDirtAt(p_226123_, p_226124_, p_226125_, blockpos.east(), p_226128_);
-        setDirtAt(p_226123_, p_226124_, p_226125_, blockpos.south(), p_226128_);
-        setDirtAt(p_226123_, p_226124_, p_226125_, blockpos.south().east(), p_226128_);
+        BlockPos below = p_226127_.below();
+        placeBelowTrunkBlock(level, trunkSetter, random, below, config);
+        placeBelowTrunkBlock(level, trunkSetter, random, below.east(), config);
+        placeBelowTrunkBlock(level, trunkSetter, random, below.south(), config);
+        placeBelowTrunkBlock(level, trunkSetter, random, below.south().east(), config);
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
         List<FoliageCoords> list = Lists.newArrayList();
-        float randomA = p_226125_.nextInt(2);
-        float randomB = p_226125_.nextInt(4);
+        float randomA = random.nextInt(2);
+        float randomB = random.nextInt(4);
         for (int i = 0; i < p_226126_; ++i) {
             float shaper = 0.15F;
 
-            int distance = (int) (blockpos.distManhattan(blockpos$mutableblockpos) * shaper);
+            int distance = (int) (below.distManhattan(blockpos$mutableblockpos) * shaper);
 
-            this.placeLogIfFreeWithOffset(p_226123_, p_226124_, p_226125_, blockpos$mutableblockpos, p_226128_, p_226127_, 0, i, 0);
+            this.placeLogIfFreeWithOffset(level, trunkSetter, random, blockpos$mutableblockpos, config, p_226127_, 0, i, 0);
             float f = treeShape(j, j1);
             if (!(f < 0.0F)) {
                 for (int k1 = 0; k1 < l; k1++) {
                     double d1 = 1.0;
-                    double d2 = 1.0 * f * (p_226125_.nextFloat() + 0.328);
-                    double d3 = p_226125_.nextFloat() * 2.0F * Math.PI;
+                    double d2 = 1.0 * f * (random.nextFloat() + 0.328);
+                    double d3 = random.nextFloat() * 2.0F * Math.PI;
                     double d4 = d2 * Math.sin(d3) + 0.5;
                     double d5 = d2 * Math.cos(d3) + 0.5;
                     BlockPos blockpos3 = p_226127_.offset(Mth.floor(d4), j1 - 1, Mth.floor(d5));
                     BlockPos blockpos1 = blockpos3.above(5);
-                    if (this.makeLimb(p_226123_, p_226124_, p_226125_, blockpos3, blockpos1, false, p_226128_)) {
+                    if (this.makeLimb(level, trunkSetter, random, blockpos3, blockpos1, false, config)) {
                         int l1 = p_226127_.getX() - blockpos3.getX();
                         int i2 = p_226127_.getZ() - blockpos3.getZ();
                         double d6 = blockpos3.getY() - Math.sqrt(l1 * l1 + i2 * i2) * 0.381;
                         int j2 = d6 > i1 ? i1 : (int)d6;
                         BlockPos blockpos2 = new BlockPos(p_226127_.getX(), j2, p_226127_.getZ());
-                        if (this.makeLimb(p_226123_, p_226124_, p_226125_, blockpos2, blockpos3, false, p_226128_)) {
+                        if (this.makeLimb(level, trunkSetter, random, blockpos2, blockpos3, false, config)) {
                             list.add(new FoliageCoords(blockpos3, blockpos2.getY()));
                         }
                     }
                 }
             }
             if (distance < p_226126_ / (16 + randomA) || i == 0) {
-                this.placeLogIfFreeWithOffset(p_226123_, p_226124_, p_226125_, blockpos$mutableblockpos, p_226128_, p_226127_, 1, i, 1);
+                this.placeLogIfFreeWithOffset(level, trunkSetter, random, blockpos$mutableblockpos, config, p_226127_, 1, i, 1);
             }
             if (distance < p_226126_ / (9 + randomB) || i == 0) {
-                this.placeLogIfFreeWithOffset(p_226123_, p_226124_, p_226125_, blockpos$mutableblockpos, p_226128_, p_226127_, 1, i, 0);
+                this.placeLogIfFreeWithOffset(level, trunkSetter, random, blockpos$mutableblockpos, config, p_226127_, 1, i, 0);
 
             }
             if (distance < p_226126_ / 7 || i == 0) {
 
-                this.placeLogIfFreeWithOffset(p_226123_, p_226124_, p_226125_, blockpos$mutableblockpos, p_226128_, p_226127_, 0, i, 1);
+                this.placeLogIfFreeWithOffset(level, trunkSetter, random, blockpos$mutableblockpos, config, p_226127_, 0, i, 1);
             }
 
         }
 
         list.add(new FoliageCoords(p_226127_.above(j + 1), i1));
 
-        this.makeLimb(p_226123_, p_226124_, p_226125_, p_226127_, p_226127_.above(k), true, p_226128_);
+        this.makeLimb(level, trunkSetter, random, p_226127_, p_226127_.above(k), true, config);
 
-        this.makeBranches(p_226123_, p_226124_, p_226125_, j, p_226127_, list, p_226128_);
+        this.makeBranches(level, trunkSetter, random, j, p_226127_, list, config);
 
 
         List<FoliagePlacer.FoliageAttachment> list1 = Lists.newArrayList();
@@ -130,7 +126,7 @@ public class DripWoodTrunkPlacer extends TrunkPlacer {
     }
 
     private boolean makeLimb(
-            LevelSimulatedReader p_226108_,
+            WorldGenLevel p_226108_,
             BiConsumer<BlockPos, BlockState> p_226109_,
             RandomSource p_226110_,
             BlockPos p_226111_,
@@ -196,7 +192,7 @@ public class DripWoodTrunkPlacer extends TrunkPlacer {
 
 
     private void makeBranches(
-            LevelSimulatedReader p_226100_,
+            WorldGenLevel p_226100_,
             BiConsumer<BlockPos, BlockState> p_226101_,
             RandomSource p_226102_,
             int p_226103_,
@@ -214,7 +210,7 @@ public class DripWoodTrunkPlacer extends TrunkPlacer {
     }
 
 
-    private void placeLogIfFreeWithOffset(LevelSimulatedReader p_226130_, BiConsumer<BlockPos, BlockState> p_226131_, RandomSource p_226132_, BlockPos.MutableBlockPos p_226133_, TreeConfiguration p_226134_, BlockPos p_226135_, int p_226136_, int p_226137_, int p_226138_) {
+    private void placeLogIfFreeWithOffset(WorldGenLevel p_226130_, BiConsumer<BlockPos, BlockState> p_226131_, RandomSource p_226132_, BlockPos.MutableBlockPos p_226133_, TreeConfiguration p_226134_, BlockPos p_226135_, int p_226136_, int p_226137_, int p_226138_) {
         p_226133_.setWithOffset(p_226135_, p_226136_, p_226137_, p_226138_);
         this.placeLogIfFree(p_226130_, p_226131_, p_226132_, p_226133_, p_226134_);
     }

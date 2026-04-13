@@ -1,5 +1,6 @@
 package baguchan.frostrealm.capability;
 
+import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.data.resource.FrostDimensions;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
 import baguchan.frostrealm.registry.FrostWeathers;
@@ -12,7 +13,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.saveddata.SavedDataType;
-import net.minecraft.world.level.storage.DimensionDataStorage;
+import net.minecraft.world.level.storage.SavedDataStorage;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class FrostWeatherSavedData extends SavedData {
 
 	private static Map<Level, FrostWeatherSavedData> dataMap = new HashMap<>();
 	public static final SavedDataType<FrostWeatherSavedData> TYPE = new SavedDataType<>(
-			"frost_weather_data",
+			FrostRealm.prefix("frost_weather_data"),
 			FrostWeatherSavedData::new,
 			CODEC);
 
@@ -103,9 +104,10 @@ public class FrostWeatherSavedData extends SavedData {
 
 	public static FrostWeatherSavedData get(Level world) {
 		if (world instanceof ServerLevel serverLevel) {
-			FrostWeatherSavedData fromMap = dataMap.get(serverLevel);
-			if (fromMap == null) {
-				DimensionDataStorage storage = serverLevel.getDataStorage();
+			ServerLevel overworld = world.getServer().getLevel(world.dimension());
+			FrostWeatherSavedData fromMap = dataMap.get(overworld);
+			if (fromMap == null && overworld != null) {
+				SavedDataStorage storage = overworld.getDataStorage();
 				FrostWeatherSavedData data = storage.computeIfAbsent(TYPE);
 				if (data != null) {
 					data.setDirty();

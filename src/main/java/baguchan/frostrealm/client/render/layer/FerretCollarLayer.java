@@ -34,7 +34,7 @@ public class FerretCollarLayer<T extends FerretRenderState> extends RenderLayer<
                             this.getParentModel(),
                             renderState,
                             poseStack,
-                            RenderTypes.entityCutoutNoCull(COLLAR_LOCATION),
+                            RenderTypes.entityCutout(COLLAR_LOCATION),
                             p_117722_,
                             OverlayTexture.NO_OVERLAY,
                             i,

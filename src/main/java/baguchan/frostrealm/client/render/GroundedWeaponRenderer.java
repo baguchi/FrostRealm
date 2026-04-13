@@ -12,9 +12,8 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.item.ItemModelResolver;
-import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ARGB;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -41,8 +40,6 @@ public class GroundedWeaponRenderer<T extends GroundedWeapon> extends EntityRend
     public void extractRenderState(T entity, GroundedWeaponRenderState state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
         itemModelResolver.updateForNonLiving(state.item, FrostItems.FROST_SPEAR.toStack(), ItemDisplayContext.GROUND, entity);
-        ItemStackRenderState.LayerRenderState itemstackrenderstate$layerrenderstate = state.item.newLayer();
-        itemstackrenderstate$layerrenderstate.setRenderType(FrostRenderType.AURORA_ENTITY_GLINT);
 
         state.xRot = entity.getXRot(partialTicks);
         state.yRot = entity.getYRot(partialTicks);

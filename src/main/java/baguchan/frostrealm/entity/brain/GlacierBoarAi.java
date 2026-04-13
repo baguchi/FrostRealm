@@ -4,7 +4,6 @@ import baguchan.frostrealm.entity.animal.GlacierBoar;
 import baguchan.frostrealm.registry.FrostEntities;
 import baguchan.frostrealm.registry.FrostMemoryModuleType;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -14,6 +13,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.ActivityData;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
@@ -26,7 +26,7 @@ import java.util.Optional;
 
 import static net.minecraft.world.entity.ai.behavior.BehaviorUtils.isBreeding;
 
-public class FrostBoarAi {
+public class GlacierBoarAi {
     private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(6, 16);
     private static final UniformInt RETREAT_DURATION = TimeUtil.rangeOfSeconds(10, 30);
 
@@ -38,15 +38,8 @@ public class FrostBoarAi {
         return p_182378_.getBrain().isMemoryValue(MemoryModuleType.ATTACK_TARGET, p_182379_) ? ATTACK_TARGET_CONDITIONS_IGNORE_INVISIBILITY_AND_LINE_OF_SIGHT.test(serverLevel, p_182378_, p_182379_) : ATTACK_TARGET_CONDITIONS_IGNORE_LINE_OF_SIGHT.test(serverLevel, p_182378_, p_182379_);
     }
 
-    public static Brain<?> makeBrain(GlacierBoar glacierBoar, Brain<GlacierBoar> p_149291_) {
-        initCoreActivity(p_149291_);
-        initIdleActivity(p_149291_);
-        initFightActivity(p_149291_);
-        initRetreatActivity(p_149291_);
-        p_149291_.setCoreActivities(ImmutableSet.of(Activity.CORE));
-        p_149291_.setDefaultActivity(Activity.IDLE);
-        p_149291_.useDefaultActivity();
-        return p_149291_;
+    public static List<ActivityData<GlacierBoar>> getActivities() {
+        return List.of(initCoreActivity(), initIdleActivity(), initFightActivity(), initRetreatActivity());
     }
 
     public static void updateActivity(GlacierBoar boar) {
@@ -61,20 +54,20 @@ public class FrostBoarAi {
         boar.setAggressive(brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET));
     }
 
-    private static void initFightActivity(Brain<GlacierBoar> p_149303_) {
-        p_149303_.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 0, ImmutableList.of(StopAttackingIfTargetInvalid.create(), SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(FrostBoarAi::getSpeedModifierChasing), BehaviorBuilder.triggerIf(GlacierBoar::isAdult, MeleeAttack.create(40)), EraseMemoryIf.<Mob>create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)), MemoryModuleType.ATTACK_TARGET);
+    private static ActivityData<GlacierBoar> initFightActivity() {
+        return ActivityData.create(Activity.FIGHT, 10, ImmutableList.of(StopAttackingIfTargetInvalid.create(), SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(GlacierBoarAi::getSpeedModifierChasing), BehaviorBuilder.triggerIf(GlacierBoar::isAdult, MeleeAttack.create(40)), EraseMemoryIf.<Mob>create(BehaviorUtils::isBreeding, MemoryModuleType.ATTACK_TARGET)), MemoryModuleType.ATTACK_TARGET);
     }
 
-    private static void initCoreActivity(Brain<GlacierBoar> p_149307_) {
-        p_149307_.addActivity(Activity.CORE, 0, ImmutableList.of(StartAttacking.create(FrostBoarAi::findNearestValidAttackTarget), new Swim<>(0.8F), new LookAtTargetSink(45, 90), new MoveToTargetSink(), new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS)));
+    private static ActivityData<GlacierBoar> initCoreActivity() {
+        return ActivityData.create(Activity.CORE, 0, ImmutableList.of(StartAttacking.create(GlacierBoarAi::findNearestValidAttackTarget), new Swim<>(0.8F), new LookAtTargetSink(45, 90), new MoveToTargetSink(), new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS)));
     }
 
-    private static void initIdleActivity(Brain<GlacierBoar> p_149309_) {
-        p_149309_.addActivityWithConditions(Activity.IDLE, ImmutableList.of(Pair.of(0, new AnimalMakeLove(FrostEntities.GLACIER_BOAR.get(), 0.75F, 4)), Pair.of(1, new FollowTemptation(FrostBoarAi::getSpeedModifier)), Pair.of(3, createIdleMovementBehaviors()), Pair.of(0, createLookBehaviors()), Pair.of(0, BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F))), ImmutableSet.of());
+    private static ActivityData<GlacierBoar> initIdleActivity() {
+        return ActivityData.create(Activity.IDLE, 10, ImmutableList.of(new AnimalMakeLove(FrostEntities.GLACIER_BOAR.get(), 0.75F, 4), new FollowTemptation(GlacierBoarAi::getSpeedModifier), createIdleMovementBehaviors(), createLookBehaviors(), BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 0.85F)));
     }
 
-    private static void initRetreatActivity(Brain<GlacierBoar> p_34616_) {
-        p_34616_.addActivityAndRemoveMemoryWhenStopped(Activity.AVOID, 10, ImmutableList.of(SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 1.3F, 15, false), createIdleMovementBehaviors(), SetEntityLookTargetSometimes.create(8.0F, UniformInt.of(30, 60)), EraseMemoryIf.create(FrostBoarAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)), MemoryModuleType.AVOID_TARGET);
+    private static ActivityData<GlacierBoar> initRetreatActivity() {
+        return ActivityData.create(Activity.AVOID, 10, ImmutableList.of(SetWalkTargetAwayFrom.entity(MemoryModuleType.AVOID_TARGET, 1.3F, 15, false), createIdleMovementBehaviors(), SetEntityLookTargetSometimes.create(8.0F, UniformInt.of(30, 60)), EraseMemoryIf.create(GlacierBoarAi::wantsToStopFleeing, MemoryModuleType.AVOID_TARGET)), MemoryModuleType.AVOID_TARGET);
     }
 
     private static RunOne<LivingEntity> createLookBehaviors() {

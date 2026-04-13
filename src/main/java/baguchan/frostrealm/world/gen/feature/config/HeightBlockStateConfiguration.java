@@ -10,6 +10,6 @@ public record HeightBlockStateConfiguration(BlockStateProvider block,
                                             UniformInt baseHeight) implements FeatureConfiguration {
     public static final Codec<HeightBlockStateConfiguration> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             BlockStateProvider.CODEC.fieldOf("block").forGetter(HeightBlockStateConfiguration::block),
-            UniformInt.CODEC.fieldOf("base_height").forGetter(HeightBlockStateConfiguration::baseHeight)
+            UniformInt.MAP_CODEC.fieldOf("base_height").forGetter(HeightBlockStateConfiguration::baseHeight)
     ).apply(instance, HeightBlockStateConfiguration::new));
 }

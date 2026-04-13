@@ -22,18 +22,4 @@ public class FrostLevelData extends DerivedLevelData {
         this.wrapped.setGameTime(pTime);
     }
 
-	@Override
-	public int getClearWeatherTime() {
-		return 6000;
-	}
-
-	@Override
-	public boolean isRaining() {
-		return false;
-	}
-
-	@Override
-	public boolean isThundering() {
-		return false;
-	}
 }

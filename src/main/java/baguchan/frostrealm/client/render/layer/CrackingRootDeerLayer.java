@@ -36,7 +36,7 @@ public class CrackingRootDeerLayer<T extends RootDeerRenderState> extends Render
         Crackiness.Level level = t.crackiness;
         if (!t.isInvisible) {
             if (level != Crackiness.Level.NONE) {
-                submitNodeCollector.submitModel(this.getParentModel(), t, poseStack, RenderTypes.entityCutoutNoCull(resourceLocations.get(level)), i, OverlayTexture.NO_OVERLAY, -1, null, t.outlineColor, null);
+                submitNodeCollector.submitModel(this.getParentModel(), t, poseStack, RenderTypes.entityCutout(resourceLocations.get(level)), i, OverlayTexture.NO_OVERLAY, -1, null, t.outlineColor, null);
             }
         }
         poseStack.popPose();

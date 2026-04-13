@@ -12,8 +12,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -48,7 +48,7 @@ public class FrostBlocks {
     }).strength(-1.0F).sound(SoundType.GLASS));
 
     public static final DeferredBlock<Block> FROZEN_DIRT = register("frozen_dirt", (properties) -> new Block(properties), () -> BlockBehaviour.Properties.of().strength(0.5F).sound(SoundType.GRAVEL));
-    public static final DeferredBlock<Block> FROZEN_GRASS_BLOCK = register("frozen_grass_block", (properties) -> new FrostGrassBlock(properties, FrostBlocks.FROZEN_DIRT), () -> BlockBehaviour.Properties.of().randomTicks().strength(0.6F).sound(SoundType.GRASS));
+    public static final DeferredBlock<Block> FROZEN_GRASS_BLOCK = register("frozen_grass_block", (properties) -> new FrostGrassBlock(properties, FrostBlockIds.FROZEN_DIRT), () -> BlockBehaviour.Properties.of().randomTicks().strength(0.6F).sound(SoundType.GRASS));
     public static final DeferredBlock<Block> FROZEN_FARMLAND = register("frozen_farmland", (properties) -> new FrozenFarmBlock(properties), () -> BlockBehaviour.Properties.of().noOcclusion().strength(0.5F).randomTicks().sound(SoundType.GRAVEL));
 
     public static final DeferredBlock<Block> POINTED_ICE = register("pointed_ice", (properties) -> new PointedIceBlock(properties), () -> BlockBehaviour.Properties.of().friction(0.98F).randomTicks().strength(0.5F).dynamicShape().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.GLASS));
@@ -65,10 +65,10 @@ public class FrostBlocks {
             .requiresCorrectToolForDrops()
             .strength(1F, 3.0F)
             .isValidSpawn((p_187421_, p_187422_, p_187423_, p_187424_) -> p_187424_.fireImmune())
-            .hasPostProcess(FrostBlocks::always));
+            .postProcess(FrostBlocks::postProcessSelf));
 
     public static final DeferredBlock<Block> FRIGID_STONE = register("frigid_stone", (properties) -> new Block(properties), () -> BlockBehaviour.Properties.of().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
-    public static final DeferredBlock<Block> FRIGID_GRASS_BLOCK = register("frigid_grass_block", (properties) -> new FrostGrassBlock(properties, FrostBlocks.FRIGID_STONE), () -> BlockBehaviour.Properties.of().randomTicks().requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.NYLIUM));
+    public static final DeferredBlock<Block> FRIGID_GRASS_BLOCK = register("frigid_grass_block", (properties) -> new FrostGrassBlock(properties, FrostBlockIds.FRIGID_STONE), () -> BlockBehaviour.Properties.of().randomTicks().requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.NYLIUM));
 
     public static final DeferredBlock<SlabBlock> FRIGID_STONE_SLAB = register("frigid_stone_slab", (properties) -> new SlabBlock(properties), () -> BlockBehaviour.Properties.of().strength(1.5F, 6.0F).noOcclusion().requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
     public static final DeferredBlock<StairBlock> FRIGID_STONE_STAIRS = register("frigid_stone_stairs", (properties) -> new StairBlock(FRIGID_STONE.get().defaultBlockState(), properties), () -> BlockBehaviour.Properties.of().noOcclusion().strength(1.5F, 6.0F).requiresCorrectToolForDrops().sound(SoundType.NETHERRACK));
@@ -308,6 +308,11 @@ public class FrostBlocks {
         FrostItems.ITEMS.register(name, item.apply(registered));
         return registered;
     }
+
+    private static BlockPos postProcessSelf(BlockState state, BlockGetter blockGetter, BlockPos blockPos) {
+        return blockPos;
+    }
+
 
     private static ToIntFunction<BlockState> litBlockEmission(int p_50760_) {
         return (p_50763_) -> {

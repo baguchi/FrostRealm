@@ -7,7 +7,7 @@ import baguchan.frostrealm.registry.FrostAttachs;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
@@ -26,7 +26,7 @@ public class FrostOverlay implements GuiLayer {
     protected int tickCount;
 
     @Override
-    public void render(GuiGraphics guiGraphics, DeltaTracker p_316643_) {
+    public void render(GuiGraphicsExtractor guiGraphics, DeltaTracker p_316643_) {
         Minecraft mc = Minecraft.getInstance();
         Entity entity = mc.getCameraEntity();
         Options options = mc.options;

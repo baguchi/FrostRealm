@@ -1,8 +1,6 @@
 {
-  "parent": "frostrealm:block/glow_cube",
-  "render_type": "minecraft:cutout",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "frostrealm:block/perma_magma",
-    "glow_all": "frostrealm:block/perma_magma_glow"
+    "all": "frostrealm:block/perma_magma"
   }
 }

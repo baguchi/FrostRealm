@@ -24,7 +24,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlac
 import net.minecraft.world.level.levelgen.feature.foliageplacers.DarkOakFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.treedecorators.PaleMossDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.CherryTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
@@ -64,29 +63,29 @@ public class FrostTreeFeatures {
 
 
     private static TreeConfiguration.TreeConfigurationBuilder createFrostRoot() {
-        return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTROOT_LOG.get()), new FancyTrunkPlacer(3, 3, 0), BlockStateProvider.simple(FrostBlocks.FROSTROOT_LEAVES.get()), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTROOT_LOG.get()), new FancyTrunkPlacer(3, 3, 0), BlockStateProvider.simple(FrostBlocks.FROSTROOT_LEAVES.get()), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4), new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))).ignoreVines().belowTrunkProvider(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder createFancyFrostRoot() {
-		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTROOT_LOG.get()), new ForkingTrunkPlacer(4, 11, 0), BlockStateProvider.simple(FrostBlocks.FROSTROOT_LEAVES.get()), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), 4), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
+		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTROOT_LOG.get()), new ForkingTrunkPlacer(4, 11, 0), BlockStateProvider.simple(FrostBlocks.FROSTROOT_LEAVES.get()), new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(2), 4), new TwoLayersFeatureSize(1, 0, 2))).ignoreVines().belowTrunkProvider(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
     }
 
 	private static TreeConfiguration.TreeConfigurationBuilder createDripWoodBig() {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.DRIP_LOG.get()), new DripWoodTrunkPlacer(32, 8, 0), BlockStateProvider.simple(FrostBlocks.DRIP_LEAVES.get()), new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
-		)).decorators(ImmutableList.of(new DripHangingLeavesDecorator(0.15F, 0.4F, 0.8F))).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
+		)).decorators(ImmutableList.of(new DripHangingLeavesDecorator(0.15F, 0.4F, 0.8F))).ignoreVines().belowTrunkProvider(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
 	}
 
     private static TreeConfiguration.TreeConfigurationBuilder createDripWood() {
         return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.DRIP_LOG.get()), new DripWoodTrunkPlacer(8, 8, 0), BlockStateProvider.simple(FrostBlocks.DRIP_LEAVES.get()), new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
                 new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
-        )).decorators(ImmutableList.of(new DripHangingLeavesDecorator(0.15F, 0.4F, 0.8F))).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
+		)).decorators(ImmutableList.of(new DripHangingLeavesDecorator(0.15F, 0.4F, 0.8F))).ignoreVines().belowTrunkProvider(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
     }
 
 	private static TreeConfiguration.TreeConfigurationBuilder createFrostBite() {
 		return (new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(FrostBlocks.FROSTBITE_LOG.get()), new ForkingTrunkPlacer(8, 4, 0), BlockStateProvider.simple(FrostBlocks.FROSTBITE_LEAVES.get()), new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
-		)).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
+		)).ignoreVines().belowTrunkProvider(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get()));
 	}
 
 	private static TreeConfiguration.TreeConfigurationBuilder createFancyFrostBite() {
@@ -102,6 +101,6 @@ public class FrostTreeFeatures {
 				UniformInt.of(-1, 0)
 		), BlockStateProvider.simple(FrostBlocks.FROSTBITE_LEAVES.get()), new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 				new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
-		).ignoreVines().dirt(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get())));
+		).ignoreVines().belowTrunkProvider(BlockStateProvider.simple(FrostBlocks.FROZEN_DIRT.get())));
 	}
 }

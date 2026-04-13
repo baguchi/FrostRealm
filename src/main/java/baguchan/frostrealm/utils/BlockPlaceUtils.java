@@ -25,22 +25,12 @@ public class BlockPlaceUtils {
         }
     }
 
-    /**
-     * Places a block if there is not already one at the position.<br><br>
-     * Warning for "UnusedReturnValue" is suppressed because the boolean from {@link WorldGenLevel#setBlock(BlockPos, BlockState, int)} needs to be retained.
-     *
-     * @param level    The {@link WorldGenLevel} for generation.
-     * @param provider The {@link BlockStateProvider} for the block to be placed.
-     * @param pos      The {@link BlockPos} for the block.
-     * @param random   The {@link RandomSource} used for generation.
-     * @return A {@link Boolean} for whether the block was placed successfully.
-     */
     @SuppressWarnings("UnusedReturnValue")
     public static boolean placeProvidedBlock(WorldGenLevel level, BlockStateProvider provider, BlockPos pos, RandomSource random, boolean replaceBlocks) {
         if (replaceBlocks) {
-            return level.setBlock(pos, provider.getState(random, pos), 2);
+            return level.setBlock(pos, provider.getState(level, random, pos), 2);
         } else if (level.getBlockState(pos).isAir()) {
-            return level.setBlock(pos, provider.getState(random, pos), 2);
+            return level.setBlock(pos, provider.getState(level, random, pos), 2);
         } else {
             return false;
         }

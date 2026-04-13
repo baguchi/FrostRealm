@@ -1,4 +1,7 @@
 {
+  "attributes": {
+    "minecraft:gameplay/monsters_burn": false
+  },
   "carvers": [
     "frostrealm:frostrealm_cave",
     "frostrealm:frostrealm_cave_extra_underground",

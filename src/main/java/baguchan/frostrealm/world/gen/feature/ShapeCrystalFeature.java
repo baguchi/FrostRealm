@@ -33,7 +33,7 @@ public class ShapeCrystalFeature extends Feature<HeightBlockStateConfiguration> 
                 if (blockpos1.distSqr(spikePos) > (height - (width * width * 2)) / (y + 2)) {
                     if (blockpos1.distSqr(spikePos) < (height + (width * width * 2)) / (y + 2)) {
                         if (!worldgenlevel.getBlockState(blockpos1).is(BlockTags.FEATURES_CANNOT_REPLACE)) {
-                            worldgenlevel.setBlock(blockpos1, blockstateconfiguration.config().block().getState(random, blockpos1), 2);
+                            worldgenlevel.setBlock(blockpos1, blockstateconfiguration.config().block().getState(worldgenlevel, random, blockpos1), 2);
                         }
                     }
                 }

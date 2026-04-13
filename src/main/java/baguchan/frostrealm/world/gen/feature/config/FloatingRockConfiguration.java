@@ -11,7 +11,7 @@ public record FloatingRockConfiguration(BlockStateProvider block, UniformFloat b
                                         UniformInt additionalRadius) implements FeatureConfiguration {
     public static final Codec<FloatingRockConfiguration> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             BlockStateProvider.CODEC.fieldOf("block").forGetter(FloatingRockConfiguration::block),
-            UniformFloat.CODEC.fieldOf("base_radius").forGetter(FloatingRockConfiguration::baseRadius),
-            UniformInt.CODEC.fieldOf("additional_radius").forGetter(FloatingRockConfiguration::additionalRadius)
+            UniformFloat.MAP_CODEC.fieldOf("base_radius").forGetter(FloatingRockConfiguration::baseRadius),
+            UniformInt.MAP_CODEC.fieldOf("additional_radius").forGetter(FloatingRockConfiguration::additionalRadius)
     ).apply(instance, FloatingRockConfiguration::new));
 }
