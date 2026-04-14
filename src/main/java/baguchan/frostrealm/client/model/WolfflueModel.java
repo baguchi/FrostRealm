@@ -29,6 +29,7 @@ public class WolfflueModel<T extends WolfflueRenderState> extends EntityModel<T>
     private final KeyframeAnimation runAnimationState;
     private final KeyframeAnimation walkAnimationState;
     private final KeyframeAnimation sitAnimationState;
+    private final KeyframeAnimation babySitAnimationState;
     private final KeyframeAnimation jumpAnimationState;
 
 
@@ -49,6 +50,7 @@ public class WolfflueModel<T extends WolfflueRenderState> extends EntityModel<T>
         this.walkAnimationState = WolfflueAnimations.walk.bake(root);
         this.runAnimationState = WolfflueAnimations.run.bake(root);
         this.sitAnimationState = WolfflueAnimations.sit.bake(root);
+        this.babySitAnimationState = WolfflueAnimations.baby_sit.bake(root);
         this.jumpAnimationState = WolfflueAnimations.jump.bake(root);
 
     }
@@ -66,11 +68,11 @@ public class WolfflueModel<T extends WolfflueRenderState> extends EntityModel<T>
 
         PartDefinition head_r2 = head.addOrReplaceChild("head_r2", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -6.0F, -7.0F, 6.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 1.0F, 3.0F, 0.1745F, 0.0F, 0.0F));
 
-        PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create().texOffs(28, 12).addBox(-3.5F, -14.0F, -0.5F, 7.0F, 6.0F, 6.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 10).addBox(-3.5F, -15.0F, -7.5F, 7.0F, 7.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 1.0F));
+        PartDefinition body = all.addOrReplaceChild("body", CubeListBuilder.create().texOffs(28, 12).addBox(-3.5F, -13.0F, 0.5F, 7.0F, 6.0F, 6.0F, new CubeDeformation(0.0F))
+                .texOffs(0, 10).addBox(-3.5F, -14.0F, -6.5F, 7.0F, 7.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(46, 0).addBox(-0.5F, 0.0F, 0.0F, 1.0F, 1.0F, 4.0F, new CubeDeformation(0.0F))
-                .texOffs(46, 5).addBox(-1.0F, 0.0F, 4.0F, 2.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -13.5F, 5.0F));
+                .texOffs(46, 5).addBox(-1.0F, 0.0F, 4.0F, 2.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -12.5F, 6.0F));
 
         PartDefinition rightLeg = all.addOrReplaceChild("rightLeg", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
@@ -139,11 +141,15 @@ public class WolfflueModel<T extends WolfflueRenderState> extends EntityModel<T>
         float f = entity.partialTick;
 
         if (entity.isSitting) {
-            if (entity.idleSitAnimationState.isStarted() || entity.idleSit2AnimationState.isStarted()) {
-                this.idleSitAnimationState.apply(entity.idleSitAnimationState, entity.ageInTicks);
-                this.idleSit2AnimationState.apply(entity.idleSit2AnimationState, entity.ageInTicks);
+            if (entity.isBaby) {
+                this.babySitAnimationState.applyStatic();
             } else {
-                this.sitAnimationState.applyStatic();
+                if (entity.idleSitAnimationState.isStarted() || entity.idleSit2AnimationState.isStarted()) {
+                    this.idleSitAnimationState.apply(entity.idleSitAnimationState, entity.ageInTicks);
+                    this.idleSit2AnimationState.apply(entity.idleSit2AnimationState, entity.ageInTicks);
+                } else {
+                    this.sitAnimationState.applyStatic();
+                }
             }
         } else {
             if (entity.jumpAnimationState.isStarted()) {
