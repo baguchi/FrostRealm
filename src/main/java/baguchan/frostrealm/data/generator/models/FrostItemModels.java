@@ -5,10 +5,9 @@ import baguchan.frostrealm.registry.FrostItems;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ItemModelOutput;
-import net.minecraft.client.data.models.model.ItemModelUtils;
-import net.minecraft.client.data.models.model.ModelInstance;
-import net.minecraft.client.data.models.model.ModelLocationUtils;
-import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.item.ClientItem;
+import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
@@ -19,6 +18,11 @@ public class FrostItemModels extends ItemModelGenerators {
         super(itemModelOutput, modelOutput);
     }
 
+    public void generateSickle(Item item) {
+        ItemModel.Unbaked flatModel = ItemModelUtils.plainModel(this.createFlatItemModel(item, ModelTemplates.FLAT_ITEM));
+        ItemModel.Unbaked inHandModel = ItemModelUtils.plainModel(FrostModelTemplates.BIG_HANDHELD.create(item, TextureMapping.layer0(TextureMapping.getItemTexture(item, "_in_hand")), this.modelOutput));
+        this.itemModelOutput.accept(item, createFlatModelDispatch(flatModel, inHandModel), new ClientItem.Properties(true, false, 1.95F));
+    }
 
     @Override
     public void run() {
@@ -36,7 +40,6 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.STARDUST_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_CRYSTAL.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_INGOT.asItem(), ModelTemplates.FLAT_ITEM);
-
 
         this.generateFlatItem(FrostItems.FROZEN_FRUIT.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.MELTED_FRUIT.asItem(), ModelTemplates.FLAT_ITEM);
@@ -68,17 +71,17 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateFlatItem(FrostItems.ASTRIUM_PICKAXE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.ASTRIUM_SHOVEL.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.ASTRIUM_HOE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.ASTRIUM_SICKLE.asItem(), FrostModelTemplates.BIG_HANDHELD);
+        this.generateSickle(FrostItems.ASTRIUM_SICKLE.asItem());
+        this.generateSpear(FrostItems.ASTRIUM_SPEAR.asItem());
+
 
         this.generateFlatItem(FrostItems.GLACINIUM_SWORD.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_AXE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_PICKAXE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_SHOVEL.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
         this.generateFlatItem(FrostItems.GLACINIUM_HOE.asItem(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        this.generateFlatItem(FrostItems.GLACINIUM_SICKLE.asItem(), FrostModelTemplates.BIG_HANDHELD);
-        this.generateFlatItem(FrostItems.GLACINIUM_SPEAR.asItem(), FrostModelTemplates.BIG_SPEAR);
-        this.generateFlatItem(FrostItems.ASTRIUM_SPEAR.asItem(), FrostModelTemplates.BIG_SPEAR);
-
+        this.generateSickle(FrostItems.GLACINIUM_SICKLE.asItem());
+        this.generateSpear(FrostItems.GLACINIUM_SPEAR.asItem());
 
         this.generateFlatItem(FrostItems.YETI_FUR_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.YETI_FUR_CHESTPLATE.asItem(), ModelTemplates.FLAT_ITEM);

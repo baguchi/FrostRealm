@@ -14,15 +14,14 @@ public class FrostModelTemplates {
     );
     public static final ModelTemplate EMPTY = ModelTemplates.create("block/block", TextureSlot.PARTICLE);
 
-    public static final ModelTemplate GLOW_CUBE = create("block/glow_cube", TextureSlot.ALL, FrostTextureMappings.GLOW_ALL);
-    public static final ModelTemplate CHAIN = create("block/chain", TextureSlot.ALL);
-    public static final ModelTemplate LADDER = create("block/ladder", TextureSlot.ALL);
-    public static final ModelTemplate TRANSLUCENT_CUBE = create("block/translucent_cube", TextureSlot.ALL);
-    public static final ModelTemplate BIG_HANDHELD = create("item/big_handheld", TextureSlot.LAYER0);
-    public static final ModelTemplate BIG_SPEAR = create("item/big_spear", TextureSlot.LAYER0);
+    public static final ModelTemplate BIG_HANDHELD = createItem("item/big_handheld", "_in_hand", TextureSlot.LAYER0);
     public static final ModelTemplate SPECIAL_SPEAR = create("item/special_spear", TextureSlot.LAYER0);
     public static ModelTemplate create(String p_386521_, TextureSlot... p_388561_) {
         return new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(FrostRealm.MODID, p_386521_)), Optional.empty(), p_388561_);
+    }
+
+    public static ModelTemplate createItem(String id, String suffix, TextureSlot... slots) {
+        return new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(FrostRealm.MODID, id)), Optional.of(suffix), slots);
     }
 
     public static ModelTemplate createDefault(String p_386521_, TextureSlot... p_388561_) {

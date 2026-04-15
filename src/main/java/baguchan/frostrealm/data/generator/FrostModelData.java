@@ -59,7 +59,7 @@ public class FrostModelData extends ModelProvider {
                 }
             }
         };
-        BlockStateGeneratorCollector blockModelOutput = new BlockStateGeneratorCollector(this::getKnownBlocks) {
+        BlockModelDefinitionGeneratorCollector blockModelOutput = new BlockModelDefinitionGeneratorCollector(this::getKnownBlocks) {
             @Override
             public void validate() { //todo temporary
                 try {
@@ -87,6 +87,7 @@ public class FrostModelData extends ModelProvider {
             this.copies = new HashMap();
             this.knownItems = knownItems;
         }
+
 
         @Override
         public void accept(Item p_456234_, ItemModel.Unbaked p_454728_, ClientItem.Properties p_455827_) {
@@ -159,29 +160,31 @@ public class FrostModelData extends ModelProvider {
     }
 
 
-    static class BlockStateGeneratorCollector implements Consumer<BlockModelDefinitionGenerator> {
+    static class BlockModelDefinitionGeneratorCollector implements Consumer<BlockModelDefinitionGenerator> {
         private final Map<Block, BlockModelDefinitionGenerator> generators;
         private final Supplier<Stream<? extends Holder<Block>>> knownBlocks;
 
-        public BlockStateGeneratorCollector(Supplier<Stream<? extends Holder<Block>>> knownBlocks) {
+        public BlockModelDefinitionGeneratorCollector(Supplier<Stream<? extends Holder<Block>>> knownBlocks) {
             this.generators = new HashMap();
             this.knownBlocks = knownBlocks;
         }
 
 
-        public void accept(BlockModelDefinitionGenerator p_388748_) {
-            Block block = p_388748_.block();
-            BlockModelDefinitionGenerator blockstategenerator = (BlockModelDefinitionGenerator) this.generators.put(block, p_388748_);
-            if (blockstategenerator != null) {
-                throw new IllegalStateException("Duplicate blockstate definition for " + String.valueOf(block));
+        public void accept(BlockModelDefinitionGenerator p_405192_) {
+            Block block = p_405192_.block();
+            BlockModelDefinitionGenerator blockmodeldefinitiongenerator = this.generators.put(block, p_405192_);
+            if (blockmodeldefinitiongenerator != null) {
+                throw new IllegalStateException("Duplicate blockstate definition for " + block);
             }
         }
 
         public void validate() {
-            Stream<? extends Holder<Block>> stream = this.knownBlocks.get();
-            List<Identifier> list = stream.filter((p_386843_) -> !this.generators.containsKey(p_386843_.value())).map((p_386823_) -> ((ResourceKey) p_386823_.unwrapKey().orElseThrow()).identifier()).toList();
+            Stream<? extends Holder<Block>> stream = knownBlocks.get();
+            List<Identifier> list = stream.filter(p_386843_ -> !this.generators.containsKey(p_386843_.value()))
+                    .map(p_386823_ -> p_386823_.unwrapKey().orElseThrow().identifier())
+                    .toList();
             if (!list.isEmpty()) {
-                throw new IllegalStateException("Missing blockstate definitions for: " + String.valueOf(list));
+                throw new IllegalStateException("Missing blockstate definitions for: " + list);
             }
         }
 

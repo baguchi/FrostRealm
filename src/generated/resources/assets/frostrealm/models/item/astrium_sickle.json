@@ -1,5 +1,5 @@
 {
-  "parent": "frostrealm:item/big_handheld",
+  "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "frostrealm:item/astrium_sickle"
   }

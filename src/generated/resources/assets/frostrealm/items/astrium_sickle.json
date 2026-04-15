@@ -1,6 +1,25 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "frostrealm:item/astrium_sickle"
-  }
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "frostrealm:item/astrium_sickle"
+        },
+        "when": [
+          "gui",
+          "ground",
+          "fixed",
+          "on_shelf"
+        ]
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "frostrealm:item/astrium_sickle_in_hand"
+    },
+    "property": "minecraft:display_context"
+  },
+  "swap_animation_scale": 1.95
 }
