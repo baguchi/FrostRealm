@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -73,9 +74,8 @@ public class AttackUtils {
                         double d0 = -Mth.sin(player.getYRot() * (float) (Math.PI / 180.0));
                         double d1 = Mth.cos(player.getYRot() * (float) (Math.PI / 180.0));
                         serverLevel.sendParticles(ParticleTypes.SWEEP_ATTACK, player.getX() + d0, player.getY(0.5), player.getZ() + d1, 0, d0, 0.0, d1, 0.0);
+                        serverLevel.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 1F, (float) (0.5F + (player.getRandom().nextGaussian() * 0.2F)));
                     }
-                    player.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 1F, (float) (0.6F + (player.getRandom().nextGaussian() * 0.2F)));
-
                 }
             }
         }
@@ -131,8 +131,9 @@ public class AttackUtils {
                     double d0 = -Mth.sin(player.getYRot() * (float) (Math.PI / 180.0));
                     double d1 = Mth.cos(player.getYRot() * (float) (Math.PI / 180.0));
                     serverLevel.sendParticles(ParticleTypes.SWEEP_ATTACK, player.getX() + d0, player.getY(0.5), player.getZ() + d1, 0, d0, 0.0, d1, 0.0);
+                    serverLevel.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 1F, (float) (0.5F + (player.getRandom().nextGaussian() * 0.2F)));
+
                 }
-                player.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 1F, (float) (0.6F + (player.getRandom().nextGaussian() * 0.2F)));
 
             }
         }
