@@ -8,10 +8,7 @@ import baguchan.frostrealm.command.FrostWeatherCommand;
 import baguchan.frostrealm.command.TemperatureCommand;
 import baguchan.frostrealm.data.resource.registries.AttachableCrystals;
 import baguchan.frostrealm.data.resource.registries.WolfflueVariants;
-import baguchan.frostrealm.message.ChangeAuroraMessage;
-import baguchan.frostrealm.message.ChangeWeatherMessage;
-import baguchan.frostrealm.message.ChangedColdMessage;
-import baguchan.frostrealm.message.UpdateMultipartPacket;
+import baguchan.frostrealm.message.*;
 import baguchan.frostrealm.registry.*;
 import com.google.common.collect.Maps;
 import net.minecraft.client.Minecraft;
@@ -122,6 +119,7 @@ public class FrostRealm {
         registrar.playToClient(ChangeWeatherMessage.TYPE, ChangeWeatherMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
         registrar.playToClient(ChangeAuroraMessage.TYPE, ChangeAuroraMessage.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
 		registrar.playToClient(UpdateMultipartPacket.TYPE, UpdateMultipartPacket.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
+		registrar.playToServer(SickleAttackPacket.TYPE, SickleAttackPacket.STREAM_CODEC, (handler, payload) -> handler.handle(handler, payload));
 	}
 
 	public void setup(FMLCommonSetupEvent event) {

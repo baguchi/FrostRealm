@@ -12,10 +12,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.gui.screens.WinScreen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
@@ -235,13 +233,6 @@ public class FrostLivingCapability implements ValueIOSerializable {
 
     public void setSaturation(float saturation) {
         this.temperatureSaturation = saturation;
-    }
-
-
-    private void playPortalSound(Minecraft mc) {
-        if (mc.player != null) {
-            mc.getSoundManager().play(SimpleSoundInstance.forLocalAmbience(SoundEvents.PORTAL_TRIGGER, mc.player.getRandom().nextFloat() * 0.4F + 0.8F, 0.25F));
-        }
     }
 
     public void setInPortal(boolean inPortal) {

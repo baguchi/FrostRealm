@@ -3,6 +3,7 @@ package baguchan.frostrealm.client;
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.capability.FrostLivingCapability;
 import baguchan.frostrealm.capability.FrostWeatherManager;
+import baguchan.frostrealm.client.animation.SickleAnimation;
 import baguchan.frostrealm.client.event.ClientFogEvent;
 import baguchan.frostrealm.client.model.*;
 import baguchan.frostrealm.client.overlay.FrostOverlay;
@@ -13,6 +14,7 @@ import baguchan.frostrealm.client.screen.AuroraInfuserScreen;
 import baguchan.frostrealm.item.GlimmerRockItem;
 import baguchan.frostrealm.item.YetiFurArmorItem;
 import baguchan.frostrealm.registry.*;
+import baguchi.bagus_lib.client.event.RegisterBagusKeyframeEvents;
 import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -31,12 +33,16 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.context.ContextKey;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEvent;
@@ -58,6 +64,20 @@ public class ClientRegistrar {
 			null
 	);
 	public static ContextKey<Boolean> HOLD_SPEAR_KEY = new ContextKey<>(Identifier.fromNamespaceAndPath(FrostRealm.MODID, "hold_spear_id"));
+	public static Identifier SICKLE_RIGHT = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "sickle_right");
+	public static Identifier SICKLE_LEFT = Identifier.fromNamespaceAndPath(FrostRealm.MODID, "sickle_left");
+
+
+	@SubscribeEvent
+	public static void registerAnimation(RegisterBagusKeyframeEvents event) {
+
+		if (event.getModel().root().hasChild("right_arm") && event.getModel().root().hasChild("left_arm")) {
+			event.addAnimationKeyframe(SICKLE_RIGHT, SickleAnimation.sickle_right.bake(event.getModelPart()));
+			event.addAnimationKeyframe(SICKLE_LEFT, SickleAnimation.sickle_left.bake(event.getModelPart()));
+		}
+
+	}
+
 
 
 	@SubscribeEvent
@@ -81,6 +101,13 @@ public class ClientRegistrar {
 				return TEXTURE_OVERLAY;
 			}
 		}, FrostFluidTypes.HOT_SPRING.get());
+
+		event.registerItem(new IClientItemExtensions() {
+			@Override
+			public HumanoidModel.ArmPose getArmPose(LivingEntity entity, InteractionHand hand, ItemStack itemStack) {
+				return HumanoidModel.ArmPose.valueOf("FROSTREALM_SICKLE_ARM_POSE");
+			}
+		}, FrostItems.ASTRIUM_SICKLE, FrostItems.GLACINIUM_SICKLE);
 	}
 
 	@SubscribeEvent

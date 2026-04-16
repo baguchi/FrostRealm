@@ -1,7 +1,7 @@
 package baguchan.frostrealm.utils;
 
 import baguchan.frostrealm.registry.FrostTags;
-import baguchi.bagus_lib.util.CombatUtils;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -17,11 +17,11 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.List;
 import java.util.Optional;
 
 public class AttackUtils {
-    public static void sickleAttack(Player player, Entity target, ItemStack itemstack) {
+
+    public static void sickleAttackOnEnemy(Player player, Entity target, ItemStack itemstack) {
 
         if (itemstack.is(FrostTags.Items.SICKLE) && player.onGround()) {
             DamageSource damagesource = Optional.ofNullable(itemstack.getItem().getItemDamageSource(player)).orElse(player.damageSources().playerAttack(player));
@@ -49,7 +49,7 @@ public class AttackUtils {
                         if (resolveRange(d0)) {
 
                             //attack bonus
-                            f += itemstack.getItem().getAttackDamageBonus(target, f, damagesource);
+                            f += itemstack.getItem().getAttackDamageBonus(livingentity2, f, damagesource);
                             //enchant
                             float f1 = (player.level() instanceof ServerLevel serverLevel) ? EnchantmentHelper.modifyDamage(serverLevel, itemstack, livingentity2, damagesource, f) : f;
                             f += f1;
@@ -61,7 +61,7 @@ public class AttackUtils {
                                     (double) (-Mth.cos(player.getYRot() * (float) (Math.PI / 180.0)))
                             );
                             f /= (float) Math.max(1F, player.distanceTo(livingentity2) / (player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) + 1));
-                            livingentity2.hurt(damagesource, f);
+                            livingentity2.hurtOrSimulate(damagesource, f);
                             if (player.level() instanceof ServerLevel serverlevel) {
                                 EnchantmentHelper.doPostAttackEffects(serverlevel, livingentity2, damagesource);
                             }
@@ -69,12 +69,62 @@ public class AttackUtils {
                         }
                     }
 
-                  if(player.level() instanceof ServerLevel serverLevel) {
-                      double d0 = -Mth.sin(player.getYRot() * (float) (Math.PI / 180.0));
-                      double d1 = Mth.cos(player.getYRot() * (float) (Math.PI / 180.0));
-                      serverLevel.sendParticles(ParticleTypes.SWEEP_ATTACK, player.getX() + d0, player.getY(0.5), player.getZ() + d1, 0, d0, 0.0, d1, 0.0);
-                  }
+                    if (player.level() instanceof ServerLevel serverLevel) {
+                        double d0 = -Mth.sin(player.getYRot() * (float) (Math.PI / 180.0));
+                        double d1 = Mth.cos(player.getYRot() * (float) (Math.PI / 180.0));
+                        serverLevel.sendParticles(ParticleTypes.SWEEP_ATTACK, player.getX() + d0, player.getY(0.5), player.getZ() + d1, 0, d0, 0.0, d1, 0.0);
+                    }
+                    player.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 1F, (float) (0.6F + (player.getRandom().nextGaussian() * 0.2F)));
+
                 }
+            }
+        }
+    }
+
+    public static void sickleAttack(Player player, ItemStack itemstack) {
+
+        if (itemstack.is(FrostTags.Items.SICKLE)) {
+            DamageSource damagesource = Optional.ofNullable(itemstack.getItem().getItemDamageSource(player)).orElse(player.damageSources().playerAttack(player));
+
+            float f = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE);
+
+            double entityReachSq = Mth.square(player.entityInteractionRange() + 0.5F); // Use entity reach instead of constant 9.0. Vanilla uses bottom center-to-center checks here, so don't update player to use canReach, since it uses closest-corner checks.
+
+            Vec3 eyeGaze = player.getHeadLookAngle();
+            Vec3 missPosition = player.getEyePosition().add(eyeGaze);
+            for (LivingEntity livingentity2 : player.level()
+                    .getEntitiesOfClass(LivingEntity.class, new AABB(BlockPos.containing(missPosition)).inflate(entityReachSq / 2, 0.25, entityReachSq / 2))) {
+                if (livingentity2 != player
+                        && !player.isAlliedTo(livingentity2)
+                        && (!(livingentity2 instanceof ArmorStand) || !((ArmorStand) livingentity2).isMarker())
+                        && player.distanceToSqr(livingentity2) < entityReachSq + 0.5F) {
+
+                    //attack bonus
+                    f += itemstack.getItem().getAttackDamageBonus(player, f, damagesource);
+                    //enchant
+                    float f1 = (player.level() instanceof ServerLevel serverLevel) ? EnchantmentHelper.modifyDamage(serverLevel, itemstack, livingentity2, damagesource, f) : f;
+                    f += f1;
+
+                    livingentity2.knockback(
+                            0.4F,
+                            (double) Mth.sin(player.getYRot() * (float) (Math.PI / 180.0)),
+                            (double) (-Mth.cos(player.getYRot() * (float) (Math.PI / 180.0)))
+                    );
+                    f /= (float) Math.max(1F, player.distanceTo(livingentity2) / (player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) + 1));
+                    livingentity2.hurt(damagesource, f);
+                    if (player.level() instanceof ServerLevel serverlevel) {
+                        EnchantmentHelper.doPostAttackEffects(serverlevel, livingentity2, damagesource);
+                    }
+                    itemstack.hurtEnemy(livingentity2, player);
+                }
+
+                if (player.level() instanceof ServerLevel serverLevel) {
+                    double d0 = -Mth.sin(player.getYRot() * (float) (Math.PI / 180.0));
+                    double d1 = Mth.cos(player.getYRot() * (float) (Math.PI / 180.0));
+                    serverLevel.sendParticles(ParticleTypes.SWEEP_ATTACK, player.getX() + d0, player.getY(0.5), player.getZ() + d1, 0, d0, 0.0, d1, 0.0);
+                }
+                player.playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 1F, (float) (0.6F + (player.getRandom().nextGaussian() * 0.2F)));
+
             }
         }
     }
@@ -84,19 +134,6 @@ public class AttackUtils {
             return false;
         } else {
             return true;
-        }
-    }
-
-
-    public static void damageParticle(Player player, Entity target, float health) {
-        if (target instanceof LivingEntity) {
-            float f8 = health - ((LivingEntity) target).getHealth();
-            //this.awardStat(Stats.DAMAGE_DEALT, Math.round(f8 * 10.0F));
-            if (player.level() instanceof ServerLevel && f8 > 2.0F) {
-                int i = (int) ((double) f8 * 0.5);
-                ((ServerLevel) player.level())
-                        .sendParticles(ParticleTypes.DAMAGE_INDICATOR, target.getX(), target.getY(0.5), target.getZ(), i, 0.1, 0.0, 0.1, 0.2);
-            }
         }
     }
 

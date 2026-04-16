@@ -35,6 +35,15 @@
       "name": "FROSTREALM_WOLFFLUE_SADDLE",
       "constructor": "(Ljava/lang/String;)V",
       "parameters": [ "frostrealm:wolfflue_saddle" ]
+    },
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "FROSTREALM_SICKLE_ARM_POSE",
+      "constructor": "(ZZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "baguchan/frostrealm/FrostEnumExtensions",
+        "field": "SICKLE_ARM_POSE"
+      }
     }
   ]
 }

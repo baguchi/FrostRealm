@@ -10,6 +10,7 @@ import baguchan.frostrealm.entity.animal.Seal;
 import baguchan.frostrealm.entity.animal.SnowPileQuail;
 import baguchan.frostrealm.message.ChangeAuroraMessage;
 import baguchan.frostrealm.message.ChangeWeatherMessage;
+import baguchan.frostrealm.message.SickleAttackPacket;
 import baguchan.frostrealm.registry.*;
 import baguchan.frostrealm.utils.AttackUtils;
 import baguchan.frostrealm.utils.aurorapower.AuroraCombatRules;
@@ -18,15 +19,11 @@ import baguchan.frostrealm.world.FrostLevelData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.SectionPos;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.*;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.profiling.Profiler;
-import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -39,16 +36,14 @@ import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraft.world.level.chunk.LevelChunkSection;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.entity.PartEntity;
@@ -58,9 +53,9 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.SweepAttackEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
-import net.neoforged.neoforge.event.level.BlockGrowFeatureEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
@@ -134,14 +129,6 @@ public class CommonEvents {
         if (abstractcontainermenu != null) {
             abstractcontainermenu.slotsChanged(p_376384_.getInventory());
         }
-    }
-
-    @SubscribeEvent
-    public static void onSweep(SweepAttackEvent event) {
-        Player player = event.getEntity();
-        Entity target = event.getTarget();
-        ItemStack itemstack = player.getWeaponItem();
-        AttackUtils.sickleAttack(player, target, itemstack);
     }
 
     @SubscribeEvent
@@ -274,6 +261,20 @@ public class CommonEvents {
                 }
             }
         }
+    }
+
+
+    @SubscribeEvent
+    public static void onLeftClick(PlayerInteractEvent.LeftClickEmpty event) {
+        ClientPacketDistributor.sendToServer(new SickleAttackPacket());
+    }
+
+    @SubscribeEvent
+    public static void onSweep(SweepAttackEvent event) {
+        Player player = event.getEntity();
+        Entity target = event.getTarget();
+        ItemStack itemstack = player.getWeaponItem();
+        AttackUtils.sickleAttackOnEnemy(player, target, itemstack);
     }
 
     /*

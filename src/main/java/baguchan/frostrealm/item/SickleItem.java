@@ -1,7 +1,6 @@
 package baguchan.frostrealm.item;
 
 import baguchan.frostrealm.FrostRealm;
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
@@ -15,8 +14,6 @@ import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.component.Weapon;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.phys.AABB;
 
 import java.util.List;
@@ -56,9 +53,4 @@ public class SickleItem extends Item {
         return target.getBoundingBox().inflate(1D, 0.25D, 1D);
     }
 
-
-    @Override
-    public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
-        return super.supportsEnchantment(stack, enchantment) || enchantment.is(Enchantments.SWEEPING_EDGE);
-    }
 }
