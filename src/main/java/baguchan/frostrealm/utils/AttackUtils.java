@@ -24,7 +24,7 @@ public class AttackUtils {
 
     public static void sickleAttackOnEnemy(Player player, Entity target, ItemStack itemstack) {
 
-        if (itemstack.is(FrostTags.Items.SICKLE) && player.onGround()) {
+        if (itemstack.is(FrostTags.Items.SICKLE)) {
             DamageSource damagesource = Optional.ofNullable(itemstack.getItem().getItemDamageSource(player)).orElse(player.damageSources().playerAttack(player));
 
             float baseDamage = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE);
@@ -140,7 +140,7 @@ public class AttackUtils {
     }
 
     public static boolean resolveRange(double p_401381_) {
-        if (p_401381_ > (float) (Math.PI / 180.0) * 80) {
+        if (p_401381_ > (float) (Math.PI / 180.0) * 100) {
             return false;
         } else {
             return true;
