@@ -26,7 +26,7 @@ public class AttackUtils {
         if (itemstack.is(FrostTags.Items.SICKLE) && player.onGround()) {
             DamageSource damagesource = Optional.ofNullable(itemstack.getItem().getItemDamageSource(player)).orElse(player.damageSources().playerAttack(player));
 
-            float f = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE);
+            float baseDamage = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE);
 
             float f2 = player.getAttackStrengthScale(0.5F);
             boolean flag3 = f2 > 0.9F;
@@ -49,19 +49,19 @@ public class AttackUtils {
                         if (resolveRange(d0)) {
 
                             //attack bonus
-                            f += itemstack.getItem().getAttackDamageBonus(livingentity2, f, damagesource);
+                            baseDamage += itemstack.getItem().getAttackDamageBonus(livingentity2, baseDamage, damagesource);
                             //enchant
-                            float f1 = (player.level() instanceof ServerLevel serverLevel) ? EnchantmentHelper.modifyDamage(serverLevel, itemstack, livingentity2, damagesource, f) : f;
-                            f += f1;
-                            f *= 0.2F + f2 * f2 * 0.8F;
+                            float f1 = (player.level() instanceof ServerLevel serverLevel) ? EnchantmentHelper.modifyDamage(serverLevel, itemstack, livingentity2, damagesource, baseDamage) : baseDamage;
+                            baseDamage += f1;
+                            baseDamage *= 0.2F + f2 * f2 * 0.8F;
 
                             livingentity2.knockback(
                                     0.4F,
                                     (double) Mth.sin(player.getYRot() * (float) (Math.PI / 180.0)),
                                     (double) (-Mth.cos(player.getYRot() * (float) (Math.PI / 180.0)))
                             );
-                            f /= (float) Math.max(1F, player.distanceTo(livingentity2) / (player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) + 1));
-                            livingentity2.hurtOrSimulate(damagesource, f);
+                            baseDamage /= (float) Math.clamp(player.distanceTo(livingentity2) / (player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) + 1), 1F, 4F);
+                            livingentity2.hurtOrSimulate(damagesource, baseDamage);
                             if (player.level() instanceof ServerLevel serverlevel) {
                                 EnchantmentHelper.doPostAttackEffects(serverlevel, livingentity2, damagesource);
                             }
@@ -100,22 +100,31 @@ public class AttackUtils {
                         && player.distanceToSqr(livingentity2) < entityReachSq + 0.5F) {
 
                     //attack bonus
-                    f += itemstack.getItem().getAttackDamageBonus(player, f, damagesource);
+                    f += itemstack.getItem().getAttackDamageBonus(livingentity2, f, damagesource);
                     //enchant
                     float f1 = (player.level() instanceof ServerLevel serverLevel) ? EnchantmentHelper.modifyDamage(serverLevel, itemstack, livingentity2, damagesource, f) : f;
                     f += f1;
+                    Vec3 vec3 = livingentity2.position();
 
-                    livingentity2.knockback(
-                            0.4F,
-                            (double) Mth.sin(player.getYRot() * (float) (Math.PI / 180.0)),
-                            (double) (-Mth.cos(player.getYRot() * (float) (Math.PI / 180.0)))
-                    );
-                    f /= (float) Math.max(1F, player.distanceTo(livingentity2) / (player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) + 1));
-                    livingentity2.hurt(damagesource, f);
-                    if (player.level() instanceof ServerLevel serverlevel) {
-                        EnchantmentHelper.doPostAttackEffects(serverlevel, livingentity2, damagesource);
+                    double d0;
+                    Vec3 vec31 = player.calculateViewVector(0.0F, player.getYHeadRot());
+                    Vec3 vec32 = vec3.subtract(player.position());
+                    vec32 = new Vec3(vec32.x, 0.0, vec32.z).normalize();
+                    d0 = Math.acos(vec32.dot(vec31));
+                    if (resolveRange(d0)) {
+
+                        livingentity2.knockback(
+                                0.4F,
+                                (double) Mth.sin(player.getYRot() * (float) (Math.PI / 180.0)),
+                                (double) (-Mth.cos(player.getYRot() * (float) (Math.PI / 180.0)))
+                        );
+                        f /= (float) Math.clamp(player.distanceTo(livingentity2) / (player.getAttributeValue(Attributes.SWEEPING_DAMAGE_RATIO) + 1), 1F, 4F);
+                        livingentity2.hurt(damagesource, f);
+                        if (player.level() instanceof ServerLevel serverlevel) {
+                            EnchantmentHelper.doPostAttackEffects(serverlevel, livingentity2, damagesource);
+                        }
+                        itemstack.hurtEnemy(livingentity2, player);
                     }
-                    itemstack.hurtEnemy(livingentity2, player);
                 }
 
                 if (player.level() instanceof ServerLevel serverLevel) {
