@@ -6,7 +6,6 @@ import baguchan.frostrealm.entity.brain.YetiAi;
 import baguchan.frostrealm.entity.path.FrostPathNavigation;
 import baguchan.frostrealm.registry.*;
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -28,7 +27,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.npc.InventoryCarrier;
@@ -51,20 +49,17 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 	private static final EntityDataAccessor<String> DATA_STATE = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.STRING);
 	public static final EntityDataAccessor<Long> LAST_POSE_CHANGE_TICK = SynchedEntityData.defineId(Yeti.class, EntityDataSerializers.LONG);
 
-	protected static final ImmutableList<? extends SensorType<? extends Sensor<? super Yeti>>> SENSOR_TYPES = ImmutableList.of(baguchi.bagus_lib.register.ModSensors.SMART_NEAREST_LIVING_ENTITY_SENSOR.get(), SensorType.NEAREST_ADULT, SensorType.HURT_BY
-			, FrostSensors.YETI_SENSOR.get(), FrostSensors.ENEMY_SENSOR.get(), SensorType.NEAREST_ITEMS);
-
-	private static final Brain.Provider<Yeti> BRAIN_PROVIDER = Brain.<Yeti>provider(
+	private static final Brain.Provider<Yeti> BRAIN_PROVIDER = Brain.provider(
+			List.of(MemoryModuleType.BREED_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_ATTACKABLE, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED, MemoryModuleType.HAS_HUNTING_COOLDOWN, MemoryModuleType.IS_PANICKING
+					, FrostMemoryModuleType.NEAREST_ENEMYS.get(), FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get(), MemoryModuleType.AVOID_TARGET, FrostMemoryModuleType.NEAREST_YETIS.get(), FrostMemoryModuleType.YETI_COUNT.get()
+					, MemoryModuleType.ANGRY_AT, MemoryModuleType.UNIVERSAL_ANGER, MemoryModuleType.HUNTED_RECENTLY, MemoryModuleType.HOME
+					, MemoryModuleType.ADMIRING_ITEM, MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM, MemoryModuleType.ADMIRING_DISABLED, MemoryModuleType.DISABLE_WALK_TO_ADMIRE_ITEM
+					, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, FrostMemoryModuleType.TAKE_BACK_TARGET.get(), FrostMemoryModuleType.TAKE_BACK_COOLDOWN.get()),
 			List.of(
 					baguchi.bagus_lib.register.ModSensors.SMART_NEAREST_LIVING_ENTITY_SENSOR.get(), SensorType.NEAREST_ADULT, SensorType.HURT_BY
 					, FrostSensors.YETI_SENSOR.get(), FrostSensors.ENEMY_SENSOR.get(), SensorType.NEAREST_ITEMS),
 			var0 -> YetiAi.getActivities()
 	);
-	protected static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.BREED_TARGET, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.NEAREST_VISIBLE_ADULT, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_ATTACKABLE, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED, MemoryModuleType.HAS_HUNTING_COOLDOWN, MemoryModuleType.IS_PANICKING
-			, FrostMemoryModuleType.NEAREST_ENEMYS.get(), FrostMemoryModuleType.NEAREST_ENEMY_COUNT.get(), MemoryModuleType.AVOID_TARGET, FrostMemoryModuleType.NEAREST_YETIS.get(), FrostMemoryModuleType.YETI_COUNT.get()
-			, MemoryModuleType.ANGRY_AT, MemoryModuleType.UNIVERSAL_ANGER, MemoryModuleType.HUNTED_RECENTLY, MemoryModuleType.HOME
-			, MemoryModuleType.ADMIRING_ITEM, MemoryModuleType.TIME_TRYING_TO_REACH_ADMIRE_ITEM, MemoryModuleType.ADMIRING_DISABLED, MemoryModuleType.DISABLE_WALK_TO_ADMIRE_ITEM
-			, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.ITEM_PICKUP_COOLDOWN_TICKS, FrostMemoryModuleType.TAKE_BACK_TARGET.get(), FrostMemoryModuleType.TAKE_BACK_COOLDOWN.get());
 
 	private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.scalable(FrostEntities.YETI.get().getWidth(), FrostEntities.YETI.get().getHeight() - 0.35F)
 			.withEyeHeight(1.4F);
@@ -144,7 +139,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 
 	@javax.annotation.Nullable
 	public LivingEntity getTarget() {
-		return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse((LivingEntity) null);
+		return this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
 	}
 
 	@Override
@@ -299,7 +294,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 		} else {
 			boolean flag = YetiAi.canAdmire(this, p_34745_.getItemInHand(p_34746_)) && State.get(this.getState()) != State.TRADE;
 			boolean flag2 = this.isTrade();
-			return (InteractionResult) (flag || flag2 ? InteractionResult.SUCCESS : InteractionResult.PASS);
+			return flag || flag2 ? InteractionResult.SUCCESS : InteractionResult.PASS;
 		}
 	}
 
@@ -536,7 +531,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 	}
 
 	public boolean canAttack(LivingEntity p_186270_) {
-		return p_186270_ instanceof Yeti ? false : super.canAttack(p_186270_);
+		return !(p_186270_ instanceof Yeti) && super.canAttack(p_186270_);
 	}
 
 	@Override
@@ -544,7 +539,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 		if (super.considersEntityAsAlly(p_360600_)) {
 			return true;
 		} else {
-			return p_360600_.getType() != FrostEntities.YETI.get() ? false : this.getTeam() == null && p_360600_.getTeam() == null;
+			return p_360600_.getType() == FrostEntities.YETI.get() && this.getTeam() == null && p_360600_.getTeam() == null;
 		}
 	}
 
@@ -573,7 +568,7 @@ public class Yeti extends AgeableMob implements HasContainerEntity, SnowChargeMo
 		}
 	}
 
-	public static enum State {
+	public enum State {
 		IDLING,
 		TRADE,
 		PANIC,
