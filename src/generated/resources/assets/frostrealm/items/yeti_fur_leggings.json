@@ -1,6 +1,10 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "frostrealm:item/yeti_fur_leggings"
+    "type": "neoforge:trimmed_armor",
+    "base_model": {
+      "type": "minecraft:model",
+      "model": "frostrealm:item/yeti_fur_leggings"
+    },
+    "base_trim_texture": "minecraft:trims/items/leggings_trim"
   }
 }

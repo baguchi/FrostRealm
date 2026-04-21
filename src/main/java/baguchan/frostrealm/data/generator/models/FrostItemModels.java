@@ -83,15 +83,15 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateSickle(FrostItems.GLACINIUM_SICKLE.asItem());
         this.generateSpear(FrostItems.GLACINIUM_SPEAR.asItem());
 
-        this.generateFlatItem(FrostItems.YETI_FUR_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.YETI_FUR_CHESTPLATE.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.YETI_FUR_LEGGINGS.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.YETI_FUR_BOOTS.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateDynamicTrimmableItem(FrostItems.YETI_FUR_HELMET.asItem(), ItemModelGenerators.TRIM_PREFIX_HELMET);
+        this.generateDynamicTrimmableItem(FrostItems.YETI_FUR_CHESTPLATE.asItem(), ItemModelGenerators.TRIM_PREFIX_CHESTPLATE);
+        this.generateDynamicTrimmableItem(FrostItems.YETI_FUR_LEGGINGS.asItem(), ItemModelGenerators.TRIM_PREFIX_LEGGINGS);
+        this.generateDynamicTrimmableItem(FrostItems.YETI_FUR_BOOTS.asItem(), ItemModelGenerators.TRIM_PREFIX_BOOTS);
 
-        this.generateFlatItem(FrostItems.GLACIER_BOAR_FUR_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.GLACIER_BOAR_FUR_CHESTPLATE.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.GLACIER_BOAR_FUR_LEGGINGS.asItem(), ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(FrostItems.GLACIER_BOAR_FUR_BOOTS.asItem(), ModelTemplates.FLAT_ITEM);
+        this.generateDynamicTrimmableItem(FrostItems.GLACIER_BOAR_FUR_HELMET.asItem(), ItemModelGenerators.TRIM_PREFIX_HELMET);
+        this.generateDynamicTrimmableItem(FrostItems.GLACIER_BOAR_FUR_CHESTPLATE.asItem(), ItemModelGenerators.TRIM_PREFIX_CHESTPLATE);
+        this.generateDynamicTrimmableItem(FrostItems.GLACIER_BOAR_FUR_LEGGINGS.asItem(), ItemModelGenerators.TRIM_PREFIX_LEGGINGS);
+        this.generateDynamicTrimmableItem(FrostItems.GLACIER_BOAR_FUR_BOOTS.asItem(), ItemModelGenerators.TRIM_PREFIX_BOOTS);
 
         this.generateFlatItem(FrostItems.ASTRIUM_HELMET.asItem(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.ASTRIUM_CHESTPLATE.asItem(), ModelTemplates.FLAT_ITEM);
@@ -122,6 +122,10 @@ public class FrostItemModels extends ItemModelGenerators {
         this.generateSpawnEgg(FrostItems.SILK_MOON_SPAWNEGG.get(), 14679020, 7716503);
         this.generateSpawnEgg(FrostItems.SEEKER_SPAWNEGG.get(), 0xFFFFFF, 0xFFFFFF);
         this.generateFlatItem(FrostItems.FROST_SPEAR.asItem(), FrostModelTemplates.SPECIAL_SPEAR);
+    }
+
+    public void generateDynamicTrimmableItem(Item armor, Identifier slotTrimPrefix) {
+        this.generateDynamicTrimmableItem(armor, this.createFlatItemModel(armor, ModelTemplates.FLAT_ITEM), slotTrimPrefix);
     }
 
     public void generateSpawnEgg(Item p_387114_, int p_387737_, int p_387138_) {
