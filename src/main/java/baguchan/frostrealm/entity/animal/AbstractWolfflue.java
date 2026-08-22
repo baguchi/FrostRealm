@@ -793,6 +793,10 @@ public abstract class AbstractWolfflue extends TamableBiggerAnimal implements Ne
 
     @Override
     public float getSuppportJump() {
-        return 2.125F;
+        if (this.isTame()) {
+            return 2.125F;
+        } else {
+            return 1.125F;
+        }
     }
 }

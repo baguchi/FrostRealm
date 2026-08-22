@@ -274,4 +274,9 @@ public class StrayWolfflue extends AbstractWolfflue {
     public boolean isBaby() {
         return false;
     }
+
+    @Override
+    public float getSuppportJump() {
+        return 2.125F;
+    }
 }
