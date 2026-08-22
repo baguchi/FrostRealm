@@ -26,6 +26,18 @@ public class FrostRenderType {
             }
     );
 
+    public static final Function<Identifier, RenderType> ENTITY_GLOW_OUTLINE = Util.memoize(
+            texture -> {
+                RenderSetup state = RenderSetup.builder(FrostRenderPipelines.GLOW_OUTLINE_CULL)
+                        .withTexture("Sampler0", texture)
+                        .useLightmap()
+                        .useOverlay()
+                        .setLayeringTransform(LayeringTransform.VIEW_OFFSET_Z_LAYERING)
+                        .createRenderSetup();
+                return RenderType.create("frostrealm:entity_glow_shadow", state);
+            }
+    );
+
     public static final RenderType AURORA_ARMOR_ENTITY_GLINT = RenderType.create(
             "frostrealm:aurora_armor_entity_glint",
             RenderSetup.builder(FrostRenderPipelines.AURORA_GLINT)

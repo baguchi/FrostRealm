@@ -57,7 +57,6 @@ public class SeekerRenderer<T extends Seeker> extends MobRenderer<T, SeekerRende
         p_104300_.translate(part.x / 16.0F, part.y / 16.0F, part.z / 16.0F);
     }
 
-
     @Override
     protected float getFlipDegrees() {
         return 0;

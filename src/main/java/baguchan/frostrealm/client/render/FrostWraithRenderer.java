@@ -2,6 +2,7 @@ package baguchan.frostrealm.client.render;
 
 import baguchan.frostrealm.FrostRealm;
 import baguchan.frostrealm.client.FrostModelLayers;
+import baguchan.frostrealm.client.FrostRenderType;
 import baguchan.frostrealm.client.model.FrostWraithModel;
 import baguchan.frostrealm.client.render.state.FrostWraithRenderState;
 import baguchan.frostrealm.entity.hostile.FrostWraith;
@@ -11,6 +12,7 @@ import net.minecraft.client.renderer.entity.layers.EyesLayer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.Nullable;
 
 
 public class FrostWraithRenderer extends MobRenderer<FrostWraith, FrostWraithRenderState, FrostWraithModel<FrostWraithRenderState>> {
@@ -25,6 +27,11 @@ public class FrostWraithRenderer extends MobRenderer<FrostWraith, FrostWraithRen
                 return WRAITH_GLOW;
             }
         });
+	}
+
+	@Override
+	protected @Nullable RenderType getRenderType(FrostWraithRenderState state, boolean isBodyVisible, boolean forceTransparent, boolean appearGlowing) {
+		return FrostRenderType.ENTITY_GLOW_OUTLINE.apply(this.getTextureLocation(state));
 	}
 
 	@Override
