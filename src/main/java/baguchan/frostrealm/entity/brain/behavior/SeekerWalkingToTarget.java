@@ -26,7 +26,7 @@ public class SeekerWalkingToTarget<E extends Seeker> extends Behavior<E> {
         if (p_23525_.getState().canWalk()) {
             p_23525_.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(livingentity, 1.15F, 1));
         }
-        if (p_23525_.getState().canLook()) {
+        if (p_23525_.getState().canAnotherAction()) {
             p_23525_.getBrain().setMemory(MemoryModuleType.LOOK_TARGET, new EntityTracker(livingentity, true));
         }
     }

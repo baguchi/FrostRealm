@@ -104,23 +104,23 @@ public class FrostItemModels extends ItemModelGenerators {
 
         this.generateFlatItem(FrostItems.MARMOT_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.SNOWPILE_QUAIL_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(FrostItems.YETI_SPAWNEGG.get(), 13948891, 4208214);
-        this.generateSpawnEgg(FrostItems.FROST_WRAITH_SPAWNEGG.get(), 9002363, 13721278);
-        this.generateSpawnEgg(FrostItems.CRYSTAL_FOX_SPAWNEGG.get(), 16252923, 9491432);
-        this.generateSpawnEgg(FrostItems.SNOW_MOLE_SPAWNEGG.get(), 15001062, 11970471);
-        this.generateSpawnEgg(FrostItems.ASTRA_BALL_SPAWNEGG.get(), 9654988, 14919423);
+        this.generateFlatItem(FrostItems.YETI_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.FROST_WRAITH_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.CRYSTAL_FOX_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.SNOW_MOLE_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.ASTRA_BALL_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.GLACIER_BOAR_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.WOLFFLUE_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.STRAY_WOLFFLUE_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(FrostItems.FERRET_SPAWNEGG.get(), 7953498, 4272429);
-        this.generateSpawnEgg(FrostItems.SEAL_SPAWNEGG.get(), 16777215, 16777215);
-        this.generateSpawnEgg(FrostItems.LESSER_WARRIOR_SPAWNEGG.get(), 6387319, 14543594);
-        this.generateSpawnEgg(FrostItems.VENOCHEM_SPAWNEGG.get(), 4195929, 13522055);
+        this.generateFlatItem(FrostItems.FERRET_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.SEAL_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.LESSER_WARRIOR_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.VENOCHEM_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.GOKKUR_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.UNDER_GOKKUR_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
-        this.generateSpawnEgg(FrostItems.ROOT_DEER_SPAWNEGG.get(), 6390687, 11213654);
-        this.generateSpawnEgg(FrostItems.SILK_MOON_SPAWNEGG.get(), 14679020, 7716503);
-        this.generateSpawnEgg(FrostItems.SEEKER_SPAWNEGG.get(), 0xFFFFFF, 0xFFFFFF);
+        this.generateFlatItem(FrostItems.ROOT_DEER_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.SILK_MOON_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(FrostItems.SEEKER_SPAWNEGG.get(), ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(FrostItems.FROST_SPEAR.asItem(), FrostModelTemplates.SPECIAL_SPEAR);
     }
 

@@ -8,6 +8,7 @@ import baguchan.frostrealm.registry.FrostItems;
 import baguchan.frostrealm.registry.FrostSounds;
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -34,6 +35,7 @@ import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.AttackRange;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.storage.ValueInput;
@@ -251,7 +253,7 @@ public class Seeker extends Monster {
                 double dy = look.y();
                 double dz = look.z();
 
-                double spread = 64.0D + this.getRandom().nextDouble() * 2.5D;
+                double spread = 45.0D + this.getRandom().nextDouble() * 2.5D;
                 double velocity = 2.0D + this.getRandom().nextDouble() * 0.15D;
 
                 // beeeam
@@ -330,6 +332,22 @@ public class Seeker extends Monster {
     }
 
     @Override
+    public boolean isWithinMeleeAttackRange(LivingEntity target) {
+        AttackRange attackRange = (AttackRange) this.getActiveItem().get(DataComponents.ATTACK_RANGE);
+        double maxRange;
+        double minRange = 0.0F;
+        if (attackRange == null) {
+            maxRange = Math.sqrt((double) 2.04F) - (double) 0.6F;
+            minRange = (double) 0.0F;
+        } else {
+            maxRange = (double) attackRange.effectiveMaxRange(this);
+        }
+
+        AABB hitbox = target.getHitbox();
+        return this.getAttackBoundingBox(maxRange).intersects(hitbox) && (minRange <= (double) 0.0F || !this.getAttackBoundingBox(minRange).intersects(hitbox));
+    }
+
+    @Override
     public boolean isLeftHanded() {
         return false;
     }
@@ -341,16 +359,15 @@ public class Seeker extends Monster {
 
     public static enum SeekerState implements StringRepresentable {
         IDLE("idle", 0, 0) {
-            public boolean shouldHideInShell(long p_326483_) {
-                return false;
-            }
         },
         PRE_ATTACK("pre_attack", -1, 1) {
         },
         STOP_ATTACK("stop_attack", 3, 2) {
         },
-        ATTACK("attack", 80, 3) {
-            public boolean canLook() {
+        AVOID("avoid", -1, 3) {
+        },
+        ATTACK("attack", 80, 4) {
+            public boolean canAnotherAction() {
                 return false;
             }
 
@@ -359,8 +376,8 @@ public class Seeker extends Monster {
                 return false;
             }
         },
-        BREATH_PRE("breath_pre", 40, 4) {
-            public boolean canLook() {
+        BREATH_PRE("breath_pre", 40, 5) {
+            public boolean canAnotherAction() {
                 return false;
             }
 
@@ -368,8 +385,8 @@ public class Seeker extends Monster {
             public boolean canWalk() {
                 return false;
             }
-        }, BREATH("breath", -1, 5) {
-            public boolean canLook() {
+        }, BREATH("breath", -1, 6) {
+            public boolean canAnotherAction() {
                 return false;
             }
 
@@ -378,8 +395,8 @@ public class Seeker extends Monster {
                 return false;
             }
         },
-        BREATH_STOP("breath_stop", 10, 6) {
-            public boolean canLook() {
+        BREATH_STOP("breath_stop", 10, 7) {
+            public boolean canAnotherAction() {
                 return false;
             }
 
@@ -396,10 +413,10 @@ public class Seeker extends Monster {
         private final int animationDuration;
         private final int id;
 
-        private SeekerState(String p_316309_, int p_320184_, int p_326087_) {
-            this.name = p_316309_;
-            this.animationDuration = p_320184_;
-            this.id = p_326087_;
+        private SeekerState(String name, int duration, int id) {
+            this.name = name;
+            this.animationDuration = duration;
+            this.id = id;
         }
 
         public String getSerializedName() {
@@ -418,7 +435,7 @@ public class Seeker extends Monster {
             return this.animationDuration;
         }
 
-        public boolean canLook() {
+        public boolean canAnotherAction() {
             return true;
         }
 

@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "bagus_lib:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -8823718
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -12504787
-      }
-    ]
+    "model": "frostrealm:item/ferret_spawn_egg"
   }
 }

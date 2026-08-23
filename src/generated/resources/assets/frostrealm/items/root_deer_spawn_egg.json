@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "bagus_lib:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -10386529
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -5563562
-      }
-    ]
+    "model": "frostrealm:item/root_deer_spawn_egg"
   }
 }

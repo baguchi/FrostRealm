@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "bagus_lib:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -12581287
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -3255161
-      }
-    ]
+    "model": "frostrealm:item/venochem_spawn_egg"
   }
 }

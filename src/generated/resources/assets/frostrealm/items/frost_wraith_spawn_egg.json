@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "bagus_lib:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -7774853
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -3055938
-      }
-    ]
+    "model": "frostrealm:item/frost_wraith_spawn_egg"
   }
 }

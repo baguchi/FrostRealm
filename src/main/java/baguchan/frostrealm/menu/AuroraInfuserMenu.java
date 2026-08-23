@@ -155,7 +155,7 @@ public class AuroraInfuserMenu extends AbstractContainerMenu {
             } else if (this.costs[p_39466_] <= 0 || itemstack.isEmpty() || (FrostWeatherManager.getAuroraLevel() < this.costs[p_39466_] * 0.01F) && !p_39465_.getAbilities().instabuild || p_39465_.level().dimension() != FrostDimensions.FROSTREALM_LEVEL) {
                 return false;
             } else {
-                this.access.execute((p_39481_, p_39482_) -> {
+                this.access.execute((level, p_39482_) -> {
                     ItemStack itemstack2 = itemstack;
                     List<AuroraPowerInstance> list = this.getAuroraPowerList(itemstack, p_39466_, this.costs[p_39466_]);
 
@@ -167,10 +167,10 @@ public class AuroraInfuserMenu extends AbstractContainerMenu {
                         }
 
                         if (!p_39465_.getAbilities().instabuild) {
-                            FrostWeatherSavedData.get(p_39481_).setAuroraLevel(FrostWeatherSavedData.get(p_39481_).getAuroraLevel() - i * 0.01F);
-                            FrostWeatherSavedData.get(p_39481_).setUnstableLevel(FrostWeatherSavedData.get(p_39481_).getUnstableLevel() + i * 0.01F);
-                            ChangeAuroraMessage message2 = new ChangeAuroraMessage(FrostWeatherSavedData.get(p_39481_).getAuroraLevel());
-                            if (p_39481_ instanceof ServerLevel serverLevel) {
+                            FrostWeatherSavedData.get(level).setAuroraLevel(FrostWeatherSavedData.get(level).getAuroraLevel() - i * 0.01F);
+                            FrostWeatherSavedData.get(level).setUnstableLevel(FrostWeatherSavedData.get(level).getUnstableLevel() + i * 0.01F);
+                            ChangeAuroraMessage message2 = new ChangeAuroraMessage(FrostWeatherSavedData.get(level).getAuroraLevel());
+                            if (level instanceof ServerLevel serverLevel) {
                                 PacketDistributor.sendToPlayersInDimension(serverLevel, message2);
                             }
                             itemstack1.consume(i, p_39465_);
@@ -182,7 +182,7 @@ public class AuroraInfuserMenu extends AbstractContainerMenu {
                         this.enchantSlots.setChanged();
                         this.enchantmentSeed.set(p_39465_.getEnchantmentSeed());
                         this.slotsChanged(this.enchantSlots);
-                        p_39481_.playSound((Player) null, p_39482_, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, p_39481_.getRandom().nextFloat() * 0.1F + 0.9F);
+                        level.playSound((Player) null, p_39482_, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.1F + 0.9F);
                     }
                 });
                 return true;

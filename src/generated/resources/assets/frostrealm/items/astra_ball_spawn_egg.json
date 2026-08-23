@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "bagus_lib:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -7122228
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -1857793
-      }
-    ]
+    "model": "frostrealm:item/astra_ball_spawn_egg"
   }
 }

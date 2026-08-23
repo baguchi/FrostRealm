@@ -39,18 +39,18 @@ public class SeekerRenderer<T extends Seeker> extends MobRenderer<T, SeekerRende
     }
 
     @Override
-    public void extractRenderState(T p_362733_, SeekerRenderState p_360515_, float p_361157_) {
-        super.extractRenderState(p_362733_, p_360515_, p_361157_);
-        ArmedEntityRenderState.extractArmedEntityRenderState(p_362733_, p_360515_, this.itemModelResolver, p_361157_);
-        p_360515_.attackAnimationState.copyFrom(p_362733_.attackAnimationState);
-        p_360515_.preAttackAnimationState.copyFrom(p_362733_.preAttackAnimationState);
-        p_360515_.stopAttackAnimationState.copyFrom(p_362733_.stopAttackAnimationState);
-        p_360515_.deathAnimationState.copyFrom(p_362733_.deathAnimationState);
-        p_360515_.breathAnimationState.copyFrom(p_362733_.breathAnimationState);
-        p_360515_.breathPreAnimationState.copyFrom(p_362733_.breathPreAnimationState);
-        p_360515_.breathStopAnimationState.copyFrom(p_362733_.breathStopAnimationState);
-        p_360515_.isAgressive = p_362733_.isAggressive();
-        p_360515_.state = p_362733_.getState();
+    public void extractRenderState(T entity, SeekerRenderState state, float p_361157_) {
+        super.extractRenderState(entity, state, p_361157_);
+        ArmedEntityRenderState.extractArmedEntityRenderState(entity, state, this.itemModelResolver, p_361157_);
+        state.attackAnimationState.copyFrom(entity.attackAnimationState);
+        state.preAttackAnimationState.copyFrom(entity.preAttackAnimationState);
+        state.stopAttackAnimationState.copyFrom(entity.stopAttackAnimationState);
+        state.deathAnimationState.copyFrom(entity.deathAnimationState);
+        state.breathAnimationState.copyFrom(entity.breathAnimationState);
+        state.breathPreAnimationState.copyFrom(entity.breathPreAnimationState);
+        state.breathStopAnimationState.copyFrom(entity.breathStopAnimationState);
+        state.isAgressive = entity.isAggressive();
+        state.state = entity.getState();
     }
 
     public void translate(ModelPart part, PoseStack p_104300_) {

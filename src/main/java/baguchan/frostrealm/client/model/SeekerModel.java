@@ -159,8 +159,9 @@ public class SeekerModel<T extends SeekerRenderState> extends EntityModel<T> imp
         this.neck.yRot = entity.yRot * ((float) Math.PI / 180F) * (1F / 3F);
         this.neck.xRot = entity.xRot * ((float) Math.PI / 180F) * (1F / 3F);
 
-        this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed, 2, 2.5F);
-
+        if (!entity.attackAnimationState.isStarted()) {
+            this.walkAnimationState.applyWalk(entity.walkAnimationPos, entity.walkAnimationSpeed, 2, 2.5F);
+        }
         if (entity.state != Seeker.SeekerState.IDLE) {
             this.leftArm.resetPose();
             this.leftArm2.resetPose();

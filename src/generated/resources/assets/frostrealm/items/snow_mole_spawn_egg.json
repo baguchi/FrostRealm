@@ -1,16 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "bagus_lib:item/template_spawn_egg",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -1776154
-      },
-      {
-        "type": "minecraft:constant",
-        "value": -4806745
-      }
-    ]
+    "model": "frostrealm:item/snow_mole_spawn_egg"
   }
 }

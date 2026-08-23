@@ -29,19 +29,18 @@ public class WideMeleeAttackGoal extends AnimateAttackGoal {
             for (LivingEntity entity : entitiesHit) {
                 if (entity != this.mob) {
                     if (this.mob.canAttack(entity) && !this.mob.isAlliedTo(entity)) {
-                        Vec3 vec3 = entity.getEyePosition();
-                        Vec3 yVector = this.mob.calculateViewVector(this.mob.getXRot(), this.mob.getYHeadRot());
-                        Vec3 vec32 = vec3.subtract(this.mob.getEyePosition());
-                        Vec3 vec33 = (new Vec3(vec32.x, vec32.y, vec32.z)).normalize();
-                        double d0 = Math.acos(vec33.dot(yVector));
-                        if (resolveAttack(d0, range)) {
+                        Vec3 viewVector = this.mob.calculateViewVector(0.0F, this.mob.getYHeadRot());
+                        Vec3 vectorTo = entity.position().subtract(this.mob.position());
+                        vectorTo = new Vec3(vectorTo.x, 0.0, vectorTo.z).normalize();
+                        double angle = Math.acos(vectorTo.dot(viewVector));
+
+                        if (resolveAttack(angle, range)) {
                             this.mob.doHurtTarget(serverLevel, entity);
                         }
                     }
                 }
             }
         }
-
     }
 
     public AABB getAttackBoundingBox(PathfinderMob attacker) {
